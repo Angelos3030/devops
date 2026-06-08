@@ -42,6 +42,9 @@
    privacy/terms από placeholders, διορθώθηκε `connect.html` brand σε Vitrina,
    και ενημερώθηκαν `legal/meta-review-submission.md` + `docs/12-META-APP-REVIEW.md`
    με review URLs και rejection checklist. Latest deploy: `https://15007041.vitrina-7uq.pages.dev`.
+**GitHub/Railway source:** ✅ Το local project έγινε git repo και έγινε push στο
+   `https://github.com/Angelos3030/devops` branch `main` (commit `4dde97c`).
+   `.env`, `.claude/`, `.wrangler/` αγνοούνται με `.gitignore`.
 **Meta App Review audit (session 5):** ✅ Κρίσιμο bug: `pages[0]` auto-select χωρίς UI.
    Τώρα: `GET /connect/pages` + `POST /connect/finalize` + κάρτα επιλογής στο `connect.html`.
    Stale "Papaki" comment fix. `meta-review-submission.md` updated. Βλέπε assessment παρακάτω.
@@ -102,6 +105,7 @@
 - [x] Client assets intake table/API (`client_assets`, `/clients/{id}/assets`).
 - [x] Stripe test secret/prices/webhook setup (`.env`, test mode).
 - [x] Meta review hardening legal pages + data deletion page + latest Pages deploy (`15007041`).
+- [x] GitHub repo initialized + pushed to `Angelos3030/devops` branch `main`.
 
 **ΤΩΡΑ ΠΕΡΙΜΕΝΟΥΜΕ / ΘΕΛΕΙ ΧΕΙΡΟΚΙΝΗΤΟ Ή ΝΕΟ SECRET:**
 - [x] **`railway.toml`** — δημιουργήθηκε (Nixpacks builder, healthcheck `/healthz`, restart policy). Procfile υπήρχε ήδη.
@@ -212,6 +216,8 @@
       `web/privacy.html` και `web/terms.html` δεν έχουν placeholders, προστέθηκε
       `web/data-deletion.html`, footer link στην αρχική, και έγινε Cloudflare Pages deploy:
       `https://15007041.vitrina-7uq.pages.dev`.
+- [x] **GitHub push for Railway** — προστέθηκε `.gitignore`, έγινε initial commit
+      `4dde97c` και push στο `Angelos3030/devops` branch `main`. Το `.env` δεν έγινε track.
 - [x] **Αποφάσεις:** ΟΧΙ runtime coordinator (κώδικας orchestrates), Haiku/Sonnet (όχι Opus),
       μόνο sites (όχι app), €9.90 δόλωμα → €49 ταμείο, 9 curated external skills.
 
