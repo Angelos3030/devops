@@ -1,0 +1,4 @@
+interface:
+  display_name: "Facebook Ads GR"
+  short_description: "Local Facebook ad drafts for Greek SMBs."
+  default_prompt: "Create approved local Facebook ad drafts for a Greek small business."

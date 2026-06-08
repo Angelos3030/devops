@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vitrina — Φτιάξε site & ποστάρισε αυτόματα</title>
+  <meta name="description" content="Πες τι μαγαζί έχεις και σου φτιάχνουμε site + καθημερινά posts σε Facebook & Instagram. Από €9.90/μήνα.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+  <style>
+    :root{
+      --bg:#ffffff; --ink:#0a0a0b; --ink2:#1c1d21;
+      --muted:#5f6470; --line:#e9eaee; --soft:#f6f7f9;
+      --blue:#2563eb; --accent:#FF7A1A; --accent-dk:#ee6a07;
+      --sky1:#bfe0f5; --sky2:#dcefff;
+      --font:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif; --r:16px;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    h1,h2,h3{font-weight:700;line-height:1.12;letter-spacing:-.025em;}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+    a{color:inherit;text-decoration:none;}
+    .reveal{opacity:0;transform:translateY(20px);transition:.6s cubic-bezier(.2,.7,.2,1);}
+    .reveal.in{opacity:1;transform:none;}
+
+    /* HERO with sky gradient */
+    .top{background:linear-gradient(180deg,var(--sky1) 0%,#d8eefb 30%,#eef6fb 65%,#ffffff 100%);}
+    nav .nav-in{display:flex;justify-content:center;align-items:center;gap:10px;padding:26px 0;position:relative;}
+    .logo{font-weight:900;font-size:1.5rem;letter-spacing:-.04em;display:flex;align-items:center;gap:9px;}
+    .logo .mark{flex:none;}
+    .lang{position:absolute;right:24px;top:50%;transform:translateY(-50%);display:flex;border:1px solid rgba(0,0,0,.12);border-radius:8px;overflow:hidden;font-size:.8rem;}
+    .lang button{border:0;background:rgba(255,255,255,.6);padding:6px 11px;cursor:pointer;color:var(--ink2);font-weight:700;}
+    .lang button.active{background:var(--ink);color:#fff;}
+
+    .hero{text-align:center;padding:50px 0 64px;}
+    .hero h1{font-size:3.2rem;font-weight:700;line-height:1.12;max-width:820px;margin:0 auto;}
+    .hero .sub{font-size:1.18rem;color:var(--muted);margin:20px auto 36px;font-weight:400;max-width:650px;}
+
+    /* PROMPT BOX (base44-style) */
+    .prompt{max-width:760px;margin:0 auto;background:#fff;border-radius:24px;padding:22px;
+            box-shadow:0 30px 70px rgba(20,60,110,.16);text-align:left;}
+    .prompt textarea{width:100%;border:0;resize:none;font-family:var(--font);font-size:1.15rem;
+            color:var(--ink);min-height:84px;outline:none;background:transparent;}
+    .prompt textarea::placeholder{color:#9aa0ab;}
+    .prompt-bar{display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
+    .prompt-hint{color:#9aa0ab;font-size:.85rem;}
+    .build{background:var(--accent);color:#fff;border:0;padding:14px 26px;border-radius:40px;font-weight:800;
+           font-size:1.05rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:.15s;font-family:var(--font);}
+    .build:hover{background:var(--accent-dk);transform:translateY(-1px);}
+
+    .suggest{margin-top:30px;}
+    .suggest .lbl{color:var(--ink2);font-weight:600;font-size:.95rem;margin-bottom:12px;}
+    .chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+    .chip-b{background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.1);border-radius:30px;
+            padding:9px 18px;font-weight:600;font-size:.92rem;cursor:pointer;transition:.15s;}
+    .chip-b:hover{background:#fff;border-color:var(--accent);color:var(--accent-dk);}
+    .freenote{margin-top:26px;color:var(--ink2);font-size:.92rem;font-weight:500;}
+    .freenote .stars{color:var(--accent);}
+
+    .mini-proof{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:24px auto 0;}
+    .mini-proof span{background:rgba(255,255,255,.72);border:1px solid rgba(10,10,11,.1);border-radius:30px;padding:8px 14px;font-size:.86rem;font-weight:700;color:var(--ink2);}
+
+    .demo-band{padding:0 0 86px;}
+    .demo-shell{display:grid;grid-template-columns:1.18fr .82fr;gap:18px;align-items:stretch;max-width:980px;margin:0 auto;}
+    .site-preview,.post-preview{background:#fff;border:1px solid rgba(10,10,11,.1);border-radius:14px;box-shadow:0 24px 60px rgba(31,75,120,.13);overflow:hidden;text-align:left;}
+    .browser-bar{height:38px;background:#f0f3f7;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:7px;padding:0 14px;color:#7b8190;font-size:.78rem;font-weight:700;}
+    .dot{width:9px;height:9px;border-radius:50%;background:#ff6b6b;display:inline-block;}
+    .dot:nth-child(2){background:#ffd166}.dot:nth-child(3){background:#33d17a}
+    .browser-url{margin-left:8px;background:#fff;border:1px solid #dde1e8;border-radius:6px;padding:4px 10px;flex:1;color:#6a7080;}
+    .sample-site{display:grid;grid-template-columns:.95fr 1.05fr;min-height:310px;}
+    .sample-hero{background:linear-gradient(135deg,#13251f,#214537);color:#fff;padding:30px;display:flex;flex-direction:column;justify-content:space-between;}
+    .sample-kicker{font-size:.78rem;font-weight:800;color:#ffd166;text-transform:uppercase;}
+    .sample-hero h3{font-size:1.85rem;letter-spacing:0;margin:10px 0;}
+    .sample-hero p{color:#d9e6df;font-size:.94rem;}
+    .sample-btn{display:inline-flex;margin-top:18px;background:var(--accent);color:#fff;border-radius:30px;padding:10px 16px;font-weight:800;font-size:.88rem;width:max-content;}
+    .sample-menu{padding:28px;background:#fff;}
+    .sample-row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:13px 0;font-size:.93rem;}
+    .sample-row strong{display:block;color:var(--ink2);}.sample-row small{display:block;color:var(--muted);margin-top:2px;}
+    .sample-row .euro{color:var(--accent-dk);font-weight:900;}
+    .post-preview{padding:18px;}
+    .post-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+    .avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#ffd166);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;}
+    .post-head strong{display:block;font-size:.94rem;}.post-head small{color:var(--muted);}
+    .post-photo{height:150px;border-radius:10px;background:linear-gradient(135deg,#f7c873,#db6b21 55%,#502616);position:relative;overflow:hidden;margin-bottom:14px;}
+    .post-photo::after{content:"";position:absolute;inset:auto 18px 18px auto;width:82px;height:82px;border-radius:50%;background:rgba(255,255,255,.24);box-shadow:-110px -28px 0 rgba(255,255,255,.16);}
+    .post-preview p{font-size:.94rem;color:var(--ink2);line-height:1.55;}
+    .hashtags{color:var(--blue);font-weight:700;margin-top:10px;font-size:.86rem;}
+
+    /* SECTIONS */
+    section{padding:90px 0;}
+    .head{text-align:center;max-width:640px;margin:0 auto 56px;}
+    .pill{display:inline-flex;gap:8px;background:var(--soft);border:1px solid var(--line);color:var(--ink2);
+          font-weight:600;font-size:.84rem;padding:6px 14px;border-radius:30px;margin-bottom:16px;}
+    .head h2{font-size:2.1rem;} .head p{color:var(--muted);margin-top:14px;font-size:1.08rem;}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;transition:.2s;}
+    .card:hover{border-color:#d4d6dd;box-shadow:0 8px 30px rgba(10,10,11,.05);transform:translateY(-2px);}
+    .card .ic{width:44px;height:44px;border-radius:11px;background:#fff3ea;color:var(--accent-dk);
+              display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin-bottom:14px;}
+    .card h3{font-size:1.2rem;font-weight:700;}.card p{color:var(--muted);margin-top:8px;font-size:.96rem;}
+    .card.span2{grid-column:span 2;background:var(--ink);color:#fff;}
+    .card.span2 .ic{background:rgba(255,255,255,.12);color:#fff;}.card.span2 p{color:#b8bac2;}
+
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+    .step .n{width:42px;height:42px;border-radius:11px;background:var(--accent);color:#fff;font-weight:800;
+             display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+    .step h3{font-size:1.2rem;font-weight:700;}.step p{color:var(--muted);margin-top:6px;}
+
+    .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;}
+    .plan{border:1px solid var(--line);border-radius:18px;padding:32px;display:flex;flex-direction:column;background:#fff;}
+    .plan.feat{border:2px solid var(--accent);box-shadow:0 16px 44px rgba(255,122,26,.14);position:relative;}
+    .plan.feat::before{content:attr(data-badge);position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+        background:var(--accent);color:#fff;font-size:.76rem;font-weight:800;padding:5px 14px;border-radius:20px;white-space:nowrap;}
+    .plan h3{font-size:1.25rem;font-weight:700;}
+    .price{font-size:2.5rem;font-weight:800;margin:8px 0;letter-spacing:-.03em;}
+    .price small{font-size:1rem;color:var(--muted);font-weight:500;}
+    .plan ul{list-style:none;margin:18px 0;flex:1;}
+    .plan li{padding:8px 0;font-size:.96rem;display:flex;gap:9px;color:var(--ink2);}
+    .plan li::before{content:"✓";color:var(--accent);font-weight:800;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:40px;font-weight:700;font-size:1rem;transition:.15s;cursor:pointer;}
+    .btn-primary{background:var(--accent);color:#fff;}.btn-primary:hover{background:var(--accent-dk);}
+    .btn-ghost{border:1px solid var(--line);background:#fff;}.btn-ghost:hover{background:var(--soft);}
+    .plan .btn{width:100%;}
+
+    .quote{max-width:760px;margin:0 auto;text-align:center;}
+    .quote p{font-size:1.45rem;font-weight:600;letter-spacing:-.015em;line-height:1.45;}
+    .quote .who{margin-top:18px;color:var(--muted);font-weight:500;}
+
+    .cta{background:var(--ink);color:#fff;border-radius:24px;text-align:center;padding:60px 28px;margin:0 24px;}
+    .cta h2{font-size:2.1rem;} .cta p{color:#b8bac2;margin:14px 0 28px;font-size:1.05rem;}
+    .cta .btn-primary{background:var(--accent);}
+
+    footer{padding:54px 0 40px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:.92rem;}
+    footer .logo{justify-content:center;margin-bottom:8px;} footer a{color:var(--ink2);font-weight:500;margin:0 8px;}
+
+    @media(max-width:880px){
+      .hero h1{font-size:2.9rem;} .grid,.steps,.plans{grid-template-columns:1fr;}
+      .card.span2{grid-column:span 1;}
+      .demo-shell,.sample-site{grid-template-columns:1fr;}
+      .demo-band{padding-bottom:64px;}
+    }
+    @media(max-width:560px){
+      .wrap{padding:0 18px;}
+      .hero{padding-top:36px;}
+      .hero h1{font-size:2.35rem;}
+      .prompt{border-radius:18px;padding:18px;}
+      .prompt-bar{align-items:flex-start;gap:12px;flex-direction:column;}
+      .build{width:100%;justify-content:center;}
+      .lang{right:18px;}
+      .sample-hero h3{font-size:1.55rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <nav><div class="wrap nav-in">
+      <div class="logo"><svg class="mark" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="6" y="14" width="20" height="14" rx="2" fill="#0a0a0b"/><rect x="13" y="20" width="6" height="8" rx="1" fill="#fff"/><path d="M3 14 L6 7 H26 L29 14 Z" fill="#FF7A1A"/><path d="M3 14 q2.17 3.4 4.33 0 q2.17 3.4 4.33 0 q2.17 3.4 4.33 0 q2.17 3.4 4.33 0 q2.17 3.4 4.33 0 q2.17 3.4 4.33 0" fill="#ffb27a"/></svg>Vitrina</div>
+      <div class="lang">
+        <button id="btn-el" class="active" onclick="setLang('el')">ΕΛ</button>
+        <button id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </div></nav>
+
+    <div class="wrap">
+      <section class="hero">
+        <h1 class="reveal in" data-gr="Το site και τα social του μαγαζιού σου, χωρίς να τα κυνηγάς." data-en="Your shop's website and socials, handled for you.">Το site και τα social του μαγαζιού σου, χωρίς να τα κυνηγάς.</h1>
+        <p class="sub reveal in" data-gr="Πες μας τι επιχείρηση έχεις. Σου στήνουμε online βιτρίνα και ετοιμάζουμε καθημερινά posts για Facebook και Instagram, στα ελληνικά." data-en="Tell us what business you run. We set up your online storefront and prepare daily Facebook and Instagram posts, in your tone.">Πες μας τι επιχείρηση έχεις. Σου στήνουμε online βιτρίνα και ετοιμάζουμε καθημερινά posts για Facebook και Instagram, στα ελληνικά.</p>
+
+        <!-- PROMPT BOX -->
+        <div class="prompt reveal in">
+          <textarea id="prompt" placeholder="π.χ. Έχω ταβέρνα στην Καλαμαριά, οικογενειακή, θέλω site και posts για μενού ημέρας…"></textarea>
+          <div class="prompt-bar">
+            <span class="prompt-hint" data-gr="Γράψε σαν να μας το έλεγες στο τηλέφωνο" data-en="Write it like you would say it on a call">Γράψε σαν να μας το έλεγες στο τηλέφωνο</span>
+            <button class="build" onclick="go()" data-gr="Δες demo →" data-en="See demo →">Δες demo →</button>
+          </div>
+        </div>
+
+        <!-- SUGGESTIONS -->
+        <div class="suggest reveal in">
+          <div class="lbl" data-gr="Δεν ξέρεις πώς να ξεκινήσεις; Δοκίμασε:" data-en="Not sure where to start? Try:">Δεν ξέρεις πώς να ξεκινήσεις; Δοκίμασε:</div>
+          <div class="chips">
+            <span class="chip-b" onclick="pick('Έχω ταβέρνα')" data-gr="🍽️ Ταβέρνα" data-en="🍽️ Restaurant">🍽️ Ταβέρνα</span>
+            <span class="chip-b" onclick="pick('Έχω καφέ')" data-gr="☕ Καφέ" data-en="☕ Café">☕ Καφέ</span>
+            <span class="chip-b" onclick="pick('Είμαι υδραυλικός')" data-gr="🔧 Μάστορας" data-en="🔧 Tradesman">🔧 Μάστορας</span>
+            <span class="chip-b" onclick="pick('Έχω οδοντιατρείο')" data-gr="🦷 Οδοντίατρος" data-en="🦷 Dentist">🦷 Οδοντίατρος</span>
+            <span class="chip-b" onclick="pick('Έχω κομμωτήριο')" data-gr="💇 Κομμωτήριο" data-en="💇 Salon">💇 Κομμωτήριο</span>
+          </div>
+        </div>
+        <p class="freenote reveal in"><span class="stars">★★★★★</span> <span data-gr="Πρώτος μήνας δωρεάν · Χωρίς δέσμευση" data-en="First month free · No commitment">Πρώτος μήνας δωρεάν · Χωρίς δέσμευση</span></p>
+        <div class="mini-proof reveal in">
+          <span data-gr="Site σε λίγα λεπτά" data-en="Website in minutes">Site σε λίγα λεπτά</span>
+          <span data-gr="Posts κάθε μέρα" data-en="Daily posts">Posts κάθε μέρα</span>
+          <span data-gr="Ελληνικός τόνος" data-en="Local tone">Ελληνικός τόνος</span>
+        </div>
+      </section>
+    </div>
+
+    <div class="wrap demo-band">
+      <div class="demo-shell reveal in">
+        <div class="site-preview">
+          <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="browser-url">getvitrina.gr/demo/taverna</span></div>
+          <div class="sample-site">
+            <div class="sample-hero">
+              <div>
+                <div class="sample-kicker" data-gr="Demo site" data-en="Demo site">Demo site</div>
+                <h3 data-gr="Ταβέρνα Ο Κήπος" data-en="Kipos Taverna">Ταβέρνα Ο Κήπος</h3>
+                <p data-gr="Σπιτικό φαγητό, φρέσκοι μεζέδες και κρασί για παρέες στην Καλαμαριά." data-en="Homemade food, fresh meze and wine for groups in Kalamaria.">Σπιτικό φαγητό, φρέσκοι μεζέδες και κρασί για παρέες στην Καλαμαριά.</p>
+                <span class="sample-btn" data-gr="Κάλεσε για τραπέζι" data-en="Call for a table">Κάλεσε για τραπέζι</span>
+              </div>
+              <small data-gr="Χάρτης · Ωράριο · Μενού · Τηλέφωνο" data-en="Map · Hours · Menu · Phone">Χάρτης · Ωράριο · Μενού · Τηλέφωνο</small>
+            </div>
+            <div class="sample-menu">
+              <div class="sample-row"><div><strong data-gr="Γιουβέτσι ημέρας" data-en="Daily giouvetsi">Γιουβέτσι ημέρας</strong><small data-gr="στον φούρνο, με μυζήθρα" data-en="oven-baked, with mizithra">στον φούρνο, με μυζήθρα</small></div><span class="euro">€8.50</span></div>
+              <div class="sample-row"><div><strong data-gr="Μεζές για δύο" data-en="Meze for two">Μεζές για δύο</strong><small data-gr="ό,τι βγει ζεστό από την κουζίνα" data-en="whatever is warm from the kitchen">ό,τι βγει ζεστό από την κουζίνα</small></div><span class="euro">€16</span></div>
+              <div class="sample-row"><div><strong data-gr="Κρασί χύμα" data-en="House wine">Κρασί χύμα</strong><small data-gr="λευκό ή κόκκινο" data-en="white or red">λευκό ή κόκκινο</small></div><span class="euro">€4</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="post-preview">
+          <div class="post-head"><div class="avatar">ΤΚ</div><div><strong data-gr="Ταβέρνα Ο Κήπος" data-en="Kipos Taverna">Ταβέρνα Ο Κήπος</strong><small data-gr="Σημερινό post" data-en="Today's post">Σημερινό post</small></div></div>
+          <div class="post-photo"></div>
+          <p data-gr="Σήμερα η κουζίνα μοσχοβολάει γιουβέτσι στον φούρνο. Πέρνα για μεσημεριανό ή κράτησε τραπέζι για το βράδυ." data-en="Today the kitchen smells like oven-baked giouvetsi. Drop by for lunch or book a table for tonight.">Σήμερα η κουζίνα μοσχοβολάει γιουβέτσι στον φούρνο. Πέρνα για μεσημεριανό ή κράτησε τραπέζι για το βράδυ.</p>
+          <div class="hashtags">#καλαμαρια #ταβερνα #σπιτικοφαγητο</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features"><div class="wrap">
+    <div class="head reveal">
+      <span class="pill" data-gr="Τι παίρνεις" data-en="What you get">Τι παίρνεις</span>
+      <h2 data-gr="Όχι άλλο άδειο Facebook. Όχι άλλο site από το 2014." data-en="No more empty Facebook. No more 2014 website.">Όχι άλλο άδειο Facebook. Όχι άλλο site από το 2014.</h2>
+      <p data-gr="Η Vitrina κρατά την εικόνα του μαγαζιού ζωντανή, χωρίς να ανοίγεις κάθε μέρα editor, Canva ή Meta." data-en="Vitrina keeps your business looking alive without opening an editor, Canva, or Meta every day.">Η Vitrina κρατά την εικόνα του μαγαζιού ζωντανή, χωρίς να ανοίγεις κάθε μέρα editor, Canva ή Meta.</p>
+    </div>
+    <div class="grid">
+      <div class="card span2 reveal"><div class="ic">📱</div>
+        <h3 data-gr="Καθημερινά posts που ακούγονται σαν εσένα" data-en="Daily posts that sound like you">Καθημερινά posts που ακούγονται σαν εσένα</h3>
+        <p data-gr="Μενού ημέρας, ραντεβού, προσφορές, παρασκήνια και υπενθυμίσεις. Κείμενο και εικόνα στο ύφος του μαγαζιού." data-en="Daily menu, appointments, offers, behind-the-scenes and reminders. Caption and image in your business tone.">Μενού ημέρας, ραντεβού, προσφορές, παρασκήνια και υπενθυμίσεις. Κείμενο και εικόνα στο ύφος του μαγαζιού.</p></div>
+      <div class="card reveal"><div class="ic">🌐</div><h3 data-gr="Site που απαντά στα βασικά" data-en="A site that answers the basics">Site που απαντά στα βασικά</h3><p data-gr="Πού είσαι, τι κάνεις, πώς σε βρίσκουν, πώς κλείνουν." data-en="Where you are, what you do, how people find and contact you.">Πού είσαι, τι κάνεις, πώς σε βρίσκουν, πώς κλείνουν.</p></div>
+      <div class="card reveal"><div class="ic">🔍</div><h3>Local SEO</h3><p data-gr="Τίτλοι, περιγραφές και λέξεις που ψάχνουν οι πελάτες στην πόλη σου." data-en="Titles, descriptions and keywords customers search for in your city.">Τίτλοι, περιγραφές και λέξεις που ψάχνουν οι πελάτες στην πόλη σου.</p></div>
+      <div class="card reveal"><div class="ic">📍</div><h3 data-gr="Χάρτης, τηλέφωνο, ώρες" data-en="Map, phone, hours">Χάρτης, τηλέφωνο, ώρες</h3><p data-gr="Τα στοιχεία που ψάχνει ο πελάτης μπαίνουν μπροστά, όχι κρυμμένα." data-en="The details customers need are visible, not buried.">Τα στοιχεία που ψάχνει ο πελάτης μπαίνουν μπροστά, όχι κρυμμένα.</p></div>
+      <div class="card reveal"><div class="ic">⚡</div><h3 data-gr="Concierge στήσιμο" data-en="Concierge setup">Concierge στήσιμο</h3><p data-gr="Δεν σε αφήνουμε με άδειο dashboard. Το στήνουμε μαζί και μετά τρέχει." data-en="We do not leave you with an empty dashboard. We set it up with you, then it runs.">Δεν σε αφήνουμε με άδειο dashboard. Το στήνουμε μαζί και μετά τρέχει.</p></div>
+    </div>
+  </div></section>
+
+  <!-- HOW -->
+  <section style="background:var(--soft);"><div class="wrap">
+    <div class="head reveal"><span class="pill" data-gr="Πώς δουλεύει" data-en="How it works">Πώς δουλεύει</span><h2 data-gr="Από μια περιγραφή σε ζωντανή παρουσία" data-en="From one description to a live presence">Από μια περιγραφή σε ζωντανή παρουσία</h2></div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><h3 data-gr="Μας λες το μαγαζί" data-en="Tell us the business">Μας λες το μαγαζί</h3><p data-gr="Τύπος, πόλη, ύφος, τι πουλάς και τι θες να προβάλλεται." data-en="Type, city, tone, what you sell and what should be promoted.">Τύπος, πόλη, ύφος, τι πουλάς και τι θες να προβάλλεται.</p></div>
+      <div class="step reveal"><div class="n">2</div><h3 data-gr="Σου δείχνουμε αποτέλεσμα" data-en="We show the result">Σου δείχνουμε αποτέλεσμα</h3><p data-gr="Βλέπεις site και δείγματα posts. Ζητάς αλλαγές με απλά λόγια." data-en="You see the site and sample posts. Ask for edits in plain language.">Βλέπεις site και δείγματα posts. Ζητάς αλλαγές με απλά λόγια.</p></div>
+      <div class="step reveal"><div class="n">3</div><h3 data-gr="Το αφήνεις να δουλεύει" data-en="Let it work">Το αφήνεις να δουλεύει</h3><p data-gr="Το site μένει online και τα social δεν φαίνονται ποτέ παρατημένα." data-en="The site stays online and socials never look abandoned.">Το site μένει online και τα social δεν φαίνονται ποτέ παρατημένα.</p></div>
+    </div>
+  </div></section>
+
+  <!-- QUOTE -->
+  <section><div class="wrap quote reveal">
+    <p data-gr="&quot;Δεν ήθελα άλλο ένα εργαλείο. Ήθελα κάποιος να το αναλάβει. Αυτό ακριβώς κάνει η Vitrina.&quot;" data-en="&quot;I did not want another tool. I wanted someone to handle it. That is exactly what Vitrina does.&quot;">"Δεν ήθελα άλλο ένα εργαλείο. Ήθελα κάποιος να το αναλάβει. Αυτό ακριβώς κάνει η Vitrina."</p>
+    <div class="who" data-gr="— Ιδιοκτήτης μικρής επιχείρησης, Θεσσαλονίκη" data-en="— Small business owner, Thessaloniki">— Ιδιοκτήτης μικρής επιχείρησης, Θεσσαλονίκη</div>
+  </div></section>
+
+  <!-- PRICING -->
+  <section id="pricing" style="background:var(--soft);"><div class="wrap">
+    <div class="head reveal"><span class="pill" data-gr="Τιμές" data-en="Pricing">Τιμές</span>
+      <h2 data-gr="Ξεκίνα μικρά. Κράτα αυτό που φέρνει πελάτες." data-en="Start small. Keep what brings customers.">Ξεκίνα μικρά. Κράτα αυτό που φέρνει πελάτες.</h2>
+      <p data-gr="Το site είναι η βάση. Τα καθημερινά posts είναι αυτό που σε κρατά μπροστά στον κόσμο." data-en="The website is the base. Daily posts keep you in front of people.">Το site είναι η βάση. Τα καθημερινά posts είναι αυτό που σε κρατά μπροστά στον κόσμο.</p></div>
+    <div class="plans">
+      <div class="plan reveal"><h3>Site</h3><div class="price">€9.90<small data-gr="/μήνα" data-en="/mo">/μήνα</small></div>
+        <ul><li data-gr="Επαγγελματικό site" data-en="Professional website">Επαγγελματικό site</li><li>SEO</li><li data-gr="Φιλοξενία & ασφάλεια" data-en="Hosting & security">Φιλοξενία & ασφάλεια</li><li data-gr="Χάρτης, ώρες, τηλέφωνο" data-en="Map, hours, phone">Χάρτης, ώρες, τηλέφωνο</li></ul>
+        <a class="btn btn-ghost" href="connect.html" data-gr="Φτιάξε site" data-en="Build site">Φτιάξε site</a></div>
+      <div class="plan feat reveal" data-badge="⭐ Top"><h3>Social</h3><div class="price">€49<small data-gr="/μήνα" data-en="/mo">/μήνα</small></div>
+        <ul><li data-gr="Όλα του «Site»" data-en="Everything in Site">Όλα του «Site»</li><li data-gr="Καθημερινά posts FB & IG" data-en="Daily posts FB & IG">Καθημερινά posts FB & IG</li><li data-gr="Κείμενα στα ελληνικά" data-en="Localized captions">Κείμενα στα ελληνικά</li><li data-gr="Εικόνες έτοιμες" data-en="Images included">Εικόνες έτοιμες</li></ul>
+        <a class="btn btn-primary" href="connect.html" data-gr="Δες demo για το μαγαζί μου" data-en="See my demo">Δες demo για το μαγαζί μου</a></div>
+      <div class="plan reveal"><h3>Premium</h3><div class="price">€79<small data-gr="/μήνα" data-en="/mo">/μήνα</small></div>
+        <ul><li data-gr="Όλα του «Social»" data-en="Everything in Social">Όλα του «Social»</li><li data-gr="AI εικόνες & stories" data-en="AI images & stories">AI εικόνες & stories</li><li data-gr="Απαντήσεις σε σχόλια" data-en="Comment replies">Απαντήσεις σε σχόλια</li><li data-gr="Προτεραιότητα" data-en="Priority support">Προτεραιότητα</li></ul>
+        <a class="btn btn-ghost" href="connect.html" data-gr="Μίλα μαζί μας" data-en="Talk to us">Μίλα μαζί μας</a></div>
+    </div>
+  </div></section>
+
+  <!-- CTA -->
+  <section><div class="cta reveal">
+    <h2 data-gr="Πες μας το μαγαζί σου. Θα σου δείξουμε πώς μπορεί να φαίνεται." data-en="Tell us your business. We will show you how it can look.">Πες μας το μαγαζί σου. Θα σου δείξουμε πώς μπορεί να φαίνεται.</h2>
+    <p data-gr="Δεν χρειάζεται να ξέρεις από sites, ads ή social. Γράψε μας δύο γραμμές και ξεκινάμε." data-en="You do not need to know websites, ads, or social. Write two lines and we start.">Δεν χρειάζεται να ξέρεις από sites, ads ή social. Γράψε μας δύο γραμμές και ξεκινάμε.</p>
+    <a class="btn btn-primary" href="connect.html" data-gr="Δες demo για το μαγαζί μου →" data-en="See my business demo →">Δες demo για το μαγαζί μου →</a>
+  </div></section>
+
+  <footer><div class="wrap">
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="6" y="14" width="20" height="14" rx="2" fill="#0a0a0b"/><rect x="13" y="20" width="6" height="8" rx="1" fill="#fff"/><path d="M3 14 L6 7 H26 L29 14 Z" fill="#FF7A1A"/><path d="M3 14 q2.17 3.4 4.33 0 q2.17 3.4 4.33 0 q2.17 3.4 4.33 0 q2.17 3.4 4.33 0 q2.17 3.4 4.33 0 q2.17 3.4 4.33 0" fill="#ffb27a"/></svg>Vitrina</div>
+    <p data-gr="Η online βιτρίνα της επιχείρησής σου" data-en="Your business's online storefront">Η online βιτρίνα της επιχείρησής σου</p>
+    <p style="margin-top:12px;"><a href="privacy.html" data-gr="Απόρρητο" data-en="Privacy">Απόρρητο</a> · <a href="terms.html" data-gr="Όροι" data-en="Terms">Όροι</a> · <a href="data-deletion.html" data-gr="Διαγραφή δεδομένων" data-en="Data deletion">Διαγραφή δεδομένων</a> · <a href="mailto:hello@getvitrina.gr" data-gr="Επικοινωνία" data-en="Contact">Επικοινωνία</a></p>
+    <p style="margin-top:10px;opacity:.7;font-size:.85rem;">© <span id="yr"></span> Vitrina · getvitrina.gr</p>
+  </div></footer>
+  <script>document.getElementById("yr").textContent=new Date().getFullYear();</script>
+
+  <script>
+    function pick(t){ const el=document.getElementById('prompt'); el.value=t+' '; el.focus(); }
+    function go(){
+      const v=document.getElementById('prompt').value.trim();
+      window.location.href = 'connect.html' + (v? '?desc='+encodeURIComponent(v):'');
+    }
+    function setLang(l){
+      document.documentElement.lang=l;
+      document.querySelectorAll('[data-'+l+']').forEach(el=>{ el.innerHTML=el.getAttribute('data-'+l); });
+      document.getElementById('btn-el').classList.toggle('active',l==='el');
+      document.getElementById('btn-en').classList.toggle('active',l==='en');
+      const ph={el:'π.χ. Έχω ταβέρνα στην Καλαμαριά, οικογενειακή, θέλω site και posts για μενού ημέρας…',
+                en:'e.g. I run a family taverna in Kalamaria and want a site plus daily menu posts…'};
+      document.getElementById('prompt').placeholder=ph[l];
+      try{localStorage.setItem('lang',l);}catch(e){}
+    }
+    (function(){let l='el';try{l=localStorage.getItem('lang')||'el';}catch(e){}if(l==='en')setLang('en');})();
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>

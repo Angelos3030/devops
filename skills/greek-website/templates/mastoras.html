@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{NAME}} — {{TRADE|Υδραυλικός}} {{CITY}}</title>
+  <meta name="description" content="{{NAME}} — {{TRADE|υδραυλικός}} στην {{CITY}}. Άμεση εξυπηρέτηση, αυθημερόν.">
+  <style>
+    /* Μάστορας: έμφαση στο ΤΗΛΕΦΩΝΟ + υπηρεσίες + περιοχές. Όχι μενού/ραντεβού φόρμα. */
+    :root {
+      --primary: {{PRIMARY|#1F3A5F}};
+      --accent:  {{ACCENT|#FF7A00}};
+      --bg:      {{BG|#F4F6F8}};
+      --text:    #232a31;
+      --font-display: {{FONT_DISPLAY|'Oswald', system-ui, sans-serif}};
+      --font-body:    {{FONT_BODY|'Inter', system-ui, sans-serif}};
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--bg); line-height:1.6; }
+    h1,h2,h3 { font-family: var(--font-display); color: var(--primary); }
+    .wrap { max-width: 960px; margin:0 auto; padding:0 20px; }
+
+    header.hero { background: var(--primary); color:#fff; text-align:center; padding: 70px 20px; }
+    header.hero h1 { color:#fff; font-size:2.6rem; text-transform:uppercase; letter-spacing:1px; }
+    .badge { display:inline-block; background:var(--accent); color:#fff; padding:6px 14px; border-radius:20px; font-weight:700; margin-top:12px; }
+    .cta-big { display:block; max-width:340px; margin:24px auto 0; background:var(--accent); color:#fff;
+               padding:18px; border-radius:10px; text-decoration:none; font-weight:800; font-size:1.3rem; }
+
+    section { padding: 50px 0; }
+    section h2 { text-align:center; font-size:1.9rem; margin-bottom:24px; }
+
+    .services { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+    .service { background:#fff; padding:18px; border-radius:8px; border-bottom:3px solid var(--accent); }
+
+    .areas { background:#fff; text-align:center; }
+    .areas .tags span { display:inline-block; background:var(--bg); border:1px solid #d6dde3;
+                        padding:8px 16px; border-radius:20px; margin:6px; font-weight:600; }
+
+    footer { background:var(--primary); color:#fff; text-align:center; padding:30px; }
+    .phone-btn { position:fixed; bottom:20px; right:20px; background:var(--accent); color:#fff;
+                 padding:16px 24px; border-radius:50px; text-decoration:none; font-weight:800; font-size:1.1rem; box-shadow:0 4px 14px rgba(0,0,0,.25); }
+    @media (max-width:700px){ header.hero h1{ font-size:2rem; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <h1>{{NAME}}</h1>
+      <p>{{TRADE|Υδραυλικός}} · {{CITY}}</p>
+      <span class="badge">⚡ Άμεση εξυπηρέτηση — Αυθημερόν</span>
+      <a class="cta-big" href="tel:{{PHONE}}">📞 {{PHONE}}</a>
+    </div>
+  </header>
+
+  <section id="services">
+    <div class="wrap">
+      <h2>Τι αναλαμβάνουμε</h2>
+      <div class="services">
+        <!-- {{LOOP_SERVICES}} -->
+        <div class="service"><h3>{{SERVICE_NAME}}</h3><p>{{SERVICE_DESC}}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="areas">
+    <div class="wrap">
+      <h2>Περιοχές που καλύπτουμε</h2>
+      <div class="tags">
+        <!-- {{LOOP_AREAS}} -->
+        <span>{{AREA}}</span>
+      </div>
+      <p style="margin-top:20px;">Δεν βλέπεις την περιοχή σου; <a href="tel:{{PHONE}}">Πάρε τηλέφωνο</a>.</p>
+    </div>
+  </section>
+
+  <footer>© {{YEAR}} {{NAME}} · {{TRADE}} {{CITY}} · ☎️ {{PHONE}}</footer>
+  <a class="phone-btn" href="tel:{{PHONE}}">📞 Κάλεσέ με τώρα</a>
+</body>
+</html>

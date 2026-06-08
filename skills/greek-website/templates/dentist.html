@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{NAME}} — Οδοντιατρείο {{CITY}}</title>
+  <meta name="description" content="{{NAME}} — οδοντιατρείο στην {{CITY}}. Κλείστε ραντεβού.">
+  <style>
+    /* Οδοντιατρείο: ΟΧΙ "μενού" — υπηρεσίες + ραντεβού + χάρτης + τηλέφωνο (αυτονόητα) */
+    :root {
+      --primary: {{PRIMARY|#0A6EBD}};
+      --accent:  {{ACCENT|#13C4C4}};
+      --bg:      {{BG|#F5FAFD}};
+      --text:    #25323a;
+      --font-display: {{FONT_DISPLAY|'Poppins', system-ui, sans-serif}};
+      --font-body:    {{FONT_BODY|'Inter', system-ui, sans-serif}};
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--bg); line-height:1.6; }
+    h1,h2,h3 { font-family: var(--font-display); color: var(--primary); }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+    header.hero { background: linear-gradient(135deg, var(--primary), var(--accent)); color:#fff; padding: 80px 20px; text-align:center; }
+    header.hero h1 { color:#fff; font-size: 2.6rem; }
+    header.hero p { margin-top:10px; font-size:1.15rem; opacity:.95; }
+    .cta { display:inline-block; margin-top:24px; background:#fff; color:var(--primary);
+           padding:14px 30px; border-radius:8px; text-decoration:none; font-weight:700; }
+
+    section { padding: 60px 0; }
+    section h2 { font-size:2rem; text-align:center; margin-bottom: 30px; }
+
+    .services { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:20px; }
+    .service { background:#fff; padding:24px; border-radius:12px; box-shadow:0 2px 10px rgba(10,110,189,.08); text-align:center; }
+    .service h3 { font-size:1.1rem; margin-bottom:8px; }
+
+    .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+    .info-grid iframe { width:100%; height:280px; border:0; border-radius:12px; }
+    .booking { background:#fff; padding:28px; border-radius:12px; box-shadow:0 2px 10px rgba(10,110,189,.08); }
+    .booking input, .booking button { width:100%; padding:12px; margin-top:10px; border-radius:8px; border:1px solid #cfe3f0; font-size:1rem; }
+    .booking button { background:var(--primary); color:#fff; border:0; font-weight:700; cursor:pointer; }
+    @media (max-width:700px){ .info-grid{ grid-template-columns:1fr; } header.hero h1{ font-size:2rem; } }
+
+    footer { background: var(--primary); color:#fff; text-align:center; padding:30px; }
+    .phone-btn { position:fixed; bottom:20px; right:20px; background:var(--accent); color:#fff;
+                 padding:14px 20px; border-radius:50px; text-decoration:none; font-weight:700; box-shadow:0 4px 12px rgba(0,0,0,.2); }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <h1>{{NAME}}</h1>
+      <p>{{TAGLINE|Φροντίδα για το χαμόγελό σας}} · {{CITY}}</p>
+      <a class="cta" href="#ραντεβου">Κλείστε Ραντεβού</a>
+    </div>
+  </header>
+
+  <section id="services">
+    <div class="wrap">
+      <h2>Οι Υπηρεσίες μας</h2>
+      <div class="services">
+        <!-- {{LOOP_SERVICES}} -->
+        <div class="service"><h3>{{SERVICE_NAME}}</h3><p>{{SERVICE_DESC}}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ραντεβου" style="background:#fff;">
+    <div class="wrap info-grid">
+      <div class="booking">
+        <h2 style="text-align:left;">Κλείστε Ραντεβού</h2>
+        <p style="margin-bottom:6px;">Συμπληρώστε τα στοιχεία σας και θα σας καλέσουμε.</p>
+        <input type="text" placeholder="Ονοματεπώνυμο">
+        <input type="tel" placeholder="Τηλέφωνο">
+        <input type="text" placeholder="Προτιμώμενη μέρα/ώρα">
+        <button>Αποστολή</button>
+        <p style="margin-top:14px;">ή καλέστε: <a href="tel:{{PHONE}}">{{PHONE}}</a></p>
+      </div>
+      <div>
+        <h2 style="text-align:left;">Ωράριο & Διεύθυνση</h2>
+        <p><strong>Ωράριο:</strong><br>{{HOURS|Δευτ–Παρ 09:00–20:00}}</p>
+        <p style="margin-top:14px;"><strong>Διεύθυνση:</strong><br>{{ADDRESS}}</p>
+        <!-- ΧΑΡΤΗΣ — αυτόματο -->
+        <iframe loading="lazy" style="margin-top:14px;" src="https://www.google.com/maps?q={{ADDRESS_ENCODED}}&output=embed"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer>© {{YEAR}} {{NAME}} · {{CITY}}</footer>
+  <a class="phone-btn" href="tel:{{PHONE}}">📞 Καλέστε μας</a>
+</body>
+</html>

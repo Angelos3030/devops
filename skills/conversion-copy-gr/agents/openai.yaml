@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conversion Copy GR"
+  short_description: "Greek landing-page copy and CTA patterns for SMBs."
+  default_prompt: "Write high-converting Greek website copy for a small business."

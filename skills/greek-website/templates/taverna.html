@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{NAME}} — Παραδοσιακή Ταβέρνα</title>
+  <meta name="description" content="{{NAME}} — παραδοσιακή ελληνική κουζίνα στην {{CITY}}.">
+  <style>
+    /* === DESIGN TOKENS (άλλαξέ τα από το brand profile) === */
+    :root {
+      --primary: {{PRIMARY|#8B0000}};
+      --accent:  {{ACCENT|#D4A017}};
+      --bg:      {{BG|#FAF4E8}};
+      --text:    #2b2b2b;
+      --font-display: {{FONT_DISPLAY|'Playfair Display', Georgia, serif}};
+      --font-body:    {{FONT_BODY|'Source Sans 3', system-ui, sans-serif}};
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--bg); line-height: 1.6; }
+    h1, h2, h3 { font-family: var(--font-display); color: var(--primary); }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+    /* HERO */
+    header.hero { background: var(--primary); color: var(--bg); text-align: center; padding: 80px 20px; }
+    header.hero h1 { color: var(--bg); font-size: 2.8rem; }
+    header.hero p { font-size: 1.2rem; margin-top: 10px; opacity: .9; }
+    .cta { display: inline-block; margin-top: 24px; background: var(--accent); color: #222;
+           padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 700; }
+
+    section { padding: 60px 0; }
+    section h2 { font-size: 2rem; margin-bottom: 24px; text-align: center; }
+
+    /* ΜΕΝΟΥ */
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; }
+    .dish { background: #fff; border-left: 4px solid var(--accent); padding: 16px 20px; border-radius: 4px; }
+    .dish .price { float: right; color: var(--primary); font-weight: 700; }
+
+    /* ΩΡΑΡΙΟ + ΧΑΡΤΗΣ (αυτονόητα) */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .info-grid iframe { width: 100%; height: 280px; border: 0; border-radius: 8px; }
+    @media (max-width: 700px){ .info-grid{ grid-template-columns: 1fr; } header.hero h1{ font-size:2rem; } }
+
+    footer { background: var(--primary); color: var(--bg); text-align: center; padding: 30px; }
+    .phone-btn { position: fixed; bottom: 20px; right: 20px; background: var(--accent); color:#222;
+                 padding: 14px 20px; border-radius: 50px; text-decoration:none; font-weight:700; box-shadow:0 4px 12px rgba(0,0,0,.2); }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <h1>{{NAME}}</h1>
+      <p>{{TAGLINE|Παραδοσιακή ελληνική κουζίνα}} · {{CITY}}</p>
+      <a class="cta" href="tel:{{PHONE}}">📞 Κλείσε τραπέζι</a>
+    </div>
+  </header>
+
+  <section id="menu">
+    <div class="wrap">
+      <h2>Το Μενού μας</h2>
+      <div class="menu-grid">
+        <!-- {{LOOP_DISHES}} -->
+        <div class="dish"><span class="price">{{PRICE}}€</span>{{DISH_NAME}}</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="info" style="background:#fff;">
+    <div class="wrap info-grid">
+      <div>
+        <h2 style="text-align:left;">Ωράριο & Πού θα μας βρεις</h2>
+        <p><strong>Ωράριο:</strong><br>{{HOURS|Δευτέρα–Κυριακή 12:00–24:00}}</p>
+        <p style="margin-top:16px;"><strong>Διεύθυνση:</strong><br>{{ADDRESS}}</p>
+        <p style="margin-top:16px;"><strong>Τηλέφωνο:</strong> <a href="tel:{{PHONE}}">{{PHONE}}</a></p>
+      </div>
+      <!-- ΧΑΡΤΗΣ — αυτόματο, δεν το ρωτάμε -->
+      <iframe loading="lazy" src="https://www.google.com/maps?q={{ADDRESS_ENCODED}}&output=embed"></iframe>
+    </div>
+  </section>
+
+  <footer>© {{YEAR}} {{NAME}} · {{CITY}}</footer>
+  <a class="phone-btn" href="tel:{{PHONE}}">📞 Κάλεσέ μας</a>
+</body>
+</html>
