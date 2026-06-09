@@ -13,9 +13,10 @@
    `SUPABASE_URL` + publishable key. ⚠️ RLS disabled σε 6 public tables μέχρι να μπει
    server-only service_role key ή policies.
 **Cloudflare Pages:** ✅ Project `vitrina` δημιουργήθηκε και έγινε deploy του `web/`.
-   Latest live preview: `https://15007041.vitrina-7uq.pages.dev`. Custom domains προστέθηκαν:
-   `getvitrina.gr`, `www.getvitrina.gr`. ⚠️ Pending DNS: `getvitrina.gr` δείχνει
-   `CNAME record not set`.
+   Latest live preview: `https://15007041.vitrina-7uq.pages.dev`. Custom domains:
+   ✅ `https://getvitrina.gr` live/SSL OK, ✅ `https://getvitrina.gr/privacy.html` 200,
+   ✅ `https://getvitrina.gr/data-deletion.html` 200. Nameservers σε Cloudflare:
+   `matteo.ns.cloudflare.com`, `poppy.ns.cloudflare.com`.
 **Stripe:** ✅ Test setup έτοιμο στο `.env`: `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET`
    αποθηκεύτηκαν (μην τα εμφανίζεις), και δημιουργήθηκαν test Prices:
    `STRIPE_PRICE_STARTER=price_1TfzYHCXhuChnUHdlQeCNrex`,
@@ -113,7 +114,7 @@
 - [x] **`railway.toml`** — δημιουργήθηκε (Nixpacks builder, healthcheck `/healthz`, restart policy). Procfile υπήρχε ήδη.
 - [ ] **Railway backend deploy** — New Project → Deploy from GitHub. Μετά: βάλε subdomain `api.getvitrina.gr` → Railway URL.
 - [x] DNS: `getvitrina.gr` + `www.getvitrina.gr` → Cloudflare IPs επαληθεύτηκαν (`104.21.5.22`, `172.67.132.194`). SSL cert **Pending Validation** — αυτόματο, αναμένεται σε λίγη ώρα.
-- [ ] DNS: `api.getvitrina.gr` → Railway (CNAME μετά το deploy).
+- [ ] DNS: `api.getvitrina.gr` → Railway (λείπει ακόμα CNAME· χρειάζεται Railway public/custom-domain target).
 - [ ] Supabase: βάλε `service_role` key στο server `.env`; μετά enable RLS/policies.
 - [x] Stripe local `.env`: test `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_*`.
       Webhook URL: `https://api.getvitrina.gr/stripe/webhook`
@@ -272,9 +273,8 @@
 - [x] **Stripe Dashboard values** — test `price_*` IDs και webhook signing secret μπήκαν
       στο `.env`. Το current Cloudflare Pages URL είναι static frontend, όχι FastAPI
       webhook host, άρα full webhook test μετά το Railway/API domain.
-- [ ] **Cloudflare DNS** — Pages custom domains υπάρχουν, αλλά το apex domain είναι pending
-      μέχρι να μπει σωστό CNAME/Cloudflare DNS. Το Wrangler OAuth δεν είχε `zone.create`
-      permission, άρα δεν μπόρεσα να προσθέσω Cloudflare zone αυτόματα.
+- [x] **Cloudflare DNS** — `getvitrina.gr` nameservers δείχνουν Cloudflare και το
+      HTTPS site ανοίγει με 200. Εκκρεμεί μόνο `api.getvitrina.gr` προς Railway.
 - [ ] **Νομικό** — μπλοκάκι/εταιρεία για έσοδα + Meta business verification (ρώτα λογιστή).
 - [ ] **`redirect_uri`** — `https://getvitrina.gr/connect/callback` (ήδη στο meta_oauth.py).
       Βεβαιώσου ότι είναι στο Meta App → Valid OAuth Redirect URIs.
