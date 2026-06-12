@@ -51,6 +51,10 @@
    στο Supabase και καθαρίστηκε, Stripe Checkout URL OK. ⚠️ AI/skills site generation
    ΔΕΝ μπορεί να δοκιμαστεί ακόμα: `ANTHROPIC_API_KEY` γυρίζει `401 invalid x-api-key`,
    και `upload_skills.py` γυρίζει Anthropic beta `404 Not found`.
+**Parallel agent split:** 🔀 2026-06-12: sub-agent `Mencius`
+   (`019ebb8d-e18c-7ba3-803d-77eb74e4196a`) ανέλαβε fallback local site generator.
+   Owner files: `src/local_site_generator.py`, `scripts/smoke_local_site.py`,
+   generated `web/local-test-taverna.html`. Μην τα πειράξετε μέχρι να επιστρέψει.
 **Meta App Review audit (session 5):** ✅ Κρίσιμο bug: `pages[0]` auto-select χωρίς UI.
    Τώρα: `GET /connect/pages` + `POST /connect/finalize` + κάρτα επιλογής στο `connect.html`.
    Stale "Papaki" comment fix. `meta-review-submission.md` updated. Βλέπε assessment παρακάτω.
@@ -117,6 +121,8 @@
 - [x] Local backend smoke test: health/domain/onboard/Stripe OK.
 - [ ] AI skills/agents smoke test: blocked μέχρι να μπει valid Anthropic key + διαθέσιμο
       Skills/Agents beta access ή fallback runtime.
+- [ ] Parallel fallback generator task: Owner `Mencius`; write scope
+      `src/local_site_generator.py`, `scripts/smoke_local_site.py`.
 
 **ΤΩΡΑ ΠΕΡΙΜΕΝΟΥΜΕ / ΘΕΛΕΙ ΧΕΙΡΟΚΙΝΗΤΟ Ή ΝΕΟ SECRET:**
 - [x] **`railway.toml`** — δημιουργήθηκε (Nixpacks builder, healthcheck `/healthz`, restart policy). Procfile υπήρχε ήδη.
