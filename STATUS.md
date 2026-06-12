@@ -46,6 +46,11 @@
 **GitHub/Railway source:** ✅ Το local project έγινε git repo και έγινε push στο
    `https://github.com/Angelos3030/devops` branch `main` (latest commit `8491e31`).
    `.env`, `.claude/`, `.wrangler/` αγνοούνται με `.gitignore`.
+**Local smoke test:** ✅ 2026-06-12: dependencies installed locally, `src.main:app`
+   imports OK, `/healthz` OK, `/domain/suggest` OK, `/onboard` δημιούργησε test client
+   στο Supabase και καθαρίστηκε, Stripe Checkout URL OK. ⚠️ AI/skills site generation
+   ΔΕΝ μπορεί να δοκιμαστεί ακόμα: `ANTHROPIC_API_KEY` γυρίζει `401 invalid x-api-key`,
+   και `upload_skills.py` γυρίζει Anthropic beta `404 Not found`.
 **Meta App Review audit (session 5):** ✅ Κρίσιμο bug: `pages[0]` auto-select χωρίς UI.
    Τώρα: `GET /connect/pages` + `POST /connect/finalize` + κάρτα επιλογής στο `connect.html`.
    Stale "Papaki" comment fix. `meta-review-submission.md` updated. Βλέπε assessment παρακάτω.
@@ -109,6 +114,9 @@
 - [x] GitHub repo initialized + pushed to `Angelos3030/devops` branch `main`.
 - [x] Railway upload crash fix: `python-multipart>=0.0.9` υπάρχει στο remote `requirements.txt`
       (commit `8491e31`).
+- [x] Local backend smoke test: health/domain/onboard/Stripe OK.
+- [ ] AI skills/agents smoke test: blocked μέχρι να μπει valid Anthropic key + διαθέσιμο
+      Skills/Agents beta access ή fallback runtime.
 
 **ΤΩΡΑ ΠΕΡΙΜΕΝΟΥΜΕ / ΘΕΛΕΙ ΧΕΙΡΟΚΙΝΗΤΟ Ή ΝΕΟ SECRET:**
 - [x] **`railway.toml`** — δημιουργήθηκε (Nixpacks builder, healthcheck `/healthz`, restart policy). Procfile υπήρχε ήδη.
@@ -223,6 +231,9 @@
       `4dde97c` και push στο `Angelos3030/devops` branch `main`. Το `.env` δεν έγινε track.
 - [x] **Railway dependency fix** — προστέθηκε `python-multipart>=0.0.9` στο
       `requirements.txt` για το `/clients/{client_id}/upload` FastAPI endpoint.
+- [x] **Local smoke test** — uvicorn local port 8001, `/healthz`, `/domain/suggest`,
+      `/onboard`, `/create-checkout` OK. Generated demo template:
+      `web/local-test-taverna.html` (untracked local artifact).
 - [x] **Αποφάσεις:** ΟΧΙ runtime coordinator (κώδικας orchestrates), Haiku/Sonnet (όχι Opus),
       μόνο sites (όχι app), €9.90 δόλωμα → €49 ταμείο, 9 curated external skills.
 
