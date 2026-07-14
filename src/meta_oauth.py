@@ -183,8 +183,10 @@ def _deploy_selected_bg(client_id: str, layout: str) -> None:
 
 
 def _intake_from_db(client_id: str) -> dict:
-    """Ανακατασκευάζει intake από το client record + assets (για Next.js render)."""
-    c = db.get_client(client_id) or {}
+    """Ανακατασκευάζει intake από το client record + assets (για Next.js render).
+    Το `client_id` μπορεί να είναι uuid Ή custom domain (multi-tenant routing)."""
+    c = db.get_client(client_id) or (db.get_client_by_domain(client_id) if "." in str(client_id) else None) or {}
+    client_id = c.get("id", client_id)
     intake = {
         "name": c.get("name"), "type": c.get("business_type"),
         "city": c.get("city"), "phone": c.get("phone"), "email": c.get("email"),

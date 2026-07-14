@@ -36,8 +36,14 @@ responsive designs**, διαλέγει, και το site ανεβαίνει live
    ✓ Compiled), (e) `npm run start` → :3000 δες το switcher, (f) commit+push. Data prop shape:
    `d.NAME,CITY,TRADE,TAGLINE,PHONE,PHONE_INTL,AREAS,HOURS,KICKER,HERO_WORD,INITIAL,YEAR,STORY_TITLE,CTA_TITLE,
    HERO_IMAGE,STORY_IMAGE, d.services[{num,title,desc}], d.gallery[{image,title,sub}], d.story[{p}]`.
-2. **[domain routing]** Next middleware: host → client_id (πίνακας `domains`) → render. Τώρα μόνο `/site/[client]`.
-3. **[deploy sites]** Cloudflare Pages ή Vercel το `sites/`. Σύνδεσε custom domains πελατών.
+2. **[domain routing] ✅ DONE** — `sites/middleware.js` (custom host → `/site/[host]`) + backend
+   `db.get_client_by_domain` + `_intake_from_db` resolve-by-domain. Θέλει: πραγματικός πελάτης με
+   εγγραφή στον `domains` πίνακα + DNS του domain → Vercel/Cloudflare για να δουλέψει live.
+2b. **[showcase] ✅ DONE** — `sites/app/page.jsx` = marketing landing (Amboras-style) που δείχνει και
+   τα 10 designs (iframe cards → `/preview/[template]`). Τα `/preview/[template]` prerendered (SSG,
+   ads/SEO-ready). ΓΙΑ ΔΙΑΦΗΜΙΣΕΙΣ: χρησιμοποίησε αυτή τη σελίδα + τα preview links.
+3. **[deploy sites]** Cloudflare Pages ή Vercel το `sites/` (χρειάζεται Node runtime για dynamic/middleware
+   → Vercel πιο εύκολο, ή Cloudflare `@cloudflare/next-on-pages`). Σύνδεσε custom domains πελατών.
 4. **[dashboard link]** Το `dashboard/` «Επιλογή» να ανοίγει το React preview (`sites/site/[id]?layout=`), όχι το παλιό.
 5. **[Supabase Google]** enable Google provider (Auth→Providers) + `dashboard/.env` για να δουλέψει το login.
 6. **[api.getvitrina.gr]** Railway custom domain + Cloudflare CNAME. Railway trial credit low → πρόσθεσε κάρτα.

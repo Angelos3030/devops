@@ -164,6 +164,15 @@ def get_client(client_id: str) -> dict | None:
     return res.data[0] if res.data else None
 
 
+def get_client_by_domain(domain: str) -> dict | None:
+    """Βρίσκει πελάτη από custom domain (domains table) — για multi-tenant routing."""
+    res = (_client().table("domains").select("client_id")
+           .eq("domain", domain).limit(1).execute())
+    if not res.data:
+        return None
+    return get_client(res.data[0]["client_id"])
+
+
 def get_clients_by_email(email: str) -> list[dict]:
     """Οι πελάτες που ανήκουν σε ένα email (σύνδεση dashboard login → client record)."""
     res = (_client().table("clients")

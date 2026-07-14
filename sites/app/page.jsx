@@ -1,34 +1,65 @@
-'use client'
-import { useState } from 'react'
-import { TEMPLATES, TEMPLATE_KEYS, TEMPLATE_META } from '../lib/templates'
-import { demoData } from '../lib/demoData'
+import Link from 'next/link'
+import { TEMPLATE_KEYS, TEMPLATE_META } from '../lib/templates'
+import { demoBusinesses, demoOrder } from '../lib/demoData'
+import s from './page.module.css'
 
-export default function DemoPage() {
-  const [key, setKey] = useState('editorial')
-  const Tpl = TEMPLATES[key]
-  return (
-    <>
-      <div style={bar}>
-        <span style={{ fontWeight: 700, letterSpacing: '.02em' }}>Vitrina · React templates (demo)</span>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {TEMPLATE_KEYS.map((k) => (
-            <button key={k} onClick={() => setKey(k)} title={TEMPLATE_META[k].desc}
-              style={{ ...pill, ...(k === key ? pillActive : {}) }}>
-              {TEMPLATE_META[k].label}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div style={{ paddingTop: 52 }}>
-        <Tpl data={demoData} />
-      </div>
-    </>
-  )
+export const metadata = {
+  title: 'Vitrina — Το site της επιχείρησής σου, έτοιμο σε λεπτά',
+  description: 'Δεκάδες όμορφα, responsive designs για ελληνικές τοπικές επιχειρήσεις. Διάλεξε, και είναι live.',
 }
 
-const bar = { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, height: 52,
-  display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
-  padding: '0 16px', background: '#101014', color: '#fff', fontFamily: 'Inter, sans-serif', fontSize: 14 }
-const pill = { cursor: 'pointer', border: '1px solid rgba(255,255,255,.25)', background: 'transparent',
-  color: '#fff', borderRadius: 999, padding: '6px 14px', fontSize: 13, fontWeight: 600, fontFamily: 'inherit' }
-const pillActive = { background: '#ff8a3d', color: '#1a1204', border: '1px solid #ff8a3d' }
+export default function Showcase() {
+  return (
+    <main className={s.page}>
+      <header className={s.hero}>
+        <span className={s.eyebrow}>Vitrina · Sites για ελληνικά μαγαζιά</span>
+        <h1>Το site της επιχείρησής σου, <em>έτοιμο σε λεπτά.</em></h1>
+        <p>Δεκάδες όμορφα, responsive designs. Διάλεξε αυτό που σου αρέσει — εμείς το ανεβάζουμε live στο δικό σου domain.</p>
+        <div className={s.actions}>
+          <a href="https://getvitrina.gr" className={s.btn}>Ξεκίνα τώρα</a>
+          <a href="#designs" className={s.btnLine}>Δες τα designs ↓</a>
+        </div>
+        <div className={s.stats}>
+          <div><b>{TEMPLATE_KEYS.length}+</b><span>έτοιμα designs</span></div>
+          <div><b>Λεπτά</b><span>όχι εβδομάδες</span></div>
+          <div><b>.gr</b><span>στο domain σου</span></div>
+        </div>
+      </header>
+
+      <section id="designs" className={s.gridSec}>
+        <div className={s.secHead}>
+          <span className={s.eyebrow}>Η συλλογή</span>
+          <h2>Διάλεξε το ύφος σου.</h2>
+        </div>
+        <div className={s.grid}>
+          {TEMPLATE_KEYS.map((k, i) => {
+            const bizKey = demoOrder[i % demoOrder.length]
+            const biz = demoBusinesses[bizKey]
+            const href = `/preview/${k}?biz=${bizKey}`
+            return (
+              <Link key={k} href={href} className={s.card} target="_blank">
+                <div className={s.shot}>
+                  <iframe src={href} title={`${biz.NAME} — ${TEMPLATE_META[k].label}`} loading="lazy" scrolling="no" />
+                </div>
+                <div className={s.cardBody}>
+                  <span className={s.tag}>{biz.TRADE} · {TEMPLATE_META[k].label}</span>
+                  <h3>{biz.NAME}</h3>
+                  <p>{TEMPLATE_META[k].desc}</p>
+                  <span className={s.open}>Άνοιξε το design →</span>
+                </div>
+              </Link>
+            )
+          })}
+        </div>
+      </section>
+
+      <section className={s.cta}>
+        <h2>Έτοιμος να αποκτήσεις το δικό σου;</h2>
+        <p>Ένα site + καθημερινά posts. Χωρίς κόπο, στα ελληνικά.</p>
+        <a href="https://getvitrina.gr" className={s.btn}>Ξεκίνα με τη Vitrina</a>
+      </section>
+
+      <footer className={s.footer}>© {new Date().getFullYear()} Vitrina · getvitrina.gr</footer>
+    </main>
+  )
+}
