@@ -19,9 +19,12 @@ responsive designs**, διαλέγει, και το site ανεβαίνει live
 3. **React dashboard** (`dashboard/`, Vite) — Google login, ο πελάτης βλέπει/διαλέγει designs.
 
 ### ✅ Τι έχει γίνει
-- **10 δομικά διαφορετικά React templates** στο `sites/lib/templates/`: **Editorial, Split, Showcase,
-  Bento, Longform, Corporate, Poster, Sidebar, Grid, Coast** (όχι recolors — διαφορετική δομή το καθένα).
-  Approved από owner («πολύ όμορφα»). Όλα στο `index.js` (TEMPLATES/TEMPLATE_KEYS/TEMPLATE_META/MAP).
+- **12 δομικά διαφορετικά React templates** στο `sites/lib/templates/`: **Editorial, Split, Showcase,
+  Bento, Longform, Corporate, Poster, Sidebar, Grid, Coast, Magazine, Warmth** (όχι recolors — διαφορετική
+  δομή). Approved από owner. Όλα στο `index.js` (TEMPLATES/TEMPLATE_KEYS/TEMPLATE_META/MAP).
+- **6 demo businesses** (`sites/lib/demoData.js`): carpenter/taverna/salon/dentist/cafe/lawyer. Showcase
+  δείχνει διαφορετικό επάγγελμα ανά design. `/preview/[template]?biz=`.
+- **Dashboard preview → React sites** (`dashboard/src/lib/api.js` previewUrl = `SITES_BASE/site/[id]?layout=`).
 - `sites/` build OK (Next 14.2.35). Τοπικά: `cd sites && npm install && npm run dev` → :3000.
 - Backend `GET /clients/{id}/site-data` επιστρέφει normalized JSON (name/services[]/gallery[]/story[]).
 - Παλιός static engine (`src/premium_generator.py`, 7 HTML templates) = preview/fallback, tests 87/87+7/7.
