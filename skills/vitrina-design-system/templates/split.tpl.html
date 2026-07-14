@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAME}} — {{TRADE}} | {{CITY}}</title>
+<meta name="description" content="{{NAME}} — {{TAGLINE}} {{TRADE}} στην περιοχή {{CITY}}. Τηλ. {{PHONE}}.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* split — STRUCTURALLY different: fixed left panel (brand/nav/contact) + scrolling right content */
+:root{
+  --panel:#20211c;--panel-ink:#f4f1e8;--panel-soft:#a7a596;
+  --bg:#f4f1e8;--surface:#fff;--ink:#20211c;--ink-soft:#5f5d52;
+  --accent:#b1633a;--accent-soft:#d18a5f;--line:rgba(32,33,28,.13);--line-d:rgba(244,241,232,.16);
+  --serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05}
+.rv{opacity:0;transform:translateY(22px);transition:.85s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+/* ---- layout: fixed left panel + right scroll ---- */
+.shell{display:grid;grid-template-columns:38% 1fr;min-height:100vh}
+.panel{position:fixed;top:0;left:0;width:38%;height:100vh;background:var(--panel);color:var(--panel-ink);
+  display:flex;flex-direction:column;justify-content:space-between;padding:clamp(2rem,4vw,3.4rem);overflow:hidden}
+.panel::after{content:"";position:absolute;inset:auto -30% -30% auto;width:420px;height:420px;border-radius:50%;background:radial-gradient(closest-side,rgba(177,99,58,.35),transparent 70%);filter:blur(8px)}
+.panel>*{position:relative;z-index:1}
+.p-brand{font-family:var(--serif);font-size:clamp(2rem,3.4vw,3.2rem);font-weight:500;line-height:1.02}
+.p-brand em{font-style:italic;color:var(--accent-soft)}
+.p-kicker{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent-soft);font-weight:600;margin-bottom:1rem}
+.p-tag{color:var(--panel-soft);margin-top:1.2rem;max-width:32ch;font-size:1.02rem}
+.p-nav{display:flex;flex-direction:column;gap:.6rem;margin:2rem 0}
+.p-nav a{font-family:var(--serif);font-size:1.5rem;color:var(--panel-ink);opacity:.75;transition:.2s;width:fit-content}
+.p-nav a:hover{opacity:1;color:var(--accent-soft);padding-left:.4rem}
+.p-contact{border-top:1px solid var(--line-d);padding-top:1.4rem;display:flex;flex-direction:column;gap:.5rem;font-size:.95rem;color:var(--panel-soft)}
+.p-contact .phone{font-family:var(--serif);font-size:1.6rem;color:var(--panel-ink)}
+.p-contact .phone:hover{color:var(--accent-soft)}
+/* right content */
+.content{grid-column:2;padding:0}
+.blk{padding:clamp(2.2rem,5vw,5rem) clamp(1.6rem,4vw,4rem)}
+.hero-img{height:clamp(340px,52vh,560px);position:relative;overflow:hidden}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.hero-img figcaption{position:absolute;left:clamp(1.6rem,4vw,4rem);bottom:1.5rem;color:#fff;font-family:var(--serif);font-style:italic;font-size:1.2rem;text-shadow:0 2px 20px rgba(0,0,0,.6)}
+.eyebrow{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.blk h2{font-size:clamp(1.9rem,3.6vw,2.8rem);margin:.6rem 0 1.6rem}
+/* services stacked large */
+.svc{border-top:1px solid var(--line);padding:1.5rem 0;display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:baseline;transition:.25s}
+.svc:hover{padding-left:.6rem}
+.svc .n{font-family:var(--serif);color:var(--accent);font-size:1.1rem}
+.svc h3{font-size:clamp(1.3rem,2.4vw,1.8rem);font-weight:500}
+.svc p{color:var(--ink-soft);margin-top:.3rem;font-size:.97rem}
+/* gallery 2-col */
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gal figure{overflow:hidden;border-radius:4px;position:relative;aspect-ratio:4/5}
+.gal figure:first-child{grid-column:1/-1;aspect-ratio:16/9}
+.gal img{width:100%;height:100%;object-fit:cover;transition:.6s}
+.gal figure:hover img{transform:scale(1.05)}
+.gal figcaption{position:absolute;left:14px;bottom:12px;color:#fff;font-family:var(--serif);font-style:italic;text-shadow:0 2px 16px rgba(0,0,0,.6)}
+.blk.tint{background:var(--surface);border-top:1px solid var(--line)}
+.story p{color:var(--ink-soft);margin-bottom:1rem;max-width:60ch}
+.story .sign{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--accent);margin-top:1rem}
+.cta-blk{background:var(--panel);color:var(--panel-ink)}
+.cta-blk h2{color:var(--panel-ink)}
+.cta-blk p{color:var(--panel-soft);margin-bottom:1.6rem;max-width:44ch}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:.95rem 1.8rem;border-radius:3px;background:var(--accent);color:#fff;transition:.2s}
+.btn:hover{background:var(--accent-soft)}
+.foot{color:var(--ink-soft);font-size:.82rem;border-top:1px solid var(--line)}
+/* mobile: panel becomes top header, single column */
+.callbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:.6rem;padding:.7rem 1rem;background:var(--panel);border-top:1px solid var(--line-d)}
+.callbar a{flex:1;text-align:center;padding:.85rem;border-radius:3px;font-weight:600;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em}
+.callbar .c1{background:var(--accent);color:#fff}.callbar .c2{border:1px solid var(--line-d);color:var(--panel-ink)}
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .panel{position:static;width:100%;height:auto;min-height:auto}
+  .panel::after{display:none}
+  .p-nav{flex-flow:row wrap;gap:1rem 1.4rem;margin:1.4rem 0}
+  .p-nav a{font-size:1.05rem}
+  .content{grid-column:1}
+  .gal figure:first-child{aspect-ratio:16/10}
+  .callbar{display:flex}body{padding-bottom:74px}
+}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="panel">
+    <div>
+      <div class="p-kicker">{{KICKER}}</div>
+      <div class="p-brand">{{NAME}}<em>.</em></div>
+      <p class="p-tag">{{TAGLINE}}</p>
+    </div>
+    <nav class="p-nav">
+      <a href="#work">Έργα</a>
+      <a href="#services">Υπηρεσίες</a>
+      <a href="#story">Ποιοι είμαστε</a>
+      <a href="#contact">Επικοινωνία</a>
+    </nav>
+    <div class="p-contact">
+      <a href="tel:+{{PHONE_INTL}}" class="phone">📞 {{PHONE}}</a>
+      <span>{{AREAS}}</span>
+      <span>{{HOURS}}</span>
+    </div>
+  </aside>
+
+  <main class="content" id="top">
+    <figure class="hero-img">
+      <img src="{{HERO_IMAGE}}" alt="{{NAME}} — {{TRADE}}">
+      <figcaption>{{TRADE}} — {{CITY}}</figcaption>
+    </figure>
+
+    <section class="blk" id="services">
+      <span class="eyebrow">Υπηρεσίες</span>
+      <h2>Τι κάνουμε.</h2>
+      <!--#services--><a class="svc rv" href="tel:+{{PHONE_INTL}}"><span class="n">{{num}}</span><div><h3>{{title}}</h3><p>{{desc}}</p></div></a><!--/services-->
+    </section>
+
+    <section class="blk tint" id="work">
+      <span class="eyebrow">Έργα</span>
+      <h2>Επιλογή από τη δουλειά μας.</h2>
+      <div class="gal">
+        <!--#gallery--><figure class="rv"><img src="{{image}}" alt="{{title}}" loading="lazy"><figcaption>{{title}}</figcaption></figure><!--/gallery-->
+      </div>
+    </section>
+
+    <section class="blk story" id="story">
+      <span class="eyebrow">Ποιοι είμαστε</span>
+      <h2>{{STORY_TITLE}}</h2>
+      <!--#story--><p>{{p}}</p><!--/story-->
+      <div class="sign">— {{NAME}}</div>
+    </section>
+
+    <section class="blk cta-blk" id="contact">
+      <span class="eyebrow" style="color:var(--accent-soft)">Ας ξεκινήσουμε</span>
+      <h2>{{CTA_TITLE}}</h2>
+      <p>Δωρεάν εκτίμηση — {{AREAS}}.</p>
+      <a href="tel:+{{PHONE_INTL}}" class="btn">📞 Κάλεσε {{PHONE}}</a>
+    </section>
+
+    <div class="blk foot">© {{YEAR}} {{NAME}} — {{CITY}} · Site από Vitrina</div>
+  </main>
+</div>
+
+<div class="callbar"><a href="tel:+{{PHONE_INTL}}" class="c1">📞 Κάλεσε</a><a href="#contact" class="c2">Επικοινωνία</a></div>
+<script>
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.14});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

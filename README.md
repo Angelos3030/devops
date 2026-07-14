@@ -55,9 +55,24 @@
 - **Demo:** `python -m scripts.generate_client_site` → `web/clients/koutrakis-auto-choose.html`.
 - **DB migration:** τρέξε [db/add_site_variants.sql](db/add_site_variants.sql) στο Supabase.
 
+## 🚀 Multi-tenant React sites (Next.js) — `sites/`
+Τα sites των πελατών παράγονται πλέον από **ένα** Next.js app (multi-tenant): `domain → βρίσκει
+πελάτη → render React template + data του`. **0 build ανά πελάτη**, SSR/ISR για SEO.
+
+- **App:** [sites/](sites/) — Next 14 App Router. `/site/[client]` (dynamic, ISR) + `/` (demo switcher).
+- **Data:** API endpoint `GET /clients/{id}/site-data` → normalized JSON (name, services[], gallery[]…).
+- **Templates:** **δομικά διαφορετικά** React archetypes (όχι recolors):
+  `Editorial` (stacked), `Split` (fixed sidebar), `Showcase` (full-bleed gallery-forward) —
+  [sites/lib/templates/](sites/lib/templates/). Στόχος: 10-15 distinct.
+- **Τοπικά:** `cd sites && npm install && npm run dev` → http://localhost:3000
+- **Deploy:** Cloudflare Pages/Vercel· domain → client mapping μέσω middleware (επόμενο βήμα).
+
+> Σημ.: ο παλιός static HTML engine ([premium_generator.py](src/premium_generator.py), 7 templates)
+> παραμένει για preview/fallback· η κύρια κατεύθυνση είναι πλέον React (owner decision 2026-07-10).
+
 ## Status
 🟢 **Validation ΟΛΟΚΛΗΡΩΘΗΚΕ** (3 μαγαζιά είπαν ναι) → υλοποίηση σε εξέλιξη (Φάση 1).
-🟢 **Design engine έτοιμο** (2026-07-09): 3 premium layouts + auto-generation + approve flow.
+🟢 **React sites (Next.js) end-to-end** (2026-07-10): 3 distinct templates + site-data API + build OK.
 
 ## Επόμενο βήμα
 Ακολούθησε το **[docs/09-MASTER-PLAN.md](docs/09-MASTER-PLAN.md)** — το πλήρες βήμα-βήμα πλάνο.

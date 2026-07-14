@@ -182,6 +182,29 @@ def _deploy_selected_bg(client_id: str, layout: str) -> None:
         print(f"[deploy] deploy skipped/failed for {client_id}: {e}")
 
 
+def _intake_from_db(client_id: str) -> dict:
+    """Ανακατασκευάζει intake από το client record + assets (για Next.js render)."""
+    c = db.get_client(client_id) or {}
+    intake = {
+        "name": c.get("name"), "type": c.get("business_type"),
+        "city": c.get("city"), "phone": c.get("phone"), "email": c.get("email"),
+        "tagline": c.get("style") or "",
+    }
+    return _enrich_intake(client_id, intake)
+
+
+@app.get("/clients/{client_id}/site-data")
+def site_data(client_id: str, layout: str = ""):
+    """Δομημένα data του site (JSON) για το Next.js multi-tenant render.
+    Επιστρέφει normalized context (name, services[], gallery[], story[]...) + layout."""
+    from . import premium_generator as pg
+    intake = _intake_from_db(client_id)
+    ctx = pg.normalize(intake)
+    chosen = layout if layout in pg.LAYOUTS else (db.get_selected_design(client_id) or ctx["_recommended"])
+    data = {k: v for k, v in ctx.items() if not k.startswith("_")}
+    return {"layout": chosen, "layouts": list(pg.LAYOUTS), "data": data}
+
+
 @app.get("/clients/lookup")
 def lookup_clients(email: str):
     """Βρίσκει τους πελάτες ενός email (dashboard login → client records).

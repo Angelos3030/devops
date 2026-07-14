@@ -158,6 +158,12 @@ def get_selected_design(client_id: str) -> str | None:
     return (res.data[0]["preset"] if res.data else None)
 
 
+def get_client(client_id: str) -> dict | None:
+    """Ένα client record (για site-data reconstruction στο Next.js render)."""
+    res = (_client().table("clients").select("*").eq("id", client_id).limit(1).execute())
+    return res.data[0] if res.data else None
+
+
 def get_clients_by_email(email: str) -> list[dict]:
     """Οι πελάτες που ανήκουν σε ένα email (σύνδεση dashboard login → client record)."""
     res = (_client().table("clients")

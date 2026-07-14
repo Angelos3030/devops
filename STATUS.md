@@ -4,6 +4,15 @@
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
 **Τελευταία ενημέρωση:** 2026-07-10
+**🚀 PIVOT σε React sites (2026-07-10):** Owner decision — τα generated sites γίνονται **React/Next**
+   (όχι static HTML) γιατί τα HTML templates «έμοιαζαν ίδια με άλλα χρώματα». Νέο `sites/` = Next.js 14
+   multi-tenant app: `GET /clients/{id}/site-data` (normalized JSON, στο `meta_oauth.py` + `db.get_client`
+   + `_intake_from_db`) → `/site/[client]` dynamic route (ISR/SEO) renders React template. **3 δομικά
+   ΔΙΑΦΟΡΕΤΙΚΑ archetypes** (όχι recolors): `Editorial` (stacked), `Split` (fixed sidebar), `Showcase`
+   (full-bleed gallery-forward) στο `sites/lib/templates/`. Demo switcher στο `/`. `npm run build` OK
+   (next 14.2.35 patched). Τοπικά: `cd sites && npm run dev` → :3000. ΣΤΟΧΟΣ: 10-15 distinct templates.
+   Επόμενο: domain→client middleware, port περισσότερων archetypes, deploy (Cloudflare/Vercel).
+   Ο static engine (7 HTML templates) μένει ως preview/fallback.
 **Φάση:** Design Engine + onboarding + approve + Railway deploy (Online) + React dashboard (login).
 Επόμενο: enable Google provider στο Supabase Auth, `dashboard/.env`, deploy dashboard σε
 `app.getvitrina.gr`. (Optional: valid `ANTHROPIC_API_KEY` για AI copy.)
