@@ -3,15 +3,82 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
-**Τελευταία ενημέρωση:** 2026-06-08 (session 5)
-**Φάση:** Meta App Review audit ολοκληρώθηκε — page selection flow υλοποιήθηκε.
-Επόμενο: γέμισε test credentials στο `legal/meta-review-submission.md`, γύρισε screencast, submit.
+**Τελευταία ενημέρωση:** 2026-07-10
+**Φάση:** Design Engine + onboarding + approve + Railway deploy (Online) + React dashboard (login).
+Επόμενο: enable Google provider στο Supabase Auth, `dashboard/.env`, deploy dashboard σε
+`app.getvitrina.gr`. (Optional: valid `ANTHROPIC_API_KEY` για AI copy.)
+**🖥️ React Dashboard (2026-07-10):** ✅ Νέο `dashboard/` = Vite + React + Supabase Auth (Google login).
+   Owner decision: React ΜΟΝΟ για app layer (login + πίνακας πελάτη)· τα generated sites ΜΕΝΟΥΝ static.
+   Έμπνευση amboras.com (AI e-commerce, generative A/B). `Login.jsx` (Google) + `Dashboard.jsx`
+   (lookup πελάτη από email → N design options με preview iframes → «Επιλογή»/approve → deployed_url).
+   API: `GET /clients/lookup?email=` + `db.get_clients_by_email`. CORS +localhost:5173/app.getvitrina.gr.
+   `npm run build` OK. Setup: Supabase→Auth→Providers→Google, `dashboard/.env` (VITE_* publishable key),
+   `npm run dev`. Deploy: Cloudflare Pages (output `dist/`).
+**🚂 Railway (2026-07-10):** ✅ Service `devops` **Online** στο project `fulfilling-smile`, 11 env vars set
+   (CF/Meta/Stripe/Supabase). Μένει: public URL test + custom domain `api.getvitrina.gr` + payment method
+   (trial credit low). `main.py` σερβίρει όλα τα endpoints (22 routes).
+**🎨 Design engine — variants σε `sites` table (2026-07-10):** τα 3 designs αποθηκεύονται στον ΥΠΑΡΧΟΝΤΑ
+   `sites` (preset=layout, url='preview'/'selected') → ΔΕΝ χρειάζεται migration/DDL/DB-password.
+   `web/preview.html` = hosted magic-link approve page. Deploy-on-approve (wrangler, χρειάζεται setup στο
+   Railway). Tests: offline 47/47 + live Supabase 7/7 + boot 22 routes. Supabase project ήταν paused → Resume.
+**🎨 Vitrina Design Engine v2 (2026-07-09):** ✅ Template-based generator — 3 approved
+   premium layouts (`studio`/editorial, `commerce`/conversion+κριτικές, `atelier`/minimal)
+   στο `skills/vitrina-design-system/templates/`. Πυρήνας: `src/premium_generator.py`
+   (templating engine `{{VAR}}` + loops, intake normalizer, per-profession copy defaults,
+   `recommend_layout()`, `build_gallery_page()` → 3 sites + σελίδα «Approve»).
+   Design DNA από το `awesome-design-html` skill (MIT) + top references (Lindauer/Austin
+   Joinery). 0 tokens, χωρίς API key. Απόφαση owner: templates > AI-per-site (φθηνό/γρήγορο/
+   πάντα ωραίο). ΟΧΙ React — static HTML (mass deploy Cloudflare Pages). Ένα 4ο «cinematic/
+   μαύρο» layout απορρίφθηκε.
+   **Onboarding (#2):** `_build_site_bg` στο `src/meta_oauth.py` παράγει πλέον τα 3 designs
+   ντετερμινιστικά (αντί για blocked AI agents), μαζεύοντας uploaded φωτο/υπηρεσίες μέσω
+   `_enrich_intake`. **Approve (#3):** νέα endpoints `GET /clients/{id}/designs`,
+   `GET /clients/{id}/preview/{layout}`, `POST /clients/{id}/select-design`. DB helpers στο
+   `src/db.py` (`save_site_variant`/`set_selected_design`) + migration `db/add_site_variants.sql`
+   (πίνακας `site_variants` + `selected_layout` στον `clients`, RLS on — **ΤΡΕΞΕ ΤΟ ΣΤΟ SUPABASE**).
+   **AI copy (#1, hook έτοιμο):** `src/site_copy.py` γράφει ελληνικό κείμενο ανά πελάτη με
+   Haiku μόλις μπει valid key· τώρα no-op fallback (πιάνει το 401, γυρνά σε defaults).
+   **Demo/proof:** `python -m scripts.generate_client_site` → `web/clients/koutrakis-auto/` +
+   `koutrakis-auto-choose.html`. Επαληθεύτηκε καθαρό (0 placeholders) και σε ταβέρνα/οδοντίατρο/
+   κομμωτήριο χωρίς φωτο (fallback hero + σωστό copy ανά επάγγελμα).
+   **Preview + deploy-on-approve (2026-07-10):** `web/preview.html` = hosted magic-link σελίδα
+   (`?client=<id>&api=<url>`) που δείχνει τα 3 designs (iframes στο `/preview/{layout}`), Approve →
+   `POST /select-design` → background **auto-deploy** του επιλεγμένου σε Cloudflare Pages
+   (`_deploy_selected_bg` στο `meta_oauth.py`, μέσω `deploy.deploy_site` = wrangler). Το `/designs`
+   επιστρέφει τώρα και `deployed_url`· η preview.html κάνει poll μέχρι να ανέβει και δείχνει το live link.
+   `db.get_live_site()` προστέθηκε. **Tests:** offline 47/47 + live 7/7 (Supabase) + boot test (21 routes)
+   όλα πράσινα 2026-07-10.
+**Domain checkout automation:** ✅ Προστέθηκε one-time Stripe Checkout για domain `.gr`
+   στα 24€/έτος. Frontend: `connect.html` → `/domain/create-checkout`.
+   Backend: `src/main.py` δημιουργεί Checkout Session με metadata `kind=domain_purchase`.
+   Webhook: `src/stripe_webhook.py` στο `checkout.session.completed` γράφει `paid`.
+   Αν `DOMAIN_REGISTRAR=papaki`, τρέχει `buy_and_setup()` μέσω `src/registrars.py`
+   Papaki adapter και μετά Cloudflare DNS setup. Χρειάζονται Papaki reseller credentials:
+   `PAPAKI_API_BASE`, `PAPAKI_API_KEY`, `PAPAKI_RESELLER_ID`, `PAPAKI_CONTACT_ID`.
+   Το παλιό public GitHub link για GoldResellers JSON API φαίνεται 404, άρα πριν live
+   purchase πρέπει να επιβεβαιωθούν official endpoint paths/payloads από Papaki.
+   Direct `/domain/purchase` έγινε internal/admin και θέλει `DOMAIN_ADMIN_TOKEN`.
+   DB migrations applied στο Supabase: `db/add_domains.sql` + `db/add_domain_orders.sql`
+   (`domains`, `domain_orders`, και τα δύο με RLS enabled). Full reference και στο `db/schema.sql`.
+   Διαβάστε πρώτα `docs/14-DOMAIN-AUTOMATION.md` πριν αλλάξετε domain code.
+**First real prospect demo:** ✅ Κώστας Κουτράκης — domain αγοράστηκε:
+   `koutrakiskouzines.gr`. Site canonical/og/json-ld ενημερώθηκαν στα local previews.
+   Primary demo route: `web/clients/koutrakis-xylourgos/editorial.html`.
+**External design skills decision:** ✅ Μην εισάγετε React/Next/Tailwind GitHub skills
+   wholesale στο Vitrina pipeline. Παίρνουμε μόνο patterns/rules και τα γράφουμε στα
+   δικά μας static HTML skills. Διαβάστε:
+   `skills/vitrina-design-system/references/external-skill-ingestion.md`.
+**Spec-first design workflow:** ✅ Το reusable κομμάτι από web-design είναι πλέον
+   `skills/vitrina-design-system/references/design-spec.md`: 9-section spec,
+   responsive breakpoints, accessibility checklist και pre-preview quality audit.
+   Κάθε agent που φτιάχνει/βελτιώνει site πρέπει να γράφει spec πριν το HTML.
 **Domain:** ✅ **getvitrina.gr αγοράστηκε** — μπήκε σε meta_oauth.py (redirect_uri),
    privacy-policy.md (email/brand), index.html footer (hello@getvitrina.gr).
 **Supabase:** ✅ Project `vitrina` δημιουργήθηκε (`rmhgkwscchyjzjkxezuf`, EU `eu-central-1`),
    `db/schema.sql` εφαρμόστηκε ως migration `initial_vitrina_schema`, `.env` έχει
-   `SUPABASE_URL` + publishable key. ⚠️ RLS disabled σε 6 public tables μέχρι να μπει
-   server-only service_role key ή policies.
+   `SUPABASE_URL` + publishable key. ✅ Domain tables applied: `domains`, `domain_orders`
+   με RLS enabled. ⚠️ Supabase advisor έδειξε RLS disabled σε 7 παλιούς public tables,
+   άρα θέλει ξεχωριστό security/policies pass πριν production.
 **Cloudflare Pages:** ✅ Project `vitrina` δημιουργήθηκε και έγινε deploy του `web/`.
    Latest live preview: `https://15007041.vitrina-7uq.pages.dev`. Custom domains:
    ✅ `https://getvitrina.gr` live/SSL OK, ✅ `https://getvitrina.gr/privacy.html` 200,
@@ -51,6 +118,19 @@
    στο Supabase και καθαρίστηκε, Stripe Checkout URL OK. ⚠️ AI/skills site generation
    ΔΕΝ μπορεί να δοκιμαστεί ακόμα: `ANTHROPIC_API_KEY` γυρίζει `401 invalid x-api-key`,
    και `upload_skills.py` γυρίζει Anthropic beta `404 Not found`.
+**Vitrina Design Engine:** ✅ 2026-06-12: προστέθηκε project skill
+   `skills/vitrina-design-system/`, route-based local generator (`premium`, `warm`,
+   `minimal`) και preview gallery. Local URLs: `/preview-gallery.html`,
+   `/previews/taverna-premium.html`, `/previews/taverna-warm.html`,
+   `/previews/taverna-minimal.html`. Smoke/validation OK.
+**First real prospect demo:** ✅ 2026-06-12: Κώστας Κουτράκης, ξυλουργός/μαραγκός.
+   Δημιουργήθηκαν local previews:
+   `/clients/koutrakis-xylourgos.html`,
+   `/clients/koutrakis-xylourgos/premium.html`,
+   `/clients/koutrakis-xylourgos/warm.html`,
+   `/clients/koutrakis-xylourgos/minimal.html`.
+   Εκκρεμούν από πελάτη: πραγματικό τηλέφωνο, πόλη/περιοχή, φωτογραφίες δουλειών,
+   domain επιλογή. Facebook/Instagram μένει για αργότερα.
 **Parallel agent split:** 🔀 2026-06-12: sub-agent `Mencius`
    (`019ebb8d-e18c-7ba3-803d-77eb74e4196a`) ανέλαβε fallback local site generator.
    Owner files: `src/local_site_generator.py`, `scripts/smoke_local_site.py`,
@@ -106,6 +186,10 @@
 ## 🚦 COORDINATION LOCKS — για παράλληλους agents
 
 **ΜΗΝ ΞΑΝΑΚΑΝΕΤΕ / ΜΗΝ ΠΕΙΡΑΞΕΤΕ χωρίς λόγο:**
+- [x] **Premium Design Engine** (`src/premium_generator.py`, 3 templates στο
+      `skills/vitrina-design-system/templates/`, `src/site_copy.py`, endpoints designs/
+      preview/select-design, `db/add_site_variants.sql`). Owner: session 2026-07-09.
+      Τα 3 layouts είναι approved — μην τα ξανασχεδιάσετε. Το «cinematic/μαύρο» απορρίφθηκε.
 - [x] Supabase project creation + schema migration (`vitrina`, `initial_vitrina_schema`).
 - [x] Cloudflare Pages project creation + landing deploy (`vitrina`, `web/`).
 - [x] Pages custom domains add (`getvitrina.gr`, `www.getvitrina.gr`).
@@ -114,6 +198,7 @@
 - [x] New skills: `facebook-ads-gr`, `conversion-copy-gr`; μην τα ξαναδημιουργήσετε.
 - [x] Client assets intake table/API (`client_assets`, `/clients/{id}/assets`).
 - [x] Stripe test secret/prices/webhook setup (`.env`, test mode).
+- [x] Supabase domain migrations applied (`domains`, `domain_orders`, RLS enabled).
 - [x] Meta review hardening legal pages + data deletion page + latest Pages deploy (`15007041`).
 - [x] GitHub repo initialized + pushed to `Angelos3030/devops` branch `main`.
 - [x] Railway upload crash fix: `python-multipart>=0.0.9` υπάρχει στο remote `requirements.txt`
@@ -129,7 +214,8 @@
 - [ ] **Railway backend deploy** — New Project → Deploy from GitHub. Μετά: βάλε subdomain `api.getvitrina.gr` → Railway URL.
 - [x] DNS: `getvitrina.gr` + `www.getvitrina.gr` → Cloudflare IPs επαληθεύτηκαν (`104.21.5.22`, `172.67.132.194`). SSL cert **Pending Validation** — αυτόματο, αναμένεται σε λίγη ώρα.
 - [ ] DNS: `api.getvitrina.gr` → Railway (λείπει ακόμα CNAME· χρειάζεται Railway public/custom-domain target).
-- [ ] Supabase: βάλε `service_role` key στο server `.env`; μετά enable RLS/policies.
+- [ ] Supabase: βάλε `service_role` key στο server `.env`; μετά κάνε RLS/policies pass
+      για τους 7 παλιούς public tables που έδειξε ο advisor.
 - [x] Stripe local `.env`: test `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_*`.
       Webhook URL: `https://api.getvitrina.gr/stripe/webhook`
 - [ ] Stripe/Railway: αντιγραφή των ίδιων env vars στο Railway και checkout/webhook test όταν
@@ -248,6 +334,12 @@
 ## 🔜 ΤΙ ΑΚΟΛΟΥΘΕΙ (επόμενα βήματα, με σειρά)
 
 ### 🔑 Χρειάζεται εσένα (secrets / εξωτερικά)
+0. [x] **Design engine live test** — ΠΕΡΑΣΕ (2026-07-10, 7/7 σε πραγματικό Supabase).
+      Τα 3 designs αποθηκεύονται στον ΥΠΑΡΧΟΝΤΑ πίνακα `sites` (preset=layout, url='preview'/
+      'selected') → **ΔΕΝ χρειάζεται migration/DDL/DB-password**. Το `db/add_site_variants.sql`
+      έμεινε optional (μόνο αν θες dedicated πίνακα αργότερα). Το project ήταν paused → έγινε Resume.
+0b.[ ] **Valid `ANTHROPIC_API_KEY`** — τώρα δίνει 401. Μόλις μπει, το `src/site_copy.py` γράφει
+      αυτόματα ελληνικό κείμενο ανά πελάτη (αλλιώς δουλεύει με per-profession defaults).
 1. [ ] **SSL cert** — αυτόματο, αναμένεται (Cloudflare Edge Certificates → Active)
 2. [ ] **Railway deploy** — New Project → Deploy from GitHub → βάλε env vars:
       `SUPABASE_URL`, `SUPABASE_KEY` (service_role), `STRIPE_SECRET_KEY`,
@@ -256,7 +348,8 @@
 3. [ ] **Railway Custom Domain** → `api.getvitrina.gr` → CNAME στο Cloudflare DNS
 4. [ ] **Supabase service_role key** → βάλε ως `SUPABASE_KEY` στο Railway/.env
       → Τρέξε `db/rls_policies.sql` στο SQL Editor
-5. [ ] **Supabase migration: domains table** → τρέξε `CREATE TABLE domains` από `db/schema.sql`
+5. [x] **Supabase domain migrations** → applied `db/add_domains.sql` +
+      `db/add_domain_orders.sql` στο project `rmhgkwscchyjzjkxezuf`.
 6. [ ] **Meta App ID/Secret** → βάλε `META_APP_ID`, `META_APP_SECRET` + Valid OAuth Redirect URI:
       `https://api.getvitrina.gr/connect/callback`
 7. [ ] **Stripe env sync** → copy test keys στο Railway, test checkout + webhook όταν ανέβει API
@@ -299,7 +392,7 @@
 - [ ] **schema.sql migration** — αν έχεις ήδη `social_accounts` με `vault_id`, τρέξε τα
       ALTER TABLE comments στο db/schema.sql.
 - [ ] **page_token encryption** — για production, κρυπτογράφησε πριν αποθήκευση (pgcrypto).
-- [ ] **Supabase RLS/security** — advisors δείχνουν `rls_disabled_in_public` σε 6 πίνακες.
+- [ ] **Supabase RLS/security** — advisors δείχνουν `rls_disabled_in_public` σε 7 παλιούς public πίνακες.
       Για production: βάλε `service_role` στο server `.env`, enable RLS, και φτιάξε policies
       πριν εκτεθεί οτιδήποτε σε δημόσιο frontend.
 - [ ] **Growth/Facebook Ads implementation** — ΜΗΝ ξεκινήσει πριν το core MVP.

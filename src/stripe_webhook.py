@@ -10,7 +10,13 @@ Production:  το router περιλαμβάνεται στο src/main.py (ένα
 import stripe
 from fastapi import APIRouter, FastAPI, Request, HTTPException
 from . import config as cfg
-from .db import get_client_by_stripe, set_client_status, upsert_subscription
+from .db import (
+    get_client_by_stripe,
+    get_domain_order_by_session,
+    set_client_status,
+    update_domain_order_status,
+    upsert_subscription,
+)
 
 stripe.api_key = cfg.STRIPE_SECRET_KEY
 
@@ -59,6 +65,41 @@ async def webhook(request: Request):
         row = get_client_by_stripe(obj["customer"])
         if row:
             set_client_status(row["client_id"], "cancelled")
+
+    elif t == "checkout.session.completed":
+        metadata = obj.get("metadata", {}) or {}
+        if metadata.get("kind") == "domain_purchase":
+            session_id = obj["id"]
+            order = get_domain_order_by_session(session_id)
+            if not order or order.get("status") == "active":
+                return {"ok": True}
+
+            client_id = metadata.get("client_id") or order.get("client_id")
+            domain = metadata.get("domain") or order.get("domain")
+            pages_subdomain = metadata.get("pages_subdomain") or "vitrina-7uq.pages.dev"
+            railway_url = metadata.get("railway_url") or "greek-smb-agent-production.up.railway.app"
+
+            if not client_id or not domain:
+                update_domain_order_status(session_id, "failed", "missing client_id/domain metadata")
+                return {"ok": True}
+
+            update_domain_order_status(session_id, "paid")
+            try:
+                if cfg.DOMAIN_REGISTRAR == "manual":
+                    print(f"[domain] paid order requires manual registrar fulfillment: {domain}")
+                    return {"ok": True}
+                if cfg.DOMAIN_REGISTRAR != "papaki":
+                    raise RuntimeError(f"Unsupported DOMAIN_REGISTRAR: {cfg.DOMAIN_REGISTRAR}")
+                from .domain import buy_and_setup
+                buy_and_setup(
+                    domain,
+                    client_id,
+                    pages_subdomain=pages_subdomain,
+                    railway_url=railway_url,
+                )
+                update_domain_order_status(session_id, "active")
+            except Exception as e:
+                update_domain_order_status(session_id, "failed", str(e))
 
     return {"ok": True}
 

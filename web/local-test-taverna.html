@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ταβέρνα Η Γωνιά — Σύγχρονη Ταβέρνα στην Θεσσαλονίκη</title>
+  <meta name="description" content="Ταβέρνα Η Γωνιά — Παραδοσιακές γεύσεις με φιλική ατμόσφαιρα στην Θεσσαλονίκη. Κρατήσεις, μενού και στοιχεία επικοινωνίας.">
+  <style>
+    :root {
+      --primary: #18231f;
+      --accent: #e86f2a;
+      --bg: #f7f1e8;
+      --ink: #151515;
+      --muted: #626866;
+      --line: rgba(21,21,21,.12);
+      --panel: #fffaf2;
+      --sage: #7f9885;
+      --wine: #8e2f2d;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(247,241,232,.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      flex: none;
+    }
+    .brand span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: .94rem;
+      font-weight: 750;
+    }
+    .nav-cta, .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      border-radius: 8px;
+      padding: 0 18px;
+      font-weight: 850;
+      transition: transform .16s ease, background .16s ease, border-color .16s ease;
+    }
+    .nav-cta, .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,.22);
+      color: #fff;
+    }
+    .nav-cta:hover, .btn:hover { transform: translateY(-1px); }
+
+    .hero {
+      background:
+        linear-gradient(90deg, rgba(24,35,31,.96) 0%, rgba(24,35,31,.9) 44%, rgba(24,35,31,.2) 100%),
+        url("https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1800&q=80");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 34px;
+      align-items: end;
+      padding: 88px 0 72px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.26);
+      border-radius: 999px;
+      padding: 8px 13px;
+      color: rgba(255,255,255,.88);
+      font-size: .86rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: rgba(255,255,255,.08);
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.3rem, 7vw, 6.9rem);
+      line-height: .94;
+      max-width: 820px;
+      letter-spacing: 0;
+      color: #fff;
+      font-weight: 900;
+    }
+    .hero-copy {
+      margin-top: 24px;
+      max-width: 610px;
+      font-size: clamp(1.08rem, 1.8vw, 1.34rem);
+      color: rgba(255,255,255,.84);
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+    .hero-panel {
+      background: rgba(255,250,242,.95);
+      color: var(--ink);
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.28);
+    }
+    .hero-panel strong {
+      display: block;
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--wine);
+      margin-bottom: 10px;
+    }
+    .hero-panel p { color: var(--muted); }
+    .hero-panel .phone {
+      display: block;
+      color: var(--ink);
+      font-weight: 900;
+      font-size: 1.45rem;
+      margin: 12px 0;
+    }
+    .quick-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .quick-info div {
+      background: var(--panel);
+      padding: 22px;
+    }
+    .quick-info span {
+      display: block;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+    }
+    .quick-info strong { font-size: 1rem; }
+    section { padding: 88px 0; }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.1rem, 4vw, 4rem);
+      line-height: 1;
+      letter-spacing: 0;
+      color: var(--primary);
+      max-width: 620px;
+    }
+    .section-head p {
+      color: var(--muted);
+      max-width: 390px;
+      font-size: 1rem;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .dish {
+      min-height: 185px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .dish::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      top: 0;
+      height: 4px;
+      background: var(--accent);
+    }
+    .dish .price {
+      align-self: flex-start;
+      background: rgba(232,111,42,.12);
+      color: var(--wine);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+    .dish-name {
+      font-family: var(--font-display);
+      color: var(--primary);
+      font-size: 1.45rem;
+      line-height: 1.12;
+      font-weight: 900;
+    }
+    .story {
+      background: #fff;
+    }
+    .story-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 34px;
+      align-items: center;
+    }
+    .photo-stack {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .photo {
+      min-height: 260px;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+    }
+    .photo:first-child {
+      background-image: url("https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80");
+      transform: translateY(28px);
+    }
+    .photo:last-child {
+      background-image: url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80");
+    }
+    .story-copy h2 {
+      font-family: var(--font-display);
+      color: var(--primary);
+      font-size: clamp(2.2rem, 4vw, 4.2rem);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .story-copy p {
+      color: var(--muted);
+      font-size: 1.07rem;
+      max-width: 560px;
+      margin-bottom: 18px;
+    }
+    .proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .proof span {
+      border: 1px solid var(--line);
+      background: var(--bg);
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-weight: 800;
+      color: var(--primary);
+      font-size: .9rem;
+    }
+    .info-section {
+      background: var(--primary);
+      color: #fff;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .info-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 8px;
+      padding: 28px;
+    }
+    .info-card h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      line-height: 1;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+    .info-card p {
+      color: rgba(255,255,255,.78);
+      margin: 16px 0;
+    }
+    .info-card strong {
+      color: #fff;
+      display: block;
+      margin-bottom: 4px;
+    }
+    iframe {
+      width: 100%;
+      min-height: 420px;
+      border: 0;
+      border-radius: 8px;
+      filter: grayscale(.2) contrast(1.05);
+      background: #fff;
+    }
+    .final-cta {
+      background: var(--panel);
+      text-align: center;
+      padding: 76px 20px;
+      border-top: 1px solid var(--line);
+    }
+    .final-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.1rem, 4vw, 4.4rem);
+      line-height: 1;
+      color: var(--primary);
+      max-width: 820px;
+      margin: 0 auto 16px;
+    }
+    .final-cta p {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    footer {
+      background: #101612;
+      color: rgba(255,255,255,.72);
+      padding: 28px 0;
+      font-size: .94rem;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .phone-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      background: var(--accent);
+      color: #fff;
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      box-shadow: 0 15px 36px rgba(0,0,0,.22);
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero { min-height: auto; }
+      .hero-grid, .story-grid, .info-grid { grid-template-columns: 1fr; }
+      .hero-panel { max-width: 420px; }
+      .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .quick-info { grid-template-columns: 1fr; }
+      .photo:first-child { transform: none; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .nav { height: 64px; }
+      h1 { font-size: 3rem; }
+      .hero-grid { padding: 56px 0 46px; }
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 12px; }
+      .menu-grid { grid-template-columns: 1fr; }
+      section { padding: 64px 0; }
+      iframe { min-height: 310px; }
+      .phone-btn { left: 14px; right: 14px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <nav class="wrap nav" aria-label="Κύρια πλοήγηση">
+      <a class="brand" href="#top">
+        <span class="brand-mark">V</span>
+        <span>Ταβέρνα Η Γωνιά</span>
+      </a>
+      <div class="nav-links">
+        <a href="#menu">Μενού</a>
+        <a href="#story">Η εμπειρία</a>
+        <a href="#info">Πληροφορίες</a>
+      </div>
+      <a class="nav-cta" href="tel:2310000000">Κράτηση</a>
+    </nav>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Θεσσαλονίκη · Ελληνική κουζίνα</div>
+        <h1>Ταβέρνα Η Γωνιά</h1>
+        <p class="hero-copy">Παραδοσιακές γεύσεις με φιλική ατμόσφαιρα. Ένα μέρος για μεσημέρι, παρέα και βραδινό που θυμάσαι.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="tel:2310000000">Κλείσε τραπέζι</a>
+          <a class="btn btn-secondary" href="#menu">Δες το μενού</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <strong>Σήμερα</strong>
+        <p>Ανοιχτά για κρατήσεις και παραγγελίες ημέρας.</p>
+        <a class="phone" href="tel:2310000000">2310000000</a>
+        <p>Τσιμισκή 10, Θεσσαλονίκη</p>
+      </aside>
+    </div>
+  </header>
+
+  <div class="quick-info">
+    <div><span>Πού</span><strong>Τσιμισκή 10, Θεσσαλονίκη</strong></div>
+    <div><span>Πότε</span><strong>Δευτέρα-Σάββατο 09:00-21:00</strong></div>
+    <div><span>Κρατήσεις</span><strong>2310000000</strong></div>
+  </div>
+
+  <section id="menu">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Πιάτα που τραβάνε το βλέμμα.</h2>
+        <p>Ένα μικρό μενού-δείγμα για να φαίνεται αμέσως η ταυτότητα του μαγαζιού και να οδηγεί σε τηλεφώνημα.</p>
+      </div>
+      <div class="menu-grid">
+        <div class="dish"><span class="price">7.50€</span><div class="dish-name">Χωριάτικη σαλάτα</div></div>
+        <div class="dish"><span class="price">10.90€</span><div class="dish-name">Μπιφτέκια σχάρας</div></div>
+        <div class="dish"><span class="price">12.50€</span><div class="dish-name">Κοντοσούβλι χοιρινό</div></div>
+        <div class="dish"><span class="price">4.50€</span><div class="dish-name">Σπιτικό γλυκό ημέρας</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="story" id="story">
+    <div class="wrap story-grid">
+      <div class="photo-stack" aria-hidden="true">
+        <div class="photo"></div>
+        <div class="photo"></div>
+      </div>
+      <div class="story-copy">
+        <h2>Ζεστό, καθαρό, με χαρακτήρα.</h2>
+        <p>Το site δεν χρειάζεται να λέει πολλά. Χρειάζεται να δείχνει ότι το μαγαζί είναι ζωντανό, φροντισμένο και έτοιμο να δεχτεί πελάτη σήμερα.</p>
+        <p>Η Vitrina κρατά την πρώτη εντύπωση premium: δυνατή φωτογραφία, καθαρό μενού, άμεση κράτηση και mobile-first εμπειρία.</p>
+        <div class="proof">
+          <span>Κρατήσεις με ένα πάτημα</span>
+          <span>Mobile first</span>
+          <span>Local SEO ready</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section" id="info">
+    <div class="wrap info-grid">
+      <div class="info-card">
+        <h2>Έλα σήμερα.</h2>
+        <p><strong>Ωράριο</strong>Δευτέρα-Σάββατο 09:00-21:00</p>
+        <p><strong>Διεύθυνση</strong>Τσιμισκή 10, Θεσσαλονίκη</p>
+        <p><strong>Τηλέφωνο</strong><a href="tel:2310000000">2310000000</a></p>
+      </div>
+      <iframe loading="lazy" src="https://www.google.com/maps?q=%CE%A4%CF%83%CE%B9%CE%BC%CE%B9%CF%83%CE%BA%CE%AE+10%2C+%CE%98%CE%B5%CF%83%CF%83%CE%B1%CE%BB%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7&output=embed" title="Χάρτης για Ταβέρνα Η Γωνιά"></iframe>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <h2>Κράτα τραπέζι στο Ταβέρνα Η Γωνιά.</h2>
+    <p>Θεσσαλονίκη · Παραδοσιακές γεύσεις με φιλική ατμόσφαιρα</p>
+    <a class="btn btn-primary" href="tel:2310000000">Κάλεσε τώρα</a>
+  </section>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>© 2026 Ταβέρνα Η Γωνιά · Θεσσαλονίκη</span>
+      <span>Τσιμισκή 10, Θεσσαλονίκη</span>
+    </div>
+  </footer>
+  <a class="phone-btn" href="tel:2310000000">Κάλεσέ μας</a>
+</body>
+</html>

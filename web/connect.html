@@ -129,6 +129,9 @@
       <span class="step">Βήμα 2 — Διάλεξε domain για το site σου</span>
       <p style="margin:10px 0 4px;">Βρήκαμε διαθέσιμα .gr domains για το μαγαζί σου.
          Το site σου θα ανοίγει στο δικό σου web address.</p>
+      <p style="font-size:.9rem;opacity:.78;margin:0 0 10px;">
+        Domain .gr: <strong>24€/έτος</strong>. Πρώτα πληρώνεις με Stripe, μετά ξεκινά η αγορά και το DNS setup.
+      </p>
       <div id="domain-grid" class="domain-grid">
         <div class="domain-loading">Ψάχνουμε διαθέσιμα domains…</div>
       </div>
@@ -306,6 +309,16 @@
       if (step === "select_page" && cid) {
         currentClientId = cid;
         showPageSelectStep();
+      } else if (step === "domain_success" && cid) {
+        currentClientId = cid;
+        const domain = params.get("domain") || "το domain σου";
+        showDomainReturnMessage(`✅ Πληρώθηκε το ${domain}. Ξεκινά η αγορά/σύνδεση και συνεχίζεις με social.`);
+        showConnectStep();
+      } else if (step === "domain_cancel" && cid) {
+        currentClientId = cid;
+        const domain = params.get("domain") || "domain";
+        showDomainReturnMessage(`Η πληρωμή για ${domain} ακυρώθηκε. Μπορείς να συνεχίσεις χωρίς domain ή να το ξαναπροσπαθήσεις αργότερα.`);
+        showConnectStep();
       } else if (step === "pay" && cid) {
         // legacy / fallback
         currentClientId = cid;
@@ -386,7 +399,7 @@
              onclick="${r.available ? `selectDomain('${r.domain}', this)` : ''}">
           <div>
             <div class="domain-name">${r.domain}</div>
-            ${r.available && r.price ? `<div style="font-size:.82rem;opacity:.65;">~€${r.price}/χρόνο</div>` : ''}
+            ${r.available ? `<div class="domain-price">24€/έτος · αγορά & setup</div>` : ''}
           </div>
           <span class="domain-badge ${r.available ? 'badge-free' : 'badge-taken'}">
             ${r.available ? 'Διαθέσιμο' : 'Μη διαθέσιμο'}
@@ -396,16 +409,20 @@
     }
 
     async function selectDomain(domain, card) {
+      if (!confirm(`Να προχωρήσουμε σε πληρωμή 24€/έτος για το domain ${domain}; Μετά την πληρωμή ξεκινά η αγορά και το setup.`)) {
+        return;
+      }
       // Highlight
       document.querySelectorAll('.domain-card').forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
       selectedDomain = domain;
 
-      card.innerHTML = `<div class="domain-name">${domain}</div>
-                        <span style="font-size:.85rem;opacity:.7;">Αγοράζουμε…</span>`;
+      card.innerHTML = `<div><div class="domain-name">${domain}</div>
+                        <div class="domain-price">24€/έτος</div></div>
+                        <span style="font-size:.85rem;opacity:.7;">Άνοιγμα Stripe…</span>`;
 
       try {
-        await fetch(API + "/domain/purchase", {
+        const checkoutRes = await fetch(API + "/domain/create-checkout", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
@@ -413,21 +430,28 @@
             domain: domain,
           }),
         });
-        card.innerHTML = `<div class="domain-name">${domain}</div>
-                          <span class="domain-badge badge-free">✅ Αγοράστηκε!</span>`;
+        if (!checkoutRes.ok) throw new Error(await checkoutRes.text());
+        const { checkout_url } = await checkoutRes.json();
+        location.href = checkout_url;
       } catch(err) {
         console.error(err);
         card.innerHTML = `<div class="domain-name">${domain}</div>
-                          <span style="font-size:.82rem;color:#c0392b;">Σφάλμα — γράψε μας</span>`;
+                          <span style="font-size:.82rem;color:#c0392b;">Σφάλμα checkout — γράψε μας</span>`;
       }
-
-      // Προχώρα στο επόμενο βήμα μετά από 1.2s
-      setTimeout(showConnectStep, 1200);
     }
 
     function skipDomain() {
       selectedDomain = null;
       showConnectStep();
+    }
+
+    function showDomainReturnMessage(message) {
+      const step = document.getElementById("domain-step");
+      const grid = document.getElementById("domain-grid");
+      step.style.display = "block";
+      grid.innerHTML = `<div style="background:#eef5ff;border:1px solid #d6e0ea;border-radius:10px;padding:14px;font-weight:700;">${message}</div>`;
+      document.getElementById("skip-domain").style.display = "none";
+      step.scrollIntoView({behavior:"smooth"});
     }
 
     // --- Βήμα 3β: Επιλογή Σελίδας Facebook ---

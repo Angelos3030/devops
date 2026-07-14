@@ -57,6 +57,12 @@ STRIPE_PRICE_PREMIUM = os.environ.get("STRIPE_PRICE_PREMIUM", "")
 CF_API_TOKEN = os.environ.get("CF_API_TOKEN", "")
 CF_ACCOUNT_ID = os.environ.get("CF_ACCOUNT_ID", "")
 
-# --- Domain registration via Cloudflare Registrar ---
-# Δεν χρειάζεται ξεχωριστό API key — χρησιμοποιεί CF_API_TOKEN + CF_ACCOUNT_ID παραπάνω.
-# SSL: δωρεάν Universal SSL αυτόματα. Χωρίς Papaki, χωρίς certificate αγορά.
+# --- Domain registration ---
+# DOMAIN_REGISTRAR=manual keeps paid orders for manual fulfillment.
+# DOMAIN_REGISTRAR=papaki enables the Papaki adapter once reseller credentials/docs are available.
+DOMAIN_ADMIN_TOKEN = os.environ.get("DOMAIN_ADMIN_TOKEN", "")
+DOMAIN_REGISTRAR = os.environ.get("DOMAIN_REGISTRAR", "manual")  # manual | papaki
+PAPAKI_API_BASE = os.environ.get("PAPAKI_API_BASE", "")
+PAPAKI_API_KEY = os.environ.get("PAPAKI_API_KEY", "")
+PAPAKI_RESELLER_ID = os.environ.get("PAPAKI_RESELLER_ID", "")
+PAPAKI_CONTACT_ID = os.environ.get("PAPAKI_CONTACT_ID", "")

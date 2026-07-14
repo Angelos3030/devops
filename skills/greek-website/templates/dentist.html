@@ -3,8 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{NAME}} — Οδοντιατρείο {{CITY}}</title>
-  <meta name="description" content="{{NAME}} — οδοντιατρείο στην {{CITY}}. Κλείστε ραντεβού.">
+  <title>{{SEO_TITLE}}</title>
+  <meta name="description" content="{{SEO_DESCRIPTION}}">
+  <meta name="keywords" content="{{SEO_KEYWORDS}}">
+  <meta name="robots" content="index, follow">
+  {{CANONICAL_URL}}
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="el_GR">
+  <meta property="og:title" content="{{SEO_TITLE}}">
+  <meta property="og:description" content="{{SEO_DESCRIPTION}}">
+  <meta property="og:image" content="{{OG_IMAGE}}">
+  <meta property="og:url" content="{{URL}}">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "{{SCHEMA_TYPE|Dentist}}",
+    "name": "{{NAME}}",
+    "description": "{{SEO_DESCRIPTION}}",
+    "telephone": "{{PHONE}}",
+    "url": "{{URL}}",
+    "image": "{{OG_IMAGE}}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ADDRESS}}",
+      "addressLocality": "{{CITY}}",
+      "addressCountry": "GR"
+    },
+    "areaServed": {{AREA_SERVED_JSON}},
+    "openingHours": "{{HOURS|Δευτέρα-Παρασκευή 09:00-20:00}}",
+    "priceRange": "€€"
+  }
+  </script>
   <style>
     /* Οδοντιατρείο: ΟΧΙ "μενού" — υπηρεσίες + ραντεβού + χάρτης + τηλέφωνο (αυτονόητα) */
     :root {
@@ -48,7 +78,7 @@
 <body>
   <header class="hero">
     <div class="wrap">
-      <h1>{{NAME}}</h1>
+      <h1>{{SEO_H1}}</h1>
       <p>{{TAGLINE|Φροντίδα για το χαμόγελό σας}} · {{CITY}}</p>
       <a class="cta" href="#ραντεβου">Κλείστε Ραντεβού</a>
     </div>

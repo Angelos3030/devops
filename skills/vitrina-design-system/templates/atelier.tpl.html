@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAME}} — {{TRADE}} | {{CITY}}</title>
+<meta name="description" content="{{NAME}} — {{TAGLINE}} {{TRADE}} στην περιοχή {{CITY}}. Τηλ. {{PHONE}}.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf8f4;--paper-2:#f1ede5;--clay:#8a6d52;--sage:#6f7565;
+  --ink:#211f1b;--ink-soft:#5c5850;--ink-faint:#9a958a;
+  --line:rgba(33,31,27,.12);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1300px,calc(100% - 56px));margin-inline:auto}
+.narrow{width:min(920px,calc(100% - 56px));margin-inline:auto}
+.rv{opacity:0;transform:translateY(22px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05}
+.kicker{font-family:var(--sans);font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-faint);font-weight:500}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--sans);font-weight:500;font-size:.86rem;letter-spacing:.06em;text-transform:uppercase;padding:1rem 1.9rem;transition:.25s}
+.btn-fill{background:var(--ink);color:var(--paper)}.btn-fill:hover{background:var(--clay)}
+.btn-line{border:1px solid var(--ink);color:var(--ink)}.btn-line:hover{background:var(--ink);color:var(--paper)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:.35s;mix-blend-mode:difference}
+.nav.solid{mix-blend-mode:normal;background:rgba(250,248,244,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:84px}
+.logo{font-family:var(--serif);font-size:1.7rem;letter-spacing:.02em;color:#fff}
+.nav.solid .logo{color:var(--ink)}
+.nav-links{display:flex;gap:2.4rem;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:#fff}
+.nav.solid .nav-links{color:var(--ink-soft)}
+.nav-links a:hover{opacity:.6}
+.hero{position:relative;height:100svh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(20,16,12,.6),transparent 45%)}
+.hero-in{position:relative;z-index:1;color:var(--paper);padding-bottom:clamp(48px,7vw,84px)}
+.hero .kicker{color:rgba(250,248,244,.75)}
+.hero h1{font-size:clamp(3rem,8vw,6.5rem);font-weight:400;max-width:15ch;margin:1rem 0 0}
+.hero h1 em{font-style:italic;color:#f0e2d2}
+.intro{padding-block:clamp(80px,13vw,180px);text-align:center}
+.intro p{font-family:var(--serif);font-size:clamp(1.6rem,3.6vw,2.8rem);line-height:1.35;font-weight:400;color:var(--ink)}
+.services{border-top:1px solid var(--line);padding-block:clamp(60px,9vw,120px)}
+.srow{display:grid;grid-template-columns:.5fr 2fr 2fr;gap:2rem;padding:clamp(1.6rem,3vw,2.6rem) 0;border-bottom:1px solid var(--line);align-items:baseline}
+.srow .n{font-family:var(--serif);font-size:1.2rem;color:var(--clay)}
+.srow h3{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:400}
+.srow p{color:var(--ink-soft);font-size:1rem}
+.band{position:relative;height:clamp(420px,60vw,720px);overflow:hidden;margin-block:clamp(60px,8vw,110px)}
+.band img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.band:hover img{transform:scale(1.04)}
+.band-cap{position:absolute;left:clamp(24px,4vw,60px);bottom:clamp(24px,4vw,50px);color:var(--paper);max-width:24ch}
+.band-cap .kicker{color:rgba(250,248,244,.8)}
+.band-cap h3{font-size:clamp(1.8rem,4vw,3rem);font-weight:400;margin-top:.5rem}
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(14px,2vw,28px)}
+.gal figure{overflow:hidden}
+.gal figure img{aspect-ratio:3/4;object-fit:cover;width:100%;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.gal figure:hover img{transform:scale(1.05)}
+.gal figcaption{font-family:var(--serif);font-size:1.15rem;margin-top:.8rem;color:var(--ink)}
+.gal figcaption span{display:block;font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-top:.15rem}
+.story{background:var(--paper-2);padding-block:clamp(70px,10vw,140px)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,6rem);align-items:center}
+.story-grid img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.story-txt h2{font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:400;margin:1rem 0 1.4rem}
+.story-txt p{color:var(--ink-soft);margin-bottom:1.1rem}
+.sign{font-family:var(--serif);font-style:italic;font-size:1.7rem;color:var(--clay);margin-top:1.4rem}
+.cta{text-align:center;padding-block:clamp(80px,12vw,170px)}
+.cta h2{font-size:clamp(2.6rem,7vw,5.5rem);font-weight:400;line-height:1.05;margin-bottom:2.4rem}
+.cta h2 em{font-style:italic;color:var(--clay)}
+.cta .phone{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);display:inline-block;border-bottom:1px solid var(--ink);padding-bottom:.15rem;transition:.25s}
+.cta .phone:hover{color:var(--clay);border-color:var(--clay)}
+.cta .sub{margin-top:1.6rem;color:var(--ink-faint);font-size:.95rem}
+footer{border-top:1px solid var(--line);padding-block:3.5rem 2.5rem}
+.foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem}
+.foot-in .logo{color:var(--ink);font-size:2rem}
+.fcol h4{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.9rem}
+.fcol a,.fcol p{display:block;color:var(--ink-soft);font-size:.95rem;margin-bottom:.4rem}
+.fcol a:hover{color:var(--ink)}
+footer small{display:block;margin-top:2.8rem;color:var(--ink-faint);font-size:.8rem}
+.callbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:.6rem;padding:.7rem 1rem;background:rgba(250,248,244,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.callbar a{flex:1;justify-content:center}
+@media(max-width:820px){.srow{grid-template-columns:auto 1fr;gap:1rem}.srow p{grid-column:1/-1}.story-grid{grid-template-columns:1fr}.nav-links{display:none}.callbar{display:flex}body{padding-bottom:76px}}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav class="nav" id="nav"><div class="wrap nav-in">
+  <a href="#top" class="logo">{{NAME}}</a>
+  <div class="nav-links"><a href="#services">Υπηρεσίες</a><a href="#work">Έργα</a><a href="#story">Ποιοι είμαστε</a><a href="#contact">Επικοινωνία</a></div>
+  <a href="tel:+{{PHONE_INTL}}" class="nav-links" style="letter-spacing:.1em">{{PHONE}}</a>
+</div></nav>
+
+<header class="hero" id="top">
+  <img src="{{HERO_IMAGE}}" alt="{{NAME}} — {{TRADE}}">
+  <div class="wrap hero-in">
+    <span class="kicker">{{KICKER}}</span>
+    <h1>{{NAME}} <em>με {{HERO_WORD}}.</em></h1>
+  </div>
+</header>
+
+<section class="intro"><div class="narrow rv">
+  <p>{{INTRO}}</p>
+</div></section>
+
+<section class="services" id="services"><div class="wrap">
+  <span class="kicker rv">Υπηρεσίες</span>
+  <div style="margin-top:2.5rem">
+    <!--#services--><div class="srow rv"><span class="n">{{num}}</span><h3>{{title}}</h3><p>{{desc}}</p></div><!--/services-->
+  </div>
+</div></section>
+
+<section id="work"><div class="wrap">
+  <span class="kicker rv">Επιλεγμένα έργα</span>
+  <div class="gal" style="margin-top:2.5rem">
+    <!--#gallery--><figure class="rv"><img src="{{image}}" alt="{{title}}" loading="lazy"><figcaption>{{title}}<span>{{sub}}</span></figcaption></figure><!--/gallery-->
+  </div>
+</div></section>
+
+<section class="story" id="story"><div class="wrap story-grid">
+  <div class="rv"><img src="{{STORY_IMAGE}}" alt="{{NAME}} — εργαστήριο"></div>
+  <div class="story-txt rv">
+    <span class="kicker">Ποιοι είμαστε</span>
+    <h2>{{STORY_TITLE}}</h2>
+    <!--#story--><p>{{p}}</p><!--/story-->
+    <div class="sign">{{NAME}}</div>
+  </div>
+</div></section>
+
+<section class="cta" id="contact"><div class="narrow">
+  <span class="kicker rv">Ας ξεκινήσουμε</span>
+  <h2 class="rv" style="margin-top:1rem">{{CTA_TITLE}}</h2>
+  <a href="tel:+{{PHONE_INTL}}" class="phone rv">📞 {{PHONE}}</a>
+  <p class="sub rv">Δωρεάν εκτίμηση · {{AREAS}}</p>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="foot-in">
+    <div><a href="#top" class="logo">{{NAME}}</a><p style="margin-top:.6rem;max-width:26ch;color:var(--ink-soft)">{{TRADE}} · {{TAGLINE}}</p></div>
+    <div class="fcol"><h4>Επικοινωνία</h4><a href="tel:+{{PHONE_INTL}}">{{PHONE}}</a><a href="{{DOMAIN_URL}}">{{DOMAIN}}</a><p>{{HOURS}}</p></div>
+    <div class="fcol"><h4>Περιοχές</h4><p>{{AREAS}}</p></div>
+  </div>
+  <small>© {{YEAR}} {{NAME}} — {{CITY}} · Site από Vitrina</small>
+</div></footer>
+
+<div class="callbar"><a href="tel:+{{PHONE_INTL}}" class="btn btn-fill">📞 Κάλεσε</a><a href="#story" class="btn btn-line">Ποιοι είμαστε</a></div>
+<script>
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>60));
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

@@ -1,25 +1,15 @@
 """
-Domain search, availability check, and purchase via Cloudflare Registrar API.
-Χρησιμοποιεί τα ίδια CF_API_TOKEN + CF_ACCOUNT_ID που έχουμε ήδη.
+Domain suggestions, registrar integration, and Cloudflare DNS setup.
 
-Cloudflare Registrar:
-  - At-cost pricing (χωρίς markup, χωρίς certificate αγορά — SSL δωρεάν)
-  - Domain + DNS + SSL όλα σε ένα
-  - Docs: https://developers.cloudflare.com/registrar/
-  - API:  https://developers.cloudflare.com/api/resources/registrar/
-
-Endpoints που χρησιμοποιούμε:
-  GET  /accounts/{id}/registrar/domains/search?query=foo.gr   → availability
-  POST /accounts/{id}/registrar/domains                        → αγορά
-  GET  /accounts/{id}/registrar/domains                        → λίστα domains
-  POST /zones                                                   → zone (αν δεν δημιουργηθεί αυτόματα)
-  POST /zones/{id}/dns_records                                  → DNS records
+.gr purchase should go through a Greek registrar/reseller such as Papaki.
+Cloudflare remains our DNS/Pages layer after the domain is bought.
 """
 
 import re
 import unicodedata
 import requests
 from . import config as cfg
+from .registrars import get_registrar
 
 # ---------------------------------------------------------------------------
 # Greek → ASCII transliteration για domain slug
@@ -98,51 +88,20 @@ def _cf(method: str, path: str, **kwargs) -> dict:
     return data
 
 
-# ---------------------------------------------------------------------------
-# Domain availability check (Cloudflare Registrar)
-# ---------------------------------------------------------------------------
-
 def check_availability(slugs: list[str], tld: str = ".gr") -> list[dict]:
     """
-    Ελέγχει διαθεσιμότητα via Cloudflare Registrar search.
+    Ελέγχει διαθεσιμότητα μέσω του configured registrar adapter.
     Επιστρέφει: [{"domain": "foo.gr", "available": True, "price": 9.0}, ...]
     """
-    results = []
-    for slug in slugs:
-        domain = f"{slug}{tld}"
-        try:
-            data = _cf("GET", f"/accounts/{cfg.CF_ACCOUNT_ID}/registrar/domains/search",
-                       params={"query": domain, "per_page": 1})
-            items = data.get("result", [])
-            if items:
-                item = items[0]
-                results.append({
-                    "domain": domain,
-                    "available": item.get("available", False),
-                    "price": item.get("price"),
-                })
-            else:
-                results.append({"domain": domain, "available": False, "price": None})
-        except RuntimeError:
-            results.append({"domain": domain, "available": False, "price": None})
-    return results
-
-
-# ---------------------------------------------------------------------------
-# Domain purchase (Cloudflare Registrar)
-# ---------------------------------------------------------------------------
+    domains = [f"{slug}{tld}" for slug in slugs]
+    return get_registrar().check_availability(domains)
 
 def purchase_domain(domain: str, years: int = 1) -> dict:
     """
-    Αγοράζει domain μέσω Cloudflare Registrar.
-    SSL: δωρεάν Universal SSL — δεν χρειάζεται τίποτα άλλο.
-    Το domain προστίθεται αυτόματα ως Cloudflare zone.
-
-    Body: {name, years, type: "full"}
+    Αγοράζει domain μέσω configured registrar adapter.
+    Για .gr συνήθως DOMAIN_REGISTRAR=papaki.
     """
-    data = _cf("POST", f"/accounts/{cfg.CF_ACCOUNT_ID}/registrar/domains",
-               json={"name": domain, "years": years, "type": "full"})
-    return data.get("result", {})
+    return get_registrar().register_domain(domain, years=years)
 
 
 # ---------------------------------------------------------------------------
@@ -200,7 +159,7 @@ def buy_and_setup(domain: str, client_id: str,
                   pages_subdomain: str = "vitrina-7uq.pages.dev",
                   railway_url: str = "greek-smb-agent-production.up.railway.app") -> dict:
     """
-    1) Αγοράζει domain μέσω Cloudflare Registrar (SSL αυτόματο + δωρεάν)
+    1) Αγοράζει domain μέσω registrar adapter
     2) Βρίσκει/δημιουργεί Cloudflare zone
     3) Προσθέτει DNS: www → Pages, api → Railway
     4) Αποθηκεύει στη DB
@@ -210,7 +169,7 @@ def buy_and_setup(domain: str, client_id: str,
 
     # 1) Αγορά
     purchase_domain(domain)
-    print(f"✅ Αγοράστηκε: {domain} (SSL δωρεάν αυτόματα)")
+    print(f"✅ Αγοράστηκε: {domain}")
 
     # 2) Zone (δημιουργείται αυτόματα από το Registrar, απλώς το βρίσκουμε)
     zone_id = create_zone(domain)

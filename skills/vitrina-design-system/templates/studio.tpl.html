@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAME}} — {{TRADE}} | {{CITY}}</title>
+<meta name="description" content="{{NAME}} — {{TAGLINE}} {{TRADE}} στην περιοχή {{CITY}}. Τηλ. {{PHONE}}.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#f3eee6;--bone-2:#e9e2d6;--ink:#1c1815;--ink-soft:#4c453d;
+  --clay:#a9542f;--clay-deep:#823d1f;--line:rgba(28,24,21,.14);
+  --serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bone);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1240px,calc(100% - 48px));margin-inline:auto}
+::selection{background:var(--clay);color:var(--bone)}
+.rv{opacity:0;transform:translateY(28px);transition:.9s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.02;letter-spacing:-.02em}
+.mono{font-family:var(--sans);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--clay);font-weight:600}
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .3s,border-color .3s}
+.nav.scrolled{background:rgba(243,238,230,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:78px}
+.logo{font-family:var(--serif);font-size:1.5rem;letter-spacing:-.02em}
+.logo em{font-style:italic;color:var(--clay)}
+.nav-links{display:flex;gap:2.2rem;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.nav-links a{opacity:.75;transition:opacity .2s}.nav-links a:hover{opacity:1}
+.nav-call{border:1px solid var(--ink);border-radius:999px;padding:.5rem 1.1rem;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;transition:.2s}
+.nav-call:hover{background:var(--ink);color:var(--bone)}
+.hero{padding-top:120px;padding-bottom:clamp(40px,7vw,90px)}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(24px,4vw,44px)}
+.hero-head h1{font-size:clamp(2.6rem,7vw,6rem);letter-spacing:-.04em;max-width:16ch}
+.hero-head h1 .it{font-style:italic;font-weight:300;color:var(--clay)}
+.hero-intro{max-width:34ch;font-size:1.08rem;color:var(--ink-soft);padding-bottom:.6rem}
+.hero-intro .mono{display:block;margin-bottom:1rem}
+.hero-figure{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:16/9}
+.hero-figure img{width:100%;height:100%;object-fit:cover}
+.hero-figure figcaption{position:absolute;left:24px;bottom:20px;color:var(--bone);font-family:var(--serif);font-style:italic;font-size:1.15rem;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+.hero-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:1px}
+.hero-meta div{background:var(--bone);padding:1.2rem 1.4rem}
+.hero-meta b{font-family:var(--serif);font-size:1.5rem;display:block;line-height:1.05}
+.hero-meta span{font-size:.8rem;letter-spacing:.03em;color:var(--ink-soft);text-transform:uppercase}
+.marq{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:1rem 0}
+.marq-track{display:inline-flex;gap:3rem;animation:scroll 28s linear infinite}
+.marq-track span{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--ink-soft)}
+.marq-track span::after{content:"✦";margin-left:3rem;color:var(--clay);font-style:normal;font-size:1rem;vertical-align:middle}
+@keyframes scroll{to{transform:translateX(-50%)}}
+section{padding-block:clamp(70px,10vw,140px)}
+.label-row{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:clamp(30px,5vw,60px)}
+.label-row .mono{flex:none}
+.label-row h2{font-size:clamp(2rem,5vw,3.6rem);max-width:20ch}
+.idx{border-top:1px solid var(--line)}
+.idx-row{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(1rem,4vw,3rem);align-items:center;padding:clamp(1.4rem,3vw,2.2rem) 0;border-bottom:1px solid var(--line);transition:padding .3s}
+.idx-row:hover{padding-left:1.2rem}
+.idx-num{font-family:var(--serif);font-size:1.1rem;color:var(--clay)}
+.idx-main h3{font-size:clamp(1.4rem,3vw,2.1rem);font-weight:500}
+.idx-main p{color:var(--ink-soft);max-width:52ch;margin-top:.3rem;font-size:.98rem}
+.idx-arrow{font-size:1.5rem;color:var(--ink-soft);transition:transform .3s,color .3s}
+.idx-row:hover .idx-arrow{transform:translateX(6px) rotate(-45deg);color:var(--clay)}
+.work{background:var(--ink);color:var(--bone)}
+.work .mono{color:#e59a6f}.work .label-row h2{color:var(--bone)}
+.work-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(14px,2vw,26px);grid-auto-flow:dense}
+.wk{position:relative;overflow:hidden;border-radius:3px;grid-column:span 4;aspect-ratio:1}
+.wk:nth-child(5n+1){grid-column:span 8;aspect-ratio:16/10}
+.wk:nth-child(5n+2){grid-column:span 4;aspect-ratio:3/4}
+.wk img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.wk:hover img{transform:scale(1.05)}
+.wk figcaption{position:absolute;left:18px;bottom:16px;font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--bone);text-shadow:0 2px 16px rgba(0,0,0,.6)}
+.wk .num{position:absolute;top:16px;right:18px;font-size:.72rem;letter-spacing:.15em;color:rgba(243,238,230,.7)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,6rem);align-items:center}
+.story-fig{position:relative}
+.story-fig img{border-radius:3px;aspect-ratio:4/5;object-fit:cover;width:100%}
+.story-fig .badge{position:absolute;right:-18px;bottom:-18px;background:var(--clay);color:var(--bone);border-radius:50%;width:130px;height:130px;display:grid;place-items:center;text-align:center;font-family:var(--serif);font-style:italic;font-size:.95rem;line-height:1.2;padding:1rem;transform:rotate(-8deg)}
+.story-txt h2{font-size:clamp(2rem,4.5vw,3.4rem);margin:.8rem 0 1.4rem;font-weight:400}
+.story-txt p{color:var(--ink-soft);margin-bottom:1.1rem;font-size:1.05rem}
+.story-txt p:first-of-type::first-letter{font-family:var(--serif);font-size:3.4rem;float:left;line-height:.72;padding:.06em .12em 0 0;color:var(--clay);font-weight:500}
+.sign{font-family:var(--serif);font-style:italic;font-size:1.6rem;margin-top:1.5rem}
+.cta{text-align:center}
+.cta .mono{display:block;margin-bottom:1.4rem}
+.cta h2{font-size:clamp(2.4rem,7vw,5.5rem);line-height:1;letter-spacing:-.03em;margin-bottom:2rem}
+.cta-phone{display:inline-flex;align-items:center;gap:.8rem;font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.6rem);border-bottom:2px solid var(--ink);padding-bottom:.2rem;transition:.25s}
+.cta-phone:hover{color:var(--clay);border-color:var(--clay);gap:1.2rem}
+.cta-sub{margin-top:1.6rem;color:var(--ink-soft)}
+footer{border-top:1px solid var(--line);padding-block:3rem 2rem}
+.foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem}
+.foot-in .logo{font-size:1.8rem}
+.foot-col h4{font-family:var(--sans);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--clay);margin-bottom:.8rem;font-weight:600}
+.foot-col a,.foot-col p{display:block;color:var(--ink-soft);font-size:.95rem;margin-bottom:.35rem}
+.foot-col a:hover{color:var(--ink)}
+footer small{display:block;margin-top:2.5rem;color:var(--ink-soft);font-size:.82rem}
+.callbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;padding:.8rem 1rem;background:var(--ink);gap:.7rem}
+.callbar a{flex:1;text-align:center;padding:.85rem;border-radius:999px;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.callbar .c1{background:var(--clay);color:var(--bone)}
+.callbar .c2{border:1px solid rgba(243,238,230,.4);color:var(--bone)}
+@media(max-width:900px){
+  .nav-links{display:none}.hero-meta{grid-template-columns:1fr 1fr}
+  .work-grid{grid-template-columns:repeat(6,1fr)}
+  .wk,.wk:nth-child(5n+1),.wk:nth-child(5n+2){grid-column:span 3;aspect-ratio:1}
+  .wk:nth-child(5n+1){grid-column:span 6;aspect-ratio:16/10}
+  .story-grid{grid-template-columns:1fr}.callbar{display:flex}body{padding-bottom:76px}
+  .label-row{flex-direction:column;gap:.6rem}
+}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.marq-track{animation:none}}
+</style>
+</head>
+<body>
+<nav class="nav" id="nav"><div class="wrap nav-in">
+  <a href="#top" class="logo">{{NAME}}<em>.</em></a>
+  <div class="nav-links"><a href="#work">Έργα</a><a href="#services">Υπηρεσίες</a><a href="#story">Ποιοι είμαστε</a></div>
+  <a href="tel:+{{PHONE_INTL}}" class="nav-call">{{PHONE}}</a>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="hero-top">
+    <div class="hero-head"><h1>{{NAME}} <span class="it">με {{HERO_WORD}}.</span></h1></div>
+    <div class="hero-intro"><span class="mono">{{KICKER}}</span>{{INTRO}}</div>
+  </div>
+  <figure class="hero-figure rv">
+    <img src="{{HERO_IMAGE}}" alt="{{NAME}} — {{TRADE}}">
+    <figcaption>{{TRADE}} — {{CITY}}</figcaption>
+  </figure>
+  <div class="hero-meta rv">
+    <div><b>Στα μέτρα</b><span>κάθε έργο</span></div>
+    <div><b>Δωρεάν</b><span>εκτίμηση</span></div>
+    <div><b>{{CITY}}</b><span>&amp; περιοχές</span></div>
+    <div><b>Συνέπεια</b><span>στον χρόνο</span></div>
+  </div>
+</div></header>
+
+<div class="marq"><div class="marq-track">
+  <!--#services--><span>{{title}}</span><!--/services--><!--#services--><span>{{title}}</span><!--/services-->
+</div></div>
+
+<section id="services"><div class="wrap">
+  <div class="label-row rv"><span class="mono">01 — Υπηρεσίες</span><h2>{{TAGLINE}}</h2></div>
+  <div class="idx">
+    <!--#services--><a class="idx-row rv" href="tel:+{{PHONE_INTL}}"><span class="idx-num">{{num}}</span><div class="idx-main"><h3>{{title}}</h3><p>{{desc}}</p></div><span class="idx-arrow">→</span></a><!--/services-->
+  </div>
+</div></section>
+
+<section class="work" id="work"><div class="wrap">
+  <div class="label-row rv"><span class="mono">02 — Έργα</span><h2>Επιλογή από πρόσφατες δουλειές.</h2></div>
+  <div class="work-grid">
+    <!--#gallery--><figure class="wk rv"><span class="num">{{_n}}</span><img src="{{image}}" alt="{{title}}" loading="lazy"><figcaption>{{title}}</figcaption></figure><!--/gallery-->
+  </div>
+</div></section>
+
+<section id="story"><div class="wrap story-grid">
+  <figure class="story-fig rv">
+    <img src="{{STORY_IMAGE}}" alt="{{NAME}}">
+    <span class="badge">Φτιαγμένο<br>με μεράκι</span>
+  </figure>
+  <div class="story-txt rv">
+    <span class="mono">03 — Ποιοι είμαστε</span>
+    <h2>{{STORY_TITLE}}</h2>
+    <!--#story--><p>{{p}}</p><!--/story-->
+    <div class="sign">— {{NAME}}</div>
+  </div>
+</div></section>
+
+<section class="cta" id="contact"><div class="wrap">
+  <span class="mono">Πες μας τι έχεις στο μυαλό σου</span>
+  <h2>{{CTA_TITLE}}</h2>
+  <a href="tel:+{{PHONE_INTL}}" class="cta-phone">📞 {{PHONE}}</a>
+  <p class="cta-sub">Δωρεάν εκτίμηση · {{AREAS}}</p>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="foot-in">
+    <div><a href="#top" class="logo">{{NAME}}<em>.</em></a><p style="margin-top:.6rem;max-width:26ch;color:var(--ink-soft)">{{TRADE}} · {{TAGLINE}}</p></div>
+    <div class="foot-col"><h4>Επικοινωνία</h4><a href="tel:+{{PHONE_INTL}}">{{PHONE}}</a><a href="{{DOMAIN_URL}}">{{DOMAIN}}</a><p>{{HOURS}}</p></div>
+    <div class="foot-col"><h4>Περιοχές</h4><p>{{AREAS}}</p></div>
+  </div>
+  <small>© {{YEAR}} {{NAME}} — {{CITY}} · Site από Vitrina</small>
+</div></footer>
+
+<div class="callbar"><a href="tel:+{{PHONE_INTL}}" class="c1">📞 Κάλεσε</a><a href="#story" class="c2">Ποιοι είμαστε</a></div>
+<script>
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4*80)+'ms';io.observe(el)});
+</script>
+</body>
+</html>

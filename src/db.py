@@ -39,6 +39,12 @@ def create_client(intake: dict) -> str:
     return res.data[0]["id"]
 
 
+def delete_client(client_id: str) -> None:
+    """Διαγράφει πελάτη (cascade: site_variants/assets/domains μέσω FK on delete cascade).
+    Χρήσιμο για test cleanup και για GDPR data deletion."""
+    _client().table("clients").delete().eq("id", client_id).execute()
+
+
 def get_brand_profile(client_id: str) -> dict | None:
     res = (_client().table("brand_profiles")
            .select("profile").eq("client_id", client_id).limit(1).execute())
@@ -95,6 +101,79 @@ def save_site(client_id: str, url: str, preset: str, variant: int, html: str) ->
     }).execute()
 
 
+# --- Design variants -------------------------------------------------------
+# Αποθηκεύονται στον υπάρχοντα πίνακα `sites` (χωρίς νέα migration/DDL):
+#   preset = layout, html = HTML, chosen_variant = 1 αν recommended αλλιώς 0,
+#   url = 'preview' | 'selected'  (τα deployed live sites έχουν πραγματικό http url
+#   και εξαιρούνται από τα παρακάτω queries μέσω του φίλτρου url in (preview,selected)).
+_VARIANT_URLS = ["preview", "selected"]
+
+
+def _variant_status(url: str | None) -> str:
+    return "selected" if url == "selected" else "preview"
+
+
+def save_site_variant(client_id: str, layout: str, html: str,
+                      recommended: bool = False) -> None:
+    """Αποθηκεύει μία από τις 3 προτάσεις design (studio/commerce/atelier).
+    Καθαρίζει προηγούμενο preview ίδιου layout ώστε το regenerate να μη διπλασιάζει."""
+    tbl = _client().table("sites")
+    tbl.delete().eq("client_id", client_id).eq("preset", layout).in_("url", _VARIANT_URLS).execute()
+    tbl.insert({"client_id": client_id, "preset": layout, "html": html,
+                "chosen_variant": 1 if recommended else 0, "url": "preview"}).execute()
+
+
+def get_site_variant(client_id: str, layout: str) -> dict | None:
+    res = (_client().table("sites")
+           .select("preset,html,chosen_variant,url,created_at")
+           .eq("client_id", client_id).eq("preset", layout).in_("url", _VARIANT_URLS)
+           .order("created_at", desc=True).limit(1).execute())
+    if not res.data:
+        return None
+    r = res.data[0]
+    return {"layout": r["preset"], "html": r["html"],
+            "recommended": bool(r.get("chosen_variant")), "status": _variant_status(r.get("url"))}
+
+
+def list_site_variants(client_id: str) -> list[dict]:
+    res = (_client().table("sites")
+           .select("preset,chosen_variant,url")
+           .eq("client_id", client_id).in_("url", _VARIANT_URLS).execute())
+    return [{"layout": r["preset"], "recommended": bool(r.get("chosen_variant")),
+             "status": _variant_status(r.get("url"))} for r in (res.data or [])]
+
+
+def set_selected_design(client_id: str, layout: str) -> None:
+    """Ο πελάτης πάτησε Approve. Μαρκάρει το επιλεγμένο variant (url='selected')."""
+    tbl = _client().table("sites")
+    # reset τυχόν προηγούμενη επιλογή, μετά μαρκάρισε τη νέα
+    tbl.update({"url": "preview"}).eq("client_id", client_id).eq("url", "selected").execute()
+    tbl.update({"url": "selected"}).eq("client_id", client_id).eq("preset", layout).in_(
+        "url", _VARIANT_URLS).execute()
+
+
+def get_selected_design(client_id: str) -> str | None:
+    res = (_client().table("sites").select("preset")
+           .eq("client_id", client_id).eq("url", "selected").limit(1).execute())
+    return (res.data[0]["preset"] if res.data else None)
+
+
+def get_clients_by_email(email: str) -> list[dict]:
+    """Οι πελάτες που ανήκουν σε ένα email (σύνδεση dashboard login → client record)."""
+    res = (_client().table("clients")
+           .select("id,name,business_type,city,status,selected_layout")
+           .eq("email", email).execute())
+    return res.data or []
+
+
+def get_live_site(client_id: str) -> str | None:
+    """Το live URL του deployed site (row στο `sites` με πραγματικό http url)."""
+    res = (_client().table("sites").select("url,created_at")
+           .eq("client_id", client_id).like("url", "http%")
+           .order("created_at", desc=True).limit(1).execute())
+    return (res.data[0]["url"] if res.data else None)
+
+
 def save_client_asset(client_id: str, asset: dict) -> str:
     """Αποθηκεύει asset metadata/URL/κείμενο που δίνει ο πελάτης για site/social."""
     row = {
@@ -147,6 +226,42 @@ def get_domain(client_id: str) -> dict | None:
            .select("domain,cloudflare_zone_id,status")
            .eq("client_id", client_id).limit(1).execute())
     return res.data[0] if res.data else None
+
+
+def create_domain_order(client_id: str, domain: str,
+                        amount_cents: int = 2400,
+                        currency: str = "eur") -> str:
+    res = _client().table("domain_orders").insert({
+        "client_id": client_id,
+        "domain": domain,
+        "amount_cents": amount_cents,
+        "currency": currency,
+        "status": "pending",
+    }).execute()
+    return res.data[0]["id"]
+
+
+def set_domain_order_checkout(order_id: str, stripe_session_id: str) -> None:
+    _client().table("domain_orders").update({
+        "stripe_session_id": stripe_session_id,
+        "status": "checkout_created",
+    }).eq("id", order_id).execute()
+
+
+def get_domain_order_by_session(stripe_session_id: str) -> dict | None:
+    res = (_client().table("domain_orders")
+           .select("*").eq("stripe_session_id", stripe_session_id).limit(1).execute())
+    return res.data[0] if res.data else None
+
+
+def update_domain_order_status(stripe_session_id: str, status: str,
+                               error: str | None = None) -> None:
+    patch = {"status": status}
+    if error is not None:
+        patch["error"] = error
+    _client().table("domain_orders").update(patch).eq(
+        "stripe_session_id", stripe_session_id
+    ).execute()
 
 
 def set_client_status(client_id: str, status: str, plan: str | None = None) -> None:

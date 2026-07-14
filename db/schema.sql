@@ -98,7 +98,24 @@ create table if not exists domains (
   expires_at          timestamptz
 );
 
+-- Domain checkout / purchase flow.
+-- Ο πελάτης πρώτα πληρώνει το domain fee, μετά το webhook κάνει αγορά + DNS setup.
+create table if not exists domain_orders (
+  id                  uuid primary key default gen_random_uuid(),
+  client_id           uuid references clients(id) on delete cascade,
+  domain              text not null,
+  amount_cents        int not null default 2400,
+  currency            text not null default 'eur',
+  stripe_session_id   text unique,
+  status              text not null default 'pending', -- pending | checkout_created | paid | active | failed
+  error               text,
+  created_at          timestamptz default now(),
+  updated_at          timestamptz default now()
+);
+
 create index if not exists idx_clients_status on clients(status);
 create index if not exists idx_client_assets_client on client_assets(client_id);
 create index if not exists idx_posts_client on posts(client_id);
 create index if not exists idx_posts_scheduled on posts(scheduled_for) where status = 'scheduled';
+create index if not exists idx_domain_orders_client on domain_orders(client_id);
+create index if not exists idx_domain_orders_status on domain_orders(status);

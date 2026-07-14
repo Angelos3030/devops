@@ -1,0 +1,124 @@
+"""
+Registrar adapters for domain registration.
+
+For .gr domains, keep purchase with a Greek registrar (Papaki/Pointer/etc.) and
+use Cloudflare only for DNS/Pages. Papaki's public GoldResellers API link has
+been referenced by third parties, but the GitHub URL currently returns 404, so
+the Papaki adapter is intentionally configuration-driven and fails closed until
+we have official reseller credentials and endpoint docs.
+"""
+
+from __future__ import annotations
+
+from typing import Any, Protocol
+
+import requests
+
+from . import config as cfg
+
+
+class Registrar(Protocol):
+    def check_availability(self, domains: list[str]) -> list[dict[str, Any]]:
+        ...
+
+    def register_domain(self, domain: str, years: int = 1) -> dict[str, Any]:
+        ...
+
+
+class ManualRegistrar:
+    """Safe fallback: collect paid orders, then fulfill from registrar dashboard."""
+
+    def check_availability(self, domains: list[str]) -> list[dict[str, Any]]:
+        return [
+            {
+                "domain": domain,
+                "available": None,
+                "price": 24,
+                "note": "Manual registrar check required.",
+            }
+            for domain in domains
+        ]
+
+    def register_domain(self, domain: str, years: int = 1) -> dict[str, Any]:
+        raise RuntimeError(
+            f"Domain {domain} is paid but DOMAIN_REGISTRAR=manual. "
+            "Register it manually or configure a registrar adapter."
+        )
+
+
+class PapakiRegistrar:
+    """
+    Papaki reseller adapter.
+
+    Required envs:
+      PAPAKI_API_BASE     Official reseller API base URL from Papaki.
+      PAPAKI_API_KEY      Secret/token from Papaki reseller dashboard.
+      PAPAKI_CONTACT_ID   Default registrant contact profile/id.
+
+    Endpoint names are configurable only after official Papaki docs are supplied.
+    This class uses conservative conventional paths behind `_request`; if Papaki
+    provides different paths/payloads, update only this adapter.
+    """
+
+    def __init__(self) -> None:
+        if not cfg.PAPAKI_API_BASE or not cfg.PAPAKI_API_KEY:
+            raise RuntimeError("Λείπει PAPAKI_API_BASE ή PAPAKI_API_KEY.")
+        self.base = cfg.PAPAKI_API_BASE.rstrip("/")
+
+    def check_availability(self, domains: list[str]) -> list[dict[str, Any]]:
+        results: list[dict[str, Any]] = []
+        for domain in domains:
+            data = self._request("GET", "/domains/check", params={"domain": domain})
+            available = bool(
+                data.get("available")
+                or data.get("is_available")
+                or data.get("status") in {"available", "free"}
+            )
+            price = data.get("price") or data.get("registration_price") or 24
+            results.append({"domain": domain, "available": available, "price": price})
+        return results
+
+    def register_domain(self, domain: str, years: int = 1) -> dict[str, Any]:
+        if not cfg.PAPAKI_CONTACT_ID:
+            raise RuntimeError("Λείπει PAPAKI_CONTACT_ID για registrant contact.")
+        return self._request(
+            "POST",
+            "/domains/register",
+            json={
+                "domain": domain,
+                "years": years,
+                "contact_id": cfg.PAPAKI_CONTACT_ID,
+                "nameservers": [],
+            },
+        )
+
+    def _request(self, method: str, path: str, **kwargs: Any) -> dict[str, Any]:
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {cfg.PAPAKI_API_KEY}",
+        }
+        if cfg.PAPAKI_RESELLER_ID:
+            headers["X-Reseller-ID"] = cfg.PAPAKI_RESELLER_ID
+        response = requests.request(
+            method,
+            f"{self.base}{path}",
+            headers=headers,
+            timeout=25,
+            **kwargs,
+        )
+        try:
+            data = response.json()
+        except ValueError:
+            data = {"raw": response.text}
+        if not response.ok:
+            raise RuntimeError(f"Papaki API error {response.status_code}: {data}")
+        if data.get("success") is False or data.get("error"):
+            raise RuntimeError(f"Papaki API error: {data}")
+        return data
+
+
+def get_registrar() -> Registrar:
+    if cfg.DOMAIN_REGISTRAR == "papaki":
+        return PapakiRegistrar()
+    return ManualRegistrar()

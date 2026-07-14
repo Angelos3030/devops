@@ -38,9 +38,26 @@
 | [docs/11-EXTERNAL-SKILLS.md](docs/11-EXTERNAL-SKILLS.md) | Ποια έτοιμα skills να τραβήξεις (curated shortlist) |
 | [docs/12-META-APP-REVIEW.md](docs/12-META-APP-REVIEW.md) | Meta App Review βήμα-βήμα (FB/IG posting άδεια) |
 | [docs/13-META-GROWTH-ADS.md](docs/13-META-GROWTH-ADS.md) | Growth: Organic → Promoted posts → Full Facebook Ads (μετά MVP) |
+| [docs/14-DOMAIN-AUTOMATION.md](docs/14-DOMAIN-AUTOMATION.md) | Domain suggestions, Stripe checkout, Papaki registrar adapter, Cloudflare DNS |
+
+## 🎨 Vitrina Design Engine (template-based, 0 tokens)
+Τα sites πελατών φτιάχνονται με **έτοιμα premium templates + Python fill** — όχι AI-per-site.
+Φθηνό, γρήγορο, πάντα ωραίο/responsive, και **δουλεύει χωρίς API key**.
+
+- **3 approved layouts:** `studio` (editorial), `commerce` (conversion/κριτικές), `atelier` (minimal)
+  → [skills/vitrina-design-system/templates/](skills/vitrina-design-system/templates/)
+- **Generator:** [src/premium_generator.py](src/premium_generator.py) — intake → 3 designs + σελίδα έγκρισης.
+  Αναγνωρίζει επάγγελμα (ξυλουργός/ταβέρνα/οδοντίατρος/κομμωτήριο/δικηγόρος/τεχνικός) και προτείνει layout.
+- **Onboarding:** το `/onboard` παράγει αυτόματα τα 3 designs (background), τα αποθηκεύει ως previews.
+- **Approve flow:** ο πελάτης πατάει «Approve» → `POST /clients/{id}/select-design`.
+- **AI copy (optional):** [src/site_copy.py](src/site_copy.py) γράφει ελληνικό κείμενο ανά πελάτη μόλις
+  μπει `ANTHROPIC_API_KEY` — αλλιώς no-op με per-profession defaults.
+- **Demo:** `python -m scripts.generate_client_site` → `web/clients/koutrakis-auto-choose.html`.
+- **DB migration:** τρέξε [db/add_site_variants.sql](db/add_site_variants.sql) στο Supabase.
 
 ## Status
-🟢 **Validation ΟΛΟΚΛΗΡΩΘΗΚΕ** (3 μαγαζιά είπαν ναι) → ξεκινάμε υλοποίηση (Φάση 1).
+🟢 **Validation ΟΛΟΚΛΗΡΩΘΗΚΕ** (3 μαγαζιά είπαν ναι) → υλοποίηση σε εξέλιξη (Φάση 1).
+🟢 **Design engine έτοιμο** (2026-07-09): 3 premium layouts + auto-generation + approve flow.
 
 ## Επόμενο βήμα
 Ακολούθησε το **[docs/09-MASTER-PLAN.md](docs/09-MASTER-PLAN.md)** — το πλήρες βήμα-βήμα πλάνο.

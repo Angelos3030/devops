@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vitrina Logo System"
+  short_description: "Reusable logo rules for Greek SMB sites"
+  default_prompt: "Use $vitrina-logo-system to create a polished logo mark for a Greek small business website."

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κώστας Κουτράκης — Διάλεξε design | Vitrina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:#0e1117;color:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1200px,calc(100% - 40px));margin-inline:auto}
+header{padding:clamp(50px,8vw,90px) 0 clamp(20px,3vw,30px);text-align:center}
+.eyebrow{font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:.8rem;color:#ff9a4d}
+h1{font-size:clamp(2.4rem,6vw,4rem);margin:.7rem 0;letter-spacing:-.02em}
+.sub{color:rgba(255,255,255,.68);font-size:1.15rem;max-width:60ch;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding-block:clamp(30px,5vw,50px) 80px}
+.card{background:#171b24;border:1px solid rgba(255,255,255,.09);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease,border-color .2s}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,154,77,.5)}
+.shot{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08)}
+.shot iframe{position:absolute;top:0;left:0;width:200%;height:200%;transform:scale(.5);transform-origin:top left;border:0;pointer-events:none}
+.tag{position:absolute;top:12px;left:12px;z-index:2;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:.35rem .7rem;border-radius:999px;backdrop-filter:blur(6px)}
+.t1{background:rgba(94,106,210,.85)}.t2{background:rgba(86,69,212,.6)}.t3{background:rgba(83,58,253,.75)}
+.body{padding:1.5rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.body h2{font-size:1.4rem}
+.body p{color:rgba(255,255,255,.65);font-size:.95rem;flex:1}
+.actions{display:flex;gap:.6rem;margin-top:.8rem}
+.btn{flex:1;text-align:center;font-weight:700;padding:.75rem;border-radius:10px;transition:.15s;font-size:.95rem}
+.btn-p{background:#ff8a3d;color:#1a1204}.btn-p:hover{background:#ff9a4d}
+.btn-g{border:1px solid rgba(255,255,255,.2)}.btn-g:hover{background:rgba(255,255,255,.08)}
+.note{max-width:1200px;margin:0 auto 70px;padding:1.3rem 1.5rem;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.72);font-size:.95rem}
+.note b{color:#fff}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Vitrina · 3 προτάσεις design</span>
+    <h1>Κώστας Κουτράκης</h1>
+    <p class="sub">Ίδιο περιεχόμενο, τρία εντελώς διαφορετικά ύφη. Δες τα και πες μας ποιο σου αρέσει πιο πολύ — αυτό ανεβάζουμε στο koutrakiskouzines.gr.</p>
+  </header>
+
+  <div class="grid">
+    <article class="card">
+      <div class="shot"><span class="tag t1">Στιλ Α · Dark Studio</span><iframe src="koutrakis-xylourgos/skill-linear.html" title="Dark Studio" loading="lazy" scrolling="no"></iframe></div>
+      <div class="body">
+        <h2>Dark Studio</h2>
+        <p>Σκούρο, μοντέρνο, premium — σαν site τεχνολογικής εταιρείας. Ξεχωρίζει και δείχνει «ακριβό».</p>
+        <div class="actions"><a class="btn btn-p" href="koutrakis-xylourgos/skill-linear.html">Άνοιξέ το</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shot"><span class="tag t2">Στιλ Β · Warm Friendly</span><iframe src="koutrakis-xylourgos/skill-notion.html" title="Warm Friendly" loading="lazy" scrolling="no"></iframe></div>
+      <div class="body">
+        <h2>Warm Friendly</h2>
+        <p>Φωτεινό, ζεστό, με χρωματιστές κάρτες. Φιλικό και προσιτό — δείχνει «άνθρωπος, όχι εταιρεία».</p>
+        <div class="actions"><a class="btn btn-p" href="koutrakis-xylourgos/skill-notion.html">Άνοιξέ το</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shot"><span class="tag t3">Στιλ Γ · Premium Gradient</span><iframe src="koutrakis-xylourgos/skill-stripe.html" title="Premium Gradient" loading="lazy" scrolling="no"></iframe></div>
+      <div class="body">
+        <h2>Premium Gradient</h2>
+        <p>Φωτεινό με κομψά gradients, στρογγυλά κουμπιά και στατιστικά. Σοβαρό και πωλησιακό.</p>
+        <div class="actions"><a class="btn btn-p" href="koutrakis-xylourgos/skill-stripe.html">Άνοιξέ το</a></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="note">
+    <b>💡 Πώς δουλεύει:</b> Και τα 3 φτιάχτηκαν αυτόματα από το <b>awesome-design-html</b> skill (design tokens Linear / Notion / Stripe), με τις πραγματικές φωτογραφίες του Κουτράκη. Είναι καθαρό static HTML — 0 dependencies, ανεβαίνει κατευθείαν στο Cloudflare Pages.
+  </div>
+</div>
+</body>
+</html>

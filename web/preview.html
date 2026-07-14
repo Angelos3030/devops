@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Το site σου — Vitrina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:#0e1117;color:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1240px,calc(100% - 40px));margin-inline:auto}
+header{padding:clamp(40px,7vw,80px) 0 clamp(14px,3vw,26px);text-align:center}
+.eyebrow{font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:.8rem;color:#ff9a4d}
+h1{font-size:clamp(2.2rem,6vw,3.6rem);margin:.7rem 0;letter-spacing:-.02em}
+.sub{color:rgba(255,255,255,.68);font-size:1.1rem;max-width:60ch;margin:0 auto}
+.state{max-width:640px;margin:60px auto;text-align:center;color:rgba(255,255,255,.75);font-size:1.1rem}
+.spinner{width:34px;height:34px;border:3px solid rgba(255,255,255,.2);border-top-color:#ff8a3d;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 18px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding-block:clamp(24px,5vw,44px) 70px}
+.card{background:#171b24;border:1px solid rgba(255,255,255,.09);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,154,77,.5)}
+.card.chosen{border-color:#1db954;box-shadow:0 0 0 1px #1db954}
+.shot{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08);background:#0c0f15}
+.shot iframe{position:absolute;top:0;left:0;width:250%;height:250%;transform:scale(.4);transform-origin:top left;border:0;pointer-events:none}
+.badge{position:absolute;top:12px;left:12px;z-index:2;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:.35rem .7rem;border-radius:999px}
+.rec{background:#ff8a3d;color:#1a1204}.sel{background:#1db954;color:#04240f}
+.body{padding:1.4rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.body h2{font-size:1.35rem}.body p{color:rgba(255,255,255,.65);font-size:.94rem;flex:1}
+.actions{display:flex;gap:.6rem;margin-top:.8rem}
+.btn{flex:1;text-align:center;font-weight:700;padding:.75rem;border-radius:10px;transition:.15s;font-size:.92rem;cursor:pointer;border:0;font-family:inherit}
+.fill{background:#ff8a3d;color:#1a1204}.fill:hover{background:#ff9a4d}
+.ghost{border:1px solid rgba(255,255,255,.2);color:#fff;background:transparent}.ghost:hover{background:rgba(255,255,255,.08)}
+.btn:disabled{opacity:.5;cursor:default}
+.live{max-width:1240px;margin:0 auto 60px;padding:1.4rem 1.6rem;border:1px solid rgba(29,185,84,.4);border-radius:14px;background:rgba(29,185,84,.08);color:#fff;display:none}
+.live.show{display:block}
+.live a{color:#4ade80;font-weight:700;text-decoration:underline}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(140%);background:#1db954;color:#04240f;font-weight:700;padding:1rem 1.6rem;border-radius:12px;transition:transform .3s;z-index:99;max-width:90%;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Vitrina · Οι προτάσεις σου</span>
+    <h1>Διάλεξε το site σου</h1>
+    <p class="sub">Ετοιμάσαμε 3 σχέδια. Δες τα, και πάτα <b>Approve</b> σε αυτό που σου αρέσει — αυτό ανεβάζουμε ζωντανά.</p>
+  </header>
+
+  <div class="live" id="live"></div>
+  <div class="state" id="state"><div class="spinner"></div>Φορτώνουμε τις προτάσεις σου…</div>
+  <div class="grid" id="grid" style="display:none"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const Q = new URLSearchParams(location.search);
+const CLIENT = Q.get("client");
+const API = (Q.get("api") || "https://api.getvitrina.gr").replace(/\/$/, "");
+const META = {
+  studio:   {label:"Editorial",   desc:"Ζεστό, καλλιτεχνικό, με έμφαση στα έργα."},
+  commerce: {label:"Conversion",  desc:"Φωτεινό, με κριτικές και δυνατά κουμπιά — φτιαγμένο να πουλάει."},
+  atelier:  {label:"Minimal",     desc:"Καθαρό, premium, με μεγάλες φωτογραφίες."},
+};
+const ORDER = ["studio","commerce","atelier"];
+
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),3600);}
+function setState(msg){const s=document.getElementById("state");if(!msg){s.style.display="none";return;}s.style.display="block";s.innerHTML=msg;}
+
+async function api(path, opts){const r=await fetch(API+path,opts);if(!r.ok)throw new Error(await r.text());return r.json();}
+
+function showLive(url){const el=document.getElementById("live");el.innerHTML=`✅ <b>Το site σου είναι live:</b> <a href="${url}" target="_blank">${url}</a>`;el.classList.add("show");}
+
+function render(data){
+  const variants = {};
+  (data.variants||[]).forEach(v=>variants[v.layout]=v);
+  const grid=document.getElementById("grid");
+  grid.innerHTML="";
+  ORDER.filter(l=>variants[l]).forEach(layout=>{
+    const v=variants[layout], m=META[layout]||{label:layout,desc:""};
+    const chosen = data.selected===layout;
+    const badge = chosen ? '<span class="badge sel">✓ Επιλεγμένο</span>'
+                : (v.recommended ? '<span class="badge rec">Προτεινόμενο</span>' : '');
+    const card=document.createElement("article");
+    card.className="card"+(chosen?" chosen":"");
+    card.innerHTML=`
+      <div class="shot">${badge}<iframe src="${API}/clients/${CLIENT}/preview/${layout}" title="${m.label}" loading="lazy" scrolling="no"></iframe></div>
+      <div class="body">
+        <h2>${m.label}</h2><p>${m.desc}</p>
+        <div class="actions">
+          <a class="btn ghost" href="${API}/clients/${CLIENT}/preview/${layout}" target="_blank">Άνοιξέ το ↗</a>
+          <button class="btn fill" data-layout="${layout}">${chosen?"✓ Επιλεγμένο":"✓ Approve"}</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+  grid.style.display="grid";
+  grid.querySelectorAll("[data-layout]").forEach(b=>b.addEventListener("click",()=>approve(b.dataset.layout)));
+  if(data.deployed_url) showLive(data.deployed_url);
+}
+
+async function approve(layout){
+  document.querySelectorAll("[data-layout]").forEach(b=>b.disabled=true);
+  try{
+    await api(`/clients/${CLIENT}/select-design`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({layout})});
+    toast("✓ Τέλεια! Ανεβάζουμε το site σου…");
+    await load();               // refresh chosen state
+    pollLive();                 // wait for deploy to finish
+  }catch(e){
+    toast("⚠️ Κάτι πήγε στραβά — δοκίμασε ξανά.");
+    document.querySelectorAll("[data-layout]").forEach(b=>b.disabled=false);
+  }
+}
+
+let polls=0;
+async function pollLive(){
+  polls=0;
+  const tick=async()=>{
+    if(polls++>30) return;               // ~2 λεπτά
+    try{const d=await api(`/clients/${CLIENT}/designs`);if(d.deployed_url){showLive(d.deployed_url);return;}}catch(e){}
+    setTimeout(tick,4000);
+  };
+  tick();
+}
+
+async function load(){
+  if(!CLIENT){setState("⚠️ Λείπει ο σύνδεσμος. Άνοιξε το link που σου στείλαμε (…?client=…).");return;}
+  try{
+    const data=await api(`/clients/${CLIENT}/designs`);
+    if(!data.variants||!data.variants.length){setState("⏳ Τα σχέδιά σου ετοιμάζονται ακόμα. Δοκίμασε ξανά σε λίγο.");return;}
+    setState(null); render(data);
+  }catch(e){
+    setState("⚠️ Δεν μπόρεσα να φορτώσω τις προτάσεις. Έλεγξε τον σύνδεσμο ή δοκίμασε ξανά.");
+  }
+}
+load();
+</script>
+</body>
+</html>

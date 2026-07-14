@@ -127,7 +127,9 @@
   - [ ] **interactive refinement loop** (αλλαγές σε φυσική γλώσσα).
   - [ ] εφαρμογή **SEO** (`local-seo-gr`): title/meta/schema.org.
 - [ ] **Deploy tool/MCP** → Cloudflare Pages (static, HTTPS δωρεάν).
-- [ ] (Προαιρετικά) αγορά `.gr` domain μέσω Papaki API.
+- [ ] Domain flow: agent προτείνει domains → πελάτης επιλέγει → Stripe one-time checkout
+      **24€/έτος** → webhook αγοράζει/συνδέει domain και DNS.
+      Για `.gr`: `DOMAIN_REGISTRAR=papaki` + Papaki reseller credentials, μετά Cloudflare DNS.
 
 **Έλεγχος:** δίνεις τύπο μαγαζιού → παίρνεις 3 sites → διαλέγεις → αλλάζεις → live URL.
 
@@ -141,6 +143,7 @@
   - [ ] Premium — **€79/μήνα**
 - [ ] **Stripe Checkout** ή payment link (απλό για αρχή).
 - [ ] **Webhook** Stripe → ενεργοποίηση/απενεργοποίηση πελάτη στο DB.
+- [ ] **Domain fee** Stripe Checkout: one-time payment 24€/έτος πριν από αγορά domain.
 - [ ] **Free trial** λογική (πρώτος μήνας δωρεάν).
 - [ ] Σύνδεση: «πληρωμή ΟΚ» → ο cron αρχίζει να ποστάρει.
 

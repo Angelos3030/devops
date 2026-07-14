@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="el"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κουτράκης — Διάλεξε design | Vitrina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:#0e1117;color:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1240px,calc(100% - 40px));margin-inline:auto}
+header{padding:clamp(48px,8vw,86px) 0 clamp(16px,3vw,28px);text-align:center}
+.eyebrow{font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:.8rem;color:#ff9a4d}
+h1{font-size:clamp(2.4rem,6vw,4rem);margin:.7rem 0;letter-spacing:-.02em}
+.sub{color:rgba(255,255,255,.68);font-size:1.12rem;max-width:60ch;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding-block:clamp(28px,5vw,46px) 70px}
+.card{background:#171b24;border:1px solid rgba(255,255,255,.09);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,154,77,.5)}
+.shot{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08)}
+.shot iframe{position:absolute;top:0;left:0;width:250%;height:250%;transform:scale(.4);transform-origin:top left;border:0;pointer-events:none}
+.rec{position:absolute;top:12px;left:12px;z-index:2;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:.35rem .7rem;border-radius:999px;background:#ff8a3d;color:#1a1204}
+.body{padding:1.5rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.body h2{font-size:1.4rem}.body p{color:rgba(255,255,255,.65);font-size:.95rem;flex:1}
+.actions{display:flex;gap:.6rem;margin-top:.8rem}
+.btn{flex:1;text-align:center;font-weight:700;padding:.75rem;border-radius:10px;transition:.15s;font-size:.92rem;cursor:pointer;border:0;font-family:inherit}
+.fill{background:#ff8a3d;color:#1a1204}.fill:hover{background:#ff9a4d}
+.ghost{border:1px solid rgba(255,255,255,.2);color:#fff;background:transparent}.ghost:hover{background:rgba(255,255,255,.08)}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(120%);background:#1db954;color:#04240f;font-weight:700;padding:1rem 1.6rem;border-radius:12px;transition:transform .3s;z-index:99}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.note{max-width:1240px;margin:0 auto 70px;padding:1.3rem 1.5rem;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.72);font-size:.95rem}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Vitrina · 3 προτάσεις design</span>
+    <h1>Κουτράκης</h1>
+    <p class="sub">Ίδιο περιεχόμενο, τρία ύφη. Δες τα και πάτα <b>Approve</b> σε αυτό που σου αρέσει — αυτό ανεβάζουμε.</p>
+  </header>
+  <div class="grid">
+    <article class="card">
+      <div class="shot"><span class="rec">Προτεινόμενο</span><iframe src="koutrakis-auto/studio.html" title="Editorial" loading="lazy" scrolling="no"></iframe></div>
+      <div class="body">
+        <h2>Editorial</h2>
+        <p>Ζεστό, καλλιτεχνικό, με μεγάλη τυπογραφία και έμφαση στα έργα.</p>
+        <div class="actions">
+          <a class="btn ghost" href="koutrakis-auto/studio.html" target="_blank">Άνοιξέ το ↗</a>
+          <button class="btn fill" data-layout="studio" data-name="Editorial">✓ Approve</button>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="shot"><iframe src="koutrakis-auto/commerce.html" title="Conversion" loading="lazy" scrolling="no"></iframe></div>
+      <div class="body">
+        <h2>Conversion</h2>
+        <p>Φωτεινό, με κριτικές και δυνατά CTA — φτιαγμένο να πουλάει.</p>
+        <div class="actions">
+          <a class="btn ghost" href="koutrakis-auto/commerce.html" target="_blank">Άνοιξέ το ↗</a>
+          <button class="btn fill" data-layout="commerce" data-name="Conversion">✓ Approve</button>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="shot"><iframe src="koutrakis-auto/atelier.html" title="Minimal" loading="lazy" scrolling="no"></iframe></div>
+      <div class="body">
+        <h2>Minimal</h2>
+        <p>Καθαρό, premium, με τεράστιες φωτογραφίες και πολύ λευκό.</p>
+        <div class="actions">
+          <a class="btn ghost" href="koutrakis-auto/atelier.html" target="_blank">Άνοιξέ το ↗</a>
+          <button class="btn fill" data-layout="atelier" data-name="Minimal">✓ Approve</button>
+        </div>
+      </div>
+    </article></div>
+  <div class="note">💡 Και τα 3 φτιάχτηκαν αυτόματα από το Vitrina design engine (static HTML, 0 dependencies). Ανεβαίνουν κατευθείαν στο Cloudflare Pages.</div>
+</div>
+<div class="toast" id="toast">✓ Το design εγκρίθηκε!</div>
+<script>
+const _q=new URLSearchParams(location.search), _api=_q.get('api'), _cid=_q.get('client');
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3400);}
+document.querySelectorAll('[data-layout]').forEach(b=>b.addEventListener('click',async()=>{
+  const layout=b.dataset.layout,name=b.dataset.name;
+  try{localStorage.setItem('vitrina_choice',JSON.stringify({layout,name,at:Date.now()}))}catch(e){}
+  if(_api&&_cid){
+    try{
+      const r=await fetch(_api.replace(/\/$/,'')+'/clients/'+_cid+'/select-design',
+        {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({layout})});
+      if(!r.ok)throw new Error(await r.text());
+      toast('✓ Διάλεξες: '+name+' — το ανεβάζουμε!');
+    }catch(err){toast('⚠️ Κάτι πήγε στραβά — δοκίμασε ξανά.');}
+  }else{ toast('✓ Διάλεξες: '+name+' — το ανεβάζουμε!'); }
+}));
+</script>
+</body></html>

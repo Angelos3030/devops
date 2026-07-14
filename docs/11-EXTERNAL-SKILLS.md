@@ -112,3 +112,31 @@ Reference για να κάνουμε το `greek-website` skill να βγάζε�
 
 ## Πρακτικό: κατέβασέ τα τοπικά
 Δες `scripts/clone-skills.sh` — κατεβάζει ΜΟΝΟ τη shortlist για μελέτη.
+# External Skills Rule For Vitrina Design
+
+For website design, do **not** import external React/Next/Tailwind skills
+wholesale into the runtime pipeline. Vitrina currently generates standalone
+static HTML/CSS/JS and deploys to Cloudflare Pages.
+
+Use external skills only as references for:
+
+- responsive rules,
+- component patterns,
+- typography/color pairings,
+- accessibility checks,
+- layout sequencing.
+
+Then rewrite the ideas into the local static templates and
+`skills/vitrina-design-system/`.
+
+Read:
+
+- `skills/vitrina-design-system/references/external-skill-ingestion.md`
+- `skills/vitrina-design-system/references/design-spec.md`
+- `skills/vitrina-design-system/references/design-routes.md`
+
+The reusable part from the `web-design` style of skill is already captured in
+`design-spec.md`: spec-first workflow, responsive breakpoints, accessibility
+checklist, and quality self-audit for static Greek SMB websites.
+
+---

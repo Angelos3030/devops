@@ -42,8 +42,11 @@ app.add_middleware(
         "https://www.getvitrina.gr",
         "https://vitrina-7uq.pages.dev",
         "https://db65ba76.vitrina-7uq.pages.dev",
+        "https://app.getvitrina.gr",
         "http://localhost:8001",
         "http://127.0.0.1:5500",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
     ],
     allow_methods=["*"], allow_headers=["*"],
 )
@@ -89,14 +92,56 @@ def create_checkout(req: CheckoutRequest):
     return {"checkout_url": session.url}
 
 
-def _build_site_bg(client_id: str, intake: dict) -> None:
-    """Τρέχει στο background: brand profile + 3 επιλογές site (Haiku→Sonnet).
-    Best-effort — αν δεν έχουν στηθεί agents/DB ακόμα, απλώς το logάρει."""
+_PHOTO_TYPES = {"photo", "gallery", "image", "work", "project"}
+
+
+def _enrich_intake(client_id: str, form: dict) -> dict:
+    """Χτίζει πλήρες intake για τον generator: στοιχεία φόρμας + uploaded assets
+    (φωτογραφίες → gallery, υπηρεσίες, tagline). Best-effort ανά asset source."""
+    intake = dict(form)
+    intake.setdefault("tagline", form.get("style") or "")
     try:
-        from .onboard_client import onboard
-        onboard(intake, client_id=client_id)
+        assets = db.get_client_assets(client_id, usage="site")
+    except Exception:
+        assets = []
+    gallery, services = [], []
+    for a in assets:
+        atype = (a.get("type") or "").lower()
+        url = a.get("url")
+        if atype in _PHOTO_TYPES and url:
+            gallery.append({"image": url, "title": a.get("title") or "Έργο"})
+        elif atype == "service":
+            services.append({"name": a.get("title") or "Υπηρεσία",
+                             "description": a.get("content") or ""})
+        elif atype == "logo" and url:
+            intake["logo"] = url
+    if gallery:
+        intake["gallery"] = gallery
+    if services:
+        intake["services"] = services
+    return intake
+
+
+def _build_site_bg(client_id: str, form: dict) -> None:
+    """Τρέχει στο background: παράγει 3 premium designs (studio/commerce/atelier)
+    ντετερμινιστικά (0 API tokens) και τα αποθηκεύει ως previews για έγκριση.
+    Best-effort — αν λείπει DB, απλώς το logάρει."""
+    try:
+        from . import premium_generator as pg
+        from . import site_copy
+        intake = _enrich_intake(client_id, form)
+        intake = site_copy.enrich_with_copy(intake)  # AI copy if key present, else no-op
+        recommended = pg.recommend_layout(intake)
+        variants = pg.generate_variants(intake)
+        for layout, html in variants.items():
+            try:
+                db.save_site_variant(client_id, layout, html,
+                                     recommended=(layout == recommended))
+            except Exception as e:
+                print(f"[onboard bg] save variant {layout} failed: {e}")
+        print(f"[onboard bg] 3 designs έτοιμα για {client_id} (recommended={recommended})")
     except Exception as e:
-        print(f"[onboard bg] site building skipped/failed for {client_id}: {e}")
+        print(f"[onboard bg] site building failed for {client_id}: {e}")
 
 
 @app.post("/onboard")
@@ -110,6 +155,69 @@ def onboard_endpoint(intake: Intake, bg: BackgroundTasks):
         raise HTTPException(500, f"Δεν μπόρεσα να αποθηκεύσω τον πελάτη: {e}")
     bg.add_task(_build_site_bg, client_id, data)
     return {"client_id": client_id}
+
+
+class SelectDesign(BaseModel):
+    layout: str
+
+
+def _client_slug(client_id: str) -> str:
+    """Ασφαλές Cloudflare Pages project slug από το client_id."""
+    import re as _re
+    return "c" + _re.sub(r"[^a-z0-9]", "", client_id.lower())[:16]
+
+
+def _deploy_selected_bg(client_id: str, layout: str) -> None:
+    """Μετά το Approve: deploy του επιλεγμένου HTML σε Cloudflare Pages (best-effort)."""
+    try:
+        from . import deploy
+        variant = db.get_site_variant(client_id, layout)
+        if not variant:
+            print(f"[deploy] δεν βρέθηκε variant {layout} για {client_id}")
+            return
+        url = deploy.deploy_site(_client_slug(client_id), variant["html"])
+        db.save_site(client_id, url=url, preset=layout, variant=0, html=variant["html"])
+        print(f"[deploy] {client_id} → {url}")
+    except Exception as e:
+        print(f"[deploy] deploy skipped/failed for {client_id}: {e}")
+
+
+@app.get("/clients/lookup")
+def lookup_clients(email: str):
+    """Βρίσκει τους πελάτες ενός email (dashboard login → client records).
+    MVP: απλό lookup. Phase 2: επαλήθευση Supabase JWT αντί για raw email."""
+    return {"clients": db.get_clients_by_email(email)}
+
+
+@app.get("/clients/{client_id}/designs")
+def list_designs(client_id: str):
+    """Λίστα με τις 3 προτάσεις design + ποια είναι προτεινόμενη/επιλεγμένη + live URL."""
+    variants = db.list_site_variants(client_id)
+    selected = db.get_selected_design(client_id)
+    deployed_url = db.get_live_site(client_id)
+    return {"variants": variants, "selected": selected, "deployed_url": deployed_url}
+
+
+@app.get("/clients/{client_id}/preview/{layout}", response_class=HTMLResponse)
+def preview_design(client_id: str, layout: str):
+    """Σερβίρει το HTML μιας πρότασης design για preview στον πελάτη."""
+    variant = db.get_site_variant(client_id, layout)
+    if not variant:
+        raise HTTPException(404, "Δεν βρέθηκε αυτό το design.")
+    return HTMLResponse(variant["html"])
+
+
+@app.post("/clients/{client_id}/select-design")
+def select_design(client_id: str, sel: SelectDesign, bg: BackgroundTasks):
+    """Ο πελάτης πάτησε Approve — καταγράφει την επιλογή και ξεκινά deploy στο background."""
+    if sel.layout not in ("studio", "commerce", "atelier"):
+        raise HTTPException(400, f"Άγνωστο layout: {sel.layout}")
+    try:
+        db.set_selected_design(client_id, sel.layout)
+    except Exception as e:
+        raise HTTPException(500, f"Δεν αποθηκεύτηκε η επιλογή: {e}")
+    bg.add_task(_deploy_selected_bg, client_id, sel.layout)
+    return {"ok": True, "selected": sel.layout, "deploying": True}
 
 
 @app.post("/clients/{client_id}/assets")

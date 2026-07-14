@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vitrina Design System"
+  short_description: "Generate premium Greek SMB website directions and blocks."
+  default_prompt: "Create a modern Vitrina-style Greek SMB website direction."
