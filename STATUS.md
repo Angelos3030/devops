@@ -19,18 +19,21 @@ responsive designs**, διαλέγει, και το site ανεβαίνει live
 3. **React dashboard** (`dashboard/`, Vite) — Google login, ο πελάτης βλέπει/διαλέγει designs.
 
 ### ✅ Τι έχει γίνει
-- **6 δομικά διαφορετικά React templates** στο `sites/lib/templates/`: **Editorial, Split, Showcase,
-  Bento, Longform, Corporate** (όχι recolors — διαφορετική δομή το καθένα). Approved από owner («πολύ όμορφα»).
+- **10 δομικά διαφορετικά React templates** στο `sites/lib/templates/`: **Editorial, Split, Showcase,
+  Bento, Longform, Corporate, Poster, Sidebar, Grid, Coast** (όχι recolors — διαφορετική δομή το καθένα).
+  Approved από owner («πολύ όμορφα»). Όλα στο `index.js` (TEMPLATES/TEMPLATE_KEYS/TEMPLATE_META/MAP).
 - `sites/` build OK (Next 14.2.35). Τοπικά: `cd sites && npm install && npm run dev` → :3000.
 - Backend `GET /clients/{id}/site-data` επιστρέφει normalized JSON (name/services[]/gallery[]/story[]).
 - Παλιός static engine (`src/premium_generator.py`, 7 HTML templates) = preview/fallback, tests 87/87+7/7.
 - Railway Online (11 env vars). Supabase project `vitrina` (ήταν paused→Resumed). Push σε `Angelos3030/devops` main.
 
 ### 🎯 ΠΛΑΝΟ — τι ακολουθεί (με σειρά)
-1. **[templates] Φτάσε 10-15 React templates** (τώρα 6). Επόμενα distinct: **Poster** (oversized brutalist type),
-   **Sidebar** (sticky mini-nav), **Grid** (Swiss), **Magazine** (asymmetric), **Coast** (μεσογειακό/τουρισμός),
-   **Warmth** (hospitality). Πρότυπο: αντίγραψε ένα υπάρχον .jsx+.module.css, άλλαξε ΔΟΜΗ (όχι μόνο χρώμα),
-   πρόσθεσε στο `sites/lib/templates/index.js` (TEMPLATES/TEMPLATE_KEYS/TEMPLATE_META/MAP). Data prop shape:
+1. **[templates] Φτάσε 12-15 React templates** (τώρα **10** ✅). Απομένουν distinct ιδέες: **Magazine**
+   (masthead/multi-column), **Warmth** (hospitality menu-style/ταβέρνες), **Estate** (real-estate/interiors),
+   **Retro**, **Mono/Terminal**. **ΒΗΜΑΤΑ για νέο template:** (a) copy π.χ. `Coast.jsx`+`Coast.module.css`
+   σε νέο όνομα, (b) άλλαξε ΔΟΜΗ+CSS (όχι μόνο χρώμα), (c) πρόσθεσε στο `sites/lib/templates/index.js`
+   και στα 4 σημεία (TEMPLATES, TEMPLATE_KEYS, TEMPLATE_META, MAP), (d) `cd sites && npm run build` (πρέπει
+   ✓ Compiled), (e) `npm run start` → :3000 δες το switcher, (f) commit+push. Data prop shape:
    `d.NAME,CITY,TRADE,TAGLINE,PHONE,PHONE_INTL,AREAS,HOURS,KICKER,HERO_WORD,INITIAL,YEAR,STORY_TITLE,CTA_TITLE,
    HERO_IMAGE,STORY_IMAGE, d.services[{num,title,desc}], d.gallery[{image,title,sub}], d.story[{p}]`.
 2. **[domain routing]** Next middleware: host → client_id (πίνακας `domains`) → render. Τώρα μόνο `/site/[client]`.
