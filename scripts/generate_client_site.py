@@ -63,7 +63,7 @@ def main() -> int:
     slug = "koutrakis-auto"
     chooser = build_gallery_page(KOUTRAKIS, slug, OUT_DIR)
     print(f"Recommended layout: {recommend_layout(KOUTRAKIS)}")
-    print(f"Generated 3 variants in: {OUT_DIR / slug}")
+    print(f"Generated variants in: {OUT_DIR / slug}")
     print(f"Chooser/approve page:    {chooser}")
     return 0
 

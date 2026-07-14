@@ -44,7 +44,7 @@ def test_generator() -> None:
                     {"image": "assets/c.jpg", "title": "Έργο 3"}],
     }
     variants = pg.generate_variants(full)
-    check("returns 3 layouts", set(variants) == {"studio", "commerce", "atelier"}, str(list(variants)))
+    check("returns all layouts", set(variants) == set(pg.LAYOUTS), str(list(variants)))
     for layout, html in variants.items():
         check(f"[{layout}] no unresolved {{{{ }}}}", "{{" not in html)
         check(f"[{layout}] no loop markers", "<!--#" not in html and "<!--/" not in html)
@@ -129,6 +129,8 @@ def test_endpoints() -> None:
     print("\n[B] Endpoints — TestClient + fake DB (no Supabase/Anthropic)")
     from src import config as cfg
     cfg.ANTHROPIC_API_KEY = ""            # force site_copy no-op (offline, fast)
+    from src.premium_generator import LAYOUTS
+    n = len(LAYOUTS)
     from src import meta_oauth
     fake = FakeDB()
     meta_oauth.db = fake                  # inject fake db into the app module
@@ -141,14 +143,14 @@ def test_endpoints() -> None:
     check("POST /onboard 200", r.status_code == 200, r.text)
     cid = r.json().get("client_id")
     check("onboard returns client_id", bool(cid))
-    check("background generated 3 variants", len(fake.list_site_variants(cid)) == 3,
+    check(f"background generated {n} variants", len(fake.list_site_variants(cid)) == n,
           str(fake.list_site_variants(cid)))
 
     # designs list
     r = tc.get(f"/clients/{cid}/designs")
     check("GET /designs 200", r.status_code == 200)
     body = r.json()
-    check("designs: 3 variants", len(body["variants"]) == 3)
+    check(f"designs: {n} variants", len(body["variants"]) == n)
     check("designs: one recommended", sum(v["recommended"] for v in body["variants"]) == 1)
     check("designs: none selected yet", body["selected"] is None)
 

@@ -14,6 +14,11 @@
    API: `GET /clients/lookup?email=` + `db.get_clients_by_email`. CORS +localhost:5173/app.getvitrina.gr.
    `npm run build` OK. Setup: Supabase→Auth→Providers→Google, `dashboard/.env` (VITE_* publishable key),
    `npm run dev`. Deploy: Cloudflare Pages (output `dist/`).
+**➕ 4ο design «bold» + δυναμικό N-designs (2026-07-10):** προστέθηκε `bold.tpl.html` (vibrant,
+   για beauty/μοντέρνα brands) → `LAYOUTS` = studio/commerce/atelier/bold. Το dashboard + `web/preview.html`
+   δείχνουν πλέον **ΟΣΑ variants γυρίζει το API** (recommended πρώτο), όχι hardcoded — «πολλά designs να
+   επιλέγει» (Amboras-style). Προσθήκη νέου template = μόνο backend (0 frontend αλλαγές). Tests: offline
+   57/57 + live 7/7 (4 variants). Επόμενο extensibility: A/B (πολλά live, κρατάμε το καλύτερο).
 **🚂 Railway (2026-07-10):** ✅ Service `devops` **Online** στο project `fulfilling-smile`, 11 env vars set
    (CF/Meta/Stripe/Supabase). Μένει: public URL test + custom domain `api.getvitrina.gr` + payment method
    (trial credit low). `main.py` σερβίρει όλα τα endpoints (22 routes).

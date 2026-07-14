@@ -64,7 +64,7 @@ def main() -> int:
         for layout, html in variants.items():
             db.save_site_variant(cid, layout, html, recommended=(layout == recommended))
         stored = db.list_site_variants(cid)
-        check("3 variants stored in Supabase", len(stored) == 3, str(stored))
+        check(f"{len(variants)} variants stored in Supabase", len(stored) == len(variants), str(stored))
         check("exactly one recommended", sum(bool(v["recommended"]) for v in stored) == 1)
 
         # 3) fetch a preview back

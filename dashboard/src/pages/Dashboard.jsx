@@ -6,8 +6,12 @@ const META = {
   studio: { label: 'Editorial', desc: 'Ζεστό, καλλιτεχνικό, με έμφαση στα έργα.' },
   commerce: { label: 'Conversion', desc: 'Φωτεινό, με κριτικές και δυνατά κουμπιά — φτιαγμένο να πουλάει.' },
   atelier: { label: 'Minimal', desc: 'Καθαρό, premium, με μεγάλες φωτογραφίες.' },
+  bold: { label: 'Bold', desc: 'Ζωντανό, με έντονα χρώματα και χαρακτήρα.' },
 }
-const ORDER = ['studio', 'commerce', 'atelier']
+const metaFor = (layout) => META[layout] || { label: layout.charAt(0).toUpperCase() + layout.slice(1), desc: '' }
+// Render whatever variants the API returns (N designs), recommended first.
+const orderVariants = (variants) =>
+  [...variants].sort((a, b) => (b.recommended ? 1 : 0) - (a.recommended ? 1 : 0))
 
 export default function Dashboard({ session }) {
   const email = session.user.email
@@ -60,8 +64,6 @@ export default function Dashboard({ session }) {
 
   const logout = () => supabase.auth.signOut()
   const activeClient = clients?.find((c) => c.id === active)
-  const variants = {}
-  ;(designs?.variants || []).forEach((v) => (variants[v.layout] = v))
 
   return (
     <div className="app">
@@ -113,9 +115,9 @@ export default function Dashboard({ session }) {
 
             {designs && (
               <div className="grid">
-                {ORDER.filter((l) => variants[l]).map((layout) => {
-                  const v = variants[layout]
-                  const m = META[layout] || { label: layout, desc: '' }
+                {orderVariants(designs.variants || []).map((v) => {
+                  const layout = v.layout
+                  const m = metaFor(layout)
                   const chosen = designs.selected === layout
                   return (
                     <article key={layout} className={'card' + (chosen ? ' chosen' : '')}>

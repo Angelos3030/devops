@@ -63,8 +63,9 @@ const META = {
   studio:   {label:"Editorial",   desc:"Ζεστό, καλλιτεχνικό, με έμφαση στα έργα."},
   commerce: {label:"Conversion",  desc:"Φωτεινό, με κριτικές και δυνατά κουμπιά — φτιαγμένο να πουλάει."},
   atelier:  {label:"Minimal",     desc:"Καθαρό, premium, με μεγάλες φωτογραφίες."},
+  bold:     {label:"Bold",        desc:"Ζωντανό, με έντονα χρώματα και χαρακτήρα."},
 };
-const ORDER = ["studio","commerce","atelier"];
+const metaFor = (l)=> META[l] || {label:l.charAt(0).toUpperCase()+l.slice(1), desc:""};
 
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),3600);}
 function setState(msg){const s=document.getElementById("state");if(!msg){s.style.display="none";return;}s.style.display="block";s.innerHTML=msg;}
@@ -74,12 +75,11 @@ async function api(path, opts){const r=await fetch(API+path,opts);if(!r.ok)throw
 function showLive(url){const el=document.getElementById("live");el.innerHTML=`✅ <b>Το site σου είναι live:</b> <a href="${url}" target="_blank">${url}</a>`;el.classList.add("show");}
 
 function render(data){
-  const variants = {};
-  (data.variants||[]).forEach(v=>variants[v.layout]=v);
   const grid=document.getElementById("grid");
   grid.innerHTML="";
-  ORDER.filter(l=>variants[l]).forEach(layout=>{
-    const v=variants[layout], m=META[layout]||{label:layout,desc:""};
+  const ordered=[...(data.variants||[])].sort((a,b)=>(b.recommended?1:0)-(a.recommended?1:0));
+  ordered.forEach(v=>{
+    const layout=v.layout, m=metaFor(layout);
     const chosen = data.selected===layout;
     const badge = chosen ? '<span class="badge sel">✓ Επιλεγμένο</span>'
                 : (v.recommended ? '<span class="badge rec">Προτεινόμενο</span>' : '');

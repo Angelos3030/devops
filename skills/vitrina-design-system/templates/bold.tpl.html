@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{NAME}} — {{TRADE}} | {{CITY}}</title>
+<meta name="description" content="{{NAME}} — {{TAGLINE}} {{TRADE}} στην περιοχή {{CITY}}. Τηλ. {{PHONE}}.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Bold / vibrant: saturated gradient, big display type, chunky rounded blocks, high energy */
+:root{
+  --ink:#160f1f;--bg:#faf7ff;--surface:#fff;--ink-soft:#5b5568;
+  --p1:#ff5a5f;--p2:#ff8a3d;--p3:#7c3aed;--p4:#12c6c0;
+  --line:rgba(22,15,31,.1);--disp:'Space Grotesk',system-ui,sans-serif;--sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1180px,calc(100% - 44px));margin-inline:auto}
+h1,h2,h3{font-family:var(--disp);font-weight:700;line-height:1.02;letter-spacing:-.02em}
+.rv{opacity:0;transform:translateY(24px);transition:.8s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+.eyebrow{font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--p3)}
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:1rem;padding:.95rem 1.7rem;border-radius:999px;transition:.18s}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{transform:translateY(-2px) rotate(-1deg)}
+.btn-ghost{background:#fff;border:2px solid var(--ink);color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,247,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--disp);font-weight:700;font-size:1.25rem}
+.brand .mark{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--p1),var(--p3));color:#fff;display:grid;place-items:center;font-size:1rem;transform:rotate(-6deg)}
+.nav-links{display:flex;gap:1.8rem;font-size:.95rem;color:var(--ink-soft);font-weight:600}
+.nav-links a:hover{color:var(--ink)}
+/* hero */
+.hero{position:relative;padding-block:clamp(50px,8vw,96px) clamp(40px,6vw,70px);text-align:center;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;background:
+  radial-gradient(50% 55% at 15% 20%,rgba(255,90,95,.25),transparent 60%),
+  radial-gradient(45% 55% at 85% 15%,rgba(124,58,237,.25),transparent 60%),
+  radial-gradient(50% 50% at 60% 80%,rgba(18,198,192,.22),transparent 60%)}
+.hero>*{position:relative;z-index:1}
+.hero .pill{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--line);border-radius:999px;padding:.4rem 1rem;font-weight:600;font-size:.9rem;box-shadow:0 10px 30px -14px rgba(124,58,237,.5)}
+.hero h1{font-size:clamp(2.7rem,7vw,5.4rem);margin:1.2rem auto .9rem;max-width:15ch}
+.hero h1 .hl{background:linear-gradient(100deg,var(--p1),var(--p2) 40%,var(--p3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:clamp(1.1rem,2vw,1.35rem);color:var(--ink-soft);max-width:50ch;margin-inline:auto}
+.hero-actions{display:flex;gap:.9rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+.hero-shot{margin-top:clamp(40px,6vw,66px);border-radius:26px;overflow:hidden;border:3px solid var(--ink);box-shadow:14px 14px 0 var(--p3)}
+.hero-shot img{width:100%;aspect-ratio:16/8;object-fit:cover}
+section{padding-block:clamp(56px,9vw,104px)}
+.head{text-align:center;max-width:54ch;margin:0 auto clamp(32px,5vw,52px)}
+.head h2{font-size:clamp(2rem,4.6vw,3.3rem);margin:.6rem 0 .7rem}
+.head p{color:var(--ink-soft);font-size:1.1rem}
+/* services chunky cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:18px}
+.sc{background:#fff;border:2px solid var(--ink);border-radius:20px;padding:1.7rem;transition:.18s;box-shadow:6px 6px 0 rgba(22,15,31,.9)}
+.sc:hover{transform:translateY(-4px);box-shadow:10px 10px 0 var(--p3)}
+.sc .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;color:#fff;margin-bottom:1.1rem}
+.sc:nth-child(4n+1) .ic{background:var(--p1)}.sc:nth-child(4n+2) .ic{background:var(--p2)}
+.sc:nth-child(4n+3) .ic{background:var(--p3)}.sc:nth-child(4n) .ic{background:var(--p4)}
+.sc h3{font-size:1.25rem;margin-bottom:.4rem}
+.sc p{color:var(--ink-soft);font-size:.96rem}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px}
+.gal figure{border-radius:20px;overflow:hidden;position:relative;border:2px solid var(--ink);aspect-ratio:1}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gal figure:hover img{transform:scale(1.07)}
+.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:1rem .8rem .7rem;color:#fff;font-weight:700;font-size:.9rem;background:linear-gradient(transparent,rgba(22,15,31,.82))}
+/* story */
+.story{background:linear-gradient(135deg,var(--p3),var(--p1));color:#fff;border-radius:32px;margin:clamp(20px,4vw,40px) auto;overflow:hidden}
+.story-in{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch}
+.story-media{min-height:340px}.story-media img{width:100%;height:100%;object-fit:cover}
+.story-txt{padding:clamp(2rem,5vw,4rem)}
+.story-txt .eyebrow{color:rgba(255,255,255,.85)}
+.story-txt h2{color:#fff;font-size:clamp(1.9rem,4vw,3rem);margin:.6rem 0 1rem}
+.story-txt p{color:rgba(255,255,255,.92);margin-bottom:1rem}
+.story-txt .sign{font-family:var(--disp);font-weight:700;font-size:1.3rem;margin-top:1rem}
+/* cta */
+.cta{text-align:center;background:var(--ink);color:#fff;border-radius:28px;padding:clamp(2.6rem,6vw,4.4rem) 1.5rem}
+.cta h2{color:#fff;font-size:clamp(2rem,4.5vw,3.3rem);margin-bottom:.8rem}
+.cta h2 .hl{background:linear-gradient(100deg,var(--p2),var(--p1));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cta p{color:rgba(255,255,255,.8);max-width:44ch;margin:0 auto 1.8rem;font-size:1.1rem}
+.cta .btn-primary{background:#fff;color:var(--ink)}
+footer{padding-block:3rem 2rem;border-top:1px solid var(--line)}
+.foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.5rem;align-items:center}
+footer small{display:block;margin-top:2rem;color:var(--ink-soft);font-size:.85rem}
+.callbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;gap:.6rem;padding:.7rem 1rem;background:rgba(250,247,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.callbar .btn{flex:1;justify-content:center;padding:.85rem}
+@media(max-width:860px){.story-in{grid-template-columns:1fr}.story-media{min-height:220px}}
+@media(max-width:720px){.nav-links{display:none}.callbar{display:flex}body{padding-bottom:74px}}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="#top"><span class="mark">{{INITIAL}}</span>{{NAME}}</a>
+  <nav class="nav-links"><a href="#services">Υπηρεσίες</a><a href="#work">Έργα</a><a href="#story">Ποιοι είμαστε</a><a href="#contact">Επικοινωνία</a></nav>
+  <a href="tel:+{{PHONE_INTL}}" class="btn btn-primary" style="padding:.6rem 1.2rem;font-size:.92rem">Κάλεσε</a>
+</div></header>
+
+<section class="hero" id="top"><div class="wrap">
+  <span class="pill">✦ {{KICKER}}</span>
+  <h1>{{NAME}} <span class="hl">με {{HERO_WORD}}.</span></h1>
+  <p>{{TAGLINE}}</p>
+  <div class="hero-actions"><a href="tel:+{{PHONE_INTL}}" class="btn btn-primary">📞 {{PHONE}}</a><a href="#work" class="btn btn-ghost">Δες τα έργα</a></div>
+  <div class="hero-shot rv"><img src="{{HERO_IMAGE}}" alt="{{NAME}} — {{TRADE}}"></div>
+</div></section>
+
+<section id="services"><div class="wrap">
+  <div class="head"><span class="eyebrow">Τι κάνουμε</span><h2>Υπηρεσίες που ξεχωρίζουν.</h2><p>{{TAGLINE}}</p></div>
+  <div class="cards">
+    <!--#services--><article class="sc rv"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">{{icon}}</svg></div><h3>{{title}}</h3><p>{{desc}}</p></article><!--/services-->
+  </div>
+</div></section>
+
+<section id="work"><div class="wrap">
+  <div class="head"><span class="eyebrow">Έργα</span><h2>Δες τη δουλειά μας.</h2></div>
+  <div class="gal">
+    <!--#gallery--><figure class="rv"><img src="{{image}}" alt="{{title}}" loading="lazy"><figcaption>{{title}}</figcaption></figure><!--/gallery-->
+  </div>
+</div></section>
+
+<section><div class="wrap"><div class="story" id="story"><div class="story-in">
+  <div class="story-media rv"><img src="{{STORY_IMAGE}}" alt="{{NAME}}"></div>
+  <div class="story-txt rv">
+    <span class="eyebrow">Ποιοι είμαστε</span>
+    <h2>{{STORY_TITLE}}</h2>
+    <!--#story--><p>{{p}}</p><!--/story-->
+    <div class="sign">— {{NAME}}</div>
+  </div>
+</div></div></div></section>
+
+<section id="contact"><div class="wrap"><div class="cta">
+  <h2>Έτοιμος να <span class="hl">ξεκινήσουμε;</span></h2>
+  <p>Πάρε τηλέφωνο για δωρεάν εκτίμηση. {{AREAS}}.</p>
+  <a href="tel:+{{PHONE_INTL}}" class="btn btn-primary">📞 Κάλεσε {{PHONE}}</a>
+</div></div></section>
+
+<footer><div class="wrap">
+  <div class="foot-in">
+    <a class="brand" href="#top"><span class="mark">{{INITIAL}}</span>{{NAME}}</a>
+    <div style="display:flex;gap:1.6rem;font-weight:600;color:var(--ink-soft)"><a href="tel:+{{PHONE_INTL}}">{{PHONE}}</a><a href="#services">Υπηρεσίες</a><a href="#work">Έργα</a></div>
+  </div>
+  <small>© {{YEAR}} {{NAME}} — {{CITY}} · Site από Vitrina</small>
+</div></footer>
+
+<div class="callbar"><a href="tel:+{{PHONE_INTL}}" class="btn btn-primary">📞 Κάλεσε</a><a href="#contact" class="btn btn-ghost">📍 Επικοινωνία</a></div>
+<script>
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
