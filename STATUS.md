@@ -3,6 +3,57 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+---
+
+## ▶▶ MASTER HANDOFF / ΠΛΑΝΟ (2026-07-10) — διάβασε πρώτα αυτό
+
+### Τι είναι το προϊόν
+Vitrina = «**Amboras/Lovable για ελληνικά τοπικά μαγαζιά**»: ο πελάτης μπαίνει, βλέπει **πολλά όμορφα
+responsive designs**, διαλέγει, και το site ανεβαίνει live + καθημερινά social posts (€49/μήνα).
+
+### 🏗️ Αρχιτεκτονική (3 κομμάτια)
+1. **Backend API** (`src/`, FastAPI) — **Online στο Railway** (service `devops`, project `fulfilling-smile`).
+   Supabase DB. Endpoints: onboard, designs/preview/select-design, **site-data (JSON)**, lookup, domain, stripe.
+2. **React sites** (`sites/`, Next.js 14) — **Η ΚΥΡΙΑ ΚΑΤΕΥΘΥΝΣΗ** (owner decision). Multi-tenant:
+   `/site/[client]` → fetch `site-data` → render React template. Demo switcher στο `/`.
+3. **React dashboard** (`dashboard/`, Vite) — Google login, ο πελάτης βλέπει/διαλέγει designs.
+
+### ✅ Τι έχει γίνει
+- **6 δομικά διαφορετικά React templates** στο `sites/lib/templates/`: **Editorial, Split, Showcase,
+  Bento, Longform, Corporate** (όχι recolors — διαφορετική δομή το καθένα). Approved από owner («πολύ όμορφα»).
+- `sites/` build OK (Next 14.2.35). Τοπικά: `cd sites && npm install && npm run dev` → :3000.
+- Backend `GET /clients/{id}/site-data` επιστρέφει normalized JSON (name/services[]/gallery[]/story[]).
+- Παλιός static engine (`src/premium_generator.py`, 7 HTML templates) = preview/fallback, tests 87/87+7/7.
+- Railway Online (11 env vars). Supabase project `vitrina` (ήταν paused→Resumed). Push σε `Angelos3030/devops` main.
+
+### 🎯 ΠΛΑΝΟ — τι ακολουθεί (με σειρά)
+1. **[templates] Φτάσε 10-15 React templates** (τώρα 6). Επόμενα distinct: **Poster** (oversized brutalist type),
+   **Sidebar** (sticky mini-nav), **Grid** (Swiss), **Magazine** (asymmetric), **Coast** (μεσογειακό/τουρισμός),
+   **Warmth** (hospitality). Πρότυπο: αντίγραψε ένα υπάρχον .jsx+.module.css, άλλαξε ΔΟΜΗ (όχι μόνο χρώμα),
+   πρόσθεσε στο `sites/lib/templates/index.js` (TEMPLATES/TEMPLATE_KEYS/TEMPLATE_META/MAP). Data prop shape:
+   `d.NAME,CITY,TRADE,TAGLINE,PHONE,PHONE_INTL,AREAS,HOURS,KICKER,HERO_WORD,INITIAL,YEAR,STORY_TITLE,CTA_TITLE,
+   HERO_IMAGE,STORY_IMAGE, d.services[{num,title,desc}], d.gallery[{image,title,sub}], d.story[{p}]`.
+2. **[domain routing]** Next middleware: host → client_id (πίνακας `domains`) → render. Τώρα μόνο `/site/[client]`.
+3. **[deploy sites]** Cloudflare Pages ή Vercel το `sites/`. Σύνδεσε custom domains πελατών.
+4. **[dashboard link]** Το `dashboard/` «Επιλογή» να ανοίγει το React preview (`sites/site/[id]?layout=`), όχι το παλιό.
+5. **[Supabase Google]** enable Google provider (Auth→Providers) + `dashboard/.env` για να δουλέψει το login.
+6. **[api.getvitrina.gr]** Railway custom domain + Cloudflare CNAME. Railway trial credit low → πρόσθεσε κάρτα.
+7. **[AI copy, optional]** valid `ANTHROPIC_API_KEY` → `src/site_copy.py` γράφει κείμενο ανά πελάτη (τώρα no-op fallback).
+
+### ⚙️ Πώς τρέχεις τι
+- Backend: `cd src`… `uvicorn src.main:app` (ή Railway). Tests: `python -m scripts.test_design_engine` (offline),
+  `python -m scripts.smoke_design_live` (live Supabase, θέλει δίκτυο).
+- React sites: `cd sites && npm run dev` → :3000 (demo switcher). Build: `npm run build`.
+- Dashboard: `cd dashboard && npm run dev` → :5173.
+
+### 🔑 Κρίσιμες αποφάσεις/κανόνες
+- **React για generated sites** (τελική απόφαση owner) + για dashboard. Static engine μένει fallback.
+- Templates πρέπει να είναι **δομικά διαφορετικά** («όχι ίδια με άλλα χρώματα») + **γαμάτα/responsive** (Lovable/Avada bar).
+- Secrets ΜΟΝΟ σε `.env` (gitignored). Ο owner έβαλε Supabase keys σε chat μια φορά → να γίνουν rotate.
+- Supabase free tier παγώνει μετά ~1 βδομάδα → Resume από dashboard.
+
+---
+
 **Τελευταία ενημέρωση:** 2026-07-10
 **🚀 PIVOT σε React sites (2026-07-10):** Owner decision — τα generated sites γίνονται **React/Next**
    (όχι static HTML) γιατί τα HTML templates «έμοιαζαν ίδια με άλλα χρώματα». Νέο `sites/` = Next.js 14
