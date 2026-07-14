@@ -21,7 +21,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE_DIR = ROOT / "skills" / "vitrina-design-system" / "templates"
 
-LAYOUTS = ("studio", "commerce", "atelier", "bold", "trust")
+LAYOUTS = ("studio", "commerce", "atelier", "bold", "trust", "noir", "fresh")
 
 LAYOUT_META = {
     "studio":   {"label": "Editorial", "desc": "Ζεστό, καλλιτεχνικό, με μεγάλη τυπογραφία και έμφαση στα έργα."},
@@ -29,6 +29,8 @@ LAYOUT_META = {
     "atelier":  {"label": "Minimal",    "desc": "Καθαρό, premium, με τεράστιες φωτογραφίες και πολύ λευκό."},
     "bold":     {"label": "Bold",       "desc": "Ζωντανό, με έντονα χρώματα και χαρακτήρα — για μοντέρνα brands."},
     "trust":    {"label": "Classic",    "desc": "Κλασικό, επαγγελματικό, navy & serif — για κύρος και εμπιστοσύνη."},
+    "noir":     {"label": "Noir",       "desc": "Σκούρο, luxury, με χρυσές πινελιές — για premium & φωτογραφικά brands."},
+    "fresh":    {"label": "Fresh",      "desc": "Απαλό, μοντέρνο, στρογγυλεμένο — για wellness, υγεία, μοντέρνα cafés."},
 }
 
 # ---------------------------------------------------------------------------

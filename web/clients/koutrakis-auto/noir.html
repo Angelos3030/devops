@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κουτράκης — Ξυλουργικό εργαστήριο | Γέρακας</title>
+<meta name="description" content="Κουτράκης — Χειροποίητες κουζίνες, ντουλάπες και έπιπλα στα μέτρα σου — με φυσικά υλικά και φινίρισμα που κρατάει χρόνια. Ξυλουργικό εργαστήριο στην περιοχή Γέρακας. Τηλ. 6956297670.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* noir — refined dark luxury: charcoal + champagne accent, serif display, hairlines, generous space */
+:root{
+  --bg:#111013;--surface:#18171b;--surface-2:#201e23;--ink:#f2efe9;
+  --ink-soft:#a8a29a;--ink-dim:#6f6a64;--gold:#c9a35e;--gold-soft:#e2c88f;
+  --line:rgba(242,239,233,.12);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1220px,calc(100% - 48px));margin-inline:auto}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.06;letter-spacing:.005em}
+.rv{opacity:0;transform:translateY(24px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+.kicker{font-family:var(--sans);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--sans);font-weight:500;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;padding:1rem 1.9rem;transition:.25s;border-radius:2px}
+.btn-primary{background:var(--gold);color:#1a140a}.btn-primary:hover{background:var(--gold-soft)}
+.btn-line{border:1px solid var(--line);color:var(--ink)}.btn-line:hover{border-color:var(--gold);color:var(--gold)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:.35s}
+.nav.scrolled{background:rgba(17,16,19,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:84px}
+.logo{font-family:var(--serif);font-size:1.7rem;letter-spacing:.02em}
+.logo b{color:var(--gold);font-weight:500}
+.nav-links{display:flex;gap:2.4rem;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.nav-links a:hover{color:var(--gold)}
+/* hero */
+.hero{position:relative;min-height:100svh;min-height:640px;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.42}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 6%,rgba(17,16,19,.5) 55%,rgba(17,16,19,.2)),linear-gradient(0deg,var(--bg),transparent 60%)}
+.hero-in{position:relative;z-index:1;padding-block:120px}
+.hero .kicker{color:var(--gold-soft)}
+.hero h1{font-size:clamp(3rem,7vw,6rem);font-weight:400;max-width:15ch;margin:1.2rem 0 1.2rem}
+.hero h1 em{font-style:italic;color:var(--gold-soft)}
+.hero p{color:var(--ink-soft);font-size:1.2rem;max-width:46ch}
+.hero-actions{display:flex;gap:1rem;margin-top:2.4rem;flex-wrap:wrap}
+section{padding-block:clamp(70px,10vw,130px)}
+.head{max-width:56ch;margin-bottom:clamp(34px,5vw,58px)}
+.head h2{font-size:clamp(2.1rem,4.6vw,3.4rem);margin:.7rem 0 .8rem}
+.head p{color:var(--ink-soft);font-size:1.1rem}
+/* services — hairline list */
+.svc-list{border-top:1px solid var(--line)}
+.svc-row{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(1rem,4vw,3rem);align-items:center;padding:clamp(1.5rem,3vw,2.4rem) 0;border-bottom:1px solid var(--line);transition:.3s}
+.svc-row:hover{padding-left:1rem;background:linear-gradient(90deg,var(--surface),transparent)}
+.svc-row .n{font-family:var(--serif);font-size:1.2rem;color:var(--gold)}
+.svc-row h3{font-size:clamp(1.4rem,3vw,2rem);font-weight:500}
+.svc-row p{color:var(--ink-soft);font-size:.98rem;max-width:50ch;margin-top:.2rem}
+.svc-row .ar{color:var(--ink-dim);font-size:1.4rem;transition:.3s}
+.svc-row:hover .ar{color:var(--gold);transform:translateX(5px)}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(14px,2vw,22px)}
+.gal figure{position:relative;overflow:hidden;grid-column:span 4;aspect-ratio:1;border:1px solid var(--line)}
+.gal figure:nth-child(6n+1){grid-column:span 8;aspect-ratio:16/10}
+.gal figure:nth-child(6n+2){grid-column:span 4;aspect-ratio:3/4}
+.gal img{width:100%;height:100%;object-fit:cover;filter:brightness(.9) saturate(.95);transition:.7s}
+.gal figure:hover img{filter:brightness(1.05);transform:scale(1.04)}
+.gal figcaption{position:absolute;left:18px;bottom:16px;font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--ink);text-shadow:0 2px 20px #000}
+/* story */
+.story{background:var(--surface);border-block:1px solid var(--line)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,5.5rem);align-items:center}
+.split-media{overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line)}
+.split-media img{width:100%;height:100%;object-fit:cover}
+.split h2{font-size:clamp(2rem,4vw,3rem);margin:.7rem 0 1.2rem}
+.split p{color:var(--ink-soft);margin-bottom:1rem}
+.sign{font-family:var(--serif);font-style:italic;font-size:1.6rem;color:var(--gold-soft);margin-top:1.3rem}
+/* cta */
+.cta{text-align:center}
+.cta h2{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:400;margin-bottom:2rem;line-height:1.05}
+.cta h2 em{font-style:italic;color:var(--gold-soft)}
+.cta .phone{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);border-bottom:1px solid var(--gold);padding-bottom:.15rem;transition:.25s;display:inline-block}
+.cta .phone:hover{color:var(--gold-soft);border-color:var(--gold-soft)}
+.cta .sub{margin-top:1.6rem;color:var(--ink-dim);font-size:.95rem}
+footer{border-top:1px solid var(--line);padding-block:3.4rem 2.4rem}
+.foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem;align-items:center}
+.foot-in .logo{font-size:1.9rem}
+footer small{display:block;margin-top:2.4rem;color:var(--ink-dim);font-size:.82rem}
+.callbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:.6rem;padding:.7rem 1rem;background:rgba(17,16,19,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.callbar .btn{flex:1;justify-content:center}
+@media(max-width:860px){.split{grid-template-columns:1fr}.split-media{aspect-ratio:16/10;max-height:380px}.gal{grid-template-columns:repeat(6,1fr)}.gal figure,.gal figure:nth-child(6n+1),.gal figure:nth-child(6n+2){grid-column:span 3;aspect-ratio:1}.gal figure:nth-child(6n+1){grid-column:span 6;aspect-ratio:16/10}}
+@media(max-width:720px){.nav-links{display:none}.callbar{display:flex}body{padding-bottom:74px}.svc-row{grid-template-columns:auto 1fr}.svc-row .ar{display:none}}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav class="nav" id="nav"><div class="wrap nav-in">
+  <a href="#top" class="logo">Κουτράκης<b>.</b></a>
+  <div class="nav-links"><a href="#services">Υπηρεσίες</a><a href="#work">Έργα</a><a href="#story">Ποιοι είμαστε</a><a href="#contact">Επικοινωνία</a></div>
+  <a href="tel:+306956297670" class="nav-links" style="letter-spacing:.12em">6956297670</a>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg"><img src="../koutrakis-xylourgos/assets/modern-kitchen.jpg" alt="Κουτράκης — Ξυλουργικό εργαστήριο"></div>
+  <div class="wrap hero-in">
+    <span class="kicker">Ξυλουργικό εργαστήριο · Γέρακας</span>
+    <h1>Κουτράκης <em>με μέτρο.</em></h1>
+    <p>Χειροποίητες κουζίνες, ντουλάπες και έπιπλα στα μέτρα σου — με φυσικά υλικά και φινίρισμα που κρατάει χρόνια.</p>
+    <div class="hero-actions"><a href="tel:+306956297670" class="btn btn-primary">📞 6956297670</a><a href="#work" class="btn btn-line">Δες τα έργα</a></div>
+  </div>
+</header>
+
+<section id="services"><div class="wrap">
+  <div class="head"><span class="kicker">Υπηρεσίες</span><h2>Ό,τι κάνουμε, το κάνουμε σωστά.</h2></div>
+  <div class="svc-list">
+    <a class="svc-row rv" href="tel:+306956297670"><span class="n">01</span><div><h3>Εντοιχισμός κουζίνας</h3><p>Τοποθέτηση με σωστές ενώσεις και πρακτική διάταξη για καθημερινή χρήση.</p></div><span class="ar">→</span></a><a class="svc-row rv" href="tel:+306956297670"><span class="n">02</span><div><h3>Ντουλάπες &amp; αποθηκευτικοί χώροι</h3><p>Λύσεις που αξιοποιούν κάθε εκατοστό, στα μέτρα του χώρου σου.</p></div><span class="ar">→</span></a><a class="svc-row rv" href="tel:+306956297670"><span class="n">03</span><div><h3>Ξύλινα κρεβάτια &amp; έπιπλα</h3><p>Ανθεκτικές, ιδιαίτερες κατασκευές που δεν βρίσκεις έτοιμες.</p></div><span class="ar">→</span></a><a class="svc-row rv" href="tel:+306956297670"><span class="n">04</span><div><h3>Πόρτες &amp; παράθυρα</h3><p>Κατασκευή, επισκευή και συντήρηση ξύλινων πορτών και παραθύρων.</p></div><span class="ar">→</span></a><a class="svc-row rv" href="tel:+306956297670"><span class="n">05</span><div><h3>Μερεμέτια &amp; λουστράρισμα</h3><p>Μικρές επισκευές και ανανεώσεις σε έπιπλα, πόρτες και ράφια.</p></div><span class="ar">→</span></a>
+  </div>
+</div></section>
+
+<section id="work"><div class="wrap">
+  <div class="head"><span class="kicker">Έργα</span><h2>Επιλογή από τη δουλειά μας.</h2></div>
+  <div class="gal">
+    <figure class="rv"><img src="../koutrakis-xylourgos/assets/marble-kitchen.jpg" alt="Ανακαίνιση κουζίνας" loading="lazy"><figcaption>Ανακαίνιση κουζίνας</figcaption></figure><figure class="rv"><img src="../koutrakis-xylourgos/assets/carved-sideboard.jpg" alt="Σκαλιστή πρόσοψη" loading="lazy"><figcaption>Σκαλιστή πρόσοψη</figcaption></figure><figure class="rv"><img src="../koutrakis-xylourgos/assets/walnut-sideboard.jpg" alt="Μπουφές καρυδιάς" loading="lazy"><figcaption>Μπουφές καρυδιάς</figcaption></figure><figure class="rv"><img src="../koutrakis-xylourgos/assets/kids-bunk-bed.jpg" alt="Παιδική κουκέτα" loading="lazy"><figcaption>Παιδική κουκέτα</figcaption></figure><figure class="rv"><img src="../koutrakis-xylourgos/assets/wardrobe-built-in.jpg" alt="Εντοιχισμένη ντουλάπα" loading="lazy"><figcaption>Εντοιχισμένη ντουλάπα</figcaption></figure><figure class="rv"><img src="../koutrakis-xylourgos/assets/study-desk.jpg" alt="Γραφείο &amp; ράφια" loading="lazy"><figcaption>Γραφείο &amp; ράφια</figcaption></figure><figure class="rv"><img src="../koutrakis-xylourgos/assets/rounded-cabinet.jpg" alt="Καμπύλο έπιπλο" loading="lazy"><figcaption>Καμπύλο έπιπλο</figcaption></figure><figure class="rv"><img src="../koutrakis-xylourgos/assets/classic-table.jpg" alt="Κλασική τραπεζαρία" loading="lazy"><figcaption>Κλασική τραπεζαρία</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="story" id="story"><div class="wrap split">
+  <div class="split-media rv"><img src="../koutrakis-xylourgos/assets/wood-table-workshop.jpg" alt="Κουτράκης"></div>
+  <div class="rv">
+    <span class="kicker">Ποιοι είμαστε</span>
+    <h2>Ένας μάστορας, από την ιδέα ως την τοποθέτηση.</h2>
+    <p>Ο Κώστας Κουτράκης δουλεύει το ξύλο με μεράκι στον Γέρακα. Κάθε κατασκευή ξεκινά με μια κουβέντα για το πώς ζεις τον χώρο σου.</p><p>Χωρίς έτοιμες λύσεις, χωρίς κρυφές χρεώσεις — καθαρή τιμή, φυσικά υλικά και συνέπεια στον χρόνο παράδοσης.</p>
+    <div class="sign">— Κουτράκης</div>
+  </div>
+</div></section>
+
+<section class="cta" id="contact"><div class="wrap">
+  <span class="kicker">Ας ξεκινήσουμε</span>
+  <h2 style="margin-top:1rem">Πες μας τι έχεις στο μυαλό σου.</h2>
+  <a href="tel:+306956297670" class="phone">📞 6956297670</a>
+  <p class="sub">Δωρεάν εκτίμηση · Γέρακας · Παλλήνη · Γλυκά Νερά · Ανατολικά Προάστια</p>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="foot-in">
+    <a href="#top" class="logo">Κουτράκης<b>.</b></a>
+    <div class="nav-links" style="color:var(--ink-soft)"><a href="tel:+306956297670">6956297670</a><a href="#services">Υπηρεσίες</a><a href="#work">Έργα</a></div>
+  </div>
+  <small>© 2026 Κουτράκης — Γέρακας · Site από Vitrina</small>
+</div></footer>
+
+<div class="callbar"><a href="tel:+306956297670" class="btn btn-primary">📞 Κάλεσε</a><a href="#contact" class="btn btn-line">Επικοινωνία</a></div>
+<script>
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
