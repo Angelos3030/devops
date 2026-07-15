@@ -52,6 +52,21 @@
   dashboard/preview κάνει re-render. Δίνει «ongoing value» = λόγος να μείνει (retention).
 - Χρειάζεται valid `ANTHROPIC_API_KEY`. Καλός υποψήφιος για γρήγορο differentiator μετά το core MVP.
 
+**🗺️ Google Business Profile (GBP) — Phase 2 managed service (owner ιδέα):**
+- GBP = **ο #1 παράγοντας local SEO** (πιο σημαντικό κι απ' το site — relevance/distance/prominence).
+- Δημιουργία/επαλήθευση: **concierge** (η Google επαληθεύει το φυσικό μαγαζί — δεν αυτοματοποιείται 100%).
+- Διαχείριση: **Google Business Profile API** + OAuth πελάτη (ίδιο μοντέλο με Facebook) → GBP posts, ώρες,
+  φωτο, κατηγορίες, reviews. Θέλει **έγκριση πρόσβασης στο GBP API** (σαν Meta review).
+- Ισχυρό upsell + συνδέεται με τα posts (Google + Facebook + Instagram μαζί).
+
+**🔍 SEO για τα sites — best practices 2026 (εφαρμογή):**
+- ✅ **ΕΓΙΝΕ:** JSON-LD LocalBusiness schema (`sites/lib/seo.js` → schemaType ανά επάγγελμα +
+  buildJsonLd), Open Graph + keywords (buildMetadata), `robots.js` (index /site, όχι /preview),
+  semantic HTML + fluid responsive + Next SSR/ISR (Core Web Vitals).
+- **TODO SEO:** NAP consistency (ίδιο Name/Address/Phone παντού), **reviews** (κρίσιμα — πρόσθεσε
+  testimonials/GBP reviews), τοπικά keywords στο copy (trade+city — ήδη στο normalize), per-domain
+  sitemap.xml, GBP (πάνω).
+
 ---
 
 ## ▶▶ MASTER HANDOFF / ΠΛΑΝΟ (2026-07-10) — διάβασε πρώτα αυτό

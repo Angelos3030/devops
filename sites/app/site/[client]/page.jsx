@@ -1,13 +1,13 @@
 import { getSiteData } from '../../../lib/api'
 import { pickTemplate } from '../../../lib/templates'
+import { buildMetadata, buildJsonLd } from '../../../lib/seo'
 
 export const dynamic = 'force-dynamic' // multi-tenant: render per request (ISR via fetch revalidate)
 
 export async function generateMetadata({ params, searchParams }) {
   try {
     const { data } = await getSiteData(params.client, searchParams?.layout)
-    const title = `${data.NAME} — ${data.TRADE} | ${data.CITY}`
-    return { title, description: `${data.TAGLINE} Τηλ. ${data.PHONE}.` }
+    return buildMetadata(data)
   } catch {
     return { title: 'Vitrina' }
   }
@@ -25,5 +25,12 @@ export default async function SitePage({ params, searchParams }) {
     )
   }
   const Template = pickTemplate(payload.layout)
-  return <Template data={payload.data} />
+  const jsonLd = buildJsonLd(payload.data)
+  return (
+    <>
+      {/* Local-SEO structured data (Google rich results + local ranking) */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <Template data={payload.data} />
+    </>
+  )
 }
