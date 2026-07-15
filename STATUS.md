@@ -78,7 +78,17 @@
 **🔑 Owner (accounts/clicks):**
 - [ ] Deploy `sites/` (Next) στο Railway → New service, root `sites`, env `NEXT_PUBLIC_API_BASE=https://devops-production-d563.up.railway.app`
 - [ ] Deploy `dashboard/` (Vite) στο Railway → root `dashboard`, envs `VITE_API_BASE`, `VITE_SITES_BASE`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
-- [ ] Stripe → Price €14.99/μήνα → `STRIPE_PRICE_SITE` στο Railway
+- [x] ✅ **Stripe DONE (2026-07-15, από Claude μέσω Stripe MCP):** Product `prod_UtFfvLvry7GeQK`
+      («Vitrina — Website») + Price **`price_1TtT9wCXhuChnUHdbjsfPojq`** = €14.99/μήνα EUR recurring
+      (**test mode**). Μπήκε σε local `.env` + **Railway** (`variableUpsert` via API).
+      **LIVE TESTED:** onboard → `POST /create-checkout {plan:"site"}` → επέστρεψε έγκυρο
+      `checkout.stripe.com` URL ✅. ⚠️ Για πραγματικά λεφτά: φτιάξε το ίδιο Price σε **live mode**
+      και άλλαξε `STRIPE_SECRET_KEY` + `STRIPE_PRICE_SITE` σε live τιμές.
+- [x] ✅ **RLS DONE (2026-07-15):** ενεργοποιήθηκε σε όλους τους 9 πίνακες μέσω Supabase MCP·
+      backend επιβεβαιώθηκε ότι δουλεύει (service_role bypass) με read+write+background tests.
+- [x] ✅ **MCP/API access (2026-07-15):** Supabase MCP ✓, Stripe MCP ✓, Railway API (token στο .env,
+      `Authorization: Bearer`, endpoint `backboard.railway.com/graphql/v2`· project `2c75c49e-…`,
+      service `devops` `7f3c7476-…`, env `cd172187-…`) ✓, Cloudflare API (`CF_API_TOKEN`) ✓.
 - [ ] Supabase → Auth → enable **Google** (+ redirect URLs) → dashboard login
 - [ ] Cloudflare DNS: `api.getvitrina.gr`→backend, `app.getvitrina.gr`→sites
 - [ ] Papaki reseller creds (`PAPAKI_*`) → auto-domain (ή χειροκίνητα οι πρώτοι)

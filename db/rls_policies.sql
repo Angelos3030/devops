@@ -18,7 +18,7 @@ ALTER TABLE client_assets    ENABLE ROW LEVEL SECURITY;
 ALTER TABLE social_accounts  ENABLE ROW LEVEL SECURITY;
 ALTER TABLE posts             ENABLE ROW LEVEL SECURITY;
 ALTER TABLE subscriptions    ENABLE ROW LEVEL SECURITY;
-ALTER TABLE domains          ENABLE ROW LEVEL SECURITY;
+ALTER TABLE domains          ENABLE ROW LEVEL SECURITY;P
 ALTER TABLE domain_orders    ENABLE ROW LEVEL SECURITY;
 
 -- Explicit deny για anon (δεν χρειάζεται αν δεν υπάρχει policy — default deny)
