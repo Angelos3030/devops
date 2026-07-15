@@ -21,7 +21,11 @@
    fallback σε **licensed stock** (Unsplash License = free commercial, GDPR-safe). Ο generator ήδη
    βάζει Unsplash fallback ανά επάγγελμα — κράτα ΜΟΝΟ properly-licensed πηγές.
 
-⚠️ **BLOCKER (2026-07-15):** Railway **trial expired** → `devops` backend **OFFLINE**. Χρειάζεται
+⚠️ **✅ BACKEND LIVE (2026-07-15):** Railway paid → `devops` **Online** στο
+   `https://devops-production-d563.up.railway.app`. E2E confirmed live: onboard→7 designs→Supabase→/designs.
+   Fix που έγινε: `get_clients_by_email` ζητούσε ανύπαρκτη στήλη `selected_layout`. Owner: «όλα με Railway».
+   (Παλιό blocker text↓ ξεπερασμένο)
+   ~~Railway trial expired → OFFLINE~~. Χρειάζεται
    Railway Hobby (~€5/μ) ή migration (Render/Fly free). Χωρίς αυτό, τίποτα live. Πρόταση: sites→Vercel (free),
    backend→Railway €5 ή Render free.
 
