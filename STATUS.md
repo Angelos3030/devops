@@ -25,6 +25,22 @@
    Railway Hobby (~€5/μ) ή migration (Render/Fly free). Χωρίς αυτό, τίποτα live. Πρόταση: sites→Vercel (free),
    backend→Railway €5 ή Render free.
 
+### 🔮 PHASE 2 (μετά το website-only MVP) — σημειωμένο
+
+**Social / καθημερινά posts** (owner: «θα τα βάλουμε σε β φάση»):
+- Ως **upsell / ανώτερο tier** (π.χ. €29-39/μ site+posts) — ΟΧΙ στο €14.99 MVP.
+- Στο landing εμφανίζονται μόνο ως «🔜 Φάση 2» — ΜΗΝ τα υπόσχεσαι σαν διαθέσιμα.
+
+**Facebook/Instagram auth — ΤΟ ΕΠΙΣΗΜΟ ΜΟΝΤΕΛΟ (owner ρώτησε «με ποιανού creds;»):**
+- ΟΥΤΕ δικά σου creds, ΟΥΤΕ ο κωδικός του πελάτη. Μοντέλο: **1 δική σου Meta App «Vitrina»
+  (περνάει Meta App Review μία φορά) + κάθε πελάτης OAuth («Σύνδεση με Facebook») με τα ΔΙΚΑ ΤΟΥ
+  → Page Access Token ΤΗΣ ΣΕΛΙΔΑΣ ΤΟΥ → ποστάρεις εκ μέρους του.**
+- Ποτέ κωδικός — μόνο OAuth token, ανακαλείται όποτε θέλει. IG: Business/Creator συνδεδεμένο με τη Σελίδα.
+- Tokens: long-lived Page tokens (~60μ) + refresh.
+- **Ήδη σκαρωμένο:** `src/meta_oauth.py`, `skills/meta-publisher/`, `docs/12-META-APP-REVIEW.md`.
+- **Μένει Phase 2:** (1) ολοκλήρωση Meta App Review (test account + screencast), (2) σύνδεση posting
+  με το React dashboard, (3) `daily_post.py` scheduler ανά πελάτη.
+
 ---
 
 ## ▶▶ MASTER HANDOFF / ΠΛΑΝΟ (2026-07-10) — διάβασε πρώτα αυτό
