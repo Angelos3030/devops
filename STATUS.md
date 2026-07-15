@@ -73,6 +73,33 @@
 
 ---
 
+## ✅ LAUNCH CHECKLIST (τι μένει για live MVP) — 2026-07-15
+
+**🔑 Owner (accounts/clicks):**
+- [ ] Deploy `sites/` (Next) στο Railway → New service, root `sites`, env `NEXT_PUBLIC_API_BASE=https://devops-production-d563.up.railway.app`
+- [ ] Deploy `dashboard/` (Vite) στο Railway → root `dashboard`, envs `VITE_API_BASE`, `VITE_SITES_BASE`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+- [ ] Stripe → Price €14.99/μήνα → `STRIPE_PRICE_SITE` στο Railway
+- [ ] Supabase → Auth → enable **Google** (+ redirect URLs) → dashboard login
+- [ ] Cloudflare DNS: `api.getvitrina.gr`→backend, `app.getvitrina.gr`→sites
+- [ ] Papaki reseller creds (`PAPAKI_*`) → auto-domain (ή χειροκίνητα οι πρώτοι)
+
+**💻 Code (Claude):**
+- [ ] GDPR cookie-consent banner (sites + landing)
+- [ ] RLS security pass (SQL — advisor flags RLS disabled σε public tables· owner το τρέχει)
+- [ ] Public signup flow: getvitrina.gr → `/onboard` → dashboard/preview end-to-end
+- [ ] (optional) Templates 12→15
+
+**🔌 MCP servers (για ευκολότερο troubleshooting) — προσθέτει ο owner σε INTERACTIVE Claude Code (`claude mcp add`/`/mcp`, όχι εδώ):**
+- **Supabase MCP** ⭐ (SQL/migrations/logs/tables — θα έτρεχα RLS+migrations μόνος μου). π.χ.
+  `claude mcp add supabase -- npx -y @supabase/mcp-server-supabase@latest --access-token <PAT>`
+- **Railway MCP** ⭐ (deploy logs + env + status — instant debugging). **Cloudflare MCP** (DNS/Pages).
+- ⚠️ prod access → scoped/read-only tokens όπου γίνεται.
+
+**🤖 LLM ΑΠΟΦΑΣΗ:** chat editor + copy = **Claude Haiku**. DeepSeek **απορρίφθηκε** (GDPR: κινεζικοί
+servers για EU customer data + μικρή πτώση ελληνικής ποιότητας· το κόστος είναι ήδη ψίχουλα, ~€0,01/μήνυμα).
+
+---
+
 ## ▶▶ MASTER HANDOFF / ΠΛΑΝΟ (2026-07-10) — διάβασε πρώτα αυτό
 
 ### Τι είναι το προϊόν
