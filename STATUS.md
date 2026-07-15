@@ -76,7 +76,15 @@
 ## ✅ LAUNCH CHECKLIST (τι μένει για live MVP) — 2026-07-15
 
 **🔑 Owner (accounts/clicks):**
-- [ ] Deploy `sites/` (Next) στο Railway → New service, root `sites`, env `NEXT_PUBLIC_API_BASE=https://devops-production-d563.up.railway.app`
+- [x] ✅ **`sites/` LIVE (2026-07-15, το έκανε ο Claude 100% μέσω Railway API):**
+      **https://sites-production-da56.up.railway.app** — showcase + 12 templates ζωντανά.
+      Service `sites` `80f0b283-2f6d-4fd6-be04-065af6d83590`, root=`sites`,
+      `NEXT_PUBLIC_API_BASE`=backend URL, deployment trigger (auto-deploy on push to main) ✓.
+      **Bug που βρέθηκε από το deploy:** το middleware περνούσε το `*.up.railway.app` για custom
+      domain πελάτη → rewrite του `/` στο tenant route (showcase έδειχνε «δεν είναι διαθέσιμο»).
+      Fix: `sites/middleware.js` APP_HOSTS + robots/sitemap internal. Επαληθεύτηκε live ✓.
+      ⚠️ **Railway API μάθημα:** `serviceInstanceDeployV2` ξαναχτίζει το ΙΔΙΟ commit — δώσε
+      `commitSha:` για latest, ή φτιάξε `deploymentTriggerCreate` για auto-deploy.
 - [ ] Deploy `dashboard/` (Vite) στο Railway → root `dashboard`, envs `VITE_API_BASE`, `VITE_SITES_BASE`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
 - [x] ✅ **Stripe DONE (2026-07-15, από Claude μέσω Stripe MCP):** Product `prod_UtFfvLvry7GeQK`
       («Vitrina — Website») + Price **`price_1TtT9wCXhuChnUHdbjsfPojq`** = €14.99/μήνα EUR recurring
