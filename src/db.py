@@ -174,9 +174,10 @@ def get_client_by_domain(domain: str) -> dict | None:
 
 
 def get_clients_by_email(email: str) -> list[dict]:
-    """Οι πελάτες που ανήκουν σε ένα email (σύνδεση dashboard login → client record)."""
+    """Οι πελάτες που ανήκουν σε ένα email (σύνδεση dashboard login → client record).
+    Το selected design κρατιέται στο `sites` (url='selected'), όχι σε στήλη clients."""
     res = (_client().table("clients")
-           .select("id,name,business_type,city,status,selected_layout")
+           .select("id,name,business_type,city,status")
            .eq("email", email).execute())
     return res.data or []
 
