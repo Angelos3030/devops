@@ -41,6 +41,17 @@
 - **Μένει Phase 2:** (1) ολοκλήρωση Meta App Review (test account + screencast), (2) σύνδεση posting
   με το React dashboard, (3) `daily_post.py` scheduler ανά πελάτη.
 
+**💬 AI Chat Editor («μίλα στο site σου» — Lovable-style):**
+- Ο πελάτης γράφει «βάλε το μενού πάνω / πιο ζεστά χρώματα / γράψε κείμενο για το about» → LLM ερμηνεύει
+  + γυρνά την αλλαγή (JSON patch στα site-data / νέο copy). Το template κάνει το render (0 extra).
+- **Κόστος:** Haiku ~€0,01/μήνυμα → ολόκληρο setup ~€0,15-0,20· ένας πελάτης <€1/μήνα σε AI (αμελητέο
+  στα €14.99). Sonnet ~3x αν θες καλύτερη κατανόηση.
+- **Guardrails (υποχρεωτικά):** rate-limit/όριο μηνυμάτων ανά πελάτη, στέλνε **structured data όχι όλο το
+  HTML** στο prompt, **ΟΧΙ** AI image-gen (ακριβό — μόνο φωτο πελάτη/stock).
+- **Πλοκάρισμα:** endpoint `POST /clients/{id}/chat-edit {message}` → επιστρέφει updated site-data →
+  dashboard/preview κάνει re-render. Δίνει «ongoing value» = λόγος να μείνει (retention).
+- Χρειάζεται valid `ANTHROPIC_API_KEY`. Καλός υποψήφιος για γρήγορο differentiator μετά το core MVP.
+
 ---
 
 ## ▶▶ MASTER HANDOFF / ΠΛΑΝΟ (2026-07-10) — διάβασε πρώτα αυτό
