@@ -1,0 +1,19 @@
+# Railway config for the Next.js multi-tenant sites app.
+# Deploy as a SEPARATE service in the same Railway project:
+#   New Service → same GitHub repo → Settings → Root Directory = "sites"
+#   Nixpacks auto-detects Next.js (runs `npm run build` then `npm run start`).
+#   `next start` binds to $PORT automatically (Railway provides it).
+#
+# Required env var (build-time — NEXT_PUBLIC_* is inlined at build):
+#   NEXT_PUBLIC_API_BASE = <backend URL, e.g. https://api.getvitrina.gr>
+#
+# After deploy: add custom domain `app.getvitrina.gr` (Settings → Networking),
+# and point client domains here for multi-tenant routing (middleware.js).
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "npm run start"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
