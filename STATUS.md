@@ -5,6 +5,28 @@
 
 ---
 
+## 🆕 ΝΕΟ MVP SCOPE (2026-07-15 — owner pivot) — ΥΠΕΡΙΣΧΥΕΙ
+
+Ο owner απλοποίησε το MVP:
+1. **❌ Έξω τα social** — ΜΟΝΟ website προϊόν προς το παρόν (ΜΗΝ φτιάχνεις social/ads agents).
+   Ο social κώδικας μένει dormant, δεν διαγράφεται.
+2. **💳 Stripe €14.99/μήνα, ΕΝΑ plan** ("site"). Έγινε: `cfg.STRIPE_PRICE_SITE`, `_PRICE_BY_PLAN["site"]`,
+   `CheckoutRequest.plan` default = "site". **TODO owner:** φτιάξε το Price (€14.99/μήνα recurring) στο
+   Stripe Dashboard → βάλε το id ως `STRIPE_PRICE_SITE` σε `.env`/Railway.
+3. **🌐 Domain auto-purchase (Papaki)** στο signup — κώδικας υπάρχει (`src/domain.py`, `registrars.py`,
+   `/domain/create-checkout` €24/έτος). **TODO owner:** Papaki reseller creds (`PAPAKI_*`).
+4. **🔒 GDPR compliance** — TODO: cookie-consent banner (Next `sites/` + landing), σαφές privacy +
+   data-deletion (`web/data-deletion.html` υπάρχει), ρητή συγκατάθεση για uploads.
+5. **📷 Φωτο** — ο πελάτης ανεβάζει (`/clients/{id}/upload` + Supabase Storage υπάρχει)· αν δεν έχει,
+   fallback σε **licensed stock** (Unsplash License = free commercial, GDPR-safe). Ο generator ήδη
+   βάζει Unsplash fallback ανά επάγγελμα — κράτα ΜΟΝΟ properly-licensed πηγές.
+
+⚠️ **BLOCKER (2026-07-15):** Railway **trial expired** → `devops` backend **OFFLINE**. Χρειάζεται
+   Railway Hobby (~€5/μ) ή migration (Render/Fly free). Χωρίς αυτό, τίποτα live. Πρόταση: sites→Vercel (free),
+   backend→Railway €5 ή Render free.
+
+---
+
 ## ▶▶ MASTER HANDOFF / ΠΛΑΝΟ (2026-07-10) — διάβασε πρώτα αυτό
 
 ### Τι είναι το προϊόν

@@ -52,6 +52,8 @@ STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 STRIPE_PRICE_STARTER = os.environ.get("STRIPE_PRICE_STARTER", "")
 STRIPE_PRICE_SOCIAL = os.environ.get("STRIPE_PRICE_SOCIAL", "")
 STRIPE_PRICE_PREMIUM = os.environ.get("STRIPE_PRICE_PREMIUM", "")
+# MVP single plan — Website only, €14.99/μήνα (χωρίς social).
+STRIPE_PRICE_SITE = os.environ.get("STRIPE_PRICE_SITE", "")
 
 # --- Cloudflare Pages (deploy) ---
 CF_API_TOKEN = os.environ.get("CF_API_TOKEN", "")

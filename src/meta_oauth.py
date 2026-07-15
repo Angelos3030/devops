@@ -27,6 +27,7 @@ stripe.api_key = cfg.STRIPE_SECRET_KEY
 
 # Stripe price IDs — βάλε τα πραγματικά στο .env από Dashboard → Products.
 _PRICE_BY_PLAN = {
+    "site": cfg.STRIPE_PRICE_SITE,        # MVP: Website only, €14.99/μήνα
     "starter": cfg.STRIPE_PRICE_STARTER,
     "social": cfg.STRIPE_PRICE_SOCIAL,
     "premium": cfg.STRIPE_PRICE_PREMIUM,
@@ -64,7 +65,7 @@ class Intake(BaseModel):
 
 class CheckoutRequest(BaseModel):
     client_id: str
-    plan: str = "social"
+    plan: str = "site"   # MVP default: Website only, €14.99/μήνα
 
 
 class ClientAsset(BaseModel):
