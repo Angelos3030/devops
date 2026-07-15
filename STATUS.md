@@ -84,8 +84,19 @@
 - [ ] Papaki reseller creds (`PAPAKI_*`) → auto-domain (ή χειροκίνητα οι πρώτοι)
 
 **💻 Code (Claude):**
-- [ ] GDPR cookie-consent banner (sites + landing)
-- [ ] RLS security pass (SQL — advisor flags RLS disabled σε public tables· owner το τρέχει)
+- [x] **GDPR ανάλυση (2026-07-15):** ❌ **ΔΕΝ χρειάζεται cookie banner** — τα sites δεν βάζουν cookies
+      ούτε tracking (banner απαιτείται μόνο για μη-απαραίτητα cookies· άσκοπο banner = χαμένο conversion).
+      ⚠️ **ΤΟ ΠΡΑΓΜΑΤΙΚΟ ΘΕΜΑ:** **Google Fonts από CDN** → η IP του επισκέπτη πάει στην Google
+      (γερμανική νομολογία = παραβίαση GDPR). **FIX:** self-host fonts με `next/font/google` στο
+      `sites/app/layout.jsx` (αντί για `<link>`) → εκθέτει CSS vars· μετά sed στα 12 `*.module.css`:
+      `'Fraunces'`→`var(--font-fraunces)`, `'Inter'`→`var(--font-inter)`, `'JetBrains Mono'`→`var(--font-mono)`,
+      `'Nunito Sans'`→`var(--font-nunito)`. ⚠️ Πρόσεξε τα `subsets` (αν λείπει `greek` → fallback· τσέκαρε
+      ανά font πριν build). ΑΝ αργότερα μπει analytics → ΤΟΤΕ χρειάζεται consent banner.
+      Υπάρχουν ήδη: `web/privacy.html`, `web/terms.html`, `web/data-deletion.html`.
+- [x] **RLS SQL έτοιμο** → `db/rls_policies.sql` (καλύπτει clients/brand_profiles/sites/client_assets/
+      social_accounts/posts/subscriptions/domains/domain_orders). **Owner: τρέξ' το στο Supabase SQL Editor.**
+      ⚠️ ΠΡΙΝ: βεβαιώσου ότι Railway `SUPABASE_KEY` = **service_role** JWT, αλλιώς σπάει το backend.
+      Μετά: `curl .../clients/lookup?email=test@x.gr` → πρέπει 200.
 - [ ] Public signup flow: getvitrina.gr → `/onboard` → dashboard/preview end-to-end
 - [ ] (optional) Templates 12→15
 
