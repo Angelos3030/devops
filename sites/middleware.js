@@ -8,10 +8,15 @@ export function middleware(req) {
   const host = (req.headers.get('host') || '').split(':')[0]
   const { pathname } = req.nextUrl
   const isApp =
-    APP_HOSTS.includes(host) || host.endsWith('.vercel.app') || host.endsWith('.pages.dev')
+    APP_HOSTS.includes(host) ||
+    host.endsWith('.up.railway.app') ||   // Railway-generated domains (our own app)
+    host.endsWith('.railway.app') ||
+    host.endsWith('.vercel.app') ||
+    host.endsWith('.pages.dev')
   const isInternal =
     pathname.startsWith('/site') || pathname.startsWith('/preview') ||
-    pathname.startsWith('/_next') || pathname.startsWith('/api') || pathname === '/favicon.ico'
+    pathname.startsWith('/_next') || pathname.startsWith('/api') ||
+    pathname === '/favicon.ico' || pathname === '/robots.txt' || pathname === '/sitemap.xml'
 
   if (isApp || isInternal) return NextResponse.next()
 
