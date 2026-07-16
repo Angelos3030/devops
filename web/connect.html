@@ -182,9 +182,10 @@
   </div>
 
   <script>
-    const API = location.hostname === "localhost" || location.hostname === "127.0.0.1"
-      ? "http://localhost:8001"
-      : "https://api.getvitrina.gr";
+    const isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+    // Direct Railway URLs (guaranteed live). Switch to api./app.getvitrina.gr once SSL is active.
+    const API = isLocal ? "http://localhost:8001" : "https://devops-production-d563.up.railway.app";
+    const SITES = isLocal ? "http://localhost:3000" : "https://sites-production-da56.up.railway.app";
 
     // --------------- Image compression ---------------
     function compressImage(file, maxPx, quality = 0.82) {
@@ -346,7 +347,8 @@
         currentClientId = client_id;
         // Ανέβασε logo/photos στο background (non-blocking)
         uploadAssets(client_id).catch(console.warn);
-        showDomainStep(data.name, data.type, data.city);
+        // Πήγαινε στη σελίδα επιλογής design → pick → checkout €14.99
+        window.location.href = SITES + "/choose/" + encodeURIComponent(client_id);
       } catch (err) {
         alert("Ουπς, κάτι πήγε στραβά. Δοκίμασε ξανά ή γράψε μας στο hello@getvitrina.gr");
         console.error(err);
