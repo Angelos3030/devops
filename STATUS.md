@@ -3,6 +3,25 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+## 🟢 LIVE STATUS (2026-07-15) — STAGING, ΟΧΙ δημόσιο launch ακόμα (owner: «ας μην το ανοίξουμε»)
+
+**Ό,τι είναι live τρέχει, αλλά ΔΕΝ έχει ανακοινωθεί· Stripe = TEST mode (μηδέν πραγματικά λεφτά).**
+- **Landing:** getvitrina.gr (Cloudflare Pages) — τιμές **€14.99 single plan** (το €49 social έφυγε· posts=Phase 2).
+- **Backend:** `devops-production-d563.up.railway.app` (FastAPI, Railway) ✅
+- **Sites app:** `sites-production-da56.up.railway.app` (Next, 12 templates + showcase + /choose) ✅
+- **Signup flow E2E ΔΟΥΛΕΥΕΙ:** connect.html → `/onboard` → `sites /choose/{id}` (δες 12 designs) →
+  select-design → `/create-checkout {plan:site}` → **Stripe checkout URL** ✅ (τεσταρισμένο live).
+- **Supabase:** RLS ON σε 9/9 πίνακες ✅. **DNS:** `api.`+`app.getvitrina.gr` CNAMEs → Railway (SSL propagates).
+- **MCP/API access (Claude):** Supabase MCP, Stripe MCP, Railway GraphQL API (token σε .env), Cloudflare API.
+
+**ΓΙΑ ΝΑ ΑΝΟΙΞΕΙ ΔΗΜΟΣΙΑ (όταν αποφασίσει ο owner):**
+1. Stripe **test → live** (live secret key + live €14.99 price → `.env`/Railway).
+2. **Post-payment deploy** — webhook `checkout.session.completed` → ανεβάζει το επιλεγμένο site live
+   στο domain του πελάτη (τώρα το select-design ξεκινά deploy μέσω wrangler· θέλει wrangler/CF στο Railway
+   ή Cloudflare Direct Upload API). ΤΕΛΕΥΤΑΙΟ τεχνικό κομμάτι.
+3. connect.html API/SITES: γύρνα σε `api.`/`app.getvitrina.gr` μόλις ενεργό το SSL.
+4. Google login (dashboard, όχι για αγορά).
+
 ---
 
 ## 🆕 ΝΕΟ MVP SCOPE (2026-07-15 — owner pivot) — ΥΠΕΡΙΣΧΥΕΙ
