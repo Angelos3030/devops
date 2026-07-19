@@ -200,11 +200,24 @@ def _intake_from_db(client_id: str) -> dict:
 def site_data(client_id: str, layout: str = ""):
     """Δομημένα data του site (JSON) για το Next.js multi-tenant render.
     Επιστρέφει normalized context (name, services[], gallery[], story[]...) + layout."""
+    import html as _html
     from . import premium_generator as pg
     intake = _intake_from_db(client_id)
     ctx = pg.normalize(intake)
     chosen = layout if layout in pg.LAYOUTS else (db.get_selected_design(client_id) or ctx["_recommended"])
-    data = {k: v for k, v in ctx.items() if not k.startswith("_")}
+
+    # normalize() html-escapes για τα static HTML templates· το React κάνει το δικό του escaping,
+    # οπότε για το JSON επιστρέφουμε RAW κείμενο (αλλιώς φαίνεται διπλό escape: "&amp;").
+    def _unesc(v):
+        if isinstance(v, str):
+            return _html.unescape(v)
+        if isinstance(v, list):
+            return [_unesc(x) for x in v]
+        if isinstance(v, dict):
+            return {k: _unesc(x) for k, x in v.items()}
+        return v
+
+    data = {k: _unesc(v) for k, v in ctx.items() if not k.startswith("_")}
     return {"layout": chosen, "layouts": list(pg.LAYOUTS), "data": data}
 
 
