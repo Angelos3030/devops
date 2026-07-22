@@ -148,6 +148,24 @@ servers για EU customer data + μικρή πτώση ελληνικής πο�
 
 ---
 
+## 🌐 DOMAIN ΣΤΡΑΤΗΓΙΚΗ (owner decision 2026-07-15) — «ο καθένας το δικό του domain»
+
+**ΟΧΙ free subdomains (getvitrina.gr) — κάθε πελάτης ΔΙΚΟ ΤΟΥ domain.**
+
+- **📌 ΓΙΑ ΜΕΤΑ — Cloudflare for SaaS (Custom Hostnames):** ο σωστός scalable τρόπος για «πολλά
+  domains πελατών → μία app». Πελάτης βάζει 1 CNAME → CF auto-SSL ανά hostname → route στο origin.
+  Αυτοματοποιείται 100% via CF API (Custom Hostnames endpoint). Αποφεύγει ξεχωριστά zones +
+  nameserver αλλαγές (ό,τι κάναμε για Κουτράκη ΔΕΝ κλιμακώνεται) + Railway domain limit.
+  ⚠️ Θέλει ενεργοποίηση Cloudflare for SaaS (add-on ~$0.10/hostname/μήνα μετά τα δωρεάν).
+  Fallback origin: το sites Railway service. **ΝΑ ΣΤΗΘΕΙ όταν αποφασίσει ο owner.**
+- **ΤΩΡΑ — Papaki reseller** (για να πουλάμε .gr domains σε πελάτες χωρίς domain): κώδικας υπάρχει
+  (`src/domain.py`, `src/registrars.py`, `/domain/suggest|check|create-checkout`). Θέλει: εγγραφή
+  **Papaki Reseller** (Simple → search API· Gold → auto-registration), API key από reseller panel.
+  Domain search (availability) = Simple Reseller· αγορά = Gold Reseller. API: github.com/papakigr/GoldResellers-JsonApi.
+- **Κουτράκης (one-off):** έφερε δικό του domain → στήθηκε με ξεχωριστό CF zone + NS change (χειροκίνητο).
+
+---
+
 ## ▶▶ MASTER HANDOFF / ΠΛΑΝΟ (2026-07-10) — διάβασε πρώτα αυτό
 
 ### Τι είναι το προϊόν
