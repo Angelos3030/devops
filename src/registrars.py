@@ -46,6 +46,37 @@ class ManualRegistrar:
         )
 
 
+class DnsRegistrar:
+    """Δωρεάν έλεγχος διαθεσιμότητας μέσω DNS (Cloudflare DoH) — χωρίς reseller creds.
+
+    Λογική: SOA query. NXDOMAIN (Status 3) → μάλλον διαθέσιμο· NOERROR → πιασμένο.
+    ΕΚΤΙΜΗΣΗ (όχι registry-authoritative) — για UX στο signup. Η αγορά μένει manual/Papaki.
+    """
+
+    DOH = "https://cloudflare-dns.com/dns-query"
+
+    def check_availability(self, domains: list[str]) -> list[dict[str, Any]]:
+        results: list[dict[str, Any]] = []
+        for domain in domains:
+            available: bool | None
+            try:
+                r = requests.get(
+                    self.DOH, params={"name": domain, "type": "SOA"},
+                    headers={"Accept": "application/dns-json"}, timeout=10)
+                status = r.json().get("Status")
+                available = (status == 3)  # NXDOMAIN → μάλλον ελεύθερο
+            except Exception:
+                available = None  # δεν μπόρεσε → άγνωστο
+            results.append({"domain": domain, "available": available, "price": 24,
+                            "estimate": True})
+        return results
+
+    def register_domain(self, domain: str, years: int = 1) -> dict[str, Any]:
+        raise RuntimeError(
+            f"Domain {domain}: η αγορά χρειάζεται Papaki reseller (DOMAIN_REGISTRAR=papaki) "
+            "ή χειροκίνητη καταχώρηση.")
+
+
 class PapakiRegistrar:
     """
     Papaki reseller adapter.
@@ -121,4 +152,7 @@ class PapakiRegistrar:
 def get_registrar() -> Registrar:
     if cfg.DOMAIN_REGISTRAR == "papaki":
         return PapakiRegistrar()
-    return ManualRegistrar()
+    if cfg.DOMAIN_REGISTRAR == "manual":
+        return ManualRegistrar()
+    # default: δωρεάν DNS availability check (λειτουργικό signup χωρίς creds)
+    return DnsRegistrar()
