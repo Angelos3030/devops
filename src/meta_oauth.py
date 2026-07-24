@@ -183,10 +183,18 @@ def _deploy_selected_bg(client_id: str, layout: str) -> None:
         print(f"[deploy] deploy skipped/failed for {client_id}: {e}")
 
 
+def _resolve_client(client_id: str) -> dict:
+    """Client record από uuid Ή custom domain. Domain-first ώστε να ΜΗΝ περάσει ποτέ
+    domain string στη uuid-typed `clients.id` (θα έσκαγε με 500 invalid-uuid)."""
+    if "." in str(client_id):
+        return db.get_client_by_domain(client_id) or {}
+    return db.get_client(client_id) or {}
+
+
 def _intake_from_db(client_id: str) -> dict:
     """Ανακατασκευάζει intake από το client record + assets (για Next.js render).
     Το `client_id` μπορεί να είναι uuid Ή custom domain (multi-tenant routing)."""
-    c = db.get_client(client_id) or (db.get_client_by_domain(client_id) if "." in str(client_id) else None) or {}
+    c = _resolve_client(client_id)
     client_id = c.get("id", client_id)
     intake = {
         "name": c.get("name"), "type": c.get("business_type"),
@@ -202,9 +210,10 @@ def site_data(client_id: str, layout: str = ""):
     Επιστρέφει normalized context (name, services[], gallery[], story[]...) + layout."""
     import html as _html
     from . import premium_generator as pg
+    rid = _resolve_client(client_id).get("id", client_id)  # uuid (domain → uuid) για downstream queries
     intake = _intake_from_db(client_id)
     ctx = pg.normalize(intake)
-    chosen = layout if layout in pg.LAYOUTS else (db.get_selected_design(client_id) or ctx["_recommended"])
+    chosen = layout if layout in pg.LAYOUTS else (db.get_selected_design(rid) or ctx["_recommended"])
 
     # normalize() html-escapes για τα static HTML templates· το React κάνει το δικό του escaping,
     # οπότε για το JSON επιστρέφουμε RAW κείμενο (αλλιώς φαίνεται διπλό escape: "&amp;").
