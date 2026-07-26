@@ -12,8 +12,12 @@ Design contract:
 """
 from __future__ import annotations
 
+import ipaddress
 import json
+import re
+import socket
 from typing import Any
+from urllib.parse import urlparse
 
 from . import config as cfg
 
@@ -38,6 +42,43 @@ _SCHEMA_HINT = (
 )
 
 
+def _is_public_http_url(url: str) -> bool:
+    """SSRF guard: μόνο http(s) προς δημόσια host (όχι localhost/ιδιωτικά IP)."""
+    try:
+        p = urlparse(url)
+        if p.scheme not in ("http", "https") or not p.hostname:
+            return False
+        # Απόρριψη αν ΟΠΟΙΑΔΗΠΟΤΕ διεύθυνση του host είναι ιδιωτική/loopback/link-local.
+        for info in socket.getaddrinfo(p.hostname, None):
+            ip = ipaddress.ip_address(info[4][0])
+            if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved:
+                return False
+        return True
+    except Exception:
+        return False
+
+
+def _fetch_reference_text(url: str, limit: int = 4000) -> str:
+    """Κατεβάζει το υπάρχον site/σελίδα του πελάτη και επιστρέφει καθαρό κείμενο (για context).
+    Fully optional — σε οποιοδήποτε σφάλμα επιστρέφει ''."""
+    if not url or not _is_public_http_url(url):
+        return ""
+    try:
+        import requests
+        r = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0 VitrinaBot"},
+                         allow_redirects=True)
+        if not r.ok or "html" not in r.headers.get("Content-Type", "").lower():
+            return ""
+        html = r.text
+        html = re.sub(r"(?is)<(script|style|noscript|svg)[^>]*>.*?</\1>", " ", html)
+        text = re.sub(r"(?s)<[^>]+>", " ", html)
+        text = re.sub(r"\s+", " ", text).strip()
+        return text[:limit]
+    except Exception as e:  # noqa: BLE001
+        print(f"[site_copy] reference fetch skipped ({type(e).__name__}): {e}")
+        return ""
+
+
 def _extract_json(text: str) -> dict[str, Any]:
     start, end = text.find("{"), text.rfind("}")
     if start == -1 or end == -1:
@@ -60,12 +101,22 @@ def write_copy(intake: dict[str, Any]) -> dict[str, Any]:
     extra = intake.get("description") or intake.get("style") or ""
     has_services = bool(intake.get("services"))
 
+    # Αν ο πελάτης έδωσε υπάρχον site/σελίδα → το διαβάζουμε για τις ΠΡΑΓΜΑΤΙΚΕΣ υπηρεσίες.
+    ref_url = intake.get("website") or intake.get("source_url") or intake.get("existing_url") or ""
+    reference = _fetch_reference_text(ref_url) if ref_url else ""
+    ref_block = (
+        f"\n\nΑπό το υπάρχον site/σελίδα του πελάτη (χρησιμοποίησέ το για τις ΠΡΑΓΜΑΤΙΚΕΣ "
+        f"υπηρεσίες και το ύφος — ΜΗΝ αντιγράψεις αυτούσια, ξαναγράψε το φρέσκα):\n\"\"\"\n"
+        f"{reference}\n\"\"\""
+    ) if reference else ""
+
     ask_services = "" if has_services else (
-        "\n- Πρόσθεσε 4-6 υπηρεσίες με σύντομη περιγραφή στο πεδίο \"services\"."
+        "\n- Πρόσθεσε 4-6 υπηρεσίες με σύντομη περιγραφή στο πεδίο \"services\", "
+        "ταξινομημένες από την πιο σημαντική/συχνή στη λιγότερο."
     )
     user = (
         f"Επιχείρηση: {name}\nΤύπος: {btype}\nΠεριοχή: {city}\n"
-        f"Επιπλέον πληροφορίες: {extra}\n\n"
+        f"Επιπλέον πληροφορίες: {extra}{ref_block}\n\n"
         f"Γράψε marketing copy στα ελληνικά για το site της. Τόνος τοπικός και άμεσος."
         f"{ask_services}\n\nΕπίστρεψε ΜΟΝΟ JSON με αυτή τη μορφή:\n{_SCHEMA_HINT}"
     )
