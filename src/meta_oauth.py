@@ -214,7 +214,10 @@ def site_data(client_id: str, layout: str = ""):
     rid = _resolve_client(client_id).get("id", client_id)  # uuid (domain → uuid) για downstream queries
     intake = _intake_from_db(client_id)
     ctx = pg.normalize(intake)
-    chosen = layout if layout in pg.LAYOUTS else (db.get_selected_design(rid) or ctx["_recommended"])
+    # Δεκτά και τα React template keys (premium smart-match), όχι μόνο τα legacy layouts.
+    known = (*pg.LAYOUTS, *pg.REACT_TEMPLATES)
+    chosen = layout if layout in known else (
+        db.get_selected_design(rid) or pg.recommend_templates(intake)[0] or ctx["_recommended"])
 
     # normalize() html-escapes για τα static HTML templates· το React κάνει το δικό του escaping,
     # οπότε για το JSON επιστρέφουμε RAW κείμενο (αλλιώς φαίνεται διπλό escape: "&amp;").
@@ -240,11 +243,22 @@ def lookup_clients(email: str):
 
 @app.get("/clients/{client_id}/designs")
 def list_designs(client_id: str):
-    """Λίστα με τις 3 προτάσεις design + ποια είναι προτεινόμενη/επιλεγμένη + live URL."""
-    variants = db.list_site_variants(client_id)
-    selected = db.get_selected_design(client_id)
-    deployed_url = db.get_live_site(client_id)
-    return {"variants": variants, "selected": selected, "deployed_url": deployed_url}
+    """Οι προτάσεις design του πελάτη + ποια είναι προτεινόμενη/επιλεγμένη + live URL.
+
+    `templates`: smart-match — 4 React templates με το premium της κατηγορίας του πρώτο
+    (αυτά δείχνει το /choose). `variants`: τα legacy static layouts (συμβατότητα)."""
+    from . import premium_generator as pg
+    rid = _resolve_client(client_id).get("id", client_id)
+    variants = db.list_site_variants(rid)
+    selected = db.get_selected_design(rid)
+    deployed_url = db.get_live_site(rid)
+    try:
+        templates = pg.recommend_templates(_intake_from_db(client_id))
+    except Exception as e:  # noqa: BLE001 — ποτέ να μη μπλοκάρει το choose
+        print(f"[designs] smart-match skipped: {e}")
+        templates = []
+    return {"variants": variants, "templates": templates,
+            "selected": selected, "deployed_url": deployed_url}
 
 
 @app.get("/clients/{client_id}/preview/{layout}", response_class=HTMLResponse)
@@ -259,13 +273,15 @@ def preview_design(client_id: str, layout: str):
 @app.post("/clients/{client_id}/select-design")
 def select_design(client_id: str, sel: SelectDesign, bg: BackgroundTasks):
     """Ο πελάτης πάτησε Approve — καταγράφει την επιλογή και ξεκινά deploy στο background."""
-    if sel.layout not in ("studio", "commerce", "atelier"):
+    from . import premium_generator as pg
+    if sel.layout not in (*pg.LAYOUTS, *pg.REACT_TEMPLATES):
         raise HTTPException(400, f"Άγνωστο layout: {sel.layout}")
+    rid = _resolve_client(client_id).get("id", client_id)
     try:
-        db.set_selected_design(client_id, sel.layout)
+        db.set_selected_design(rid, sel.layout)
     except Exception as e:
         raise HTTPException(500, f"Δεν αποθηκεύτηκε η επιλογή: {e}")
-    bg.add_task(_deploy_selected_bg, client_id, sel.layout)
+    bg.add_task(_deploy_selected_bg, rid, sel.layout)
     return {"ok": True, "selected": sel.layout, "deploying": True}
 
 

@@ -18,7 +18,8 @@
 .shot iframe{position:absolute;top:0;left:0;width:285%;height:285%;transform:scale(.35);transform-origin:top left;border:0;pointer-events:none}
 .rec{position:absolute;top:10px;left:10px;z-index:2;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .6rem;border-radius:999px;background:var(--accent);color:#1a1204}
 .tick{position:absolute;top:10px;right:10px;z-index:2;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:900}
-.label{padding:.9rem 1.1rem;font-family:var(--serif);font-size:1.15rem}
+.label{padding:.9rem 1.1rem;font-family:var(--serif);font-size:1.15rem;display:flex;flex-direction:column;gap:.25rem}
+.labelDesc{font-family:var(--sans);font-size:.78rem;color:var(--ink-soft);line-height:1.35}
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(14,16,22,.92);backdrop-filter:blur(12px);
   border-top:1px solid var(--line);padding:14px 16px;display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap}
 .preview{color:var(--ink-soft);text-decoration:none;font-weight:600;font-size:.95rem}

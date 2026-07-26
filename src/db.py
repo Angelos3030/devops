@@ -144,12 +144,18 @@ def list_site_variants(client_id: str) -> list[dict]:
 
 
 def set_selected_design(client_id: str, layout: str) -> None:
-    """Ο πελάτης πάτησε Approve. Μαρκάρει το επιλεγμένο variant (url='selected')."""
+    """Ο πελάτης πάτησε Approve. Μαρκάρει το επιλεγμένο variant (url='selected').
+
+    Τα premium React templates δεν έχουν αποθηκευμένο static HTML — σε αυτή την
+    περίπτωση γράφουμε marker row, ώστε η επιλογή να διατηρείται κανονικά."""
     tbl = _client().table("sites")
     # reset τυχόν προηγούμενη επιλογή, μετά μαρκάρισε τη νέα
     tbl.update({"url": "preview"}).eq("client_id", client_id).eq("url", "selected").execute()
-    tbl.update({"url": "selected"}).eq("client_id", client_id).eq("preset", layout).in_(
+    res = tbl.update({"url": "selected"}).eq("client_id", client_id).eq("preset", layout).in_(
         "url", _VARIANT_URLS).execute()
+    if not (res.data or []):  # React-only template → κράτα την επιλογή ως marker
+        tbl.insert({"client_id": client_id, "preset": layout, "html": "",
+                    "chosen_variant": 1, "url": "selected"}).execute()
 
 
 def get_selected_design(client_id: str) -> str | None:

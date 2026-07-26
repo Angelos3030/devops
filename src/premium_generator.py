@@ -189,6 +189,66 @@ def recommend_layout(intake: dict[str, Any]) -> str:
     return _LAYOUT_BY_PROFESSION.get(_profession(intake), "studio")
 
 
+# ---------------------------------------------------------------------------
+# Smart-match: ποια React templates δείχνουμε στον πελάτη (sites/lib/templates)
+# ---------------------------------------------------------------------------
+
+# Όλα τα διαθέσιμα React archetypes (πρέπει να ταιριάζουν με TEMPLATE_KEYS στο index.js).
+REACT_TEMPLATES = (
+    "editorial", "split", "showcase", "bento", "longform", "corporate",
+    "poster", "sidebar", "grid", "coast", "magazine", "warmth",
+    "ember", "marble", "runway", "forge", "aegean", "bloom",
+    "pulse", "volt", "motor", "terra",
+)
+
+# Λεπτομερέστερο vertical ΜΟΝΟ για template matching — δεν αγγίζει το _profession()
+# (που τροφοδοτεί το _PROFESSION_COPY και θα έσκαγε με άγνωστο key).
+_VERTICAL_RULES = (
+    ("gym", ("γυμναστηρ", "gym", "fitness", "crossfit", "pilates", "yoga", "γιογκα", "προπονητ", "trainer")),
+    ("garage", ("συνεργει", "φανοποι", "βουλκανιζ", "garage", "service αυτοκιν", "μηχανικ αυτοκιν", "ελαστικ")),
+    ("farm", ("παραγωγ", "ελαιολαδ", "ελαιωνα", "μελισσοκομ", "μελι", "οινοποι", "κρασ", "τυροκομ", "αγροτ", "κτημα", "farm", "winery")),
+    ("rooms", ("δωματ", "ξενωνα", "ξενοδοχ", "καταλυμ", "hotel", "rooms", "villa", "βιλα", "airbnb", "τουρισ")),
+    ("cafe", ("καφε", "cafe", "coffee", "ζαχαροπλαστ", "φουρν", "αρτοποι", "bakery", "creperie", "κρεπερ", "παγωτ", "λουλουδ", "ανθοπωλ")),
+    ("food", ("ταβερν", "εστιατορ", "taverna", "restaurant", "μεζε", "ψησταρι", "σουβλα", "grill", "pizza", "πιτσαρ", "μπαρ", " bar")),
+    ("medical", ("οδοντ", "dentist", "ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "διαιτολογ", "ψυχολογ", "κτηνιατρ")),
+    ("beauty", ("κομμωτ", "beauty", "νυχι", "hair", "salon", "αισθητικ", "μακιγι", "spa", "μασαζ", "barber", "κουρει")),
+    ("wood", ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")),
+    ("professional", ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "μεσιτ", "ασφαλισ", "notary", "συμβολαιογρ")),
+    ("trade", ("υδραυλικ", "ηλεκτρολ", "ελαιοχρωματ", "μαστορ", "τεχνιτ", "ψυκτικ", "αλουμιν", "σιδηρ", "πλακα", "μονωσ", "κλιματισ", "plumber", "electrician")),
+)
+
+
+def _vertical(intake: dict[str, Any]) -> str:
+    text = _normalize_text(" ".join(str(intake.get(k, "")) for k in ("type", "trade", "description", "name")))
+    for vertical, words in _VERTICAL_RULES:
+        if any(w in text for w in words):
+            return vertical
+    return "trade"
+
+
+# Premium-first σειρά ανά vertical. Το πρώτο = προτεινόμενο.
+# Πάντα 4 επιλογές: 1-2 premium της κατηγορίας + 2 δυνατά γενικά (choice χωρίς παράλυση).
+_TEMPLATES_BY_VERTICAL = {
+    "food":         ["ember", "warmth", "showcase", "editorial"],
+    "cafe":         ["bloom", "warmth", "coast", "editorial"],
+    "rooms":        ["aegean", "coast", "showcase", "bento"],
+    "medical":      ["pulse", "corporate", "split", "editorial"],
+    "beauty":       ["runway", "showcase", "bento", "editorial"],
+    "professional": ["marble", "corporate", "grid", "longform"],
+    "trade":        ["forge", "sidebar", "corporate", "poster"],
+    "garage":       ["motor", "forge", "grid", "corporate"],
+    "gym":          ["volt", "poster", "showcase", "bento"],
+    "farm":         ["terra", "longform", "warmth", "magazine"],
+    "wood":         ["editorial", "ember", "split", "showcase"],
+}
+
+
+def recommend_templates(intake: dict[str, Any], limit: int = 4) -> list[str]:
+    """Τα React templates που θα δει ο πελάτης — premium της κατηγορίας του πρώτο."""
+    keys = _TEMPLATES_BY_VERTICAL.get(_vertical(intake), _TEMPLATES_BY_VERTICAL["trade"])
+    return [k for k in keys if k in REACT_TEMPLATES][:limit]
+
+
 def _list_of_dicts(value: Any) -> list[dict[str, Any]]:
     return [v for v in value if isinstance(v, dict)] if isinstance(value, list) else []
 

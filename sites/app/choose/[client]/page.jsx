@@ -1,13 +1,17 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { TEMPLATE_META } from '../../../lib/templates'
 import s from './choose.module.css'
 
 const API = (process.env.NEXT_PUBLIC_API_BASE || '').replace(/\/$/, '')
 
+// Legacy static layouts (fallback όταν το backend δεν στέλνει smart-matched templates)
 const LABELS = {
   studio: 'Editorial', commerce: 'Conversion', atelier: 'Minimal', bold: 'Bold',
   trust: 'Classic', noir: 'Noir', fresh: 'Fresh', warmth: 'Warm', coast: 'Coast',
 }
+const labelOf = (k) => TEMPLATE_META[k]?.label || LABELS[k] || k
+const descOf = (k) => TEMPLATE_META[k]?.desc || ''
 
 export default function Choose({ params }) {
   const client = params.client
@@ -26,6 +30,13 @@ export default function Choose({ params }) {
       try {
         const r = await fetch(`${API}/clients/${client}/designs`)
         const d = await r.json()
+        // Smart-match: το backend προτείνει premium templates για το επάγγελμά του.
+        if (d.templates?.length) {
+          const list = d.templates.map((layout, i) => ({ layout, recommended: i === 0 }))
+          setVariants(list)
+          setSelected(d.selected && d.templates.includes(d.selected) ? d.selected : list[0].layout)
+          return
+        }
         if (d.variants?.length) {
           const rec = d.variants.find((v) => v.recommended)?.layout
           setVariants([...d.variants].sort((a, b) => (b.recommended ? 1 : 0) - (a.recommended ? 1 : 0)))
@@ -103,7 +114,10 @@ export default function Choose({ params }) {
               {selected === v.layout && <span className={s.tick}>✓</span>}
               <iframe src={`/site/${client}?layout=${v.layout}${ver ? `&v=${ver}` : ''}`} title={v.layout} loading="lazy" scrolling="no" />
             </div>
-            <div className={s.label}>{LABELS[v.layout] || v.layout}</div>
+            <div className={s.label}>
+              {labelOf(v.layout)}
+              {descOf(v.layout) && <span className={s.labelDesc}>{descOf(v.layout)}</span>}
+            </div>
           </button>
         ))}
       </div>
