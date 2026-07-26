@@ -24,7 +24,20 @@ export default function Dashboard() {
   const [err, setErr] = useState('')
   const [email, setEmail] = useState('')
   const [sent, setSent] = useState(false)
+  const [googleOn, setGoogleOn] = useState(false)
   const chatEnd = useRef(null)
+
+  // Δείξε το κουμπί Google μόνο αν ο provider είναι όντως ενεργός στο Supabase,
+  // αλλιώς ο πελάτης θα έπαιρνε σφάλμα «provider is not enabled».
+  useEffect(() => {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    if (!url || !key) return
+    fetch(`${url.replace(/\/$/, '')}/auth/v1/settings`, { headers: { apikey: key } })
+      .then((r) => r.json())
+      .then((d) => setGoogleOn(Boolean(d?.external?.google)))
+      .catch(() => {})
+  }, [])
 
   // --- auth ---
   useEffect(() => {
@@ -93,10 +106,13 @@ export default function Dashboard() {
   }
 
   async function signInGoogle() {
-    await supabase.auth.signInWithOAuth({
+    setErr('')
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: `${window.location.origin}/dashboard` },
     })
+    if (error) setErr('Η σύνδεση με Google δεν είναι διαθέσιμη αυτή τη στιγμή — '
+                      + 'χρησιμοποίησε το email σου παρακάτω.')
   }
 
   async function signInEmail(e) {
@@ -125,10 +141,14 @@ export default function Dashboard() {
         <div className={s.loginCard}>
           <h1>Το site σου</h1>
           <p>Συνδέσου για να δεις και να αλλάξεις το site σου.</p>
-          <button className={s.google} onClick={signInGoogle}>
-            <span className={s.gIcon}>G</span> Συνέχεια με Google
-          </button>
-          <div className={s.or}><span>ή</span></div>
+          {googleOn && (
+            <>
+              <button className={s.google} onClick={signInGoogle}>
+                <span className={s.gIcon}>G</span> Συνέχεια με Google
+              </button>
+              <div className={s.or}><span>ή</span></div>
+            </>
+          )}
           {sent ? (
             <p className={s.ok}>✓ Σου στείλαμε σύνδεσμο στο <strong>{email}</strong>. Άνοιξέ τον από το κινητό σου.</p>
           ) : (
