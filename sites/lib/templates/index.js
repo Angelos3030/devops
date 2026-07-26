@@ -11,10 +11,12 @@ import Coast from './Coast'
 import Magazine from './Magazine'
 import Warmth from './Warmth'
 import Ember from './Ember'
+import Marble from './Marble'
+import Runway from './Runway'
 
 // Structurally-distinct React archetypes.
-export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember }
-export const TEMPLATE_KEYS = ['editorial', 'split', 'showcase', 'bento', 'longform', 'corporate', 'poster', 'sidebar', 'grid', 'coast', 'magazine', 'warmth', 'ember']
+export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway }
+export const TEMPLATE_KEYS = ['editorial', 'split', 'showcase', 'bento', 'longform', 'corporate', 'poster', 'sidebar', 'grid', 'coast', 'magazine', 'warmth', 'ember', 'marble', 'runway']
 export const TEMPLATE_META = {
   editorial: { label: 'Editorial', desc: 'Κλασικό stacked, μεγάλη τυπογραφία.' },
   split: { label: 'Split', desc: 'Σταθερό πλαϊνό panel + περιεχόμενο που κυλάει.' },
@@ -29,6 +31,8 @@ export const TEMPLATE_META = {
   magazine: { label: 'Magazine', desc: 'Εφημερίδα/multi-column, masthead, στήλες.' },
   warmth: { label: 'Warmth', desc: 'Ζεστό hospitality, menu-style — ταβέρνες/φούρνοι.' },
   ember: { label: 'Ember', desc: 'Νυχτερινή ψησταριά — καπνιστό, λάμψη κάρβουνου, κατάλογος. Premium food/night.' },
+  marble: { label: 'Marble', desc: 'Minimal-luxe — πορσελάνη, χρυσές hairlines, ευρετήριο τομέων. Δικηγόροι/ιατροί.' },
+  runway: { label: 'Runway', desc: 'High-fashion — B&W που «ανάβει», πασαρέλα έργων. Κομμωτήρια/beauty.' },
 }
 
 // Map backend layout names → React archetype (until backend adopts react keys).
