@@ -179,6 +179,23 @@ def get_client_by_domain(domain: str) -> dict | None:
     return get_client(res.data[0]["client_id"])
 
 
+def get_site_content(client_id: str) -> dict:
+    """Οι αλλαγές που έκανε ο πελάτης από το dashboard (υπερισχύουν των defaults)."""
+    res = (_client().table("site_content").select("content")
+           .eq("client_id", client_id).limit(1).execute())
+    return (res.data[0].get("content") or {}) if res.data else {}
+
+
+def save_site_content(client_id: str, content: dict) -> None:
+    """Αποθηκεύει (upsert) τις αλλαγές του πελάτη."""
+    from datetime import datetime, timezone
+    (_client().table("site_content").upsert({
+        "client_id": client_id,
+        "content": content,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    }).execute())
+
+
 def get_clients_by_email(email: str) -> list[dict]:
     """Οι πελάτες που ανήκουν σε ένα email (σύνδεση dashboard login → client record).
     Το selected design κρατιέται στο `sites` (url='selected'), όχι σε στήλη clients."""
@@ -296,6 +313,14 @@ def set_client_status(client_id: str, status: str, plan: str | None = None) -> N
 def get_client_by_stripe(customer_id: str) -> dict | None:
     res = (_client().table("subscriptions")
            .select("client_id").eq("stripe_customer_id", customer_id).limit(1).execute())
+    return (res.data[0] if res.data else None)
+
+
+def get_subscription(client_id: str) -> dict | None:
+    """Η συνδρομή ενός πελάτη (για dashboard: κατάσταση + Stripe portal)."""
+    res = (_client().table("subscriptions")
+           .select("stripe_customer_id,stripe_sub_id,plan,status")
+           .eq("client_id", client_id).limit(1).execute())
     return (res.data[0] if res.data else None)
 
 

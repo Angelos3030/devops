@@ -16,10 +16,11 @@ FastAPI app. Τρέξε: uvicorn src.meta_oauth:app --port 8001
 import urllib.parse
 import requests
 import stripe
-from fastapi import FastAPI, Request, HTTPException, BackgroundTasks
+from fastapi import FastAPI, Request, HTTPException, BackgroundTasks, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, HTMLResponse
 from pydantic import BaseModel
+from . import auth
 from . import config as cfg
 from . import db
 
@@ -202,7 +203,23 @@ def _intake_from_db(client_id: str) -> dict:
         "city": c.get("city"), "phone": c.get("phone"), "email": c.get("email"),
         "tagline": c.get("style") or "",
     }
-    return _enrich_intake(client_id, intake)
+    intake = _enrich_intake(client_id, intake)
+
+    # Ό,τι άλλαξε ο πελάτης από το dashboard υπερισχύει των defaults/AI copy.
+    try:
+        overrides = db.get_site_content(client_id)
+    except Exception as e:  # noqa: BLE001 — ποτέ να μη σπάσει το render
+        print(f"[intake] overrides skipped: {e}")
+        overrides = {}
+    if overrides:
+        mapped = {"trade": "type"}  # dashboard key → intake key
+        for k, v in overrides.items():
+            if k in ("template",) or v in (None, "", [], {}):
+                continue
+            intake[mapped.get(k, k)] = v
+        if isinstance(overrides.get("areas"), str):
+            intake["areas"] = [a.strip() for a in overrides["areas"].split("·") if a.strip()]
+    return intake
 
 
 @app.get("/clients/{client_id}/site-data")
@@ -235,10 +252,158 @@ def site_data(client_id: str, layout: str = ""):
 
 
 @app.get("/clients/lookup")
-def lookup_clients(email: str):
-    """Βρίσκει τους πελάτες ενός email (dashboard login → client records).
-    MVP: απλό lookup. Phase 2: επαλήθευση Supabase JWT αντί για raw email."""
+def lookup_clients(authorization: str | None = Header(default=None)):
+    """Οι πελάτες ΤΟΥ συνδεδεμένου χρήστη (dashboard login → client records).
+
+    Το email βγαίνει από το επαληθευμένο Supabase token — ποτέ από query param,
+    αλλιώς οποιοσδήποτε θα μπορούσε να διαβάσει δεδομένα άλλων (GDPR)."""
+    email = auth.current_email(authorization)
     return {"clients": db.get_clients_by_email(email)}
+
+
+# --- Dashboard: περιεχόμενο που επεξεργάζεται ο πελάτης ---------------------
+
+# Μόνο αυτά επιτρέπεται να αλλάξει ο πελάτης (allowlist — τίποτα αυθαίρετο στη DB).
+_EDITABLE = {
+    "name", "trade", "city", "phone", "hours", "areas",
+    "tagline", "intro", "story_title", "story_paragraphs", "cta_title",
+    "services", "template",
+}
+
+
+@app.get("/clients/{client_id}/content")
+def get_content(client_id: str, authorization: str | None = Header(default=None)):
+    """Τα τρέχοντα επεξεργάσιμα πεδία (defaults + ό,τι έχει αλλάξει ο πελάτης)."""
+    from . import premium_generator as pg
+    client = auth.require_client_access(client_id, authorization)
+    intake = _intake_from_db(client_id)
+    ctx = pg.normalize(intake)
+    overrides = db.get_site_content(client_id)
+    current = {
+        "name": client.get("name") or "",
+        "trade": client.get("business_type") or "",
+        "city": client.get("city") or "",
+        "phone": client.get("phone") or "",
+        "hours": intake.get("hours") or ctx["HOURS"],
+        "tagline": intake.get("tagline") or ctx["TAGLINE"],
+        "intro": intake.get("intro") or ctx["INTRO"],
+        "story_title": intake.get("story_title") or ctx["STORY_TITLE"],
+        "cta_title": intake.get("cta_title") or ctx["CTA_TITLE"],
+        "story_paragraphs": [p["p"] for p in ctx["story"]],
+        "services": [{"name": s["title"], "description": s["desc"]} for s in ctx["services"]],
+        "template": db.get_selected_design(client_id) or pg.recommend_templates(intake)[0],
+    }
+    current.update({k: v for k, v in overrides.items() if k in _EDITABLE})
+    return {"content": current, "templates": pg.recommend_templates(intake, limit=8),
+            "all_templates": list(pg.REACT_TEMPLATES)}
+
+
+@app.get("/clients/{client_id}/account")
+def get_account(client_id: str, authorization: str | None = Header(default=None)):
+    """Σύνοψη λογαριασμού για το dashboard: site, domain, συνδρομή."""
+    client = auth.require_client_access(client_id, authorization)
+    try:
+        sub = db.get_subscription(client_id) or {}
+    except Exception:  # noqa: BLE001
+        sub = {}
+    domain = None
+    try:
+        rows = (db._client().table("domains").select("domain,status")
+                .eq("client_id", client_id).limit(1).execute()).data
+        domain = rows[0] if rows else None
+    except Exception:  # noqa: BLE001
+        pass
+    return {
+        "name": client.get("name"), "status": client.get("status"),
+        "email": client.get("email"), "domain": domain,
+        "subscription": {"plan": sub.get("plan"), "status": sub.get("status")},
+        "has_billing": bool(sub.get("stripe_customer_id")),
+    }
+
+
+@app.post("/clients/{client_id}/billing-portal")
+def billing_portal(client_id: str, authorization: str | None = Header(default=None)):
+    """Stripe Customer Portal — ο πελάτης βλέπει/αλλάζει/ακυρώνει τη συνδρομή του."""
+    auth.require_client_access(client_id, authorization)
+    if not cfg.STRIPE_SECRET_KEY:
+        raise HTTPException(500, "Λείπει STRIPE_SECRET_KEY.")
+    sub = db.get_subscription(client_id) or {}
+    customer = sub.get("stripe_customer_id")
+    if not customer:
+        raise HTTPException(400, "Δεν υπάρχει ενεργή συνδρομή ακόμα.")
+    try:
+        session = stripe.billing_portal.Session.create(
+            customer=customer,
+            return_url=f"https://app.getvitrina.gr/dashboard?client={client_id}",
+        )
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(502, f"Δεν άνοιξε το portal συνδρομής: {e}")
+    return {"url": session.url}
+
+
+class ChatEdit(BaseModel):
+    message: str
+
+
+@app.post("/clients/{client_id}/chat-edit")
+def chat_edit(client_id: str, body: ChatEdit,
+              authorization: str | None = Header(default=None)):
+    """«Πες τι θέλεις να αλλάξει» — ο βοηθός το εφαρμόζει στο site.
+
+    Το AI επιστρέφει μόνο JSON patch· ό,τι δεν είναι στο allowlist αγνοείται."""
+    from . import premium_generator as pg
+    from . import site_edit as se
+    auth.require_client_access(client_id, authorization)
+    if not (body.message or "").strip():
+        raise HTTPException(400, "Γράψε τι θέλεις να αλλάξει.")
+
+    current = get_content(client_id, authorization)["content"]
+    intake = _intake_from_db(client_id)
+    result = se.chat_edit(body.message, current, pg.recommend_templates(intake, limit=8))
+
+    applied = {}
+    if result["changes"]:
+        merged = {**{k: v for k, v in current.items() if k in _EDITABLE}, **result["changes"]}
+        saved = put_content(client_id, ContentUpdate(content=merged), authorization)
+        applied = {k: result["changes"][k] for k in result["changes"] if k in saved["saved"]}
+    return {"reply": result["reply"], "changed": sorted(applied.keys()), "content": applied}
+
+
+class ContentUpdate(BaseModel):
+    content: dict
+
+
+@app.put("/clients/{client_id}/content")
+def put_content(client_id: str, body: ContentUpdate,
+                authorization: str | None = Header(default=None)):
+    """Αποθηκεύει τις αλλαγές του πελάτη. Το site τις δείχνει αμέσως."""
+    from . import premium_generator as pg
+    auth.require_client_access(client_id, authorization)
+
+    clean: dict = {}
+    for k, v in (body.content or {}).items():
+        if k not in _EDITABLE:
+            continue
+        if k == "services" and isinstance(v, list):
+            clean[k] = [
+                {"name": str(s.get("name", ""))[:80], "description": str(s.get("description", ""))[:400]}
+                for s in v if isinstance(s, dict) and str(s.get("name", "")).strip()
+            ][:8]
+        elif k == "story_paragraphs" and isinstance(v, list):
+            clean[k] = [str(p)[:1200] for p in v if str(p).strip()][:5]
+        elif k == "template":
+            if v in pg.REACT_TEMPLATES:
+                clean[k] = v
+        elif isinstance(v, str):
+            clean[k] = v[:1200]
+
+    db.save_site_content(client_id, clean)
+    if clean.get("template"):
+        try:
+            db.set_selected_design(client_id, clean["template"])
+        except Exception as e:  # noqa: BLE001
+            print(f"[content] template selection not persisted: {e}")
+    return {"ok": True, "saved": sorted(clean.keys())}
 
 
 @app.get("/clients/{client_id}/designs")
