@@ -55,6 +55,12 @@ STRIPE_PRICE_PREMIUM = os.environ.get("STRIPE_PRICE_PREMIUM", "")
 # MVP single plan — Website only, €14.99/μήνα (χωρίς social).
 STRIPE_PRICE_SITE = os.environ.get("STRIPE_PRICE_SITE", "")
 
+# --- Public app URL (dashboard / ad landings) ---
+# Το app.getvitrina.gr δεν είναι συνδεδεμένο (Railway Hobby: 2 custom domains/service,
+# τα κρατάει ο πρώτος πελάτης). Default = Railway URL ώστε τα links να μη σπάνε.
+APP_BASE_URL = os.environ.get(
+    "APP_BASE_URL", "https://sites-production-da56.up.railway.app").rstrip("/")
+
 # --- Cloudflare Pages (deploy) ---
 CF_API_TOKEN = os.environ.get("CF_API_TOKEN", "")
 CF_ACCOUNT_ID = os.environ.get("CF_ACCOUNT_ID", "")

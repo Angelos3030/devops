@@ -334,7 +334,7 @@ def billing_portal(client_id: str, authorization: str | None = Header(default=No
     try:
         session = stripe.billing_portal.Session.create(
             customer=customer,
-            return_url=f"https://app.getvitrina.gr/dashboard?client={client_id}",
+            return_url=f"{cfg.APP_BASE_URL}/dashboard?client={client_id}",
         )
     except Exception as e:  # noqa: BLE001
         raise HTTPException(502, f"Δεν άνοιξε το portal συνδρομής: {e}")

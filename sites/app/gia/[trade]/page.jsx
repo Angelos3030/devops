@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { TEMPLATE_META } from '../../../lib/templates'
 import { demoBusinesses } from '../../../lib/demoData'
+import { APP_BASE } from '../../../lib/appUrl'
 import s from './trade.module.css'
 
 // Ad landing pages ανά επάγγελμα: /gia/taverna, /gia/kommotirio, ...
@@ -69,7 +70,7 @@ export function generateMetadata({ params }) {
   const description = `${t.hero} Έτοιμο site με domain .gr, φιλοξενία, local SEO και απεριόριστες αλλαγές. Πρώτος μήνας δωρεάν.`
   return {
     title, description,
-    alternates: { canonical: `https://app.getvitrina.gr/gia/${params.trade}` },
+    alternates: { canonical: `${APP_BASE}/gia/${params.trade}` },
     openGraph: { title, description, type: 'website', locale: 'el_GR' },
   }
 }
