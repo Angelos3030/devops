@@ -1,4 +1,5 @@
 import s from './Coast.module.css'
+import Brand from './Brand'
 
 export default function Coast({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
@@ -6,7 +7,7 @@ export default function Coast({ data: d }) {
   return (
     <div className={s.root}>
       <nav className={s.nav}>
-        <a href="#top" className={s.logo}>{d.NAME}</a>
+        <a href="#top" className={s.logo}><Brand data={d} /></a>
         <div className={s.links}><a href="#services">Υπηρεσίες</a><a href="#work">Γκαλερί</a><a href="#contact">Κράτηση</a></div>
         <a href={tel} className={s.navCall}>{d.PHONE}</a>
       </nav>

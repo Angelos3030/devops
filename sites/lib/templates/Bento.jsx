@@ -1,4 +1,5 @@
 import s from './Bento.module.css'
+import Brand from './Brand'
 
 export default function Bento({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
@@ -6,7 +7,7 @@ export default function Bento({ data: d }) {
   return (
     <div className={s.root}>
       <nav className={s.nav}>
-        <span className={s.logo}>{d.NAME}</span>
+        <Brand data={d} className={s.logo} />
         <a href={tel} className={s.navCall}>📞 {d.PHONE}</a>
       </nav>
 

@@ -1,11 +1,12 @@
 import s from './Corporate.module.css'
+import Brand from './Brand'
 
 export default function Corporate({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
   return (
     <div className={s.root}>
       <nav className={s.nav}>
-        <a href="#top" className={s.logo}><span className={s.mark}>{d.INITIAL}</span>{d.NAME}</a>
+        <a href="#top" className={s.logo}><Brand data={d} prefix={<span className={s.mark}>{d.INITIAL}</span>} /></a>
         <div className={s.links}><a href="#services">Υπηρεσίες</a><a href="#work">Έργα</a><a href="#story">Εταιρεία</a><a href="#contact">Επικοινωνία</a></div>
         <a href={tel} className={s.navBtn}>Κάλεσε</a>
       </nav>
@@ -68,7 +69,7 @@ export default function Corporate({ data: d }) {
       </section>
 
       <footer className={s.footer}>
-        <a href="#top" className={s.logo}><span className={s.mark}>{d.INITIAL}</span>{d.NAME}</a>
+        <a href="#top" className={s.logo}><Brand data={d} prefix={<span className={s.mark}>{d.INITIAL}</span>} /></a>
         <span>© {d.YEAR} {d.NAME} — {d.CITY} · Site από Vitrina</span>
       </footer>
     </div>

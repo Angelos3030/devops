@@ -1,4 +1,5 @@
 import s from './Split.module.css'
+import Brand from './Brand'
 
 export default function Split({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
@@ -7,7 +8,7 @@ export default function Split({ data: d }) {
       <aside className={s.panel}>
         <div>
           <div className={s.kicker}>{d.KICKER}</div>
-          <div className={s.brand}>{d.NAME}<em>.</em></div>
+          <div className={s.brand}><Brand data={d} suffix={<em>.</em>} /></div>
           <p className={s.tag}>{d.TAGLINE}</p>
         </div>
         <nav className={s.pnav}>

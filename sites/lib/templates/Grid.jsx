@@ -1,11 +1,12 @@
 import s from './Grid.module.css'
+import Brand from './Brand'
 
 export default function Grid({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
   return (
     <div className={s.root}>
       <header className={s.top}>
-        <span className={s.brand}>{d.NAME}</span>
+        <Brand data={d} className={s.brand} />
         <span className={s.m}>{d.TRADE}</span>
         <span className={s.m}>{d.CITY}</span>
         <a href={tel} className={s.m}>{d.PHONE} ↗</a>

@@ -1,11 +1,12 @@
 import s from './Warmth.module.css'
+import Brand from './Brand'
 
 export default function Warmth({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
   return (
     <div className={s.root}>
       <nav className={s.nav}>
-        <a href="#top" className={s.logo}><span className={s.mark}>{d.INITIAL}</span>{d.NAME}</a>
+        <a href="#top" className={s.logo}><Brand data={d} prefix={<span className={s.mark}>{d.INITIAL}</span>} /></a>
         <div className={s.links}><a href="#services">Κατάλογος</a><a href="#work">Φωτογραφίες</a><a href="#story">Η ιστορία μας</a></div>
         <a href={tel} className={s.navBtn}>Κράτηση</a>
       </nav>

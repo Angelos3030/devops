@@ -1,4 +1,5 @@
 import s from './Ember.module.css'
+import Brand from './Brand'
 
 // "Νυχτερινή ψησταριά" — smoky night palette, living ember glow, services served as a
 // taverna κατάλογος with brass dotted leaders. Built for food/hospitality briefs.
@@ -7,7 +8,7 @@ export default function Ember({ data: d }) {
   return (
     <div className={s.root}>
       <nav className={s.nav}>
-        <span className={s.brand}>{d.NAME}</span>
+        <Brand data={d} className={s.brand} dark />
         <span className={s.navMeta}>{d.HOURS}</span>
         <a href={tel} className={s.navCall}>{d.PHONE}</a>
       </nav>

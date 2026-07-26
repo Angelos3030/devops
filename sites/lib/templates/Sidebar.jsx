@@ -1,11 +1,12 @@
 import s from './Sidebar.module.css'
+import Brand from './Brand'
 
 export default function Sidebar({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
   return (
     <div className={s.root}>
       <nav className={s.topnav}>
-        <a href="#top" className={s.logo}><span className={s.mark}>{d.INITIAL}</span>{d.NAME}</a>
+        <a href="#top" className={s.logo}><Brand data={d} prefix={<span className={s.mark}>{d.INITIAL}</span>} /></a>
         <a href={tel} className={s.navCall}>📞 {d.PHONE}</a>
       </nav>
 

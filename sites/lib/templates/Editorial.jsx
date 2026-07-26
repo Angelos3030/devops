@@ -1,11 +1,12 @@
 import s from './Editorial.module.css'
+import Brand from './Brand'
 
 export default function Editorial({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
   return (
     <div className={s.root}>
       <nav className={s.nav}>
-        <a href="#top" className={s.logo}>{d.NAME}<b>.</b></a>
+        <a href="#top" className={s.logo}><Brand data={d} suffix={<b>.</b>} /></a>
         <div className={s.links}>
           <a href="#services">Υπηρεσίες</a><a href="#work">Έργα</a><a href="#story">Ποιοι είμαστε</a>
         </div>

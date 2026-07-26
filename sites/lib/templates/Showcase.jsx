@@ -1,11 +1,12 @@
 import s from './Showcase.module.css'
+import Brand from './Brand'
 
 export default function Showcase({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
   return (
     <div className={s.root}>
       <nav className={s.nav}>
-        <a href="#top" className={s.logo}>{d.NAME}</a>
+        <a href="#top" className={s.logo}><Brand data={d} /></a>
         <a href={tel} className={s.navCall}>📞 {d.PHONE}</a>
       </nav>
 
