@@ -16,11 +16,15 @@ export function schemaType(data) {
   return 'LocalBusiness'
 }
 
-export function buildJsonLd(data) {
+export function buildJsonLd(data, opts = {}) {
+  const { domain } = opts
+  const url = domain ? `https://${domain}` : undefined
   const areas = (data.AREAS || '').split('·').map((a) => a.trim()).filter(Boolean)
   return {
     '@context': 'https://schema.org',
     '@type': schemaType(data),
+    '@id': url ? `${url}#business` : undefined,
+    url,
     name: data.NAME,
     description: data.TAGLINE,
     telephone: data.PHONE_INTL ? `+${data.PHONE_INTL}` : undefined,
@@ -32,21 +36,39 @@ export function buildJsonLd(data) {
   }
 }
 
-export function buildMetadata(data) {
+export function buildMetadata(data, opts = {}) {
+  const { domain } = opts
+  const url = domain ? `https://${domain}` : undefined
   const title = `${data.NAME} — ${data.TRADE} | ${data.CITY}`
   const description = `${data.TAGLINE} Τηλ. ${data.PHONE}.`
   const keywords = [data.TRADE, `${data.TRADE} ${data.CITY}`, data.NAME, data.CITY]
     .filter(Boolean)
-  return {
+  const images = data.HERO_IMAGE ? [{ url: data.HERO_IMAGE }] : undefined
+  const meta = {
     title,
     description,
     keywords,
+    robots: { index: true, follow: true },
     openGraph: {
       title,
       description,
       type: 'website',
       locale: 'el_GR',
-      images: data.HERO_IMAGE ? [{ url: data.HERO_IMAGE }] : undefined,
+      url,
+      siteName: data.NAME,
+      images,
+    },
+    twitter: {
+      card: data.HERO_IMAGE ? 'summary_large_image' : 'summary',
+      title,
+      description,
+      images: data.HERO_IMAGE ? [data.HERO_IMAGE] : undefined,
     },
   }
+  if (url) {
+    // canonical στο δικό του domain → κόβει duplicate content apex/www
+    meta.metadataBase = new URL(url)
+    meta.alternates = { canonical: url }
+  }
+  return meta
 }

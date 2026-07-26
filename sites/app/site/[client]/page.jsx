@@ -7,7 +7,8 @@ export const dynamic = 'force-dynamic' // multi-tenant: render per request (ISR 
 export async function generateMetadata({ params, searchParams }) {
   try {
     const { data } = await getSiteData(params.client, searchParams?.layout)
-    return buildMetadata(data)
+    const domain = String(params.client).includes('.') ? params.client : undefined
+    return buildMetadata(data, { domain })
   } catch {
     return { title: 'Vitrina' }
   }
@@ -25,7 +26,8 @@ export default async function SitePage({ params, searchParams }) {
     )
   }
   const Template = pickTemplate(payload.layout)
-  const jsonLd = buildJsonLd(payload.data)
+  const domain = String(params.client).includes('.') ? params.client : undefined
+  const jsonLd = buildJsonLd(payload.data, { domain })
   return (
     <>
       {/* Local-SEO structured data (Google rich results + local ranking) */}
