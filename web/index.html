@@ -5,6 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vitrina — Το site της επιχείρησής σου, έτοιμο σε λεπτά</title>
   <meta name="description" content="Πες τι μαγαζί έχεις και σου φτιάχνουμε επαγγελματικό site: 12 designs, domain .gr, φιλοξενία, local SEO και απεριόριστες αλλαγές. €14.99/μήνα.">
+  <link rel="canonical" href="https://getvitrina.gr/">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="el_GR">
+  <meta property="og:url" content="https://getvitrina.gr/">
+  <meta property="og:site_name" content="Vitrina">
+  <meta property="og:title" content="Vitrina — Το site της επιχείρησής σου, έτοιμο σε λεπτά">
+  <meta property="og:description" content="Επαγγελματικό site για ελληνικές μικρές επιχειρήσεις: domain .gr, φιλοξενία, local SEO, απεριόριστες αλλαγές. €14.99/μήνα, πρώτος μήνας δωρεάν.">
+  <meta property="og:image" content="https://getvitrina.gr/icon-1024.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vitrina — Το site της επιχείρησής σου, έτοιμο σε λεπτά">
+  <meta name="twitter:description" content="Managed site για μικρές επιχειρήσεις — €14.99/μήνα, όλα μέσα.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://getvitrina.gr/#org",
+        "name": "Vitrina",
+        "url": "https://getvitrina.gr/",
+        "logo": "https://getvitrina.gr/icon-1024.png",
+        "email": "hello@getvitrina.gr",
+        "areaServed": "GR"
+      },
+      {
+        "@type": "Product",
+        "name": "Vitrina Website",
+        "description": "Managed επαγγελματικό site για μικρές επιχειρήσεις: 12 designs, domain .gr, φιλοξενία, local SEO, απεριόριστες αλλαγές.",
+        "brand": {"@id": "https://getvitrina.gr/#org"},
+        "offers": {
+          "@type": "Offer",
+          "price": "14.99",
+          "priceCurrency": "EUR",
+          "url": "https://getvitrina.gr/connect.html",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -92,6 +133,22 @@
 
     /* SECTIONS */
     section{padding:90px 0;}
+
+    /* CASE STUDY (πραγματικός πελάτης, live) */
+    .case{display:grid;grid-template-columns:1fr 1.2fr;gap:44px;align-items:center;}
+    .case-txt h2{font-size:2.1rem;margin:14px 0 12px;}
+    .case-txt p{color:var(--muted);margin-bottom:12px;}
+    .case-points{list-style:none;margin:16px 0 24px;display:flex;flex-direction:column;gap:9px;}
+    .case-points li{padding-left:26px;position:relative;font-weight:600;font-size:.97rem;}
+    .case-points li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:800;}
+    .browser{border-radius:14px;overflow:hidden;box-shadow:0 30px 70px rgba(20,60,110,.22);border:1px solid var(--line);background:#fff;}
+    .browser-bar{display:flex;align-items:center;gap:8px;background:#f1f2f5;padding:10px 14px;border-bottom:1px solid var(--line);}
+    .b-dot{width:10px;height:10px;border-radius:50%;background:#d6d9df;}
+    .b-dot:nth-child(1){background:#ff5f57;}.b-dot:nth-child(2){background:#febc2e;}.b-dot:nth-child(3){background:#28c840;}
+    .b-url{flex:1;text-align:center;background:#fff;border-radius:7px;font-size:.8rem;color:var(--muted);padding:4px 10px;border:1px solid var(--line);font-weight:600;}
+    .b-url span{color:#28a745;margin-right:4px;}
+    .browser iframe{width:100%;height:430px;border:0;display:block;background:#14100c;}
+    @media(max-width:860px){.case{grid-template-columns:1fr;}.browser iframe{height:340px;}}
     .head{text-align:center;max-width:640px;margin:0 auto 56px;}
     .pill{display:inline-flex;gap:8px;background:var(--soft);border:1px solid var(--line);color:var(--ink2);
           font-weight:600;font-size:.84rem;padding:6px 14px;border-radius:30px;margin-bottom:16px;}
@@ -263,6 +320,26 @@
   <section><div class="wrap quote reveal">
     <p data-gr="&quot;Δεν ήθελα άλλο ένα εργαλείο. Ήθελα κάποιος να το αναλάβει. Αυτό ακριβώς κάνει η Vitrina.&quot;" data-en="&quot;I did not want another tool. I wanted someone to handle it. That is exactly what Vitrina does.&quot;">"Δεν ήθελα άλλο ένα εργαλείο. Ήθελα κάποιος να το αναλάβει. Αυτό ακριβώς κάνει η Vitrina."</p>
     <div class="who" data-gr="— Ιδιοκτήτης μικρής επιχείρησης, Θεσσαλονίκη" data-en="— Small business owner, Thessaloniki">— Ιδιοκτήτης μικρής επιχείρησης, Θεσσαλονίκη</div>
+  </div></section>
+
+  <!-- CASE STUDY: πραγματικός πελάτης, live site -->
+  <section id="case"><div class="wrap case">
+    <div class="case-txt reveal">
+      <span class="pill" data-gr="Πραγματικός πελάτης" data-en="Real client">Πραγματικός πελάτης</span>
+      <h2 data-gr="Ο Κουτράκης, ξυλουργός στον Γέρακα, είναι ήδη online." data-en="Koutrakis, a carpenter in Gerakas, is already online.">Ο Κουτράκης, ξυλουργός στον Γέρακα, είναι ήδη online.</h2>
+      <p data-gr="Χειροποίητες κουζίνες και έπιπλα — τώρα με δικό του site, στο δικό του domain, με τις δικές του φωτογραφίες. Αυτό που βλέπεις δίπλα είναι ζωντανό, όχι δείγμα." data-en="Handmade kitchens and furniture — now with his own site, his own domain and his own photos. What you see is live, not a mockup.">Χειροποίητες κουζίνες και έπιπλα — τώρα με δικό του site, στο δικό του domain, με τις δικές του φωτογραφίες. Αυτό που βλέπεις δίπλα είναι ζωντανό, όχι δείγμα.</p>
+      <ul class="case-points">
+        <li data-gr="Δικό του domain: koutrakiskouzines.gr" data-en="His own domain: koutrakiskouzines.gr">Δικό του domain: koutrakiskouzines.gr</li>
+        <li data-gr="Οι δικές του φωτογραφίες, όχι stock" data-en="His own photos, not stock">Οι δικές του φωτογραφίες, όχι stock</li>
+        <li data-gr="Local SEO για «ξυλουργός Γέρακας»" data-en="Local SEO for his trade & area">Local SEO για «ξυλουργός Γέρακας»</li>
+      </ul>
+      <a class="btn btn-primary" href="https://www.koutrakiskouzines.gr" target="_blank" rel="noopener" data-gr="Δες το ζωντανά ↗" data-en="See it live ↗">Δες το ζωντανά ↗</a>
+    </div>
+    <div class="browser reveal">
+      <div class="browser-bar"><span class="b-dot"></span><span class="b-dot"></span><span class="b-dot"></span>
+        <span class="b-url"><span>🔒</span>koutrakiskouzines.gr</span></div>
+      <iframe src="https://www.koutrakiskouzines.gr" title="koutrakiskouzines.gr — ζωντανό site πελάτη" loading="lazy"></iframe>
+    </div>
   </div></section>
 
   <!-- PRICING -->
