@@ -273,7 +273,9 @@ export const demoBusinesses = {
     TAGLINE: 'Εξαιρετικό παρθένο ελαιόλαδο από τον οικογενειακό μας ελαιώνα — από το δέντρο στο τραπέζι σου.',
     INTRO: 'Καλλιεργούμε 1.200 ελιές Κορωνέικης με σεβασμό στη γη και στον καρπό.',
     STORY_TITLE: 'Τέσσερις γενιές κάτω από τα ίδια δέντρα.', CTA_TITLE: 'Παράγγειλε το λάδι της χρονιάς.',
-    HERO_IMAGE: img('photo-1445264718234-a623be589d37', 1800), STORY_IMAGE: img('photo-1474979266404-7eaacbcd87c5'),
+    // Πραγματικές ελληνικές εικόνες (Wikimedia Commons, CC0)
+    HERO_IMAGE: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Paxos_olive_grove_at_sunrise_DSC06051.jpg/1920px-Paxos_olive_grove_at_sunrise_DSC06051.jpg',
+    STORY_IMAGE: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Gr%C3%A8ce_v%C3%A9raison_olives.jpg/1280px-Gr%C3%A8ce_v%C3%A9raison_olives.jpg',
     services: [
       { num: '01', title: 'Εξαιρετικό παρθένο', desc: 'Ψυχρή έκθλιψη την ίδια μέρα της συγκομιδής, οξύτητα κάτω από 0.3.' },
       { num: '02', title: 'Αγουρέλαιο', desc: 'Πρώιμη συγκομιδή, έντονο φρουτώδες — περιορισμένη παραγωγή.' },
@@ -281,10 +283,10 @@ export const demoBusinesses = {
       { num: '04', title: 'Επίσκεψη στο κτήμα', desc: 'Γευσιγνωσία και ξενάγηση στον ελαιώνα και το λιοτρίβι.' },
     ],
     gallery: [
-      { image: img('photo-1474440692490-2e83ae13ba29', 1000), title: 'Ο ελαιώνας', sub: 'Κορωνέικη' },
-      { image: img('photo-1506806732259-39c2d0268443', 1000), title: 'Συγκομιδή', sub: 'Νοέμβριος' },
-      { image: img('photo-1531946903299-4fa4c650b60d', 1000), title: 'Το λάδι', sub: 'Ψυχρή έκθλιψη' },
-      { image: img('photo-1595475207225-428b62bda831', 1000), title: 'Γευσιγνωσία', sub: 'Στο κτήμα' },
+      { image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Paxos_olive_grove_at_sunrise_DSC06051.jpg/1280px-Paxos_olive_grove_at_sunrise_DSC06051.jpg', title: 'Ο ελαιώνας', sub: 'Κορωνέικη' },
+      { image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Bags_of_olives_after_harvest._Anthidona._Greece.jpg/1280px-Bags_of_olives_after_harvest._Anthidona._Greece.jpg', title: 'Συγκομιδή', sub: 'Νοέμβριος' },
+      { image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Gr%C3%A8ce_v%C3%A9raison_olives.jpg/1280px-Gr%C3%A8ce_v%C3%A9raison_olives.jpg', title: 'Ο καρπός', sub: 'Στο δέντρο' },
+      { image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Bottle_of_olive_oil.jpg/1280px-Bottle_of_olive_oil.jpg', title: 'Το λάδι', sub: 'Ψυχρή έκθλιψη' },
     ],
     story: [
       { p: 'Ο προπάππους φύτεψε τις πρώτες ελιές το 1932. Σήμερα καλλιεργούμε με τις ίδιες αρχές: υπομονή, φροντίδα, καθόλου βιασύνη.' },
