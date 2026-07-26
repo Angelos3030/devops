@@ -1,0 +1,141 @@
+import Link from 'next/link'
+import { TEMPLATE_META } from '../../../lib/templates'
+import { demoBusinesses } from '../../../lib/demoData'
+import s from './trade.module.css'
+
+// Ad landing pages ανά επάγγελμα: /gia/taverna, /gia/kommotirio, ...
+// Ένα ζωντανό demo της κατηγορίας + 3 εναλλακτικά + ένα CTA. Ό,τι πουλάει τα ads.
+export const TRADES = {
+  taverna: {
+    label: 'ταβέρνες & εστιατόρια', hero: 'Το site που ανοίγει την όρεξη.',
+    biz: 'taverna', templates: ['ember', 'warmth', 'showcase', 'editorial'],
+    points: ['Μενού & φωτογραφίες που πουλάνε', 'Τηλέφωνο για κράτηση σε ένα κλικ', 'Σε βρίσκουν στο Google «ταβέρνα + περιοχή»'],
+  },
+  kafe: {
+    label: 'καφέ & φούρνους', hero: 'Το πρωινό φως του μαγαζιού σου, online.',
+    biz: 'cafe', templates: ['bloom', 'warmth', 'coast', 'editorial'],
+    points: ['Ο κατάλογός σου, πάντα ενημερωμένος', 'Ώρες & τοποθεσία μπροστά', 'Φωτογραφίες που φέρνουν κόσμο'],
+  },
+  kommotirio: {
+    label: 'κομμωτήρια & beauty', hero: 'Η δουλειά σου, σε βιτρίνα μόδας.',
+    biz: 'salon', templates: ['runway', 'showcase', 'bento', 'editorial'],
+    points: ['Portfolio που δείχνει το ταλέντο σου', 'Ραντεβού με ένα κλικ', 'Instagram-ready εμφάνιση'],
+  },
+  iatreio: {
+    label: 'ιατρεία & κλινικές', hero: 'Εμπιστοσύνη από την πρώτη ματιά.',
+    biz: 'dentist', templates: ['pulse', 'corporate', 'split', 'editorial'],
+    points: ['Καθαρή παρουσίαση υπηρεσιών', 'Ραντεβού & ωράριο μπροστά', 'Σοβαρή, ήρεμη αισθητική'],
+  },
+  dikigoros: {
+    label: 'δικηγόρους & λογιστές', hero: 'Κύρος που φαίνεται πριν το πρώτο ραντεβού.',
+    biz: 'lawyer', templates: ['marble', 'corporate', 'grid', 'longform'],
+    points: ['Τομείς εξειδίκευσης με τάξη', 'Διακριτικό, θεσμικό ύφος', 'Επικοινωνία χωρίς τριβή'],
+  },
+  texnitis: {
+    label: 'τεχνίτες & μάστορες', hero: 'Σε παίρνουν τηλέφωνο, δεν σε ψάχνουν.',
+    biz: 'plumber', templates: ['forge', 'sidebar', 'corporate', 'poster'],
+    points: ['Τηλέφωνο σε κάθε οθόνη', 'Οι δουλειές σου σε φωτογραφίες', '«Υδραυλικός + περιοχή» στο Google'],
+  },
+  domatia: {
+    label: 'δωμάτια & καταλύματα', hero: 'Κρατήσεις χωρίς προμήθεια πλατφόρμας.',
+    biz: 'rooms', templates: ['aegean', 'coast', 'showcase', 'bento'],
+    points: ['Το κατάλυμά σου σε πρώτο πλάνο', 'Απευθείας κράτηση με τηλέφωνο', 'Ελληνικά & αγγλικά'],
+  },
+  gymnastirio: {
+    label: 'γυμναστήρια & trainers', hero: 'Ενέργεια που φαίνεται από την πρώτη οθόνη.',
+    biz: 'gym', templates: ['volt', 'poster', 'showcase', 'bento'],
+    points: ['Πρόγραμμα & υπηρεσίες καθαρά', 'Δωρεάν δοκιμαστικό με ένα κλικ', 'Φωτογραφίες χώρου που πείθουν'],
+  },
+  synergeio: {
+    label: 'συνεργεία αυτοκινήτων', hero: 'Αξιοπιστία πριν καν σηκώσεις το τηλέφωνο.',
+    biz: 'garage', templates: ['motor', 'forge', 'grid', 'corporate'],
+    points: ['Υπηρεσίες σαν δελτίο εργασιών', 'Ραντεβού για service', 'Εγγύηση & τιμές μπροστά'],
+  },
+  paragogos: {
+    label: 'παραγωγούς & κτήματα', hero: 'Το προϊόν σου, με την ιστορία του.',
+    biz: 'farm', templates: ['terra', 'longform', 'warmth', 'magazine'],
+    points: ['Προϊόντα σαν ετικέτες παρτίδας', 'Παραγγελία απευθείας', 'Η ιστορία της γης σου'],
+  },
+}
+
+export function generateStaticParams() {
+  return Object.keys(TRADES).map((trade) => ({ trade }))
+}
+
+export function generateMetadata({ params }) {
+  const t = TRADES[params.trade]
+  if (!t) return { title: 'Vitrina' }
+  const title = `Επαγγελματικό site για ${t.label} — €14.99/μήνα | Vitrina`
+  const description = `${t.hero} Έτοιμο site με domain .gr, φιλοξενία, local SEO και απεριόριστες αλλαγές. Πρώτος μήνας δωρεάν.`
+  return {
+    title, description,
+    alternates: { canonical: `https://app.getvitrina.gr/gia/${params.trade}` },
+    openGraph: { title, description, type: 'website', locale: 'el_GR' },
+  }
+}
+
+export default function TradeLanding({ params }) {
+  const t = TRADES[params.trade]
+  if (!t) {
+    return <div className={s.missing}>Η σελίδα δεν βρέθηκε. <Link href="/">Πίσω στην αρχική</Link></div>
+  }
+  const demo = demoBusinesses[t.biz]
+  const [main, ...rest] = t.templates
+
+  return (
+    <div className={s.page}>
+      <header className={s.hero}>
+        <span className={s.eyebrow}>Vitrina για {t.label}</span>
+        <h1>{t.hero}</h1>
+        <p className={s.sub}>
+          Σου φτιάχνουμε επαγγελματικό site με τα δικά σου στοιχεία και φωτογραφίες.
+          Domain, φιλοξενία, SEO και αλλαγές — όλα μέσα, <strong>€14.99/μήνα</strong>.
+        </p>
+        <div className={s.actions}>
+          <a className={s.cta} href="https://getvitrina.gr/connect.html">Φτιάξε μου το site →</a>
+          <a className={s.ghost} href={`/preview/${main}?biz=${t.biz}`} target="_blank" rel="noreferrer">Δες το demo ↗</a>
+        </div>
+        <ul className={s.points}>
+          {t.points.map((p, i) => <li key={i}>{p}</li>)}
+        </ul>
+      </header>
+
+      <section className={s.showcase}>
+        <div className={s.browser}>
+          <div className={s.bar}>
+            <span className={s.dot} /><span className={s.dot} /><span className={s.dot} />
+            <span className={s.url}>🔒 {(demo?.NAME || 'το-μαγαζι-σου').toLowerCase().replace(/\s+/g, '')}.gr</span>
+          </div>
+          <iframe src={`/preview/${main}?biz=${t.biz}`} title={`Demo ${t.label}`} loading="lazy" />
+        </div>
+        <p className={s.caption}>
+          Ζωντανό demo — <strong>{TEMPLATE_META[main]?.label}</strong>: {TEMPLATE_META[main]?.desc}
+        </p>
+      </section>
+
+      <section className={s.more}>
+        <h2>Και άλλα σχέδια για {t.label}</h2>
+        <div className={s.grid}>
+          {rest.map((k) => (
+            <a key={k} className={s.card} href={`/preview/${k}?biz=${t.biz}`} target="_blank" rel="noreferrer">
+              <div className={s.shot}>
+                <iframe src={`/preview/${k}?biz=${t.biz}`} title={k} loading="lazy" scrolling="no" />
+              </div>
+              <div className={s.cardLabel}>
+                <strong>{TEMPLATE_META[k]?.label || k}</strong>
+                <span>{TEMPLATE_META[k]?.desc}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className={s.close}>
+        <h2>Πες μας το μαγαζί σου — το σχέδιο έρχεται σε λεπτά.</h2>
+        <a className={s.cta} href="https://getvitrina.gr/connect.html">Ξεκίνα τώρα — πρώτος μήνας δωρεάν</a>
+      </section>
+
+      <footer className={s.footer}>© {new Date().getFullYear()} Vitrina · getvitrina.gr</footer>
+    </div>
+  )
+}

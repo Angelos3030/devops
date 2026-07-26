@@ -18,7 +18,7 @@ export function middleware(req) {
     host.endsWith('.pages.dev')
   const isInternal =
     pathname.startsWith('/site') || pathname.startsWith('/preview') ||
-    pathname.startsWith('/choose') ||
+    pathname.startsWith('/choose') || pathname.startsWith('/gia') ||
     pathname.startsWith('/_next') || pathname.startsWith('/api') ||
     pathname === '/favicon.ico' || pathname === '/robots.txt' || pathname === '/sitemap.xml'
 

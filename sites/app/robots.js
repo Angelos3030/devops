@@ -1,6 +1,7 @@
-// Allow indexing of client sites; keep demo/preview pages out of the index.
+// Allow indexing of client sites + /gia ad landings; keep raw previews out.
 export default function robots() {
   return {
-    rules: { userAgent: '*', allow: '/', disallow: ['/preview/'] },
+    rules: { userAgent: '*', allow: '/', disallow: ['/preview/', '/choose/'] },
+    sitemap: 'https://app.getvitrina.gr/sitemap.xml',
   }
 }
