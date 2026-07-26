@@ -17,7 +17,8 @@ export async function generateMetadata({ params, searchParams }) {
 export default async function SitePage({ params, searchParams }) {
   let payload
   try {
-    payload = await getSiteData(params.client, searchParams?.layout)
+    // ?v= → cache-bust από το /choose μετά από upload φωτο (live traffic μένει cached)
+    payload = await getSiteData(params.client, searchParams?.layout, Boolean(searchParams?.v))
   } catch (e) {
     return (
       <div style={{ minHeight: '60vh', display: 'grid', placeItems: 'center', fontFamily: 'Inter, sans-serif', color: '#555' }}>

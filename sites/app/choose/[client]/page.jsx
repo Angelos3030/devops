@@ -15,6 +15,10 @@ export default function Choose({ params }) {
   const [selected, setSelected] = useState(null)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
+  const [ver, setVer] = useState(0)          // cache-bust των previews μετά από upload
+  const [nPhotos, setNPhotos] = useState(0)  // πόσες φωτο ανέβηκαν εδώ
+  const [hasLogo, setHasLogo] = useState(false)
+  const [uploading, setUploading] = useState('')
 
   useEffect(() => {
     let tries = 0
@@ -34,6 +38,31 @@ export default function Choose({ params }) {
     }
     load()
   }, [client])
+
+  // Upload φωτο/logo ΜΕΤΑ το wow (τα previews ανανεώνονται με τις δικές του).
+  async function uploadFiles(files, assetType) {
+    if (!files?.length) return
+    setUploading(assetType); setErr('')
+    let ok = 0
+    for (const file of Array.from(files).slice(0, 8)) {
+      try {
+        const fd = new FormData()
+        fd.append('file', file)
+        fd.append('asset_type', assetType)
+        fd.append('rights_ok', 'true')
+        const r = await fetch(`${API}/clients/${client}/upload`, { method: 'POST', body: fd })
+        if (r.ok) ok++
+      } catch (e) {}
+    }
+    setUploading('')
+    if (ok) {
+      if (assetType === 'logo') setHasLogo(true)
+      else setNPhotos((n) => n + ok)
+      setVer(Date.now()) // ξαναφόρτωσε τα previews με τις νέες φωτο
+    } else {
+      setErr('Το ανέβασμα δεν πέτυχε. Δοκίμασε ξανά (JPG/PNG έως 10MB).')
+    }
+  }
 
   async function checkout() {
     setBusy(true); setErr('')
@@ -72,15 +101,39 @@ export default function Choose({ params }) {
             <div className={s.shot}>
               {v.recommended && <span className={s.rec}>Προτεινόμενο</span>}
               {selected === v.layout && <span className={s.tick}>✓</span>}
-              <iframe src={`/site/${client}?layout=${v.layout}`} title={v.layout} loading="lazy" scrolling="no" />
+              <iframe src={`/site/${client}?layout=${v.layout}${ver ? `&v=${ver}` : ''}`} title={v.layout} loading="lazy" scrolling="no" />
             </div>
             <div className={s.label}>{LABELS[v.layout] || v.layout}</div>
           </button>
         ))}
       </div>
 
+      {nPhotos === 0 && (
+        <p className={s.note}>Οι φωτογραφίες στα σχέδια είναι <strong>δείγμα</strong> — αντικαθίστανται αυτόματα με τις δικές σου.</p>
+      )}
+
+      <section className={s.own}>
+        <h2>Κάνε το 100% δικό σου <span>(προαιρετικό — μπορείς και αργότερα)</span></h2>
+        <div className={s.ownGrid}>
+          <label className={s.drop}>
+            <input type="file" accept="image/jpeg,image/png,image/webp" multiple hidden
+              onChange={(e) => uploadFiles(e.target.files, 'photo')} />
+            <span className={s.dropIcon}>📸</span>
+            <strong>{nPhotos ? `${nPhotos} φωτογραφίες ανέβηκαν ✓` : 'Ανέβασε φωτο από τη δουλειά σου'}</strong>
+            <span className={s.dropHint}>{uploading === 'photo' ? 'Ανεβαίνουν…' : 'Από το κινητό σου, έως 8 (JPG/PNG)'}</span>
+          </label>
+          <label className={s.drop}>
+            <input type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" hidden
+              onChange={(e) => uploadFiles(e.target.files, 'logo')} />
+            <span className={s.dropIcon}>🏷️</span>
+            <strong>{hasLogo ? 'Το λογότυπο ανέβηκε ✓' : 'Έχεις λογότυπο; Ανέβασέ το'}</strong>
+            <span className={s.dropHint}>{uploading === 'logo' ? 'Ανεβαίνει…' : 'Αλλιώς φτιάχνουμε κομψό με το όνομά σου'}</span>
+          </label>
+        </div>
+      </section>
+
       <div className={s.bar}>
-        <a className={s.preview} href={`/site/${client}?layout=${selected}`} target="_blank" rel="noreferrer">Άνοιξε σε πλήρη οθόνη ↗</a>
+        <a className={s.preview} href={`/site/${client}?layout=${selected}${ver ? `&v=${ver}` : ''}`} target="_blank" rel="noreferrer">Άνοιξε σε πλήρη οθόνη ↗</a>
         <button className={s.cta} onClick={checkout} disabled={busy}>
           {busy ? 'Σε πάμε στην πληρωμή…' : 'Συνέχεια — €14.99/μήνα · 1ος μήνας δωρεάν'}
         </button>
