@@ -6,8 +6,9 @@
   --pink: #e5006d;
   --line: rgba(16, 16, 20, 0.12);
 
-  --serif: 'Fraunces', Georgia, serif;
-  --sans: 'Inter', system-ui, sans-serif;
+  /* Ελληνική ταυτότητα: αληθινά italic Garamond (couture) + καθαρή Manrope */
+  --serif: 'EB Garamond', 'Fraunces', Georgia, serif;
+  --sans: 'Manrope', 'Inter', system-ui, sans-serif;
   --mono: 'JetBrains Mono', monospace;
 
   background: var(--paper);

@@ -7,7 +7,8 @@
   --gold-soft: rgba(168, 137, 76, 0.35);
   --line: rgba(20, 22, 29, 0.1);
 
-  --serif: 'Fraunces', Georgia, serif;
+  /* Ελληνική ταυτότητα: υψηλής αντίθεσης display serif — δικαστηριακή κομψότητα */
+  --serif: 'Noto Serif Display', 'Fraunces', Georgia, serif;
   --sans: 'Inter', system-ui, sans-serif;
   --mono: 'JetBrains Mono', monospace;
 

@@ -11,9 +11,10 @@
   --wine: #611e26;
   --line: rgba(203, 161, 79, 0.24);
 
-  --display: 'Anton', 'Arial Narrow', sans-serif;
-  --serif: 'Fraunces', Georgia, serif;
-  --body: 'Nunito Sans', system-ui, sans-serif;
+  /* Ελληνική τυπογραφική ταυτότητα: βαριά condensed «ταμπέλα» + ζεστή Alegreya */
+  --display: 'Fira Sans Condensed', 'Anton', 'Arial Narrow', sans-serif;
+  --serif: 'Alegreya', 'Fraunces', Georgia, serif;
+  --body: 'Fira Sans', 'Nunito Sans', system-ui, sans-serif;
   --mono: 'JetBrains Mono', monospace;
 
   background: var(--ink);
@@ -35,7 +36,7 @@
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
-.brand { font-family: var(--display); font-size: 1.35rem; letter-spacing: 0.06em; color: var(--brass); text-transform: uppercase; }
+.brand { font-family: var(--display); font-weight: 800; font-size: 1.35rem; letter-spacing: 0.06em; color: var(--brass); text-transform: uppercase; }
 .navMeta { margin-left: auto; font-family: var(--mono); font-size: 0.72rem; color: var(--bone-dim); letter-spacing: 0.04em; }
 .navCall {
   font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.04em;
@@ -66,8 +67,8 @@
   padding-bottom: 0.9rem; margin-bottom: 0.4rem; border-bottom: 1px solid var(--line);
 }
 .title {
-  font-family: var(--display); font-weight: 400;
-  font-size: clamp(3.6rem, 12vw, 8.5rem); line-height: 0.86; letter-spacing: 0.01em;
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(3.4rem, 11vw, 8rem); line-height: 0.9; letter-spacing: 0.01em;
   text-transform: uppercase; color: var(--bone);
   margin: 0.7rem 0 1.1rem;
   text-shadow: 0 0 60px rgba(240, 83, 28, 0.25);
@@ -98,7 +99,7 @@
 .secHead { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--line); }
 .label { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ember-2); }
 .labelBrass { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--brass); }
-.secTitle { font-family: var(--display); font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: 0.02em; text-transform: uppercase; color: var(--bone); font-weight: 400; }
+.secTitle { font-family: var(--display); font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: 0.02em; text-transform: uppercase; color: var(--bone); font-weight: 800; }
 .list { list-style: none; padding: 0; display: flex; flex-direction: column; }
 .row {
   display: grid; grid-template-columns: auto auto 1fr auto; align-items: baseline; gap: 0 1rem;
@@ -142,7 +143,7 @@
 /* ---- cta ---- */
 .cta2 { position: relative; isolation: isolate; text-align: center; padding: clamp(4rem, 10vw, 8rem) 1.1rem; overflow: hidden; }
 .glow2 { position: absolute; z-index: -1; inset: 0 0 auto 50%; transform: translateX(-50%); width: 80vw; height: 80vw; max-width: 700px; max-height: 700px; background: radial-gradient(circle, rgba(240, 83, 28, 0.4), transparent 60%); filter: blur(30px); animation: pulse 8s ease-in-out infinite; }
-.cta2Title { font-family: var(--display); font-size: clamp(2.4rem, 8vw, 6rem); line-height: 0.92; text-transform: uppercase; color: var(--bone); font-weight: 400; margin: 0.8rem auto 1.8rem; max-width: 16ch; }
+.cta2Title { font-family: var(--display); font-size: clamp(2.4rem, 8vw, 6rem); line-height: 0.92; text-transform: uppercase; color: var(--bone); font-weight: 800; margin: 0.8rem auto 1.8rem; max-width: 16ch; }
 .cta2Btn { display: inline-block; font-family: var(--mono); font-size: 1rem; padding: 1.1rem 2.4rem; border-radius: 999px; background: var(--ember); color: #1a0d05; font-weight: 500; box-shadow: 0 14px 40px -10px rgba(240, 83, 28, 0.7); transition: transform 0.2s; }
 .cta2Btn:hover { transform: translateY(-2px); }
 
