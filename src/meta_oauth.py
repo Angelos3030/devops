@@ -61,6 +61,7 @@ class Intake(BaseModel):
     email: str | None = None
     style: str | None = None
     description: str | None = None
+    website: str | None = None   # υπάρχον site/σελίδα → auto-fill υπηρεσιών (site_copy)
 
 
 class CheckoutRequest(BaseModel):
