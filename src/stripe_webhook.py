@@ -85,8 +85,12 @@ async def webhook(request: Request):
 
             update_domain_order_status(session_id, "paid")
             try:
-                if cfg.DOMAIN_REGISTRAR == "manual":
-                    print(f"[domain] paid order requires manual registrar fulfillment: {domain}")
+                # Χωρίς registrar API (dns/manual) η παραγγελία ΔΕΝ είναι failed —
+                # είναι πληρωμένη και περιμένει χειροκίνητη αγορά (~3 λεπτά).
+                if cfg.DOMAIN_REGISTRAR in ("manual", "dns", ""):
+                    print(f"[domain] ⚠ ΠΛΗΡΩΜΕΝΗ ΠΑΡΑΓΓΕΛΙΑ — αγόρασε χειροκίνητα: {domain} "
+                          f"(client {client_id}) και μετά: python scripts/link_domain.py {domain}")
+                    update_domain_order_status(session_id, "pending_fulfillment")
                     return {"ok": True}
                 if cfg.DOMAIN_REGISTRAR != "papaki":
                     raise RuntimeError(f"Unsupported DOMAIN_REGISTRAR: {cfg.DOMAIN_REGISTRAR}")
