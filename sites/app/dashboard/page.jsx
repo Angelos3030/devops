@@ -6,10 +6,10 @@ import s from './dashboard.module.css'
 const API = (process.env.NEXT_PUBLIC_API_BASE || '').replace(/\/$/, '')
 
 const SUGGESTIONS = [
+  'Η διεύθυνσή μου είναι Λ. Μαραθώνος 12',
   'Άλλαξε το τηλέφωνο σε 210 1234567',
   'Κάνε το πιο μοντέρνο και σκούρο',
   'Πρόσθεσε υπηρεσία «Δωρεάν εκτίμηση»',
-  'Γράψε πιο ζεστά την ιστορία μας',
 ]
 
 export default function Dashboard() {

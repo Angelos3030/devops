@@ -1,4 +1,5 @@
 import s from './Bloom.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 // "Bloom" — καφέ/ζαχαροπλαστείο/λουλούδια: πρωινό φως, στρογγυλεμένη Comfortaa,
@@ -72,6 +73,9 @@ export default function Bloom({ data: d }) {
         <a href={tel} className={s.cta}>📞 {d.PHONE}</a>
         <p className={s.cta2Sub}>{d.HOURS} · {d.AREAS}</p>
       </section>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} · {d.CITY} · Site από Vitrina</footer>
     </div>

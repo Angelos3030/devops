@@ -1,4 +1,5 @@
 import s from './Split.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 export default function Split({ data: d }) {
@@ -58,6 +59,8 @@ export default function Split({ data: d }) {
           <p>Δωρεάν εκτίμηση — {d.AREAS}.</p>
           <a href={tel} className={s.btn}>📞 Κάλεσε {d.PHONE}</a>
         </section>
+
+        <FindUs data={d} />
 
         <div className={`${s.blk} ${s.foot}`}>© {d.YEAR} {d.NAME} — {d.CITY} · Site από Vitrina</div>
       </main>

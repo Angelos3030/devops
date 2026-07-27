@@ -1,4 +1,5 @@
 import s from './Grid.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 export default function Grid({ data: d }) {
@@ -59,6 +60,9 @@ export default function Grid({ data: d }) {
         <a href={tel} className={s.ctaBig}>{d.CTA_TITLE}</a>
         <div className={s.ctaRow}><span className={s.m}>📞 {d.PHONE}</span><span className={s.m}>{d.AREAS}</span><span className={s.m}>{d.HOURS}</span></div>
       </section>
+
+      <FindUs data={d} dark />
+
 
       <footer className={s.foot}><span className={s.m}>© {d.YEAR} {d.NAME}</span><span className={s.m}>{d.CITY} · Vitrina</span></footer>
     </div>

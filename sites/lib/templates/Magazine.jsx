@@ -1,4 +1,5 @@
 import s from './Magazine.module.css'
+import FindUs from './FindUs'
 
 export default function Magazine({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
@@ -56,6 +57,9 @@ export default function Magazine({ data: d }) {
         <p>{d.AREAS} · {d.HOURS}</p>
         <a href={tel} className={s.btn}>📞 Κάλεσε {d.PHONE}</a>
       </section>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} — {d.CITY} · Site από Vitrina</footer>
     </div>

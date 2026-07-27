@@ -1,4 +1,5 @@
 import s from './Showcase.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 export default function Showcase({ data: d }) {
@@ -61,6 +62,9 @@ export default function Showcase({ data: d }) {
         <p>Δωρεάν εκτίμηση — {d.AREAS}.</p>
         <a href={tel} className={s.btn}>📞 Κάλεσε {d.PHONE}</a>
       </section>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} — {d.CITY} · Site από Vitrina</footer>
     </div>

@@ -343,6 +343,11 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
         "NAME": name, "CITY": city, "TRADE": trade, "TAGLINE": tagline,
         "INITIAL": _initials(name)[:1],
         "LOGO": _asset(str(intake.get("logo") or "")),  # uploaded logo URL ('' → wordmark)
+        # Local SEO / Google Maps
+        "ADDRESS": _e(str(intake.get("address") or "")),
+        "GEO_LAT": str(intake.get("geo_lat") or ""),
+        "GEO_LNG": str(intake.get("geo_lng") or ""),
+        "GBP_URL": _e(str(intake.get("gbp_url") or "")),   # Google Business Profile
         "PHONE": phone_disp, "PHONE_INTL": phone_intl,
         "AREAS": areas_str, "DOMAIN": _e(domain_disp), "DOMAIN_URL": _e(domain or "#"),
         "HOURS": _e(intake.get("hours") or "Δευτ.–Σάβ. 08:00–19:00"),

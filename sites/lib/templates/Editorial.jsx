@@ -1,4 +1,5 @@
 import s from './Editorial.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 export default function Editorial({ data: d }) {
@@ -64,6 +65,9 @@ export default function Editorial({ data: d }) {
         <a href={tel} className={s.phone}>📞 {d.PHONE}</a>
         <p className={s.sub}>Δωρεάν εκτίμηση · {d.AREAS}</p>
       </section>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} — {d.CITY} · Site από Vitrina</footer>
     </div>

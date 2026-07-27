@@ -1,4 +1,5 @@
 import s from './Runway.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 // "Runway" — high-fashion editorial για κομμωτήρια/beauty: B&W φωτογραφία που
@@ -70,6 +71,9 @@ export default function Runway({ data: d }) {
           <span>{d.AREAS}</span>
         </div>
       </section>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} · {d.CITY} · Site από Vitrina</footer>
     </div>

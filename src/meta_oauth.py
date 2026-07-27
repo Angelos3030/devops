@@ -129,6 +129,23 @@ def _enrich_intake(client_id: str, form: dict) -> dict:
     return intake
 
 
+def _ensure_geo(client_id: str, address: str, city: str) -> None:
+    """Γεωκωδικοποιεί μία φορά και αποθηκεύει — για το `geo` του schema + τον χάρτη."""
+    try:
+        content = db.get_site_content(client_id)
+        if content.get("geo_lat") and content.get("geo_lng"):
+            return
+        from . import geocode as gc
+        hit = gc.geocode(address or "", city or "")
+        if not hit:
+            return
+        content.update({"geo_lat": str(hit["lat"]), "geo_lng": str(hit["lng"])})
+        db.save_site_content(client_id, content)
+        print(f"[geo] {client_id} -> {hit['lat']},{hit['lng']}")
+    except Exception as e:  # noqa: BLE001 — καθαρά best-effort
+        print(f"[geo] skipped: {e}")
+
+
 def _build_site_bg(client_id: str, form: dict) -> None:
     """Τρέχει στο background: παράγει 3 premium designs (studio/commerce/atelier)
     ντετερμινιστικά (0 API tokens) και τα αποθηκεύει ως previews για έγκριση.
@@ -138,6 +155,7 @@ def _build_site_bg(client_id: str, form: dict) -> None:
         from . import site_copy
         intake = _enrich_intake(client_id, form)
         intake = site_copy.enrich_with_copy(intake)  # AI copy if key present, else no-op
+        _ensure_geo(client_id, form.get("address") or "", form.get("city") or "")
         recommended = pg.recommend_layout(intake)
         variants = pg.generate_variants(intake)
         for layout, html in variants.items():
@@ -205,6 +223,7 @@ def _intake_from_db(client_id: str) -> dict:
     intake = {
         "name": c.get("name"), "type": c.get("business_type"),
         "city": c.get("city"), "phone": c.get("phone"), "email": c.get("email"),
+        "address": c.get("address") or "",
         "tagline": c.get("style") or "",
     }
     intake = _enrich_intake(client_id, intake)
@@ -272,6 +291,8 @@ _EDITABLE = {
     "name", "trade", "city", "phone", "hours", "areas",
     "tagline", "intro", "story_title", "story_paragraphs", "cta_title",
     "services", "template",
+    # Local SEO / Google Maps
+    "address", "gbp_url", "geo_lat", "geo_lng",
 }
 
 
@@ -402,6 +423,12 @@ def put_content(client_id: str, body: ContentUpdate,
             clean[k] = v[:1200]
 
     db.save_site_content(client_id, clean)
+    if clean.get("address") or clean.get("city"):
+        # νέα διεύθυνση → ξαναϋπολόγισε συντεταγμένες
+        cur = db.get_site_content(client_id)
+        cur.pop("geo_lat", None); cur.pop("geo_lng", None)
+        db.save_site_content(client_id, cur)
+        _ensure_geo(client_id, clean.get("address", ""), clean.get("city", ""))
     if clean.get("template"):
         try:
             db.set_selected_design(client_id, clean["template"])

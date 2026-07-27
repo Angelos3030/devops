@@ -16,10 +16,50 @@ export function schemaType(data) {
   return 'LocalBusiness'
 }
 
+// Ελληνικές ώρες («Δευτ.–Σάβ. 08:00–19:00», «Καθημερινά 12:00–00:00») →
+// openingHoursSpecification, που είναι ό,τι διαβάζει η Google (το σκέτο κείμενο όχι).
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const DAY_EL = [
+  [/^(δευτ|δε)/i, 0], [/^(τρι|τρ)/i, 1], [/^(τετ|τε)/i, 2], [/^(πεμ|πε)/i, 3],
+  [/^(παρ|πα)/i, 4], [/^(σαβ|σα)/i, 5], [/^(κυρ|κυ)/i, 6],
+]
+const dayIndex = (token) => {
+  const t = token.trim().replace(/\./g, '')
+  for (const [re, i] of DAY_EL) if (re.test(t)) return i
+  return -1
+}
+
+export function openingHoursSpec(hours) {
+  if (!hours) return undefined
+  const text = String(hours)
+  const time = text.match(/(\d{1,2}[:.]\d{2})\s*[–\-—]\s*(\d{1,2}[:.]\d{2})/)
+  if (!time) return undefined
+  const opens = time[1].replace('.', ':')
+  const closes = time[2].replace('.', ':')
+
+  let days = null
+  if (/καθημεριν|κάθε μέρα|7 ημ|24\/7/i.test(text)) {
+    days = DAYS
+  } else {
+    const range = text.match(/([Α-Ωα-ωίϊΐόάέύϋΰήώ]{2,5}\.?)\s*[–\-—]\s*([Α-Ωα-ωίϊΐόάέύϋΰήώ]{2,5}\.?)/)
+    if (range) {
+      const a = dayIndex(range[1]), b = dayIndex(range[2])
+      if (a >= 0 && b >= 0) {
+        days = []
+        for (let i = a; ; i = (i + 1) % 7) { days.push(DAYS[i]); if (i === b) break }
+      }
+    }
+  }
+  if (!days?.length) return undefined
+  return [{ '@type': 'OpeningHoursSpecification', dayOfWeek: days, opens, closes }]
+}
+
 export function buildJsonLd(data, opts = {}) {
   const { domain } = opts
   const url = domain ? `https://${domain}` : undefined
   const areas = (data.AREAS || '').split('·').map((a) => a.trim()).filter(Boolean)
+  const lat = parseFloat(data.GEO_LAT), lng = parseFloat(data.GEO_LNG)
+  const hasGeo = Number.isFinite(lat) && Number.isFinite(lng)
   return {
     '@context': 'https://schema.org',
     '@type': schemaType(data),
@@ -29,9 +69,18 @@ export function buildJsonLd(data, opts = {}) {
     description: data.TAGLINE,
     telephone: data.PHONE_INTL ? `+${data.PHONE_INTL}` : undefined,
     image: data.HERO_IMAGE || undefined,
-    address: { '@type': 'PostalAddress', addressLocality: data.CITY, addressCountry: 'GR' },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: data.ADDRESS || undefined,
+      addressLocality: data.CITY,
+      addressCountry: 'GR',
+    },
+    geo: hasGeo ? { '@type': 'GeoCoordinates', latitude: lat, longitude: lng } : undefined,
+    hasMap: hasGeo ? `https://www.google.com/maps/search/?api=1&query=${lat},${lng}` : undefined,
+    sameAs: data.GBP_URL ? [data.GBP_URL] : undefined,
     areaServed: areas.length ? areas : (data.CITY ? [data.CITY] : undefined),
-    openingHours: data.HOURS || undefined,
+    openingHoursSpecification: openingHoursSpec(data.HOURS),
+    openingHours: data.HOURS || undefined,   // ανθρώπινο fallback
     priceRange: '€€',
   }
 }

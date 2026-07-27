@@ -1,4 +1,5 @@
 import s from './Forge.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 // "Forge" — τεχνίτες (υδραυλικός/ηλεκτρολόγος/μάστορας): φως ημέρας βιομηχανικό,
@@ -79,6 +80,9 @@ export default function Forge({ data: d }) {
         <a href={tel} className={s.ctaBig}>📞 {d.PHONE}</a>
         <p className={s.cta2Sub}>{d.HOURS} · {d.AREAS}</p>
       </section>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} — {d.CITY} · Site από Vitrina</footer>
     </div>

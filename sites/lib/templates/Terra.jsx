@@ -1,4 +1,5 @@
 import s from './Terra.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 // "Terra" — παραγωγοί (λάδι/μέλι/κρασί): γη & χαρτί kraft, ελιά, ζεστή Alegreya.
@@ -66,6 +67,9 @@ export default function Terra({ data: d }) {
         <a href={tel} className={s.cta}>📞 {d.PHONE}</a>
         <p className={s.cta2Sub}>{d.HOURS} · {d.AREAS}</p>
       </section>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} · {d.CITY} · Site από Vitrina</footer>
     </div>

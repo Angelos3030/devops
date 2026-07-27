@@ -1,4 +1,5 @@
 import s from './Motor.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 // "Motor" — συνεργεία: σκοτεινό γκαράζ, signal κόκκινο, τεχνικό mono. Signature:
@@ -69,6 +70,9 @@ export default function Motor({ data: d }) {
         <a href={tel} className={s.ctaBig}>📞 {d.PHONE}</a>
         <p className={s.cta2Sub}>{d.HOURS} · {d.AREAS}</p>
       </section>
+
+      <FindUs data={d} dark />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} · {d.CITY} · Site από Vitrina</footer>
     </div>

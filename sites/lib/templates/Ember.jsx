@@ -1,4 +1,5 @@
 import s from './Ember.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 // "Νυχτερινή ψησταριά" — smoky night palette, living ember glow, services served as a
@@ -80,6 +81,9 @@ export default function Ember({ data: d }) {
         <h2 className={s.cta2Title}>{d.CTA_TITLE}</h2>
         <a href={tel} className={s.cta2Btn}>📞 {d.PHONE}</a>
       </section>
+
+      <FindUs data={d} dark />
+
 
       <footer className={s.footer}>
         <span>© {d.YEAR} {d.NAME}</span>

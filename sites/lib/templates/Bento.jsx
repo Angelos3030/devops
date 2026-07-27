@@ -1,4 +1,5 @@
 import s from './Bento.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 export default function Bento({ data: d }) {
@@ -66,6 +67,9 @@ export default function Bento({ data: d }) {
           <span className={s.ctaBtn}>📞 {d.PHONE} →</span>
         </a>
       </div>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} — {d.CITY} · Site από Vitrina</footer>
     </div>

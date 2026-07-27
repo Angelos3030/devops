@@ -1,4 +1,5 @@
 import s from './Sidebar.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 export default function Sidebar({ data: d }) {
@@ -56,6 +57,9 @@ export default function Sidebar({ data: d }) {
           </div>
         </aside>
       </div>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} — {d.CITY} · Site από Vitrina</footer>
     </div>

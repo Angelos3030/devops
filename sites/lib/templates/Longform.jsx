@@ -1,4 +1,5 @@
 import s from './Longform.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 export default function Longform({ data: d }) {
@@ -50,6 +51,9 @@ export default function Longform({ data: d }) {
         <p className={s.lede}>Δωρεάν εκτίμηση — {d.AREAS}.</p>
         <a href={tel} className={s.btn}>📞 Κάλεσε {d.PHONE}</a>
       </article>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} — {d.CITY} · Site από Vitrina</footer>
     </div>

@@ -1,4 +1,5 @@
 import s from './Poster.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 export default function Poster({ data: d }) {
@@ -53,6 +54,9 @@ export default function Poster({ data: d }) {
         <a href={tel} className={s.ctaBig}>{d.CTA_TITLE}</a>
         <div className={s.ctaMeta}><span>📞 {d.PHONE}</span><span>{d.AREAS}</span></div>
       </section>
+
+      <FindUs data={d} dark />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} — {d.CITY} · Site από Vitrina</footer>
     </div>

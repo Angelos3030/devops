@@ -1,4 +1,5 @@
 import s from './Marble.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 // "Marble" — minimal-luxe για δικηγόρους/ιατρούς/λογιστές: πορσελάνη, βαθύ ink,
@@ -83,6 +84,9 @@ export default function Marble({ data: d }) {
         <h2 className={s.closeTitle}>{d.CTA_TITLE}</h2>
         <a href={tel} className={s.cta}>{d.PHONE}</a>
       </section>
+
+      <FindUs data={d} />
+
 
       <footer className={s.footer}>
         <span>© {d.YEAR} {d.NAME}</span>

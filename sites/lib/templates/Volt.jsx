@@ -1,4 +1,5 @@
 import s from './Volt.module.css'
+import FindUs from './FindUs'
 import Brand from './Brand'
 
 // "Volt" — γυμναστήρια/trainers: σκούρο ανθρακί + electric lime, γεωμετρική Syne.
@@ -58,6 +59,9 @@ export default function Volt({ data: d }) {
         <a href={tel} className={s.cta}>📞 {d.PHONE}</a>
         <p className={s.cta2Sub}>{d.HOURS} · {d.AREAS}</p>
       </section>
+
+      <FindUs data={d} dark />
+
 
       <footer className={s.footer}>© {d.YEAR} {d.NAME} · {d.CITY} · Site από Vitrina</footer>
     </div>
