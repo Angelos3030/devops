@@ -23,8 +23,10 @@ const DAY_EL = [
   [/^(δευτ|δε)/i, 0], [/^(τρι|τρ)/i, 1], [/^(τετ|τε)/i, 2], [/^(πεμ|πε)/i, 3],
   [/^(παρ|πα)/i, 4], [/^(σαβ|σα)/i, 5], [/^(κυρ|κυ)/i, 6],
 ]
+// Χωρίς αυτό, «Σάβ.» δεν ταίριαζε με «σαβ» και το ωράριο έβγαινε κενό.
+const noTones = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '')
 const dayIndex = (token) => {
-  const t = token.trim().replace(/\./g, '')
+  const t = noTones(token.trim().replace(/\./g, ''))
   for (const [re, i] of DAY_EL) if (re.test(t)) return i
   return -1
 }
@@ -32,13 +34,17 @@ const dayIndex = (token) => {
 export function openingHoursSpec(hours) {
   if (!hours) return undefined
   const text = String(hours)
+  // «24/7», «όλο το 24ωρο» → ανοιχτά συνεχώς
+  if (/24\s*\/\s*7|24ωρ/i.test(noTones(text))) {
+    return [{ '@type': 'OpeningHoursSpecification', dayOfWeek: DAYS, opens: '00:00', closes: '23:59' }]
+  }
   const time = text.match(/(\d{1,2}[:.]\d{2})\s*[–\-—]\s*(\d{1,2}[:.]\d{2})/)
   if (!time) return undefined
   const opens = time[1].replace('.', ':')
   const closes = time[2].replace('.', ':')
 
   let days = null
-  if (/καθημεριν|κάθε μέρα|7 ημ|24\/7/i.test(text)) {
+  if (/καθημεριν|καθε μερα|7 ημ/i.test(noTones(text))) {
     days = DAYS
   } else {
     const range = text.match(/([Α-Ωα-ωίϊΐόάέύϋΰήώ]{2,5}\.?)\s*[–\-—]\s*([Α-Ωα-ωίϊΐόάέύϋΰήώ]{2,5}\.?)/)
