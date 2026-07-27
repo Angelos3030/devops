@@ -36,7 +36,8 @@ _PRICE_BY_PLAN = {
 
 app = FastAPI()
 
-# CORS — ώστε το landing/connect (getvitrina.gr) να καλεί το API.
+# CORS — ώστε το landing/connect (getvitrina.gr) και το dashboard (sites service)
+# να καλούν το API. Το regex καλύπτει τα Railway/Pages preview URLs, που αλλάζουν.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -45,11 +46,14 @@ app.add_middleware(
         "https://vitrina-7uq.pages.dev",
         "https://db65ba76.vitrina-7uq.pages.dev",
         "https://app.getvitrina.gr",
+        cfg.APP_BASE_URL,
+        "http://localhost:3000",
         "http://localhost:8001",
         "http://127.0.0.1:5500",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
     ],
+    allow_origin_regex=r"https://([a-z0-9-]+\.)*(up\.railway\.app|pages\.dev)",
     allow_methods=["*"], allow_headers=["*"],
 )
 
