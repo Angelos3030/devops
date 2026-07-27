@@ -20,10 +20,12 @@ export function GET() {
   const host = (headers().get('host') || '').split(':')[0]
 
   // Το site του πελάτη είναι μονοσέλιδο — το sitemap του δείχνει το δικό του domain,
-  // ποτέ τις δικές μας σελίδες.
+  // ποτέ τις δικές μας σελίδες. Χωρίς `www.` ώστε να ταιριάζει με το canonical
+  // (το sitemap πρέπει να περιέχει τα canonical URLs, αλλιώς μπερδεύεται η Google).
+  const apex = host.replace(/^www\./, '')
   const urls = isAppHost(host)
     ? Object.keys(TRADES).map((t) => ({ loc: `${APP_BASE}/gia/${t}` }))
-    : [{ loc: `https://${host}/`, priority: '1.0', changefreq: 'weekly' }]
+    : [{ loc: `https://${apex}/`, priority: '1.0', changefreq: 'weekly' }]
 
   return new Response(xml(urls), {
     headers: { 'Content-Type': 'application/xml; charset=utf-8' },
