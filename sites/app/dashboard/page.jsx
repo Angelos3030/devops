@@ -192,6 +192,7 @@ export default function Dashboard() {
               Δες το ζωντανά ↗
             </a>
           )}
+          <a className={s.linkBtn} href="/odigos/google" target="_blank" rel="noreferrer">Οδηγός Google</a>
           <button className={s.linkBtn} onClick={openBilling}>Συνδρομή</button>
           <button className={s.linkBtn} onClick={() => supabase.auth.signOut()}>Έξοδος</button>
         </div>
