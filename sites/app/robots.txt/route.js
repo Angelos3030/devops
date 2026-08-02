@@ -10,7 +10,9 @@ const isAppHost = (h) =>
 // Ένα robots.txt ανά domain. Ο πελάτης ΔΕΝ πρέπει να δείχνει στο δικό μας sitemap —
 // αυτό θα έστελνε τη Google από το site του στις διαφημιστικές μας σελίδες.
 export function GET() {
-  const host = (headers().get('host') || '').split(':')[0]
+  // x-tenant-host: το πραγματικό domain όταν η κίνηση περνάει από τον Worker
+  const h = headers()
+  const host = (h.get('x-tenant-host') || h.get('host') || '').split(':')[0]
 
   if (isAppHost(host)) {
     return new Response(

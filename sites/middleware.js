@@ -5,7 +5,12 @@ import { NextResponse } from 'next/server'
 const APP_HOSTS = ['localhost', '127.0.0.1', 'getvitrina.gr', 'www.getvitrina.gr', 'app.getvitrina.gr']
 
 export function middleware(req) {
-  const rawHost = (req.headers.get('host') || '').split(':')[0]
+  // Πελάτες που έρχονται μέσω του Cloudflare Worker φτάνουν με Host του Railway
+  // (αλλιώς το Railway τους απορρίπτει), οπότε το πραγματικό domain έρχεται εδώ.
+  // Χωρίς αυτό θα βλέπαμε το app αντί για το site του πελάτη.
+  const rawHost = (
+    req.headers.get('x-tenant-host') || req.headers.get('host') || ''
+  ).split(':')[0]
   // Treat www.<domain> and <domain> as the same tenant (Railway validates www cleanly;
   // apex behind Cloudflare gets CNAME-flattened, so www is the canonical origin host).
   const host = rawHost.replace(/^www\./, '')

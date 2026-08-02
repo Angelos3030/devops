@@ -17,7 +17,9 @@ const xml = (urls) =>
   `\n</urlset>\n`
 
 export function GET() {
-  const host = (headers().get('host') || '').split(':')[0]
+  // x-tenant-host: το πραγματικό domain όταν η κίνηση περνάει από τον Worker
+  const h = headers()
+  const host = (h.get('x-tenant-host') || h.get('host') || '').split(':')[0]
 
   // Το site του πελάτη είναι μονοσέλιδο — το sitemap του δείχνει το δικό του domain,
   // ποτέ τις δικές μας σελίδες. Χωρίς `www.` ώστε να ταιριάζει με το canonical
