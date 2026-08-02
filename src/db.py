@@ -303,6 +303,16 @@ def update_domain_order_status(stripe_session_id: str, status: str,
     ).execute()
 
 
+def list_domain_orders(status: str | None = None, limit: int = 50) -> list[dict]:
+    """Παραγγελίες domain. Χωρίς `status` επιστρέφει τις πιο πρόσφατες όλων."""
+    q = (_client().table("domain_orders")
+         .select("id,client_id,domain,status,amount_cents,error,created_at")
+         .order("created_at", desc=True).limit(limit))
+    if status:
+        q = q.eq("status", status)
+    return q.execute().data or []
+
+
 def set_client_status(client_id: str, status: str, plan: str | None = None) -> None:
     patch = {"status": status}
     if plan:

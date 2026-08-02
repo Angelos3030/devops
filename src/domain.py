@@ -15,7 +15,7 @@ from .registrars import get_registrar
 # Greek → ASCII transliteration για domain slug
 # ---------------------------------------------------------------------------
 _GR = str.maketrans({
-    'α': 'a',  'β': 'b',  'γ': 'g',  'δ': 'd',  'ε': 'e',  'ζ': 'z',
+    'α': 'a',  'β': 'v',  'γ': 'g',  'δ': 'd',  'ε': 'e',  'ζ': 'z',
     'η': 'i',  'θ': 'th', 'ι': 'i',  'κ': 'k',  'λ': 'l',  'μ': 'm',
     'ν': 'n',  'ξ': 'x',  'ο': 'o',  'π': 'p',  'ρ': 'r',  'σ': 's',
     'ς': 's',  'τ': 't',  'υ': 'y',  'φ': 'f',  'χ': 'ch', 'ψ': 'ps',
@@ -36,8 +36,23 @@ _TYPE_SLUG = {
 }
 
 
+# Συνδυασμοί που ΠΡΕΠΕΙ να μεταφραστούν πριν από τα μεμονωμένα γράμματα, αλλιώς
+# βγαίνουν ονόματα που κανένας Έλληνας δεν θα έγραφε («koytrakis» αντί «koutrakis»,
+# «bira» αντί «mpira»). Έτσι γράφουν οι ίδιοι τα domain τους.
+_DIGRAPHS = [
+    ('ου', 'ou'), ('ού', 'ou'),
+    ('μπ', 'b'), ('ντ', 'd'), ('γκ', 'g'), ('γγ', 'ng'),
+    ('τσ', 'ts'), ('τζ', 'tz'),
+    ('αυ', 'av'), ('αύ', 'av'), ('ευ', 'ev'), ('εύ', 'ev'),
+    ('αι', 'ai'), ('αί', 'ai'), ('ει', 'ei'), ('εί', 'ei'), ('οι', 'oi'), ('οί', 'oi'),
+]
+
+
 def _slug(text: str) -> str:
-    t = text.lower().translate(_GR)
+    t = text.lower()
+    for gr, lat in _DIGRAPHS:
+        t = t.replace(gr, lat)
+    t = t.translate(_GR)
     t = unicodedata.normalize('NFKD', t).encode('ascii', 'ignore').decode()
     t = re.sub(r'[^a-z0-9]+', '-', t).strip('-')
     return t
@@ -49,13 +64,17 @@ def suggest_domains(name: str, business_type: str = '', city: str = '') -> list[
     c = _slug(city) if city else ''
     t = _TYPE_SLUG.get(business_type.lower(), _slug(business_type)) if business_type else ''
 
+    # Αν ο τύπος υπάρχει ήδη μέσα στο όνομα («Ταβέρνα Ο Μήτσος»), μη τον ξαναβάλεις —
+    # θα έβγαινε «taverna-taverna-o-mitsos», που δείχνει προχειρότητα.
+    type_in_name = bool(t) and t in n
+
     candidates = []
-    if n:                   candidates.append(n)
-    if n and c:             candidates.append(f"{n}-{c}")
-    if n and t:             candidates.append(f"{t}-{n}")
-    if n and t and c:       candidates.append(f"{n}-{t}-{c}")
-    if c and t:             candidates.append(f"{t}-{c}")
-    if n and c:             candidates.append(f"{c}-{n}")
+    if n:                              candidates.append(n)
+    if n and c:                        candidates.append(f"{n}-{c}")
+    if n and t and not type_in_name:    candidates.append(f"{t}-{n}")
+    if n and t and c and not type_in_name: candidates.append(f"{n}-{t}-{c}")
+    if c and t:                        candidates.append(f"{t}-{c}")
+    if n and c:                        candidates.append(f"{c}-{n}")
 
     seen: set[str] = set()
     result = []
