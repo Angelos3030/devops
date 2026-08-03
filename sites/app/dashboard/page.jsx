@@ -25,6 +25,10 @@ export default function Dashboard() {
   const [email, setEmail] = useState('')
   const [sent, setSent] = useState(false)
   const [googleOn, setGoogleOn] = useState(false)
+  const [tab, setTab] = useState('chat')
+  const [form, setForm] = useState(null)      // τα πεδία του site, για χειροκίνητη αλλαγή
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
   const chatEnd = useRef(null)
 
   // Δείξε το κουμπί Google μόνο αν ο provider είναι όντως ενεργός στο Supabase,
@@ -95,6 +99,36 @@ export default function Dashboard() {
     }
     setBusy(false)
   }
+
+  // Χειροκίνητη επεξεργασία — δουλεύει και χωρίς τον βοηθό AI.
+  async function openEdit() {
+    setTab('edit'); setErr('')
+    if (form) return
+    try {
+      const d = await authFetch(`/clients/${clientId}/content`)
+      setForm(d.content)
+    } catch (e) {
+      setErr('Δεν φόρτωσαν τα στοιχεία σου. ' + e.message)
+    }
+  }
+
+  async function saveForm(e) {
+    e.preventDefault()
+    setSaving(true); setErr(''); setSaved(false)
+    try {
+      await authFetch(`/clients/${clientId}/content`, {
+        method: 'PUT', body: JSON.stringify({ content: form }),
+      })
+      setSaved(true)
+      setVer(Date.now())                    // ανανέωσε το preview
+      setTimeout(() => setSaved(false), 2500)
+    } catch (e) {
+      setErr('Δεν αποθηκεύτηκε. ' + e.message)
+    }
+    setSaving(false)
+  }
+
+  const setField = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
 
   async function openBilling() {
     try {
@@ -200,6 +234,37 @@ export default function Dashboard() {
 
       <div className={s.split}>
         <section className={s.chat}>
+          <div className={s.tabs}>
+            <button className={tab === 'chat' ? s.tabOn : s.tab} onClick={() => setTab('chat')}>💬 Πες μου τι θες</button>
+            <button className={tab === 'edit' ? s.tabOn : s.tab} onClick={openEdit}>✏️ Στοιχεία</button>
+          </div>
+
+          {tab === 'edit' ? (
+            !form ? (
+              <div className={s.formWrap}><p className={s.hint}>Φορτώνει…</p></div>
+            ) : (
+              <form className={s.formWrap} onSubmit={saveForm}>
+                <label>Όνομα<input value={form.name || ''} onChange={setField('name')} /></label>
+                <label>Τι κάνεις<input value={form.trade || ''} onChange={setField('trade')} /></label>
+                <label>Τηλέφωνο<input value={form.phone || ''} onChange={setField('phone')} /></label>
+                <label>Πόλη<input value={form.city || ''} onChange={setField('city')} /></label>
+                <label>Διεύθυνση <span className={s.hint}>(για τον χάρτη)</span>
+                  <input value={form.address || ''} onChange={setField('address')} placeholder="π.χ. Λ. Μαραθώνος 12" /></label>
+                <label>Ωράριο<input value={form.hours || ''} onChange={setField('hours')} placeholder="Δευτ.–Σάβ. 09:00–19:00" /></label>
+                <label>Μία φράση για σένα
+                  <textarea rows={2} value={form.tagline || ''} onChange={setField('tagline')} /></label>
+                <label>Το προφίλ σου στο Google <span className={s.hint}>(προαιρετικό)</span>
+                  <input value={form.gbp_url || ''} onChange={setField('gbp_url')} placeholder="https://maps.app.goo.gl/..." /></label>
+
+                <div className={s.formBar}>
+                  <button type="submit" disabled={saving}>{saving ? 'Αποθηκεύω…' : 'Αποθήκευση'}</button>
+                  {saved && <span className={s.okTag}>✓ Αποθηκεύτηκε</span>}
+                </div>
+                {err && <p className={s.err}>{err}</p>}
+              </form>
+            )
+          ) : (
+          <>
           <div className={s.msgs}>
             {messages.map((m, i) => (
               <div key={i} className={m.role === 'me' ? s.me : s.bot}>
@@ -227,6 +292,8 @@ export default function Dashboard() {
             <button type="submit" disabled={busy || !input.trim()}>➤</button>
           </form>
           {err && <p className={s.err}>{err}</p>}
+          </>
+          )}
         </section>
 
         <section className={s.preview}>
