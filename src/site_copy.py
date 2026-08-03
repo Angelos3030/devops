@@ -122,7 +122,12 @@ def write_copy(intake: dict[str, Any]) -> dict[str, Any]:
     )
 
     try:
-        client = anthropic.Anthropic(api_key=cfg.ANTHROPIC_API_KEY)
+        # base_url: επιτρέπει εναλλακτικό πάροχο (π.χ. Azure AI Foundry) χωρίς
+        # αλλαγή κώδικα — κενό σημαίνει απευθείας Anthropic.
+        client = anthropic.Anthropic(
+            api_key=cfg.ANTHROPIC_API_KEY,
+            **({"base_url": cfg.ANTHROPIC_BASE_URL} if cfg.ANTHROPIC_BASE_URL else {}),
+        )
         resp = client.messages.create(
             model=cfg.MODEL_CHEAP,
             max_tokens=1200,

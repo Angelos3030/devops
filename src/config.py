@@ -15,6 +15,10 @@ def _req(key: str) -> str:
 
 # --- Claude (απαιτείται μόνο για upload_skills / setup_agents / daily_post) ---
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+# Προαιρετικό: εναλλακτικός πάροχος με συμβατό API (π.χ. Azure AI Foundry).
+# Κενό = απευθείας στην Anthropic. Το κλειδί του Foundry ΔΕΝ δουλεύει στο
+# api.anthropic.com — χρειάζεται το δικό του endpoint εδώ.
+ANTHROPIC_BASE_URL = os.environ.get("ANTHROPIC_BASE_URL", "").rstrip("/")
 
 # --- Agents / Environment (από setup_agents.py) ---
 ENV_ID = os.environ.get("ENV_ID", "")
