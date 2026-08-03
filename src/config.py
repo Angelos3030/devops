@@ -38,7 +38,9 @@ SKILL_IDS = {
 }
 
 # --- Μοντέλα (token-efficient: Haiku/Sonnet, Opus σπάνια) ---
-MODEL_CHEAP = "claude-haiku-4-5"      # brand, captions
+# ANTHROPIC_MODEL: όνομα deployment σε εναλλακτικό πάροχο (π.χ. Azure AI Foundry),
+# όπου το μοντέλο δεν λέγεται απαραίτητα «claude-haiku-4-5». Κενό = προεπιλογή.
+MODEL_CHEAP = os.environ.get("ANTHROPIC_MODEL") or "claude-haiku-4-5"   # brand, captions
 MODEL_PROD = "claude-sonnet-4-6"      # website
 MODEL_SMART = "claude-opus-4-8"       # μόνο για σύνθετα (σπάνια)
 
