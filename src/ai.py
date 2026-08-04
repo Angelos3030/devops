@@ -1,0 +1,112 @@
+"""
+Ένα σημείο για κάθε κλήση AI — με όποιον πάροχο υπάρχει διαθέσιμος.
+
+Γιατί υπάρχει: τα κείμενα των πελατών δεν είναι δεμένα με μία εταιρεία. Το
+DeepSeek, το OpenRouter και σχεδόν όλοι οι φθηνοί πάροχοι μιλάνε το πρωτόκολλο
+του **OpenAI** (`POST /chat/completions`), ενώ η Anthropic έχει δικό της
+(`/v1/messages`). Δεν είναι θέμα base URL — είναι άλλο σχήμα αιτήματος και
+άλλο σχήμα απάντησης. Πριν από αυτό το αρχείο, τρία σημεία του κώδικα καλούσαν
+απευθείας το anthropic SDK, οπότε αλλαγή παρόχου σήμαινε αλλαγή σε τρία μέρη.
+
+Ο κανόνας που δεν αλλάζει: **αν το AI αποτύχει, το προϊόν δουλεύει.** Κάθε
+συνάρτηση εδώ επιστρέφει `None` αντί να πετάξει, και ο καλών κρατάει τα έτοιμα
+πρότυπα ανά επάγγελμα. Ο πελάτης δεν βλέπει ποτέ άδειο site επειδή έληξε ένα
+κλειδί.
+
+Ρύθμιση: βλ. `src/config.py` (AI_API_KEY, AI_BASE_URL, AI_MODEL, AI_PROVIDER).
+Έλεγχος: `python scripts/check_ai.py`.
+"""
+from __future__ import annotations
+
+import json
+from typing import Any
+
+import requests
+
+from . import config as cfg
+
+TIMEOUT = 90
+
+
+def provider() -> str:
+    """«anthropic», «openai» ή «» αν δεν υπάρχει κλειδί."""
+    if not cfg.AI_API_KEY:
+        return ""
+    if cfg.AI_PROVIDER in ("anthropic", "openai"):
+        return cfg.AI_PROVIDER
+    # Τα κλειδιά της Anthropic έχουν αναγνωρίσιμο πρόθεμα· οτιδήποτε άλλο με
+    # δικό του endpoint είναι σχεδόν πάντα OpenAI-συμβατό.
+    if cfg.AI_API_KEY.startswith("sk-ant-"):
+        return "anthropic"
+    return "openai" if cfg.AI_BASE_URL else "anthropic"
+
+
+def model() -> str:
+    if cfg.AI_MODEL:
+        return cfg.AI_MODEL
+    return "deepseek-chat" if provider() == "openai" else cfg.MODEL_CHEAP
+
+
+def available() -> bool:
+    return bool(cfg.AI_API_KEY)
+
+
+def complete(system: str, user: str, max_tokens: int = 1500) -> str | None:
+    """Μία ερώτηση, ένα κείμενο πίσω. `None` σε οποιοδήποτε πρόβλημα."""
+    p = provider()
+    if not p:
+        return None
+    try:
+        return _anthropic(system, user, max_tokens) if p == "anthropic" \
+            else _openai(system, user, max_tokens)
+    except Exception as e:  # noqa: BLE001
+        # Δεν σπάμε τη ροή του πελάτη για μια αποτυχία AI — αλλά την τυπώνουμε,
+        # αλλιώς ένα άκυρο κλειδί περνάει απαρατήρητο για εβδομάδες.
+        print(f"[ai] {p} απέτυχε ({type(e).__name__}): {str(e)[:160]}")
+        return None
+
+
+def complete_json(system: str, user: str, max_tokens: int = 1500) -> Any | None:
+    """Ό,τι και το complete(), αλλά περιμένει JSON και το αποκωδικοποιεί.
+
+    Τα μοντέλα συχνά τυλίγουν το JSON σε ```json ... ``` ή σε μια πρόταση
+    εισαγωγής — κρατάμε ό,τι είναι ανάμεσα στα εξωτερικά άγκιστρα.
+    """
+    text = complete(system, user, max_tokens)
+    if not text:
+        return None
+    start, end = text.find("{"), text.rfind("}")
+    if start == -1 or end <= start:
+        print(f"[ai] η απάντηση δεν είχε JSON: {text[:120]}")
+        return None
+    try:
+        return json.loads(text[start:end + 1])
+    except json.JSONDecodeError as e:
+        print(f"[ai] χαλασμένο JSON ({e}): {text[start:start + 120]}")
+        return None
+
+
+def _anthropic(system: str, user: str, max_tokens: int) -> str:
+    import anthropic
+    kw: dict[str, Any] = {"api_key": cfg.AI_API_KEY}
+    if cfg.AI_BASE_URL:
+        kw["base_url"] = cfg.AI_BASE_URL
+    resp = anthropic.Anthropic(**kw).messages.create(
+        model=model(), max_tokens=max_tokens, system=system,
+        messages=[{"role": "user", "content": user}])
+    return "".join(getattr(b, "text", "") for b in resp.content)
+
+
+def _openai(system: str, user: str, max_tokens: int) -> str:
+    base = cfg.AI_BASE_URL or "https://api.deepseek.com/v1"
+    r = requests.post(
+        f"{base}/chat/completions",
+        headers={"Authorization": f"Bearer {cfg.AI_API_KEY}",
+                 "Content-Type": "application/json"},
+        json={"model": model(), "max_tokens": max_tokens, "temperature": 0.7,
+              "messages": [{"role": "system", "content": system},
+                           {"role": "user", "content": user}]},
+        timeout=TIMEOUT)
+    if not r.ok:
+        raise RuntimeError(f"HTTP {r.status_code}: {r.text[:200]}")
+    return r.json()["choices"][0]["message"]["content"]

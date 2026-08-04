@@ -136,22 +136,30 @@ cd sites && npx next build       # ότι χτίζει το frontend
 
 | | |
 |---|---|
-| `ANTHROPIC_API_KEY` | AI κείμενα & chat-to-edit. Χωρίς αυτό: έτοιμα πρότυπα ανά επάγγελμα |
-| `ANTHROPIC_BASE_URL`, `ANTHROPIC_MODEL` | μόνο για εναλλακτικό provider (π.χ. Azure) |
+| `AI_API_KEY`, `AI_BASE_URL`, `AI_MODEL` | AI κείμενα & chat-to-edit — **οποιοσδήποτε πάροχος** (DeepSeek, Anthropic, OpenRouter). Χωρίς αυτά: έτοιμα πρότυπα ανά επάγγελμα |
 | `CF_API_TOKEN`, `CF_ACCOUNT_ID` | σύνδεση domain πελατών |
 | `STRIPE_*` | πληρωμές (test mode) |
 | `META_APP_ID`, `META_APP_SECRET` | αυτόματο posting — περιμένει App Review |
 
-Ένα `ANTHROPIC_API_KEY` που δεν δουλεύει **δεν ρίχνει τίποτα**: κάθε AI κλήση
+Ένα AI κλειδί που δεν δουλεύει **δεν ρίχνει τίποτα**: κάθε AI κλήση
 πέφτει σιωπηλά πίσω στα πρότυπα. Γι' αυτό όμως δεν το παίρνεις χαμπάρι — τρέξε:
 
 ```bash
 python scripts/check_ai.py       # δουλεύει το κλειδί; αν όχι, τι φταίει
 ```
 
-Θέλει κλειδί `sk-ant-…` από το console.anthropic.com. Αν χρησιμοποιείς άλλον
-provider (π.χ. Azure Foundry) χρειάζεσαι **και** `ANTHROPIC_BASE_URL` **και**
-`ANTHROPIC_MODEL` με το όνομα του **deployment** σου — όχι του μοντέλου.
+Ο πάροχος δεν είναι δεμένος: το [src/ai.py](src/ai.py) μιλάει **και** το
+πρωτόκολλο της Anthropic **και** το OpenAI-συμβατό που χρησιμοποιούν σχεδόν όλοι
+οι υπόλοιποι.
+
+```bash
+# DeepSeek — φθηνό
+AI_API_KEY=sk-…   AI_BASE_URL=https://api.deepseek.com/v1   AI_MODEL=deepseek-chat
+# Anthropic — καλύτερα ελληνικά
+AI_API_KEY=sk-ant-…          # και τίποτα άλλο
+```
+
+⚠️ Κλειδί ενός παρόχου με endpoint άλλου = 401. Το `check_ai.py` το λέει καθαρά.
 
 ## 9. Όταν κάτι σπάσει
 
@@ -163,7 +171,7 @@ provider (π.χ. Azure Foundry) χρειάζεσαι **και** `ANTHROPIC_BASE_
 | **Dashboard: «Failed to fetch»** | CORS — το origin του sites app πρέπει να ταιριάζει στο `allow_origin_regex`. |
 | **«provider is not enabled»** | Το Google OAuth δεν είναι ενεργό στο Supabase. |
 | **Login πάει σε localhost** | Λάθος Site URL στις ρυθμίσεις Supabase Auth. |
-| **Ο βοηθός δεν απαντά** | Δεν υπάρχει έγκυρο `ANTHROPIC_API_KEY`. Η καρτέλα «Στοιχεία» δουλεύει κανονικά. |
+| **Ο βοηθός δεν απαντά** | Δεν υπάρχει έγκυρο AI κλειδί — τρέξε `python scripts/check_ai.py`. Η καρτέλα «Στοιχεία» δουλεύει κανονικά. |
 
 ## 10. Τεκμηρίωση
 

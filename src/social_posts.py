@@ -14,7 +14,7 @@ import json
 import random
 from typing import Any
 
-from . import config as cfg
+from . import ai
 
 # Γωνίες που δουλεύουν για τοπικές επιχειρήσεις. Κάθε μία απαντά σε διαφορετικό
 # λόγο που κάποιος επιλέγει μαγαζί: απόδειξη, πρόσωπο, χρησιμότητα, πρόσκληση.
@@ -113,11 +113,7 @@ def week_plan(data: dict[str, Any], vertical: str = "trade") -> list[dict[str, A
 
 def enrich_with_ai(plan: list[dict[str, Any]], data: dict[str, Any]) -> list[dict[str, Any]]:
     """Ξαναγράφει τις λεζάντες με AI. Σε οποιοδήποτε σφάλμα κρατάει τις αρχικές."""
-    if not cfg.ANTHROPIC_API_KEY:
-        return plan
-    try:
-        import anthropic
-    except Exception:  # noqa: BLE001
+    if not ai.available():
         return plan
 
     brief = {"name": data.get("NAME"), "trade": data.get("TRADE"), "city": data.get("CITY"),
@@ -130,19 +126,10 @@ def enrich_with_ai(plan: list[dict[str, Any]], data: dict[str, Any]) -> list[dic
         f"{json.dumps(asks, ensure_ascii=False, indent=1)}\n\n"
         f'Επίστρεψε ΜΟΝΟ JSON: {{"captions": ["...", ... 7 συνολικά]}}'
     )
-    try:
-        kw = {"api_key": cfg.ANTHROPIC_API_KEY}
-        if cfg.ANTHROPIC_BASE_URL:
-            kw["base_url"] = cfg.ANTHROPIC_BASE_URL
-        resp = anthropic.Anthropic(**kw).messages.create(
-            model=cfg.MODEL_CHEAP, max_tokens=2000, system=_SYSTEM,
-            messages=[{"role": "user", "content": user}],
-        )
-        text = "".join(getattr(b, "text", "") for b in resp.content)
-        caps = json.loads(text[text.find("{"):text.rfind("}") + 1]).get("captions", [])
-    except Exception as e:  # noqa: BLE001
-        print(f"[social] AI captions skipped ({type(e).__name__}): {e}")
-        return plan
+    out = ai.complete_json(_SYSTEM, user, max_tokens=2000)
+    caps = (out or {}).get("captions", [])
+    if not caps:
+        return plan     # κρατάμε τις έτοιμες λεζάντες — ο πελάτης δεν μένει με άδειο
 
     for p, cap in zip(plan, caps):
         if isinstance(cap, str) and cap.strip():

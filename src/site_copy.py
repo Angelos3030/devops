@@ -19,6 +19,7 @@ import socket
 from typing import Any
 from urllib.parse import urlparse
 
+from . import ai
 from . import config as cfg
 
 # Marketing fields the AI is allowed to write (design/layout never touched).
@@ -88,11 +89,7 @@ def _extract_json(text: str) -> dict[str, Any]:
 
 def write_copy(intake: dict[str, Any]) -> dict[str, Any]:
     """Return AI-written Greek copy fields, or {} on any failure."""
-    if not cfg.ANTHROPIC_API_KEY:
-        return {}
-    try:
-        import anthropic
-    except Exception:
+    if not ai.available():
         return {}
 
     name = intake.get("name") or "η επιχείρηση"
@@ -121,23 +118,8 @@ def write_copy(intake: dict[str, Any]) -> dict[str, Any]:
         f"{ask_services}\n\nΕπίστρεψε ΜΟΝΟ JSON με αυτή τη μορφή:\n{_SCHEMA_HINT}"
     )
 
-    try:
-        # base_url: επιτρέπει εναλλακτικό πάροχο (π.χ. Azure AI Foundry) χωρίς
-        # αλλαγή κώδικα — κενό σημαίνει απευθείας Anthropic.
-        client = anthropic.Anthropic(
-            api_key=cfg.ANTHROPIC_API_KEY,
-            **({"base_url": cfg.ANTHROPIC_BASE_URL} if cfg.ANTHROPIC_BASE_URL else {}),
-        )
-        resp = client.messages.create(
-            model=cfg.MODEL_CHEAP,
-            max_tokens=1200,
-            system=_SYSTEM,
-            messages=[{"role": "user", "content": user}],
-        )
-        text = "".join(getattr(b, "text", "") for b in resp.content)
-        data = _extract_json(text)
-    except Exception as e:  # network / auth / parse — fall back to defaults
-        print(f"[site_copy] AI copy skipped ({type(e).__name__}): {e}")
+    data = ai.complete_json(_SYSTEM, user, max_tokens=1200)
+    if not isinstance(data, dict):
         return {}
 
     out: dict[str, Any] = {}

@@ -20,6 +20,21 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 # api.anthropic.com — χρειάζεται το δικό του endpoint εδώ.
 ANTHROPIC_BASE_URL = os.environ.get("ANTHROPIC_BASE_URL", "").rstrip("/")
 
+# --- Πάροχος AI (βλ. src/ai.py) ---
+# Το κείμενο των πελατών δεν το γράφει απαραίτητα η Anthropic. Το DeepSeek και
+# οι περισσότεροι φθηνοί πάροχοι μιλάνε το πρωτόκολλο του OpenAI, ΟΧΙ της
+# Anthropic — γι' αυτό δεν αρκεί να αλλάξεις base URL.
+#
+# Παραδείγματα:
+#   DeepSeek     AI_BASE_URL=https://api.deepseek.com/v1   AI_MODEL=deepseek-chat
+#   OpenRouter   AI_BASE_URL=https://openrouter.ai/api/v1  AI_MODEL=…
+#   Anthropic    άφησέ τα κενά και βάλε ANTHROPIC_API_KEY=sk-ant-…
+AI_API_KEY = os.environ.get("AI_API_KEY", "") or ANTHROPIC_API_KEY
+AI_BASE_URL = os.environ.get("AI_BASE_URL", "").rstrip("/") or ANTHROPIC_BASE_URL
+AI_MODEL = os.environ.get("AI_MODEL", "")
+# "anthropic" | "openai" | "" = αυτόματη ανίχνευση από τη μορφή του κλειδιού
+AI_PROVIDER = os.environ.get("AI_PROVIDER", "").lower()
+
 # --- Agents / Environment (από setup_agents.py) ---
 ENV_ID = os.environ.get("ENV_ID", "")
 ONBOARDING_AGENT_ID = os.environ.get("ONBOARDING_AGENT_ID", "")

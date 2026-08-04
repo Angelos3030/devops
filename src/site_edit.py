@@ -11,7 +11,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from . import config as cfg
+from . import ai
 
 # Πρέπει να ταιριάζει με το _EDITABLE στο meta_oauth.py
 EDITABLE_FIELDS = (
@@ -40,26 +40,12 @@ _SCHEMA = (
 )
 
 
-def _extract_json(text: str) -> dict[str, Any]:
-    start, end = text.find("{"), text.rfind("}")
-    if start == -1 or end == -1:
-        return {}
-    try:
-        return json.loads(text[start:end + 1])
-    except json.JSONDecodeError:
-        return {}
-
-
 def chat_edit(message: str, content: dict[str, Any],
               templates: list[str]) -> dict[str, Any]:
     """Επιστρέφει {"changes": {...}, "reply": "..."} — ποτέ δεν πετάει exception."""
-    if not cfg.ANTHROPIC_API_KEY:
+    if not ai.available():
         return {"changes": {}, "reply": "Ο βοηθός δεν είναι διαθέσιμος αυτή τη στιγμή. "
                                         "Μπορείς να αλλάξεις τα πεδία χειροκίνητα."}
-    try:
-        import anthropic
-    except Exception:  # noqa: BLE001
-        return {"changes": {}, "reply": "Ο βοηθός δεν είναι διαθέσιμος αυτή τη στιγμή."}
 
     editable_now = {k: v for k, v in content.items() if k in EDITABLE_FIELDS}
     user = (
@@ -69,22 +55,8 @@ def chat_edit(message: str, content: dict[str, Any],
         f"Επίστρεψε ΜΟΝΟ JSON σε αυτή τη μορφή:\n{_SCHEMA}"
     )
 
-    try:
-        # base_url: επιτρέπει εναλλακτικό πάροχο (π.χ. Azure AI Foundry) χωρίς
-        # αλλαγή κώδικα — κενό σημαίνει απευθείας Anthropic.
-        client = anthropic.Anthropic(
-            api_key=cfg.ANTHROPIC_API_KEY,
-            **({"base_url": cfg.ANTHROPIC_BASE_URL} if cfg.ANTHROPIC_BASE_URL else {}),
-        )
-        resp = client.messages.create(
-            model=cfg.MODEL_CHEAP,
-            max_tokens=1500,
-            system=_SYSTEM,
-            messages=[{"role": "user", "content": user}],
-        )
-        data = _extract_json("".join(getattr(b, "text", "") for b in resp.content))
-    except Exception as e:  # noqa: BLE001
-        print(f"[site_edit] chat failed ({type(e).__name__}): {e}")
+    data = ai.complete_json(_SYSTEM, user, max_tokens=1500)
+    if not isinstance(data, dict):
         return {"changes": {}, "reply": "Κάτι πήγε στραβά με τον βοηθό. Δοκίμασε ξανά σε λίγο."}
 
     changes = data.get("changes")
