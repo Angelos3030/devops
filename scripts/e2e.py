@@ -138,6 +138,53 @@ def test_marketing() -> None:
     check("οδηγός Google για πελάτες", code == 200)
 
 
+TEMPLATES = ["editorial", "split", "showcase", "bento", "longform", "corporate",
+             "poster", "sidebar", "grid", "coast", "magazine", "warmth",
+             "ember", "marble", "runway", "forge", "aegean", "bloom",
+             "pulse", "volt", "motor", "terra"]
+
+
+def test_templates() -> None:
+    print("\n[TEMPLATES] Και τα 22 render-άρουν")
+    broken, empty = [], []
+    for t in TEMPLATES:
+        code, html = req(f"{SITES}/preview/{t}?biz=taverna")
+        if code != 200:
+            broken.append(f"{t}({code})")
+        elif len(html) < 4000 or "Ο Λεωνίδας" not in html:
+            empty.append(t)
+    check(f"και τα {len(TEMPLATES)} απαντούν 200", not broken, f"έσπασαν: {broken}")
+    check("όλα δείχνουν τα στοιχεία της επιχείρησης", not empty, f"κενά: {empty}")
+
+    # ο χάρτης μπήκε σε όλα — εύκολο να ξεχαστεί σε νέο template
+    no_map = [t for t in TEMPLATES
+              if "Πού θα μας βρεις" not in req(f"{SITES}/preview/{t}?biz=taverna")[1]]
+    check("όλα έχουν ενότητα χάρτη", not no_map, f"χωρίς χάρτη: {no_map}")
+
+
+def test_domain_flow() -> None:
+    print("\n[DOMAIN] Προτάσεις & διαθεσιμότητα (ό,τι βλέπει ο πελάτης)")
+    code, body = req(API + "/domain/suggest",
+                     {"name": "Ταβέρνα Ο Μήτσος", "business_type": "Ταβέρνα", "city": "Καλαμαριά"})
+    doms = json.loads(body).get("domains", []) if code == 200 else []
+    check("βγάζει προτάσεις", bool(doms), str(doms[:3]))
+    # Τα ελληνικά πρέπει να γίνονται όπως τα γράφουν οι Έλληνες
+    check("σωστή μεταγραφή (taverna, όχι taberna)",
+          any("taverna" in d for d in doms) and not any("taberna" in d for d in doms),
+          str(doms[:2]))
+    check("χωρίς διπλή λέξη (taverna-taverna)",
+          not any("taverna-taverna" in d for d in doms))
+
+    if doms:
+        code, body = req(API + "/domain/check",
+                         {"slugs": [d.replace(".gr", "") for d in doms[:3]], "tld": ".gr"})
+        res = json.loads(body).get("results", []) if code == 200 else []
+        check("έλεγχος διαθεσιμότητας απαντά", len(res) == len(doms[:3]))
+        check("τα πιασμένα αναγνωρίζονται",
+              (json.loads(req(API + "/domain/check", {"slugs": ["papaki"], "tld": ".gr"})[1])
+               ["results"][0]["available"] is False))
+
+
 def test_signup() -> str | None:
     print("\n[ΕΓΓΡΑΦΗ] Η διαδρομή που περνάει ο πελάτης")
     code, body = req(API + "/onboard", {
@@ -185,6 +232,8 @@ def main() -> int:
     test_client_site()
     test_per_domain_seo()
     test_marketing()
+    test_templates()
+    test_domain_flow()
 
     cid = None
     if not quick:
