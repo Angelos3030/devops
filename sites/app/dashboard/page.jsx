@@ -30,6 +30,7 @@ export default function Dashboard() {
   const [saving, setSaving] = useState(false)
   const [posts, setPosts] = useState(null)
   const [copied, setCopied] = useState(-1)
+  const [locked, setLocked] = useState(null)
   const [saved, setSaved] = useState(false)
   const chatEnd = useRef(null)
 
@@ -139,6 +140,7 @@ export default function Dashboard() {
     try {
       const d = await authFetch(`/clients/${clientId}/posts`)
       setPosts(d.posts || [])
+      setLocked(d.locked ? d : null)
     } catch (e) {
       setErr('Δεν φόρτωσαν τα posts. ' + e.message)
     }
@@ -264,7 +266,10 @@ export default function Dashboard() {
               <div className={s.formWrap}><p className={s.hint}>Φορτώνει…</p></div>
             ) : (
               <div className={s.formWrap}>
-                <p className={s.hint}>Η εβδομάδα σου. Αντίγραψε, βγάλε τη φωτογραφία, δημοσίευσε.</p>
+                <p className={s.hint}>
+                  {locked ? 'Δείγμα — δες πώς είναι ένα post της εβδομάδας σου.'
+                          : 'Η εβδομάδα σου. Αντίγραψε, βγάλε τη φωτογραφία, δημοσίευσε.'}
+                </p>
                 {posts.map((p, i) => (
                   <div key={i} className={s.post}>
                     <div className={s.postTop}>
@@ -273,6 +278,14 @@ export default function Dashboard() {
                     <p className={s.postIdea}>💡 {p.idea}</p>
                     <p className={s.postHint}>📷 {p.photo_hint}</p>
                     <p className={s.postCaption}>{p.caption}</p>
+                    {p.boost && (
+                      <div className={s.boost}>
+                        <strong>📣 Αξίζει προβολή</strong>
+                        <span>{p.boost.amount} · {p.boost.audience}</span>
+                        <span className={s.boostWhy}>{p.boost.why}</span>
+                        <span className={s.boostWhy}>{p.boost.how}</span>
+                      </div>
+                    )}
                     <div className={s.postBar}>
                       <span className={s.tags}>{p.hashtags?.join(' ')}</span>
                       <button onClick={() => copyPost(i, `${p.caption}
@@ -283,6 +296,18 @@ ${(p.hashtags || []).join(' ')}`)}>
                     </div>
                   </div>
                 ))}
+                <a className={s.guideLink} href="/odigos/facebook" target="_blank" rel="noreferrer">
+                  📘 Δεν έχεις σελίδα στο Facebook; Οδηγός σε 10 λεπτά →
+                </a>
+                {locked && (
+                  <div className={s.upsell}>
+                    <strong>Θες και τα {locked.total} posts κάθε εβδομάδα;</strong>
+                    <p>{locked.upgrade?.pitch}</p>
+                    <a href="mailto:hello@getvitrina.gr?subject=Θέλω%20τα%20posts">
+                      Ξεκλείδωσέ τα — {locked.upgrade?.price} →
+                    </a>
+                  </div>
+                )}
                 {err && <p className={s.err}>{err}</p>}
               </div>
             )

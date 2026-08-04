@@ -366,6 +366,21 @@ def billing_portal(client_id: str, authorization: str | None = Header(default=No
     return {"url": session.url}
 
 
+# Πακέτα που περιλαμβάνουν τα εβδομαδιαία posts.
+_POST_PLANS = {"social", "premium"}
+
+
+def _has_posts_plan(client_id: str, client: dict) -> bool:
+    """Η ενεργή συνδρομή υπερισχύει· το `clients.plan` είναι το fallback."""
+    try:
+        sub = db.get_subscription(client_id) or {}
+        if sub.get("status") in ("active", "trialing"):
+            return (sub.get("plan") or "") in _POST_PLANS
+    except Exception:  # noqa: BLE001
+        pass
+    return (client.get("plan") or "") in _POST_PLANS
+
+
 @app.get("/clients/{client_id}/posts")
 def week_posts(client_id: str, authorization: str | None = Header(default=None)):
     """Η εβδομάδα του πελάτη σε έτοιμα posts (αντιγράφει & δημοσιεύει μόνος του).
@@ -374,12 +389,20 @@ def week_posts(client_id: str, authorization: str | None = Header(default=None))
     ξεχωριστό βήμα."""
     from . import premium_generator as pg
     from . import social_posts as sp
-    auth.require_client_access(client_id, authorization)
+    client = auth.require_client_access(client_id, authorization)
     intake = _intake_from_db(client_id)
     ctx = pg.normalize(intake)
     plan = sp.week_plan(ctx, pg._vertical(intake))
+
+    # Τα posts είναι ξεχωριστό πακέτο. Χωρίς αυτό δείχνουμε ΕΝΑ δείγμα — ο πελάτης
+    # βλέπει την αξία και αναβαθμίζει μόνος του, αντί για άδειο κλειδωμένο πλαίσιο.
+    if not _has_posts_plan(client_id, client):
+        return {"posts": plan[:1], "locked": True, "total": len(plan),
+                "upgrade": {"plan": "social", "price": "€29.99/μήνα",
+                            "pitch": "Και τα 7 posts της εβδομάδας, κάθε εβδομάδα."}}
+
     plan = sp.enrich_with_ai(plan, ctx)     # no-op χωρίς κλειδί
-    return {"posts": plan, "vertical": pg._vertical(intake)}
+    return {"posts": plan, "locked": False, "vertical": pg._vertical(intake)}
 
 
 class ChatEdit(BaseModel):

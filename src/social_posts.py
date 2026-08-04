@@ -75,21 +75,39 @@ def _hashtags(d: dict[str, Any]) -> list[str]:
     return ["#" + t for t in tags][:3]
 
 
+# Ποιο post αξίζει να πληρώσει ο πελάτης για προβολή. Κρατάμε τα ποσά μικρά και
+# την ακτίνα τοπική: μια ταβέρνα δεν κερδίζει τίποτα διαφημιζόμενη σε άλλη πόλη.
+_BOOST = {
+    "Η δουλειά μας": ("8-10€", "3-5 χλμ γύρω από το μαγαζί", "Δείχνει απόδειξη — το πιο πειστικό"),
+    "Πρόσκληση": ("10-15€", "5 χλμ · ηλικίες 25-60", "Ξεκάθαρο κάλεσμα, φέρνει τηλέφωνα"),
+}
+
+
 def week_plan(data: dict[str, Any], vertical: str = "trade") -> list[dict[str, Any]]:
     """Επτά posts — ένα ανά ημέρα. Δουλεύει πάντα, ακόμα και χωρίς AI."""
     ideas = _IDEAS.get(vertical, _IDEAS["trade"])
     rnd = random.Random(f"{data.get('NAME')}-{vertical}")   # σταθερό ανά πελάτη
+    city = data.get("CITY", "")
     plan = []
     for i, (angle, hint) in enumerate(_ANGLES):
         idea = ideas[i % len(ideas)] if i < len(ideas) else rnd.choice(ideas)
-        plan.append({
+        post = {
             "day": ["Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"][i],
             "angle": angle,
             "idea": idea,
             "photo_hint": hint,
             "caption": _fallback_caption(idea, hint, data),
             "hashtags": _hashtags(data),
-        })
+        }
+        if angle in _BOOST:
+            amount, audience, why = _BOOST[angle]
+            post["boost"] = {
+                "amount": amount,
+                "audience": audience.replace("το μαγαζί", f"το μαγαζί ({city})") if city else audience,
+                "why": why,
+                "how": "Πάτα «Ενίσχυση δημοσίευσης» κάτω από το post στο Facebook.",
+            }
+        plan.append(post)
     return plan
 
 

@@ -134,8 +134,10 @@ def test_marketing() -> None:
 
     code, html = req(SITES + "/dashboard")
     check("dashboard φορτώνει", code == 200)
-    code, _ = req(SITES + "/odigos/google")
-    check("οδηγός Google για πελάτες", code == 200)
+    for guide in ("google", "facebook"):
+        code, html = req(f"{SITES}/odigos/{guide}")
+        check(f"οδηγός {guide} για πελάτες", code == 200 and len(html) > 3000,
+              f"πήρα {code}")
 
 
 TEMPLATES = ["editorial", "split", "showcase", "bento", "longform", "corporate",

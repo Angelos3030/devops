@@ -1,4 +1,4 @@
-import s from './odigos.module.css'
+import s from '../odigos.module.css'
 
 // Οδηγός που δίνουμε σε ΚΑΘΕ πελάτη: Google Business Profile + κριτικές.
 // Είναι τα δύο πράγματα που εμείς δεν μπορούμε να κάνουμε για λογαριασμό του
