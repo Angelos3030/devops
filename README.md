@@ -143,8 +143,15 @@ cd sites && npx next build       # ότι χτίζει το frontend
 | `META_APP_ID`, `META_APP_SECRET` | αυτόματο posting — περιμένει App Review |
 
 Ένα `ANTHROPIC_API_KEY` που δεν δουλεύει **δεν ρίχνει τίποτα**: κάθε AI κλήση
-πέφτει σιωπηλά πίσω στα πρότυπα. Θέλει κλειδί `sk-ant-…` από το console.anthropic.com,
-ή —για Azure Foundry— **και** `ANTHROPIC_BASE_URL` **και** πραγματικό deployment του μοντέλου.
+πέφτει σιωπηλά πίσω στα πρότυπα. Γι' αυτό όμως δεν το παίρνεις χαμπάρι — τρέξε:
+
+```bash
+python scripts/check_ai.py       # δουλεύει το κλειδί; αν όχι, τι φταίει
+```
+
+Θέλει κλειδί `sk-ant-…` από το console.anthropic.com. Αν χρησιμοποιείς άλλον
+provider (π.χ. Azure Foundry) χρειάζεσαι **και** `ANTHROPIC_BASE_URL` **και**
+`ANTHROPIC_MODEL` με το όνομα του **deployment** σου — όχι του μοντέλου.
 
 ## 9. Όταν κάτι σπάσει
 
