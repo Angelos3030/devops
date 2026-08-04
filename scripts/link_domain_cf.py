@@ -3,15 +3,18 @@
 Συνδέει domain πελάτη ΜΕΣΩ Cloudflare Worker — χωρίς custom domain στο Railway.
 
     python scripts/link_domain_cf.py taverna-o-mitsos.gr
+    python scripts/link_domain_cf.py taverna-o-mitsos.gr --dry-run
 
 Γιατί όχι το link_domain.py: εκείνο δηλώνει το domain στο Railway, που δέχεται
 μόνο 2 ανά service (Hobby) — ο 2ος πελάτης κολλάει. Εδώ η κίνηση περνάει από τον
 Worker, οπότε δεν υπάρχει όριο.
 
-Προϋποθέσεις:
-  • Το zone του πελάτη υπάρχει στο Cloudflare (nameservers → Cloudflare)
-  • Ο Worker ανεβασμένος: python scripts/deploy_worker.py
-  • CF_API_TOKEN με: Zone → DNS → Edit, Zone → Workers Routes → Edit
+ΣΕΙΡΑ (μη την αλλάξεις): route ΠΡΩΤΑ → αναμονή → DNS μετά. Αν γίνουν μαζί, το
+DNS στέλνει κίνηση σε proxy που δεν σερβίρει ακόμα και το site βγάζει 522.
+Αν η επαλήθευση αποτύχει, το DNS επαναφέρεται αυτόματα.
+
+Προϋποθέσεις: zone στο Cloudflare, Worker ανεβασμένος (deploy_worker.py),
+CF_API_TOKEN με Zone→DNS→Edit και Zone→Workers Routes→Edit.
 """
 from __future__ import annotations
 
@@ -27,6 +30,7 @@ import urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 API = "https://api.cloudflare.com/client/v4"
 WORKER = "vitrina-tenant-router"
+PLACEHOLDER = "192.0.2.1"      # τεκμηριωμένη «κενή» IP· την κίνηση την πιάνει ο Worker
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"
 _ctx = ssl.create_default_context(); _ctx.check_hostname = False; _ctx.verify_mode = ssl.CERT_NONE
 
@@ -71,6 +75,7 @@ def http(url: str) -> int | str:
 
 def main() -> int:
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    dry = "--dry-run" in sys.argv
     if not args:
         print(__doc__)
         return 2
@@ -82,39 +87,74 @@ def main() -> int:
     z = cf("GET", f"/zones?name={domain}")
     if not z.get("result"):
         print(f"❌ Το zone {domain} δεν υπάρχει στο Cloudflare.")
-        print("   Πρόσθεσέ το πρώτα (Add site) και άλλαξε nameservers στον registrar.")
+        print("   Πρόσθεσέ το (Add site) και άλλαξε nameservers στον registrar.")
         return 1
     zid = z["result"][0]["id"]
-    status = z["result"][0].get("status")
-    print(f"zone {domain}  ({status})")
+    print(f"zone {domain}  ({z['result'][0].get('status')})")
 
-    # 1) DNS: apex + www proxied (ΠΡΕΠΕΙ να είναι orange για να τρέξει ο Worker)
+    hosts = [domain, f"www.{domain}"]
     recs = cf("GET", f"/zones/{zid}/dns_records?per_page=100").get("result", [])
-    for name in (domain, f"www.{domain}"):
-        cur = next((r for r in recs if r["name"] == name and r["type"] in ("A", "CNAME")), None)
-        body = {"type": "A", "name": name, "content": "192.0.2.1", "ttl": 1, "proxied": True}
-        # 192.0.2.1 = τεκμηριωμένη «κενή» IP· η κίνηση δεν φτάνει ποτέ εκεί, την
-        # πιάνει ο Worker στο edge. Έτσι δεν χρειάζεται δικός μας origin server.
-        if cur:
-            r = cf("PATCH", f"/zones/{zid}/dns_records/{cur['id']}", body)
-        else:
-            r = cf("POST", f"/zones/{zid}/dns_records", body)
-        print(f"  DNS {name:34} proxied  {'OK' if r.get('success') else r.get('errors')}")
+    before = {h: next((r for r in recs if r["name"] == h and r["type"] in ("A", "AAAA", "CNAME")), None)
+              for h in hosts}
 
-    # 2) Worker routes
-    for pattern in (f"{domain}/*", f"www.{domain}/*"):
-        r = cf("POST", f"/zones/{zid}/workers/routes", {"pattern": pattern, "script": WORKER})
-        ok = r.get("success") or any(e.get("code") == 10020 for e in r.get("errors", []))  # ήδη υπάρχει
-        print(f"  route {pattern:32} {'OK' if ok else r.get('errors')}")
+    if dry:
+        print("\n--dry-run· θα γινόταν:")
+        for h in hosts:
+            cur = before[h]
+            print(f"  route  {h}/*  -> {WORKER}")
+            print(f"  DNS    {h}: {cur['type'] + ' ' + cur['content'] if cur else '(νέο)'}"
+                  f" -> A {PLACEHOLDER} proxied")
+        return 0
 
-    # 3) Επαλήθευση
-    print("\n  ...αναμονή 20s για διάδοση")
-    time.sleep(20)
-    for host in (domain, f"www.{domain}"):
-        print(f"  https://{host} -> {http(f'https://{host}')}")
+    # --- 1) ROUTES ΠΡΩΤΑ (ακίνδυνο: το DNS δεν περνάει ακόμα από proxy) ---
+    print("\n1) Worker routes")
+    for h in hosts:
+        r = cf("POST", f"/zones/{zid}/workers/routes", {"pattern": f"{h}/*", "script": WORKER})
+        ok = r.get("success") or any(e.get("code") == 10020 for e in r.get("errors", []))
+        print(f"   {h}/*  {'OK' if ok else r.get('errors')}")
+        if not ok:
+            print("   ❌ Δεν μπήκε το route — σταματάω ΠΡΙΝ αγγίξω το DNS (το site μένει ζωντανό).")
+            return 1
 
-    print("\n✅ Έτοιμο. Το SSL το εκδίδει αυτόματα το Cloudflare (Universal SSL).")
-    print("   Αν δεις 5xx στην αρχή, δώσε λίγα λεπτά για το πιστοποιητικό.")
+    print("   ...αναμονή 25s να ενεργοποιηθούν")
+    time.sleep(25)
+
+    # --- 2) DNS μετά ---
+    print("\n2) DNS -> proxied")
+    for h in hosts:
+        cur = before[h]
+        body = {"type": "A", "name": "@" if h == domain else h,
+                "content": PLACEHOLDER, "ttl": 1, "proxied": True}
+        r = (cf("PATCH", f"/zones/{zid}/dns_records/{cur['id']}", body) if cur
+             else cf("POST", f"/zones/{zid}/dns_records", body))
+        print(f"   {h}  {'OK' if r.get('success') else r.get('errors')}")
+
+    # --- 3) Επαλήθευση, με rollback αν αποτύχει ---
+    print("\n3) Επαλήθευση")
+    ok = False
+    for attempt in range(6):
+        time.sleep(10)
+        codes = {h: http(f"https://{h}") for h in hosts}
+        print(f"   t+{25 + (attempt + 1) * 10}s  " + "  ".join(f"{h}={c}" for h, c in codes.items()))
+        if all(c == 200 for c in codes.values()):
+            ok = True
+            break
+
+    if not ok:
+        print("\n⚠ Δεν απάντησε σωστά — ΕΠΑΝΑΦΟΡΑ DNS στην προηγούμενη κατάσταση")
+        for h in hosts:
+            cur = before[h]
+            if not cur:
+                continue
+            cf("PATCH", f"/zones/{zid}/dns_records/{cur['id']}",
+               {"type": cur["type"], "name": cur["name"], "content": cur["content"],
+                "ttl": cur.get("ttl", 1), "proxied": cur.get("proxied", False)})
+            print(f"   {h} -> {cur['type']} {cur['content']} (proxied={cur.get('proxied')})")
+        print("\n   Το site επανήλθε. Έλεγξε ότι ο Worker είναι ανεβασμένος:")
+        print("   python scripts/deploy_worker.py")
+        return 1
+
+    print("\n✅ Έτοιμο — το domain σερβίρεται μέσω Worker (χωρίς Railway custom domain).")
     return 0
 
 
