@@ -405,6 +405,33 @@ def week_posts(client_id: str, authorization: str | None = Header(default=None))
     return {"posts": plan, "locked": False, "vertical": pg._vertical(intake)}
 
 
+class PublishRequest(BaseModel):
+    message: str
+    image_url: str | None = None
+    targets: list[str] | None = None      # ["facebook"] και/ή ["instagram"]
+    dry_run: bool = True                  # σκόπιμα True: η δημοσίευση θέλει ρητή πρόθεση
+
+
+@app.post("/clients/{client_id}/publish")
+def publish_post(client_id: str, body: PublishRequest,
+                 authorization: str | None = Header(default=None)):
+    """Δημοσιεύει στη Σελίδα/Instagram του πελάτη.
+
+    `dry_run` είναι **True από προεπιλογή**. Μια δημοσίευση είναι δημόσια και
+    δεν ξεγίνεται· το να χρειάζεται ρητό `dry_run: false` σημαίνει ότι κανείς
+    δεν ποστάρει κατά λάθος με ένα ξεχασμένο curl.
+    """
+    from . import publisher
+    auth.require_client_access(client_id, authorization)
+    if not body.message.strip():
+        raise HTTPException(400, "Το κείμενο της δημοσίευσης είναι κενό.")
+    try:
+        return publisher.publish(client_id, body.message.strip(),
+                                 body.image_url, body.targets, body.dry_run)
+    except publisher.PublishError as e:
+        raise HTTPException(400, str(e)) from None
+
+
 class ChatEdit(BaseModel):
     message: str
 
