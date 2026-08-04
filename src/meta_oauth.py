@@ -590,6 +590,33 @@ def start(client_id: str):
     return RedirectResponse(url)
 
 
+def _fb_error(r: requests.Response) -> str:
+    """Το μήνυμα της Meta, χωρίς ΤΙΠΟΤΑ δικό μας μέσα."""
+    try:
+        e = r.json().get("error", {})
+        return f"{e.get('message', r.text[:200])} (code {e.get('code')})"
+    except ValueError:
+        return f"HTTP {r.status_code}"
+
+
+def _exchange(payload: dict) -> str:
+    """Ανταλλαγή για token — με POST, ώστε το app secret να ΜΗΝ μπει σε URL.
+
+    Με GET, το `requests` βάζει το secret στο query string· όταν σκάσει, το
+    μήνυμα του σφάλματος περιέχει ολόκληρο το URL και το secret καταλήγει
+    αυτούσιο στα logs του Railway. Έγινε ακριβώς αυτό στις 04/08.
+    """
+    r = requests.post(f"{GRAPH}/oauth/access_token", data=payload, timeout=20)
+    if not r.ok:
+        # 400 εδώ σημαίνει σχεδόν πάντα: το secret δεν ταιριάζει με το App ID,
+        # ή το redirect_uri διαφέρει από αυτό του διαλόγου.
+        raise HTTPException(400, f"Το Facebook απέρριψε τη σύνδεση: {_fb_error(r)}")
+    token = r.json().get("access_token")
+    if not token:
+        raise HTTPException(400, "Το Facebook δεν επέστρεψε access token.")
+    return token
+
+
 @app.get("/connect/callback")
 def callback(code: str | None = None, state: str | None = None,
              error: str | None = None):
@@ -598,31 +625,29 @@ def callback(code: str | None = None, state: str | None = None,
     our_client_id = state
 
     # 1) code → short-lived user token
-    r = requests.get(f"{GRAPH}/oauth/access_token", params={
+    short_token = _exchange({
         "client_id": cfg.META_APP_ID,
         "client_secret": cfg.META_APP_SECRET,
         "redirect_uri": REDIRECT_URI,
         "code": code,
-    }, timeout=20)
-    r.raise_for_status()
-    short_token = r.json()["access_token"]
+    })
 
     # 2) short → long-lived user token (~60 μέρες)
-    r = requests.get(f"{GRAPH}/oauth/access_token", params={
+    long_user_token = _exchange({
         "grant_type": "fb_exchange_token",
         "client_id": cfg.META_APP_ID,
         "client_secret": cfg.META_APP_SECRET,
         "fb_exchange_token": short_token,
-    }, timeout=20)
-    r.raise_for_status()
-    long_user_token = r.json()["access_token"]
+    })
 
     # 3) Pages του χρήστη (το page token είναι long-lived αν ο user token είναι)
-    r = requests.get(f"{GRAPH}/me/accounts", params={
-        "access_token": long_user_token,
-        "fields": "id,name,access_token,instagram_business_account",
-    }, timeout=20)
-    r.raise_for_status()
+    # Το token πάει σε header, όχι σε query — αλλιώς καταλήγει στα logs.
+    r = requests.get(f"{GRAPH}/me/accounts",
+                     params={"fields": "id,name,access_token,instagram_business_account"},
+                     headers={"Authorization": f"Bearer {long_user_token}"},
+                     timeout=20)
+    if not r.ok:
+        raise HTTPException(400, f"Το Facebook δεν έδωσε τις Σελίδες: {_fb_error(r)}")
     pages = r.json().get("data", [])
     if not pages:
         return HTMLResponse("<h3>Δεν βρέθηκε Σελίδα Facebook. "
