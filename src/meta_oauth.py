@@ -366,6 +366,22 @@ def billing_portal(client_id: str, authorization: str | None = Header(default=No
     return {"url": session.url}
 
 
+@app.get("/clients/{client_id}/posts")
+def week_posts(client_id: str, authorization: str | None = Header(default=None)):
+    """Η εβδομάδα του πελάτη σε έτοιμα posts (αντιγράφει & δημοσιεύει μόνος του).
+
+    Δεν χρειάζεται έγκριση Meta — αυτή αφορά την ΑΥΤΟΜΑΤΗ δημοσίευση, που είναι
+    ξεχωριστό βήμα."""
+    from . import premium_generator as pg
+    from . import social_posts as sp
+    auth.require_client_access(client_id, authorization)
+    intake = _intake_from_db(client_id)
+    ctx = pg.normalize(intake)
+    plan = sp.week_plan(ctx, pg._vertical(intake))
+    plan = sp.enrich_with_ai(plan, ctx)     # no-op χωρίς κλειδί
+    return {"posts": plan, "vertical": pg._vertical(intake)}
+
+
 class ChatEdit(BaseModel):
     message: str
 

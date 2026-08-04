@@ -28,6 +28,8 @@ export default function Dashboard() {
   const [tab, setTab] = useState('chat')
   const [form, setForm] = useState(null)      // τα πεδία του site, για χειροκίνητη αλλαγή
   const [saving, setSaving] = useState(false)
+  const [posts, setPosts] = useState(null)
+  const [copied, setCopied] = useState(-1)
   const [saved, setSaved] = useState(false)
   const chatEnd = useRef(null)
 
@@ -129,6 +131,23 @@ export default function Dashboard() {
   }
 
   const setField = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
+
+  // Έτοιμα posts για την εβδομάδα — ο πελάτης τα αντιγράφει και τα δημοσιεύει.
+  async function openPosts() {
+    setTab('posts'); setErr('')
+    if (posts) return
+    try {
+      const d = await authFetch(`/clients/${clientId}/posts`)
+      setPosts(d.posts || [])
+    } catch (e) {
+      setErr('Δεν φόρτωσαν τα posts. ' + e.message)
+    }
+  }
+
+  function copyPost(i, text) {
+    navigator.clipboard?.writeText(text)
+    setCopied(i); setTimeout(() => setCopied(-1), 2000)
+  }
 
   async function openBilling() {
     try {
@@ -237,9 +256,37 @@ export default function Dashboard() {
           <div className={s.tabs}>
             <button className={tab === 'chat' ? s.tabOn : s.tab} onClick={() => setTab('chat')}>💬 Πες μου τι θες</button>
             <button className={tab === 'edit' ? s.tabOn : s.tab} onClick={openEdit}>✏️ Στοιχεία</button>
+            <button className={tab === 'posts' ? s.tabOn : s.tab} onClick={openPosts}>📅 Posts</button>
           </div>
 
-          {tab === 'edit' ? (
+          {tab === 'posts' ? (
+            !posts ? (
+              <div className={s.formWrap}><p className={s.hint}>Φορτώνει…</p></div>
+            ) : (
+              <div className={s.formWrap}>
+                <p className={s.hint}>Η εβδομάδα σου. Αντίγραψε, βγάλε τη φωτογραφία, δημοσίευσε.</p>
+                {posts.map((p, i) => (
+                  <div key={i} className={s.post}>
+                    <div className={s.postTop}>
+                      <strong>{p.day}</strong><span>{p.angle}</span>
+                    </div>
+                    <p className={s.postIdea}>💡 {p.idea}</p>
+                    <p className={s.postHint}>📷 {p.photo_hint}</p>
+                    <p className={s.postCaption}>{p.caption}</p>
+                    <div className={s.postBar}>
+                      <span className={s.tags}>{p.hashtags?.join(' ')}</span>
+                      <button onClick={() => copyPost(i, `${p.caption}
+
+${(p.hashtags || []).join(' ')}`)}>
+                        {copied === i ? '✓ Αντιγράφηκε' : 'Αντιγραφή'}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                {err && <p className={s.err}>{err}</p>}
+              </div>
+            )
+          ) : tab === 'edit' ? (
             !form ? (
               <div className={s.formWrap}><p className={s.hint}>Φορτώνει…</p></div>
             ) : (

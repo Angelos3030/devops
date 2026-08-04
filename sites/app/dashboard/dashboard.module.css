@@ -86,6 +86,18 @@
 .formBar button:disabled { opacity: .6; cursor: default; }
 .okTag { color: var(--green); font-size: .88rem; }
 
+/* --- posts της εβδομάδας --- */
+.post { background: var(--surface2); border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .45rem; }
+.postTop { display: flex; align-items: baseline; gap: .6rem; }
+.postTop strong { font-family: var(--serif); font-size: 1.05rem; }
+.postTop span { font-size: .76rem; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; }
+.postIdea { font-size: .95rem; font-weight: 600; }
+.postHint { font-size: .85rem; color: var(--ink-soft); }
+.postCaption { font-size: .92rem; white-space: pre-wrap; background: rgba(0,0,0,.18); border-radius: 10px; padding: .7rem .8rem; line-height: 1.55; }
+.postBar { display: flex; align-items: center; gap: .8rem; margin-top: .2rem; }
+.tags { flex: 1; font-size: .78rem; color: var(--ink-soft); }
+.postBar button { background: var(--accent); color: #1a1204; border: 0; border-radius: 8px; padding: .5rem .9rem; font-weight: 700; font-size: .82rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+
 /* --- chat --- */
 .chat { display: flex; flex-direction: column; border-right: 1px solid var(--line); min-height: 0; }
 .msgs { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
