@@ -1,8 +1,9 @@
+import MapEmbed from './MapEmbed'
 import s from './FindUs.module.css'
 
 // «Πού θα μας βρεις» — χάρτης + διεύθυνση + οδηγίες + τηλέφωνο.
-// Το Google Maps embed δεν χρειάζεται API key με αυτή τη μορφή, και το iframe
-// φορτώνει lazily ώστε να μην επιβαρύνει την ταχύτητα (σήμα κατάταξης).
+// Το Google Maps embed δεν χρειάζεται API key με αυτή τη μορφή. Φορτώνει μόνο
+// μετά από κλικ του επισκέπτη — βλ. MapEmbed.jsx για το γιατί.
 //
 // Εμφανίζεται μόνο αν ξέρουμε πού είναι η επιχείρηση.
 export default function FindUs({ data: d, dark = false }) {
@@ -39,14 +40,8 @@ export default function FindUs({ data: d, dark = false }) {
         )}
       </div>
       <div className={s.mapBox}>
-        <iframe
-          className={s.map}
-          src={embed}
-          title={`Χάρτης — ${d.NAME}, ${d.CITY}`}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          allowFullScreen
-        />
+        <MapEmbed embed={embed} directions={directions}
+                  title={`Χάρτης — ${d.NAME}, ${d.CITY}`} />
       </div>
     </section>
   )

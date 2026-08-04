@@ -61,7 +61,7 @@ export default function Grid({ data: d }) {
         <div className={s.ctaRow}><span className={s.m}>📞 {d.PHONE}</span><span className={s.m}>{d.AREAS}</span><span className={s.m}>{d.HOURS}</span></div>
       </section>
 
-      <FindUs data={d} dark />
+      <FindUs data={d} />
 
 
       <footer className={s.foot}><span className={s.m}>© {d.YEAR} {d.NAME}</span><span className={s.m}>{d.CITY} · Vitrina</span></footer>
