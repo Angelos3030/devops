@@ -9,6 +9,51 @@
 
 ---
 
+## 📍 ΠΟΥ ΕΙΣΑΙ ΣΗΜΕΡΑ (έλεγχος 2026-08-04)
+
+App: **Vitrina**, ID `982863081415222`. Έχει μόνο `email` + `public_profile` —
+αυτά δίνονται από μόνα τους. **Δεν έχει γίνει ποτέ submit.**
+
+| | |
+|---|---|
+| ✅ | App φτιαγμένη, Business account συνδεδεμένο |
+| ✅ | Privacy / Terms / Data-deletion **ζωντανά** στο getvitrina.gr |
+| ✅ | Έτοιμα κείμενα submission → [legal/meta-review-submission.md](../legal/meta-review-submission.md) |
+| ✅ | Κώδικας OAuth + publishing γραμμένος (`/connect/start`, `/connect/callback`) |
+| ❌ | **`api.getvitrina.gr` δεν απαντά** — Railway «Application not found» |
+| ❌ | Δεν έγινε ποτέ πραγματικό test post |
+| ❌ | Δεν υπάρχει screencast |
+| ❌ | Δεν έχει ξεκινήσει Business Verification |
+
+### Τα 5 βήματα, με τη σειρά
+
+**1. Ζωντάνεψε το `api.getvitrina.gr`** ← *ξεκίνα από εδώ, όλα τα άλλα το χρειάζονται*
+Το `REDIRECT_URI` στο [src/meta_oauth.py](../src/meta_oauth.py) δείχνει εκεί, αλλά το
+domain δεν είναι δηλωμένο στο API service. Δήλωσέ το με τη γνωστή συνταγή
+(targetPort → `_railway-verify` TXT → issueCertificate). Έτοιμο όταν το
+`https://api.getvitrina.gr/healthz` απαντήσει 200.
+
+**2. Βάλε τα URLs στο App Settings → Basic**
+Αντίγραψέ τα από το [legal/meta-review-submission.md](../legal/meta-review-submission.md).
+Στα **Valid OAuth Redirect URIs** βάλε ακριβώς `https://api.getvitrina.gr/connect/callback`
+— ένας χαρακτήρας διαφορά και το login σκάει.
+
+**3. Κάνε ένα πραγματικό post σε δικιά σου test Page**
+Σε dev mode δουλεύει χωρίς έγκριση, αρκεί να είσαι admin/tester. **Αυτό είναι το
+demo**: χωρίς αυτό δεν έχεις τι να δείξεις στο βίντεο.
+
+**4. Τράβα το screencast** (το πιο συχνό σημείο απόρριψης)
+Ένα συνεχόμενο βίντεο: getvitrina.gr → privacy → login με Facebook → **να φαίνεται
+καθαρά το consent dialog με τα permissions** → επιλογή Page → δημοσίευση → το post live.
+
+**5. Submit** — App Review → Permissions and Features, ένα-ένα τα permissions της Φάσης Β
+με το use-case κείμενο. Μετά περιμένεις 1-3 εβδομάδες.
+
+> Η **Business Verification** (Φάση Ε) θέλει ΑΦΜ/έγγραφα και μπορεί να αργήσει —
+> ξεκίνα την παράλληλα με το βήμα 3, όχι στο τέλος.
+
+---
+
 ## Τι θα χρειαστείς (προαπαιτούμενα)
 - [ ] Προσωπικός λογαριασμός Facebook (developer).
 - [ ] **Meta Business Account** ([business.facebook.com](https://business.facebook.com)).
