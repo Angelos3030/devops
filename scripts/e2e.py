@@ -125,6 +125,40 @@ def test_per_domain_seo() -> None:
           f"{ours.count('<loc>')} σελίδες")
 
 
+def test_oauth_domain() -> None:
+    """Το api.getvitrina.gr είναι το redirect_uri του Facebook.
+
+    Αν πέσει, το login με Facebook σκάει σιωπηλά — και το μαθαίνουμε μόνο όταν
+    αποτύχει το App Review. Έμεινε νεκρό εβδομάδες χωρίς να το πάρουμε είδηση.
+    """
+    print("\n[FACEBOOK] Το domain του OAuth")
+    code, body = req("https://api.getvitrina.gr/healthz")
+    if not check("api.getvitrina.gr απαντάει", code == 200, f"πήρα {code}"):
+        print("    ⚠ Railway: έλεγξε status.verified — μπορεί cert=VALID αλλά verified=false")
+        return
+    check("δεν είναι το Railway fallback", "Application not found" not in body)
+
+    # το /connect/start πρέπει να στέλνει στο Facebook με ΑΚΡΙΒΩΣ αυτό το redirect_uri
+    try:
+        r = urllib.request.Request(API + "/connect/start?client_id=test",
+                                   headers={"User-Agent": UA})
+        opener = urllib.request.build_opener(type("NoRedirect", (urllib.request.HTTPRedirectHandler,),
+                                                  {"redirect_request": lambda *a, **k: None})())
+        loc = ""
+        try:
+            opener.open(r, timeout=30)
+        except urllib.error.HTTPError as e:
+            loc = e.headers.get("Location", "")
+    except Exception:  # noqa: BLE001
+        loc = ""
+    check("το /connect/start στέλνει στο Facebook", "facebook.com" in loc, loc[:60])
+    check("με σωστό redirect_uri", "api.getvitrina.gr%2Fconnect%2Fcallback" in loc
+          or "api.getvitrina.gr/connect/callback" in loc, loc[:90])
+
+    code, _ = req("https://api.getvitrina.gr/connect/callback")
+    check("το /connect/callback υπάρχει (400, όχι 404)", code == 400, f"πήρα {code}")
+
+
 def test_marketing() -> None:
     print("\n[MARKETING] Σελίδες που φέρνουν πελάτες")
     trades = ["taverna", "kafe", "kommotirio", "iatreio", "dikigoros",
@@ -231,6 +265,7 @@ def main() -> int:
     print("=" * 64)
 
     test_security()
+    test_oauth_domain()
     test_client_site()
     test_per_domain_seo()
     test_marketing()

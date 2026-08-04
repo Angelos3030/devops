@@ -25,8 +25,8 @@
 | Να ποστάρει η εφαρμογή μόνη της στη **δική μας** σελίδα | ΟΧΙ, αρκεί dev mode + ρόλος admin/tester |
 | Να ποστάρει η εφαρμογή σε σελίδες **πελατών** | **ΝΑΙ** — και Business Verification πριν |
 
-⚠️ Ακόμα και σε dev mode το `api.getvitrina.gr` πρέπει να απαντάει: εκεί δείχνει
-το OAuth callback, οπότε χωρίς αυτό δεν συνδέεται ούτε η δική μας σελίδα.
+✅ Το `api.getvitrina.gr` ζωντάνεψε (04/08) — το OAuth callback απαντάει και το
+`/connect/start` στέλνει σωστά στο Facebook.
 
 ---
 
@@ -41,18 +41,17 @@ App: **Vitrina**, ID `982863081415222`. Έχει μόνο `email` + `public_prof
 | ✅ | Privacy / Terms / Data-deletion **ζωντανά** στο getvitrina.gr |
 | ✅ | Έτοιμα κείμενα submission → [legal/meta-review-submission.md](../legal/meta-review-submission.md) |
 | ✅ | Κώδικας OAuth + publishing γραμμένος (`/connect/start`, `/connect/callback`) |
-| ❌ | **`api.getvitrina.gr` δεν απαντά** — Railway «Application not found» |
+| ✅ | `api.getvitrina.gr` **ζωντανό** (04/08) — έλειπε το TXT `_railway-verify.api` |
 | ❌ | Δεν έγινε ποτέ πραγματικό test post |
 | ❌ | Δεν υπάρχει screencast |
 | ❌ | Δεν έχει ξεκινήσει Business Verification |
 
 ### Τα 5 βήματα, με τη σειρά
 
-**1. Ζωντάνεψε το `api.getvitrina.gr`** ← *ξεκίνα από εδώ, όλα τα άλλα το χρειάζονται*
-Το `REDIRECT_URI` στο [src/meta_oauth.py](../src/meta_oauth.py) δείχνει εκεί, αλλά το
-domain δεν είναι δηλωμένο στο API service. Δήλωσέ το με τη γνωστή συνταγή
-(targetPort → `_railway-verify` TXT → issueCertificate). Έτοιμο όταν το
-`https://api.getvitrina.gr/healthz` απαντήσει 200.
+**1. ~~Ζωντάνεψε το `api.getvitrina.gr`~~ — ΕΓΙΝΕ (04/08/2026)**
+Το domain ήταν δηλωμένο στο Railway με έγκυρο πιστοποιητικό, αλλά `verified=false`
+επειδή έλειπε το TXT `_railway-verify.api`. Μπήκε το TXT → `customDomainIssueCertificate`
+→ ζωντανό σε δευτερόλεπτα. Το `scripts/e2e.py` το ελέγχει πλέον σε κάθε τρέξιμο.
 
 **2. Βάλε τα URLs στο App Settings → Basic**
 Αντίγραψέ τα από το [legal/meta-review-submission.md](../legal/meta-review-submission.md).
