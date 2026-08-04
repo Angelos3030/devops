@@ -30,6 +30,24 @@
 
 ---
 
+## 🛑 ΕΠΑΛΗΘΕΥΜΕΝΟ (04/08): app τύπου «Καταναλωτής» = αδιέξοδο
+
+Η app `982863081415222` φτιάχτηκε ως **Consumer** (Καταναλωτής). Με σωστό
+redirect URI, σωστές ρυθμίσεις OAuth και dev mode, το Facebook απάντησε:
+
+> Invalid Scopes: instagram_basic, instagram_content_publish, pages_show_list,
+> pages_read_engagement, pages_manage_posts
+
+**Και τα πέντε.** Δεν είναι θέμα έγκρισης ή dev mode: μια Consumer app δεν έχει
+δικαίωμα ούτε να **ζητήσει** permissions σελίδων. Χρειάζεται app τύπου
+**Business** — γι' αυτό το λέει η Φάση Α παρακάτω.
+
+Τι σημαίνει πρακτικά: νέα app (νέο App ID + secret), ξαναβάζεις τα ίδια URLs,
+και αλλάζουν **δύο μεταβλητές** στο Railway (`META_APP_ID`, `META_APP_SECRET`).
+Ο κώδικας, το `api.getvitrina.gr` και ο publisher μένουν ως έχουν.
+
+---
+
 ## 📍 ΠΟΥ ΕΙΣΑΙ ΣΗΜΕΡΑ (έλεγχος 2026-08-04)
 
 App: **Vitrina**, ID `982863081415222`. Έχει μόνο `email` + `public_profile` —
