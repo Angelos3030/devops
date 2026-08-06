@@ -20,10 +20,11 @@ import Pulse from './Pulse'
 import Volt from './Volt'
 import Motor from './Motor'
 import Terra from './Terra'
+import Dispatch from './Dispatch'
 
 // Structurally-distinct React archetypes.
-export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra }
-export const TEMPLATE_KEYS = ['editorial', 'split', 'showcase', 'bento', 'longform', 'corporate', 'poster', 'sidebar', 'grid', 'coast', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'pulse', 'volt', 'motor', 'terra']
+export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch }
+export const TEMPLATE_KEYS = ['editorial', 'split', 'showcase', 'bento', 'longform', 'corporate', 'poster', 'sidebar', 'grid', 'coast', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'pulse', 'volt', 'motor', 'terra', 'dispatch']
 export const TEMPLATE_META = {
   editorial: { label: 'Editorial', desc: 'Κλασικό stacked, μεγάλη τυπογραφία.' },
   split: { label: 'Split', desc: 'Σταθερό πλαϊνό panel + περιεχόμενο που κυλάει.' },
@@ -46,6 +47,7 @@ export const TEMPLATE_META = {
   pulse: { label: 'Pulse', desc: 'Κλινική ηρεμία — λευκό/teal, γραμμή παλμού. Ιατρεία/κλινικές.' },
   volt: { label: 'Volt', desc: 'Ενέργεια — ανθρακί + electric lime, διαγώνιες τομές. Γυμναστήρια.' },
   motor: { label: 'Motor', desc: 'Γκαράζ — gunmetal, signal red, δελτίο εργασιών. Συνεργεία.' },
+  dispatch: { label: 'Dispatch', desc: 'Μία οθόνη, μηδέν σκρολ — φωτογραφία σε όλη την οθόνη, τηλέφωνο-ήρωας. Τεχνίτες/έκτακτες κλήσεις.' },
   terra: { label: 'Terra', desc: 'Γη & kraft — ετικέτες προϊόντων, ελιά. Παραγωγοί/αγροτικά.' },
 }
 
