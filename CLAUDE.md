@@ -134,6 +134,10 @@
 Supabase. Μην κρατάς κρίσιμες αλλαγές μόνο σε ένα standalone HTML. Το production render γίνεται
 από το `sites/` και πρέπει να παραμένει επεξεργάσιμο από dashboard/chat editor.
 
+Το chat-to-edit είναι πάντα **draft first**: ο AI provider επιστρέφει allowlisted JSON patch,
+το dashboard το δείχνει μόνο στο preview και απαιτεί ρητό **Έγκριση αλλαγών**. Η απόρριψη δεν
+γράφει τίποτα στη βάση. Ποτέ μην επαναφέρεις αυτόματη αποθήκευση απευθείας από AI απάντηση.
+
 Μετά την έγκριση:
 
 1. αποθήκευσε layout και client data,

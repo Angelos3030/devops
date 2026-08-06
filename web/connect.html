@@ -51,7 +51,7 @@
     <div class="hero">
       <h1>Vitrina</h1>
       <p>Site + καθημερινά posts στο Facebook & Instagram — χωρίς να κάνεις τίποτα.</p>
-      <p class="price">Site από <strong>€9.90/μήνα</strong> · Social <strong>€49/μήνα</strong> · 1ος μήνας δωρεάν</p>
+      <p class="price">Site <strong>€14.99/μήνα</strong> · + Posts <strong>€29.99/μήνα</strong> · 1ος μήνας δωρεάν</p>
     </div>
 
     <!-- Βήμα 1: Στοιχεία -->
@@ -171,9 +171,10 @@
       <span class="step">Βήμα 4 — Ξεκίνα το πλάνο σου</span>
       <p style="margin:10px 0 16px;">✅ Η σελίδα Facebook συνδέθηκε επιτυχώς!</p>
       <div style="background:#f6f8fb;border-radius:10px;padding:16px;margin-bottom:16px;">
-        <div style="font-weight:700;font-size:1.1rem;margin-bottom:4px;">Social Plan — €49/μήνα</div>
-        <div style="opacity:.8;font-size:.95rem;">Καθημερινό post Facebook + Instagram · Site ·
-          1ος μήνας <span style="color:var(--a);font-weight:700;">ΔΩΡΕΑΝ</span></div>
+        <div style="font-weight:700;font-size:1.1rem;margin-bottom:4px;">Site — €14.99/μήνα</div>
+        <div style="opacity:.8;font-size:.95rem;">Το site σου, φιλοξενία, απεριόριστες αλλαγές ·
+          1ος μήνας <span style="color:var(--a);font-weight:700;">ΔΩΡΕΑΝ</span><br>
+          <span style="font-size:.9rem;">Θες και 7 έτοιμα posts κάθε βδομάδα; +€29.99/μήνα — το προσθέτεις όποτε θες.</span></div>
       </div>
       <button class="btn btn-primary" id="pay-btn" onclick="startCheckout()">
         Ξεκίνα δωρεάν →
@@ -534,7 +535,7 @@
         const res = await fetch(API + "/create-checkout", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({client_id: currentClientId, plan: "social"}),
+          body: JSON.stringify({client_id: currentClientId, plan: "site"}),
         });
         if (!res.ok) throw new Error("HTTP " + res.status);
         const { checkout_url } = await res.json();

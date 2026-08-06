@@ -50,7 +50,8 @@ cd sites && npm install && npm run dev
 4. **Domain.** Διαλέγει από τις προτάσεις και πληρώνει. **Το αγοράζεις εσύ**
    χειροκίνητα (§4) — δεν έχουμε ακόμα registrar API.
 5. **Live.** Μία εντολή και το site βγαίνει στον αέρα.
-6. **Dashboard.** Μπαίνει στο `/dashboard` με Google ή email και το αλλάζει μόνος του.
+6. **Dashboard.** Μπαίνει στο `/dashboard` με Google ή email, ζητά αλλαγές στο chat,
+   βλέπει draft στο preview και πατά **Έγκριση αλλαγών** πριν πειραχτεί το live site.
 
 Στείλε του και τους δύο οδηγούς — είναι τα δύο πράγματα που δεν κάνουμε εμείς γι' αυτόν:
 - `/odigos/google` — προφίλ Google Maps + κριτικές
@@ -213,4 +214,4 @@ AI_API_KEY=sk-ant-…          # και τίποτα άλλο
 - **Meta App Review** — χωρίς αυτό δεν ποστάρουμε αυτόματα ([docs/12](docs/12-META-APP-REVIEW.md))
 - **Registrar API** — Papaki/Pointer· μέχρι τότε αγοράζουμε χειροκίνητα
 - **Stripe live mode** — κλειστό μέχρι να τελειώσουν τα tests
-- **Anthropic API key** — προαιρετικό, αλλά ξεκλειδώνει chat-to-edit και AI κείμενα
+- **AI API key** (DeepSeek/Anthropic/OpenRouter) — ξεκλειδώνει chat-to-edit και AI κείμενα

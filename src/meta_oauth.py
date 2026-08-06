@@ -439,9 +439,10 @@ class ChatEdit(BaseModel):
 @app.post("/clients/{client_id}/chat-edit")
 def chat_edit(client_id: str, body: ChatEdit,
               authorization: str | None = Header(default=None)):
-    """«Πες τι θέλεις να αλλάξει» — ο βοηθός το εφαρμόζει στο site.
+    """«Πες τι θέλεις να αλλάξει» — ο βοηθός ετοιμάζει ασφαλές draft.
 
-    Το AI επιστρέφει μόνο JSON patch· ό,τι δεν είναι στο allowlist αγνοείται."""
+    Το AI επιστρέφει μόνο JSON patch· ό,τι δεν είναι στο allowlist αγνοείται.
+    Δεν γράφουμε τίποτα στη βάση πριν από ρητή έγκριση στο dashboard."""
     from . import premium_generator as pg
     from . import site_edit as se
     auth.require_client_access(client_id, authorization)
@@ -452,12 +453,13 @@ def chat_edit(client_id: str, body: ChatEdit,
     intake = _intake_from_db(client_id)
     result = se.chat_edit(body.message, current, pg.recommend_templates(intake, limit=8))
 
-    applied = {}
-    if result["changes"]:
-        merged = {**{k: v for k, v in current.items() if k in _EDITABLE}, **result["changes"]}
-        saved = put_content(client_id, ContentUpdate(content=merged), authorization)
-        applied = {k: result["changes"][k] for k in result["changes"] if k in saved["saved"]}
-    return {"reply": result["reply"], "changed": sorted(applied.keys()), "content": applied}
+    proposed = {k: v for k, v in result["changes"].items() if k in _EDITABLE}
+    return {
+        "reply": result["reply"],
+        "changed": sorted(proposed.keys()),
+        "content": proposed,
+        "draft": True,
+    }
 
 
 class ContentUpdate(BaseModel):

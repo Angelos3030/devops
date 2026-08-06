@@ -7,6 +7,22 @@ import MediaDisclosure from '../../../lib/templates/MediaDisclosure'
 
 export const dynamic = 'force-dynamic' // multi-tenant: render per request (ISR via fetch revalidate)
 
+const DRAFT_FIELDS = new Set([
+  'name', 'trade', 'city', 'phone', 'hours', 'areas', 'tagline', 'intro',
+  'story_title', 'story_paragraphs', 'cta_title', 'services', 'template',
+  'address', 'gbp_url',
+])
+
+function readDraft(raw) {
+  if (!raw || typeof raw !== 'string' || raw.length > 12000) return {}
+  try {
+    const parsed = JSON.parse(raw)
+    return Object.fromEntries(Object.entries(parsed).filter(([key]) => DRAFT_FIELDS.has(key)))
+  } catch {
+    return {}
+  }
+}
+
 export async function generateMetadata({ params, searchParams }) {
   try {
     const { data } = await getSiteData(params.client, searchParams?.layout)
@@ -29,8 +45,9 @@ export default async function SitePage({ params, searchParams }) {
       </div>
     )
   }
-  const Template = pickTemplate(payload.layout)
-  const siteData = withMediaFallback(payload.data)
+  const draft = readDraft(searchParams?.draft)
+  const siteData = withMediaFallback({ ...payload.data, ...draft })
+  const Template = pickTemplate(draft.template || payload.layout)
   const domain = String(params.client).includes('.') ? params.client : undefined
   const jsonLd = buildJsonLd(siteData, { domain })
   return (

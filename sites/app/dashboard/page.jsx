@@ -32,6 +32,8 @@ export default function Dashboard() {
   const [copied, setCopied] = useState(-1)
   const [locked, setLocked] = useState(null)
   const [saved, setSaved] = useState(false)
+  const [pending, setPending] = useState(null)
+  const [approving, setApproving] = useState(false)
   const chatEnd = useRef(null)
 
   // Δείξε το κουμπί Google μόνο αν ο provider είναι όντως ενεργός στο Supabase,
@@ -81,6 +83,8 @@ export default function Dashboard() {
     if (!clientId) return
     authFetch(`/clients/${clientId}/account`).then(setAccount).catch(() => {})
     setMessages([{ role: 'bot', text: 'Γεια σου! Πες μου τι θέλεις να αλλάξω στο site σου — με απλά λόγια.' }])
+    setPending(null)
+    setForm(null)
   }, [clientId, authFetch])
 
   useEffect(() => { chatEnd.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages])
@@ -95,12 +99,50 @@ export default function Dashboard() {
       const d = await authFetch(`/clients/${clientId}/chat-edit`, {
         method: 'POST', body: JSON.stringify({ message: msg }),
       })
-      setMessages((m) => [...m, { role: 'bot', text: d.reply, changed: d.changed }])
-      if (d.changed?.length) setVer(Date.now())   // ανανέωσε το preview
+      setMessages((m) => [...m, { role: 'bot', text: d.reply, changed: d.changed, draft: true }])
+      if (d.changed?.length) {
+        let current = pending?.merged || form
+        if (!current) {
+          const content = await authFetch(`/clients/${clientId}/content`)
+          current = content.content
+          setForm(current)
+        }
+        setPending({
+          changes: { ...(pending?.changes || {}), ...d.content },
+          merged: { ...current, ...d.content },
+        })
+        setVer(Date.now())
+      }
     } catch (e) {
       setMessages((m) => [...m, { role: 'bot', text: 'Ουπς, κάτι πήγε στραβά. Δοκίμασε ξανά.' }])
     }
     setBusy(false)
+  }
+
+  async function approvePending() {
+    if (!pending || approving) return
+    setApproving(true); setErr('')
+    try {
+      const d = await authFetch(`/clients/${clientId}/content`, {
+        method: 'PUT', body: JSON.stringify({ content: pending.merged }),
+      })
+      setForm(pending.merged)
+      setMessages((m) => [...m, {
+        role: 'bot', text: 'Οι αλλαγές εγκρίθηκαν και αποθηκεύτηκαν στο site σου.',
+        applied: d.saved,
+      }])
+      setPending(null)
+      setVer(Date.now())
+    } catch (e) {
+      setErr('Δεν εφαρμόστηκαν οι αλλαγές. ' + e.message)
+    }
+    setApproving(false)
+  }
+
+  function rejectPending() {
+    setPending(null)
+    setVer(Date.now())
+    setMessages((m) => [...m, { role: 'bot', text: 'Το draft απορρίφθηκε. Το site σου δεν άλλαξε.' }])
   }
 
   // Χειροκίνητη επεξεργασία — δουλεύει και χωρίς τον βοηθό AI.
@@ -180,6 +222,13 @@ export default function Dashboard() {
     if (error) setErr('Δεν στάλθηκε το email: ' + error.message)
     else setSent(true)
   }
+
+  const previewParams = new URLSearchParams()
+  if (ver) previewParams.set('v', String(ver))
+  if (pending) previewParams.set('draft', JSON.stringify(pending.changes))
+  const previewSrc = clientId
+    ? `/site/${clientId}${previewParams.size ? `?${previewParams.toString()}` : ''}`
+    : ''
 
   // ---------- render ----------
   if (session === undefined) {
@@ -342,13 +391,31 @@ ${(p.hashtags || []).join(' ')}`)}>
               <div key={i} className={m.role === 'me' ? s.me : s.bot}>
                 <p>{m.text}</p>
                 {m.changed?.length > 0 && (
-                  <span className={s.tag}>✓ ενημερώθηκε: {m.changed.join(', ')}</span>
+                  <span className={s.tag}>Πρόταση: {m.changed.join(', ')}</span>
+                )}
+                {m.applied?.length > 0 && (
+                  <span className={s.tag}>✓ εφαρμόστηκε: {m.applied.join(', ')}</span>
                 )}
               </div>
             ))}
             {busy && <div className={s.bot}><p className={s.typing}><i /><i /><i /></p></div>}
             <div ref={chatEnd} />
           </div>
+
+          {pending && (
+            <div className={s.approval}>
+              <div>
+                <strong>Οι αλλαγές είναι σε προεπισκόπηση</strong>
+                <span>{Object.keys(pending.changes).join(' · ')}</span>
+              </div>
+              <div className={s.approvalActions}>
+                <button type="button" className={s.reject} onClick={rejectPending} disabled={approving}>Απόρριψη</button>
+                <button type="button" className={s.approve} onClick={approvePending} disabled={approving}>
+                  {approving ? 'Εφαρμόζω…' : 'Έγκριση αλλαγών'}
+                </button>
+              </div>
+            </div>
+          )}
 
           {messages.length <= 1 && (
             <div className={s.chips}>
@@ -374,7 +441,7 @@ ${(p.hashtags || []).join(' ')}`)}>
             <span className={s.url}>{account?.domain?.domain || 'η προεπισκόπησή σου'}</span>
           </div>
           {clientId && (
-            <iframe key={ver} src={`/site/${clientId}${ver ? `?v=${ver}` : ''}`} title="Το site σου" />
+            <iframe key={ver} src={previewSrc} title="Το site σου" />
           )}
         </section>
       </div>
