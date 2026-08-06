@@ -319,7 +319,7 @@ def get_content(client_id: str, authorization: str | None = Header(default=None)
         "template": db.get_selected_design(client_id) or pg.recommend_templates(intake)[0],
     }
     current.update({k: v for k, v in overrides.items() if k in _EDITABLE})
-    return {"content": current, "templates": pg.recommend_templates(intake, limit=8),
+    return {"content": current, "templates": pg.recommend_templates(intake, limit=10),
             "all_templates": list(pg.REACT_TEMPLATES)}
 
 
@@ -451,7 +451,7 @@ def chat_edit(client_id: str, body: ChatEdit,
 
     current = get_content(client_id, authorization)["content"]
     intake = _intake_from_db(client_id)
-    result = se.chat_edit(body.message, current, pg.recommend_templates(intake, limit=8))
+    result = se.chat_edit(body.message, current, pg.recommend_templates(intake, limit=10))
 
     proposed = {k: v for k, v in result["changes"].items() if k in _EDITABLE}
     return {
@@ -509,7 +509,7 @@ def put_content(client_id: str, body: ContentUpdate,
 def list_designs(client_id: str):
     """Οι προτάσεις design του πελάτη + ποια είναι προτεινόμενη/επιλεγμένη + live URL.
 
-    `templates`: smart-match — 4 React templates με το premium της κατηγορίας του πρώτο
+    `templates`: smart-match — 10 React templates με το premium της κατηγορίας του πρώτο
     (αυτά δείχνει το /choose). `variants`: τα legacy static layouts (συμβατότητα)."""
     from . import premium_generator as pg
     rid = _resolve_client(client_id).get("id", client_id)

@@ -9,9 +9,8 @@
 .eyebrow{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
 .head h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,6vw,3.6rem);margin:.8rem 0}
 .head p{color:var(--ink-soft);font-size:1.1rem}
-/* Δείχνουμε ΤΕΣΣΕΡΑ σχέδια (smart-match). Σε 3 στήλες το τέταρτο έμενε
-   ορφανό στη δεύτερη σειρά και το σκέπαζε η σταθερή μπάρα — ο πελάτης
-   νόμιζε ότι έχει 3 επιλογές. 2x2 τα δείχνει και τα τέσσερα μαζί. */
+/* Δέκα μεγάλα previews σε δύο στήλες: αρκετά καθαρά για πραγματική σύγκριση,
+   όχι μικροσκοπικά thumbnails που κρύβουν τη διαφορά των designs. */
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:1080px;margin:0 auto;padding:0 16px}
 .card{position:relative;background:var(--surface);border:2px solid var(--line);border-radius:16px;overflow:hidden;
   cursor:pointer;padding:0;font-family:inherit;color:inherit;transition:transform .18s,border-color .18s;text-align:left}

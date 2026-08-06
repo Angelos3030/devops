@@ -227,23 +227,24 @@ def _vertical(intake: dict[str, Any]) -> str:
 
 
 # Premium-first σειρά ανά vertical. Το πρώτο = προτεινόμενο.
-# Πάντα 4 επιλογές: 1-2 premium της κατηγορίας + 2 δυνατά γενικά (choice χωρίς παράλυση).
+# Δέκα ουσιαστικά διαφορετικές κατευθύνσεις: οι πρώτες είναι οι πιο ειδικές για
+# τον κλάδο και οι υπόλοιπες διευρύνουν το ύφος χωρίς να γίνονται άσχετες.
 _TEMPLATES_BY_VERTICAL = {
-    "food":         ["ember", "warmth", "magazine", "editorial"],
-    "cafe":         ["bloom", "warmth", "bento", "editorial"],
-    "rooms":        ["aegean", "bento", "editorial", "magazine"],
-    "medical":      ["marble", "split", "editorial", "grid"],
-    "beauty":       ["runway", "bento", "editorial", "poster"],
-    "professional": ["marble", "grid", "longform", "editorial"],
-    "trade":        ["forge", "sidebar", "dispatch", "poster"],
-    "garage":       ["motor", "forge", "grid", "dispatch"],
-    "gym":          ["volt", "poster", "bento", "grid"],
-    "farm":         ["terra", "longform", "warmth", "magazine"],
-    "wood":         ["canvas", "editorial", "split", "bento"],
+    "food":         ["ember", "warmth", "magazine", "bloom", "editorial", "bento", "poster", "longform", "split", "grid"],
+    "cafe":         ["bloom", "warmth", "bento", "magazine", "editorial", "runway", "poster", "longform", "split", "grid"],
+    "rooms":        ["aegean", "bento", "editorial", "magazine", "marble", "warmth", "bloom", "split", "longform", "grid"],
+    "medical":      ["marble", "split", "editorial", "grid", "longform", "bento", "aegean", "canvas", "sidebar", "poster"],
+    "beauty":       ["runway", "bento", "editorial", "poster", "marble", "bloom", "split", "canvas", "grid", "longform"],
+    "professional": ["marble", "grid", "longform", "editorial", "split", "bento", "canvas", "sidebar", "poster", "magazine"],
+    "trade":        ["forge", "sidebar", "dispatch", "poster", "canvas", "grid", "split", "editorial", "bento", "longform"],
+    "garage":       ["motor", "forge", "grid", "dispatch", "poster", "sidebar", "canvas", "split", "bento", "editorial"],
+    "gym":          ["volt", "poster", "bento", "grid", "runway", "dispatch", "sidebar", "editorial", "split", "canvas"],
+    "farm":         ["terra", "longform", "warmth", "magazine", "editorial", "bloom", "canvas", "bento", "split", "grid"],
+    "wood":         ["canvas", "editorial", "split", "bento", "forge", "longform", "grid", "poster", "sidebar", "magazine"],
 }
 
 
-def recommend_templates(intake: dict[str, Any], limit: int = 4) -> list[str]:
+def recommend_templates(intake: dict[str, Any], limit: int = 10) -> list[str]:
     """Τα React templates που θα δει ο πελάτης — premium της κατηγορίας του πρώτο."""
     keys = _TEMPLATES_BY_VERTICAL.get(_vertical(intake), _TEMPLATES_BY_VERTICAL["trade"])
     return [k for k in keys if k in REACT_TEMPLATES][:limit]

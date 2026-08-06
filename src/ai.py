@@ -87,14 +87,22 @@ def complete_json(system: str, user: str, max_tokens: int = 1500) -> Any | None:
 
 
 def _anthropic(system: str, user: str, max_tokens: int) -> str:
-    import anthropic
-    kw: dict[str, Any] = {"api_key": cfg.AI_API_KEY}
-    if cfg.AI_BASE_URL:
-        kw["base_url"] = cfg.AI_BASE_URL
-    resp = anthropic.Anthropic(**kw).messages.create(
-        model=model(), max_tokens=max_tokens, system=system,
-        messages=[{"role": "user", "content": user}])
-    return "".join(getattr(b, "text", "") for b in resp.content)
+    # Απευθείας στο επίσημο Messages API. Αποφεύγουμε ασυμβατότητες μεταξύ
+    # εκδόσεων anthropic/httpx και κρατάμε το ίδιο προβλέψιμο transport με τους
+    # OpenAI-compatible providers παρακάτω.
+    base = cfg.AI_BASE_URL or "https://api.anthropic.com"
+    r = requests.post(
+        f"{base}/v1/messages",
+        headers={"x-api-key": cfg.AI_API_KEY,
+                 "anthropic-version": "2023-06-01",
+                 "Content-Type": "application/json"},
+        json={"model": model(), "max_tokens": max_tokens, "system": system,
+              "messages": [{"role": "user", "content": user}]},
+        timeout=TIMEOUT)
+    if not r.ok:
+        raise RuntimeError(f"HTTP {r.status_code}: {r.text[:200]}")
+    blocks = r.json().get("content", [])
+    return "".join(b.get("text", "") for b in blocks if b.get("type") == "text")
 
 
 def _openai(system: str, user: str, max_tokens: int) -> str:

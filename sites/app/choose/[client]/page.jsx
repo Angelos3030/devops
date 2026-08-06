@@ -4,6 +4,7 @@ import { TEMPLATE_META } from '../../../lib/templates'
 import s from './choose.module.css'
 
 const API = (process.env.NEXT_PUBLIC_API_BASE || '').replace(/\/$/, '')
+const DEMO_CARPENTER = ['canvas', 'editorial', 'split', 'bento', 'forge', 'longform', 'grid', 'poster', 'sidebar', 'magazine']
 
 // Legacy static layouts (fallback όταν το backend δεν στέλνει smart-matched templates)
 const LABELS = {
@@ -15,8 +16,11 @@ const descOf = (k) => TEMPLATE_META[k]?.desc || ''
 
 export default function Choose({ params }) {
   const client = params.client
-  const [variants, setVariants] = useState(null)
-  const [selected, setSelected] = useState(null)
+  const isDemo = client === 'demo-carpenter'
+  const [variants, setVariants] = useState(() => isDemo
+    ? DEMO_CARPENTER.map((layout, i) => ({ layout, recommended: i === 0 }))
+    : null)
+  const [selected, setSelected] = useState(isDemo ? DEMO_CARPENTER[0] : null)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
   const [ver, setVer] = useState(0)          // cache-bust των previews μετά από upload
@@ -25,6 +29,7 @@ export default function Choose({ params }) {
   const [uploading, setUploading] = useState('')
 
   useEffect(() => {
+    if (isDemo) return
     let tries = 0
     const load = async () => {
       try {
@@ -48,7 +53,11 @@ export default function Choose({ params }) {
       else setErr('Τα σχέδιά σου ετοιμάζονται ακόμα. Ανανέωσε σε λίγο.')
     }
     load()
-  }, [client])
+  }, [client, isDemo])
+
+  const siteHref = (layout) => isDemo
+    ? `/preview/${layout}?biz=carpenter`
+    : `/site/${client}?layout=${layout}${ver ? `&v=${ver}` : ''}`
 
   // Upload φωτο/logo ΜΕΤΑ το wow (τα previews ανανεώνονται με τις δικές του).
   async function uploadFiles(files, assetType) {
@@ -76,6 +85,7 @@ export default function Choose({ params }) {
   }
 
   async function checkout() {
+    if (isDemo) return
     setBusy(true); setErr('')
     try {
       await fetch(`${API}/clients/${client}/select-design`, {
@@ -112,7 +122,7 @@ export default function Choose({ params }) {
             <div className={s.shot}>
               {v.recommended && <span className={s.rec}>Προτεινόμενο</span>}
               {selected === v.layout && <span className={s.tick}>✓</span>}
-              <iframe src={`/site/${client}?layout=${v.layout}${ver ? `&v=${ver}` : ''}`} title={v.layout} loading="lazy" scrolling="no" />
+              <iframe src={siteHref(v.layout)} title={v.layout} loading="lazy" scrolling="no" />
             </div>
             <div className={s.label}>
               {labelOf(v.layout)}
@@ -147,9 +157,9 @@ export default function Choose({ params }) {
       </section>
 
       <div className={s.bar}>
-        <a className={s.preview} href={`/site/${client}?layout=${selected}${ver ? `&v=${ver}` : ''}`} target="_blank" rel="noreferrer">Άνοιξε σε πλήρη οθόνη ↗</a>
-        <button className={s.cta} onClick={checkout} disabled={busy}>
-          {busy ? 'Σε πάμε στην πληρωμή…' : 'Συνέχεια — €14.99/μήνα · 1ος μήνας δωρεάν'}
+        <a className={s.preview} href={siteHref(selected)} target="_blank" rel="noreferrer">Άνοιξε σε πλήρη οθόνη ↗</a>
+        <button className={s.cta} onClick={checkout} disabled={busy || isDemo}>
+          {isDemo ? 'Demo επιλογής πελάτη' : busy ? 'Σε πάμε στην πληρωμή…' : 'Συνέχεια — €14.99/μήνα · 1ος μήνας δωρεάν'}
         </button>
       </div>
       {err && <p className={s.errline}>{err}</p>}

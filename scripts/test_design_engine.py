@@ -96,6 +96,15 @@ class FakeDB:
         self.clients[cid] = {"id": cid, **intake, "selected_layout": None}
         return cid
 
+    def get_client(self, client_id: str):
+        return self.clients.get(client_id)
+
+    def get_site_content(self, client_id: str) -> dict:
+        return self.clients.get(client_id, {}).get("site_content", {})
+
+    def save_site_content(self, client_id: str, content: dict) -> None:
+        self.clients.setdefault(client_id, {})["site_content"] = content
+
     def get_client_assets(self, client_id: str, usage=None) -> list:
         return self.assets.get(client_id, [])
 
@@ -129,6 +138,8 @@ def test_endpoints() -> None:
     print("\n[B] Endpoints — TestClient + fake DB (no Supabase/Anthropic)")
     from src import config as cfg
     cfg.ANTHROPIC_API_KEY = ""            # force site_copy no-op (offline, fast)
+    cfg.AI_API_KEY = ""
+    cfg.AI_BASE_URL = ""
     from src.premium_generator import LAYOUTS
     n = len(LAYOUTS)
     from src import meta_oauth
@@ -151,6 +162,8 @@ def test_endpoints() -> None:
     check("GET /designs 200", r.status_code == 200)
     body = r.json()
     check(f"designs: {n} variants", len(body["variants"]) == n)
+    check("designs: 10 smart-matched React templates", len(body["templates"]) == 10,
+          str(body.get("templates")))
     check("designs: one recommended", sum(v["recommended"] for v in body["variants"]) == 1)
     check("designs: none selected yet", body["selected"] is None)
 
