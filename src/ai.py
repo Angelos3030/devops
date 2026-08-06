@@ -42,7 +42,9 @@ def provider() -> str:
 
 
 def model() -> str:
-    if cfg.AI_MODEL:
+    # Προστάτευσε production από παλιό env: Anthropic key μαζί με
+    # AI_MODEL=deepseek-chat δεν πρέπει να σταλεί ποτέ στο Messages API.
+    if cfg.AI_MODEL and not (provider() == "anthropic" and "deepseek" in cfg.AI_MODEL.lower()):
         return cfg.AI_MODEL
     return "deepseek-chat" if provider() == "openai" else cfg.MODEL_CHEAP
 
@@ -90,7 +92,10 @@ def _anthropic(system: str, user: str, max_tokens: int) -> str:
     # Απευθείας στο επίσημο Messages API. Αποφεύγουμε ασυμβατότητες μεταξύ
     # εκδόσεων anthropic/httpx και κρατάμε το ίδιο προβλέψιμο transport με τους
     # OpenAI-compatible providers παρακάτω.
-    base = cfg.AI_BASE_URL or "https://api.anthropic.com"
+    configured_base = cfg.AI_BASE_URL or ""
+    base = ("https://api.anthropic.com"
+            if "deepseek.com" in configured_base.lower()
+            else configured_base or "https://api.anthropic.com")
     r = requests.post(
         f"{base}/v1/messages",
         headers={"x-api-key": cfg.AI_API_KEY,

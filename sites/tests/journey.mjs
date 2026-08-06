@@ -90,6 +90,10 @@ async function main() {
       if (TRACKERS.some((t) => h.endsWith(t)) || h.endsWith('google.com')) third.add(h)
     })
     await page.goto(`${SITES}/site/${clientId}`, { waitUntil: 'networkidle' })
+    try {
+      await page.waitForFunction((name) => document.body.innerText.includes(name), NAME,
+                                 { timeout: 20000 })
+    } catch {}
     check('το site φορτώνει', await page.locator('body').isVisible())
     check('δείχνει το όνομα', (await page.content()).includes('ΔΟΚΙΜΗ'))
     check('ΚΑΝΕΝΑ αίτημα σε Google/Meta', third.size === 0, [...third].join(', '))
@@ -98,7 +102,10 @@ async function main() {
     check('κανένα cookie πριν από συγκατάθεση', cookies.length === 0,
           cookies.map((k) => k.name).join(', '))
 
-    const fontOK = await page.evaluate(() => document.fonts.check('16px Fraunces'))
+    const fontOK = await page.evaluate(async () => {
+      await document.fonts.ready
+      return document.fonts.check('16px Fraunces')
+    })
     check('τα ελληνικά fonts φορτώνουν τοπικά', fontOK)
 
     // ο χάρτης φορτώνει ΜΟΝΟ με κλικ
@@ -148,10 +155,24 @@ async function main() {
           (await page.locator('a[href="/odigos/facebook"]').count()) > 0)
 
     // --------------------------------------------------------------- chat
-    console.log('\n[CHAT] Η καρτέλα απαντά (ή το λέει καθαρά)')
+    console.log('\n[CHAT] Το AI ετοιμάζει draft και περιμένει έγκριση')
     await page.getByRole('button', { name: /Πες μου/ }).click()
     await page.waitForTimeout(800)
-    check('υπάρχει πεδίο συνομιλίας', (await page.locator('input[placeholder*="αλλάξω"]').count()) > 0)
+    const chatInput = page.locator('input[placeholder*="αλλάξω"]')
+    check('υπάρχει πεδίο συνομιλίας', (await chatInput.count()) > 0)
+    await chatInput.fill('Κάνε το site πιο μοντέρνο και σκούρο, χωρίς να αλλάξεις τα κείμενα.')
+    await chatInput.press('Enter')
+    const approve = page.getByRole('button', { name: /Έγκριση αλλαγών/ })
+    try {
+      await approve.waitFor({ timeout: 30000 })
+    } catch {}
+    check('το AI έφτιαξε draft — δεν αποθήκευσε αυτόματα', await approve.count() > 0)
+    if (await approve.count()) {
+      await page.getByRole('button', { name: /Απόρριψη/ }).click()
+      await page.waitForTimeout(800)
+      check('η απόρριψη αφήνει το live site ανέπαφο',
+            /δεν άλλαξε/i.test(await page.locator('body').innerText()))
+    }
 
     // ------------------------------------------------------------- έξοδος
     console.log('\n[ΕΞΟΔΟΣ] Και ξαναμπαίνει')
