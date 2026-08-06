@@ -7,9 +7,9 @@
     display: flex; gap: 8px; padding: 10px 12px;
     /* Το safe-area κρατάει την μπάρα πάνω από τη γραμμή χειρονομιών του iPhone. */
     padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-    background: rgba(16, 18, 22, .93);
-    backdrop-filter: blur(14px);
-    border-top: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(14, 15, 18, .82);
+    backdrop-filter: blur(18px) saturate(1.1);
+    border-top: 1px solid rgba(255, 255, 255, .09);
     font-family: 'Inter', system-ui, sans-serif;
   }
 
@@ -19,20 +19,23 @@
     /* 52px: άνετο για αντίχειρα — κάτω από ~44px αστοχούν τα πατήματα. */
     min-height: 52px; padding: 0 16px;
   }
+  /* Χωρίς έντονο χρώμα και χωρίς λάμψη: η μπάρα είναι ΗΔΗ μόνιμα στην οθόνη,
+     οπότε η μονιμότητα κάνει την έμφαση. Ένα νέον πράσινο από πάνω μαλώνει με
+     την παλέτα κάθε template και δείχνει φθηνό. Ζεστό υπόλευκο σε σκούρο
+     φόντο: ήσυχο, υψηλής αντίθεσης, δένει με τα πάντα. */
   .call {
-    flex: 1; background: #1db954; color: #08130c; font-size: 1rem;
-    box-shadow: 0 6px 20px -8px rgba(29, 185, 84, .7);
+    flex: 1; background: #f3f1ec; color: #14161a; font-size: .98rem;
   }
   .call:active { transform: translateY(1px); }
   .icon { width: 21px; height: 21px; flex: none; }
   .pin { width: 17px; height: 17px; flex: none; }
   .callText { display: flex; flex-direction: column; line-height: 1.15; }
-  .callText strong { font-weight: 800; font-size: .95rem; }
-  .num { font-size: .8rem; opacity: .8; }
+  .callText strong { font-weight: 700; font-size: .92rem; letter-spacing: -.01em; }
+  .num { font-size: .8rem; opacity: .62; }
 
   .dir {
-    flex: 0 0 auto; background: rgba(255, 255, 255, .1); color: #f2f0ea;
-    font-weight: 600; font-size: .86rem; border: 1px solid rgba(255, 255, 255, .16);
+    flex: 0 0 auto; background: transparent; color: rgba(242, 240, 234, .82);
+    font-weight: 600; font-size: .84rem; border: 1px solid rgba(255, 255, 255, .18);
   }
 }
 
