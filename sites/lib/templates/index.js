@@ -21,10 +21,11 @@ import Volt from './Volt'
 import Motor from './Motor'
 import Terra from './Terra'
 import Dispatch from './Dispatch'
+import Canvas from './Canvas'
 
 // Structurally-distinct React archetypes.
-export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch }
-export const TEMPLATE_KEYS = ['editorial', 'split', 'showcase', 'bento', 'longform', 'corporate', 'poster', 'sidebar', 'grid', 'coast', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'pulse', 'volt', 'motor', 'terra', 'dispatch']
+export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch, canvas: Canvas }
+export const TEMPLATE_KEYS = ['editorial', 'split', 'showcase', 'bento', 'longform', 'corporate', 'poster', 'sidebar', 'grid', 'coast', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'pulse', 'volt', 'motor', 'terra', 'dispatch', 'canvas']
 export const TEMPLATE_META = {
   editorial: { label: 'Editorial', desc: 'Κλασικό stacked, μεγάλη τυπογραφία.' },
   split: { label: 'Split', desc: 'Σταθερό πλαϊνό panel + περιεχόμενο που κυλάει.' },
@@ -47,6 +48,7 @@ export const TEMPLATE_META = {
   pulse: { label: 'Pulse', desc: 'Κλινική ηρεμία — λευκό/teal, γραμμή παλμού. Ιατρεία/κλινικές.' },
   volt: { label: 'Volt', desc: 'Ενέργεια — ανθρακί + electric lime, διαγώνιες τομές. Γυμναστήρια.' },
   motor: { label: 'Motor', desc: 'Γκαράζ — gunmetal, signal red, δελτίο εργασιών. Συνεργεία.' },
+  canvas: { label: 'Canvas', desc: 'Κατάλογος εργαστηρίου — κάθε υπηρεσία είναι έργο με δική της φωτογραφία. Ξυλουργοί/ανακαινίσεις.' },
   dispatch: { label: 'Dispatch', desc: 'Μία οθόνη, μηδέν σκρολ — φωτογραφία σε όλη την οθόνη, τηλέφωνο-ήρωας. Τεχνίτες/έκτακτες κλήσεις.' },
   terra: { label: 'Terra', desc: 'Γη & kraft — ετικέτες προϊόντων, ελιά. Παραγωγοί/αγροτικά.' },
 }

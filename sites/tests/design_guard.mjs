@@ -17,7 +17,7 @@ import { chromium } from 'playwright'
 
 const TEMPLATES = ['editorial', 'split', 'showcase', 'bento', 'longform', 'corporate',
   'poster', 'sidebar', 'grid', 'coast', 'magazine', 'warmth', 'ember', 'marble',
-  'runway', 'forge', 'aegean', 'bloom', 'pulse', 'volt', 'motor', 'terra', 'dispatch']
+  'runway', 'forge', 'aegean', 'bloom', 'pulse', 'volt', 'motor', 'terra', 'dispatch', 'canvas']
 
 const argIdx = process.argv.indexOf('--base')
 const BASE = argIdx > -1 ? process.argv[argIdx + 1] : 'https://sites-production-da56.up.railway.app'
@@ -65,6 +65,12 @@ function auditVisible() {
     } catch { /* stylesheet άλλης προέλευσης — δεν μας αφορά */ }
   }
   const SYSTEM = /^(system-ui|sans-serif|serif|monospace|cursive|inherit|-apple-system|BlinkMacSystemFont|Georgia|Arial|Arial Narrow|Helvetica|Times New Roman|Courier New|ui-\w+)$/
+
+  // Σπασμένες φωτογραφίες: το Unsplash σβήνει κατά καιρούς εικόνες και μένει
+  // γκρι κουτί στο demo που βλέπει ο πελάτης. Το naturalWidth το λέει σίγουρα.
+  const broken = [...document.querySelectorAll('img')]
+    .filter((i) => i.complete && i.naturalWidth === 0)
+    .map((i) => i.currentSrc || i.src).slice(0, 4)
 
   const invisible = [], missingFont = new Set()
 
@@ -126,7 +132,7 @@ function auditVisible() {
     const ratio = (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)
     if (ratio < 3) invisible.push({ tag: el.tagName, text, ratio: ratio.toFixed(2) })
   }
-  return { invisible, missingFont: [...missingFont] }
+  return { invisible, missingFont: [...missingFont], broken }
 }
 
 const run = async () => {
@@ -152,13 +158,14 @@ const run = async () => {
       await page.waitForTimeout(400)
 
       const height = await page.evaluate(() => document.body.scrollHeight)
-      const seen = new Map(), fonts = new Set()
+      const seen = new Map(), fonts = new Set(), broken = new Set()
       for (let y = 0; y < height; y += VH * 0.85) {
         await page.evaluate((v) => window.scrollTo(0, v), y)
         await page.waitForTimeout(180)
         const res = await page.evaluate(auditVisible)
         res.invisible.forEach((v) => seen.set(`${v.tag}|${v.text}`, v))
         res.missingFont.forEach((f) => fonts.add(f))
+        res.broken.forEach((b) => broken.add(b))
       }
 
       const invisible = [...seen.values()]
@@ -166,6 +173,7 @@ const run = async () => {
       const bad = []
       if (invisible.length) bad.push(`αόρατο κείμενο ×${invisible.length}`)
       if (fonts.size) bad.push(`fonts που δεν κατεβάσαμε: ${[...fonts].join(', ')}`)
+      if (broken.size) bad.push(`σπασμένες φωτογραφίες ×${broken.size}`)
       if (ext.size) bad.push(`εξωτερικά αιτήματα: ${[...ext].join(', ')}`)
       if (cookies.length) bad.push(`cookies: ${cookies.length}`)
 

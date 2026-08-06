@@ -101,14 +101,31 @@ hello@getvitrina.gr · getvitrina.gr
 Το API μας τρέχει στο Railway, που **δεν δίνει σταθερή IP εξόδου** στα φθηνά
 πλάνα — η IP αλλάζει σε κάθε deploy. Χωρίς αυτήν δεν παίρνουμε ούτε sandbox.
 
-Επιλογές, από φθηνή προς ακριβή:
-1. **Μικρό VPS ως proxy** (~4-5€/μήνα, Hetzner/DigitalOcean) — μόνο οι κλήσεις
-   προς Pointer περνούν από εκεί. Απλό, προβλέψιμο, δουλεύει σίγουρα.
-2. **Cloudflare Worker + σταθερή έξοδο** — δεν εγγυάται σταθερή IP· δεν το
-   εμπιστευόμαστε για whitelist.
-3. **Railway plan με static egress** — να επιβεβαιωθεί αν προσφέρεται.
+Επιλογές (επαληθευμένες 06/08):
+1. **Railway Pro — $20/μήνα, στατικές IP χωρίς επιπλέον χρέωση.**
+   Settings → Networking → Enable Static IPs. Δίνει **3 IPv4** με load balancing
+   (τους τις στέλνουμε και τις τρεις). Καμία νέα υποδομή, ο κώδικας μένει εκεί
+   που είναι. Προσοχή: αλλαγή region = αλλαγή IP, και δεν εγγυώνται αποκλειστικές.
+   https://docs.railway.com/networking/static-outbound-ips
+2. **Μικρό VPS ως proxy** — ~4€/μήνα (Hetzner). Φθηνότερο, αλλά ένα ακόμα
+   μηχάνημα να συντηρείς και ο κώδικας των domain φεύγει από το Railway.
+3. ~~Cloudflare Worker~~ — δεν εγγυάται σταθερή IP, δεν κάνει για whitelist.
+
+**Πρόταση: (1)**, ΑΝ πάμε Pro ούτως ή άλλως. Αλλιώς (2). Στα €14.99/πελάτη,
+τα $20 είναι μιάμιση συνδρομή — δεν αξίζει πριν υπάρχουν πελάτες.
 
 Πρόταση: (1). Είναι το μόνο που δεν εξαρτάται από τιμολόγιο τρίτου.
+
+### Κατάσταση υλοποίησης
+- ✅ **Adapter γραμμένος**: [src/registrar_pointer.py](../src/registrar_pointer.py)
+  — login/logout, domain-check, contact-domain.create, domain.create, updatens.
+  Τα checksums επαληθεύτηκαν ότι βγαίνουν ίδια με το επίσημο PHP παράδειγμά τους.
+- ⏳ Αδοκίμαστο σε ζωντανό API — περιμένει sandbox (στατική IP).
+
+Τρία που ΔΕΝ γράφει η τεκμηρίωσή τους και τα βρήκαμε στο `pointer_api.php`:
+- URL: `https://www.pointer.gr/api`
+- Sandbox = header `testserver: 1`, όχι άλλο endpoint
+- Το checksum θέλει το όνομα ΜΕΘΟΔΟΥ (`domainCheck`), όχι το XML tag (`domain-check`)
 
 ### Σειρά ενεργειών
 1. Άνοιγμα λογαριασμού Pointer + μικρό υπόλοιπο
