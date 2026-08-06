@@ -1,6 +1,6 @@
 .page{--bg:#0e1016;--surface:#171a22;--ink:#f4f3ef;--ink-soft:#a6a49c;--accent:#ff8a3d;--green:#1db954;
   --line:rgba(244,243,239,.1);--serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
-  background:var(--bg);color:var(--ink);font-family:var(--sans);min-height:100vh;padding-bottom:120px}
+  background:var(--bg);color:var(--ink);font-family:var(--sans);min-height:100vh;padding-bottom:170px}
 .center{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
   background:#0e1016;color:#a6a49c;font-family:'Inter',system-ui,sans-serif;text-align:center;padding:20px}
 .spin{width:30px;height:30px;border:3px solid rgba(255,255,255,.15);border-top-color:#ff8a3d;border-radius:50%;animation:sp 1s linear infinite}
@@ -9,7 +9,10 @@
 .eyebrow{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
 .head h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,6vw,3.6rem);margin:.8rem 0}
 .head p{color:var(--ink-soft);font-size:1.1rem}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1200px;margin:0 auto;padding:0 16px}
+/* Δείχνουμε ΤΕΣΣΕΡΑ σχέδια (smart-match). Σε 3 στήλες το τέταρτο έμενε
+   ορφανό στη δεύτερη σειρά και το σκέπαζε η σταθερή μπάρα — ο πελάτης
+   νόμιζε ότι έχει 3 επιλογές. 2x2 τα δείχνει και τα τέσσερα μαζί. */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:1080px;margin:0 auto;padding:0 16px}
 .card{position:relative;background:var(--surface);border:2px solid var(--line);border-radius:16px;overflow:hidden;
   cursor:pointer;padding:0;font-family:inherit;color:inherit;transition:transform .18s,border-color .18s;text-align:left}
 .card:hover{transform:translateY(-4px)}
