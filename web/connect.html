@@ -50,8 +50,8 @@
   <div class="wrap">
     <div class="hero">
       <h1>Vitrina</h1>
-      <p>Site + καθημερινά posts στο Facebook & Instagram — χωρίς να κάνεις τίποτα.</p>
-      <p class="price">Site <strong>€14.99/μήνα</strong> · + Posts <strong>€29.99/μήνα</strong> · 1ος μήνας δωρεάν</p>
+      <p>Το site του μαγαζιού σου, έτοιμο σε δύο λεπτά — χωρίς να ξέρεις τίποτα.</p>
+      <p class="price"><strong>€14.99/μήνα</strong> · 1ος μήνας δωρεάν · Ακύρωση όποτε θες</p>
     </div>
 
     <!-- Βήμα 1: Στοιχεία -->
@@ -65,7 +65,7 @@
         <label>Τι θέλεις (περιγραφή)</label>
         <textarea name="description" id="description" rows="3"
           style="width:100%;padding:12px;border:1px solid #d6e0ea;border-radius:8px;font-size:1rem;font-family:inherit;resize:vertical;"
-          placeholder="π.χ. Έχω ταβέρνα στη Θεσσαλονίκη, παραδοσιακή, θέλω και καθημερινά posts…"></textarea>
+          placeholder="π.χ. Έχω ταβέρνα στη Θεσσαλονίκη, παραδοσιακή, με σπιτικό φαγητό…"></textarea>
 
         <label>Όνομα μαγαζιού</label>
         <input name="name" required placeholder="π.χ. Ταβέρνα Ο Μήτσος">
@@ -174,7 +174,7 @@
         <div style="font-weight:700;font-size:1.1rem;margin-bottom:4px;">Site — €14.99/μήνα</div>
         <div style="opacity:.8;font-size:.95rem;">Το site σου, φιλοξενία, απεριόριστες αλλαγές ·
           1ος μήνας <span style="color:var(--a);font-weight:700;">ΔΩΡΕΑΝ</span><br>
-          <span style="font-size:.9rem;">Θες και 7 έτοιμα posts κάθε βδομάδα; +€29.99/μήνα — το προσθέτεις όποτε θες.</span></div>
+</div>
       </div>
       <button class="btn btn-primary" id="pay-btn" onclick="startCheckout()">
         Ξεκίνα δωρεάν →
@@ -318,12 +318,12 @@
         currentClientId = cid;
         const domain = params.get("domain") || "το domain σου";
         showDomainReturnMessage(`✅ Πληρώθηκε το ${domain}. Ξεκινά η αγορά/σύνδεση και συνεχίζεις με social.`);
-        showConnectStep();
+        showPaymentStep();
       } else if (step === "domain_cancel" && cid) {
         currentClientId = cid;
         const domain = params.get("domain") || "domain";
         showDomainReturnMessage(`Η πληρωμή για ${domain} ακυρώθηκε. Μπορείς να συνεχίσεις χωρίς domain ή να το ξαναπροσπαθήσεις αργότερα.`);
-        showConnectStep();
+        showPaymentStep();
       } else if (step === "pay" && cid) {
         // legacy / fallback
         currentClientId = cid;
@@ -390,14 +390,14 @@
       } catch (err) {
         console.error(err);
         // Αν αποτύχει, πήγαινε κατευθείαν στο επόμενο βήμα
-        showConnectStep();
+        showPaymentStep();
       }
     }
 
     function renderDomains(results) {
       const grid = document.getElementById("domain-grid");
       if (!results || results.length === 0) {
-        showConnectStep();
+        showPaymentStep();
         return;
       }
       grid.innerHTML = results.map(r => `
@@ -448,7 +448,7 @@
 
     function skipDomain() {
       selectedDomain = null;
-      showConnectStep();
+      showPaymentStep();
     }
 
     function showDomainReturnMessage(message) {
@@ -517,6 +517,15 @@
     }
 
     // --- Βήμα 3: Facebook connect ---
+    // Τα social είναι Φάση 2. Ο πελάτης πάει από το domain κατευθείαν στην
+    // πληρωμή· ο κώδικας του Facebook μένει (τον χρησιμοποιούμε εσωτερικά για
+    // τη δική μας σελίδα) αλλά δεν εμφανίζεται σε κανέναν πελάτη.
+    function showPaymentStep() {
+      const pay = document.getElementById("payment");
+      pay.style.display = "block";
+      pay.scrollIntoView({behavior:"smooth"});
+    }
+
     function showConnectStep() {
       const conn = document.getElementById("connect");
       conn.style.display = "block";
