@@ -14,16 +14,19 @@ const DEMO_BY_TEMPLATE = {
   magazine: 'taverna',
   warmth: 'taverna',
   ember: 'taverna',
-  marble: 'dentist',
+  marble: 'physician',
   runway: 'salon',
   forge: 'plumber',
   aegean: 'rooms',
-  bloom: 'cafe',
+  bloom: 'aesthetics',
   volt: 'gym',
   motor: 'garage',
   terra: 'farm',
   dispatch: 'plumber',
   canvas: 'carpenter',
+  cinematic: 'massage',
+  quiet: 'physician',
+  living: 'massage',
 }
 
 export const metadata = {

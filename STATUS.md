@@ -33,6 +33,14 @@
 6. Vertical demos: χρησιμοποιούμε το `docs/21-VERTICAL-REFERENCE-LIBRARY.md` ως research baseline
    και σχεδιάζουμε πρώτα τη σωστή conversion architecture ανά επάγγελμα, μετά τα themes.
 
+### Νέα vertical demos
+
+- `aesthetics` → `/preview/bloom?biz=aesthetics` και `/gia/aisthitiki`.
+- `massage` → `/preview/living?biz=massage` και `/gia/masaz`.
+- `physician` → `/preview/marble?biz=physician` και `/gia/iatreio`.
+- Τα `Bloom`, `Living`, `Marble` παίρνουν πλέον επαγγελματικά labels και CTA από τα business
+  data. Δεν επιτρέπονται hard-coded φράσεις τύπου «καλούδια» ή «υλικά» σε άσχετα verticals.
+
 Μην ξαναχτίσεις chooser, 12-design recommendation, vertical matching, no-photo mode ή compliance
 documents. Υπάρχουν ήδη και έχουν περάσει QA.
 

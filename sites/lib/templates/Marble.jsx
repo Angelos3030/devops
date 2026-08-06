@@ -13,7 +13,7 @@ export default function Marble({ data: d }) {
       <nav className={s.nav}>
         <a href="#top" className={s.brand}><Brand data={d} /></a>
         <div className={s.navLinks}>
-          <a href="#index">Τομείς</a>
+          <a href="#index">{d.SERVICES_NAV || 'Υπηρεσίες'}</a>
           <a href="#ethos">Προσέγγιση</a>
           <a href="#contact">Επικοινωνία</a>
         </div>
@@ -26,7 +26,7 @@ export default function Marble({ data: d }) {
           <h1 className={s.title}>{d.NAME}</h1>
           <p className={s.lede}>{d.TAGLINE}</p>
           <div className={s.heroRow}>
-            <a href={tel} className={s.cta}>Κλείσε συνάντηση</a>
+            <a href={tel} className={s.cta}>{d.PRIMARY_CTA || 'Κλείσε ραντεβού'}</a>
             <span className={s.hours}>{d.HOURS}</span>
           </div>
         </div>
@@ -40,8 +40,8 @@ export default function Marble({ data: d }) {
 
       <section id="index" className={s.index}>
         <header className={s.secHead}>
-          <span className={s.eyebrow}>Τομείς</span>
-          <h2>Σε τι μπορούμε να βοηθήσουμε</h2>
+          <span className={s.eyebrow}>{d.SERVICES_EYEBROW || 'Ιατρικές υπηρεσίες'}</span>
+          <h2>{d.SERVICES_TITLE || 'Πώς μπορούμε να βοηθήσουμε'}</h2>
         </header>
         <ol className={s.ledger}>
           {d.services?.map((sv, i) => (
@@ -59,7 +59,7 @@ export default function Marble({ data: d }) {
 
       <section id="ethos" className={s.ethos}>
         <div className={s.ethosInner}>
-          <span className={s.eyebrowLight}>Η προσέγγισή μας</span>
+          <span className={s.eyebrowLight}>{d.STORY_EYEBROW || 'Η προσέγγισή μας'}</span>
           <blockquote className={s.pull}>{d.STORY_TITLE}</blockquote>
           <div className={s.ethosCols}>
             {d.story?.map((p, i) => <p key={i}>{p.p}</p>)}

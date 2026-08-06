@@ -21,8 +21,8 @@ export default function Bloom({ data: d }) {
           <h1 className={s.title}>{d.NAME}</h1>
           <p className={s.lede}>{d.TAGLINE}</p>
           <div className={s.heroBtns}>
-            <a href={tel} className={s.cta}>Πάρε μας τηλέφωνο</a>
-            <a href="#treats" className={s.ctaSoft}>Δες τα καλούδια ↓</a>
+            <a href={tel} className={s.cta}>{d.PRIMARY_CTA || 'Πάρε μας τηλέφωνο'}</a>
+            <a href="#treats" className={s.ctaSoft}>{d.SECONDARY_CTA || 'Δες περισσότερα ↓'}</a>
           </div>
         </div>
         {d.HERO_IMAGE && (
@@ -33,7 +33,7 @@ export default function Bloom({ data: d }) {
       </header>
 
       <section id="treats" className={s.treats}>
-        <h2 className={s.secTitle}>Τι θα βρεις εδώ</h2>
+        <h2 className={s.secTitle}>{d.SERVICES_TITLE || 'Τι θα βρεις εδώ'}</h2>
         <div className={s.treatGrid}>
           {d.services?.map((sv, i) => (
             <div key={i} className={s.treat}>
@@ -56,10 +56,10 @@ export default function Bloom({ data: d }) {
 
       <section id="story" className={s.story}>
         <div className={s.storyCard}>
-          <span className={s.eyebrow}>Η ιστορία μας</span>
+          <span className={s.eyebrow}>{d.STORY_EYEBROW || 'Η ιστορία μας'}</span>
           <h2 className={s.storyTitle}>{d.STORY_TITLE}</h2>
           {d.story?.map((p, i) => <p key={i}>{p.p}</p>)}
-          <span className={s.sig}>♥ {d.NAME}</span>
+          <span className={s.sig}>{d.SIGNATURE || d.NAME}</span>
         </div>
         {d.STORY_IMAGE && (
           <figure className={s.archSmall}>

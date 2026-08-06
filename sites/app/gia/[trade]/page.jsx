@@ -24,8 +24,18 @@ export const TRADES = {
   },
   iatreio: {
     label: 'ιατρεία & κλινικές', hero: 'Εμπιστοσύνη από την πρώτη ματιά.',
-    biz: 'dentist', templates: ['marble', 'split', 'editorial', 'grid'],
+    biz: 'physician', templates: ['marble', 'quiet', 'split', 'grid'],
     points: ['Καθαρή παρουσίαση υπηρεσιών', 'Ραντεβού & ωράριο μπροστά', 'Σοβαρή, ήρεμη αισθητική'],
+  },
+  aisthitiki: {
+    label: 'κέντρα αισθητικής', hero: 'Η φροντίδα σου αξίζει μια όμορφη πρώτη εικόνα.',
+    biz: 'aesthetics', templates: ['bloom', 'runway', 'quiet', 'canvas'],
+    points: ['Θεραπείες με καθαρή παρουσίαση', 'Ραντεβού σε ένα άγγιγμα', 'Premium αισθητική χωρίς υπερβολές'],
+  },
+  masaz: {
+    label: 'μασάζ & χώρους ευεξίας', hero: 'Η εμπειρία χαλάρωσης ξεκινά πριν το ραντεβού.',
+    biz: 'massage', templates: ['living', 'cinematic', 'quiet', 'bloom'],
+    points: ['Ατμόσφαιρα που μεταφέρει την εμπειρία', 'Υπηρεσίες και διάρκεια με σαφήνεια', 'Κράτηση με ένα άγγιγμα'],
   },
   dikigoros: {
     label: 'δικηγόρους & λογιστές', hero: 'Κύρος που φαίνεται πριν το πρώτο ραντεβού.',
