@@ -1,7 +1,30 @@
 import Link from 'next/link'
 import { TEMPLATE_KEYS, TEMPLATE_META } from '../lib/templates'
-import { demoBusinesses, demoOrder } from '../lib/demoData'
+import { demoBusinesses } from '../lib/demoData'
 import s from './page.module.css'
+
+const DEMO_BY_TEMPLATE = {
+  editorial: 'carpenter',
+  split: 'lawyer',
+  bento: 'cafe',
+  longform: 'lawyer',
+  poster: 'gym',
+  sidebar: 'plumber',
+  grid: 'dentist',
+  magazine: 'taverna',
+  warmth: 'taverna',
+  ember: 'taverna',
+  marble: 'dentist',
+  runway: 'salon',
+  forge: 'plumber',
+  aegean: 'rooms',
+  bloom: 'cafe',
+  volt: 'gym',
+  motor: 'garage',
+  terra: 'farm',
+  dispatch: 'plumber',
+  canvas: 'carpenter',
+}
 
 export const metadata = {
   title: 'Vitrina — Το site της επιχείρησής σου, έτοιμο σε λεπτά',
@@ -49,8 +72,8 @@ export default function Showcase() {
           <h2>Διάλεξε το ύφος σου.</h2>
         </div>
         <div className={s.grid}>
-          {TEMPLATE_KEYS.map((k, i) => {
-            const bizKey = demoOrder[i % demoOrder.length]
+          {TEMPLATE_KEYS.map((k) => {
+            const bizKey = DEMO_BY_TEMPLATE[k] || 'carpenter'
             const biz = demoBusinesses[bizKey]
             const href = `/preview/${k}?biz=${bizKey}`
             return (

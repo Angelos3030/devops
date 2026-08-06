@@ -118,7 +118,7 @@ class PointerRegistrar:
         return [{"domain": d, "available": found.get(d), "price": cfg.DOMAIN_PRICE_EUR}
                 for d in domains]
 
-    def register_domain(self, domain: str, years: int = 1) -> dict[str, Any]:
+    def register_domain(self, domain: str, years: int | None = None) -> dict[str, Any]:
         from . import registrar_pointer as rp
         contact = os.environ.get("POINTER_CONTACT_CODE", "")
         if not contact:
@@ -126,6 +126,7 @@ class PointerRegistrar:
                 "Λείπει POINTER_CONTACT_CODE (η επαφή ιδιοκτήτη). "
                 "Φτιάξ' την μία φορά με registrar_pointer.create_contact().")
         with rp.Pointer(sandbox=self.sandbox) as p:
+            # years=None → ο adapter βάζει το ελάχιστο της κατάληξης (2 για .gr)
             return p.register(domain, registrant=contact, years=years)
 
 

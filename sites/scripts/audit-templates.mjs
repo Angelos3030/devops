@@ -13,18 +13,23 @@ const viewports = {
   desktop: { width: 1440, height: 1024 },
   mobile: { width: 390, height: 844 },
 }
+const official = new Set(['editorial', 'split', 'bento', 'longform', 'poster', 'sidebar', 'grid', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas'])
 const outDir = path.resolve('artifacts/template-audit')
 await mkdir(outDir, { recursive: true })
 
 const browser = await chromium.launch({ headless: true })
 const results = []
 for (const template of templates) {
-  for (const [viewport, size] of Object.entries(viewports)) {
+  const cases = [
+    ...Object.entries(viewports).map(([viewport, size]) => ({ viewport, size, photoMode: 'real' })),
+    ...(official.has(template) ? [{ viewport: 'mobile', size: viewports.mobile, photoMode: 'none' }] : []),
+  ]
+  for (const { viewport, size, photoMode } of cases) {
     const page = await browser.newPage({ viewport: size })
     const errors = []
     page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()) })
     page.on('pageerror', error => errors.push(error.message))
-    const response = await page.goto(`${base}/preview/${template}?biz=carpenter`, { waitUntil: 'networkidle' })
+    const response = await page.goto(`${base}/preview/${template}?biz=carpenter&photos=${photoMode}`, { waitUntil: 'networkidle' })
     await page.evaluate(async () => {
       for (let y = 0; y < document.documentElement.scrollHeight; y += window.innerHeight * .8) {
         window.scrollTo(0, y)
@@ -38,10 +43,12 @@ for (const template of templates) {
       scrollWidth: document.documentElement.scrollWidth,
       images: [...document.images].map(img => ({ src: img.currentSrc, width: img.naturalWidth, height: img.naturalHeight })),
     }))
-    await page.screenshot({ path: path.join(outDir, `${template}-${viewport}.png`), fullPage: true })
+    const shotName = photoMode === 'none' ? `${template}-${viewport}-no-photo.png` : `${template}-${viewport}.png`
+    await page.screenshot({ path: path.join(outDir, shotName), fullPage: true })
     results.push({
       template,
       viewport,
+      photoMode,
       status: response?.status(),
       overflow: metrics.scrollWidth > metrics.innerWidth,
       brokenImages: metrics.images.filter(img => !img.width || !img.height).length,

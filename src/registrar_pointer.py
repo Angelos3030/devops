@@ -39,6 +39,10 @@ TIMEOUT = 30
 # Κενό = απευθείας (όταν τρέχει στο ίδιο το μηχάνημα με τη στατική IP).
 PROXY = os.environ.get("POINTER_PROXY", "").strip()
 
+# Ελάχιστη διάρκεια κατοχύρωσης ανά κατάληξη. Το μητρώο του .gr δέχεται ΜΟΝΟ
+# διετίες — αν ζητήσεις 1 χρόνο, το αίτημα απορρίπτεται.
+MIN_YEARS = {".gr": 2, ".com.gr": 2, ".net.gr": 2, ".org.gr": 2, ".edu.gr": 2}
+
 # Τα δικά μας nameservers — τα domain των πελατών δείχνουν στο Cloudflare.
 DEFAULT_NS = (
     os.environ.get("POINTER_NS1", ""),
@@ -199,9 +203,16 @@ class Pointer:
         return (root.findtext("contact-domain/result/code")
                 or root.findtext("code") or "").strip()
 
-    def register(self, domain: str, *, registrant: str, years: int = 1,
+    def register(self, domain: str, *, registrant: str, years: int | None = None,
                  ns1: str = "", ns2: str = "", lock: bool = True) -> dict[str, Any]:
-        """Αγοράζει το domain. ΤΡΑΒΑΕΙ ΧΡΗΜΑΤΑ όταν sandbox=False."""
+        """Αγοράζει το domain. ΤΡΑΒΑΕΙ ΧΡΗΜΑΤΑ όταν sandbox=False.
+
+        `years=None` → διαλέγει μόνο του το ελάχιστο της κατάληξης. Τα .gr
+        κατοχυρώνονται ΥΠΟΧΡΕΩΤΙΚΑ για 2 χρόνια (κανόνας του μητρώου)· αίτημα
+        για 1 χρόνο απορρίπτεται.
+        """
+        if years is None:
+            years = MIN_YEARS.get("." + domain.split(".", 1)[-1], 1)
         ns1 = ns1 or DEFAULT_NS[0]
         ns2 = ns2 or DEFAULT_NS[1]
         if not ns1 or not ns2:

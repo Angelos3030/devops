@@ -3,6 +3,7 @@ import { pickTemplate } from '../../../lib/templates'
 import { buildMetadata, buildJsonLd } from '../../../lib/seo'
 import CallBar from '../../../lib/templates/CallBar'
 import { withMediaFallback } from '../../../lib/mediaFallback'
+import MediaDisclosure from '../../../lib/templates/MediaDisclosure'
 
 export const dynamic = 'force-dynamic' // multi-tenant: render per request (ISR via fetch revalidate)
 
@@ -10,7 +11,7 @@ export async function generateMetadata({ params, searchParams }) {
   try {
     const { data } = await getSiteData(params.client, searchParams?.layout)
     const domain = String(params.client).includes('.') ? params.client : undefined
-    return buildMetadata(data, { domain })
+    return buildMetadata(withMediaFallback(data), { domain })
   } catch {
     return { title: 'Vitrina' }
   }
@@ -37,6 +38,7 @@ export default async function SitePage({ params, searchParams }) {
       {/* Local-SEO structured data (Google rich results + local ranking) */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Template data={siteData} />
+      <MediaDisclosure data={siteData} />
       <CallBar data={siteData} />
     </>
   )

@@ -87,7 +87,7 @@ python scripts/e2e.py --quick    # χωρίς εγγραφή, πιο γρήγο�
 ```
 
 Ελέγχει ό,τι βλέπει πραγματικός πελάτης: εγγραφή, σχέδια, ασφάλεια,
-ζωντανό site, χάρτης, schema, robots/sitemap ανά domain, και τα 22 templates.
+ζωντανό site, χάρτης, schema, robots/sitemap ανά domain, και τα 20 επίσημα templates.
 Επιστρέφει `1` αν κάτι έσπασε. **Τρέξ' το πριν και μετά το deploy.**
 
 ```bash
@@ -205,6 +205,7 @@ AI_API_KEY=sk-ant-…          # και τίποτα άλλο
 | [docs/12-META-APP-REVIEW.md](docs/12-META-APP-REVIEW.md) | Meta App Review βήμα-βήμα |
 | [docs/14-DOMAIN-AUTOMATION.md](docs/14-DOMAIN-AUTOMATION.md) | Domains: προτάσεις → πληρωμή → DNS |
 | [docs/16-GOOGLE-META-AUTOMATION.md](docs/16-GOOGLE-META-AUTOMATION.md) | Google Business Profile, Facebook/Instagram posts και ads approvals |
+| [docs/17-TEMPLATE-COLLECTION.md](docs/17-TEMPLATE-COLLECTION.md) | Η επίσημη συλλογή 20 templates, photo modes και quality gate |
 | [docs/emails-reseller.md](docs/emails-reseller.md) | Επαφές registrar (Papaki, Pointer) |
 
 ## 11. Τι εκκρεμεί
