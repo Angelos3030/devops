@@ -99,7 +99,7 @@ def _profession(intake: dict[str, Any]) -> str:
         return "medical"
     if any(w in text for w in (
         "κομμωτ", "beauty", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ",
-        "nail", "hair", "salon", "αισθητικ",
+        "nail", "nixia", "nyxia", "nuxia", "hair", "salon", "αισθητικ",
     )):
         return "beauty"
     if any(w in text for w in (
@@ -234,7 +234,7 @@ _VERTICAL_RULES = (
     ("doctor", ("ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "διαιτολογ", "ψυχολογ", "κτηνιατρ")),
     ("aesthetics", ("αισθητικ", "beauty clinic", "κεντρο ομορφια", "μακιγι", "laser αποτριχ")),
     ("massage", ("μασαζ", "massage", "spa", "wellness")),
-    ("beauty", ("κομμωτ", "beauty", "hair", "salon", "barber", "κουρει", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ", "nail")),
+    ("beauty", ("κομμωτ", "beauty", "hair", "salon", "barber", "κουρει", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ", "nail", "nixia", "nyxia", "nuxia")),
     ("retail", ("καταστημα", "retail", "store", "boutique", "μπουτικ", "ανθοπωλ", "λουλουδ", "ρουχ", "υποδημα", "παπουτσ", "κοσμημ", "οπτικ", "βιβλιοπωλ", "δωρα")),
     ("wood", ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")),
     ("professional", ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "μεσιτ", "ασφαλισ", "notary", "συμβολαιογρ")),
