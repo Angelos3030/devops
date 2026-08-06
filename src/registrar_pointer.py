@@ -9,16 +9,24 @@ Pointer.gr — αγορά και διαχείριση domain μέσω του API
 
   1. **URL**: https://www.pointer.gr/api — δεν αναφέρεται πουθενά στο API.md.
   2. **Sandbox**: δεν είναι άλλο endpoint· είναι το header `testserver: 1`.
-  3. **Checksum**: md5(username + password + ACTION + key), όπου ACTION είναι το
-     όνομα της μεθόδου τους (`domainCheck`), ΟΧΙ το XML tag (`domain-check`).
+  3. **Checksum**: md5(username + password + ACTION + key). Το ACTION δεν
+     προκύπτει από το XML tag και **δεν ακολουθεί ενιαίο κανόνα** — το βρήκαμε
+     δοκιμάζοντας στο sandbox (λάθος όνομα → «103 Invalid Key»):
+        <domain-check>              → domainCheck
+        <domain><create>            → createDomain          (ΟΧΙ domainCreate)
+        <contact-domain><create>    → createContactDomain
      Ο κωδικός μπαίνει ΩΜΟΣ στο checksum αλλά md5-αρισμένος στο <password>.
 
 Χρειάζεται προπληρωμένο υπόλοιπο στον λογαριασμό — κάθε ενέργεια το τραβάει
 άμεσα (κωδικός σφάλματος 303 όταν δεν φτάνει).
 
-⚠️ Δεν έχει δοκιμαστεί σε ζωντανό API: το sandbox θέλει στατική IP που δεν
-έχουμε ακόμα (βλ. docs/emails-reseller.md). Ο κώδικας ακολουθεί κατά γράμμα
-το επίσημο παράδειγμά τους.
+Επαληθευμένο στο sandbox (06/08): login, domain-check και createDomain
+απαντούν σωστά. Η κατοχύρωση χρειάζεται **κωδικό επαφής ιδιοκτήτη**
+(POINTER_CONTACT_CODE) — φτιάχνεται μία φορά από «Οι επαφές μου» στο panel.
+
+⚠️ Στο dev τους το domain-check επιστρέφει `available: 0` για ΤΑ ΠΑΝΤΑ, ακόμα
+και για ελεύθερα ονόματα. Τους το έχουμε αναφέρει· μην εμπιστεύεσαι το sandbox
+για διαθεσιμότητα.
 """
 from __future__ import annotations
 
@@ -205,7 +213,7 @@ class Pointer:
             f"<phone>{phone}</phone><email>{email}</email>"
             "</create></contact-domain>"
         )
-        root = self._post(self._envelope("contactDomainCreate", inner))
+        root = self._post(self._envelope("createContactDomain", inner))
         return (root.findtext("contact-domain/result/code")
                 or root.findtext("code") or "").strip()
 
@@ -231,7 +239,7 @@ class Pointer:
             f"<lock>{1 if lock else 0}</lock>"
             "</create></domain>"
         )
-        root = self._post(self._envelope("domainCreate", inner))
+        root = self._post(self._envelope("createDomain", inner))
         return {"ok": True, "domain": domain,
                 "message": (root.findtext("message") or "").strip()}
 
@@ -240,4 +248,4 @@ class Pointer:
         inner = ("<domain><updatens>"
                  f"<domain>{domain}</domain><ns1>{ns1}</ns1><ns2>{ns2}</ns2>"
                  "</updatens></domain>")
-        self._post(self._envelope("domainUpdatens", inner))
+        self._post(self._envelope("updatensDomain", inner))  # ανεπιβεβαίωτο
