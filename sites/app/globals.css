@@ -3,3 +3,5 @@ html,body{margin:0;padding:0}
 body{-webkit-font-smoothing:antialiased;font-family:'Inter',system-ui,sans-serif}
 img{display:block;max-width:100%}
 a{color:inherit}
+:where(a,button,input,select,textarea):focus-visible{outline:3px solid #f0b84b;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

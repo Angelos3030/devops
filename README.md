@@ -112,16 +112,35 @@ cd sites && npx next build       # ότι χτίζει το frontend
 
 ## 7. Τα templates
 
-22 React templates στο [sites/lib/templates/](sites/lib/templates/) — δομικά
+20 επιλεγμένα React templates στο [sites/lib/templates/](sites/lib/templates/) — δομικά
 διαφορετικά, με δικά τους ελληνικά fonts και χρώματα, όχι recolors.
+
+Υπάρχουν 24 renderable archetypes συνολικά. Τα 4 legacy (`showcase`, `corporate`, `coast`,
+`pulse`) παραμένουν διαθέσιμα για υπάρχοντες πελάτες, αλλά δεν προτείνονται σε νέους.
 
 Το `recommend_templates()` στο [src/premium_generator.py](src/premium_generator.py)
 διαλέγει ποια θα δει ο πελάτης ανάλογα με το επάγγελμα (ταβέρνα → `ember`,
 κομμωτήριο → `bloom`, συνεργείο → `motor`…).
 
-**Δεν προσθέτουμε άλλα templates.** 22 φτάνουν· η δουλειά τώρα είναι διανομή.
+**Δεν προσθέτουμε άλλα templates.** Η επίσημη συλλογή των 20 φτάνει· η δουλειά τώρα είναι ποιότητα και διανομή.
 
 Δες ένα: http://localhost:3000/preview/ember?biz=taverna
+
+## 7b. Production ποιότητα για κάθε νέο site
+
+Το υποχρεωτικό end-to-end workflow για όλους τους agents βρίσκεται στο
+[`CLAUDE.md`](CLAUDE.md). Περιγράφει intake, τρεις κατάλληλες design επιλογές, responsive
+υλοποίηση, local SEO, browser QA, αποθήκευση στο multi-tenant data model και σύνδεση domain.
+
+Κάθε πελάτης υποστηρίζεται σε τρία photo modes:
+
+- **real:** χρησιμοποιούμε τις πραγματικές φωτογραφίες του,
+- **mixed:** πραγματικές φωτογραφίες μαζί με προσεκτικά επιλεγμένο συμπληρωματικό υλικό,
+- **no-photo:** ολοκληρωμένο premium site ακόμη και χωρίς καμία φωτογραφία πελάτη.
+
+Stock ή AI εικόνες δεν παρουσιάζονται ποτέ ως πραγματικά έργα του πελάτη. Preview δεν
+παραδίδεται μόνο επειδή κάνει build: απαιτείται οπτικός έλεγχος σε mobile, tablet και desktop,
+λειτουργικά CTA/forms και QA με αποτέλεσμα `passed`.
 
 ## 8. Μεταβλητές περιβάλλοντος
 
@@ -185,6 +204,7 @@ AI_API_KEY=sk-ant-…          # και τίποτα άλλο
 | [docs/09-MASTER-PLAN.md](docs/09-MASTER-PLAN.md) | Το πλήρες πλάνο |
 | [docs/12-META-APP-REVIEW.md](docs/12-META-APP-REVIEW.md) | Meta App Review βήμα-βήμα |
 | [docs/14-DOMAIN-AUTOMATION.md](docs/14-DOMAIN-AUTOMATION.md) | Domains: προτάσεις → πληρωμή → DNS |
+| [docs/16-GOOGLE-META-AUTOMATION.md](docs/16-GOOGLE-META-AUTOMATION.md) | Google Business Profile, Facebook/Instagram posts και ads approvals |
 | [docs/emails-reseller.md](docs/emails-reseller.md) | Επαφές registrar (Papaki, Pointer) |
 
 ## 11. Τι εκκρεμεί

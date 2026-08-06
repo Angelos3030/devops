@@ -10,6 +10,7 @@ we have official reseller credentials and endpoint docs.
 
 from __future__ import annotations
 
+import os
 from typing import Any, Protocol
 
 import requests
@@ -75,6 +76,56 @@ class DnsRegistrar:
         raise RuntimeError(
             f"Domain {domain}: η αγορά χρειάζεται Papaki reseller (DOMAIN_REGISTRAR=papaki) "
             "ή χειροκίνητη καταχώρηση.")
+
+
+class PointerRegistrar:
+    """Pointer.gr — ο ΜΟΝΟΣ έλεγχος που ρωτάει το ίδιο το registry.
+
+    Ο DnsRegistrar μαντεύει από το DNS: ένα domain αγορασμένο αλλά παρκαρισμένο
+    δεν έχει DNS, οπότε φαίνεται «ελεύθερο». Ο πελάτης το διαλέγει, πληρώνει,
+    και στο ταμείο ανακαλύπτουμε ότι είναι πιασμένο. Εδώ δεν γίνεται αυτό.
+
+    Θέλει POINTER_USERNAME/PASSWORD και πρόσβαση από δηλωμένη στατική IP
+    (βλ. docs/16-STATIC-IP.md). Το `sandbox` ελέγχεται με POINTER_SANDBOX=0
+    για πραγματικές αγορές — προεπιλογή είναι το test registry, ώστε να μη
+    χρεωθεί ποτέ κάτι κατά λάθος.
+    """
+
+    def __init__(self) -> None:
+        from . import registrar_pointer as rp
+        self._rp = rp
+        self.sandbox = os.environ.get("POINTER_SANDBOX", "1") != "0"
+
+    def check_availability(self, domains: list[str]) -> list[dict[str, Any]]:
+        from . import registrar_pointer as rp
+        # Ομαδοποίηση ανά κατάληξη: το API τους παίρνει ονόματα και tld χωριστά.
+        by_tld: dict[str, list[str]] = {}
+        for d in domains:
+            name, _, tld = d.partition(".")
+            by_tld.setdefault("." + tld, []).append(name)
+
+        found: dict[str, bool] = {}
+        try:
+            with rp.Pointer(sandbox=self.sandbox) as p:
+                for tld, names in by_tld.items():
+                    found.update(p.check(names, [tld]))
+        except rp.PointerError as e:
+            # Ποτέ δεν ρίχνουμε το signup επειδή έπεσε ο registrar — γυρνάμε στο
+            # DNS, που είναι εκτίμηση αλλά καλύτερο από άδεια οθόνη.
+            print(f"[pointer] έλεγχος απέτυχε ({e}) → πέφτω σε DNS")
+            return DnsRegistrar().check_availability(domains)
+
+        return [{"domain": d, "available": found.get(d), "price": 24} for d in domains]
+
+    def register_domain(self, domain: str, years: int = 1) -> dict[str, Any]:
+        from . import registrar_pointer as rp
+        contact = os.environ.get("POINTER_CONTACT_CODE", "")
+        if not contact:
+            raise RuntimeError(
+                "Λείπει POINTER_CONTACT_CODE (η επαφή ιδιοκτήτη). "
+                "Φτιάξ' την μία φορά με registrar_pointer.create_contact().")
+        with rp.Pointer(sandbox=self.sandbox) as p:
+            return p.register(domain, registrant=contact, years=years)
 
 
 class PapakiRegistrar:
@@ -150,6 +201,8 @@ class PapakiRegistrar:
 
 
 def get_registrar() -> Registrar:
+    if cfg.DOMAIN_REGISTRAR == "pointer":
+        return PointerRegistrar()
     if cfg.DOMAIN_REGISTRAR == "papaki":
         return PapakiRegistrar()
     if cfg.DOMAIN_REGISTRAR == "manual":

@@ -2,6 +2,7 @@ import { getSiteData } from '../../../lib/api'
 import { pickTemplate } from '../../../lib/templates'
 import { buildMetadata, buildJsonLd } from '../../../lib/seo'
 import CallBar from '../../../lib/templates/CallBar'
+import { withMediaFallback } from '../../../lib/mediaFallback'
 
 export const dynamic = 'force-dynamic' // multi-tenant: render per request (ISR via fetch revalidate)
 
@@ -28,14 +29,15 @@ export default async function SitePage({ params, searchParams }) {
     )
   }
   const Template = pickTemplate(payload.layout)
+  const siteData = withMediaFallback(payload.data)
   const domain = String(params.client).includes('.') ? params.client : undefined
-  const jsonLd = buildJsonLd(payload.data, { domain })
+  const jsonLd = buildJsonLd(siteData, { domain })
   return (
     <>
       {/* Local-SEO structured data (Google rich results + local ranking) */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Template data={payload.data} />
-      <CallBar data={payload.data} />
+      <Template data={siteData} />
+      <CallBar data={siteData} />
     </>
   )
 }

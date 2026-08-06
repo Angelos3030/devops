@@ -27,7 +27,7 @@ Speed matters, but not at the cost of taste. The page must feel alive, local, an
 2b. Write a short spec first using `references/design-spec.md` (the 9 sections), then build.
 3. Compose from blocks, not from a generic page:
    - Sticky nav
-   - Immersive hero with real image
+   - Immersive hero with customer, licensed, or clearly non-deceptive generated imagery
    - Fast proof row
    - Services/menu/products
    - Story or trust section
@@ -44,7 +44,10 @@ Speed matters, but not at the cost of taste. The page must feel alive, local, an
 
 ## Taste Rules
 
-- Use real imagery or customer images. Do not use placeholder boxes.
+- Select a photo mode before building: `real`, `mixed`, or `no-photo`.
+- Prefer customer imagery. When none exists, create a complete no-photo direction with
+  profession-specific licensed/generated visuals, material details, and strong typography.
+- Never present stock or generated imagery as a real customer project. Do not use placeholder boxes.
 - Keep cards at 8px radius or less unless a template already uses a different system.
 - Make the first viewport immediately show the business name, city, and action.
 - Use strong hierarchy: large hero, restrained sections, dense enough content.

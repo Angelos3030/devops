@@ -31,7 +31,7 @@ export default function Coast({ data: d }) {
       <section id="services" className={s.zig}>
         {d.services?.map((sv, i) => (
           <div key={i} className={s.zrow}>
-            <figure className={s.zimg}><img src={(g[i % g.length] || {}).image} alt={sv.title} loading="lazy" /></figure>
+            {g.length > 0 && <figure className={s.zimg}><img src={g[i % g.length].image} alt={sv.title} loading="lazy" /></figure>}
             <div className={s.ztxt}>
               <span className={s.num}>{sv.num}</span>
               <h2>{sv.title}</h2>

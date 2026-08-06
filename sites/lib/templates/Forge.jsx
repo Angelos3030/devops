@@ -7,6 +7,7 @@ import Brand from './Brand'
 // εγγύηση, 24/7) — ο πελάτης εδώ θέλει σιγουριά & άμεσο τηλέφωνο, όχι ποίηση.
 export default function Forge({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
+  const primaryArea = String(d.AREAS || d.CITY || 'Η περιοχή σας').split('·')[0].trim()
   return (
     <div className={s.root}>
       <div className={s.stripe} aria-hidden="true" />
@@ -37,7 +38,7 @@ export default function Forge({ data: d }) {
         <div className={s.trustItem}><strong>Γρήγορη</strong><span>ανταπόκριση</span></div>
         <div className={s.trustItem}><strong>Εγγύηση</strong><span>σε κάθε εργασία</span></div>
         <div className={s.trustItem}><strong>Καθαρές</strong><span>τιμές από πριν</span></div>
-        <div className={s.trustItem}><strong>{d.AREAS.split('·')[0].trim()}</strong><span>& γύρω περιοχές</span></div>
+        <div className={s.trustItem}><strong>{primaryArea}</strong><span>& γύρω περιοχές</span></div>
       </div>
 
       <section id="services" className={s.svc}>

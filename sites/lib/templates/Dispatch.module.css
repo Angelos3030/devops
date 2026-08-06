@@ -18,7 +18,8 @@
   display: grid;
   place-items: center;
   padding: clamp(.9rem, 3vw, 2.4rem);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   background: #0b0d10;
 }
 .root :where(h1, p, dl, dd, dt, ul, li) { margin: 0; padding: 0; }
@@ -138,4 +139,10 @@
 
 @media (max-width: 460px) {
   .facts { grid-template-columns: 1fr; gap: .75rem; }
+}
+
+@media (max-height: 720px) {
+  .root { place-items: start center; }
+  .panel { gap: .8rem; }
+  .job { padding: .5rem 0; }
 }
