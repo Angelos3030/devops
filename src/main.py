@@ -189,4 +189,12 @@ async def upload_asset(
 
 @app.get("/healthz")
 def healthz():
-    return {"ok": True}
+    from . import ai
+    return {
+        "ok": True,
+        "ai": {
+            "configured": ai.available(),
+            "provider": ai.provider() or None,
+            "model": ai.model() if ai.available() else None,
+        },
+    }

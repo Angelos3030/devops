@@ -166,7 +166,9 @@ async function main() {
     try {
       await approve.waitFor({ timeout: 30000 })
     } catch {}
-    check('το AI έφτιαξε draft — δεν αποθήκευσε αυτόματα', await approve.count() > 0)
+    const chatBody = await page.locator('body').innerText()
+    check('το AI έφτιαξε draft — δεν αποθήκευσε αυτόματα', await approve.count() > 0,
+          (await approve.count()) ? '' : chatBody.slice(-350).replace(/\s+/g, ' '))
     if (await approve.count()) {
       await page.getByRole('button', { name: /Απόρριψη/ }).click()
       await page.waitForTimeout(800)
