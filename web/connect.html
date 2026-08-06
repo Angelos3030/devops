@@ -45,6 +45,7 @@
     .upload-zone:hover{border-color:var(--p);background:#f4f8ff;}
     .upload-thumb{width:64px;height:64px;object-fit:cover;border-radius:6px;border:2px solid #e0e8f4;}
   </style>
+  <link rel="stylesheet" href="cookie-consent.css">
 </head>
 <body>
   <div class="wrap">
@@ -104,6 +105,7 @@
 
         <!-- Logo upload -->
         <label style="margin-top:20px;">Λογότυπο <span style="font-weight:400;opacity:.6;">(προαιρετικό)</span></label>
+        <p style="font-size:.82rem;opacity:.7;margin:2px 0 6px;">Δεν έχεις; <strong>Σου φτιάχνουμε καινούργιο</strong> με το όνομά σου.</p>
         <div class="upload-zone" id="logo-zone" onclick="document.getElementById('logo-input').click()">
           <div id="logo-placeholder">📷 Κλικ ή σύρε το λογότυπό σου</div>
           <img id="logo-preview" style="display:none;max-height:80px;border-radius:6px;" />
@@ -112,7 +114,8 @@
                onchange="previewFile(this,'logo-preview','logo-placeholder',512)">
 
         <!-- Photos upload -->
-        <label style="margin-top:16px;">Φωτογραφίες μαγαζιού <span style="font-weight:400;opacity:.6;">(έως 5, προαιρετικό)</span></label>
+        <label style="margin-top:16px;">Φωτογραφίες μαγαζιού <span style="font-weight:400;opacity:.6;">(έως 12, προαιρετικό)</span></label>
+        <p style="font-size:.82rem;opacity:.7;margin:2px 0 6px;">Όσο περισσότερες, τόσο πιο δικό σου δείχνει. Δεν έχεις; <strong>Βάζουμε εμείς κατάλληλες</strong> και τις αλλάζεις όποτε θες.</p>
         <div class="upload-zone" id="photos-zone" onclick="document.getElementById('photos-input').click()">
           <div id="photos-placeholder">📸 Κλικ ή σύρε φωτογραφίες</div>
           <div id="photos-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;"></div>
@@ -225,12 +228,15 @@
 
     // Photos preview (multiple)
     const photoFiles = [];
+    // Πέντε ήταν λίγες: με 12 το site δείχνει πραγματικά δικό του.
+    const MAX_PHOTOS = 12;
+
     async function previewPhotos(input) {
       const container = document.getElementById('photos-preview');
       document.getElementById('photos-placeholder').style.display = 'none';
-      const files = [...input.files].slice(0, 5 - photoFiles.length);
+      const files = [...input.files].slice(0, MAX_PHOTOS - photoFiles.length);
       for (const file of files) {
-        if (photoFiles.length >= 5) break;
+        if (photoFiles.length >= MAX_PHOTOS) break;
         const blob = await compressImage(file, 1400, 0.82);
         photoFiles.push({blob, name: file.name});
         const img = document.createElement('img');
@@ -557,5 +563,6 @@
       }
     }
   </script>
+  <script src="cookie-consent.js" defer></script>
 </body>
 </html>

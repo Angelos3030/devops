@@ -4,7 +4,7 @@ import { TEMPLATE_META } from '../../../lib/templates'
 import s from './choose.module.css'
 
 const API = (process.env.NEXT_PUBLIC_API_BASE || '').replace(/\/$/, '')
-const DEMO_CARPENTER = ['canvas', 'runway', 'grid', 'forge', 'dispatch']
+const DEMO_CARPENTER = ['canvas', 'runway', 'grid', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living']
 
 // Legacy static layouts (fallback όταν το backend δεν στέλνει smart-matched templates)
 const LABELS = {
@@ -113,7 +113,10 @@ export default function Choose({ params }) {
       <header className={s.head}>
         <span className={s.eyebrow}>Σχεδόν έτοιμο</span>
         <h1>Διάλεξε το design σου</h1>
-        <p>Ετοίμασα {variants.length} σχέδια για την επιχείρησή σου. Πάτα σε αυτό που σου αρέσει.</p>
+        <p>
+          Ετοίμασα {variants.length} σχέδια για την επιχείρησή σου. Διάλεξε αυτό που σου
+          αρέσει περισσότερο και μετά το διαμορφώνουμε μαζί, όπως το θέλεις.
+        </p>
       </header>
 
       <div className={s.grid}>
@@ -144,7 +147,7 @@ export default function Choose({ params }) {
               onChange={(e) => uploadFiles(e.target.files, 'photo')} />
             <span className={s.dropIcon}>📸</span>
             <strong>{nPhotos ? `${nPhotos} φωτογραφίες ανέβηκαν ✓` : 'Ανέβασε φωτο από τη δουλειά σου'}</strong>
-            <span className={s.dropHint}>{uploading === 'photo' ? 'Ανεβαίνουν…' : 'Από το κινητό σου, έως 8 (JPG/PNG)'}</span>
+            <span className={s.dropHint}>{uploading === 'photo' ? 'Ανεβαίνουν…' : 'Από το κινητό σου, έως 12. Δεν έχεις; Βάζουμε εμείς κατάλληλες.'}</span>
           </label>
           <label className={s.drop}>
             <input type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" hidden
