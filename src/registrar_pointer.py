@@ -32,6 +32,13 @@ from typing import Any
 API_URL = "https://www.pointer.gr/api"
 TIMEOUT = 30
 
+# Η Pointer δίνει πρόσβαση μόνο σε δηλωμένη (στατική) IP. Το Railway δεν έχει
+# σταθερή IP εξόδου στα φθηνά πλάνα, οπότε οι κλήσεις ΜΟΝΟ προς αυτούς περνούν
+# από δικό μας μικρό μηχάνημα με σταθερή IP.
+#   POINTER_PROXY=http://user:pass@1.2.3.4:8888
+# Κενό = απευθείας (όταν τρέχει στο ίδιο το μηχάνημα με τη στατική IP).
+PROXY = os.environ.get("POINTER_PROXY", "").strip()
+
 # Τα δικά μας nameservers — τα domain των πελατών δείχνουν στο Cloudflare.
 DEFAULT_NS = (
     os.environ.get("POINTER_NS1", ""),
@@ -55,6 +62,14 @@ CODES = {
 }
 
 _ctx = ssl.create_default_context()
+
+
+def _opener() -> urllib.request.OpenerDirector:
+    """Ίδιος opener για όλες τις κλήσεις — με proxy αν έχει οριστεί."""
+    handlers: list[Any] = [urllib.request.HTTPSHandler(context=_ctx)]
+    if PROXY:
+        handlers.append(urllib.request.ProxyHandler({"http": PROXY, "https": PROXY}))
+    return urllib.request.build_opener(*handlers)
 
 
 class PointerError(RuntimeError):
@@ -91,7 +106,7 @@ class Pointer:
                 # 1 = test registry (sandbox), 0 = πραγματικές αγορές με χρέωση
                 "testserver": "1" if self.sandbox else "0",
             })
-        with urllib.request.urlopen(req, timeout=TIMEOUT, context=_ctx) as r:
+        with _opener().open(req, timeout=TIMEOUT) as r:
             body = r.read().decode("utf-8", "ignore")
         try:
             root = ET.fromstring(body)
