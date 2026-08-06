@@ -63,6 +63,10 @@ def test_generator() -> None:
         check(f"[bare/{layout}] fallback hero (unsplash)", "unsplash.com" in html)
     check("dentist -> atelier", pg.recommend_layout(bare) == "atelier", pg.recommend_layout(bare))
     check("taverna -> studio", pg.recommend_layout({"type": "ταβέρνα"}) == "studio")
+    nail_intake = {"description": "Έχω νυχάδικο στην Αθήνα"}
+    check("nail salon -> beauty copy", pg._profession(nail_intake) == "beauty")
+    check("nail salon -> beauty vertical", pg._vertical(nail_intake) == "beauty")
+    check("nail salon -> runway first", pg.recommend_templates(nail_intake)[0] == "runway")
 
     # edge: HTML escaping of special chars in name
     danger = {"name": "Café & Σία <b>x</b>", "type": "καφέ", "city": "Αθήνα", "phone": "2100000000"}

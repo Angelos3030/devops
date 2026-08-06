@@ -52,6 +52,10 @@
 - Τελευταίο QA: design engine **88/88**, vertical profiles **14/14**, vertical content **14/14**,
   Next production build και browser design guard **30/30** χωρίς προβλήματα αντίθεσης,
   missing fonts, broken images, trackers ή cookies.
+- Classification regression 2026-08-06: το «νυχάδικο» έπεφτε λανθασμένα στο `trade` και
+  πρότεινε τεχνικά templates. Πλέον `νυχάδικο`, `nail salon`, `μανικιούρ` και `πεντικιούρ`
+  ταξινομούνται ως `beauty`, με `runway` πρώτο. Άγνωστο επάγγελμα πέφτει σε ουδέτερο
+  `professional` και μπορεί να ταξινομηθεί από AI fallback, ποτέ αυθαίρετα ως τεχνίτης.
 
 Μην ξαναχτίσεις chooser, 12-design recommendation, vertical matching, no-photo mode ή compliance
 documents. Υπάρχουν ήδη και έχουν περάσει QA.

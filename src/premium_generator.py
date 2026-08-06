@@ -97,7 +97,10 @@ def _profession(intake: dict[str, Any]) -> str:
         return "food"
     if any(w in text for w in ("οδοντ", "dentist", "ιατρ", "doctor", "γιατρ")):
         return "medical"
-    if any(w in text for w in ("κομμωτ", "beauty", "νυχι", "hair", "salon", "αισθητικ")):
+    if any(w in text for w in (
+        "κομμωτ", "beauty", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ",
+        "nail", "hair", "salon", "αισθητικ",
+    )):
         return "beauty"
     if any(w in text for w in ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")):
         return "wood"
@@ -213,13 +216,45 @@ _VERTICAL_RULES = (
     ("food", ("ταβερν", "εστιατορ", "taverna", "restaurant", "μεζε", "ψησταρι", "σουβλα", "grill", "pizza", "πιτσαρ", "μπαρ", " bar")),
     ("dentist", ("οδοντ", "dentist", "dental")),
     ("doctor", ("ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "διαιτολογ", "ψυχολογ", "κτηνιατρ")),
-    ("aesthetics", ("αισθητικ", "beauty clinic", "κεντρο ομορφια", "νυχι", "μακιγι")),
+    ("aesthetics", ("αισθητικ", "beauty clinic", "κεντρο ομορφια", "μακιγι", "laser αποτριχ")),
     ("massage", ("μασαζ", "massage", "spa", "wellness")),
-    ("beauty", ("κομμωτ", "beauty", "hair", "salon", "barber", "κουρει")),
+    ("beauty", ("κομμωτ", "beauty", "hair", "salon", "barber", "κουρει", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ", "nail")),
     ("wood", ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")),
     ("professional", ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "μεσιτ", "ασφαλισ", "notary", "συμβολαιογρ")),
     ("trade", ("υδραυλικ", "ηλεκτρολ", "ελαιοχρωματ", "μαστορ", "τεχνιτ", "ψυκτικ", "αλουμιν", "σιδηρ", "πλακα", "μονωσ", "κλιματισ", "plumber", "electrician")),
 )
+
+
+# Όταν δεν αναγνωρίζουμε το επάγγελμα, ΔΕΝ πέφτουμε σε «τεχνίτη»: τα templates
+# του είναι σκούρα και βιομηχανικά, δηλαδή το χειρότερο δυνατό λάθος για ένα
+# νυχάδικο ή ένα ανθοπωλείο. Το «professional» είναι καθαρό και ουδέτερο —
+# άσχημα ταιριαστό, αλλά ποτέ προσβλητικά λάθος.
+_VERTICAL_FALLBACK = "professional"
+
+_AI_VERTICALS = [v for v, _ in _VERTICAL_RULES]
+
+
+def _vertical_by_ai(text: str) -> str | None:
+    """Τελευταία γραμμή άμυνας για επαγγέλματα που δεν πιάνουν οι λέξεις-κλειδιά.
+
+    Οι λέξεις καλύπτουν τα συνηθισμένα δωρεάν και ακαριαία· το AI καλείται ΜΟΝΟ
+    για την ουρά («νυχάδικο», «στούντιο πιλάτες», «κατάστημα υποδημάτων»).
+    Αν δεν υπάρχει κλειδί ή απαντήσει κάτι άγνωστο, γυρνάμε στο fallback.
+    """
+    try:
+        from . import ai
+        if not ai.available():
+            return None
+        out = ai.complete(
+            "Κατατάσσεις ελληνικές μικρές επιχειρήσεις σε κατηγορία. "
+            "Απαντάς ΜΟΝΟ με μία λέξη από τη λίστα, χωρίς τίποτα άλλο.",
+            f"Επιχείρηση: «{text[:200]}»\n\n"
+            f"Κατηγορίες: {', '.join(_AI_VERTICALS)}",
+            max_tokens=10)
+        guess = (out or "").strip().lower().strip(".")
+        return guess if guess in _AI_VERTICALS else None
+    except Exception:  # noqa: BLE001 — ποτέ να μη ρίξει το onboarding
+        return None
 
 
 def _vertical(intake: dict[str, Any]) -> str:
@@ -227,7 +262,8 @@ def _vertical(intake: dict[str, Any]) -> str:
     for vertical, words in _VERTICAL_RULES:
         if any(w in text for w in words):
             return vertical
-    return "trade"
+    raw = " ".join(str(intake.get(k, "")) for k in ("type", "trade", "description")).strip()
+    return (_vertical_by_ai(raw) if raw else None) or _VERTICAL_FALLBACK
 
 
 # Premium-first σειρά ανά vertical. Το πρώτο = προτεινόμενο.

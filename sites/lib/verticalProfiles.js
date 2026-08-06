@@ -68,7 +68,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   salon: profile({
     id: 'salon', label: 'Κομμωτήριο',
-    aliases: ['salon', 'hair salon', 'κομμωτήριο', 'κομμωτής', 'hair studio', 'barber', 'barbershop', 'κουρείο', 'νύχια', 'nail studio', 'μανικιούρ', 'μακιγιάζ'],
+    aliases: ['salon', 'hair salon', 'κομμωτήριο', 'κομμωτής', 'hair studio', 'barber', 'barbershop', 'κουρείο', 'νύχια', 'νυχάδικο', 'nail studio', 'nail salon', 'μανικιούρ', 'πεντικιούρ', 'μακιγιάζ'],
     conversionGoal: { primary: 'book-appointment', secondary: 'phone-call' },
     requiredSections: ['hero', 'services', 'pricing-or-consultation', 'work', 'hours', 'contact', 'find-us'],
     motionIntensity: 'expressive', schemaType: 'HairSalon',
