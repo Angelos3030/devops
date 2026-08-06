@@ -26,6 +26,7 @@ import requests
 from . import config as cfg
 
 TIMEOUT = 90
+LAST_ERROR: dict[str, str] | None = None
 
 
 def provider() -> str:
@@ -58,13 +59,20 @@ def complete(system: str, user: str, max_tokens: int = 1500) -> str | None:
     p = provider()
     if not p:
         return None
+    global LAST_ERROR
     try:
-        return _anthropic(system, user, max_tokens) if p == "anthropic" \
-            else _openai(system, user, max_tokens)
+        result = (_anthropic(system, user, max_tokens) if p == "anthropic"
+                  else _openai(system, user, max_tokens))
+        LAST_ERROR = None
+        return result
     except Exception as e:  # noqa: BLE001
         # Δεν σπάμε τη ροή του πελάτη για μια αποτυχία AI — αλλά την τυπώνουμε,
         # αλλιώς ένα άκυρο κλειδί περνάει απαρατήρητο για εβδομάδες.
         print(f"[ai] {p} απέτυχε ({type(e).__name__}): {str(e)[:160]}")
+        status = ""
+        if isinstance(e, RuntimeError) and str(e).startswith("HTTP "):
+            status = str(e).split(":", 1)[0].replace("HTTP ", "")
+        LAST_ERROR = {"type": type(e).__name__, "http_status": status}
         return None
 
 

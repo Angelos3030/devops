@@ -196,5 +196,7 @@ def healthz():
             "configured": ai.available(),
             "provider": ai.provider() or None,
             "model": ai.model() if ai.available() else None,
+            "key_type": "anthropic" if cfg.AI_API_KEY.startswith("sk-ant-") else "other",
+            "last_error": ai.LAST_ERROR,
         },
     }
