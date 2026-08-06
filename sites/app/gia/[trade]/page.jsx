@@ -22,6 +22,11 @@ export const TRADES = {
     biz: 'cafe', templates: ['bloom', 'warmth', 'bento', 'editorial'],
     points: ['Ο κατάλογός σου, πάντα ενημερωμένος', 'Ώρες & τοποθεσία μπροστά', 'Φωτογραφίες που φέρνουν κόσμο'],
   },
+  katastima: {
+    label: 'καταστήματα & boutiques', hero: 'Τα προϊόντα σου, σε μια βιτρίνα που ξεχωρίζει.',
+    biz: 'retail', templates: ['runway', 'type-gallery', 'bento', 'infinite'],
+    points: ['Προϊόντα και νέες αφίξεις σε πρώτο πλάνο', 'Ερώτηση διαθεσιμότητας με ένα κλικ', 'Ωράριο και τοποθεσία χωρίς ψάξιμο'],
+  },
   kommotirio: {
     label: 'κομμωτήρια & beauty', hero: 'Η δουλειά σου, σε βιτρίνα μόδας.',
     biz: 'salon', templates: ['runway', 'bento', 'editorial', 'poster'],

@@ -17,8 +17,9 @@
   δεν αγοράζει domain και οδηγεί σε δωρεάν Railway preview μετά την επιλογή design.
 - Live chooser για έλεγχο: `https://sites-production-da56.up.railway.app/choose/demo-carpenter?pilot=1`.
 - API health: `https://api.getvitrina.gr/healthz` → HTTP 200.
-- QA που πέρασε πριν το push: `scripts/test_design_engine.py` **88/88**,
-  `sites/tests/verticalProfiles.mjs` **14 verticals + fallback**, Next production build,
+- QA που πέρασε πριν το push: `scripts/test_design_engine.py` **92/92**,
+  `scripts/test_vertical_matrix.py` **44/44 πραγματικές ελληνικές περιγραφές**,
+  `sites/tests/verticalProfiles.mjs` **15 verticals + fallback**, Next production build,
   `sites/tests/design_guard.mjs` **30/30 καθαρά** σε desktop/mobile και χωρίς third-party requests.
 - Τα customer sites παραμένουν tracker-free. **Δεν βάζουμε cookie banner** όσο δεν υπάρχουν
   μη αναγκαία cookies/analytics.
@@ -35,10 +36,10 @@
 
 ### Νέα vertical demos
 
-- Υπάρχουν πλέον **14 πλήρεις επαγγελματικές οικογένειες** και κάθε εισαγόμενο επάγγελμα
+- Υπάρχουν πλέον **15 πλήρεις επαγγελματικές οικογένειες** και κάθε εισαγόμενο επάγγελμα
   αντιστοιχίζεται στην καταλληλότερη: ξυλουργός, εστίαση, κομμωτήριο, οδοντίατρος,
   ιατρείο, αισθητική, μασάζ, καφέ/αρτοποιείο, επαγγελματικές υπηρεσίες, τεχνίτες,
-  καταλύματα, γυμναστήριο, συνεργείο και παραγωγός. Το `generic` μένει μόνο για άγνωστες
+  καταλύματα, γυμναστήριο, συνεργείο, παραγωγός και λιανική/κατάστημα. Το `generic` μένει μόνο για άγνωστες
   μελλοντικές κατηγορίες.
 - Δημόσιες category pages υπάρχουν για όλες τις οικογένειες, μαζί με τις νέες
   `/gia/xylourgos` και `/gia/odontiatros`.
@@ -47,15 +48,21 @@
 - `physician` → `/preview/marble?biz=physician` και `/gia/iatreio`.
 - Τα `Bloom`, `Living`, `Marble` παίρνουν πλέον επαγγελματικά labels και CTA από τα business
   data. Δεν επιτρέπονται hard-coded φράσεις τύπου «καλούδια» ή «υλικά» σε άσχετα verticals.
-- Το `sites/tests/verticalContent.mjs` επιβεβαιώνει ότι και τα 14 demos έχουν πλήρες κείμενο,
+- Το `sites/tests/verticalContent.mjs` επιβεβαιώνει ότι και τα 15 demos έχουν πλήρες κείμενο,
   τουλάχιστον 4 υπηρεσίες, 3 εικόνες και 2 story paragraphs, καθώς και σωστό CTA ανά vertical.
-- Τελευταίο QA: design engine **88/88**, vertical profiles **14/14**, vertical content **14/14**,
+- Τελευταίο QA: design engine **92/92**, profession matrix **44/44**, vertical profiles **15/15**, vertical content **15/15**,
   Next production build και browser design guard **30/30** χωρίς προβλήματα αντίθεσης,
   missing fonts, broken images, trackers ή cookies.
 - Classification regression 2026-08-06: το «νυχάδικο» έπεφτε λανθασμένα στο `trade` και
   πρότεινε τεχνικά templates. Πλέον `νυχάδικο`, `nail salon`, `μανικιούρ` και `πεντικιούρ`
   ταξινομούνται ως `beauty`, με `runway` πρώτο. Άγνωστο επάγγελμα πέφτει σε ουδέτερο
   `professional` και μπορεί να ταξινομηθεί από AI fallback, ποτέ αυθαίρετα ως τεχνίτης.
+- Το `scripts/test_vertical_matrix.py` κλειδώνει 44 αντιπροσωπευτικές free-text εισαγωγές με
+  `business_type="Άλλο"`, ώστε το επάγγελμα να αναγνωρίζεται μόνο από την περιγραφή. Καλύπτει
+  εστίαση, υγεία, ομορφιά, τεχνίτες, υπηρεσίες, τουρισμό, παραγωγούς και καταστήματα. Έπιασε και
+  διορθώθηκε σύγκρουση όπου το `Barbershop` ταίριαζε στο substring `bar` της εστίασης.
+- Προστέθηκε πλήρες `retail` vertical για κατάστημα, boutique, ανθοπωλείο, ρούχα, παπούτσια και
+  κοσμήματα, με δικό του copy, demo, schema `Store`, category page `/gia/katastima` και curated designs.
 - Root cause fix: το onboarding πλέον αποθηκεύει `description`, `style` και `website` στο
   `site_content`. Πριν, το background build τα έβλεπε αλλά το μεταγενέστερο `/designs` τα έχανε
   και διάβαζε μόνο `business_type="Άλλο"`. Το υπάρχον test record `maria` διορθώθηκε στη βάση

@@ -150,6 +150,20 @@ export const VERTICAL_PROFILES = Object.freeze({
     },
     compatibleDesignSystemIds: ['bloom', 'type-gallery', 'living', 'infinite', 'cinematic', 'kinetic', 'quiet', 'warmth', 'magazine', 'poster', 'ember', 'bento'],
   }),
+  retail: profile({
+    id: 'retail', label: 'Κατάστημα λιανικής',
+    aliases: ['retail', 'store', 'κατάστημα', 'boutique', 'μπουτίκ', 'ανθοπωλείο', 'κατάστημα ρούχων', 'υποδήματα', 'παπούτσια', 'κοσμήματα', 'οπτικά', 'βιβλιοπωλείο', 'είδη δώρων'],
+    conversionGoal: { primary: 'product-enquiry', secondary: 'visit-location' },
+    requiredSections: ['hero', 'products', 'new-arrivals', 'store-information', 'hours', 'contact', 'find-us'],
+    motionIntensity: 'expressive', schemaType: 'Store',
+    media: {
+      minimumPreferredImages: 4,
+      requiredSubjects: Object.freeze(['products', 'store-space']),
+      avoid: Object.freeze(['unavailable-products', 'misleading-brand-affiliations', 'unlicensed-campaign-images']),
+      fallbackStrategy: 'editorial-product-cards-and-brand-led-layout',
+    },
+    compatibleDesignSystemIds: ['runway', 'type-gallery', 'bento', 'infinite', 'bloom', 'canvas', 'cinematic', 'quiet', 'kinetic', 'grid', 'magazine', 'living'],
+  }),
   lawyer: profile({
     id: 'lawyer', label: 'Δικηγορικό γραφείο',
     aliases: ['lawyer', 'attorney', 'legal office', 'δικηγόρος', 'δικηγορικό γραφείο', 'νομικές υπηρεσίες', 'λογιστής', 'λογιστικό γραφείο', 'συμβολαιογράφος', 'ασφαλιστής', 'σύμβουλος επιχειρήσεων', 'μεσίτης', 'μεσιτικό γραφείο', 'μηχανικός', 'αρχιτέκτονας'],

@@ -224,6 +224,32 @@ export const demoBusinesses = {
       { p: 'Κάθε φλιτζάνι φτιάχνεται με προσοχή — γι’ αυτό γίνατε η αγαπημένη σας γωνιά.' },
     ],
   },
+  retail: {
+    NAME: 'Méra Boutique', CITY: 'Νέα Σμύρνη', TRADE: 'Boutique γυναικείων ρούχων', INITIAL: 'M',
+    KICKER: 'Independent boutique · Νέα Σμύρνη', HERO_WORD: 'ύφος', YEAR: '2026',
+    PHONE: '210 9300000', PHONE_INTL: '302109300000', AREAS: 'Νέα Σμύρνη · Αθήνα', HOURS: 'Δευτ.–Σάβ. 10:00–21:00',
+    TAGLINE: 'Μικρές συλλογές, ξεχωριστά κομμάτια και προσωπική εξυπηρέτηση χωρίς βιασύνη.',
+    INTRO: 'Διαλέγουμε κάθε κομμάτι με κριτήριο την ποιότητα, την εφαρμογή και το πόσο εύκολα γίνεται δικό σου.',
+    STORY_TITLE: 'Ρούχα που φοράς εσύ — δεν σε φορούν.', CTA_TITLE: 'Ρώτησέ μας για διαθεσιμότητα.',
+    PRIMARY_CTA: 'Ρώτησε για ένα κομμάτι',
+    HERO_IMAGE: img('photo-1445205170230-053b83016050', 1800), STORY_IMAGE: img('photo-1441986300917-64674bd600d8'),
+    services: [
+      { num: '01', title: 'Νέες αφίξεις', desc: 'Μικρά drops με νέα κομμάτια κάθε εβδομάδα.' },
+      { num: '02', title: 'Personal styling', desc: 'Συνδυασμοί και εφαρμογές που ταιριάζουν στο δικό σου ύφος.' },
+      { num: '03', title: 'Κράτηση προϊόντος', desc: 'Στείλε μας το κομμάτι που θέλεις και το κρατάμε για δοκιμή.' },
+      { num: '04', title: 'Gift wrapping', desc: 'Προσεγμένη συσκευασία για δώρα που ξεχωρίζουν.' },
+    ],
+    gallery: [
+      { image: img('photo-1483985988355-763728e1935b', 1000), title: 'Νέες αφίξεις', sub: 'Weekly edit' },
+      { image: img('photo-1445205170230-053b83016050', 1000), title: 'Η συλλογή', sub: 'Curated pieces' },
+      { image: img('photo-1469334031218-e382a71b716b', 1000), title: 'Καθημερινό styling', sub: 'Looks' },
+      { image: img('photo-1441986300917-64674bd600d8', 1000), title: 'Το κατάστημα', sub: 'Νέα Σμύρνη' },
+    ],
+    story: [
+      { p: 'Η Méra δημιουργήθηκε για όσες θέλουν να ανακαλύπτουν όμορφα κομμάτια χωρίς τον θόρυβο μιας μεγάλης αλυσίδας.' },
+      { p: 'Γνωρίζουμε τις συλλογές μας και αφιερώνουμε χρόνο για να βρούμε μαζί αυτό που πραγματικά σου ταιριάζει.' },
+    ],
+  },
   lawyer: {
     NAME: 'Αντωνίου & Συνεργάτες', CITY: 'Αθήνα', TRADE: 'Δικηγορικό Γραφείο', INITIAL: 'Α',
     KICKER: 'Δικηγορικό γραφείο · Αθήνα', HERO_WORD: 'εμπιστοσύνη', YEAR: '2026',
@@ -383,5 +409,5 @@ export const demoBusinesses = {
   },
 }
 
-export const demoOrder = ['carpenter', 'taverna', 'salon', 'dentist', 'physician', 'aesthetics', 'massage', 'cafe', 'lawyer', 'plumber', 'rooms', 'gym', 'garage', 'farm']
+export const demoOrder = ['carpenter', 'taverna', 'salon', 'dentist', 'physician', 'aesthetics', 'massage', 'cafe', 'retail', 'lawyer', 'plumber', 'rooms', 'gym', 'garage', 'farm']
 export const demoData = demoBusinesses.carpenter

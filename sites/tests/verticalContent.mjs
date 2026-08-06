@@ -7,7 +7,7 @@ const { demoBusinesses } = await import(moduleUrl)
 
 const requiredVerticals = [
   'carpenter', 'taverna', 'salon', 'dentist', 'physician', 'aesthetics', 'massage',
-  'cafe', 'lawyer', 'plumber', 'rooms', 'gym', 'garage', 'farm',
+  'cafe', 'retail', 'lawyer', 'plumber', 'rooms', 'gym', 'garage', 'farm',
 ]
 
 assert.deepEqual(Object.keys(demoBusinesses), requiredVerticals)

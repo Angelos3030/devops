@@ -15,7 +15,7 @@ const DEMO_BY_TEMPLATE = {
   warmth: 'taverna',
   ember: 'taverna',
   marble: 'physician',
-  runway: 'salon',
+  runway: 'retail',
   forge: 'plumber',
   aegean: 'rooms',
   bloom: 'aesthetics',

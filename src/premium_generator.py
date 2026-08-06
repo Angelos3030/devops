@@ -102,6 +102,11 @@ def _profession(intake: dict[str, Any]) -> str:
         "nail", "hair", "salon", "αισθητικ",
     )):
         return "beauty"
+    if any(w in text for w in (
+        "καταστημα", "boutique", "μπουτικ", "ανθοπωλ", "λουλουδ", "ρουχ",
+        "υποδημα", "παπουτσ", "κοσμημ", "retail", "store",
+    )):
+        return "retail"
     if any(w in text for w in ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")):
         return "wood"
     if any(w in text for w in ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ")):
@@ -147,6 +152,15 @@ _PROFESSION_COPY = {
             ("Περιποίηση προσώπου", "Καθαρισμοί και θεραπείες για λαμπερή επιδερμίδα."),
         ],
     },
+    "retail": {
+        "hero_word": "επιλογή", "kicker_suffix": "Κατάστημα",
+        "services": [
+            ("Νέες αφίξεις", "Φρέσκες επιλογές που ανανεώνονται τακτικά στο κατάστημά μας."),
+            ("Προσωπική εξυπηρέτηση", "Σε βοηθάμε να βρεις αυτό που ταιριάζει στις ανάγκες και το ύφος σου."),
+            ("Παραγγελίες", "Επικοινώνησε μαζί μας για διαθεσιμότητα, κράτηση ή ειδική παραγγελία."),
+            ("Παραλαβή από το κατάστημα", "Γρήγορη συνεννόηση και εύκολη παραλαβή από τον χώρο μας."),
+        ],
+    },
     "professional": {
         "hero_word": "εμπιστοσύνη", "kicker_suffix": "Γραφείο",
         "services": [
@@ -173,6 +187,7 @@ _DEFAULT_HERO = {
     "food": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80",
     "medical": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=80",
     "beauty": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=80",
+    "retail": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80",
     "professional": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80",
     "trade": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1800&q=80",
 }
@@ -183,6 +198,7 @@ _LAYOUT_BY_PROFESSION = {
     "food": "studio",
     "medical": "atelier",
     "beauty": "bold",
+    "retail": "bold",
     "professional": "trust",
     "trade": "commerce",
 }
@@ -212,13 +228,14 @@ _VERTICAL_RULES = (
     ("garage", ("συνεργει", "φανοποι", "βουλκανιζ", "garage", "service αυτοκιν", "μηχανικ αυτοκιν", "ελαστικ")),
     ("farm", ("παραγωγ", "ελαιολαδ", "ελαιωνα", "μελισσοκομ", "μελι", "οινοποι", "κρασ", "τυροκομ", "αγροτ", "κτημα", "farm", "winery")),
     ("rooms", ("δωματ", "ξενωνα", "ξενοδοχ", "καταλυμ", "hotel", "rooms", "villa", "βιλα", "airbnb", "τουρισ")),
-    ("cafe", ("καφε", "cafe", "coffee", "ζαχαροπλαστ", "φουρν", "αρτοποι", "bakery", "creperie", "κρεπερ", "παγωτ", "λουλουδ", "ανθοπωλ")),
-    ("food", ("ταβερν", "εστιατορ", "taverna", "restaurant", "μεζε", "ψησταρι", "σουβλα", "grill", "pizza", "πιτσαρ", "μπαρ", " bar")),
+    ("cafe", ("καφε", "cafe", "coffee", "ζαχαροπλαστ", "φουρν", "αρτοποι", "bakery", "creperie", "κρεπερ", "παγωτ")),
+    ("food", ("ταβερν", "εστιατορ", "taverna", "restaurant", "μεζε", "ψησταρι", "σουβλα", "grill", "pizza", "πιτσαρ", "μπαρ", "cocktail bar", "wine bar")),
     ("dentist", ("οδοντ", "dentist", "dental")),
     ("doctor", ("ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "διαιτολογ", "ψυχολογ", "κτηνιατρ")),
     ("aesthetics", ("αισθητικ", "beauty clinic", "κεντρο ομορφια", "μακιγι", "laser αποτριχ")),
     ("massage", ("μασαζ", "massage", "spa", "wellness")),
     ("beauty", ("κομμωτ", "beauty", "hair", "salon", "barber", "κουρει", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ", "nail")),
+    ("retail", ("καταστημα", "retail", "store", "boutique", "μπουτικ", "ανθοπωλ", "λουλουδ", "ρουχ", "υποδημα", "παπουτσ", "κοσμημ", "οπτικ", "βιβλιοπωλ", "δωρα")),
     ("wood", ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")),
     ("professional", ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "μεσιτ", "ασφαλισ", "notary", "συμβολαιογρ")),
     ("trade", ("υδραυλικ", "ηλεκτρολ", "ελαιοχρωματ", "μαστορ", "τεχνιτ", "ψυκτικ", "αλουμιν", "σιδηρ", "πλακα", "μονωσ", "κλιματισ", "plumber", "electrician")),
@@ -278,6 +295,7 @@ _TEMPLATES_BY_VERTICAL = {
     "aesthetics":   ["bloom", "quiet", "marble", "runway", "living", "cinematic", "type-gallery", "bento", "infinite", "canvas", "magazine", "poster"],
     "massage":      ["living", "quiet", "aegean", "bloom", "warmth", "cinematic", "infinite", "canvas", "marble", "type-gallery", "terra", "magazine"],
     "beauty":       ["runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas", "magazine", "poster", "bento"],
+    "retail":       ["runway", "type-gallery", "bento", "infinite", "bloom", "canvas", "cinematic", "quiet", "kinetic", "grid", "magazine", "living"],
     "professional": ["marble", "quiet", "cinematic", "grid", "infinite", "canvas", "type-gallery", "living", "kinetic", "editorial", "sidebar", "bento"],
     "trade":        ["dispatch", "kinetic", "grid", "type-gallery", "infinite", "cinematic", "quiet", "living", "canvas", "forge", "poster", "bento"],
     "garage":       ["motor", "kinetic", "grid", "infinite", "type-gallery", "cinematic", "quiet", "living", "canvas", "volt", "forge", "poster"],

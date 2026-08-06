@@ -6,7 +6,7 @@ const moduleUrl = `data:text/javascript;base64,${Buffer.from(source).toString('b
 const { DESIGN_SYSTEM_IDS, VERTICAL_PROFILES, getVerticalProfile, isDesignCompatible } = await import(moduleUrl)
 
 const demoVerticals = [
-  'carpenter', 'taverna', 'salon', 'dentist', 'physician', 'aesthetics', 'massage', 'cafe', 'lawyer',
+  'carpenter', 'taverna', 'salon', 'dentist', 'physician', 'aesthetics', 'massage', 'cafe', 'retail', 'lawyer',
   'plumber', 'rooms', 'gym', 'garage', 'farm',
 ]
 const allowedMotion = new Set(['restrained', 'moderate', 'expressive'])
@@ -41,6 +41,8 @@ assert.equal(getVerticalProfile('Barbershop').id, 'salon')
 assert.equal(getVerticalProfile('Νυχάδικο').id, 'salon')
 assert.equal(getVerticalProfile('Nail salon').id, 'salon')
 assert.equal(getVerticalProfile('Αρτοποιείο').id, 'cafe')
+assert.equal(getVerticalProfile('Κατάστημα ρούχων').id, 'retail')
+assert.equal(getVerticalProfile('Ανθοπωλείο').id, 'retail')
 assert.equal(getVerticalProfile('Βουλκανιζατέρ').id, 'garage')
 assert.equal(getVerticalProfile('Οινοποιείο').id, 'farm')
 assert.equal(getVerticalProfile('Ξενώνας').id, 'rooms')
