@@ -223,8 +223,8 @@ responsive designs**, διαλέγει, και το site ανεβαίνει live
 2. **[domain routing] ✅ DONE** — `sites/middleware.js` (custom host → `/site/[host]`) + backend
    `db.get_client_by_domain` + `_intake_from_db` resolve-by-domain. Θέλει: πραγματικός πελάτης με
    εγγραφή στον `domains` πίνακα + DNS του domain → Vercel/Cloudflare για να δουλέψει live.
-2b. **[showcase] ✅ DONE** — `sites/app/page.jsx` = marketing landing (Amboras-style) που δείχνει και
-   τα 10 designs (iframe cards → `/preview/[template]`). Τα `/preview/[template]` prerendered (SSG,
+2b. **[showcase] ✅ DONE** — `sites/app/page.jsx` = marketing landing (Amboras-style) που δείχνει
+   curated designs (iframe cards → `/preview/[template]`). Τα `/preview/[template]` prerendered (SSG,
    ads/SEO-ready). ΓΙΑ ΔΙΑΦΗΜΙΣΕΙΣ: χρησιμοποίησε αυτή τη σελίδα + τα preview links.
 3. **[deploy sites]** Cloudflare Pages ή Vercel το `sites/` (χρειάζεται Node runtime για dynamic/middleware
    → Vercel πιο εύκολο, ή Cloudflare `@cloudflare/next-on-pages`). Σύνδεσε custom domains πελατών.

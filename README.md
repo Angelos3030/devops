@@ -120,8 +120,9 @@ cd sites && npx next build       # ότι χτίζει το frontend
 `pulse`) παραμένουν διαθέσιμα για υπάρχοντες πελάτες, αλλά δεν προτείνονται σε νέους.
 
 Το `recommend_templates()` στο [src/premium_generator.py](src/premium_generator.py)
-διαλέγει ποια θα δει ο πελάτης ανάλογα με το επάγγελμα (ταβέρνα → `ember`,
-κομμωτήριο → `bloom`, συνεργείο → `motor`…).
+διαλέγει πέντε curated προτάσεις ανάλογα με το επάγγελμα (ταβέρνα → `ember`,
+κομμωτήριο → `runway`, συνεργείο → `motor`…). Τα 20 templates παραμένουν η
+εσωτερική βιβλιοθήκη· ο πελάτης βλέπει μόνο τις πέντε ισχυρότερες επιλογές του.
 
 **Δεν προσθέτουμε άλλα templates.** Η επίσημη συλλογή των 20 φτάνει· η δουλειά τώρα είναι ποιότητα και διανομή.
 
@@ -130,7 +131,7 @@ cd sites && npx next build       # ότι χτίζει το frontend
 ## 7b. Production ποιότητα για κάθε νέο site
 
 Το υποχρεωτικό end-to-end workflow για όλους τους agents βρίσκεται στο
-[`CLAUDE.md`](CLAUDE.md). Περιγράφει intake, τρεις κατάλληλες design επιλογές, responsive
+[`CLAUDE.md`](CLAUDE.md). Περιγράφει intake, πέντε κατάλληλες design επιλογές, responsive
 υλοποίηση, local SEO, browser QA, αποθήκευση στο multi-tenant data model και σύνδεση domain.
 
 Κάθε πελάτης υποστηρίζεται σε τρία photo modes:

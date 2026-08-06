@@ -227,8 +227,8 @@ def _vertical(intake: dict[str, Any]) -> str:
 
 
 # Premium-first σειρά ανά vertical. Το πρώτο = προτεινόμενο.
-# Δέκα ουσιαστικά διαφορετικές κατευθύνσεις: οι πρώτες είναι οι πιο ειδικές για
-# τον κλάδο και οι υπόλοιπες διευρύνουν το ύφος χωρίς να γίνονται άσχετες.
+# Η πλήρης σειρά λειτουργεί ως εσωτερική βιβλιοθήκη. Στον πελάτη δείχνουμε μόνο
+# τις πρώτες πέντε, ώστε κάθε επιλογή να είναι σχετική και ουσιαστικά διαφορετική.
 _TEMPLATES_BY_VERTICAL = {
     "food":         ["ember", "warmth", "magazine", "bloom", "editorial", "bento", "poster", "longform", "split", "grid"],
     "cafe":         ["bloom", "warmth", "bento", "magazine", "editorial", "runway", "poster", "longform", "split", "grid"],
@@ -244,8 +244,8 @@ _TEMPLATES_BY_VERTICAL = {
 }
 
 
-def recommend_templates(intake: dict[str, Any], limit: int = 10) -> list[str]:
-    """Τα React templates που θα δει ο πελάτης — premium της κατηγορίας του πρώτο."""
+def recommend_templates(intake: dict[str, Any], limit: int = 5) -> list[str]:
+    """Οι πέντε curated React προτάσεις του πελάτη, με την καλύτερη πρώτη."""
     keys = _TEMPLATES_BY_VERTICAL.get(_vertical(intake), _TEMPLATES_BY_VERTICAL["trade"])
     return [k for k in keys if k in REACT_TEMPLATES][:limit]
 

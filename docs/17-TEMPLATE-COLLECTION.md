@@ -50,9 +50,9 @@
 ## Smart matching
 
 Η μοναδική production πηγή επιλογής είναι το `recommend_templates()` στο
-`src/premium_generator.py`. Επιστρέφει δέκα διαφορετικές επιλογές ανά vertical, με την πιο
-κατάλληλη πρώτη. Παράδειγμα ξυλουργού: `canvas`, `editorial`, `split`, `bento`, `forge`,
-`longform`, `grid`, `poster`, `sidebar`, `magazine`.
+`src/premium_generator.py`. Κρατά σειρά 20 archetypes ως εσωτερική βιβλιοθήκη, αλλά
+επιστρέφει πέντε curated επιλογές ανά vertical, με την πιο κατάλληλη πρώτη. Παράδειγμα
+ξυλουργού: `canvas`, `editorial`, `split`, `bento`, `forge`.
 
 ## Quality gate
 
