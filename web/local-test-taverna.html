@@ -3,8 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ταβέρνα Η Γωνιά — Σύγχρονη Ταβέρνα στην Θεσσαλονίκη</title>
-  <meta name="description" content="Ταβέρνα Η Γωνιά — Παραδοσιακές γεύσεις με φιλική ατμόσφαιρα στην Θεσσαλονίκη. Κρατήσεις, μενού και στοιχεία επικοινωνίας.">
+  <title>Ταβέρνα/Εστιατόριο Θεσσαλονίκη | Ελληνική κουζίνα — Ταβέρνα Η Γωνιά</title>
+  <meta name="description" content="Ταβέρνα/Εστιατόριο στην Θεσσαλονίκη με βάση Τσιμισκή 10. Παραδοσιακές γεύσεις με φιλική ατμόσφαιρα. Τηλ. 2310000000.">
+  <meta name="keywords" content="Ταβέρνα/Εστιατόριο Θεσσαλονίκη, Ελληνική κουζίνα Θεσσαλονίκη, Ταβέρνα/Εστιατόριο κοντά μου, τεχνίτης Θεσσαλονίκη, Ταβέρνα Η Γωνιά">
+  <meta name="robots" content="index, follow">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="el_GR">
+  <meta property="og:title" content="Ταβέρνα/Εστιατόριο Θεσσαλονίκη | Ελληνική κουζίνα — Ταβέρνα Η Γωνιά">
+  <meta property="og:description" content="Ταβέρνα/Εστιατόριο στην Θεσσαλονίκη με βάση Τσιμισκή 10. Παραδοσιακές γεύσεις με φιλική ατμόσφαιρα. Τηλ. 2310000000.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&w=1800&q=80">
+  <meta property="og:url" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Ταβέρνα Η Γωνιά",
+    "description": "Ταβέρνα/Εστιατόριο στην Θεσσαλονίκη με βάση Τσιμισκή 10. Παραδοσιακές γεύσεις με φιλική ατμόσφαιρα. Τηλ. 2310000000.",
+    "telephone": "2310000000",
+    "url": "",
+    "image": "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&w=1800&q=80",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Τσιμισκή 10, Θεσσαλονίκη",
+      "addressLocality": "Θεσσαλονίκη",
+      "addressCountry": "GR"
+    },
+    "areaServed": ["Θεσσαλονίκη"],
+    "openingHours": "Δευτέρα-Σάββατο 09:00-21:00",
+    "priceRange": "€€"
+  }
+  </script>
   <style>
     :root {
       --primary: #18231f;
@@ -29,6 +59,11 @@
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; }
+    a:focus-visible, .btn:focus-visible, .nav-cta:focus-visible, .phone-btn:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
     .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
     .topbar {
       position: sticky;
@@ -424,6 +459,12 @@
       section { padding: 64px 0; }
       iframe { min-height: 310px; }
       .phone-btn { left: 14px; right: 14px; text-align: center; }
+      /* keep the fixed mobile CTA from covering the footer */
+      footer { padding-bottom: 84px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; animation: none !important; }
     }
   </style>
 </head>
@@ -447,7 +488,7 @@
     <div class="wrap hero-grid">
       <div>
         <div class="eyebrow">Θεσσαλονίκη · Ελληνική κουζίνα</div>
-        <h1>Ταβέρνα Η Γωνιά</h1>
+          <h1>Ταβέρνα Η Γωνιά — Ταβέρνα/Εστιατόριο στην Θεσσαλονίκη</h1>
         <p class="hero-copy">Παραδοσιακές γεύσεις με φιλική ατμόσφαιρα. Ένα μέρος για μεσημέρι, παρέα και βραδινό που θυμάσαι.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="tel:2310000000">Κλείσε τραπέζι</a>
