@@ -195,10 +195,10 @@ def recommend_layout(intake: dict[str, Any]) -> str:
 
 # Όλα τα διαθέσιμα React archetypes (πρέπει να ταιριάζουν με TEMPLATE_KEYS στο index.js).
 REACT_TEMPLATES = (
-    "editorial", "split", "showcase", "bento", "longform", "corporate",
-    "poster", "sidebar", "grid", "coast", "magazine", "warmth",
+    "editorial", "split", "bento", "longform", "poster", "sidebar",
+    "grid", "magazine", "warmth",
     "ember", "marble", "runway", "forge", "aegean", "bloom",
-    "pulse", "volt", "motor", "terra",
+    "volt", "motor", "terra", "dispatch", "canvas",
 )
 
 # Λεπτομερέστερο vertical ΜΟΝΟ για template matching — δεν αγγίζει το _profession()
@@ -229,17 +229,17 @@ def _vertical(intake: dict[str, Any]) -> str:
 # Premium-first σειρά ανά vertical. Το πρώτο = προτεινόμενο.
 # Πάντα 4 επιλογές: 1-2 premium της κατηγορίας + 2 δυνατά γενικά (choice χωρίς παράλυση).
 _TEMPLATES_BY_VERTICAL = {
-    "food":         ["ember", "warmth", "showcase", "editorial"],
-    "cafe":         ["bloom", "warmth", "coast", "editorial"],
-    "rooms":        ["aegean", "coast", "showcase", "bento"],
-    "medical":      ["pulse", "corporate", "split", "editorial"],
-    "beauty":       ["runway", "showcase", "bento", "editorial"],
-    "professional": ["marble", "corporate", "grid", "longform"],
-    "trade":        ["forge", "sidebar", "corporate", "poster"],
-    "garage":       ["motor", "forge", "grid", "corporate"],
-    "gym":          ["volt", "poster", "showcase", "bento"],
+    "food":         ["ember", "warmth", "magazine", "editorial"],
+    "cafe":         ["bloom", "warmth", "bento", "editorial"],
+    "rooms":        ["aegean", "bento", "editorial", "magazine"],
+    "medical":      ["marble", "split", "editorial", "grid"],
+    "beauty":       ["runway", "bento", "editorial", "poster"],
+    "professional": ["marble", "grid", "longform", "editorial"],
+    "trade":        ["forge", "sidebar", "dispatch", "poster"],
+    "garage":       ["motor", "forge", "grid", "dispatch"],
+    "gym":          ["volt", "poster", "bento", "grid"],
     "farm":         ["terra", "longform", "warmth", "magazine"],
-    "wood":         ["editorial", "ember", "split", "showcase"],
+    "wood":         ["canvas", "editorial", "split", "bento"],
 }
 
 

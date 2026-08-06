@@ -91,6 +91,10 @@ CF_ACCOUNT_ID = os.environ.get("CF_ACCOUNT_ID", "")
 # DOMAIN_REGISTRAR=papaki enables the Papaki adapter once reseller credentials/docs are available.
 DOMAIN_ADMIN_TOKEN = os.environ.get("DOMAIN_ADMIN_TOKEN", "")
 DOMAIN_REGISTRAR = os.environ.get("DOMAIN_REGISTRAR", "dns")  # dns | pointer | manual | papaki
+# Τι χρεώνουμε τον πελάτη για το domain, τον χρόνο. Το κόστος μας στον registrar
+# είναι μικρότερο — η διαφορά είναι το περιθώριό μας. Άλλαξέ το από το .env
+# μόλις μάθεις την πραγματική τιμή μεταπωλητή.
+DOMAIN_PRICE_EUR = float(os.environ.get("DOMAIN_PRICE_EUR", "24"))
 PAPAKI_API_BASE = os.environ.get("PAPAKI_API_BASE", "")
 PAPAKI_API_KEY = os.environ.get("PAPAKI_API_KEY", "")
 PAPAKI_RESELLER_ID = os.environ.get("PAPAKI_RESELLER_ID", "")

@@ -9,47 +9,47 @@ import s from './trade.module.css'
 export const TRADES = {
   taverna: {
     label: 'ταβέρνες & εστιατόρια', hero: 'Το site που ανοίγει την όρεξη.',
-    biz: 'taverna', templates: ['ember', 'warmth', 'showcase', 'editorial'],
+    biz: 'taverna', templates: ['ember', 'warmth', 'magazine', 'editorial'],
     points: ['Μενού & φωτογραφίες που πουλάνε', 'Τηλέφωνο για κράτηση σε ένα κλικ', 'Σε βρίσκουν στο Google «ταβέρνα + περιοχή»'],
   },
   kafe: {
     label: 'καφέ & φούρνους', hero: 'Το πρωινό φως του μαγαζιού σου, online.',
-    biz: 'cafe', templates: ['bloom', 'warmth', 'coast', 'editorial'],
+    biz: 'cafe', templates: ['bloom', 'warmth', 'bento', 'editorial'],
     points: ['Ο κατάλογός σου, πάντα ενημερωμένος', 'Ώρες & τοποθεσία μπροστά', 'Φωτογραφίες που φέρνουν κόσμο'],
   },
   kommotirio: {
     label: 'κομμωτήρια & beauty', hero: 'Η δουλειά σου, σε βιτρίνα μόδας.',
-    biz: 'salon', templates: ['runway', 'showcase', 'bento', 'editorial'],
+    biz: 'salon', templates: ['runway', 'bento', 'editorial', 'poster'],
     points: ['Portfolio που δείχνει το ταλέντο σου', 'Ραντεβού με ένα κλικ', 'Instagram-ready εμφάνιση'],
   },
   iatreio: {
     label: 'ιατρεία & κλινικές', hero: 'Εμπιστοσύνη από την πρώτη ματιά.',
-    biz: 'dentist', templates: ['pulse', 'corporate', 'split', 'editorial'],
+    biz: 'dentist', templates: ['marble', 'split', 'editorial', 'grid'],
     points: ['Καθαρή παρουσίαση υπηρεσιών', 'Ραντεβού & ωράριο μπροστά', 'Σοβαρή, ήρεμη αισθητική'],
   },
   dikigoros: {
     label: 'δικηγόρους & λογιστές', hero: 'Κύρος που φαίνεται πριν το πρώτο ραντεβού.',
-    biz: 'lawyer', templates: ['marble', 'corporate', 'grid', 'longform'],
+    biz: 'lawyer', templates: ['marble', 'grid', 'longform', 'editorial'],
     points: ['Τομείς εξειδίκευσης με τάξη', 'Διακριτικό, θεσμικό ύφος', 'Επικοινωνία χωρίς τριβή'],
   },
   texnitis: {
     label: 'τεχνίτες & μάστορες', hero: 'Σε παίρνουν τηλέφωνο, δεν σε ψάχνουν.',
-    biz: 'plumber', templates: ['forge', 'sidebar', 'corporate', 'poster'],
+    biz: 'plumber', templates: ['forge', 'sidebar', 'dispatch', 'poster'],
     points: ['Τηλέφωνο σε κάθε οθόνη', 'Οι δουλειές σου σε φωτογραφίες', '«Υδραυλικός + περιοχή» στο Google'],
   },
   domatia: {
     label: 'δωμάτια & καταλύματα', hero: 'Κρατήσεις χωρίς προμήθεια πλατφόρμας.',
-    biz: 'rooms', templates: ['aegean', 'coast', 'showcase', 'bento'],
+    biz: 'rooms', templates: ['aegean', 'bento', 'editorial', 'magazine'],
     points: ['Το κατάλυμά σου σε πρώτο πλάνο', 'Απευθείας κράτηση με τηλέφωνο', 'Ελληνικά & αγγλικά'],
   },
   gymnastirio: {
     label: 'γυμναστήρια & trainers', hero: 'Ενέργεια που φαίνεται από την πρώτη οθόνη.',
-    biz: 'gym', templates: ['volt', 'poster', 'showcase', 'bento'],
+    biz: 'gym', templates: ['volt', 'poster', 'bento', 'grid'],
     points: ['Πρόγραμμα & υπηρεσίες καθαρά', 'Δωρεάν δοκιμαστικό με ένα κλικ', 'Φωτογραφίες χώρου που πείθουν'],
   },
   synergeio: {
     label: 'συνεργεία αυτοκινήτων', hero: 'Αξιοπιστία πριν καν σηκώσεις το τηλέφωνο.',
-    biz: 'garage', templates: ['motor', 'forge', 'grid', 'corporate'],
+    biz: 'garage', templates: ['motor', 'forge', 'grid', 'dispatch'],
     points: ['Υπηρεσίες σαν δελτίο εργασιών', 'Ραντεβού για service', 'Εγγύηση & τιμές μπροστά'],
   },
   paragogos: {

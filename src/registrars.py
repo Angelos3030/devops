@@ -34,7 +34,7 @@ class ManualRegistrar:
             {
                 "domain": domain,
                 "available": None,
-                "price": 24,
+                "price": cfg.DOMAIN_PRICE_EUR,
                 "note": "Manual registrar check required.",
             }
             for domain in domains
@@ -68,7 +68,7 @@ class DnsRegistrar:
                 available = (status == 3)  # NXDOMAIN → μάλλον ελεύθερο
             except Exception:
                 available = None  # δεν μπόρεσε → άγνωστο
-            results.append({"domain": domain, "available": available, "price": 24,
+            results.append({"domain": domain, "available": available, "price": cfg.DOMAIN_PRICE_EUR,
                             "estimate": True})
         return results
 
@@ -115,7 +115,8 @@ class PointerRegistrar:
             print(f"[pointer] έλεγχος απέτυχε ({e}) → πέφτω σε DNS")
             return DnsRegistrar().check_availability(domains)
 
-        return [{"domain": d, "available": found.get(d), "price": 24} for d in domains]
+        return [{"domain": d, "available": found.get(d), "price": cfg.DOMAIN_PRICE_EUR}
+                for d in domains]
 
     def register_domain(self, domain: str, years: int = 1) -> dict[str, Any]:
         from . import registrar_pointer as rp
@@ -156,7 +157,7 @@ class PapakiRegistrar:
                 or data.get("is_available")
                 or data.get("status") in {"available", "free"}
             )
-            price = data.get("price") or data.get("registration_price") or 24
+            price = data.get("price") or data.get("registration_price") or cfg.DOMAIN_PRICE_EUR
             results.append({"domain": domain, "available": available, "price": price})
         return results
 

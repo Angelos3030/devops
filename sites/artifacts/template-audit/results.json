@@ -156,7 +156,7 @@
     "viewport": "mobile",
     "status": 200,
     "overflow": false,
-    "brokenImages": 2,
+    "brokenImages": 0,
     "consoleErrors": []
   },
   {
@@ -252,7 +252,7 @@
     "viewport": "mobile",
     "status": 200,
     "overflow": false,
-    "brokenImages": 1,
+    "brokenImages": 0,
     "consoleErrors": []
   },
   {
@@ -284,7 +284,7 @@
     "viewport": "mobile",
     "status": 200,
     "overflow": false,
-    "brokenImages": 2,
+    "brokenImages": 0,
     "consoleErrors": []
   },
   {
@@ -372,7 +372,7 @@
     "viewport": "desktop",
     "status": 200,
     "overflow": false,
-    "brokenImages": 1,
+    "brokenImages": 0,
     "consoleErrors": []
   },
   {
