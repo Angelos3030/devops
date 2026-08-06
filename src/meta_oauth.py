@@ -412,6 +412,83 @@ class PublishRequest(BaseModel):
     dry_run: bool = True                  # σκόπιμα True: η δημοσίευση θέλει ρητή πρόθεση
 
 
+class SocialDraftRequest(BaseModel):
+    caption: str
+    image_url: str | None = None
+    targets: list[str] | None = None
+    scheduled_for: str | None = None
+
+
+class SocialApprovalRequest(BaseModel):
+    scheduled_for: str | None = None
+
+
+@app.get("/clients/{client_id}/social-queue")
+def social_queue(client_id: str, status: str | None = None, limit: int = 50,
+                 authorization: str | None = Header(default=None)):
+    """Content calendar / queue for the authenticated client."""
+    auth.require_client_access(client_id, authorization)
+    return {"posts": db.list_posts(client_id, status=status, limit=min(max(limit, 1), 100))}
+
+
+@app.post("/clients/{client_id}/social-queue")
+def create_social_draft(client_id: str, body: SocialDraftRequest,
+                        authorization: str | None = Header(default=None)):
+    """Create an approval-required draft. Never publishes immediately."""
+    from . import social_engine
+    client = auth.require_client_access(client_id, authorization)
+    if not _has_posts_plan(client_id, client):
+        raise HTTPException(403, "Το πακέτο Social χρειάζεται για αυτόματες δημοσιεύσεις.")
+    try:
+        post_id = social_engine.create_draft(
+            client_id, body.caption, image_url=body.image_url,
+            targets=body.targets, scheduled_for=body.scheduled_for,
+        )
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from None
+    return {"id": post_id, "status": "pending_approval"}
+
+
+@app.post("/clients/{client_id}/social-queue/{post_id}/approve")
+def approve_social_post(client_id: str, post_id: str, body: SocialApprovalRequest,
+                        authorization: str | None = Header(default=None)):
+    """Explicit approval is the only normal path into the publish queue."""
+    auth.require_client_access(client_id, authorization)
+    approved_by = auth.current_email(authorization)
+    post = db.approve_post(client_id, post_id, approved_by, body.scheduled_for)
+    if not post:
+        raise HTTPException(409, "Το post δεν μπορεί να εγκριθεί στην τρέχουσα κατάστασή του.")
+    return {"post": post}
+
+
+@app.post("/clients/{client_id}/social-queue/{post_id}/reject")
+def reject_social_post(client_id: str, post_id: str,
+                       authorization: str | None = Header(default=None)):
+    auth.require_client_access(client_id, authorization)
+    post = db.reject_post(client_id, post_id)
+    if not post:
+        raise HTTPException(409, "Το post δεν μπορεί να απορριφθεί στην τρέχουσα κατάστασή του.")
+    return {"post": post}
+
+
+@app.post("/clients/{client_id}/social-queue/{post_id}/preview")
+def preview_social_post(client_id: str, post_id: str,
+                        authorization: str | None = Header(default=None)):
+    """Meta payload preview; no network publication and no status transition."""
+    from . import publisher
+    auth.require_client_access(client_id, authorization)
+    post = db.get_post(client_id, post_id)
+    if not post:
+        raise HTTPException(404, "Δεν βρέθηκε το post.")
+    try:
+        return publisher.publish(
+            client_id, post.get("caption") or "", post.get("image_url"),
+            post.get("targets"), dry_run=True,
+        )
+    except publisher.PublishError as e:
+        raise HTTPException(400, str(e)) from None
+
+
 @app.post("/clients/{client_id}/publish")
 def publish_post(client_id: str, body: PublishRequest,
                  authorization: str | None = Header(default=None)):
@@ -425,6 +502,11 @@ def publish_post(client_id: str, body: PublishRequest,
     auth.require_client_access(client_id, authorization)
     if not body.message.strip():
         raise HTTPException(400, "Το κείμενο της δημοσίευσης είναι κενό.")
+    if not body.dry_run:
+        raise HTTPException(
+            409,
+            "Η άμεση δημοσίευση έχει απενεργοποιηθεί. Πρόσθεσε το post στην ουρά και έγκρινέ το.",
+        )
     try:
         return publisher.publish(client_id, body.message.strip(),
                                  body.image_url, body.targets, body.dry_run)

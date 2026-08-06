@@ -29,6 +29,8 @@ export default function Dashboard() {
   const [form, setForm] = useState(null)      // τα πεδία του site, για χειροκίνητη αλλαγή
   const [saving, setSaving] = useState(false)
   const [posts, setPosts] = useState(null)
+  const [socialQueue, setSocialQueue] = useState(null)
+  const [queueBusy, setQueueBusy] = useState('')
   const [copied, setCopied] = useState(-1)
   const [locked, setLocked] = useState(null)
   const [saved, setSaved] = useState(false)
@@ -51,9 +53,14 @@ export default function Dashboard() {
   // --- auth ---
   useEffect(() => {
     if (!supabaseReady) { setSession(null); return }
-    supabase.auth.getSession().then(({ data }) => setSession(data.session ?? null))
+    let alive = true
+    const timeout = setTimeout(() => { if (alive) setSession((value) => value === undefined ? null : value) }, 4000)
+    supabase.auth.getSession()
+      .then(({ data }) => { if (alive) setSession(data.session ?? null) })
+      .catch(() => { if (alive) setSession(null) })
+      .finally(() => clearTimeout(timeout))
     const { data: sub } = supabase.auth.onAuthStateChange((_e, sess) => setSession(sess ?? null))
-    return () => sub.subscription.unsubscribe()
+    return () => { alive = false; clearTimeout(timeout); sub.subscription.unsubscribe() }
   }, [])
 
   const authFetch = useCallback(async (path, opts = {}) => {
@@ -85,6 +92,8 @@ export default function Dashboard() {
     setMessages([{ role: 'bot', text: 'Γεια σου! Πες μου τι θέλεις να αλλάξω στο site σου — με απλά λόγια.' }])
     setPending(null)
     setForm(null)
+    setPosts(null)
+    setSocialQueue(null)
   }, [clientId, authFetch])
 
   useEffect(() => { chatEnd.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages])
@@ -178,14 +187,58 @@ export default function Dashboard() {
   // Έτοιμα posts για την εβδομάδα — ο πελάτης τα αντιγράφει και τα δημοσιεύει.
   async function openPosts() {
     setTab('posts'); setErr('')
-    if (posts) return
+    if (posts && socialQueue) return
     try {
-      const d = await authFetch(`/clients/${clientId}/posts`)
+      const [d, q] = await Promise.all([
+        authFetch(`/clients/${clientId}/posts`),
+        authFetch(`/clients/${clientId}/social-queue`).catch(() => ({ posts: [] })),
+      ])
       setPosts(d.posts || [])
+      setSocialQueue(q.posts || [])
       setLocked(d.locked ? d : null)
     } catch (e) {
       setErr('Δεν φόρτωσαν τα posts. ' + e.message)
     }
+  }
+
+  async function refreshQueue() {
+    const q = await authFetch(`/clients/${clientId}/social-queue`)
+    setSocialQueue(q.posts || [])
+  }
+
+  async function addToQueue(p, i) {
+    if (queueBusy) return
+    setQueueBusy(`add-${i}`); setErr('')
+    try {
+      const caption = `${p.caption}\n\n${(p.hashtags || []).join(' ')}`.trim()
+      await authFetch(`/clients/${clientId}/social-queue`, {
+        method: 'POST', body: JSON.stringify({ caption, targets: ['facebook'] }),
+      })
+      await refreshQueue()
+    } catch (e) {
+      setErr('Δεν μπήκε στην ουρά. ' + e.message)
+    }
+    setQueueBusy('')
+  }
+
+  async function queueAction(postId, action) {
+    if (queueBusy) return
+    setQueueBusy(`${action}-${postId}`); setErr('')
+    try {
+      await authFetch(`/clients/${clientId}/social-queue/${postId}/${action}`, {
+        method: 'POST', body: JSON.stringify({}),
+      })
+      await refreshQueue()
+    } catch (e) {
+      setErr('Δεν ολοκληρώθηκε η ενέργεια. ' + e.message)
+    }
+    setQueueBusy('')
+  }
+
+  const statusLabel = {
+    pending_approval: 'Περιμένει έγκριση', scheduled: 'Προγραμματισμένο',
+    publishing: 'Δημοσιεύεται', published: 'Δημοσιεύτηκε', failed: 'Απέτυχε',
+    rejected: 'Απορρίφθηκε', draft: 'Πρόχειρο',
   }
 
   function copyPost(i, text) {
@@ -315,6 +368,32 @@ export default function Dashboard() {
               <div className={s.formWrap}><p className={s.hint}>Φορτώνει…</p></div>
             ) : (
               <div className={s.formWrap}>
+                <section className={s.queueSection}>
+                  <div className={s.queueHeading}>
+                    <div><strong>Αυτόματες δημοσιεύσεις</strong><span>Τίποτα δεν δημοσιεύεται χωρίς έγκριση.</span></div>
+                    <button type="button" onClick={refreshQueue}>Ανανέωση</button>
+                  </div>
+                  {socialQueue?.length ? socialQueue.map((p) => (
+                    <article key={p.id} className={s.queueItem}>
+                      <div className={s.queueMeta}>
+                        <span data-status={p.status}>{statusLabel[p.status] || p.status}</span>
+                        <small>{(p.targets || []).join(' + ')}</small>
+                      </div>
+                      <p>{p.caption}</p>
+                      {p.last_error && <small className={s.queueError}>{p.last_error}</small>}
+                      {p.status === 'pending_approval' && (
+                        <div className={s.queueActions}>
+                          <button type="button" onClick={() => queueAction(p.id, 'reject')}
+                            disabled={Boolean(queueBusy)}>Απόρριψη</button>
+                          <button type="button" className={s.queueApprove}
+                            onClick={() => queueAction(p.id, 'approve')} disabled={Boolean(queueBusy)}>
+                            Έγκριση και προγραμματισμός
+                          </button>
+                        </div>
+                      )}
+                    </article>
+                  )) : <p className={s.emptyQueue}>Δεν υπάρχουν προγραμματισμένες δημοσιεύσεις ακόμα.</p>}
+                </section>
                 <p className={s.hint}>
                   {locked ? 'Δείγμα — δες πώς είναι ένα post της εβδομάδας σου.'
                           : 'Η εβδομάδα σου. Αντίγραψε, βγάλε τη φωτογραφία, δημοσίευσε.'}
@@ -343,6 +422,12 @@ ${(p.hashtags || []).join(' ')}`)}>
                         {copied === i ? '✓ Αντιγράφηκε' : 'Αντιγραφή'}
                       </button>
                     </div>
+                    {!locked && (
+                      <button className={s.queueAdd} type="button" onClick={() => addToQueue(p, i)}
+                        disabled={Boolean(queueBusy)}>
+                        {queueBusy === `add-${i}` ? 'Προσθήκη…' : 'Προσθήκη στην ουρά Facebook'}
+                      </button>
+                    )}
                   </div>
                 ))}
                 <a className={s.guideLink} href="/odigos/facebook" target="_blank" rel="noreferrer">

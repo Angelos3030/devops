@@ -3,6 +3,7 @@
 """
 
 import json
+from datetime import datetime, timezone
 from supabase import create_client
 from . import config as cfg
 
@@ -83,14 +84,90 @@ def get_social_creds(client_id: str) -> dict | None:
     }
 
 
-def save_post(client_id: str, caption: str, status: str = "published",
+def save_post(client_id: str, caption: str, status: str = "pending_approval",
               image_url: str | None = None,
               fb_post_id: str | None = None,
-              ig_post_id: str | None = None) -> None:
-    _client().table("posts").insert({
+              ig_post_id: str | None = None,
+              targets: list[str] | None = None,
+              scheduled_for: str | None = None,
+              approval_required: bool = True) -> str:
+    res = _client().table("posts").insert({
         "client_id": client_id, "caption": caption,
         "image_url": image_url, "status": status,
         "fb_post_id": fb_post_id, "ig_post_id": ig_post_id,
+        "targets": targets or ["facebook", "instagram"],
+        "scheduled_for": scheduled_for,
+        "approval_required": approval_required,
+    }).execute()
+    return res.data[0]["id"]
+
+
+def get_post(client_id: str, post_id: str) -> dict | None:
+    res = (_client().table("posts").select("*")
+           .eq("id", post_id).eq("client_id", client_id).limit(1).execute())
+    return res.data[0] if res.data else None
+
+
+def list_posts(client_id: str, status: str | None = None, limit: int = 50) -> list[dict]:
+    q = (_client().table("posts").select("*").eq("client_id", client_id)
+         .order("created_at", desc=True).limit(limit))
+    if status:
+        q = q.eq("status", status)
+    return q.execute().data or []
+
+
+def approve_post(client_id: str, post_id: str, approved_by: str,
+                 scheduled_for: str | None = None) -> dict | None:
+    when = scheduled_for or datetime.now(timezone.utc).isoformat()
+    res = (_client().table("posts").update({
+        "status": "scheduled", "approved_at": datetime.now(timezone.utc).isoformat(),
+        "approved_by": approved_by, "scheduled_for": when, "last_error": None,
+    }).eq("id", post_id).eq("client_id", client_id)
+      .in_("status", ["draft", "pending_approval", "failed"]).execute())
+    return res.data[0] if res.data else None
+
+
+def reject_post(client_id: str, post_id: str) -> dict | None:
+    res = (_client().table("posts").update({
+        "status": "rejected", "rejected_at": datetime.now(timezone.utc).isoformat(),
+    }).eq("id", post_id).eq("client_id", client_id)
+      .in_("status", ["draft", "pending_approval", "scheduled"]).execute())
+    return res.data[0] if res.data else None
+
+
+def due_posts(limit: int = 25) -> list[dict]:
+    now = datetime.now(timezone.utc).isoformat()
+    return (_client().table("posts").select("*").eq("status", "scheduled")
+            .lte("scheduled_for", now).order("scheduled_for").limit(limit).execute().data or [])
+
+
+def claim_post(post_id: str) -> dict | None:
+    """Optimistic claim: only a still-scheduled row can become publishing."""
+    res = (_client().table("posts").update({"status": "publishing"})
+           .eq("id", post_id).eq("status", "scheduled").execute())
+    return res.data[0] if res.data else None
+
+
+def finish_post(post_id: str, *, status: str, attempts: int,
+                fb_post_id: str | None = None, ig_post_id: str | None = None,
+                error: str | None = None, scheduled_for: str | None = None) -> None:
+    patch = {"status": status, "attempts": attempts, "last_error": error}
+    if status == "published":
+        patch["published_at"] = datetime.now(timezone.utc).isoformat()
+    if fb_post_id:
+        patch["fb_post_id"] = fb_post_id
+    if ig_post_id:
+        patch["ig_post_id"] = ig_post_id
+    if scheduled_for:
+        patch["scheduled_for"] = scheduled_for
+    _client().table("posts").update(patch).eq("id", post_id).execute()
+
+
+def save_publish_log(post_id: str, client_id: str, *, dry_run: bool,
+                     success: bool, result: dict, error: str | None = None) -> None:
+    _client().table("publish_logs").insert({
+        "post_id": post_id, "client_id": client_id, "dry_run": dry_run,
+        "success": success, "result": result, "error": error,
     }).execute()
 
 

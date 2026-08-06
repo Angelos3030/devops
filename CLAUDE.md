@@ -149,6 +149,13 @@ Supabase. Μην κρατάς κρίσιμες αλλαγές μόνο σε έν
 
 Μην αλλάζεις DNS live domain για δοκιμή και μην δημοσιεύεις χωρίς έγκριση.
 
+## Social publishing contract
+
+Το social scope είναι ξανά ενεργό από 2026-08-06. Διάβασε `docs/18-SOCIAL-ENGINE.md` πριν
+αλλάξεις posts, OAuth ή publishing. Το `src/daily_post.py` δημιουργεί μόνο drafts. Πραγματική
+δημοσίευση επιτρέπεται αποκλειστικά μέσω `src/social_engine.py`, μετά από ρητή έγκριση και
+με audit log. Μην επαναφέρεις direct generate-and-publish flow και μην ενεργοποιήσεις ads spend.
+
 ## Definition of Done
 
 Ένα site είναι έτοιμο μόνο όταν:

@@ -67,11 +67,31 @@ create table if not exists posts (
   client_id   uuid references clients(id) on delete cascade,
   caption     text,
   image_url   text,
-  status      text default 'scheduled',   -- scheduled | published | failed | pending_approval
+  status      text default 'pending_approval', -- draft | pending_approval | scheduled | publishing | published | failed | rejected
+  targets     jsonb not null default '["facebook", "instagram"]'::jsonb,
+  approval_required boolean not null default true,
+  approved_at timestamptz,
+  approved_by text,
+  rejected_at timestamptz,
+  attempts    int not null default 0,
+  max_attempts int not null default 3,
+  last_error  text,
   fb_post_id  text,
   ig_post_id  text,
   scheduled_for timestamptz,
   published_at  timestamptz,
+  created_at  timestamptz default now()
+);
+
+-- Αμετάβλητο audit trail για κάθε απόπειρα δημοσίευσης.
+create table if not exists publish_logs (
+  id          uuid primary key default gen_random_uuid(),
+  post_id     uuid not null references posts(id) on delete cascade,
+  client_id   uuid not null references clients(id) on delete cascade,
+  dry_run     boolean not null default false,
+  success     boolean not null default false,
+  result      jsonb not null default '{}'::jsonb,
+  error       text,
   created_at  timestamptz default now()
 );
 
@@ -117,5 +137,7 @@ create index if not exists idx_clients_status on clients(status);
 create index if not exists idx_client_assets_client on client_assets(client_id);
 create index if not exists idx_posts_client on posts(client_id);
 create index if not exists idx_posts_scheduled on posts(scheduled_for) where status = 'scheduled';
+create index if not exists idx_publish_logs_post on publish_logs(post_id, created_at desc);
+create index if not exists idx_publish_logs_client on publish_logs(client_id);
 create index if not exists idx_domain_orders_client on domain_orders(client_id);
 create index if not exists idx_domain_orders_status on domain_orders(status);

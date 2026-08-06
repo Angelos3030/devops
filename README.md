@@ -207,11 +207,12 @@ AI_API_KEY=sk-ant-…          # και τίποτα άλλο
 | [docs/14-DOMAIN-AUTOMATION.md](docs/14-DOMAIN-AUTOMATION.md) | Domains: προτάσεις → πληρωμή → DNS |
 | [docs/16-GOOGLE-META-AUTOMATION.md](docs/16-GOOGLE-META-AUTOMATION.md) | Google Business Profile, Facebook/Instagram posts και ads approvals |
 | [docs/17-TEMPLATE-COLLECTION.md](docs/17-TEMPLATE-COLLECTION.md) | Η επίσημη συλλογή 20 templates, photo modes και quality gate |
+| [docs/18-SOCIAL-ENGINE.md](docs/18-SOCIAL-ENGINE.md) | Δικό μας approval-first Facebook/Instagram queue και worker |
 | [docs/emails-reseller.md](docs/emails-reseller.md) | Επαφές registrar (Papaki, Pointer) |
 
 ## 11. Τι εκκρεμεί
 
-- **Meta App Review** — χωρίς αυτό δεν ποστάρουμε αυτόματα ([docs/12](docs/12-META-APP-REVIEW.md))
+- **Meta App Review** — το social engine είναι έτοιμο, αλλά χωρίς approval μένει σε dry-run ([docs/12](docs/12-META-APP-REVIEW.md))
 - **Registrar API** — Papaki/Pointer· μέχρι τότε αγοράζουμε χειροκίνητα
 - **Stripe live mode** — κλειστό μέχρι να τελειώσουν τα tests
 - **AI API key** (DeepSeek/Anthropic/OpenRouter) — ξεκλειδώνει chat-to-edit και AI κείμενα

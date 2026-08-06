@@ -87,6 +87,25 @@
 .okTag { color: var(--green); font-size: .88rem; }
 
 /* --- posts της εβδομάδας --- */
+.queueSection { display: grid; gap: 10px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.queueHeading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.queueHeading > div { display: grid; gap: 2px; }
+.queueHeading strong { font-family: var(--serif); font-size: 1.05rem; font-weight: 500; }
+.queueHeading span, .queueHeading button { color: var(--ink-soft); font: 400 .76rem var(--sans); }
+.queueHeading button { border: 0; background: none; cursor: pointer; }
+.queueItem { border: 1px solid var(--line); background: rgba(0,0,0,.16); padding: .8rem; display: grid; gap: .55rem; border-radius: 8px; }
+.queueItem p { font-size: .86rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.queueMeta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.queueMeta span { color: var(--accent); font-size: .72rem; font-weight: 700; }
+.queueMeta span[data-status='published'] { color: var(--green); }
+.queueMeta small { color: var(--ink-soft); font-size: .7rem; }
+.queueError { color: var(--accent); font-size: .72rem; }
+.queueActions { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: 7px; }
+.queueActions button, .queueAdd { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 7px; padding: .55rem .65rem; font: 700 .76rem var(--sans); cursor: pointer; }
+.queueActions .queueApprove, .queueAdd { background: var(--accent); color: #1a1204; border-color: var(--accent); }
+.queueActions button:disabled, .queueAdd:disabled { opacity: .5; cursor: default; }
+.emptyQueue { color: var(--ink-soft); font-size: .82rem; padding: .7rem; border: 1px dashed var(--line); border-radius: 8px; }
+.queueAdd { width: 100%; margin-top: .15rem; }
 .post { background: var(--surface2); border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .45rem; }
 .postTop { display: flex; align-items: baseline; gap: .6rem; }
 .postTop strong { font-family: var(--serif); font-size: 1.05rem; }

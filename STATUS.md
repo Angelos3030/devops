@@ -3,6 +3,26 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+## 🟢 ΝΕΟΤΕΡΗ ΑΠΟΦΑΣΗ (2026-08-06) — SOCIAL ΞΑΝΑ ΕΝΕΡΓΟ
+
+Η παλιότερη οδηγία «έξω τα social» παρακάτω έχει ανακληθεί από τον owner. Χτίζουμε δικό μας
+Facebook/Instagram engine, χωρίς Postiz ή τρίτο scheduler.
+
+Ολοκληρώθηκε Social Engine v1:
+
+- approval-first queue και authenticated approve/reject API,
+- direct Meta publisher με dry-run,
+- retries χωρίς διπλό post όταν πετύχει μόνο ένα δίκτυο,
+- Supabase migration `add_social_engine` εφαρμοσμένη,
+- RLS ενεργό και audit table `publish_logs`,
+- dashboard queue UI,
+- `daily_post.py` δημιουργεί draft αντί να δημοσιεύει,
+- 5/5 unit tests και Next production build πράσινα.
+
+Επόμενα: Meta App Review → test Page dry-run → Railway Cron → πραγματικό test post. Ads μόνο
+σε επόμενο milestone με ξεχωριστή έγκριση και hard budget limits. Λεπτομέρειες:
+`docs/18-SOCIAL-ENGINE.md`.
+
 ## 🟢 LIVE STATUS (2026-07-15) — STAGING, ΟΧΙ δημόσιο launch ακόμα (owner: «ας μην το ανοίξουμε»)
 
 **Ό,τι είναι live τρέχει, αλλά ΔΕΝ έχει ανακοινωθεί· Stripe = TEST mode (μηδέν πραγματικά λεφτά).**
