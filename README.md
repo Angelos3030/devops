@@ -243,6 +243,7 @@ AI_API_KEY=sk-ant-…          # και τίποτα άλλο
 | [docs/18-SOCIAL-ENGINE.md](docs/18-SOCIAL-ENGINE.md) | Δικό μας approval-first Facebook/Instagram queue και worker |
 | [docs/19-COMPLIANCE-LAUNCH.md](docs/19-COMPLIANCE-LAUNCH.md) | Υποχρεωτικό launch gate: Meta, GDPR, ασφάλεια, Stripe και αποδεικτικά |
 | [docs/20-PILOT-5-FRIENDS.md](docs/20-PILOT-5-FRIENDS.md) | Pilot 5 φίλων: live links, feedback, εκκρεμότητες και Google |
+| [docs/21-VERTICAL-REFERENCE-LIBRARY.md](docs/21-VERTICAL-REFERENCE-LIBRARY.md) | Ελληνικά reference sites και conversion architecture για 12 βασικούς κλάδους |
 | [docs/emails-reseller.md](docs/emails-reseller.md) | Επαφές registrar (Papaki, Pointer) |
 
 ## 11. Τι εκκρεμεί

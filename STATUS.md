@@ -30,6 +30,8 @@
 3. Meta: business verification → access verification → App Review → test Page/IG dry-run → test post.
 4. Domains: χειροκίνητη αγορά μέχρι να δοθούν registrar/reseller credentials και public API access.
 5. Google Business Profile: concierge verification στην αρχή· automation μόνο μετά από GBP API approval.
+6. Vertical demos: χρησιμοποιούμε το `docs/21-VERTICAL-REFERENCE-LIBRARY.md` ως research baseline
+   και σχεδιάζουμε πρώτα τη σωστή conversion architecture ανά επάγγελμα, μετά τα themes.
 
 Μην ξαναχτίσεις chooser, 12-design recommendation, vertical matching, no-photo mode ή compliance
 documents. Υπάρχουν ήδη και έχουν περάσει QA.
