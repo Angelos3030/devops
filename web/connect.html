@@ -45,7 +45,6 @@
     .upload-zone:hover{border-color:var(--p);background:#f4f8ff;}
     .upload-thumb{width:64px;height:64px;object-fit:cover;border-radius:6px;border:2px solid #e0e8f4;}
   </style>
-  <link rel="stylesheet" href="cookie-consent.css">
 </head>
 <body>
   <div class="wrap">
@@ -126,6 +125,13 @@
           Τις συμπιέζουμε αυτόματα πριν τις ανεβάσουμε. Διατηρείς τα πνευματικά δικαιώματα.
         </p>
 
+        <label style="display:flex;align-items:flex-start;gap:10px;font-weight:500;font-size:.88rem;">
+          <input name="legal_acceptance" type="checkbox" required style="width:18px;height:18px;margin-top:3px;flex:0 0 auto;">
+          <span>Έχω δικαίωμα χρήσης των στοιχείων και αρχείων που ανεβάζω και αποδέχομαι τους
+            <a href="terms.html" target="_blank" rel="noopener">Όρους</a> και την
+            <a href="privacy.html" target="_blank" rel="noopener">Πολιτική Απορρήτου</a>.</span>
+        </label>
+
         <button class="btn btn-primary" type="submit">Φτιάξε μου το site →</button>
       </form>
     </div>
@@ -182,8 +188,14 @@
       <button class="btn btn-primary" id="pay-btn" onclick="startCheckout()">
         Ξεκίνα δωρεάν →
       </button>
-      <p style="text-align:center;font-size:.82rem;opacity:.6;margin-top:10px;">
-        Ακύρωση οποτεδήποτε · Χωρίς δέσμευση
+      <label style="display:flex;align-items:flex-start;gap:10px;font-weight:500;font-size:.85rem;margin-top:14px;">
+        <input id="billing-consent" type="checkbox" style="width:18px;height:18px;margin-top:3px;flex:0 0 auto;">
+        <span>Συμφωνώ ότι μετά τον δωρεάν πρώτο μήνα η συνδρομή ανανεώνεται αυτόματα με
+          €14.99/μήνα μέχρι να την ακυρώσω. Διάβασα την
+          <a href="refunds.html" target="_blank" rel="noopener">Πολιτική Ακύρωσης και Επιστροφών</a>.</span>
+      </label>
+      <p style="text-align:center;font-size:.82rem;opacity:.68;margin-top:10px;">
+        Ακύρωση οποτεδήποτε πριν την επόμενη χρέωση · Χωρίς ελάχιστη διάρκεια
       </p>
     </div>
   </div>
@@ -357,8 +369,10 @@
         currentClientId = client_id;
         // Ανέβασε logo/photos στο background (non-blocking)
         uploadAssets(client_id).catch(console.warn);
-        // Πήγαινε στη σελίδα επιλογής design → pick → checkout €14.99
-        window.location.href = SITES + "/choose/" + encodeURIComponent(client_id);
+        // Pilot: δωρεάν προσωρινό Railway preview, χωρίς domain/Stripe.
+        const pilot = new URLSearchParams(location.search).get("pilot") === "1";
+        window.location.href = SITES + "/choose/" + encodeURIComponent(client_id) +
+          (pilot ? "?pilot=1" : "");
       } catch (err) {
         alert("Ουπς, κάτι πήγε στραβά. Δοκίμασε ξανά ή γράψε μας στο hello@getvitrina.gr");
         console.error(err);
@@ -543,6 +557,11 @@
     // --- Βήμα 4: Πληρωμή ---
     async function startCheckout() {
       if (!currentClientId) return;
+      if (!document.getElementById("billing-consent").checked) {
+        alert("Επιβεβαίωσε πρώτα τους όρους της επαναλαμβανόμενης συνδρομής.");
+        document.getElementById("billing-consent").focus();
+        return;
+      }
       const btn = document.getElementById("pay-btn");
       btn.disabled = true;
       btn.textContent = "Μεταφορά στο Stripe…";
@@ -563,6 +582,5 @@
       }
     }
   </script>
-  <script src="cookie-consent.js" defer></script>
 </body>
 </html>
