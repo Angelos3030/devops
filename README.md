@@ -7,6 +7,35 @@
 Αυτό το αρχείο είναι **οι οδηγίες χρήσης**: πώς το τρέχεις, τι κάνεις κάθε μέρα,
 πώς ανεβάζεις πελάτη. Για το «γιατί» και το πλάνο → [docs/](docs/) και [STATUS.md](STATUS.md).
 
+## Τελευταίο handoff για agents (2026-08-06)
+
+Το production `main` βρίσκεται στο commit **`3fe88cd`** (`feat: launch pilot flow and
+expanded site themes`). Μην ξαναφτιάξεις τα παρακάτω — έχουν ολοκληρωθεί και ανέβει:
+
+- **9 curated επιλογές** ανά πελάτη στο `/choose/{client}` με διαφορετική δομή,
+  τυπογραφία, χρώματα και art direction: `canvas`, `runway`, `grid`, `cinematic`,
+  `type-gallery`, `quiet`, `kinetic`, `infinite`, `living`.
+- **Pilot 5 φίλων χωρίς πληρωμή/domain:** `connect.html?pilot=1` → onboarding →
+  chooser → αποθήκευση επιλογής → δωρεάν Railway preview. Αναλυτικά στο
+  [docs/20-PILOT-5-FRIENDS.md](docs/20-PILOT-5-FRIENDS.md).
+- **Vertical intelligence** για 11 βασικές οικογένειες επαγγελμάτων και ασφαλές generic
+  fallback στο `sites/lib/verticalProfiles.js`.
+- **Photo modes:** πραγματικές εικόνες, mixed ή ολοκληρωμένο no-photo site. Το fixture
+  Κουτράκη χρησιμοποιεί μόνο τοπικές πραγματικές φωτογραφίες από
+  `sites/public/clients/koutrakis/`.
+- **Compliance launch pack:** GDPR/Meta/Stripe checklist, DPA, subprocessors και incident
+  response στα `docs/19-COMPLIANCE-LAUNCH.md` και `legal/`.
+- **QA ολοκληρωμένο:** backend design harness **88/88**, vertical tests **11 + fallback**,
+  Next production build πράσινο και browser design guard **30/30** (desktop/mobile,
+  contrast, fonts, links, μηδέν third-party requests).
+- **Live:** Sites `https://sites-production-da56.up.railway.app`, API health
+  `https://api.getvitrina.gr/healthz`. Το Railway κάνει auto-deploy από `main`.
+
+Τρέχουσες εκκρεμότητες: feedback από 5 φίλους, Stripe live mode, Meta business/access
+verification και App Review, registrar credentials για αυτόματη αγορά `.gr`, και Google
+Business Profile API approval. Μην παρουσιάζεις social posting/ads ή αυτόματη αγορά domain
+ως διαθέσιμα πριν κλείσουν τα αντίστοιχα approvals.
+
 ---
 
 ## 1. Τι τρέχει πού

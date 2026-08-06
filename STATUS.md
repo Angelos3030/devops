@@ -3,6 +3,37 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+## 🟢 CURRENT HANDOFF (2026-08-06, commit `3fe88cd`)
+
+Αυτό το section υπερισχύει από παλιότερα/pivot sections πιο κάτω, τα οποία μένουν μόνο ως
+ιστορικό αποφάσεων.
+
+- Όλες οι επιβεβαιωμένες αλλαγές έχουν γίνει commit και push στο `origin/main`.
+- Production library: 30 renderable templates, από τα οποία ο chooser προτείνει **9 curated,
+  δομικά διαφορετικά designs** ανά επάγγελμα.
+- Νέα designs που ολοκληρώθηκαν στο τελευταίο batch: `cinematic`, `type-gallery`, `quiet`,
+  `kinetic`, `infinite`, `living`.
+- Pilot flow για 5 φίλους: `https://getvitrina.gr/connect.html?pilot=1`. Δεν ανοίγει Stripe,
+  δεν αγοράζει domain και οδηγεί σε δωρεάν Railway preview μετά την επιλογή design.
+- Live chooser για έλεγχο: `https://sites-production-da56.up.railway.app/choose/demo-carpenter?pilot=1`.
+- API health: `https://api.getvitrina.gr/healthz` → HTTP 200.
+- QA που πέρασε πριν το push: `scripts/test_design_engine.py` **88/88**,
+  `sites/tests/verticalProfiles.mjs` **11 verticals + fallback**, Next production build,
+  `sites/tests/design_guard.mjs` **30/30 καθαρά** σε desktop/mobile και χωρίς third-party requests.
+- Τα customer sites παραμένουν tracker-free. **Δεν βάζουμε cookie banner** όσο δεν υπάρχουν
+  μη αναγκαία cookies/analytics.
+
+### Επόμενες εργασίες — να μη γίνουν διπλά
+
+1. Μαζεύουμε πραγματικό feedback από τους 5 pilot χρήστες και διορθώνουμε μόνο επαναλαμβανόμενα προβλήματα.
+2. Stripe: παραμένει test mode μέχρι τελικό checkout/refund/webhook production test.
+3. Meta: business verification → access verification → App Review → test Page/IG dry-run → test post.
+4. Domains: χειροκίνητη αγορά μέχρι να δοθούν registrar/reseller credentials και public API access.
+5. Google Business Profile: concierge verification στην αρχή· automation μόνο μετά από GBP API approval.
+
+Μην ξαναχτίσεις chooser, 9-design recommendation, vertical matching, no-photo mode ή compliance
+documents. Υπάρχουν ήδη και έχουν περάσει QA.
+
 ## 🟢 DESIGN SYSTEM + ΚΟΥΤΡΑΚΗΣ E2E (2026-08-06)
 
 - Ο production chooser δίνει πλέον **9 δομικά διαφορετικές επιλογές** ανά επάγγελμα:
