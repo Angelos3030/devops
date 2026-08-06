@@ -56,6 +56,10 @@
 διαφορετικές οπτικές οικογένειες: portfolio, monochrome gallery, Swiss system,
 industrial workshop και one-screen conversion.
 
+Το `sites/lib/artDirection.js` κάνει route-specific photo editing: κάθε πρόταση
+διαλέγει διαφορετικό hero, story image και σειρά έργων από το ίδιο αληθινό υλικό
+του πελάτη. Δεν επιτρέπεται πεντάδα που αλλάζει μόνο παλέτα ή typography.
+
 ## Quality gate
 
 ```bash

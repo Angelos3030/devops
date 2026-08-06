@@ -3,6 +3,7 @@ import { demoBusinesses, demoData } from '../../../lib/demoData'
 import CallBar from '../../../lib/templates/CallBar'
 import { withMediaFallback } from '../../../lib/mediaFallback'
 import MediaDisclosure from '../../../lib/templates/MediaDisclosure'
+import { artDirect } from '../../../lib/artDirection'
 
 // Full-screen render of one template with a chosen demo business (for showcase/ads).
 export default function PreviewTemplate({ params, searchParams }) {
@@ -11,7 +12,7 @@ export default function PreviewTemplate({ params, searchParams }) {
   const input = searchParams?.photos === 'none'
     ? { ...selected, HERO_IMAGE: '', STORY_IMAGE: '', gallery: [] }
     : selected
-  const data = withMediaFallback(input)
+  const data = artDirect(withMediaFallback(input), params.template)
   // Ίδια μπάρα κλήσης με τα ζωντανά site, ώστε το preview να δείχνει την αλήθεια.
   return (
     <>

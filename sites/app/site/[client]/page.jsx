@@ -4,6 +4,7 @@ import { buildMetadata, buildJsonLd } from '../../../lib/seo'
 import CallBar from '../../../lib/templates/CallBar'
 import { withMediaFallback } from '../../../lib/mediaFallback'
 import MediaDisclosure from '../../../lib/templates/MediaDisclosure'
+import { artDirect } from '../../../lib/artDirection'
 
 export const dynamic = 'force-dynamic' // multi-tenant: render per request (ISR via fetch revalidate)
 
@@ -46,8 +47,9 @@ export default async function SitePage({ params, searchParams }) {
     )
   }
   const draft = readDraft(searchParams?.draft)
-  const siteData = withMediaFallback({ ...payload.data, ...draft })
-  const Template = pickTemplate(draft.template || payload.layout)
+  const templateKey = draft.template || payload.layout
+  const siteData = artDirect(withMediaFallback({ ...payload.data, ...draft }), templateKey)
+  const Template = pickTemplate(templateKey)
   const domain = String(params.client).includes('.') ? params.client : undefined
   const jsonLd = buildJsonLd(siteData, { domain })
   return (
