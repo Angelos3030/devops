@@ -7,6 +7,11 @@ import s from './trade.module.css'
 // Ad landing pages ανά επάγγελμα: /gia/taverna, /gia/kommotirio, ...
 // Ένα ζωντανό demo της κατηγορίας + 3 εναλλακτικά + ένα CTA. Ό,τι πουλάει τα ads.
 export const TRADES = {
+  xylourgos: {
+    label: 'ξυλουργούς & επιπλοποιούς', hero: 'Η ποιότητα της δουλειάς σου πρέπει να φαίνεται.',
+    biz: 'carpenter', templates: ['canvas', 'cinematic', 'living', 'forge'],
+    points: ['Έργα και λεπτομέρειες σε πρώτο πλάνο', 'Αίτημα προσφοράς με ένα κλικ', 'Περιοχές εξυπηρέτησης και τηλέφωνο μπροστά'],
+  },
   taverna: {
     label: 'ταβέρνες & εστιατόρια', hero: 'Το site που ανοίγει την όρεξη.',
     biz: 'taverna', templates: ['ember', 'warmth', 'magazine', 'editorial'],
@@ -26,6 +31,11 @@ export const TRADES = {
     label: 'ιατρεία & κλινικές', hero: 'Εμπιστοσύνη από την πρώτη ματιά.',
     biz: 'physician', templates: ['marble', 'quiet', 'split', 'grid'],
     points: ['Καθαρή παρουσίαση υπηρεσιών', 'Ραντεβού & ωράριο μπροστά', 'Σοβαρή, ήρεμη αισθητική'],
+  },
+  odontiatros: {
+    label: 'οδοντιατρεία', hero: 'Ένα ήρεμο site που χτίζει εμπιστοσύνη.',
+    biz: 'dentist', templates: ['marble', 'quiet', 'grid', 'living'],
+    points: ['Θεραπείες χωρίς δύσκολη ορολογία', 'Ιατρός, χώρος και εξοπλισμός με τάξη', 'Ραντεβού και ωράριο μπροστά'],
   },
   aisthitiki: {
     label: 'κέντρα αισθητικής', hero: 'Η φροντίδα σου αξίζει μια όμορφη πρώτη εικόνα.',

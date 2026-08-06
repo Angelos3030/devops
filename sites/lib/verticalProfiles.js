@@ -40,7 +40,7 @@ const profile = ({
 export const VERTICAL_PROFILES = Object.freeze({
   carpenter: profile({
     id: 'carpenter', label: 'Ξυλουργός',
-    aliases: ['carpenter', 'woodworker', 'ξυλουργός', 'ξυλουργείο', 'ξυλουργικό εργαστήριο', 'κουζίνες', 'ντουλάπες'],
+    aliases: ['carpenter', 'woodworker', 'ξυλουργός', 'ξυλουργείο', 'ξυλουργικό εργαστήριο', 'κουζίνες', 'ντουλάπες', 'επιπλοποιός', 'έπιπλα', 'μαραγκός', 'κουφώματα', 'ανακαινίσεις'],
     conversionGoal: { primary: 'request-quote', secondary: 'phone-call' },
     requiredSections: ['hero', 'services', 'work', 'process', 'service-areas', 'contact', 'find-us'],
     motionIntensity: 'moderate', schemaType: 'HomeAndConstructionBusiness',
@@ -54,7 +54,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   taverna: profile({
     id: 'taverna', label: 'Ταβέρνα / Εστιατόριο',
-    aliases: ['taverna', 'restaurant', 'ταβέρνα', 'εστιατόριο', 'μεζεδοπωλείο', 'ψητοπωλείο'],
+    aliases: ['taverna', 'restaurant', 'ταβέρνα', 'εστιατόριο', 'μεζεδοπωλείο', 'ψητοπωλείο', 'σουβλατζίδικο', 'πιτσαρία', 'μαγειρείο', 'catering', 'ζαχαροπλαστείο', 'μπαρ'],
     conversionGoal: { primary: 'reservation-call', secondary: 'directions' },
     requiredSections: ['hero', 'menu-highlights', 'services', 'atmosphere', 'hours', 'contact', 'find-us'],
     motionIntensity: 'moderate', schemaType: 'Restaurant',
@@ -68,7 +68,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   salon: profile({
     id: 'salon', label: 'Κομμωτήριο',
-    aliases: ['salon', 'hair salon', 'κομμωτήριο', 'κομμωτής', 'hair studio'],
+    aliases: ['salon', 'hair salon', 'κομμωτήριο', 'κομμωτής', 'hair studio', 'barber', 'barbershop', 'κουρείο', 'νύχια', 'nail studio', 'μανικιούρ', 'μακιγιάζ'],
     conversionGoal: { primary: 'book-appointment', secondary: 'phone-call' },
     requiredSections: ['hero', 'services', 'pricing-or-consultation', 'work', 'hours', 'contact', 'find-us'],
     motionIntensity: 'expressive', schemaType: 'HairSalon',
@@ -82,7 +82,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   dentist: profile({
     id: 'dentist', label: 'Οδοντιατρείο',
-    aliases: ['dentist', 'dental clinic', 'οδοντίατρος', 'οδοντιατρείο', 'οδοντιατρική κλινική'],
+    aliases: ['dentist', 'dental clinic', 'οδοντίατρος', 'οδοντιατρείο', 'οδοντιατρική κλινική', 'ορθοδοντικός', 'παιδοδοντίατρος', 'περιοδοντολόγος'],
     conversionGoal: { primary: 'book-appointment', secondary: 'phone-call' },
     requiredSections: ['hero', 'services', 'doctor-profile', 'trust-signals', 'hours', 'contact', 'find-us'],
     motionIntensity: 'restrained', schemaType: 'Dentist',
@@ -96,7 +96,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   physician: profile({
     id: 'physician', label: 'Ιατρείο',
-    aliases: ['physician', 'doctor', 'medical office', 'γιατρός', 'ιατρός', 'ιατρείο', 'ιατρικό κέντρο'],
+    aliases: ['physician', 'doctor', 'medical office', 'γιατρός', 'ιατρός', 'ιατρείο', 'ιατρικό κέντρο', 'παθολόγος', 'καρδιολόγος', 'παιδίατρος', 'δερματολόγος', 'γυναικολόγος', 'ορθοπεδικός', 'οφθαλμίατρος', 'ωρλ', 'ψυχολόγος', 'διατροφολόγος', 'κτηνίατρος', 'φαρμακείο'],
     conversionGoal: { primary: 'book-appointment', secondary: 'phone-call' },
     requiredSections: ['hero', 'services', 'doctor-profile', 'credentials', 'visit-information', 'hours', 'contact', 'find-us'],
     motionIntensity: 'restrained', schemaType: 'Physician',
@@ -110,7 +110,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   aesthetics: profile({
     id: 'aesthetics', label: 'Κέντρο αισθητικής',
-    aliases: ['aesthetics', 'beauty clinic', 'κέντρο αισθητικής', 'αισθητικός', 'ινστιτούτο αισθητικής'],
+    aliases: ['aesthetics', 'beauty clinic', 'κέντρο αισθητικής', 'αισθητικός', 'ινστιτούτο αισθητικής', 'laser αποτρίχωση', 'spa προσώπου', 'αισθητική προσώπου', 'κέντρο ομορφιάς'],
     conversionGoal: { primary: 'book-treatment', secondary: 'phone-call' },
     requiredSections: ['hero', 'treatments', 'expertise', 'experience', 'pricing-or-consultation', 'contact', 'find-us'],
     motionIntensity: 'moderate', schemaType: 'BeautySalon',
@@ -124,7 +124,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   massage: profile({
     id: 'massage', label: 'Massage / Wellness',
-    aliases: ['massage', 'wellness', 'spa', 'μασάζ', 'κέντρο μασάζ', 'ευεξία'],
+    aliases: ['massage', 'wellness', 'spa', 'μασάζ', 'κέντρο μασάζ', 'ευεξία', 'φυσικοθεραπευτής', 'φυσικοθεραπεία', 'ρεφλεξολογία', 'pilates studio', 'yoga studio'],
     conversionGoal: { primary: 'book-session', secondary: 'phone-call' },
     requiredSections: ['hero', 'treatments', 'benefits', 'therapist-or-method', 'session-information', 'contact', 'find-us'],
     motionIntensity: 'restrained', schemaType: 'HealthAndBeautyBusiness',
@@ -138,7 +138,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   cafe: profile({
     id: 'cafe', label: 'Καφέ',
-    aliases: ['cafe', 'coffee shop', 'καφέ', 'καφετέρια', 'specialty coffee'],
+    aliases: ['cafe', 'coffee shop', 'καφέ', 'καφετέρια', 'specialty coffee', 'φούρνος', 'αρτοποιείο', 'bakery', 'παγωτατζίδικο', 'brunch'],
     conversionGoal: { primary: 'visit-location', secondary: 'phone-call' },
     requiredSections: ['hero', 'menu-highlights', 'services', 'atmosphere', 'hours', 'contact', 'find-us'],
     motionIntensity: 'expressive', schemaType: 'CafeOrCoffeeShop',
@@ -152,7 +152,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   lawyer: profile({
     id: 'lawyer', label: 'Δικηγορικό γραφείο',
-    aliases: ['lawyer', 'attorney', 'legal office', 'δικηγόρος', 'δικηγορικό γραφείο', 'νομικές υπηρεσίες'],
+    aliases: ['lawyer', 'attorney', 'legal office', 'δικηγόρος', 'δικηγορικό γραφείο', 'νομικές υπηρεσίες', 'λογιστής', 'λογιστικό γραφείο', 'συμβολαιογράφος', 'ασφαλιστής', 'σύμβουλος επιχειρήσεων', 'μεσίτης', 'μεσιτικό γραφείο', 'μηχανικός', 'αρχιτέκτονας'],
     conversionGoal: { primary: 'request-consultation', secondary: 'phone-call' },
     requiredSections: ['hero', 'practice-areas', 'credentials', 'process', 'contact', 'find-us'],
     motionIntensity: 'restrained', schemaType: 'LegalService',
@@ -166,7 +166,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   plumber: profile({
     id: 'plumber', label: 'Υδραυλικός',
-    aliases: ['plumber', 'plumbing', 'υδραυλικός', 'υδραυλικές εργασίες', 'αποφράξεις'],
+    aliases: ['plumber', 'plumbing', 'υδραυλικός', 'υδραυλικές εργασίες', 'αποφράξεις', 'ηλεκτρολόγος', 'ψυκτικός', 'κλειδαράς', 'ελαιοχρωματιστής', 'μπογιατζής', 'τεχνίτης', 'μάστορας', 'καθαρισμός', 'συνεργείο καθαρισμού', 'απεντομώσεις', 'μετακομίσεις'],
     conversionGoal: { primary: 'emergency-call', secondary: 'request-quote' },
     requiredSections: ['hero', 'emergency-callout', 'services', 'trust-signals', 'service-areas', 'contact'],
     motionIntensity: 'moderate', schemaType: 'Plumber',
@@ -180,7 +180,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   rooms: profile({
     id: 'rooms', label: 'Ενοικιαζόμενα δωμάτια',
-    aliases: ['rooms', 'lodging', 'hotel', 'ενοικιαζόμενα δωμάτια', 'κατάλυμα', 'ξενοδοχείο'],
+    aliases: ['rooms', 'lodging', 'hotel', 'ενοικιαζόμενα δωμάτια', 'κατάλυμα', 'ξενοδοχείο', 'airbnb', 'βίλα', 'ξενώνας', 'τουριστικό γραφείο'],
     conversionGoal: { primary: 'booking-enquiry', secondary: 'phone-call' },
     requiredSections: ['hero', 'rooms', 'amenities', 'gallery', 'location', 'contact', 'find-us'],
     motionIntensity: 'moderate', schemaType: 'LodgingBusiness',
@@ -195,7 +195,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   gym: profile({
     id: 'gym', label: 'Γυμναστήριο',
-    aliases: ['gym', 'fitness', 'γυμναστήριο', 'fitness studio', 'personal training'],
+    aliases: ['gym', 'fitness', 'γυμναστήριο', 'fitness studio', 'personal training', 'personal trainer', 'crossfit', 'σχολή χορού', 'πολεμικές τέχνες'],
     conversionGoal: { primary: 'trial-enquiry', secondary: 'phone-call' },
     requiredSections: ['hero', 'programs', 'facilities', 'trainers-or-method', 'hours', 'contact', 'find-us'],
     motionIntensity: 'expressive', schemaType: 'ExerciseGym',
@@ -209,7 +209,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   garage: profile({
     id: 'garage', label: 'Συνεργείο αυτοκινήτων',
-    aliases: ['garage', 'auto repair', 'mechanic', 'συνεργείο', 'συνεργείο αυτοκινήτων', 'μηχανικός αυτοκινήτων'],
+    aliases: ['garage', 'auto repair', 'mechanic', 'συνεργείο', 'συνεργείο αυτοκινήτων', 'μηχανικός αυτοκινήτων', 'βουλκανιζατέρ', 'φανοποιείο', 'ηλεκτρολόγος αυτοκινήτων', 'πλυντήριο αυτοκινήτων', 'ανταλλακτικά αυτοκινήτων'],
     conversionGoal: { primary: 'service-call', secondary: 'directions' },
     requiredSections: ['hero', 'services', 'trust-signals', 'brands-or-vehicle-types', 'hours', 'contact', 'find-us'],
     motionIntensity: 'moderate', schemaType: 'AutoRepair',
@@ -223,7 +223,7 @@ export const VERTICAL_PROFILES = Object.freeze({
   }),
   farm: profile({
     id: 'farm', label: 'Παραγωγός / Αγροτικά προϊόντα',
-    aliases: ['farm', 'producer', 'olive oil', 'παραγωγός', 'αγροτικά προϊόντα', 'ελαιόλαδο', 'ελαιοπαραγωγός'],
+    aliases: ['farm', 'producer', 'olive oil', 'παραγωγός', 'αγροτικά προϊόντα', 'ελαιόλαδο', 'ελαιοπαραγωγός', 'οινοποιείο', 'μελισσοκόμος', 'τυροκομείο', 'κτηνοτρόφος', 'βιολογικά προϊόντα', 'παντοπωλείο'],
     conversionGoal: { primary: 'product-enquiry', secondary: 'phone-call' },
     requiredSections: ['hero', 'products', 'origin-and-method', 'quality-signals', 'contact', 'find-us'],
     motionIntensity: 'restrained', schemaType: 'LocalBusiness',
