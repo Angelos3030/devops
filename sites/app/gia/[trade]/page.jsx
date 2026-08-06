@@ -90,7 +90,8 @@ export default function TradeLanding({ params }) {
         <h1>{t.hero}</h1>
         <p className={s.sub}>
           Σου φτιάχνουμε επαγγελματικό site με τα δικά σου στοιχεία και φωτογραφίες.
-          Domain, φιλοξενία, SEO και αλλαγές — όλα μέσα, <strong>€14.99/μήνα</strong>.
+          Φιλοξενία, SEO και αλλαγές — <strong>€14.99/μήνα</strong>. Προαιρετικό
+          .gr domain <strong>24€/έτος</strong>, ξεχωριστά.
         </p>
         <div className={s.actions}>
           <a className={s.cta} href="https://getvitrina.gr/connect.html">Φτιάξε μου το site →</a>

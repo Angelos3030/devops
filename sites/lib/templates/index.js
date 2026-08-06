@@ -22,12 +22,18 @@ import Motor from './Motor'
 import Terra from './Terra'
 import Dispatch from './Dispatch'
 import Canvas from './Canvas'
+import Cinematic from './Cinematic'
+import TypeGallery from './TypeGallery'
+import Quiet from './Quiet'
+import Kinetic from './Kinetic'
+import Infinite from './Infinite'
+import Living from './Living'
 
 // Structurally-distinct React archetypes.
-export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch, canvas: Canvas }
+export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch, canvas: Canvas, cinematic: Cinematic, 'type-gallery': TypeGallery, quiet: Quiet, kinetic: Kinetic, infinite: Infinite, living: Living }
 // The public collection stays intentionally curated. Legacy templates remain
 // renderable for existing clients but are not offered to new customers.
-export const TEMPLATE_KEYS = ['editorial', 'split', 'bento', 'longform', 'poster', 'sidebar', 'grid', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas']
+export const TEMPLATE_KEYS = ['editorial', 'split', 'bento', 'longform', 'poster', 'sidebar', 'grid', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living']
 export const LEGACY_TEMPLATE_KEYS = ['showcase', 'corporate', 'coast', 'pulse']
 export const TEMPLATE_META = {
   editorial: { label: 'Editorial', desc: 'Κλασικό stacked, μεγάλη τυπογραφία.' },
@@ -54,6 +60,12 @@ export const TEMPLATE_META = {
   canvas: { label: 'Portfolio Canvas', desc: 'Κατάλογος έργων με ήρεμη πολυτέλεια και μεγάλες φωτογραφίες.' },
   dispatch: { label: 'One Screen', desc: 'Μία οθόνη, μηδέν σκρολ — κινηματογραφικό φόντο και τηλέφωνο-ήρωας.' },
   terra: { label: 'Terra', desc: 'Γη & kraft — ετικέτες προϊόντων, ελιά. Παραγωγοί/αγροτικά.' },
+  cinematic: { label: 'Cinematic Residence', desc: 'Κινηματογραφική αφήγηση χώρου με μεγάλα έργα και ήρεμες μεταβάσεις.' },
+  'type-gallery': { label: 'Type Gallery', desc: 'Εκφραστική τυπογραφία, poster ρυθμός και τολμηρή παρουσίαση έργων.' },
+  quiet: { label: 'Quiet Precision', desc: 'Ήρεμη ακρίβεια, λεπτομέρεια και αυστηρή minimal σύνθεση.' },
+  kinetic: { label: 'Kinetic Workshop', desc: 'Motion-first layout με clipped reveals, marquee και δυναμική τυπογραφία.' },
+  infinite: { label: 'Infinite Showroom', desc: 'Οριζόντια περιήγηση έργων, sticky αφήγηση και αίσθηση showroom.' },
+  living: { label: 'Living Material', desc: 'Οργανικές φόρμες, υλικά και tactile παρουσίαση με απαλή κίνηση.' },
 }
 
 // Map backend layout names → React archetype (until backend adopts react keys).

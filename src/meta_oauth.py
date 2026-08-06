@@ -319,7 +319,7 @@ def get_content(client_id: str, authorization: str | None = Header(default=None)
         "template": db.get_selected_design(client_id) or pg.recommend_templates(intake)[0],
     }
     current.update({k: v for k, v in overrides.items() if k in _EDITABLE})
-    return {"content": current, "templates": pg.recommend_templates(intake, limit=5),
+    return {"content": current, "templates": pg.recommend_templates(intake, limit=9),
             "all_templates": list(pg.REACT_TEMPLATES)}
 
 
@@ -533,7 +533,7 @@ def chat_edit(client_id: str, body: ChatEdit,
 
     current = get_content(client_id, authorization)["content"]
     intake = _intake_from_db(client_id)
-    result = se.chat_edit(body.message, current, pg.recommend_templates(intake, limit=5))
+    result = se.chat_edit(body.message, current, pg.recommend_templates(intake, limit=9))
 
     proposed = {k: v for k, v in result["changes"].items() if k in _EDITABLE}
     return {

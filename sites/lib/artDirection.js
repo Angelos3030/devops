@@ -6,6 +6,12 @@ const DIRECTIONS = {
   grid: { hero: 1, story: 3, rotate: 1 },
   forge: { hero: 3, story: 1, rotate: 3 },
   dispatch: { hero: 4, story: 2, rotate: 4 },
+  cinematic: { hero: 1, story: 4, rotate: 1 },
+  'type-gallery': { hero: 2, story: 1, rotate: 3 },
+  quiet: { hero: 0, story: 3, rotate: 4 },
+  kinetic: { hero: 3, story: 2, rotate: 2 },
+  infinite: { hero: 4, story: 0, rotate: 1 },
+  living: { hero: 2, story: 4, rotate: 4 },
 }
 
 const at = (items, index) => items.length ? items[index % items.length] : null

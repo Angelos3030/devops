@@ -18,6 +18,7 @@ import { chromium } from 'playwright'
 const TEMPLATES = ['editorial', 'split', 'showcase', 'bento', 'longform', 'corporate',
   'poster', 'sidebar', 'grid', 'coast', 'magazine', 'warmth', 'ember', 'marble',
   'runway', 'forge', 'aegean', 'bloom', 'pulse', 'volt', 'motor', 'terra', 'dispatch', 'canvas']
+TEMPLATES.push('cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living')
 
 const argIdx = process.argv.indexOf('--base')
 const BASE = argIdx > -1 ? process.argv[argIdx + 1] : 'https://sites-production-da56.up.railway.app'

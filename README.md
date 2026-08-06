@@ -113,27 +113,28 @@ cd sites && npx next build       # ότι χτίζει το frontend
 
 ## 7. Τα templates
 
-20 επιλεγμένα React templates στο [sites/lib/templates/](sites/lib/templates/) — δομικά
+26 επιλεγμένα React templates στο [sites/lib/templates/](sites/lib/templates/) — δομικά
 διαφορετικά, με δικά τους ελληνικά fonts και χρώματα, όχι recolors.
 
-Υπάρχουν 24 renderable archetypes συνολικά. Τα 4 legacy (`showcase`, `corporate`, `coast`,
+Υπάρχουν 30 renderable archetypes συνολικά. Τα 4 legacy (`showcase`, `corporate`, `coast`,
 `pulse`) παραμένουν διαθέσιμα για υπάρχοντες πελάτες, αλλά δεν προτείνονται σε νέους.
 
 Το `recommend_templates()` στο [src/premium_generator.py](src/premium_generator.py)
-διαλέγει πέντε curated προτάσεις ανάλογα με το επάγγελμα (ταβέρνα → `ember`,
-κομμωτήριο → `runway`, συνεργείο → `motor`…). Τα 20 templates παραμένουν η
-εσωτερική βιβλιοθήκη· ο πελάτης βλέπει μόνο τις πέντε ισχυρότερες επιλογές του.
+διαλέγει εννέα curated προτάσεις ανάλογα με το επάγγελμα (ταβέρνα → `warmth`,
+κομμωτήριο → `runway`, συνεργείο → `motor`…). Τα 26 templates παραμένουν η
+εσωτερική βιβλιοθήκη· ο πελάτης βλέπει μόνο τις εννέα ισχυρότερες επιλογές του.
 Το art-direction layer αλλάζει επίσης hero και σειρά έργων ανά πρόταση, ώστε οι
-πέντε επιλογές να μη μοιάζουν με recolors του ίδιου site.
+εννέα επιλογές να μη μοιάζουν με recolors του ίδιου site.
 
-**Δεν προσθέτουμε άλλα templates.** Η επίσημη συλλογή των 20 φτάνει· η δουλειά τώρα είναι ποιότητα και διανομή.
+**Δεν προσθέτουμε άλλα templates χωρίς νέο structural use case.** Η επίσημη συλλογή
+των 26 καλύπτει το τρέχον product scope· η δουλειά τώρα είναι ποιότητα και διανομή.
 
 Δες ένα: http://localhost:3000/preview/ember?biz=taverna
 
 ## 7b. Production ποιότητα για κάθε νέο site
 
 Το υποχρεωτικό end-to-end workflow για όλους τους agents βρίσκεται στο
-[`CLAUDE.md`](CLAUDE.md). Περιγράφει intake, πέντε κατάλληλες design επιλογές, responsive
+[`CLAUDE.md`](CLAUDE.md). Περιγράφει intake, εννέα ranked design επιλογές, responsive
 υλοποίηση, local SEO, browser QA, αποθήκευση στο multi-tenant data model και σύνδεση domain.
 
 Κάθε πελάτης υποστηρίζεται σε τρία photo modes:
@@ -211,6 +212,8 @@ AI_API_KEY=sk-ant-…          # και τίποτα άλλο
 | [docs/16-GOOGLE-META-AUTOMATION.md](docs/16-GOOGLE-META-AUTOMATION.md) | Google Business Profile, Facebook/Instagram posts και ads approvals |
 | [docs/17-TEMPLATE-COLLECTION.md](docs/17-TEMPLATE-COLLECTION.md) | Η επίσημη συλλογή 20 templates, photo modes και quality gate |
 | [docs/18-SOCIAL-ENGINE.md](docs/18-SOCIAL-ENGINE.md) | Δικό μας approval-first Facebook/Instagram queue και worker |
+| [docs/19-COMPLIANCE-LAUNCH.md](docs/19-COMPLIANCE-LAUNCH.md) | Υποχρεωτικό launch gate: Meta, GDPR, ασφάλεια, Stripe και αποδεικτικά |
+| [docs/20-PILOT-5-FRIENDS.md](docs/20-PILOT-5-FRIENDS.md) | Pilot 5 φίλων: live links, feedback, εκκρεμότητες και Google |
 | [docs/emails-reseller.md](docs/emails-reseller.md) | Επαφές registrar (Papaki, Pointer) |
 
 ## 11. Τι εκκρεμεί

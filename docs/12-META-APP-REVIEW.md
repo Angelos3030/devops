@@ -48,10 +48,11 @@ redirect URI, σωστές ρυθμίσεις OAuth και dev mode, το Facebo
 
 ---
 
-## 📍 ΠΟΥ ΕΙΣΑΙ ΣΗΜΕΡΑ (έλεγχος 2026-08-04)
+## 📍 ΠΟΥ ΕΙΣΑΙ ΣΗΜΕΡΑ (έλεγχος 2026-08-06)
 
-App: **Vitrina**, ID `982863081415222`. Έχει μόνο `email` + `public_profile` —
-αυτά δίνονται από μόνα τους. **Δεν έχει γίνει ποτέ submit.**
+Η παλιά Consumer app έχει αποσυρθεί από το runtime. Τοπικό `.env` και Railway χρησιμοποιούν
+το ίδιο **νέο Meta App ID**, και το live `/connect/start` ζητά κανονικά τα πέντε organic
+publishing permissions. **Δεν έχει γίνει ακόμη submit για App Review.**
 
 | | |
 |---|---|
@@ -60,6 +61,8 @@ App: **Vitrina**, ID `982863081415222`. Έχει μόνο `email` + `public_prof
 | ✅ | Έτοιμα κείμενα submission → [legal/meta-review-submission.md](../legal/meta-review-submission.md) |
 | ✅ | Κώδικας OAuth + publishing γραμμένος (`/connect/start`, `/connect/callback`) |
 | ✅ | `api.getvitrina.gr` **ζωντανό** (04/08) — έλειπε το TXT `_railway-verify.api` |
+| ✅ | Νέο Meta App ενεργό σε local + Railway, διαφορετικό από το παλιό Consumer App |
+| ✅ | Live OAuth redirect προς Facebook με τα 5 σωστά organic permissions |
 | ❌ | Δεν έγινε ποτέ πραγματικό test post |
 | ❌ | Δεν υπάρχει screencast |
 | ❌ | Δεν έχει ξεκινήσει Business Verification |

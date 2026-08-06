@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { TEMPLATE_META } from '../../../lib/templates'
 import s from './choose.module.css'
 
@@ -16,6 +17,8 @@ const descOf = (k) => TEMPLATE_META[k]?.desc || ''
 
 export default function Choose({ params }) {
   const client = params.client
+  const searchParams = useSearchParams()
+  const isPilot = searchParams.get('pilot') === '1'
   const isDemo = client === 'demo-carpenter'
   const [variants, setVariants] = useState(() => isDemo
     ? DEMO_CARPENTER.map((layout, i) => ({ layout, recommended: i === 0 }))
@@ -92,6 +95,10 @@ export default function Choose({ params }) {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ layout: selected }),
       })
+      if (isPilot) {
+        window.location.href = siteHref(selected)
+        return
+      }
       const r = await fetch(`${API}/create-checkout`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ client_id: client, plan: 'site' }),
@@ -111,7 +118,7 @@ export default function Choose({ params }) {
   return (
     <div className={s.page}>
       <header className={s.head}>
-        <span className={s.eyebrow}>Σχεδόν έτοιμο</span>
+        <span className={s.eyebrow}>{isPilot ? 'Δωρεάν δοκιμή · χωρίς κάρτα' : 'Σχεδόν έτοιμο'}</span>
         <h1>Διάλεξε το design σου</h1>
         <p>
           Ετοίμασα {variants.length} σχέδια για την επιχείρησή σου. Διάλεξε αυτό που σου
@@ -162,7 +169,9 @@ export default function Choose({ params }) {
       <div className={s.bar}>
         <a className={s.preview} href={siteHref(selected)} target="_blank" rel="noreferrer">Άνοιξε σε πλήρη οθόνη ↗</a>
         <button className={s.cta} onClick={checkout} disabled={busy || isDemo}>
-          {isDemo ? 'Demo επιλογής πελάτη' : busy ? 'Σε πάμε στην πληρωμή…' : 'Συνέχεια — €14.99/μήνα · 1ος μήνας δωρεάν'}
+          {isDemo ? 'Demo επιλογής πελάτη' : busy
+            ? (isPilot ? 'Ετοιμάζουμε το preview…' : 'Σε πάμε στην πληρωμή…')
+            : (isPilot ? 'Δημιούργησε δωρεάν preview' : 'Συνέχεια — €14.99/μήνα · 1ος μήνας δωρεάν')}
         </button>
       </div>
       {err && <p className={s.errline}>{err}</p>}

@@ -199,6 +199,7 @@ REACT_TEMPLATES = (
     "grid", "magazine", "warmth",
     "ember", "marble", "runway", "forge", "aegean", "bloom",
     "volt", "motor", "terra", "dispatch", "canvas",
+    "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living",
 )
 
 # Λεπτομερέστερο vertical ΜΟΝΟ για template matching — δεν αγγίζει το _profession()
@@ -227,27 +228,25 @@ def _vertical(intake: dict[str, Any]) -> str:
 
 
 # Premium-first σειρά ανά vertical. Το πρώτο = προτεινόμενο.
-# Η πλήρης σειρά λειτουργεί ως εσωτερική βιβλιοθήκη. Στον πελάτη δείχνουμε μόνο
-# τις πρώτες πέντε, ώστε κάθε επιλογή να είναι σχετική και ουσιαστικά διαφορετική.
+# Η σειρά λειτουργεί ως vertical ranking. Στον πελάτη δείχνουμε έως εννέα
+# συμβατές και ουσιαστικά διαφορετικές επιλογές.
 _TEMPLATES_BY_VERTICAL = {
-    "food":         ["ember", "warmth", "magazine", "bloom", "editorial", "bento", "poster", "longform", "split", "grid"],
-    "cafe":         ["bloom", "warmth", "bento", "magazine", "editorial", "runway", "poster", "longform", "split", "grid"],
-    "rooms":        ["aegean", "bento", "editorial", "magazine", "marble", "warmth", "bloom", "split", "longform", "grid"],
-    "medical":      ["marble", "split", "editorial", "grid", "longform", "bento", "aegean", "canvas", "sidebar", "poster"],
-    "beauty":       ["runway", "bento", "editorial", "poster", "marble", "bloom", "split", "canvas", "grid", "longform"],
-    "professional": ["marble", "grid", "longform", "editorial", "split", "bento", "canvas", "sidebar", "poster", "magazine"],
-    "trade":        ["forge", "sidebar", "dispatch", "poster", "canvas", "grid", "split", "editorial", "bento", "longform"],
-    "garage":       ["motor", "forge", "grid", "dispatch", "poster", "sidebar", "canvas", "split", "bento", "editorial"],
-    "gym":          ["volt", "poster", "bento", "grid", "runway", "dispatch", "sidebar", "editorial", "split", "canvas"],
-    "farm":         ["terra", "longform", "warmth", "magazine", "editorial", "bloom", "canvas", "bento", "split", "grid"],
-    # Five deliberately different identities for makers: portfolio catalogue,
-    # monochrome gallery, Swiss system, industrial workshop, one-screen lead card.
-    "wood":         ["canvas", "runway", "grid", "forge", "dispatch", "editorial", "split", "bento", "poster", "magazine"],
+    "food":         ["warmth", "ember", "magazine", "cinematic", "type-gallery", "living", "infinite", "quiet", "kinetic"],
+    "cafe":         ["bloom", "type-gallery", "living", "infinite", "cinematic", "kinetic", "quiet", "warmth", "magazine"],
+    "rooms":        ["aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid"],
+    "medical":      ["marble", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic"],
+    "beauty":       ["runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas"],
+    "professional": ["marble", "quiet", "cinematic", "grid", "infinite", "canvas", "type-gallery", "living", "kinetic"],
+    "trade":        ["dispatch", "kinetic", "grid", "type-gallery", "infinite", "cinematic", "quiet", "living", "canvas"],
+    "garage":       ["motor", "kinetic", "grid", "infinite", "type-gallery", "cinematic", "quiet", "living", "canvas"],
+    "gym":          ["volt", "kinetic", "type-gallery", "infinite", "runway", "grid", "cinematic", "living", "quiet"],
+    "farm":         ["terra", "living", "quiet", "cinematic", "canvas", "infinite", "type-gallery", "kinetic", "grid"],
+    "wood":         ["canvas", "runway", "grid", "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living"],
 }
 
 
-def recommend_templates(intake: dict[str, Any], limit: int = 5) -> list[str]:
-    """Οι πέντε curated React προτάσεις του πελάτη, με την καλύτερη πρώτη."""
+def recommend_templates(intake: dict[str, Any], limit: int = 9) -> list[str]:
+    """Έως εννέα ranked React προτάσεις, με την καταλληλότερη πρώτη."""
     keys = _TEMPLATES_BY_VERTICAL.get(_vertical(intake), _TEMPLATES_BY_VERTICAL["trade"])
     return [k for k in keys if k in REACT_TEMPLATES][:limit]
 

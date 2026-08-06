@@ -22,11 +22,12 @@
 Πριν από design ή υλοποίηση διάβασε, με αυτή τη σειρά:
 
 1. `skills/vitrina-design-system/SKILL.md`
-2. `skills/vitrina-design-system/references/design-spec.md`
-3. `skills/vitrina-design-system/references/design-routes.md`
-4. `skills/greek-website/SKILL.md`
-5. `skills/local-seo-gr/SKILL.md`
-6. `skills/brand-builder-gr/SKILL.md` και `skills/vitrina-logo-system/SKILL.md` όταν χρειάζεται brand/logo.
+2. `docs/18-VERTICAL-DESIGN-INTELLIGENCE.md`
+3. `skills/vitrina-design-system/references/design-spec.md`
+4. `skills/vitrina-design-system/references/design-routes.md`
+5. `skills/greek-website/SKILL.md`
+6. `skills/local-seo-gr/SKILL.md`
+7. `skills/brand-builder-gr/SKILL.md` και `skills/vitrina-logo-system/SKILL.md` όταν χρειάζεται brand/logo.
 
 ## End-to-End Workflow
 
@@ -59,15 +60,12 @@
 Γράψε σύντομο design spec με τα 9 πεδία του `design-spec.md`: στόχος, κοινό, conversion,
 οπτική κατεύθυνση, typography, palette, sections, responsive συμπεριφορά και accessibility.
 
-Επίλεξε τρεις πραγματικά κατάλληλες επιλογές από τα υπάρχοντα templates. Οι επιλογές πρέπει
-να διαφέρουν δομικά, όχι μόνο σε χρώμα:
-
-- μία ασφαλής/εμπορική,
-- μία πιο premium/editorial,
-- μία πιο εκφραστική αλλά κατάλληλη για το επάγγελμα.
+Το production chooser επιστρέφει έως εννέα ranked επιλογές από το vertical profile.
+Οι επιλογές πρέπει να διαφέρουν σε layout, hero, content rhythm, typography και motion,
+όχι μόνο σε χρώμα. Μια ακατάλληλη επιλογή αποκλείεται αντί να γεμίζει τεχνητά το grid.
 
 Μην προσθέτεις νέο template επειδή αλλάζει μόνο palette ή γραμματοσειρά. Νέο template
-δικαιολογείται μόνο όταν προσθέτει επαναχρησιμοποιήσιμη δομή που λείπει από τα υπάρχοντα 22.
+δικαιολογείται μόνο όταν προσθέτει επαναχρησιμοποιήσιμη δομή που λείπει από τη συλλογή.
 
 ### 4. Build
 

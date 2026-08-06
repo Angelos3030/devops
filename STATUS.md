@@ -3,6 +3,24 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+## 🟢 DESIGN SYSTEM + ΚΟΥΤΡΑΚΗΣ E2E (2026-08-06)
+
+- Ο production chooser δίνει πλέον **9 δομικά διαφορετικές επιλογές** ανά επάγγελμα:
+  `canvas`, `runway`, `grid`, `cinematic`, `type-gallery`, `quiet`, `kinetic`, `infinite`, `living`.
+- Vertical matching καλύπτει όλες τις επαγγελματικές οικογένειες και έχει generic fallback.
+  Κανόνες: `docs/18-VERTICAL-DESIGN-INTELLIGENCE.md` και `sites/lib/verticalProfiles.js`.
+- Πρώτο πραγματικό E2E fixture: **Κουτράκης Κουζίνες**, Γέρακας 15344, Αθήνα/Αττική,
+  `6956 297670`, domain `koutrakiskouzines.gr`.
+- Οι React previews χρησιμοποιούν πλέον αποκλειστικά τις πραγματικές φωτογραφίες στο
+  `sites/public/clients/koutrakis/` (μηδέν Unsplash για `biz=carpenter`).
+- Local chooser: `http://127.0.0.1:3600/choose/demo-carpenter`.
+- QA: Next production build πράσινο, backend design harness 88/88, 9/9 previews HTTP 200,
+  desktop/mobile visual inspection σε πραγματικές φωτογραφίες ολοκληρωμένο.
+- Τελική επιλογή owner: **`canvas`**. Το live endpoint επιβεβαιώθηκε ότι επιστρέφει
+  `layout: canvas` και το `https://koutrakiskouzines.gr` είναι ήδη ενεργό με SSL/HTTP 200.
+- Επόμενο: επιμέρους διαμόρφωση κειμένων/sections πάνω στο live site και συγχρονισμός του
+  εμπλουτισμένου local fixture με το client record.
+
 ## 🟢 ΝΕΟΤΕΡΗ ΑΠΟΦΑΣΗ (2026-08-06) — SOCIAL ΞΑΝΑ ΕΝΕΡΓΟ
 
 Η παλιότερη οδηγία «έξω τα social» παρακάτω έχει ανακληθεί από τον owner. Χτίζουμε δικό μας
@@ -22,6 +40,13 @@ Facebook/Instagram engine, χωρίς Postiz ή τρίτο scheduler.
 Επόμενα: Meta App Review → test Page dry-run → Railway Cron → πραγματικό test post. Ads μόνο
 σε επόμενο milestone με ξεχωριστή έγκριση και hard budget limits. Λεπτομέρειες:
 `docs/18-SOCIAL-ENGINE.md`.
+
+**Meta readiness check 2026-08-06:** local `.env` και Railway έχουν το ίδιο νέο Meta App ID
+(όχι το παλιό Consumer `982863081415222`). Το live `/connect/start` κάνει redirect στο
+Facebook με `instagram_basic`, `instagram_content_publish`, `pages_show_list`,
+`pages_read_engagement`, `pages_manage_posts`. Privacy, terms, data-deletion και API health
+επιστρέφουν όλα HTTP 200. Επόμενη ανθρώπινη ενέργεια: login με admin/tester λογαριασμό και
+σύνδεση δικής μας test Page + Instagram Business· μετά τρέχουμε dry-run και test post.
 
 ## 🟢 LIVE STATUS (2026-07-15) — STAGING, ΟΧΙ δημόσιο launch ακόμα (owner: «ας μην το ανοίξουμε»)
 
@@ -54,8 +79,8 @@ Facebook/Instagram engine, χωρίς Postiz ή τρίτο scheduler.
    Stripe Dashboard → βάλε το id ως `STRIPE_PRICE_SITE` σε `.env`/Railway.
 3. **🌐 Domain auto-purchase (Papaki)** στο signup — κώδικας υπάρχει (`src/domain.py`, `registrars.py`,
    `/domain/create-checkout` €24/έτος). **TODO owner:** Papaki reseller creds (`PAPAKI_*`).
-4. **🔒 GDPR compliance** — TODO: cookie-consent banner (Next `sites/` + landing), σαφές privacy +
-   data-deletion (`web/data-deletion.html` υπάρχει), ρητή συγκατάθεση για uploads.
+4. **🔒 GDPR compliance** — τα customer sites είναι tracker-free, άρα **χωρίς cookie banner**.
+   Υπάρχουν σαφές privacy, data-deletion (`web/data-deletion.html`) και ρητή αποδοχή για uploads.
 5. **📷 Φωτο** — ο πελάτης ανεβάζει (`/clients/{id}/upload` + Supabase Storage υπάρχει)· αν δεν έχει,
    fallback σε **licensed stock** (Unsplash License = free commercial, GDPR-safe). Ο generator ήδη
    βάζει Unsplash fallback ανά επάγγελμα — κράτα ΜΟΝΟ properly-licensed πηγές.
@@ -727,6 +752,32 @@ scripts/clone-skills.sh → κατεβάζει curated external skills
 ---
 
 ## 📝 ΚΑΝΟΝΑΣ ΓΙΑ ΣΥΝΕΧΕΙΑ
+### Privacy / trackers (06 Αυγούστου 2026)
+- Τα customer sites έχουν self-hosted fonts, click-to-load map, κανένα analytics,
+  κανένα Meta Pixel και κανένα cookie. Γι' αυτό **δεν εμφανίζουν consent banner**.
+- Το global `CookieConsent` αφαιρέθηκε σκόπιμα: banner χωρίς optional trackers
+  κόβει conversion και δεν προσφέρει νομικό όφελος.
+- Κανένας agent δεν προσθέτει Pixel/Analytics/third-party embed στα customer sites.
+- Αν προστεθεί προαιρετικό tracking μόνο στη Vitrina, απαιτεί ξεχωριστό consent
+  gate πριν φορτωθεί το script, ισότιμη απόρριψη και ενημέρωση της privacy policy.
+- Το `sites/tests/design_guard.mjs` παραμένει το τεχνικό quality gate: μηδενικά
+  cookies και μηδενικά αιτήματα προς Google/Meta στα sites πελατών.
+- Πλήρες pre-launch compliance gate: `docs/19-COMPLIANCE-LAUNCH.md`.
+- Προστέθηκαν drafts DPA, subprocessor register και incident runbook στο `legal/`.
+- Προστέθηκε δημόσια πολιτική ακυρώσεων/επιστροφών και ρητή αποδοχή recurring
+  συνδρομής πριν από Stripe checkout.
+- **BLOCKER:** πριν από πελάτες/χρεώσεις χρειάζονται νόμιμη επωνυμία, ΑΦΜ, έδρα,
+  Business Verification/Access Verification και τελικός έλεγχος νομικού/λογιστή.
+
+### Pilot 5 φίλων (06 Αυγούστου 2026)
+- Τα 9 νέα designs είναι live στο Railway selector και ελέγχθηκαν ένα-ένα ως παρόντα.
+- Landing, onboarding και API απαντούν 200. Το `app.getvitrina.gr` έχει ακόμη SSL issue.
+- Ο owner θα δώσει το onboarding σε 5 φίλους για ανεξάρτητο mobile test, χωρίς χρέωση.
+- Pilot mode υλοποιήθηκε: `connect.html?pilot=1` περνά στο selector, αποθηκεύει το
+  design και ανοίγει προσωρινό Railway preview χωρίς domain ή Stripe.
+- Πλήρες script, πίνακας feedback, blockers και Google plan:
+  `docs/20-PILOT-5-FRIENDS.md`.
+
 Κάθε φορά που σταματάς δουλειά: **ενημέρωσε αυτό το αρχείο** —
 τι έγινε, πού σταμάτησες, τι ακολουθεί. Έτσι όποιος συνεχίσει (άλλο account/session)
 ξέρει ακριβώς από πού να πιάσει.
