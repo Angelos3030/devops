@@ -50,7 +50,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unattributed-project-claims', 'unsafe-workshop-scenes']),
       fallbackStrategy: 'material-textures-and-typographic-project-cards',
     },
-    compatibleDesignSystemIds: ['canvas', 'runway', 'grid', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living'],
+    compatibleDesignSystemIds: ['canvas', 'runway', 'grid', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living', 'forge', 'editorial', 'magazine'],
   }),
   taverna: profile({
     id: 'taverna', label: 'Ταβέρνα / Εστιατόριο',
@@ -64,7 +64,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['generic-food-unrelated-to-menu', 'misleading-dish-claims']),
       fallbackStrategy: 'menu-led-layout-with-ingredient-illustrations',
     },
-    compatibleDesignSystemIds: ['warmth', 'ember', 'magazine', 'cinematic', 'type-gallery', 'living', 'infinite', 'quiet', 'kinetic'],
+    compatibleDesignSystemIds: ['warmth', 'ember', 'magazine', 'cinematic', 'type-gallery', 'living', 'infinite', 'quiet', 'kinetic', 'poster', 'bloom', 'aegean'],
   }),
   salon: profile({
     id: 'salon', label: 'Κομμωτήριο',
@@ -78,7 +78,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unlicensed-before-after', 'misleading-client-results']),
       fallbackStrategy: 'editorial-color-and-typography-with-service-lookbook',
     },
-    compatibleDesignSystemIds: ['runway', 'type-gallery', 'living', 'cinematic', 'infinite', 'kinetic', 'quiet', 'bloom', 'canvas'],
+    compatibleDesignSystemIds: ['runway', 'type-gallery', 'living', 'cinematic', 'infinite', 'kinetic', 'quiet', 'bloom', 'canvas', 'magazine', 'poster', 'bento'],
   }),
   dentist: profile({
     id: 'dentist', label: 'Οδοντιατρείο',
@@ -92,7 +92,49 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['graphic-procedures', 'guaranteed-medical-outcomes', 'unconsented-patient-images']),
       fallbackStrategy: 'clinical-abstracts-and-credential-led-layout',
     },
-    compatibleDesignSystemIds: ['marble', 'quiet', 'cinematic', 'living', 'grid', 'infinite', 'canvas', 'type-gallery', 'kinetic'],
+    compatibleDesignSystemIds: ['marble', 'quiet', 'cinematic', 'living', 'grid', 'infinite', 'canvas', 'type-gallery', 'kinetic', 'editorial', 'bento', 'split'],
+  }),
+  physician: profile({
+    id: 'physician', label: 'Ιατρείο',
+    aliases: ['physician', 'doctor', 'medical office', 'γιατρός', 'ιατρός', 'ιατρείο', 'ιατρικό κέντρο'],
+    conversionGoal: { primary: 'book-appointment', secondary: 'phone-call' },
+    requiredSections: ['hero', 'services', 'doctor-profile', 'credentials', 'visit-information', 'hours', 'contact', 'find-us'],
+    motionIntensity: 'restrained', schemaType: 'Physician',
+    media: {
+      minimumPreferredImages: 2,
+      requiredSubjects: Object.freeze(['doctor-portrait', 'medical-office']),
+      avoid: Object.freeze(['graphic-procedures', 'guaranteed-outcomes', 'patient-identifying-images']),
+      fallbackStrategy: 'credential-led-editorial-with-clinical-abstracts',
+    },
+    compatibleDesignSystemIds: ['marble', 'quiet', 'editorial', 'split', 'cinematic', 'grid', 'living', 'bento', 'canvas', 'sidebar', 'infinite', 'type-gallery'],
+  }),
+  aesthetics: profile({
+    id: 'aesthetics', label: 'Κέντρο αισθητικής',
+    aliases: ['aesthetics', 'beauty clinic', 'κέντρο αισθητικής', 'αισθητικός', 'ινστιτούτο αισθητικής'],
+    conversionGoal: { primary: 'book-treatment', secondary: 'phone-call' },
+    requiredSections: ['hero', 'treatments', 'expertise', 'experience', 'pricing-or-consultation', 'contact', 'find-us'],
+    motionIntensity: 'moderate', schemaType: 'BeautySalon',
+    media: {
+      minimumPreferredImages: 3,
+      requiredSubjects: Object.freeze(['treatment-space', 'treatment-detail']),
+      avoid: Object.freeze(['unconsented-before-after', 'medical-result-guarantees', 'over-retouched-results']),
+      fallbackStrategy: 'soft-editorial-treatment-led-layout',
+    },
+    compatibleDesignSystemIds: ['bloom', 'quiet', 'marble', 'runway', 'living', 'cinematic', 'type-gallery', 'bento', 'infinite', 'canvas', 'magazine', 'poster'],
+  }),
+  massage: profile({
+    id: 'massage', label: 'Massage / Wellness',
+    aliases: ['massage', 'wellness', 'spa', 'μασάζ', 'κέντρο μασάζ', 'ευεξία'],
+    conversionGoal: { primary: 'book-session', secondary: 'phone-call' },
+    requiredSections: ['hero', 'treatments', 'benefits', 'therapist-or-method', 'session-information', 'contact', 'find-us'],
+    motionIntensity: 'restrained', schemaType: 'HealthAndBeautyBusiness',
+    media: {
+      minimumPreferredImages: 3,
+      requiredSubjects: Object.freeze(['treatment-room', 'wellness-detail']),
+      avoid: Object.freeze(['sexualized-imagery', 'medical-cure-claims', 'unconsented-client-images']),
+      fallbackStrategy: 'calm-materials-and-wellness-typography',
+    },
+    compatibleDesignSystemIds: ['living', 'quiet', 'aegean', 'bloom', 'warmth', 'cinematic', 'infinite', 'canvas', 'marble', 'type-gallery', 'terra', 'magazine'],
   }),
   cafe: profile({
     id: 'cafe', label: 'Καφέ',
@@ -106,7 +148,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unavailable-menu-items', 'misleading-location-views']),
       fallbackStrategy: 'brand-patterns-and-menu-led-bento',
     },
-    compatibleDesignSystemIds: ['bloom', 'type-gallery', 'living', 'infinite', 'cinematic', 'kinetic', 'quiet', 'warmth', 'magazine'],
+    compatibleDesignSystemIds: ['bloom', 'type-gallery', 'living', 'infinite', 'cinematic', 'kinetic', 'quiet', 'warmth', 'magazine', 'poster', 'ember', 'bento'],
   }),
   lawyer: profile({
     id: 'lawyer', label: 'Δικηγορικό γραφείο',
@@ -120,7 +162,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['courtroom-result-claims', 'guaranteed-legal-outcomes', 'client-identifying-material']),
       fallbackStrategy: 'typography-credentials-and-practice-area-led',
     },
-    compatibleDesignSystemIds: ['marble', 'quiet', 'cinematic', 'grid', 'infinite', 'canvas', 'type-gallery', 'living', 'kinetic'],
+    compatibleDesignSystemIds: ['marble', 'quiet', 'cinematic', 'grid', 'infinite', 'canvas', 'type-gallery', 'living', 'kinetic', 'editorial', 'sidebar', 'bento'],
   }),
   plumber: profile({
     id: 'plumber', label: 'Υδραυλικός',
@@ -134,7 +176,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unsafe-repair-scenes', 'unattributed-project-claims']),
       fallbackStrategy: 'service-icons-and-high-contrast-call-led',
     },
-    compatibleDesignSystemIds: ['dispatch', 'kinetic', 'grid', 'type-gallery', 'infinite', 'cinematic', 'quiet', 'living', 'canvas'],
+    compatibleDesignSystemIds: ['dispatch', 'kinetic', 'grid', 'type-gallery', 'infinite', 'cinematic', 'quiet', 'living', 'canvas', 'forge', 'poster', 'bento'],
   }),
   rooms: profile({
     id: 'rooms', label: 'Ενοικιαζόμενα δωμάτια',
@@ -149,7 +191,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['misleading-room-category', 'unavailable-amenities', 'unrelated-destination-stock']),
       fallbackStrategy: 'request-property-photos-before-publication',
     },
-    compatibleDesignSystemIds: ['aegean', 'cinematic', 'infinite', 'living', 'quiet', 'canvas', 'type-gallery', 'kinetic', 'grid'],
+    compatibleDesignSystemIds: ['aegean', 'cinematic', 'infinite', 'living', 'quiet', 'canvas', 'type-gallery', 'kinetic', 'grid', 'marble', 'magazine', 'bloom'],
   }),
   gym: profile({
     id: 'gym', label: 'Γυμναστήριο',
@@ -163,7 +205,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unverified-transformation-claims', 'unsafe-exercise-form']),
       fallbackStrategy: 'kinetic-type-and-program-led-layout',
     },
-    compatibleDesignSystemIds: ['volt', 'kinetic', 'type-gallery', 'infinite', 'runway', 'grid', 'cinematic', 'living', 'quiet'],
+    compatibleDesignSystemIds: ['volt', 'kinetic', 'type-gallery', 'infinite', 'runway', 'grid', 'cinematic', 'living', 'quiet', 'poster', 'bento', 'motor'],
   }),
   garage: profile({
     id: 'garage', label: 'Συνεργείο αυτοκινήτων',
@@ -177,7 +219,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['visible-license-plates', 'unsafe-lift-scenes', 'unattributed-repairs']),
       fallbackStrategy: 'diagnostic-ui-and-service-led-layout',
     },
-    compatibleDesignSystemIds: ['motor', 'kinetic', 'grid', 'infinite', 'type-gallery', 'cinematic', 'quiet', 'living', 'canvas'],
+    compatibleDesignSystemIds: ['motor', 'kinetic', 'grid', 'infinite', 'type-gallery', 'cinematic', 'quiet', 'living', 'canvas', 'volt', 'forge', 'poster'],
   }),
   farm: profile({
     id: 'farm', label: 'Παραγωγός / Αγροτικά προϊόντα',
@@ -191,7 +233,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unsupported-certifications', 'misleading-origin-claims', 'generic-imported-product-stock']),
       fallbackStrategy: 'packaging-labels-and-origin-story-led',
     },
-    compatibleDesignSystemIds: ['terra', 'living', 'quiet', 'cinematic', 'canvas', 'infinite', 'type-gallery', 'kinetic', 'grid'],
+    compatibleDesignSystemIds: ['terra', 'living', 'quiet', 'cinematic', 'canvas', 'infinite', 'type-gallery', 'kinetic', 'grid', 'editorial', 'magazine', 'warmth'],
   }),
   generic: profile({
     id: 'generic', label: 'Τοπική επιχείρηση',
@@ -203,7 +245,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       minimumPreferredImages: 0,
       fallbackStrategy: 'typography-service-and-trust-led',
     },
-    compatibleDesignSystemIds: ['canvas', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living', 'grid', 'runway'],
+    compatibleDesignSystemIds: ['canvas', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living', 'grid', 'runway', 'editorial', 'bento', 'magazine'],
   }),
 })
 

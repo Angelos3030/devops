@@ -211,8 +211,11 @@ _VERTICAL_RULES = (
     ("rooms", ("δωματ", "ξενωνα", "ξενοδοχ", "καταλυμ", "hotel", "rooms", "villa", "βιλα", "airbnb", "τουρισ")),
     ("cafe", ("καφε", "cafe", "coffee", "ζαχαροπλαστ", "φουρν", "αρτοποι", "bakery", "creperie", "κρεπερ", "παγωτ", "λουλουδ", "ανθοπωλ")),
     ("food", ("ταβερν", "εστιατορ", "taverna", "restaurant", "μεζε", "ψησταρι", "σουβλα", "grill", "pizza", "πιτσαρ", "μπαρ", " bar")),
-    ("medical", ("οδοντ", "dentist", "ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "διαιτολογ", "ψυχολογ", "κτηνιατρ")),
-    ("beauty", ("κομμωτ", "beauty", "νυχι", "hair", "salon", "αισθητικ", "μακιγι", "spa", "μασαζ", "barber", "κουρει")),
+    ("dentist", ("οδοντ", "dentist", "dental")),
+    ("doctor", ("ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "διαιτολογ", "ψυχολογ", "κτηνιατρ")),
+    ("aesthetics", ("αισθητικ", "beauty clinic", "κεντρο ομορφια", "νυχι", "μακιγι")),
+    ("massage", ("μασαζ", "massage", "spa", "wellness")),
+    ("beauty", ("κομμωτ", "beauty", "hair", "salon", "barber", "κουρει")),
     ("wood", ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")),
     ("professional", ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "μεσιτ", "ασφαλισ", "notary", "συμβολαιογρ")),
     ("trade", ("υδραυλικ", "ηλεκτρολ", "ελαιοχρωματ", "μαστορ", "τεχνιτ", "ψυκτικ", "αλουμιν", "σιδηρ", "πλακα", "μονωσ", "κλιματισ", "plumber", "electrician")),
@@ -228,25 +231,28 @@ def _vertical(intake: dict[str, Any]) -> str:
 
 
 # Premium-first σειρά ανά vertical. Το πρώτο = προτεινόμενο.
-# Η σειρά λειτουργεί ως vertical ranking. Στον πελάτη δείχνουμε έως εννέα
+# Η σειρά λειτουργεί ως vertical ranking. Στον πελάτη δείχνουμε έως δώδεκα
 # συμβατές και ουσιαστικά διαφορετικές επιλογές.
 _TEMPLATES_BY_VERTICAL = {
-    "food":         ["warmth", "ember", "magazine", "cinematic", "type-gallery", "living", "infinite", "quiet", "kinetic"],
-    "cafe":         ["bloom", "type-gallery", "living", "infinite", "cinematic", "kinetic", "quiet", "warmth", "magazine"],
-    "rooms":        ["aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid"],
-    "medical":      ["marble", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic"],
-    "beauty":       ["runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas"],
-    "professional": ["marble", "quiet", "cinematic", "grid", "infinite", "canvas", "type-gallery", "living", "kinetic"],
-    "trade":        ["dispatch", "kinetic", "grid", "type-gallery", "infinite", "cinematic", "quiet", "living", "canvas"],
-    "garage":       ["motor", "kinetic", "grid", "infinite", "type-gallery", "cinematic", "quiet", "living", "canvas"],
-    "gym":          ["volt", "kinetic", "type-gallery", "infinite", "runway", "grid", "cinematic", "living", "quiet"],
-    "farm":         ["terra", "living", "quiet", "cinematic", "canvas", "infinite", "type-gallery", "kinetic", "grid"],
-    "wood":         ["canvas", "runway", "grid", "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living"],
+    "food":         ["warmth", "ember", "magazine", "cinematic", "type-gallery", "living", "infinite", "quiet", "kinetic", "poster", "bloom", "aegean"],
+    "cafe":         ["bloom", "type-gallery", "living", "infinite", "cinematic", "kinetic", "quiet", "warmth", "magazine", "poster", "ember", "bento"],
+    "rooms":        ["aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid", "marble", "magazine", "bloom"],
+    "dentist":      ["marble", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic", "editorial", "bento", "split"],
+    "doctor":       ["marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
+    "aesthetics":   ["bloom", "quiet", "marble", "runway", "living", "cinematic", "type-gallery", "bento", "infinite", "canvas", "magazine", "poster"],
+    "massage":      ["living", "quiet", "aegean", "bloom", "warmth", "cinematic", "infinite", "canvas", "marble", "type-gallery", "terra", "magazine"],
+    "beauty":       ["runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas", "magazine", "poster", "bento"],
+    "professional": ["marble", "quiet", "cinematic", "grid", "infinite", "canvas", "type-gallery", "living", "kinetic", "editorial", "sidebar", "bento"],
+    "trade":        ["dispatch", "kinetic", "grid", "type-gallery", "infinite", "cinematic", "quiet", "living", "canvas", "forge", "poster", "bento"],
+    "garage":       ["motor", "kinetic", "grid", "infinite", "type-gallery", "cinematic", "quiet", "living", "canvas", "volt", "forge", "poster"],
+    "gym":          ["volt", "kinetic", "type-gallery", "infinite", "runway", "grid", "cinematic", "living", "quiet", "poster", "bento", "motor"],
+    "farm":         ["terra", "living", "quiet", "cinematic", "canvas", "infinite", "type-gallery", "kinetic", "grid", "editorial", "magazine", "warmth"],
+    "wood":         ["canvas", "runway", "grid", "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living", "forge", "editorial", "magazine"],
 }
 
 
-def recommend_templates(intake: dict[str, Any], limit: int = 9) -> list[str]:
-    """Έως εννέα ranked React προτάσεις, με την καταλληλότερη πρώτη."""
+def recommend_templates(intake: dict[str, Any], limit: int = 12) -> list[str]:
+    """Έως δώδεκα ranked React προτάσεις, με την καταλληλότερη πρώτη."""
     keys = _TEMPLATES_BY_VERTICAL.get(_vertical(intake), _TEMPLATES_BY_VERTICAL["trade"])
     return [k for k in keys if k in REACT_TEMPLATES][:limit]
 

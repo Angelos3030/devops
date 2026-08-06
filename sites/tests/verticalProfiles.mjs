@@ -6,7 +6,7 @@ const moduleUrl = `data:text/javascript;base64,${Buffer.from(source).toString('b
 const { DESIGN_SYSTEM_IDS, VERTICAL_PROFILES, getVerticalProfile, isDesignCompatible } = await import(moduleUrl)
 
 const demoVerticals = [
-  'carpenter', 'taverna', 'salon', 'dentist', 'cafe', 'lawyer',
+  'carpenter', 'taverna', 'salon', 'dentist', 'physician', 'aesthetics', 'massage', 'cafe', 'lawyer',
   'plumber', 'rooms', 'gym', 'garage', 'farm',
 ]
 const allowedMotion = new Set(['restrained', 'moderate', 'expressive'])
@@ -23,7 +23,7 @@ for (const id of [...demoVerticals, 'generic']) {
   assert.ok(item.schemaType)
   assert.equal(typeof item.media.supportsNoPhoto, 'boolean')
   assert.ok(item.media.fallbackStrategy)
-  assert.equal(item.compatibleDesignSystemIds.length, 9)
+  assert.equal(item.compatibleDesignSystemIds.length, 12)
   assert.ok(item.compatibleDesignSystemIds.every((designId) => DESIGN_SYSTEM_IDS.includes(designId)))
   assert.ok(Object.isFrozen(item))
   assert.ok(Object.isFrozen(item.media))
@@ -31,6 +31,9 @@ for (const id of [...demoVerticals, 'generic']) {
 
 assert.equal(getVerticalProfile('Ξυλουργικό Εργαστήριο').id, 'carpenter')
 assert.equal(getVerticalProfile('ΟΔΟΝΤΙΑΤΡΕΙΟ').id, 'dentist')
+assert.equal(getVerticalProfile('Ιατρείο').id, 'physician')
+assert.equal(getVerticalProfile('Κέντρο αισθητικής').id, 'aesthetics')
+assert.equal(getVerticalProfile('Κέντρο μασάζ').id, 'massage')
 assert.equal(getVerticalProfile('unknown future vertical').id, 'generic')
 assert.equal(isDesignCompatible('υδραυλικός', 'dispatch'), true)
 assert.equal(isDesignCompatible('υδραυλικός', 'aegean'), false)

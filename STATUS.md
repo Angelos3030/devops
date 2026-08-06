@@ -3,13 +3,13 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
-## 🟢 CURRENT HANDOFF (2026-08-06, commit `3fe88cd`)
+## 🟢 CURRENT HANDOFF (2026-08-06, production `main`)
 
 Αυτό το section υπερισχύει από παλιότερα/pivot sections πιο κάτω, τα οποία μένουν μόνο ως
 ιστορικό αποφάσεων.
 
 - Όλες οι επιβεβαιωμένες αλλαγές έχουν γίνει commit και push στο `origin/main`.
-- Production library: 30 renderable templates, από τα οποία ο chooser προτείνει **9 curated,
+- Production library: 30 renderable templates, από τα οποία ο chooser προτείνει **12 curated,
   δομικά διαφορετικά designs** ανά επάγγελμα.
 - Νέα designs που ολοκληρώθηκαν στο τελευταίο batch: `cinematic`, `type-gallery`, `quiet`,
   `kinetic`, `infinite`, `living`.
@@ -18,7 +18,7 @@
 - Live chooser για έλεγχο: `https://sites-production-da56.up.railway.app/choose/demo-carpenter?pilot=1`.
 - API health: `https://api.getvitrina.gr/healthz` → HTTP 200.
 - QA που πέρασε πριν το push: `scripts/test_design_engine.py` **88/88**,
-  `sites/tests/verticalProfiles.mjs` **11 verticals + fallback**, Next production build,
+  `sites/tests/verticalProfiles.mjs` **14 verticals + fallback**, Next production build,
   `sites/tests/design_guard.mjs` **30/30 καθαρά** σε desktop/mobile και χωρίς third-party requests.
 - Τα customer sites παραμένουν tracker-free. **Δεν βάζουμε cookie banner** όσο δεν υπάρχουν
   μη αναγκαία cookies/analytics.
@@ -31,13 +31,15 @@
 4. Domains: χειροκίνητη αγορά μέχρι να δοθούν registrar/reseller credentials και public API access.
 5. Google Business Profile: concierge verification στην αρχή· automation μόνο μετά από GBP API approval.
 
-Μην ξαναχτίσεις chooser, 9-design recommendation, vertical matching, no-photo mode ή compliance
+Μην ξαναχτίσεις chooser, 12-design recommendation, vertical matching, no-photo mode ή compliance
 documents. Υπάρχουν ήδη και έχουν περάσει QA.
 
 ## 🟢 DESIGN SYSTEM + ΚΟΥΤΡΑΚΗΣ E2E (2026-08-06)
 
-- Ο production chooser δίνει πλέον **9 δομικά διαφορετικές επιλογές** ανά επάγγελμα:
-  `canvas`, `runway`, `grid`, `cinematic`, `type-gallery`, `quiet`, `kinetic`, `infinite`, `living`.
+- Ο production chooser δίνει πλέον **12 δομικά διαφορετικές επιλογές** ανά επάγγελμα:
+  `canvas`, `runway`, `grid`, `cinematic`, `type-gallery`, `quiet`, `kinetic`, `infinite`,
+  `living`, `forge`, `editorial`, `magazine` για το demo ξυλουργού, με διαφορετική κατάταξη
+  για κάθε άλλο vertical.
 - Vertical matching καλύπτει όλες τις επαγγελματικές οικογένειες και έχει generic fallback.
   Κανόνες: `docs/18-VERTICAL-DESIGN-INTELLIGENCE.md` και `sites/lib/verticalProfiles.js`.
 - Πρώτο πραγματικό E2E fixture: **Κουτράκης Κουζίνες**, Γέρακας 15344, Αθήνα/Αττική,
@@ -45,7 +47,7 @@ documents. Υπάρχουν ήδη και έχουν περάσει QA.
 - Οι React previews χρησιμοποιούν πλέον αποκλειστικά τις πραγματικές φωτογραφίες στο
   `sites/public/clients/koutrakis/` (μηδέν Unsplash για `biz=carpenter`).
 - Local chooser: `http://127.0.0.1:3600/choose/demo-carpenter`.
-- QA: Next production build πράσινο, backend design harness 88/88, 9/9 previews HTTP 200,
+- QA: Next production build πράσινο, backend design harness 88/88, 12/12 previews HTTP 200,
   desktop/mobile visual inspection σε πραγματικές φωτογραφίες ολοκληρωμένο.
 - Τελική επιλογή owner: **`canvas`**. Το live endpoint επιβεβαιώθηκε ότι επιστρέφει
   `layout: canvas` και το `https://koutrakiskouzines.gr` είναι ήδη ενεργό με SSL/HTTP 200.

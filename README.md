@@ -9,10 +9,10 @@
 
 ## Τελευταίο handoff για agents (2026-08-06)
 
-Το production `main` βρίσκεται στο commit **`3fe88cd`** (`feat: launch pilot flow and
-expanded site themes`). Μην ξαναφτιάξεις τα παρακάτω — έχουν ολοκληρωθεί και ανέβει:
+Το production `main` περιλαμβάνει το pilot flow και την expanded theme library.
+Μην ξαναφτιάξεις τα παρακάτω — έχουν ολοκληρωθεί και ανέβει:
 
-- **9 curated επιλογές** ανά πελάτη στο `/choose/{client}` με διαφορετική δομή,
+- **12 curated επιλογές** ανά πελάτη στο `/choose/{client}` με διαφορετική δομή,
   τυπογραφία, χρώματα και art direction: `canvas`, `runway`, `grid`, `cinematic`,
   `type-gallery`, `quiet`, `kinetic`, `infinite`, `living`.
 - **Pilot 5 φίλων χωρίς πληρωμή/domain:** `connect.html?pilot=1` → onboarding →
@@ -149,11 +149,11 @@ cd sites && npx next build       # ότι χτίζει το frontend
 `pulse`) παραμένουν διαθέσιμα για υπάρχοντες πελάτες, αλλά δεν προτείνονται σε νέους.
 
 Το `recommend_templates()` στο [src/premium_generator.py](src/premium_generator.py)
-διαλέγει εννέα curated προτάσεις ανάλογα με το επάγγελμα (ταβέρνα → `warmth`,
+διαλέγει δώδεκα curated προτάσεις ανάλογα με το επάγγελμα (ταβέρνα → `warmth`,
 κομμωτήριο → `runway`, συνεργείο → `motor`…). Τα 26 templates παραμένουν η
-εσωτερική βιβλιοθήκη· ο πελάτης βλέπει μόνο τις εννέα ισχυρότερες επιλογές του.
+εσωτερική βιβλιοθήκη· ο πελάτης βλέπει μόνο τις δώδεκα ισχυρότερες επιλογές του.
 Το art-direction layer αλλάζει επίσης hero και σειρά έργων ανά πρόταση, ώστε οι
-εννέα επιλογές να μη μοιάζουν με recolors του ίδιου site.
+δώδεκα επιλογές να μη μοιάζουν με recolors του ίδιου site.
 
 **Δεν προσθέτουμε άλλα templates χωρίς νέο structural use case.** Η επίσημη συλλογή
 των 26 καλύπτει το τρέχον product scope· η δουλειά τώρα είναι ποιότητα και διανομή.
@@ -163,7 +163,7 @@ cd sites && npx next build       # ότι χτίζει το frontend
 ## 7b. Production ποιότητα για κάθε νέο site
 
 Το υποχρεωτικό end-to-end workflow για όλους τους agents βρίσκεται στο
-[`CLAUDE.md`](CLAUDE.md). Περιγράφει intake, εννέα ranked design επιλογές, responsive
+[`CLAUDE.md`](CLAUDE.md). Περιγράφει intake, δώδεκα ranked design επιλογές, responsive
 υλοποίηση, local SEO, browser QA, αποθήκευση στο multi-tenant data model και σύνδεση domain.
 
 Κάθε πελάτης υποστηρίζεται σε τρία photo modes:

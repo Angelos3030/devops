@@ -51,10 +51,10 @@
 
 Η μοναδική production πηγή επιλογής είναι το `recommend_templates()` στο
 `src/premium_generator.py`. Κρατά τα archetypes ως εσωτερική βιβλιοθήκη, αλλά
-επιστρέφει εννέα curated επιλογές ανά vertical, με την πιο κατάλληλη πρώτη. Παράδειγμα
+επιστρέφει δώδεκα curated επιλογές ανά vertical, με την πιο κατάλληλη πρώτη. Παράδειγμα
 ξυλουργού: `canvas`, `runway`, `grid`, `cinematic`, `type-gallery`, `quiet`,
 `kinetic`, `infinite`, `living`. Οι επιλογές ανήκουν σε διαφορετικές δομικές και
-motion οικογένειες, όχι σε εννέα palette variants.
+motion οικογένειες, όχι σε δώδεκα palette variants.
 
 Το `sites/lib/artDirection.js` κάνει route-specific photo editing: κάθε πρόταση
 διαλέγει διαφορετικό hero, story image και σειρά έργων από το ίδιο αληθινό υλικό
