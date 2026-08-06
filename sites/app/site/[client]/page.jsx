@@ -1,6 +1,7 @@
 import { getSiteData } from '../../../lib/api'
 import { pickTemplate } from '../../../lib/templates'
 import { buildMetadata, buildJsonLd } from '../../../lib/seo'
+import CallBar from '../../../lib/templates/CallBar'
 
 export const dynamic = 'force-dynamic' // multi-tenant: render per request (ISR via fetch revalidate)
 
@@ -34,6 +35,7 @@ export default async function SitePage({ params, searchParams }) {
       {/* Local-SEO structured data (Google rich results + local ranking) */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Template data={payload.data} />
+      <CallBar data={payload.data} />
     </>
   )
 }

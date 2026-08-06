@@ -1,0 +1,43 @@
+/* Μπάρα κλήσης — εμφανίζεται ΜΟΝΟ κάτω από 820px (κινητά & μικρά tablet). */
+.bar { display: none; }
+
+@media (max-width: 820px) {
+  .bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 900;
+    display: flex; gap: 8px; padding: 10px 12px;
+    /* Το safe-area κρατάει την μπάρα πάνω από τη γραμμή χειρονομιών του iPhone. */
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(16, 18, 22, .93);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(255, 255, 255, .12);
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .call, .dir {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    border-radius: 12px; text-decoration: none;
+    /* 52px: άνετο για αντίχειρα — κάτω από ~44px αστοχούν τα πατήματα. */
+    min-height: 52px; padding: 0 16px;
+  }
+  .call {
+    flex: 1; background: #1db954; color: #08130c; font-size: 1rem;
+    box-shadow: 0 6px 20px -8px rgba(29, 185, 84, .7);
+  }
+  .call:active { transform: translateY(1px); }
+  .icon { width: 21px; height: 21px; flex: none; }
+  .pin { width: 17px; height: 17px; flex: none; }
+  .callText { display: flex; flex-direction: column; line-height: 1.15; }
+  .callText strong { font-weight: 800; font-size: .95rem; }
+  .num { font-size: .8rem; opacity: .8; }
+
+  .dir {
+    flex: 0 0 auto; background: rgba(255, 255, 255, .1); color: #f2f0ea;
+    font-weight: 600; font-size: .86rem; border: 1px solid rgba(255, 255, 255, .16);
+  }
+}
+
+/* Χώρος στο τέλος της σελίδας, ώστε η μπάρα να μην κρύβει το footer.
+   Spacer αντί για padding στο body: το CSS Module δεν επιτρέπει καθολικούς
+   κανόνες, και έτσι δεν επηρεάζουμε dashboard/choose που δεν έχουν μπάρα. */
+.spacer { display: none; }
+@media (max-width: 820px) { .spacer { display: block; height: 74px; } }
