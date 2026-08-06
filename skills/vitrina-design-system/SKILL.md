@@ -23,6 +23,9 @@ Speed matters, but not at the cost of taste. The page must feel alive, local, an
    - Beauty/hair: appointment, visual proof, premium feel.
    - Technician: urgent phone call, service areas, reliability.
    - Accountant/lawyer: credibility, clarity, consultation.
+   - Read `../../docs/18-VERTICAL-DESIGN-INTELLIGENCE.md` before choosing a
+     direction. Adapt the route to the profession's conversion, required sections,
+     media policy and no-go rules; never recolor one generic profession template.
 2. Choose one design route from `references/design-routes.md`.
 2b. Write a short spec first using `references/design-spec.md` (the 9 sections), then build.
 3. Compose from blocks, not from a generic page:
@@ -36,10 +39,9 @@ Speed matters, but not at the cost of taste. The page must feel alive, local, an
    - Final CTA
    - Fixed mobile CTA
 4. Write Greek copy that sounds local and direct. Avoid translated English.
-5. Generate three previews when the user has not chosen a style:
-   - Premium
-   - Warm/local
-   - Minimal/clean
+5. Generate up to nine structurally distinct previews when the product flow asks for
+   the full chooser. Rank them by vertical compatibility; do not show an unsuitable
+   route merely to fill the grid.
 6. Keep the final HTML static, responsive, and easy to publish.
 
 ## Taste Rules

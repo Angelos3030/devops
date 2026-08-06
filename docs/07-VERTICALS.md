@@ -1,5 +1,8 @@
 # 07 — Industry Presets (έτοιμα patterns ανά επάγγελμα)
 
+> Design-system compatibility, media policy and the expanded vertical matrix live in
+> [`18-VERTICAL-DESIGN-INTELLIGENCE.md`](18-VERTICAL-DESIGN-INTELLIGENCE.md).
+
 > Η ιδέα: ο agent **δεν ξεκινά από το μηδέν** ούτε ρωτάει τα προφανή. Κάθε τύπος
 > επιχείρησης έχει ένα **έτοιμο preset**: ποια sections έχει το site, τι πληροφορίες
 > χρειάζεται, τι είναι αυτονόητο (χάρτης, τηλέφωνο), τι πρέπει ΟΝΤΩΣ να ρωτηθεί.
