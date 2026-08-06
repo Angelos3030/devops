@@ -56,6 +56,10 @@
   πρότεινε τεχνικά templates. Πλέον `νυχάδικο`, `nail salon`, `μανικιούρ` και `πεντικιούρ`
   ταξινομούνται ως `beauty`, με `runway` πρώτο. Άγνωστο επάγγελμα πέφτει σε ουδέτερο
   `professional` και μπορεί να ταξινομηθεί από AI fallback, ποτέ αυθαίρετα ως τεχνίτης.
+- Root cause fix: το onboarding πλέον αποθηκεύει `description`, `style` και `website` στο
+  `site_content`. Πριν, το background build τα έβλεπε αλλά το μεταγενέστερο `/designs` τα έχανε
+  και διάβαζε μόνο `business_type="Άλλο"`. Το υπάρχον test record `maria` διορθώθηκε στη βάση
+  και επαληθεύτηκε ως `beauty` με σειρά `runway`, `type-gallery`, `living`, `cinematic`.
 
 Μην ξαναχτίσεις chooser, 12-design recommendation, vertical matching, no-photo mode ή compliance
 documents. Υπάρχουν ήδη και έχουν περάσει QA.

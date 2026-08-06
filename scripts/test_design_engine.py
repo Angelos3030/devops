@@ -154,10 +154,13 @@ def test_endpoints() -> None:
 
     # onboard -> triggers background generation of 3 variants
     r = tc.post("/onboard", json={"name": "Ταβέρνα Ο Μήτσος", "type": "ταβέρνα",
-                                  "city": "Θεσσαλονίκη", "phone": "2310000000"})
+                                  "city": "Θεσσαλονίκη", "phone": "2310000000",
+                                  "description": "Οικογενειακή ταβέρνα", "style": "ζεστό"})
     check("POST /onboard 200", r.status_code == 200, r.text)
     cid = r.json().get("client_id")
     check("onboard returns client_id", bool(cid))
+    check("onboard persists matching description",
+          fake.get_site_content(cid).get("description") == "Οικογενειακή ταβέρνα")
     check(f"background generated {n} variants", len(fake.list_site_variants(cid)) == n,
           str(fake.list_site_variants(cid)))
 

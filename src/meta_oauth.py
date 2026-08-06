@@ -178,6 +178,20 @@ def onboard_endpoint(intake: Intake, bg: BackgroundTasks):
         client_id = db.create_client(data)
     except Exception as e:
         raise HTTPException(500, f"Δεν μπόρεσα να αποθηκεύσω τον πελάτη: {e}")
+    # Το clients table κρατά μόνο τα βασικά στοιχεία. Η ελεύθερη περιγραφή είναι
+    # κρίσιμη για το vertical matching (π.χ. type="Άλλο", description="νυχάδικο").
+    # Αν χαθεί εδώ, το /designs βλέπει αργότερα μόνο το "Άλλο" και προτείνει
+    # άσχετα templates. Κρατάμε τα υπόλοιπα intake fields στο JSON content row.
+    initial_content = {
+        key: data[key]
+        for key in ("description", "style", "website")
+        if data.get(key)
+    }
+    if initial_content:
+        try:
+            db.save_site_content(client_id, initial_content)
+        except Exception as e:  # noqa: BLE001 — ο πελάτης δημιουργήθηκε, μη μπλοκάρεις
+            print(f"[onboard] initial content save skipped: {e}")
     bg.add_task(_build_site_bg, client_id, data)
     return {"client_id": client_id}
 
