@@ -26,7 +26,7 @@ export default function Marble({ data: d }) {
           <h1 className={s.title}>{d.NAME}</h1>
           <p className={s.lede}>{d.TAGLINE}</p>
           <div className={s.heroRow}>
-            <a href={tel} className={s.cta}>{d.PRIMARY_CTA || 'Κλείσε ραντεβού'}</a>
+            <a href={tel} className={s.cta}>{d.PRIMARY_CTA || 'Επικοινωνήστε μαζί μας'}</a>
             <span className={s.hours}>{d.HOURS}</span>
           </div>
         </div>
@@ -40,7 +40,7 @@ export default function Marble({ data: d }) {
 
       <section id="index" className={s.index}>
         <header className={s.secHead}>
-          <span className={s.eyebrow}>{d.SERVICES_EYEBROW || 'Ιατρικές υπηρεσίες'}</span>
+          <span className={s.eyebrow}>{d.SERVICES_EYEBROW || 'Υπηρεσίες'}</span>
           <h2>{d.SERVICES_TITLE || 'Πώς μπορούμε να βοηθήσουμε'}</h2>
         </header>
         <ol className={s.ledger}>

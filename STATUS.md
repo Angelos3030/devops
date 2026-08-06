@@ -47,6 +47,11 @@
 - `physician` → `/preview/marble?biz=physician` και `/gia/iatreio`.
 - Τα `Bloom`, `Living`, `Marble` παίρνουν πλέον επαγγελματικά labels και CTA από τα business
   data. Δεν επιτρέπονται hard-coded φράσεις τύπου «καλούδια» ή «υλικά» σε άσχετα verticals.
+- Το `sites/tests/verticalContent.mjs` επιβεβαιώνει ότι και τα 14 demos έχουν πλήρες κείμενο,
+  τουλάχιστον 4 υπηρεσίες, 3 εικόνες και 2 story paragraphs, καθώς και σωστό CTA ανά vertical.
+- Τελευταίο QA: design engine **88/88**, vertical profiles **14/14**, vertical content **14/14**,
+  Next production build και browser design guard **30/30** χωρίς προβλήματα αντίθεσης,
+  missing fonts, broken images, trackers ή cookies.
 
 Μην ξαναχτίσεις chooser, 12-design recommendation, vertical matching, no-photo mode ή compliance
 documents. Υπάρχουν ήδη και έχουν περάσει QA.
