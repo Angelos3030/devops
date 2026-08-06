@@ -240,7 +240,9 @@ _TEMPLATES_BY_VERTICAL = {
     "garage":       ["motor", "forge", "grid", "dispatch", "poster", "sidebar", "canvas", "split", "bento", "editorial"],
     "gym":          ["volt", "poster", "bento", "grid", "runway", "dispatch", "sidebar", "editorial", "split", "canvas"],
     "farm":         ["terra", "longform", "warmth", "magazine", "editorial", "bloom", "canvas", "bento", "split", "grid"],
-    "wood":         ["canvas", "editorial", "split", "bento", "forge", "longform", "grid", "poster", "sidebar", "magazine"],
+    # Five deliberately different identities for makers: portfolio catalogue,
+    # monochrome gallery, Swiss system, industrial workshop, one-screen lead card.
+    "wood":         ["canvas", "runway", "grid", "forge", "dispatch", "editorial", "split", "bento", "poster", "magazine"],
 }
 
 

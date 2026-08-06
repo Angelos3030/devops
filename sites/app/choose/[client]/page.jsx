@@ -4,7 +4,7 @@ import { TEMPLATE_META } from '../../../lib/templates'
 import s from './choose.module.css'
 
 const API = (process.env.NEXT_PUBLIC_API_BASE || '').replace(/\/$/, '')
-const DEMO_CARPENTER = ['canvas', 'editorial', 'split', 'bento', 'forge']
+const DEMO_CARPENTER = ['canvas', 'runway', 'grid', 'forge', 'dispatch']
 
 // Legacy static layouts (fallback όταν το backend δεν στέλνει smart-matched templates)
 const LABELS = {

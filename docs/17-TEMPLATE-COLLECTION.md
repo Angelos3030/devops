@@ -52,7 +52,9 @@
 Η μοναδική production πηγή επιλογής είναι το `recommend_templates()` στο
 `src/premium_generator.py`. Κρατά σειρά 20 archetypes ως εσωτερική βιβλιοθήκη, αλλά
 επιστρέφει πέντε curated επιλογές ανά vertical, με την πιο κατάλληλη πρώτη. Παράδειγμα
-ξυλουργού: `canvas`, `editorial`, `split`, `bento`, `forge`.
+ξυλουργού: `canvas`, `runway`, `grid`, `forge`, `dispatch`. Οι πέντε ανήκουν σε
+διαφορετικές οπτικές οικογένειες: portfolio, monochrome gallery, Swiss system,
+industrial workshop και one-screen conversion.
 
 ## Quality gate
 
