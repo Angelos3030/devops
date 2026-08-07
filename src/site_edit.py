@@ -17,7 +17,7 @@ from . import ai
 EDITABLE_FIELDS = (
     "name", "trade", "city", "phone", "hours", "areas",
     "tagline", "intro", "story_title", "story_paragraphs", "cta_title",
-    "services", "template",
+    "services", "template", "palette", "font_pair",
 )
 
 _SYSTEM = (
@@ -27,6 +27,10 @@ _SYSTEM = (
     "- Άλλαξε ΜΟΝΟ ό,τι ζήτησε. Μη «βελτιώνεις» άλλα πεδία από μόνος σου.\n"
     "- Γράφε φυσικά ελληνικά, σύντομα, χωρίς κλισέ («κορυφαία ποιότητα», «αξιόπιστος συνεργάτης»).\n"
     "- Αν ζητάει άλλη εμφάνιση/στιλ/χρώματα, διάλεξε κατάλληλο `template` από τη λίστα.\n"
+    "- Αν ζητάει μόνο χρώματα, κράτα το template και βάλε `palette`: "
+    "original, warm, forest, ocean, rose ή mono.\n"
+    "- Αν ζητάει μόνο γραμματοσειρά, βάλε `font_pair`: "
+    "editorial, modern, friendly ή classic.\n"
     "- Αν δεν καταλαβαίνεις τι θέλει, άσε το `changes` άδειο και ρώτησέ τον στο `reply`.\n"
     "- Αν ζητάει κάτι που δεν γίνεται από εδώ (π.χ. φωτογραφίες, domain, τιμολόγηση), "
     "εξήγησέ του σύντομα στο `reply` πού να πάει."

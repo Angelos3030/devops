@@ -5,13 +5,14 @@ import CallBar from '../../../lib/templates/CallBar'
 import { withMediaFallback } from '../../../lib/mediaFallback'
 import MediaDisclosure from '../../../lib/templates/MediaDisclosure'
 import { artDirect } from '../../../lib/artDirection'
+import theme from './theme.module.css'
 
 export const dynamic = 'force-dynamic' // multi-tenant: render per request (ISR via fetch revalidate)
 
 const DRAFT_FIELDS = new Set([
   'name', 'trade', 'city', 'phone', 'hours', 'areas', 'tagline', 'intro',
   'story_title', 'story_paragraphs', 'cta_title', 'services', 'template',
-  'address', 'gbp_url',
+  'address', 'gbp_url', 'palette', 'font_pair',
 ])
 
 function readDraft(raw) {
@@ -56,7 +57,10 @@ export default async function SitePage({ params, searchParams }) {
     <>
       {/* Local-SEO structured data (Google rich results + local ranking) */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Template data={siteData} />
+      <div className={theme.scope} data-palette={siteData.palette || siteData.PALETTE || 'original'}
+        data-font={siteData.font_pair || siteData.FONT_PAIR || 'editorial'}>
+        <Template data={siteData} />
+      </div>
       <MediaDisclosure data={siteData} />
       <CallBar data={siteData} />
     </>

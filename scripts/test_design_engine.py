@@ -77,6 +77,9 @@ def test_generator() -> None:
     check("nail salon -> nail-specific copy", pg._profession(nail_intake) == "nails")
     check("nail salon -> beauty vertical", pg._vertical(nail_intake) == "beauty")
     check("nail salon -> beauty atelier first", pg.recommend_templates(nail_intake)[0] == "beauty-atelier")
+    themed = pg.normalize({"type": "καφέ", "palette": "forest", "font_pair": "modern"})
+    check("palette reaches template data", themed["PALETTE"] == "forest", themed["PALETTE"])
+    check("font pair reaches template data", themed["FONT_PAIR"] == "modern", themed["FONT_PAIR"])
 
     # edge: HTML escaping of special chars in name
     danger = {"name": "Café & Σία <b>x</b>", "type": "καφέ", "city": "Αθήνα", "phone": "2100000000"}

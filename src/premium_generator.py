@@ -506,6 +506,8 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
         "PHONE": phone_disp, "PHONE_INTL": phone_intl,
         "AREAS": areas_str, "DOMAIN": _e(domain_disp), "DOMAIN_URL": _e(domain or "#"),
         "HOURS": _e(intake.get("hours") or "Δευτ.–Σάβ. 08:00–19:00"),
+        "PALETTE": _e(intake.get("palette") or "original"),
+        "FONT_PAIR": _e(intake.get("font_pair") or "editorial"),
         "KICKER": f"{trade} · {city}",
         "HERO_WORD": copy["hero_word"],
         "HERO_IMAGE": hero_image, "STORY_IMAGE": story_image,

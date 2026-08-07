@@ -463,6 +463,17 @@ ${(p.hashtags || []).join(' ')}`)}>
                 <label>Ωράριο<input value={form.hours || ''} onChange={setField('hours')} placeholder="Δευτ.–Σάβ. 09:00–19:00" /></label>
                 <label>Μία φράση για σένα
                   <textarea rows={2} value={form.tagline || ''} onChange={setField('tagline')} /></label>
+                <label>Χρωματική παλέτα
+                  <select value={form.palette || 'original'} onChange={setField('palette')}>
+                    <option value="original">Αρχική του σχεδίου</option><option value="warm">Ζεστή</option>
+                    <option value="forest">Πράσινη</option><option value="ocean">Μπλε</option>
+                    <option value="rose">Ροζ</option><option value="mono">Ασπρόμαυρη</option>
+                  </select></label>
+                <label>Γραμματοσειρά
+                  <select value={form.font_pair || 'editorial'} onChange={setField('font_pair')}>
+                    <option value="editorial">Editorial</option><option value="modern">Μοντέρνα</option>
+                    <option value="friendly">Φιλική</option><option value="classic">Κλασική</option>
+                  </select></label>
                 <label>Το προφίλ σου στο Google <span className={s.hint}>(προαιρετικό)</span>
                   <input value={form.gbp_url || ''} onChange={setField('gbp_url')} placeholder="https://maps.app.goo.gl/..." /></label>
 

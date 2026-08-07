@@ -304,7 +304,7 @@ def lookup_clients(authorization: str | None = Header(default=None)):
 _EDITABLE = {
     "name", "trade", "city", "phone", "hours", "areas",
     "tagline", "intro", "story_title", "story_paragraphs", "cta_title",
-    "services", "template",
+    "services", "template", "palette", "font_pair",
     # Local SEO / Google Maps
     "address", "gbp_url", "geo_lat", "geo_lng",
 }
@@ -331,6 +331,8 @@ def get_content(client_id: str, authorization: str | None = Header(default=None)
         "story_paragraphs": [p["p"] for p in ctx["story"]],
         "services": [{"name": s["title"], "description": s["desc"]} for s in ctx["services"]],
         "template": db.get_selected_design(client_id) or pg.recommend_templates(intake)[0],
+        "palette": intake.get("palette") or "original",
+        "font_pair": intake.get("font_pair") or "editorial",
     }
     current.update({k: v for k, v in overrides.items() if k in _EDITABLE})
     return {"content": current, "templates": pg.recommend_templates(intake, limit=9),
@@ -582,6 +584,12 @@ def put_content(client_id: str, body: ContentUpdate,
             clean[k] = [str(p)[:1200] for p in v if str(p).strip()][:5]
         elif k == "template":
             if v in pg.REACT_TEMPLATES:
+                clean[k] = v
+        elif k == "palette":
+            if v in {"original", "warm", "forest", "ocean", "rose", "mono"}:
+                clean[k] = v
+        elif k == "font_pair":
+            if v in {"editorial", "modern", "friendly", "classic"}:
                 clean[k] = v
         elif isinstance(v, str):
             clean[k] = v[:1200]

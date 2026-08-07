@@ -1,0 +1,25 @@
+.scope[data-palette='warm'] > :first-child {
+  --accent:#b95732!important;--coral:#c65e42!important;--gold:#c08a3e!important;--rust:#a94d2f!important;
+  --paper:#f7f0e6!important;--bg:#f7f0e6!important;--bone:#f7f0e6!important;--ink:#35251d!important;--night:#35251d!important;
+}
+.scope[data-palette='forest'] > :first-child {
+  --accent:#3d7a58!important;--leaf:#3d7a58!important;--leaf-deep:#173f2b!important;--gold:#9b8047!important;
+  --paper:#f1f4ec!important;--bg:#f1f4ec!important;--bone:#f1f4ec!important;--ink:#17352a!important;--night:#122c22!important;
+}
+.scope[data-palette='ocean'] > :first-child {
+  --accent:#247997!important;--sea:#247997!important;--sea-deep:#123f55!important;--gold:#b99a58!important;
+  --paper:#f1f6f7!important;--bg:#f1f6f7!important;--bone:#f1f6f7!important;--ink:#173746!important;--night:#102f3e!important;
+}
+.scope[data-palette='rose'] > :first-child {
+  --accent:#c55f78!important;--coral:#c55f78!important;--peach:#edb3bd!important;--gold:#b78b70!important;
+  --paper:#faf2f3!important;--bg:#faf2f3!important;--bone:#faf2f3!important;--ink:#412b31!important;--night:#342127!important;
+}
+.scope[data-palette='mono'] > :first-child {
+  --accent:#151515!important;--coral:#151515!important;--leaf:#151515!important;--leaf-deep:#151515!important;
+  --sea:#151515!important;--sea-deep:#151515!important;--gold:#555!important;--rust:#333!important;
+  --paper:#f7f7f5!important;--bg:#f7f7f5!important;--bone:#f7f7f5!important;--ink:#151515!important;--night:#151515!important;
+}
+.scope[data-font='editorial'] > :first-child {--display:'Alegreya',Georgia,serif!important;--serif:'Alegreya',Georgia,serif!important;}
+.scope[data-font='modern'] > :first-child {--display:'Manrope','Inter',Arial,sans-serif!important;--serif:'Manrope','Inter',Arial,sans-serif!important;--sans:'Manrope','Inter',Arial,sans-serif!important;}
+.scope[data-font='friendly'] > :first-child {--display:'Comfortaa','Inter',Arial,sans-serif!important;--serif:'Comfortaa','Inter',Arial,sans-serif!important;--sans:'Comfortaa','Inter',Arial,sans-serif!important;}
+.scope[data-font='classic'] > :first-child {--display:'EB Garamond',Georgia,serif!important;--serif:'EB Garamond',Georgia,serif!important;}
