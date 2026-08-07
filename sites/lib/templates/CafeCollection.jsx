@@ -74,3 +74,20 @@ export function NeighborhoodMarket({ data: d }) {
     <Credit d={d} />
   </main>
 }
+
+export function MicrobakeryLab({ data: d }) {
+  const gallery = photos(d)
+  return <main className={`${s.root} ${s.micro}`}>
+    <nav className={s.microNav}><Brand data={d} /><div><a href="#method">METHOD</a><a href="#menu">MENU</a></div><a href={tel(d)}>CONTACT ↗</a></nav>
+    <header className={s.microHero}>
+      <div className={s.microIndex}><span>MICRO<br />BAKERY</span><b>05</b></div>
+      <div className={s.microHeadline}><span>HANDMADE / SLOW / DAILY</span><h1>DOUGH<br />IS THE<br /><i>IDEA.</i></h1><p>{d.INTRO}</p></div>
+      {d.HERO_IMAGE && <figure><img src={d.HERO_IMAGE} alt={d.NAME} /><figcaption>{d.CITY} · {d.HOURS}</figcaption></figure>}
+    </header>
+    <section id="method" className={s.microManifesto}><span>OUR METHOD</span><p>100% χειροποίητο.<br />Χωρίς shortcuts.<br />Κάθε μέρα από την αρχή.</p></section>
+    <section id="menu" className={s.microMenu}>{services(d).map((item, i) => <article key={item.title}><div><span>{String(i + 1).padStart(2, '0')}</span><span>AVAILABLE DAILY</span></div><h2>{item.title}</h2><p>{item.desc}</p></article>)}</section>
+    <section className={s.microRail}>{gallery.slice(0, 5).map((item, i) => <figure key={item.title}><img src={item.image} alt={item.title} loading="lazy" /><figcaption><span>0{i + 1}</span>{item.title}</figcaption></figure>)}</section>
+    <section className={s.microEnd}><h2>COME FOR<br />THE DOUGH.<br /><i>STAY FOR COFFEE.</i></h2><div><p>{d.AREAS}</p><p>{d.HOURS}</p><a href={tel(d)}>{d.PHONE}</a></div></section>
+    <Credit d={d} light />
+  </main>
+}

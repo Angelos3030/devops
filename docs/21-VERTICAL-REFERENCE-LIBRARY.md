@@ -143,6 +143,19 @@ call/reservation CTA. **Όχι:** generic φωτογραφίες φαγητού 
 **Να κρατήσουμε:** προϊόν/μενού πρώτα, signature items, ώρες, location και order CTA.
 **Όχι:** SaaS-style cards ή ψυχρό εταιρικό design.
 
+### Υλοποιημένες κατευθύνσεις Vitrina
+
+| Reference direction | Vitrina theme | Τι μεταφέρθηκε |
+|---|---|---|
+| Blue Bottle Coffee | `bakery-editorial` | Minimal product storytelling, εκπαίδευση και ήρεμη premium τυπογραφία |
+| Tatte Bakery | `counter-menu` | Φωτογραφικό food-first hero, άμεσο menu και location/order CTA |
+| Bourke Street Bakery | `morning-journal` | Neighbourhood χαρακτήρας, χειροποίητη παραγωγή και ιστορία του φούρνου |
+| KOKONA | `neighborhood-market` | Boutique café αίσθηση, signature προϊόντα και έντονη τοπική ταυτότητα |
+| Breadman | `microbakery-lab` | Contemporary microbakery, process-first αφήγηση και πειραματικό grid |
+
+Οι κατευθύνσεις είναι πρωτότυπες υλοποιήσεις: δεν αντιγράφουν λογότυπα, κείμενα,
+φωτογραφίες ή proprietary components των reference sites.
+
 ## 9. Λιανική / μικρό κατάστημα
 
 - [ ] [Aesop](https://www.aesop.com/) — editorial commerce, restrained palette και

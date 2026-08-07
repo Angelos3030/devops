@@ -169,7 +169,7 @@ def test_endpoints() -> None:
     check("GET /designs 200", r.status_code == 200)
     body = r.json()
     check(f"designs: {n} variants", len(body["variants"]) == n)
-    check("designs: 4 curated React templates", len(body["templates"]) == 4,
+    check("designs: 5 curated React templates", len(body["templates"]) == 5,
           str(body.get("templates")))
     check("designs: one recommended", sum(v["recommended"] for v in body["variants"]) == 1)
     check("designs: none selected yet", body["selected"] is None)

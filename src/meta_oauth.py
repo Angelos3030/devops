@@ -605,7 +605,7 @@ def put_content(client_id: str, body: ContentUpdate,
 def list_designs(client_id: str):
     """Οι προτάσεις design του πελάτη + ποια είναι προτεινόμενη/επιλεγμένη + live URL.
 
-    `templates`: smart-match — 4 curated React templates με το premium της κατηγορίας του πρώτο
+    `templates`: smart-match — 5 curated React templates με το premium της κατηγορίας του πρώτο
     (αυτά δείχνει το /choose). `variants`: τα legacy static layouts (συμβατότητα)."""
     from . import premium_generator as pg
     rid = _resolve_client(client_id).get("id", client_id)
