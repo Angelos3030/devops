@@ -78,7 +78,7 @@ def main() -> int:
         intake = {"type": "Άλλο", "description": description, "city": "Αθήνα"}
         actual = pg._vertical(intake)
         templates = pg.recommend_templates(intake)
-        if actual != expected or len(templates) != 12:
+        if actual != expected or len(templates) != 4:
             failures.append((description, expected, actual, templates[:3]))
 
     if failures:

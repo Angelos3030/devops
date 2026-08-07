@@ -29,7 +29,7 @@ export const TRADES = {
   },
   kommotirio: {
     label: 'κομμωτήρια & beauty', hero: 'Η δουλειά σου, σε βιτρίνα μόδας.',
-    biz: 'salon', templates: ['runway', 'bento', 'editorial', 'poster'],
+    biz: 'salon', templates: ['beauty-atelier', 'runway', 'bento', 'type-gallery'],
     points: ['Portfolio που δείχνει το ταλέντο σου', 'Ραντεβού με ένα κλικ', 'Instagram-ready εμφάνιση'],
   },
   iatreio: {
@@ -44,7 +44,7 @@ export const TRADES = {
   },
   aisthitiki: {
     label: 'κέντρα αισθητικής', hero: 'Η φροντίδα σου αξίζει μια όμορφη πρώτη εικόνα.',
-    biz: 'aesthetics', templates: ['bloom', 'runway', 'quiet', 'canvas'],
+    biz: 'aesthetics', templates: ['beauty-atelier', 'bloom', 'runway', 'quiet'],
     points: ['Θεραπείες με καθαρή παρουσίαση', 'Ραντεβού σε ένα άγγιγμα', 'Premium αισθητική χωρίς υπερβολές'],
   },
   masaz: {

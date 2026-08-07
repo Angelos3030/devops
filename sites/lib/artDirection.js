@@ -12,6 +12,10 @@ const DIRECTIONS = {
   kinetic: { hero: 3, story: 2, rotate: 2 },
   infinite: { hero: 4, story: 0, rotate: 1 },
   living: { hero: 2, story: 4, rotate: 4 },
+  'bakery-editorial': { hero: 0, story: 4, rotate: 0 },
+  'counter-menu': { hero: 2, story: 0, rotate: 2 },
+  'morning-journal': { hero: 1, story: 3, rotate: 1 },
+  'neighborhood-market': { hero: 3, story: 2, rotate: 3 },
 }
 
 const at = (items, index) => items.length ? items[index % items.length] : null

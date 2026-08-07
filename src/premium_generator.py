@@ -219,6 +219,8 @@ REACT_TEMPLATES = (
     "ember", "marble", "runway", "forge", "aegean", "bloom",
     "volt", "motor", "terra", "dispatch", "canvas",
     "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living",
+    "beauty-atelier",
+    "bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market",
 )
 
 # Λεπτομερέστερο vertical ΜΟΝΟ για template matching — δεν αγγίζει το _profession()
@@ -284,17 +286,17 @@ def _vertical(intake: dict[str, Any]) -> str:
 
 
 # Premium-first σειρά ανά vertical. Το πρώτο = προτεινόμενο.
-# Η σειρά λειτουργεί ως vertical ranking. Στον πελάτη δείχνουμε έως δώδεκα
-# συμβατές και ουσιαστικά διαφορετικές επιλογές.
+# Κρατάμε ολόκληρο το ranking για το chat editor, αλλά το αρχικό chooser δείχνει
+# μόνο τέσσερις καθαρές κατευθύνσεις ώστε η απόφαση να παραμένει εύκολη.
 _TEMPLATES_BY_VERTICAL = {
     "food":         ["warmth", "ember", "magazine", "cinematic", "type-gallery", "living", "infinite", "quiet", "kinetic", "poster", "bloom", "aegean"],
-    "cafe":         ["bloom", "type-gallery", "living", "infinite", "cinematic", "kinetic", "quiet", "warmth", "magazine", "poster", "ember", "bento"],
+    "cafe":         ["bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market", "bloom", "type-gallery", "living", "cinematic", "quiet", "warmth", "magazine", "bento"],
     "rooms":        ["aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid", "marble", "magazine", "bloom"],
     "dentist":      ["marble", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic", "editorial", "bento", "split"],
     "doctor":       ["marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
-    "aesthetics":   ["bloom", "quiet", "marble", "runway", "living", "cinematic", "type-gallery", "bento", "infinite", "canvas", "magazine", "poster"],
+    "aesthetics":   ["beauty-atelier", "bloom", "quiet", "marble", "runway", "living", "cinematic", "type-gallery", "bento", "infinite", "canvas", "magazine"],
     "massage":      ["living", "quiet", "aegean", "bloom", "warmth", "cinematic", "infinite", "canvas", "marble", "type-gallery", "terra", "magazine"],
-    "beauty":       ["runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas", "magazine", "poster", "bento"],
+    "beauty":       ["beauty-atelier", "runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas", "magazine", "poster"],
     "retail":       ["runway", "type-gallery", "bento", "infinite", "bloom", "canvas", "cinematic", "quiet", "kinetic", "grid", "magazine", "living"],
     "professional": ["marble", "quiet", "cinematic", "grid", "infinite", "canvas", "type-gallery", "living", "kinetic", "editorial", "sidebar", "bento"],
     "trade":        ["dispatch", "kinetic", "grid", "type-gallery", "infinite", "cinematic", "quiet", "living", "canvas", "forge", "poster", "bento"],
@@ -305,8 +307,8 @@ _TEMPLATES_BY_VERTICAL = {
 }
 
 
-def recommend_templates(intake: dict[str, Any], limit: int = 12) -> list[str]:
-    """Έως δώδεκα ranked React προτάσεις, με την καταλληλότερη πρώτη."""
+def recommend_templates(intake: dict[str, Any], limit: int = 4) -> list[str]:
+    """Τέσσερις ranked React προτάσεις, με την καταλληλότερη πρώτη."""
     keys = _TEMPLATES_BY_VERTICAL.get(_vertical(intake), _TEMPLATES_BY_VERTICAL["trade"])
     return [k for k in keys if k in REACT_TEMPLATES][:limit]
 

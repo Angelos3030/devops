@@ -28,6 +28,8 @@ Speed matters, but not at the cost of taste. The page must feel alive, local, an
      media policy and no-go rules; never recolor one generic profession template.
 2. Choose one design route from `references/design-routes.md`.
 2b. Write a short spec first using `references/design-spec.md` (the 9 sections), then build.
+2c. For nail, hair and beauty businesses, choose one distinct direction from
+    `references/beauty-routes.md`; do not blend all three into a generic page.
 3. Compose from blocks, not from a generic page:
    - Sticky nav
    - Immersive hero with customer, licensed, or clearly non-deceptive generated imagery

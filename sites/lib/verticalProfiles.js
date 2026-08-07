@@ -3,6 +3,8 @@ const DESIGN_SYSTEM_IDS = Object.freeze([
   'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean',
   'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas',
   'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living',
+  'beauty-atelier',
+  'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market',
 ])
 
 const REQUIRED_BASE_SECTIONS = Object.freeze(['hero', 'services', 'contact', 'find-us'])
@@ -78,7 +80,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unlicensed-before-after', 'misleading-client-results']),
       fallbackStrategy: 'editorial-color-and-typography-with-service-lookbook',
     },
-    compatibleDesignSystemIds: ['runway', 'type-gallery', 'living', 'cinematic', 'infinite', 'kinetic', 'quiet', 'bloom', 'canvas', 'magazine', 'poster', 'bento'],
+    compatibleDesignSystemIds: ['beauty-atelier', 'runway', 'type-gallery', 'living', 'cinematic', 'infinite', 'kinetic', 'quiet', 'bloom', 'canvas', 'magazine', 'poster'],
   }),
   dentist: profile({
     id: 'dentist', label: 'Οδοντιατρείο',
@@ -120,7 +122,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unconsented-before-after', 'medical-result-guarantees', 'over-retouched-results']),
       fallbackStrategy: 'soft-editorial-treatment-led-layout',
     },
-    compatibleDesignSystemIds: ['bloom', 'quiet', 'marble', 'runway', 'living', 'cinematic', 'type-gallery', 'bento', 'infinite', 'canvas', 'magazine', 'poster'],
+    compatibleDesignSystemIds: ['beauty-atelier', 'bloom', 'quiet', 'marble', 'runway', 'living', 'cinematic', 'type-gallery', 'bento', 'infinite', 'canvas', 'magazine'],
   }),
   massage: profile({
     id: 'massage', label: 'Massage / Wellness',
@@ -148,7 +150,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unavailable-menu-items', 'misleading-location-views']),
       fallbackStrategy: 'brand-patterns-and-menu-led-bento',
     },
-    compatibleDesignSystemIds: ['bloom', 'type-gallery', 'living', 'infinite', 'cinematic', 'kinetic', 'quiet', 'warmth', 'magazine', 'poster', 'ember', 'bento'],
+    compatibleDesignSystemIds: ['bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'bloom', 'type-gallery', 'living', 'cinematic', 'quiet', 'warmth', 'magazine', 'bento'],
   }),
   retail: profile({
     id: 'retail', label: 'Κατάστημα λιανικής',
