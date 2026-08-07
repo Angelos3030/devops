@@ -96,7 +96,7 @@ export default function Choose({ params }) {
         body: JSON.stringify({ layout: selected }),
       })
       if (isPilot) {
-        window.location.href = siteHref(selected)
+        window.location.href = `/dashboard?client=${encodeURIComponent(client)}`
         return
       }
       const r = await fetch(`${API}/create-checkout`, {
@@ -108,6 +108,22 @@ export default function Choose({ params }) {
       else throw new Error(d.detail || 'checkout')
     } catch (e) {
       setErr('Κάτι πήγε στραβά με την πληρωμή. Δοκίμασε ξανά ή γράψε μας στο hello@getvitrina.gr')
+      setBusy(false)
+    }
+  }
+
+  async function openEditor() {
+    if (isDemo || busy) return
+    setBusy(true); setErr('')
+    try {
+      const r = await fetch(`${API}/clients/${client}/select-design`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ layout: selected }),
+      })
+      if (!r.ok) throw new Error('select-design')
+      window.location.href = `/dashboard?client=${encodeURIComponent(client)}`
+    } catch (e) {
+      setErr('Δεν άνοιξε ο editor. Δοκίμασε ξανά σε λίγο.')
       setBusy(false)
     }
   }
@@ -168,6 +184,11 @@ export default function Choose({ params }) {
 
       <div className={s.bar}>
         <a className={s.preview} href={siteHref(selected)} target="_blank" rel="noreferrer">Άνοιξε σε πλήρη οθόνη ↗</a>
+        {!isDemo && (
+          <button className={s.editor} onClick={openEditor} disabled={busy}>
+            {busy ? 'Ανοίγει…' : 'Διαμόρφωσέ το με live chat'}
+          </button>
+        )}
         <button className={s.cta} onClick={checkout} disabled={busy || isDemo}>
           {isDemo ? 'Demo επιλογής πελάτη' : busy
             ? (isPilot ? 'Ετοιμάζουμε το preview…' : 'Σε πάμε στην πληρωμή…')

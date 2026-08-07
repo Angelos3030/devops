@@ -257,9 +257,11 @@ export default function Dashboard() {
 
   async function signInGoogle() {
     setErr('')
+    const requested = new URLSearchParams(window.location.search).get('client')
+    const destination = `${window.location.origin}/dashboard${requested ? `?client=${encodeURIComponent(requested)}` : ''}`
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/dashboard` },
+      options: { redirectTo: destination },
     })
     if (error) setErr('Η σύνδεση με Google δεν είναι διαθέσιμη αυτή τη στιγμή — '
                       + 'χρησιμοποίησε το email σου παρακάτω.')
@@ -268,9 +270,11 @@ export default function Dashboard() {
   async function signInEmail(e) {
     e.preventDefault()
     if (!email.trim()) return
+    const requested = new URLSearchParams(window.location.search).get('client')
+    const destination = `${window.location.origin}/dashboard${requested ? `?client=${encodeURIComponent(requested)}` : ''}`
     const { error } = await supabase.auth.signInWithOtp({
       email: email.trim(),
-      options: { emailRedirectTo: `${window.location.origin}/dashboard` },
+      options: { emailRedirectTo: destination },
     })
     if (error) setErr('Δεν στάλθηκε το email: ' + error.message)
     else setSent(true)
