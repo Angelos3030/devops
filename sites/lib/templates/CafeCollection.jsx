@@ -19,6 +19,7 @@ export function BakeryEditorial({ data: d }) {
       <div className={s.patSeal}>fait<br />main</div>
     </header>
     <section className={s.patIntro}><span>01 · Η συλλογή</span><h2>Μικρές δημιουργίες,<br /><em>μεγάλη φροντίδα.</em></h2><p>{d.INTRO}</p></section>
+    <aside className={s.patBanner}><span>ÉDITION DU JOUR</span><p>Καφές και γλυκό.<br /><i>Η μικρή πολυτέλεια της ημέρας.</i></p><a href={tel(d)}>Κράτησέ το για μένα ↗</a></aside>
     <section className={s.patProducts}>{services(d).map((item, i) => <article key={item.title}>{gallery[i] && <img src={gallery[i].image} alt={item.title} loading="lazy" />}<div><span>0{i + 1}</span><h3>{item.title}</h3><p>{item.desc}</p></div></article>)}</section>
     <section className={s.patQuote}><p>«{d.STORY_TITLE}»</p><a href={tel(d)}>Κάλεσέ μας · {d.PHONE}</a></section>
     <Credit d={d} />
@@ -35,6 +36,7 @@ export function CounterMenu({ data: d }) {
       <div className={s.urbanTicker}>ESPRESSO · BRUNCH · SWEET THINGS · TAKE AWAY · {d.CITY} · </div>
     </header>
     <section id="menu" className={s.urbanMenu}><header><span>THE DAILY LINE-UP</span><h2>Pick your<br />favorite.</h2></header><div>{services(d).map((item, i) => <article key={item.title}><b>{String(i + 1).padStart(2, '0')}</b><h3>{item.title}</h3><p>{item.desc}</p><span>↗</span></article>)}</div></section>
+    <aside className={s.urbanBanner}><span>01</span><strong>YOUR 10:30<br />COFFEE BREAK</strong><span>IS CALLING →</span></aside>
     <section className={s.urbanGallery}>{gallery.slice(0, 3).map((item, i) => <figure key={item.title} className={s[`urbanPic${i + 1}`]}><img src={item.image} alt={item.title} loading="lazy" /><figcaption>{item.title}</figcaption></figure>)}</section>
     <section id="visit" className={s.urbanVisit}><h2>SEE YOU<br />AT THE BAR.</h2><div><p>{d.AREAS}</p><p>{d.HOURS}</p><a href={tel(d)}>{d.PHONE}</a></div></section>
     <Credit d={d} light />
@@ -52,6 +54,7 @@ export function MorningJournal({ data: d }) {
     </header>
     <section id="fournos" className={s.grPromise}><p>{d.INTRO}</p><strong>Κάθε μέρα.<br />Όπως παλιά.</strong></section>
     <section className={s.grGoods}>{services(d).map((item, i) => <article key={item.title}><span>{item.num || `0${i + 1}`}</span><h2>{item.title}</h2><p>{item.desc}</p></article>)}</section>
+    <aside className={s.grBanner}><span>ΑΠΟ ΤΟΝ ΦΟΥΡΝΟ</span><p>Μυρίζει όμορφα<br />η γειτονιά σήμερα.</p><a href={tel(d)}>Τηλεφώνησε για παραγγελία · {d.PHONE}</a></aside>
     <section className={s.grStory}>{gallery[1] && <img src={gallery[1].image} alt={gallery[1].title} loading="lazy" />}<div><span>Η δική μας ιστορία</span><h2>{d.STORY_TITLE}</h2>{d.story?.map((item, i) => <p key={i}>{item.p}</p>)}</div></section>
     <section id="contact" className={s.grContact}><span>ΠΕΡΑΣΕ ΝΑ ΠΕΙΣ ΜΙΑ ΚΑΛΗΜΕΡΑ</span><h2>{d.AREAS}</h2><a href={tel(d)}>{d.PHONE}</a></section>
     <Credit d={d} />
@@ -69,6 +72,7 @@ export function NeighborhoodMarket({ data: d }) {
       <div className={s.brunchSticker}>GOOD<br />VIBES<br />ONLY</div>
     </header>
     <section className={s.brunchCards}>{services(d).map((item, i) => <article key={item.title} className={s[`brunchCard${i + 1}`]}><span>0{i + 1}</span><h2>{item.title}</h2><p>{item.desc}</p></article>)}</section>
+    <aside className={s.brunchBanner}><span>WEEKEND<br />SPECIAL</span><strong>BRUNCH<br />O'CLOCK!</strong><a href={tel(d)}>SAVE MY TABLE ↗</a></aside>
     <section className={s.brunchCollage}>{gallery.slice(1, 5).map((item, i) => <figure key={item.title} className={s[`brunchPhoto${i + 1}`]}><img src={item.image} alt={item.title} loading="lazy" /><figcaption>{item.title}</figcaption></figure>)}<div><span>COME<br />HUNGRY</span><a href={tel(d)}>CALL US</a></div></section>
     <section className={s.brunchCta}><p>Great coffee.<br />Zero boring days.</p><div><span>{d.AREAS}</span><span>{d.HOURS}</span><a href={tel(d)}>{d.PHONE}</a></div></section>
     <Credit d={d} />
@@ -86,6 +90,7 @@ export function MicrobakeryLab({ data: d }) {
     </header>
     <section id="method" className={s.microManifesto}><span>OUR METHOD</span><p>100% χειροποίητο.<br />Χωρίς shortcuts.<br />Κάθε μέρα από την αρχή.</p></section>
     <section id="menu" className={s.microMenu}>{services(d).map((item, i) => <article key={item.title}><div><span>{String(i + 1).padStart(2, '0')}</span><span>AVAILABLE DAILY</span></div><h2>{item.title}</h2><p>{item.desc}</p></article>)}</section>
+    <aside className={s.microBanner}><span>BATCH № 05</span><strong>FERMENT.<br />SHAPE. BAKE.</strong><span>REPEAT DAILY ↘</span></aside>
     <section className={s.microRail}>{gallery.slice(0, 5).map((item, i) => <figure key={item.title}><img src={item.image} alt={item.title} loading="lazy" /><figcaption><span>0{i + 1}</span>{item.title}</figcaption></figure>)}</section>
     <section className={s.microEnd}><h2>COME FOR<br />THE DOUGH.<br /><i>STAY FOR COFFEE.</i></h2><div><p>{d.AREAS}</p><p>{d.HOURS}</p><a href={tel(d)}>{d.PHONE}</a></div></section>
     <Credit d={d} light />
