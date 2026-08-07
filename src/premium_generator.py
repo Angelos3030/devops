@@ -92,31 +92,12 @@ def _normalize_text(value: str) -> str:
 
 
 def _profession(intake: dict[str, Any]) -> str:
-    text = _normalize_text(" ".join(str(intake.get(k, "")) for k in ("type", "trade", "description")))
+    text = _normalize_text(" ".join(str(intake.get(k, "")) for k in ("type", "trade", "description", "name")))
     if any(w in text for w in (
-        "cafe", "καφε", "coffee", "brunch", "φουρν", "αρτοποι", "bakery",
-        "ζαχαροπλαστ", "γλυκ", "σφολιατ", "ψωμι",
+        "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ", "nail", "nixia", "nyxia", "nuxia",
     )):
-        return "cafe"
-    if any(w in text for w in ("ταβερ", "taverna", "εστιατο", "restaurant", "μεζε", "ψησταρι", "σουβλα")):
-        return "food"
-    if any(w in text for w in ("οδοντ", "dentist", "ιατρ", "doctor", "γιατρ")):
-        return "medical"
-    if any(w in text for w in (
-        "κομμωτ", "beauty", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ",
-        "nail", "nixia", "nyxia", "nuxia", "hair", "salon", "αισθητικ",
-    )):
-        return "beauty"
-    if any(w in text for w in (
-        "καταστημα", "boutique", "μπουτικ", "ανθοπωλ", "λουλουδ", "ρουχ",
-        "υποδημα", "παπουτσ", "κοσμημ", "retail", "store",
-    )):
-        return "retail"
-    if any(w in text for w in ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")):
-        return "wood"
-    if any(w in text for w in ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ")):
-        return "professional"
-    return "trade"
+        return "nails"
+    return _vertical(intake)
 
 
 # Per-profession default copy + service fallbacks (used when intake lacks them).
@@ -148,13 +129,22 @@ _PROFESSION_COPY = {
             ("Brunch & take away", "Πρωινές επιλογές, snacks και εύκολη παραλαβή από το κατάστημα."),
         ],
     },
-    "medical": {
+    "dentist": {
         "hero_word": "φροντίδα", "kicker_suffix": "Ιατρείο",
         "services": [
             ("Προληπτικός έλεγχος", "Τακτικός έλεγχος και καθοδήγηση για σωστή φροντίδα."),
             ("Θεραπείες", "Σύγχρονες, ανώδυνες θεραπείες με εξατομικευμένη προσέγγιση."),
             ("Αισθητική", "Διακριτικές λύσεις που ανεβάζουν την αυτοπεποίθησή σου."),
             ("Παιδική φροντίδα", "Φιλική προσέγγιση για τους μικρούς μας ασθενείς."),
+        ],
+    },
+    "doctor": {
+        "hero_word": "υγεία", "kicker_suffix": "Ιατρείο",
+        "services": [
+            ("Ιατρική αξιολόγηση", "Λήψη ιστορικού, κλινική εξέταση και καθαρή ενημέρωση για τα επόμενα βήματα."),
+            ("Πρόληψη & παρακολούθηση", "Τακτικός έλεγχος και εξατομικευμένη παρακολούθηση της υγείας σας."),
+            ("Διαγνωστική καθοδήγηση", "Υπεύθυνη αξιολόγηση εξετάσεων και παραπομπή όπου χρειάζεται."),
+            ("Ραντεβού", "Οργανωμένη εξυπηρέτηση κατόπιν ραντεβού και σαφείς οδηγίες επίσκεψης."),
         ],
     },
     "beauty": {
@@ -164,6 +154,33 @@ _PROFESSION_COPY = {
             ("Βαφή & περιποίηση", "Χρώμα, θεραπείες και φροντίδα για υγιή μαλλιά."),
             ("Νύχια", "Manicure, pedicure και σχέδια για κάθε περίσταση."),
             ("Περιποίηση προσώπου", "Καθαρισμοί και θεραπείες για λαμπερή επιδερμίδα."),
+        ],
+    },
+    "nails": {
+        "hero_word": "λεπτομέρεια", "kicker_suffix": "Nail studio",
+        "services": [
+            ("Manicure", "Περιποίηση άκρων και προσεγμένο χρώμα με επιλογές για κάθε ύφος."),
+            ("Pedicure", "Ολοκληρωμένη φροντίδα και περιποίηση σε καθαρό, άνετο περιβάλλον."),
+            ("Ημιμόνιμο & gel", "Εφαρμογές με έμφαση στη σωστή προετοιμασία και το καθαρό αποτέλεσμα."),
+            ("Nail art", "Μίνιμαλ ή δημιουργικά σχέδια προσαρμοσμένα στο προσωπικό σας στιλ."),
+        ],
+    },
+    "aesthetics": {
+        "hero_word": "λάμψη", "kicker_suffix": "Κέντρο αισθητικής",
+        "services": [
+            ("Περιποίηση προσώπου", "Εξατομικευμένα πρωτόκολλα φροντίδας σύμφωνα με τις ανάγκες της επιδερμίδας."),
+            ("Περιποίηση σώματος", "Συνεδρίες ευεξίας και αισθητικής σε ήρεμο, φροντισμένο περιβάλλον."),
+            ("Αποτρίχωση", "Σύγχρονες επιλογές αποτρίχωσης με υπεύθυνη ενημέρωση πριν από κάθε συνεδρία."),
+            ("Συμβουλευτική", "Αξιολόγηση αναγκών και πρόταση κατάλληλου πλάνου περιποίησης."),
+        ],
+    },
+    "massage": {
+        "hero_word": "ηρεμία", "kicker_suffix": "Massage & wellness",
+        "services": [
+            ("Χαλαρωτικό μασάζ", "Ήπιες τεχνικές για αποφόρτιση και βαθιά χαλάρωση."),
+            ("Deep tissue", "Στοχευμένη συνεδρία προσαρμοσμένη στις ανάγκες και τις αντοχές σας."),
+            ("Αθλητικό μασάζ", "Φροντίδα πριν ή μετά την άσκηση με έμφαση στις καταπονημένες περιοχές."),
+            ("Wellness rituals", "Ολοκληρωμένες εμπειρίες ευεξίας σε ήσυχο και ασφαλές περιβάλλον."),
         ],
     },
     "retail": {
@@ -184,6 +201,42 @@ _PROFESSION_COPY = {
             ("Εξειδίκευση", "Λύσεις προσαρμοσμένες στη δική σου περίπτωση."),
         ],
     },
+    "rooms": {
+        "hero_word": "φιλοξενία", "kicker_suffix": "Διαμονή",
+        "services": [
+            ("Άνετη διαμονή", "Καθαροί, προσεγμένοι χώροι με όλα τα βασικά για μια ξεκούραστη διαμονή."),
+            ("Τοποθεσία", "Εύκολη πρόσβαση και χρήσιμες πληροφορίες για την περιοχή και τις παραλίες."),
+            ("Παροχές", "Αναλυτική ενημέρωση για εξοπλισμό, άφιξη, αναχώρηση και διαθέσιμες παροχές."),
+            ("Κρατήσεις", "Άμεση επικοινωνία για διαθεσιμότητα, τιμές και επιβεβαίωση κράτησης."),
+        ],
+    },
+    "gym": {
+        "hero_word": "δύναμη", "kicker_suffix": "Fitness studio",
+        "services": [
+            ("Personal training", "Προπόνηση προσαρμοσμένη στο επίπεδο, τον χρόνο και τους στόχους σας."),
+            ("Ομαδικά προγράμματα", "Μικρά οργανωμένα τμήματα με καθοδήγηση και σωστή τεχνική."),
+            ("Ενδυνάμωση", "Πρόγραμμα δύναμης και λειτουργικής άσκησης με σταδιακή πρόοδο."),
+            ("Αξιολόγηση στόχων", "Πρώτη συνάντηση για να σχεδιάσουμε ένα ρεαλιστικό πλάνο άσκησης."),
+        ],
+    },
+    "garage": {
+        "hero_word": "αξιοπιστία", "kicker_suffix": "Συνεργείο αυτοκινήτων",
+        "services": [
+            ("Service αυτοκινήτου", "Προγραμματισμένη συντήρηση σύμφωνα με τις ανάγκες του οχήματος."),
+            ("Διάγνωση βλάβης", "Έλεγχος και σαφής ενημέρωση πριν προχωρήσει οποιαδήποτε εργασία."),
+            ("Φρένα & αναρτήσεις", "Έλεγχος, επισκευή και αντικατάσταση κρίσιμων εξαρτημάτων ασφάλειας."),
+            ("Ελαστικά", "Έλεγχος κατάστασης, αλλαγή και σωστή τοποθέτηση ελαστικών."),
+        ],
+    },
+    "farm": {
+        "hero_word": "τόπος", "kicker_suffix": "Ελληνική παραγωγή",
+        "services": [
+            ("Τα προϊόντα μας", "Παραγωγή με έμφαση στην προέλευση, την εποχικότητα και την ποιότητα."),
+            ("Η καλλιέργεια", "Υπεύθυνες πρακτικές και φροντίδα σε κάθε στάδιο της παραγωγής."),
+            ("Από τον παραγωγό", "Άμεση διάθεση και καθαρή ενημέρωση για διαθεσιμότητα και συσκευασίες."),
+            ("Χονδρική συνεργασία", "Επικοινωνία για επαγγελματικές παραγγελίες και σταθερές συνεργασίες."),
+        ],
+    },
     "trade": {
         "hero_word": "συνέπεια", "kicker_suffix": "Τεχνικός",
         "services": [
@@ -200,10 +253,18 @@ _DEFAULT_HERO = {
     "wood": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80",
     "food": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80",
     "cafe": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=80",
-    "medical": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=80",
+    "dentist": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=80",
+    "doctor": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
     "beauty": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=80",
+    "nails": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1800&q=80",
+    "aesthetics": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1800&q=80",
+    "massage": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1800&q=80",
     "retail": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80",
     "professional": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80",
+    "rooms": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=80",
+    "gym": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=80",
+    "garage": "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1800&q=80",
+    "farm": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=80",
     "trade": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1800&q=80",
 }
 
@@ -212,10 +273,18 @@ _LAYOUT_BY_PROFESSION = {
     "wood": "studio",
     "food": "studio",
     "cafe": "studio",
-    "medical": "atelier",
+    "dentist": "atelier",
+    "doctor": "atelier",
     "beauty": "bold",
+    "nails": "bold",
+    "aesthetics": "fresh",
+    "massage": "fresh",
     "retail": "bold",
     "professional": "trust",
+    "rooms": "atelier",
+    "gym": "bold",
+    "garage": "commerce",
+    "farm": "studio",
     "trade": "commerce",
 }
 
@@ -408,8 +477,8 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
         ]
     else:
         story_default = [
-            f"Ο/Η {name} δουλεύει με μεράκι στην περιοχή {city}. Κάθε δουλειά ξεκινά με μια κουβέντα για το τι πραγματικά χρειάζεσαι.",
-            "Χωρίς έτοιμες λύσεις, χωρίς κρυφές χρεώσεις — καθαρή τιμή, ποιοτικά υλικά και συνέπεια στον χρόνο.",
+            f"Η επιχείρηση {name} βρίσκεται στην περιοχή {city} και δίνει προτεραιότητα στην προσωπική εξυπηρέτηση και την καθαρή ενημέρωση.",
+            "Στόχος μας είναι κάθε επίσκεψη ή συνεργασία να ολοκληρώνεται με συνέπεια, φροντίδα και σεβασμό στις πραγματικές σας ανάγκες.",
         ]
     story_paras = intake.get("story_paragraphs") if isinstance(intake.get("story_paragraphs"), list) else story_default
     story_paras = [{"p": _e(p)} for p in story_paras]

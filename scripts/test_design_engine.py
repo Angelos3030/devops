@@ -74,7 +74,7 @@ def test_generator() -> None:
     check("cafe content excludes grill", "Σχάρα" not in cafe_services, cafe_services)
     check("taverna keeps food content", pg._profession({"type": "ταβέρνα"}) == "food")
     nail_intake = {"description": "Έχω νυχάδικο στην Αθήνα"}
-    check("nail salon -> beauty copy", pg._profession(nail_intake) == "beauty")
+    check("nail salon -> nail-specific copy", pg._profession(nail_intake) == "nails")
     check("nail salon -> beauty vertical", pg._vertical(nail_intake) == "beauty")
     check("nail salon -> beauty atelier first", pg.recommend_templates(nail_intake)[0] == "beauty-atelier")
 
