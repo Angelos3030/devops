@@ -40,8 +40,10 @@ REPLIES = {
         <item><domain>taverna-o-mitsos.gr</domain><available>1</available></item>
         <item><domain>taverna-o-mitsos.com</domain><available>0</available></item>
         </result></domain-check><code>200</code></pointer>""",
-    "contact-domain": "<pointer><contact-domain><result><code>CT-9911</code></result>"
-                      "</contact-domain><code>200</code></pointer>",
+    # Η ΑΠΑΝΤΗΣΗ χρησιμοποιεί κάτω παύλα (contact_domain) ενώ το αίτημα παύλα
+    # (contact-domain) — έτσι το κάνει το production WHMCS module τους.
+    "contact-domain": "<pointer><contact_domain><contact_code>CT-9911</contact_code>"
+                      "</contact_domain><code>200</code></pointer>",
     "domain": "<pointer><code>200</code><message>Domain created</message></pointer>",
     "logout": "<pointer><code>200</code></pointer>",
     "_broke": "<pointer><code>303</code><message>Not enough credit</message></pointer>",
@@ -125,12 +127,14 @@ def main() -> int:
 
     # --------------------------------------------------------------- επαφή
     print("\n[ΕΠΑΦΗ ΙΔΙΟΚΤΗΤΗ]")
-    code = p.create_contact("taverna-o-mitsos.gr", ".gr", name="Δημήτρης Μήτσος",
+    code = p.create_contact("taverna-o-mitsos", "gr", name="Δημήτρης Μήτσος",
                             street="Λ. Μαραθώνος 12", city="Καλαμαριά",
                             postal_code="55132", phone="+30.2310000000",
                             email="info@taverna-o-mitsos.gr")
     kind, req = seen[-1]
     check("στέλνει <contact-domain>", kind == "contact-domain")
+    check("το tld πάει ΧΩΡΙΣ τελεία", "<tld>gr</tld>" in req["body"])
+    check("ΔΕΝ στέλνει <key> (όπως το WHMCS τους)", req["key"] == "")
     check("τα ελληνικά περνάνε σωστά (UTF-8)", "Δημήτρης" in req["body"])
     check("επέστρεψε κωδικό επαφής", code == "CT-9911", code)
 

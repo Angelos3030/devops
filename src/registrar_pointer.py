@@ -198,24 +198,39 @@ class Pointer:
                 out[dom] = avail in ("1", "true", "yes")
         return out
 
-    def create_contact(self, domain: str, tld: str, *, name: str, street: str,
+    def create_contact(self, sld: str, tld: str, *, name: str, street: str,
                        city: str, postal_code: str, phone: str, email: str,
                        region: str = "", country: str = "GR") -> str:
         """Η επαφή ιδιοκτήτη. ΠΡΕΠΕΙ να υπάρχει πριν αγοραστεί το domain.
 
-        `phone` σε μορφή ITU: +30.2101234567
+        Η μορφή είναι αντιγραμμένη από το production WHMCS module τους
+        (github.com/pointergr/whmcs, pointer.php:433) — όχι από το API.md, που
+        δεν τα λέει:
+
+          • `sld` ΧΩΡΙΣ κατάληξη ("taverna-o-mitsos"), `tld` ΧΩΡΙΣ τελεία ("gr").
+            Τα κολλάνε μόνοι τους· με τελεία βγαίνει "…..gr" και σκάει.
+          • ΔΕΝ στέλνεται <key> στο XML — μόνο μέσα στο checksum.
+          • `phone` σε μορφή +30.2310900900 (κωδικός, ΤΕΛΕΙΑ, αριθμός).
+            Οτιδήποτε άλλο → 301 με σαφές μήνυμα.
+          • `region` (sp) είναι ΥΠΟΧΡΕΩΤΙΚΟ — κενό δίνει 301.
+          • Ο κωδικός γυρίζει στο `contact_domain/contact_code` — με ΚΑΤΩ παύλα
+            στην απάντηση, ενώ το αίτημα χρησιμοποιεί παύλα.
         """
+        tld = tld.lstrip(".")
+        sld = sld.rsplit("." + tld, 1)[0] if sld.endswith("." + tld) else sld
         inner = (
             "<contact-domain><create>"
-            f"<domain>{domain}</domain><tld>{tld}</tld>"
+            f"<domain>{sld}</domain><tld>{tld}</tld>"
             f"<name>{name}</name><street>{street}</street><city>{city}</city>"
             f"<sp>{region or city}</sp><pc>{postal_code}</pc><country>{country}</country>"
             f"<phone>{phone}</phone><email>{email}</email>"
             "</create></contact-domain>"
         )
-        root = self._post(self._envelope("createContactDomain", inner))
-        return (root.findtext("contact-domain/result/code")
-                or root.findtext("code") or "").strip()
+        root = self._post(self._envelope("createContactDomain", inner, with_key=False))
+        code = (root.findtext("contact_domain/contact_code") or "").strip()
+        if not code:
+            raise PointerError("Η Pointer δεν επέστρεψε κωδικό επαφής.")
+        return code
 
     def register(self, domain: str, *, registrant: str, years: int | None = None,
                  ns1: str = "", ns2: str = "", lock: bool = True) -> dict[str, Any]:
