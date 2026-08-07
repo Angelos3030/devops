@@ -63,6 +63,16 @@ def test_generator() -> None:
         check(f"[bare/{layout}] fallback hero (unsplash)", "unsplash.com" in html)
     check("dentist -> atelier", pg.recommend_layout(bare) == "atelier", pg.recommend_layout(bare))
     check("taverna -> studio", pg.recommend_layout({"type": "ταβέρνα"}) == "studio")
+    cafe_intake = {
+        "type": "Άλλο",
+        "description": "Έχω καφέ και παραδοσιακό φούρνο στο Ναύπλιο με specialty coffee και γλυκά",
+    }
+    cafe_content = pg.normalize(cafe_intake)
+    cafe_services = " ".join(item["title"] for item in cafe_content["services"])
+    check("cafe -> cafe content profile", pg._profession(cafe_intake) == "cafe")
+    check("cafe content includes coffee", "Specialty coffee" in cafe_services, cafe_services)
+    check("cafe content excludes grill", "Σχάρα" not in cafe_services, cafe_services)
+    check("taverna keeps food content", pg._profession({"type": "ταβέρνα"}) == "food")
     nail_intake = {"description": "Έχω νυχάδικο στην Αθήνα"}
     check("nail salon -> beauty copy", pg._profession(nail_intake) == "beauty")
     check("nail salon -> beauty vertical", pg._vertical(nail_intake) == "beauty")

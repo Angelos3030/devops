@@ -93,7 +93,12 @@ def _normalize_text(value: str) -> str:
 
 def _profession(intake: dict[str, Any]) -> str:
     text = _normalize_text(" ".join(str(intake.get(k, "")) for k in ("type", "trade", "description")))
-    if any(w in text for w in ("ταβερ", "taverna", "εστιατο", "cafe", "καφε", "restaurant", "μεζε")):
+    if any(w in text for w in (
+        "cafe", "καφε", "coffee", "brunch", "φουρν", "αρτοποι", "bakery",
+        "ζαχαροπλαστ", "γλυκ", "σφολιατ", "ψωμι",
+    )):
+        return "cafe"
+    if any(w in text for w in ("ταβερ", "taverna", "εστιατο", "restaurant", "μεζε", "ψησταρι", "σουβλα")):
         return "food"
     if any(w in text for w in ("οδοντ", "dentist", "ιατρ", "doctor", "γιατρ")):
         return "medical"
@@ -132,6 +137,15 @@ _PROFESSION_COPY = {
             ("Σχάρα & μεζέδες", "Ψητά της ώρας και μεζέδες για παρέα και κρασί."),
             ("Delivery & take away", "Το φαγητό σου ζεστό, όπου κι αν είσαι."),
             ("Εκδηλώσεις", "Τραπέζια για γιορτές, οικογενειακά και μικρές γιορτές."),
+        ],
+    },
+    "cafe": {
+        "hero_word": "φρεσκάδα", "kicker_suffix": "Καφέ & φούρνος",
+        "services": [
+            ("Specialty coffee", "Espresso, cappuccino και φίλτρου με προσεκτικά επιλεγμένους κόκκους."),
+            ("Φρέσκο ψωμί & σφολιάτες", "Καθημερινό ψήσιμο με επιλογές για πρωινό και για το σπίτι."),
+            ("Σπιτικά γλυκά", "Γλυκά ημέρας και μικρές δημιουργίες που αλλάζουν με την εποχή."),
+            ("Brunch & take away", "Πρωινές επιλογές, snacks και εύκολη παραλαβή από το κατάστημα."),
         ],
     },
     "medical": {
@@ -185,6 +199,7 @@ _PROFESSION_COPY = {
 _DEFAULT_HERO = {
     "wood": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80",
     "food": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80",
+    "cafe": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=80",
     "medical": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=80",
     "beauty": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=80",
     "retail": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80",
@@ -196,6 +211,7 @@ _DEFAULT_HERO = {
 _LAYOUT_BY_PROFESSION = {
     "wood": "studio",
     "food": "studio",
+    "cafe": "studio",
     "medical": "atelier",
     "beauty": "bold",
     "retail": "bold",
@@ -385,10 +401,16 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
              "author": "Ελένη Δ.", "area": (areas[2] if len(areas) > 2 else city), "initials": "ΕΔ"},
         ]
 
-    story_default = [
-        f"Ο/Η {name} δουλεύει με μεράκι στην περιοχή {city}. Κάθε δουλειά ξεκινά με μια κουβέντα για το τι πραγματικά χρειάζεσαι.",
-        "Χωρίς έτοιμες λύσεις, χωρίς κρυφές χρεώσεις — καθαρή τιμή, ποιοτικά υλικά και συνέπεια στον χρόνο.",
-    ]
+    if prof == "cafe":
+        story_default = [
+            f"Στο {name}, στην περιοχή {city}, η ημέρα ξεκινά με φρεσκοαλεσμένο καφέ και ό,τι μόλις βγήκε από τον φούρνο.",
+            "Διαλέγουμε προσεκτικά τις πρώτες ύλες μας και ετοιμάζουμε καθημερινά γεύσεις για το πρωινό, τη βόλτα και το σπίτι.",
+        ]
+    else:
+        story_default = [
+            f"Ο/Η {name} δουλεύει με μεράκι στην περιοχή {city}. Κάθε δουλειά ξεκινά με μια κουβέντα για το τι πραγματικά χρειάζεσαι.",
+            "Χωρίς έτοιμες λύσεις, χωρίς κρυφές χρεώσεις — καθαρή τιμή, ποιοτικά υλικά και συνέπεια στον χρόνο.",
+        ]
     story_paras = intake.get("story_paragraphs") if isinstance(intake.get("story_paragraphs"), list) else story_default
     story_paras = [{"p": _e(p)} for p in story_paras]
 
