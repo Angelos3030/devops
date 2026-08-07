@@ -220,7 +220,7 @@ REACT_TEMPLATES = (
     "volt", "motor", "terra", "dispatch", "canvas",
     "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living",
     "beauty-atelier",
-    "bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market", "microbakery-lab",
+    "bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market", "microbakery-lab", "scandinavian-coffee", "heritage-bakery",
 )
 
 # Λεπτομερέστερο vertical ΜΟΝΟ για template matching — δεν αγγίζει το _profession()
@@ -287,10 +287,10 @@ def _vertical(intake: dict[str, Any]) -> str:
 
 # Premium-first σειρά ανά vertical. Το πρώτο = προτεινόμενο.
 # Κρατάμε ολόκληρο το ranking για το chat editor, αλλά το αρχικό chooser δείχνει
-# πέντε καθαρές κατευθύνσεις ώστε να υπάρχει ποικιλία χωρίς να κουράζει η απόφαση.
+# επτά καθαρές κατευθύνσεις ώστε να υπάρχει ουσιαστική επιλογή χωρίς άσχετα themes.
 _TEMPLATES_BY_VERTICAL = {
     "food":         ["warmth", "ember", "magazine", "cinematic", "type-gallery", "living", "infinite", "quiet", "kinetic", "poster", "bloom", "aegean"],
-    "cafe":         ["bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market", "microbakery-lab", "bloom", "type-gallery", "living", "cinematic", "quiet", "warmth", "magazine"],
+    "cafe":         ["bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market", "microbakery-lab", "scandinavian-coffee", "heritage-bakery", "bloom", "type-gallery", "living", "cinematic", "quiet"],
     "rooms":        ["aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid", "marble", "magazine", "bloom"],
     "dentist":      ["marble", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic", "editorial", "bento", "split"],
     "doctor":       ["marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
@@ -307,7 +307,7 @@ _TEMPLATES_BY_VERTICAL = {
 }
 
 
-def recommend_templates(intake: dict[str, Any], limit: int = 5) -> list[str]:
+def recommend_templates(intake: dict[str, Any], limit: int = 7) -> list[str]:
     """Τέσσερις ranked React προτάσεις, με την καταλληλότερη πρώτη."""
     keys = _TEMPLATES_BY_VERTICAL.get(_vertical(intake), _TEMPLATES_BY_VERTICAL["trade"])
     return [k for k in keys if k in REACT_TEMPLATES][:limit]

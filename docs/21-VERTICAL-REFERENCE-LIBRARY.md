@@ -152,6 +152,8 @@ call/reservation CTA. **Όχι:** generic φωτογραφίες φαγητού 
 | Bourke Street Bakery | `morning-journal` | Neighbourhood χαρακτήρας, χειροποίητη παραγωγή και ιστορία του φούρνου |
 | KOKONA | `neighborhood-market` | Boutique café αίσθηση, signature προϊόντα και έντονη τοπική ταυτότητα |
 | Breadman | `microbakery-lab` | Contemporary microbakery, process-first αφήγηση και πειραματικό grid |
+| Goodhood | `scandinavian-coffee` | Φωτεινή Scandinavian ατμόσφαιρα και architecture-led φωτογραφική αφήγηση |
+| Τάσσης | `heritage-bakery` | Οικογενειακή ιστορία, μεγάλη γκάμα προϊόντων και σύγχρονη ελληνική παράδοση |
 
 Οι κατευθύνσεις είναι πρωτότυπες υλοποιήσεις: δεν αντιγράφουν λογότυπα, κείμενα,
 φωτογραφίες ή proprietary components των reference sites.

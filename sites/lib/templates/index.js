@@ -29,13 +29,13 @@ import Kinetic from './Kinetic'
 import Infinite from './Infinite'
 import Living from './Living'
 import BeautyAtelier from './BeautyAtelier'
-import { BakeryEditorial, CounterMenu, MorningJournal, NeighborhoodMarket, MicrobakeryLab } from './CafeCollection'
+import { BakeryEditorial, CounterMenu, MorningJournal, NeighborhoodMarket, MicrobakeryLab, ScandinavianCoffeeHouse, HeritageBakery } from './CafeCollection'
 
 // Structurally-distinct React archetypes.
-export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch, canvas: Canvas, cinematic: Cinematic, 'type-gallery': TypeGallery, quiet: Quiet, kinetic: Kinetic, infinite: Infinite, living: Living, 'beauty-atelier': BeautyAtelier, 'bakery-editorial': BakeryEditorial, 'counter-menu': CounterMenu, 'morning-journal': MorningJournal, 'neighborhood-market': NeighborhoodMarket, 'microbakery-lab': MicrobakeryLab }
+export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch, canvas: Canvas, cinematic: Cinematic, 'type-gallery': TypeGallery, quiet: Quiet, kinetic: Kinetic, infinite: Infinite, living: Living, 'beauty-atelier': BeautyAtelier, 'bakery-editorial': BakeryEditorial, 'counter-menu': CounterMenu, 'morning-journal': MorningJournal, 'neighborhood-market': NeighborhoodMarket, 'microbakery-lab': MicrobakeryLab, 'scandinavian-coffee': ScandinavianCoffeeHouse, 'heritage-bakery': HeritageBakery }
 // The public collection stays intentionally curated. Legacy templates remain
 // renderable for existing clients but are not offered to new customers.
-export const TEMPLATE_KEYS = ['editorial', 'split', 'bento', 'longform', 'poster', 'sidebar', 'grid', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living', 'beauty-atelier', 'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab']
+export const TEMPLATE_KEYS = ['editorial', 'split', 'bento', 'longform', 'poster', 'sidebar', 'grid', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living', 'beauty-atelier', 'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery']
 export const LEGACY_TEMPLATE_KEYS = ['showcase', 'corporate', 'coast', 'pulse']
 export const TEMPLATE_META = {
   editorial: { label: 'Editorial', desc: 'Κλασικό stacked, μεγάλη τυπογραφία.' },
@@ -74,6 +74,8 @@ export const TEMPLATE_META = {
   'morning-journal': { label: 'Morning Journal', desc: 'Editorial εφημερίδα γειτονιάς με ιστορία, προϊόν και καθαρή πληροφορία.' },
   'neighborhood-market': { label: 'Neighborhood Market', desc: 'Χρώμα, modular tiles και ζωντανή local ταυτότητα για σύγχρονο καφέ ή φούρνο.' },
   'microbakery-lab': { label: 'Microbakery Lab', desc: 'Πειραματικό monochrome grid, process-first αφήγηση και έντονη τυπογραφία.' },
+  'scandinavian-coffee': { label: 'Scandinavian Coffee House', desc: 'Φως, αρχιτεκτονική φωτογραφία και ήρεμη specialty coffee εμπειρία.' },
+  'heritage-bakery': { label: 'Heritage Bakery', desc: 'Οικογενειακή ιστορία, πλούσια προϊόντα και σύγχρονη ελληνική παράδοση.' },
 }
 
 // Map backend layout names → React archetype (until backend adopts react keys).

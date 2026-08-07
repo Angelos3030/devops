@@ -4,7 +4,7 @@ const DESIGN_SYSTEM_IDS = Object.freeze([
   'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas',
   'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living',
   'beauty-atelier',
-  'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab',
+  'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery',
 ])
 
 const REQUIRED_BASE_SECTIONS = Object.freeze(['hero', 'services', 'contact', 'find-us'])
@@ -150,7 +150,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unavailable-menu-items', 'misleading-location-views']),
       fallbackStrategy: 'brand-patterns-and-menu-led-bento',
     },
-    compatibleDesignSystemIds: ['bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'bloom', 'type-gallery', 'living', 'cinematic', 'quiet', 'warmth', 'magazine'],
+    compatibleDesignSystemIds: ['bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery', 'bloom', 'type-gallery', 'living', 'cinematic', 'quiet'],
   }),
   retail: profile({
     id: 'retail', label: 'Κατάστημα λιανικής',

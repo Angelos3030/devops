@@ -96,3 +96,39 @@ export function MicrobakeryLab({ data: d }) {
     <Credit d={d} light />
   </main>
 }
+
+export function ScandinavianCoffeeHouse({ data: d }) {
+  const gallery = photos(d)
+  return <main className={`${s.root} ${s.scandi}`}>
+    <nav className={s.scandiNav}><Brand data={d} /><div><a href="#space">Ο χώρος</a><a href="#coffee">Ο καφές</a></div><a href={tel(d)}>Επικοινωνία</a></nav>
+    <header className={s.scandiHero}>
+      {d.HERO_IMAGE && <img src={d.HERO_IMAGE} alt={d.NAME} />}
+      <div><span>SPECIALTY COFFEE · {d.CITY}</span><h1>A good place<br />to slow down.</h1><p>{d.TAGLINE}</p></div>
+      <aside><span>OPEN TODAY</span><b>{d.HOURS}</b></aside>
+    </header>
+    <section id="space" className={s.scandiStatement}><span>OUR SPACE</span><p>Καθαρό φως, φυσικά υλικά και μια θέση που σε περιμένει.</p></section>
+    <section className={s.scandiRooms}>{gallery.slice(0, 4).map((item, i) => <figure key={item.title} className={s[`scandiRoom${i + 1}`]}><img src={item.image} alt={item.title} loading="lazy" /><figcaption>{item.title}<span>{String(i + 1).padStart(2, '0')}</span></figcaption></figure>)}</section>
+    <aside className={s.scandiBanner}><span>COFFEE / WORK / MEET</span><strong>YOUR EVERYDAY<br />THIRD PLACE.</strong><a href={tel(d)}>SEE YOU HERE ↗</a></aside>
+    <section id="coffee" className={s.scandiMenu}><header><span>AT THE BAR</span><h2>Simple things,<br />done properly.</h2></header><div>{services(d).map((item, i) => <article key={item.title}><span>{String(i + 1).padStart(2, '0')}</span><div><h3>{item.title}</h3><p>{item.desc}</p></div></article>)}</div></section>
+    <section className={s.scandiVisit}><div><span>COME BY</span><h2>{d.AREAS}</h2></div><div><p>{d.HOURS}</p><a href={tel(d)}>{d.PHONE}</a></div></section>
+    <Credit d={d} />
+  </main>
+}
+
+export function HeritageBakery({ data: d }) {
+  const gallery = photos(d)
+  return <main className={`${s.root} ${s.heritage}`}>
+    <div className={s.heritageTop}>ΠΑΡΑΔΟΣΗ · ΠΟΙΟΤΗΤΑ · ΚΑΘΗΜΕΡΙΝΗ ΦΡΕΣΚΑΔΑ</div>
+    <nav className={s.heritageNav}><Brand data={d} /><span>Από το 1960</span><a href={tel(d)}>Παραγγελίες · {d.PHONE}</a></nav>
+    <header className={s.heritageHero}>
+      <div><span>ΟΙΚΟΓΕΝΕΙΑΚΟΣ ΦΟΥΡΝΟΣ</span><h1>Εδώ ζυμώνεται.<br /><i>Εδώ ψήνεται.</i></h1><p>{d.TAGLINE}</p><a href="#products">Δες τα προϊόντα μας</a></div>
+      {d.HERO_IMAGE && <figure><img src={d.HERO_IMAGE} alt={d.NAME} /><figcaption>Φρέσκα κάθε μέρα</figcaption></figure>}
+    </header>
+    <section className={s.heritageYears}><strong>65</strong><div><span>ΧΡΟΝΙΑ ΔΙΠΛΑ ΣΑΣ</span><p>{d.INTRO}</p></div></section>
+    <section id="products" className={s.heritageProducts}>{services(d).map((item, i) => <article key={item.title}>{gallery[i] && <img src={gallery[i].image} alt={item.title} loading="lazy" />}<div><span>0{i + 1}</span><h2>{item.title}</h2><p>{item.desc}</p></div></article>)}</section>
+    <aside className={s.heritageBanner}><span>ΓΙΑ ΤΟ ΚΑΘΗΜΕΡΙΝΟ ΤΡΑΠΕΖΙ</span><strong>ΑΓΝΑ ΥΛΙΚΑ.<br />ΓΕΥΣΕΙΣ ΠΟΥ ΘΥΜΑΣΑΙ.</strong><a href={tel(d)}>Κάνε παραγγελία ↗</a></aside>
+    <section className={s.heritageStory}><div><span>Η ΙΣΤΟΡΙΑ ΜΑΣ</span><h2>{d.STORY_TITLE}</h2>{d.story?.map((item, i) => <p key={i}>{item.p}</p>)}</div>{d.STORY_IMAGE && <img src={d.STORY_IMAGE} alt={d.NAME} loading="lazy" />}</section>
+    <section className={s.heritageContact}><h2>Σας περιμένουμε<br />στον φούρνο.</h2><div><p>{d.AREAS}</p><p>{d.HOURS}</p><a href={tel(d)}>{d.PHONE}</a></div></section>
+    <Credit d={d} />
+  </main>
+}
