@@ -14,6 +14,14 @@ const LIBRARY = {
     ['photo-1540189549336-e6e99c3679fe', 'Φρέσκες γεύσεις'],
     ['photo-1555939594-58d7cb561ad1', 'Στο τραπέζι'],
   ],
+  // Ο καφές ΔΕΝ είναι ταβέρνα. Πριν από αυτό, «έχω καφέ» έπαιρνε φωτογραφίες
+  // με σουβλάκια και ψητά — ο πελάτης το βλέπει και φεύγει.
+  cafe: [
+    ['photo-1495474472287-4d71bcdd2085', 'Ο καφές μας'],
+    ['photo-1442512595331-e89e73853f31', 'Η γωνιά μας'],
+    ['photo-1445205170230-053b83016050', 'Φρέσκα γλυκά'],
+    ['photo-1470337458703-46ad1756a187', 'Καθημερινή απόλαυση'],
+  ],
   beauty: [
     ['photo-1560066984-138dadb4c035', 'Ο χώρος περιποίησης'],
     ['photo-1522337660859-02fbefca4702', 'Styling'],
@@ -48,16 +56,25 @@ const LIBRARY = {
 
 const RULES = [
   ['carpenter', /ξυλ|κουζιν|ντουλαπ|επιπλ|ανακαιν/i],
-  ['food', /ταβερ|εστια|καφ|φουρ|ζαχαρο|bar|cafe/i],
+  // ΠΡΟΣΟΧΗ στη σειρά: το «cafe» πρέπει να ελεγχθεί ΠΡΙΝ το «food», αλλιώς
+  // το «καφε» πιάνεται από τον κανόνα της ταβέρνας.
+  ['cafe', /καφε|καφέ|cafe|coffee|φουρν|αρτοποι|ζαχαροπλ|bakery|creperi|κρεπερ|παγωτ|brunch/i],
+  ['food', /ταβερ|εστια|ψησταρ|σουβλα|grill|πιτσαρ|pizza|μεζε|bar|μπαρ/i],
   ['beauty', /κομμ|beauty|αισθητ|νυχι|spa/i],
   ['health', /ιατρ|οδοντ|κλιν|θεραπε|φυσιο/i],
   ['hospitality', /ξενοδο|δωματι|villa|τουρισ|καταλυ/i],
   ['technician', /υδραυλ|ηλεκτρ|τεχν|συνεργ|μηχαν|ψυκτικ/i],
 ]
 
+// Ο πελάτης γράφει «Ταβέρνα», όχι «ταβερνα». Οι κανόνες είναι γραμμένοι χωρίς
+// τόνους, οπότε χωρίς αυτό το βήμα ΚΑΝΕΝΑΣ δεν ταίριαζε: «ταβέρνα», «φούρνος»,
+// «κομμωτήριο» έπεφταν όλα στο ουδέτερο «professional» με φωτογραφίες γραφείου.
+const stripTones = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '')
+
 function categoryFor(data) {
-  const text = [data?.TRADE, data?.type, data?.TAGLINE, ...(data?.services || []).map(x => x?.title)]
-    .filter(Boolean).join(' ')
+  const text = stripTones(
+    [data?.TRADE, data?.type, data?.TAGLINE, ...(data?.services || []).map(x => x?.title)]
+      .filter(Boolean).join(' '))
   return RULES.find(([, pattern]) => pattern.test(text))?.[0] || 'professional'
 }
 
