@@ -28,6 +28,15 @@
 5. `skills/greek-website/SKILL.md`
 6. `skills/local-seo-gr/SKILL.md`
 7. `skills/brand-builder-gr/SKILL.md` και `skills/vitrina-logo-system/SKILL.md` όταν χρειάζεται brand/logo.
+8. `skills/vitrina-theme-builder/SKILL.md` **υποχρεωτικά** όταν δημιουργείται νέο theme/template.
+
+### Νέα themes: μόνο μέσω reference
+
+Κάθε νέο theme ξεκινά από reference website που δίνει ο ιδιοκτήτης ως URL, και ακολουθεί
+το `skills/vitrina-theme-builder/SKILL.md`: μέτρηση με `sites/scripts/capture_reference.mjs`,
+γραπτή ανάλυση, **ρητή έγκριση**, και μετά κώδικας. Απαγορεύεται να γραφτεί theme «από
+έμπνευση» ή να ξεκινήσει implementation πριν εγκριθεί η ανάλυση. Ποτέ δεν αντιγράφονται
+proprietary κώδικας, λογότυπα, κείμενα ή φωτογραφίες — μόνο σχεδιαστική λογική και δομή.
 
 ## End-to-End Workflow
 
