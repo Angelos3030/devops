@@ -168,9 +168,11 @@
 .panelFig img { transition: transform 0.5s ease-in-out; }
 .panel:hover .panelFig img { transform: scale(1.03); }
 
-/* auto-fill (όχι auto-fit): μία μόνη υπηρεσία μένει στο πλάτος της, δεν τεντώνεται. */
+/* Κουτάκια με ταβάνι πλάτους και κεντραρισμένα: 2 ή 3 δείχνουν σκόπιμα,
+   δεν τεντώνονται σε όλο το πλάτος ούτε στοιβάζονται αριστερά με κενό δεξιά. */
 .restGrid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 34px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 300px));
+  justify-content: center; gap: 34px;
   margin-top: var(--section); padding-top: var(--section); border-top: 1px solid var(--line);
 }
 .restItem { padding: 1.4rem 1.5rem; background: var(--tint-warm); border-radius: var(--radius); }

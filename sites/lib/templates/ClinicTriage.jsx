@@ -32,8 +32,11 @@ export default function ClinicTriage({ data: d }) {
   const book = d.BOOKING_URL || tel
   const gallery = Array.isArray(d.gallery) ? d.gallery.filter((g) => g?.image) : []
   const services = Array.isArray(d.services) ? d.services : []
-  const panels = services.slice(0, 3)          // εναλλασσόμενα εικόνα/κείμενο
-  const rest = services.slice(3)               // ό,τι περισσεύει, σε πλέγμα
+  // Πόσες υπηρεσίες γίνονται panels: ποτέ δεν αφήνουμε ΕΝΑ ορφανό κουτάκι στο
+  // πλέγμα από κάτω — δείχνει σαν λάθος. Με 4 υπηρεσίες: 2 panels + 2 κουτάκια.
+  const cut = services.length === 4 ? 2 : Math.min(3, services.length)
+  const panels = services.slice(0, cut)        // εναλλασσόμενα εικόνα/κείμενο
+  const rest = services.slice(cut)             // ό,τι περισσεύει, σε πλέγμα
   const why = (Array.isArray(d.story) ? d.story : []).slice(0, 4)
 
   // Οι τρεις δρόμοι: κράτημα ραντεβού, εύρεση, ενημέρωση. Τίποτα άλλο.

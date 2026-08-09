@@ -94,7 +94,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['graphic-procedures', 'guaranteed-medical-outcomes', 'unconsented-patient-images']),
       fallbackStrategy: 'clinical-abstracts-and-credential-led-layout',
     },
-    compatibleDesignSystemIds: ['marble', 'quiet', 'cinematic', 'living', 'grid', 'infinite', 'canvas', 'type-gallery', 'kinetic', 'editorial', 'bento', 'split'],
+    compatibleDesignSystemIds: ['clinic-triage', 'marble', 'quiet', 'cinematic', 'living', 'grid', 'infinite', 'canvas', 'type-gallery', 'kinetic', 'editorial', 'bento', 'split'],
   }),
   physician: profile({
     id: 'physician', label: 'Ιατρείο',
@@ -108,7 +108,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['graphic-procedures', 'guaranteed-outcomes', 'patient-identifying-images']),
       fallbackStrategy: 'credential-led-editorial-with-clinical-abstracts',
     },
-    compatibleDesignSystemIds: ['marble', 'quiet', 'editorial', 'split', 'cinematic', 'grid', 'living', 'bento', 'canvas', 'sidebar', 'infinite', 'type-gallery'],
+    compatibleDesignSystemIds: ['clinic-triage', 'marble', 'quiet', 'editorial', 'split', 'cinematic', 'grid', 'living', 'bento', 'canvas', 'sidebar', 'infinite', 'type-gallery'],
   }),
   aesthetics: profile({
     id: 'aesthetics', label: 'Κέντρο αισθητικής',
@@ -122,7 +122,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unconsented-before-after', 'medical-result-guarantees', 'over-retouched-results']),
       fallbackStrategy: 'soft-editorial-treatment-led-layout',
     },
-    compatibleDesignSystemIds: ['beauty-atelier', 'bloom', 'quiet', 'marble', 'runway', 'living', 'cinematic', 'type-gallery', 'bento', 'infinite', 'canvas', 'magazine'],
+    compatibleDesignSystemIds: ['beauty-atelier', 'bloom', 'quiet', 'clinic-triage', 'marble', 'runway', 'living', 'cinematic', 'type-gallery', 'bento', 'infinite', 'canvas'],
   }),
   massage: profile({
     id: 'massage', label: 'Massage / Wellness',
@@ -136,7 +136,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['sexualized-imagery', 'medical-cure-claims', 'unconsented-client-images']),
       fallbackStrategy: 'calm-materials-and-wellness-typography',
     },
-    compatibleDesignSystemIds: ['living', 'quiet', 'aegean', 'bloom', 'warmth', 'cinematic', 'infinite', 'canvas', 'marble', 'type-gallery', 'terra', 'magazine'],
+    compatibleDesignSystemIds: ['living', 'quiet', 'aegean', 'bloom', 'clinic-triage', 'cinematic', 'infinite', 'canvas', 'marble', 'type-gallery', 'terra', 'magazine'],
   }),
   cafe: profile({
     id: 'cafe', label: 'Καφέ',
