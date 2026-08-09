@@ -8,6 +8,16 @@
 Αυτό το section υπερισχύει από παλιότερα/pivot sections πιο κάτω, τα οποία μένουν μόνο ως
 ιστορικό αποφάσεων.
 
+### Agent ecosystem direction (2026-08-09)
+
+- Το product direction είναι **AI Digital Agency operating system**, όχι απλώς website builder.
+- Το [docs/22-AGENT-ECOSYSTEM.md](docs/22-AGENT-ECOSYSTEM.md) ορίζει 44 specialist agents,
+  autonomy/approval policies, phased roadmap και το κοινό Orchestrator contract.
+- Μην υλοποιήσεις μεμονωμένους νέους agents πριν υπάρξουν τα κοινά `agent_tasks`, events,
+  approvals, artifacts, KPI snapshots, audit log, cost ceilings και idempotency.
+- Πρώτα production workflows: site deploy, weekly health και lead follow-up. Κάθε agent πρέπει
+  να κλείνει τον κύκλο `observe -> diagnose -> propose -> approve -> execute -> verify -> measure`.
+
 - Όλες οι επιβεβαιωμένες αλλαγές έχουν γίνει commit και push στο `origin/main`.
 - Production library: 30 renderable templates, από τα οποία ο chooser προτείνει **12 curated,
   δομικά διαφορετικά designs** ανά επάγγελμα.
