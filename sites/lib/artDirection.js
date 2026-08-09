@@ -19,6 +19,7 @@ const DIRECTIONS = {
   'microbakery-lab': { hero: 0, story: 1, rotate: 4 },
   'scandinavian-coffee': { hero: 5, story: 0, rotate: 5 },
   'heritage-bakery': { hero: 1, story: 4, rotate: 1 },
+  'clinic-triage': { hero: 0, story: 2, rotate: 3 },
 }
 
 const at = (items, index) => items.length ? items[index % items.length] : null

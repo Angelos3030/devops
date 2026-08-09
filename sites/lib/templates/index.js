@@ -29,13 +29,14 @@ import Kinetic from './Kinetic'
 import Infinite from './Infinite'
 import Living from './Living'
 import BeautyAtelier from './BeautyAtelier'
+import ClinicTriage from './ClinicTriage'
 import { BakeryEditorial, CounterMenu, MorningJournal, NeighborhoodMarket, MicrobakeryLab, ScandinavianCoffeeHouse, HeritageBakery } from './CafeCollection'
 
 // Structurally-distinct React archetypes.
-export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch, canvas: Canvas, cinematic: Cinematic, 'type-gallery': TypeGallery, quiet: Quiet, kinetic: Kinetic, infinite: Infinite, living: Living, 'beauty-atelier': BeautyAtelier, 'bakery-editorial': BakeryEditorial, 'counter-menu': CounterMenu, 'morning-journal': MorningJournal, 'neighborhood-market': NeighborhoodMarket, 'microbakery-lab': MicrobakeryLab, 'scandinavian-coffee': ScandinavianCoffeeHouse, 'heritage-bakery': HeritageBakery }
+export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch, canvas: Canvas, cinematic: Cinematic, 'type-gallery': TypeGallery, quiet: Quiet, kinetic: Kinetic, infinite: Infinite, living: Living, 'beauty-atelier': BeautyAtelier, 'clinic-triage': ClinicTriage, 'bakery-editorial': BakeryEditorial, 'counter-menu': CounterMenu, 'morning-journal': MorningJournal, 'neighborhood-market': NeighborhoodMarket, 'microbakery-lab': MicrobakeryLab, 'scandinavian-coffee': ScandinavianCoffeeHouse, 'heritage-bakery': HeritageBakery }
 // The public collection stays intentionally curated. Legacy templates remain
 // renderable for existing clients but are not offered to new customers.
-export const TEMPLATE_KEYS = ['editorial', 'split', 'bento', 'longform', 'poster', 'sidebar', 'grid', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living', 'beauty-atelier', 'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery']
+export const TEMPLATE_KEYS = ['editorial', 'split', 'bento', 'longform', 'poster', 'sidebar', 'grid', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living', 'beauty-atelier', 'clinic-triage', 'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery']
 export const LEGACY_TEMPLATE_KEYS = ['showcase', 'corporate', 'coast', 'pulse']
 export const TEMPLATE_META = {
   editorial: { label: 'Editorial', desc: 'Κλασικό stacked, μεγάλη τυπογραφία.' },
@@ -69,6 +70,16 @@ export const TEMPLATE_META = {
   infinite: { label: 'Infinite Showroom', desc: 'Οριζόντια περιήγηση έργων, sticky αφήγηση και αίσθηση showroom.' },
   living: { label: 'Living Material', desc: 'Οργανικές φόρμες, υλικά και tactile παρουσίαση με απαλή κίνηση.' },
   'beauty-atelier': { label: 'Beauty Atelier', desc: 'Premium editorial εμπειρία για νύχια, κομμωτήριο και αισθητική, με υπηρεσίες, έργα και booking-first ροή.' },
+  'clinic-triage': {
+    label: 'Ιατρείο', desc: 'Ήρεμο ιατρικό — τρεις κάρτες «τι θέλεις να κάνεις», εναλλασσόμενα panels και σκούρα ζώνη τηλεφώνου.',
+    category: 'health', style: 'clinical-triage',
+    customizable: { palette: true, fontPair: true },
+    variants: { hero: ['image-left', 'image-right'] },
+    sections: ['nav', 'hero', 'triage', 'services', 'why', 'gallery', 'ribbon', 'findus', 'footer'],
+    requiredAssets: { minServices: 3, minGallery: 3 },
+    imageRatios: { hero: '16/9', panel: '3/2', gallery: '16/9' },
+    tokens: { display: 'Noto Sans Display', body: 'Open Sans', accent: '#0078bf', container: '1300px', radius: '10px' },
+  },
   'bakery-editorial': { label: 'Bakery Editorial', desc: 'Μεγάλη φωτογραφία, refined τυπογραφία και premium αφήγηση προϊόντος.' },
   'counter-menu': { label: 'Counter Menu', desc: 'Conversion-first πάγκος με menu board, ωράριο και άμεση επικοινωνία.' },
   'morning-journal': { label: 'Morning Journal', desc: 'Editorial εφημερίδα γειτονιάς με ιστορία, προϊόν και καθαρή πληροφορία.' },

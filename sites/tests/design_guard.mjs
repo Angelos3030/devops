@@ -14,11 +14,14 @@
  * cookies — αυτό μας κρατάει χωρίς banner συγκατάθεσης.
  */
 import { chromium } from 'playwright'
+import { readFileSync } from 'node:fs'
 
-const TEMPLATES = ['editorial', 'split', 'showcase', 'bento', 'longform', 'corporate',
-  'poster', 'sidebar', 'grid', 'coast', 'magazine', 'warmth', 'ember', 'marble',
-  'runway', 'forge', 'aegean', 'bloom', 'pulse', 'volt', 'motor', 'terra', 'dispatch', 'canvas']
-TEMPLATES.push('cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living')
+// Η λίστα διαβάζεται από το registry, ΔΕΝ γράφεται με το χέρι — αλλιώς μένει πίσω
+// σιωπηλά και τα νέα templates δεν ελέγχονται ποτέ (έγινε: έλειπαν 8).
+const registry = readFileSync(new URL('../lib/templates/index.js', import.meta.url), 'utf8')
+const keysLine = registry.match(/export const TEMPLATE_KEYS = \[([^\]]+)\]/)
+if (!keysLine) throw new Error('Δεν βρέθηκε το TEMPLATE_KEYS στο lib/templates/index.js')
+const TEMPLATES = [...keysLine[1].matchAll(/'([^']+)'/g)].map((m) => m[1])
 
 const argIdx = process.argv.indexOf('--base')
 const BASE = argIdx > -1 ? process.argv[argIdx + 1] : 'https://sites-production-da56.up.railway.app'
