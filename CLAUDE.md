@@ -32,11 +32,11 @@
 
 ### Νέα themes: μόνο μέσω reference
 
-Κάθε νέο theme ξεκινά από reference website που δίνει ο ιδιοκτήτης ως URL, και ακολουθεί
-το `skills/vitrina-theme-builder/SKILL.md`: μέτρηση με `sites/scripts/capture_reference.mjs`,
-γραπτή ανάλυση, **ρητή έγκριση**, και μετά κώδικας. Απαγορεύεται να γραφτεί theme «από
-έμπνευση» ή να ξεκινήσει implementation πριν εγκριθεί η ανάλυση. Ποτέ δεν αντιγράφονται
-proprietary κώδικας, λογότυπα, κείμενα ή φωτογραφίες — μόνο σχεδιαστική λογική και δομή.
+Trigger: `New theme | Vertical: dentist | Reference: https://…` → ακολούθησε
+`skills/vitrina-theme-builder/SKILL.md`. Μηχανική συλλογή πρώτα, compact ανάλυση
+(Keep/Adapt/Discard/Sections/Tokens/Customizable/Locked/Risks), **ρητή έγκριση**, μετά κώδικας.
+Απαγορεύεται theme «από έμπνευση» ή implementation πριν την έγκριση. Ποτέ proprietary κώδικας,
+λογότυπα, κείμενα ή φωτογραφίες — μόνο σχεδιαστική λογική.
 
 ## End-to-End Workflow
 

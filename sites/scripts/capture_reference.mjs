@@ -37,6 +37,12 @@ if (!url) {
   process.exit(1)
 }
 
+const compact = args.includes('--compact')
+// Τα screenshots είναι το πραγματικό κόστος tokens, όχι το κείμενο. Στο compact
+// τραβάμε 1x και κόβουμε στα 6000px — η δομή φαίνεται, το portal filler όχι.
+const SCALE = compact ? 1 : 2
+const MAX_SHOT_PX = compact ? 6000 : 0
+
 const slug = flag('name', new URL(url).hostname.replace(/^www\./, '').replace(/[^a-z0-9]+/gi, '-'))
 const outDir = path.resolve(flag('out', path.join(process.env.TEMP || '/tmp', 'vitrina-refs', slug)))
 
@@ -93,10 +99,14 @@ const MEASURE = () => {
   }
 
   // ------------------------------------------------- δομή: top-level sections
+  const SKIP = ['script', 'style', 'noscript', 'template', 'link', 'iframe']
+  const kids = (el) => [...el.children].filter((c) => {
+    if (SKIP.includes(c.tagName.toLowerCase())) return false
+    return c.getBoundingClientRect().height > 0
+  })
+
   const root = document.querySelector('main') || document.body
-  const SKIP = ['script', 'style', 'noscript', 'template', 'link']
-  const sections = [...root.children].filter((el) =>
-    !SKIP.includes(el.tagName.toLowerCase())).map((el, i) => {
+  const describe = (el, i) => {
     const r = el.getBoundingClientRect()
     const cs = getComputedStyle(el)
     const heading = el.querySelector('h1,h2,h3')
@@ -114,10 +124,25 @@ const MEASURE = () => {
       backgroundColor: cs.backgroundColor,
       contentWidthPx: inner.length ? Math.round(Math.max(...inner)) : null,
       headingTag: heading?.tagName.toLowerCase() || null,
+      headingText: (heading?.textContent || '').trim().slice(0, 70) || null,
       images: el.querySelectorAll('img,picture,video').length,
       links: el.querySelectorAll('a,button').length,
     }
-  })
+  }
+
+  // Ένα wrapper που κρατάει το μεγαλύτερο μέρος της σελίδας δεν είναι section —
+  // είναι κουτί. Το ανοίγουμε, αλλιώς χάνουμε όλη την πραγματική δομή.
+  const sections = []
+  for (const el of kids(root)) {
+    const dominant = el.getBoundingClientRect().height > document.body.scrollHeight * 0.35
+    const inner = dominant ? kids(el) : []
+    sections.push(describe(el, sections.length))
+    if (inner.length > 1) {
+      for (const child of inner) {
+        sections.push({ ...describe(child, sections.length), nested: true })
+      }
+    }
+  }
 
   // ----------------------------------------------------------- grid / layout
   const grids = all.filter((el) => {
@@ -245,7 +270,7 @@ const main = async () => {
     // full-page screenshots. Την κίνηση τη διαβάζουμε από το computed CSS.
     const context = await browser.newContext({
       viewport: { width: vp.width, height: vp.height },
-      deviceScaleFactor: 2,
+      deviceScaleFactor: SCALE,
       reducedMotion: 'reduce',
       userAgent: vp.id === 'mobile' ? devices['iPhone 13'].userAgent : undefined,
       isMobile: vp.id === 'mobile',
@@ -264,7 +289,13 @@ const main = async () => {
     await settle(page)
 
     const shot = path.join(outDir, `${vp.id}.png`)
-    await page.screenshot({ path: shot, fullPage: true })
+    const docHeight = await page.evaluate(() => document.body.scrollHeight)
+    const clipped = MAX_SHOT_PX && docHeight > MAX_SHOT_PX
+    await page.screenshot({
+      path: shot,
+      fullPage: !clipped,
+      ...(clipped ? { clip: { x: 0, y: 0, width: vp.width, height: MAX_SHOT_PX } } : {}),
+    })
     const measured = await page.evaluate(MEASURE)
     const overflow = await page.evaluate(() =>
       document.documentElement.scrollWidth > window.innerWidth + 1)
@@ -277,13 +308,47 @@ const main = async () => {
   const jsonPath = path.join(outDir, 'measurements.json')
   await writeFile(jsonPath, JSON.stringify(report, null, 2), 'utf8')
 
+  // Compact: ό,τι χρειάζεται για σχεδιαστική απόφαση, τίποτα παραπάνω.
+  if (compact) {
+    const d = report.viewports.desktop
+    const m = report.viewports.mobile
+    const top = (list, n = 5) => list.slice(0, n).map(([v]) => v)
+    const brief = {
+      url, title: d.title,
+      sections: d.sections.map((s) => ({
+        n: s.order, el: `${s.tag}${s.class ? '.' + s.class.split(' ')[0] : ''}`,
+        h: s.heightPx, pad: `${s.paddingTopPx}/${s.paddingBottomPx}`,
+        w: s.contentWidthPx, img: s.images, links: s.links,
+        heading: s.headingText, nested: s.nested || undefined,
+      })),
+      typeScale: d.typeScale.slice(0, 10).map((t) => t.style),
+      fonts: top(d.fontFamilies, 4),
+      selfHosted: d.selfHostedFonts,
+      colors: { text: top(d.colors.text, 4), bg: top(d.colors.background, 5) },
+      spacing: top(d.spacingRhythm, 8),
+      containers: [...new Set(d.sections.map((s) => s.contentWidthPx).filter(Boolean))],
+      grids: top(d.grids, 4),
+      radii: top(d.radii, 4),
+      shadows: top(d.shadows, 3),
+      imageRatios: [...new Set(d.images.map((i) => i.ratio))].slice(0, 5),
+      motion: top(d.motion, 5),
+      breakpoints: d.breakpoints.filter((b) => /\d{3,4}px/.test(b) && !/print|contrast|dpi|dppx/.test(b)).slice(0, 8),
+      sticky: d.pinned.slice(0, 4),
+      heights: { desktop: d.documentHeightPx, mobile: m.documentHeightPx },
+      overflow: { desktop: d.horizontalOverflow, mobile: m.horizontalOverflow },
+    }
+    await writeFile(path.join(outDir, 'reference.json'), JSON.stringify(brief, null, 1), 'utf8')
+  }
+
   const d = report.viewports.desktop
   console.log(`\n${'─'.repeat(58)}\n${d.title}\n${'─'.repeat(58)}`)
   console.log(`Sections (desktop):`)
   for (const s of d.sections) {
-    console.log(`  ${String(s.order).padStart(2)}. ${s.tag}${s.class ? '.' + s.class.split(' ')[0] : ''}` +
-                ` — ${s.heightPx}px · padding ${s.paddingTopPx}/${s.paddingBottomPx}` +
-                ` · content ${s.contentWidthPx || '?'}px · ${s.images} img · ${s.links} links`)
+    console.log(`  ${s.nested ? '   ↳' : String(s.order).padStart(2) + '.'} ` +
+                `${s.tag}${s.class ? '.' + s.class.split(' ')[0] : ''}` +
+                ` — ${s.heightPx}px · pad ${s.paddingTopPx}/${s.paddingBottomPx}` +
+                ` · w ${s.contentWidthPx || '?'} · ${s.images}img · ${s.links}link` +
+                (s.headingText ? `  «${s.headingText}»` : ''))
   }
   console.log(`\nΤυπογραφία (top 6):`)
   for (const t of d.typeScale.slice(0, 6)) console.log(`  ×${String(t.count).padStart(3)}  ${t.style}`)

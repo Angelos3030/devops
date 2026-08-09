@@ -1,144 +1,113 @@
 ---
 name: vitrina-theme-builder
-description: Build a new production-ready Vitrina theme from a reference website URL. Use whenever the owner sends a reference site and wants it turned into a theme, or asks for a new template/theme for the Vitrina collection. Enforces measure-first capture, written analysis with explicit approval before any code, faithful reconstruction without redesign, and data-driven productization.
+description: Build a new production-ready Vitrina theme from a reference website URL. Use whenever the owner sends "New theme | Vertical: X | Reference: URL", sends a reference site to turn into a theme, or asks for a new template for the Vitrina collection. Enforces machine-first capture, compact analysis with explicit approval before code, and distillation of enterprise patterns down to SMB scale.
 ---
 
-# Vitrina Theme Builder Protocol
+# Vitrina Theme Builder
 
-Ο ιδιοκτήτης στέλνει **ένα URL**. Τίποτα άλλο. Αυτό το skill είναι όλη η υπόλοιπη οδηγία —
-δεν περιμένεις να σου ξαναγραφτεί η διαδικασία.
+**Trigger:** `New theme | Vertical: dentist | Reference: https://…`
 
-Το θέμα είναι **προϊόν**, όχι demo ούτε AI mockup. Ο πήχης: ένας πελάτης να μπορεί να το
-δημοσιεύσει χωρίς redesign.
+Τίποτα άλλο δεν χρειάζεται. Αυτό το skill είναι όλη η διαδικασία.
 
-## Ο σκληρός κανόνας
+> Extract the best design patterns, discard enterprise complexity, build the best possible SMB theme.
 
-**Ούτε μία γραμμή κώδικα πριν εγκριθεί γραπτώς η ανάλυση.** Αν πιάσεις τον εαυτό σου να
-γράφει component ενώ δεν έχει δοθεί approval, σταμάτα.
+## Low-token κανόνες
 
----
+- Homepage **μόνο**. Κανένα crawl, εκτός αν το ζητήσει ρητά.
+- Διάβασε **2 screenshots** (desktop, mobile). Το tablet μόνο αν κάτι δεν βγάζει νόημα.
+- Διάβασε **`reference.json`**, όχι το πλήρες `measurements.json`.
+- Μην ξαναδιαβάζεις αρχεία που ήδη ξέρεις και δεν άλλαξαν.
+- Μην εξηγείς ξανά αρχιτεκτονική, μην επαναλαμβάνεις το protocol, μην γράφεις status reports.
+- Μόνο ό,τι χρειάζεται για **απόφαση ή implementation**.
 
-## Phase 1 — Capture (μετράμε, δεν εκτιμάμε)
+## 1. Capture
 
 ```bash
-node sites/scripts/capture_reference.mjs <url> --name <slug>
+node sites/scripts/capture_reference.mjs <url> --name <slug> --compact
 ```
 
-Βγάζει full-page screenshots σε 1440 / 768 / 390 και `measurements.json` με πραγματικά px:
-section order και ύψη, type scale, font families, χρώματα, ρυθμό αποστάσεων, grid/gap,
-container widths, radii, shadows, image ratios, sticky/fixed, transitions/animations,
-breakpoints, CSS variables.
+Γράφει εκτός repo: `desktop/tablet/mobile.png` + `reference.json` (colors, fonts, type scale,
+spacing, containers, radii, shadows, breakpoints, sections, sticky, interactions).
 
-**Διάβασε και τα screenshots** με το Read tool. Τα νούμερα δίνουν το σύστημα· η εικόνα δίνει
-την πρόθεση. Χρειάζονται και τα δύο.
+Δεν φορτώνει (login/bot) → σταμάτα, ζήτα screenshots.
 
-Όπου υπάρχει μετρημένη τιμή, **απαγορεύεται η εκτίμηση**. Γράφεις «96px», όχι «άνετο padding».
+## 2. Analysis — ΜΟΝΟ αυτό το format
 
-Αν το site δεν φορτώνει (login, bot protection, JS error), σταμάτα και ζήτα screenshots.
-Μη μαντεύεις από το HTML.
+```
+Keep:
+Adapt:
+Discard:
+Sections:
+Design tokens:
+Customizable:
+Locked:
+Risks/constraints:
+```
 
-## Phase 2 — Design Analysis (και μετά περιμένεις)
+**Keep** = αξία και σε μικρή επιχείρηση, αυτούσιο.
+**Adapt** = καλή ιδέα, λάθος κλίμακα — γράψε το *γιατί*.
+**Discard** = υπάρχει μόνο επειδή είναι enterprise/portal.
 
-Παρέδωσε γραπτή ανάλυση με **όλα** τα παρακάτω:
+Έλεγχος: *μπορεί ένας Έλληνας οδοντίατρος με 6 υπηρεσίες και 8 φωτογραφίες να το γεμίσει;*
+Όχι → Discard ή Adapt. Ποτέ Keep.
 
-1. page hierarchy
-2. section order
-3. layout system
-4. spacing rhythm
-5. typography hierarchy
-6. image strategy
-7. CTA strategy
-8. responsive behavior
-9. hover interactions
-10. animations
-11. reusable patterns
-12. business-specific elements
-13. configurable elements
-14. locked elements
+Discard κατά κανόνα: portal nav, βιβλιοθήκες περιεχομένου, ευρετήρια προσωπικού, δεκάδες
+τοποθεσίες, login, ζώνες με στήλες από links, footer 40+ links.
 
-Κλείσε με το ερώτημα έγκρισης. **Περίμενε απάντηση.**
+**Σταμάτα. Περίμενε approval.** Ούτε μία γραμμή κώδικα πριν.
 
-Αν η δομή είναι ουσιαστικά ίδια με υπάρχον theme της συλλογής, **πες το τώρα** — δεν παραδίδουμε
-παραλλαγή για καινούργιο.
+Αν η δομή ταυτίζεται με υπάρχον theme → πες το τώρα.
 
-## Phase 3 — Reconstruction (πιστότητα, όχι γούστο)
+## 3. Build
 
-Διατηρείς: layout, αναλογίες, spacing, οπτική ιεραρχία, typography scale, responsive
-συμπεριφορά, interaction model.
+Πιστότητα σε: layout, αναλογίες, spacing, ιεραρχία, type scale, responsive, interaction model.
+Καμία «βελτίωση» πέρα από τα δηλωμένα Adapt.
 
-**Δεν** κάνεις redesign, modernization ή «βελτιώσεις» χωρίς ρητό αίτημα. Αν κάτι σου φαίνεται
-λάθος στο reference, το **αναφέρεις** — δεν το διορθώνεις μόνος σου.
+**Ποτέ** proprietary κώδικας, logo, κείμενα, φωτογραφίες. Μόνο σχεδιαστική λογική.
+Captures **εκτός repo**.
 
-Νομικό όριο, χωρίς εξαίρεση: **ποτέ** proprietary κώδικας, λογότυπα, κείμενα, φωτογραφίες ή
-άλλα copyrighted assets. Παίρνουμε σχεδιαστική λογική και δομή. Το implementation και τα assets
-είναι δικά μας.
+Data contract (`sites/lib/templates/`):
+```
+NAME TRADE CITY AREAS PHONE PHONE_INTL ADDRESS HOURS YEAR LOGO INITIAL
+KICKER TAGLINE INTRO HERO_TITLE HERO_WORD HERO_IMAGE STORY_IMAGE STORY_TITLE
+SERVICES_TITLE SERVICES_EYEBROW SERVICES_NAV GALLERY_TITLE GALLERY_EYEBROW
+CTA_TITLE PRIMARY_CTA SECONDARY_CTA SIGNATURE BOOKING_URL GBP_URL GEO_LAT GEO_LNG
+services[{title,desc}]  story[{p}]  gallery[{image,title}]
+```
+Shared: `FindUs`, `CallBar`, `Brand`. Μηδέν hardcoded business δεδομένα.
 
-Τα captures μένουν **εκτός repo**. Δεν γίνονται commit screenshots ξένου site.
+## 4. Metadata (ο editor οδηγείται από εδώ, ποτέ από hardcoded conditions)
 
-## Phase 4 — Productization
-
-Μηδέν hardcoded business δεδομένα: επωνυμία, υπηρεσίες, gallery, testimonials, επικοινωνία,
-SEO, κείμενα. Όλα από `data`.
-
-Το theme πρέπει να παραμένει όμορφο όταν αλλάξουν όλα αυτά. Δοκίμασέ το με **δύο διαφορετικές
-επιχειρήσεις** — μία με πολύ περιεχόμενο, μία με ελάχιστο.
-
-Χρησιμοποίησε το υπάρχον σύστημα: `sites/lib/templates/`, τα shared components
-(`FindUs`, `CallBar`, `Brand`), το `artDirection.js` και τα CSS-module design tokens.
-
-## Phase 5 — Theme Metadata
-
-Κάθε theme δηλώνει τι επιτρέπει. **Ο editor οδηγείται από το metadata, ποτέ από hardcoded
-conditions.** Στο `TEMPLATE_META` (`sites/lib/templates/index.js`):
+Στο `TEMPLATE_META` (`sites/lib/templates/index.js`):
 
 ```js
 'theme-id': {
-  label: 'Εμφανίσιμο όνομα',
-  desc: 'Μία πρόταση στα ελληνικά.',
-  category: 'food',                        // vertical
-  style: 'editorial-warm',                 // σχεδιαστική κατεύθυνση
+  label: '…', desc: '…', category: 'health', style: 'clinical-calm',
   customizable: { palette: true, fontPair: false },
   variants: { hero: ['image-left', 'image-right'] },
-  sections: ['hero', 'services', 'gallery', 'about', 'findus'],
-  requiredAssets: { minGallery: 4 },
-  imageRatios: { hero: '16/9', gallery: '4/5' },
-  tokens: { display: 'Playfair Display', body: 'Inter', accent: '#b4532a' },
+  sections: ['hero', 'triage', 'services', 'gallery', 'ribbon', 'findus'],
+  requiredAssets: { minGallery: 3 },
+  imageRatios: { hero: '16/9', gallery: '3/2' },
+  tokens: { display: '…', body: '…', accent: '#…' },
 }
 ```
 
-`customizable: false` σημαίνει ότι το theme **σπάει** με άλλη τιμή. Το Poster (brutalist) και το
-Runway (ασπρόμαυρο) δεν αντέχουν αυθαίρετη παλέτα. Να είσαι ειλικρινής εδώ.
+`customizable: false` = το theme **σπάει** με άλλη τιμή. Να είσαι ειλικρινής.
+Εγγραφή σε `TEMPLATES`, `TEMPLATE_KEYS`, `TEMPLATE_META` (+ `artDirection.js` αν έχει gallery).
 
-Εγγραφή σε `TEMPLATES`, `TEMPLATE_KEYS`, `TEMPLATE_META` — και στο `artDirection.js` αν έχει gallery.
+## 5. Αρχιτεκτονική
 
-## Phase 6 — Architecture Rules
+Δεν αλλάζει για να χωρέσει theme. Πραγματικό limitation → σταμάτα, εξήγησε, πρότεινε τη
+**μικρότερη** αλλαγή, περίμενε έγκριση.
 
-**Δεν αλλάζεις την αρχιτεκτονική για να χωρέσει ένα theme.**
-
-Αν βρεις πραγματικό architectural limitation: σταμάτα, εξήγησε το πρόβλημα, πρότεινε τη
-**μικρότερη δυνατή** αλλαγή, περίμενε έγκριση.
-
-## Phase 7 — Quality Gate
-
-Ολοκληρωμένο μόνο όταν περνάει **όλα**:
+## 6. Quality gate
 
 ```bash
-node sites/tests/design_guard.mjs        # αντίθεση, fonts, trackers, σπασμένες εικόνες
-cd sites && npx next build               # production build
+node sites/tests/design_guard.mjs
+cd sites && npx next build
 ```
+Πιστό στο reference · 1440/768/390 χωρίς overflow · όμορφο με άλλα δεδομένα · μηδέν
+copyrighted assets · μηδέν third-party requests · tap targets ≥44px · ένα `h1` · CTA/`tel:` λειτουργικά.
 
-- πιστό στο reference (σύγκρινε screenshot δίπλα-δίπλα με το capture)
-- σωστό σε 1440 / 768 / 390, χωρίς horizontal overflow
-- παραμένει όμορφο με διαφορετικά business δεδομένα
-- μηδέν copyrighted assets
-- μηδέν third-party requests (γι' αυτό δεν χρειαζόμαστε cookie banner)
-- tap targets ≥ 44px, `h1` μία φορά, λειτουργικά `tel:` και CTA
-
-## Πότε σταματάς και μιλάς
-
-Σε **οποιοδήποτε** στάδιο, αν κάτι δεν μπορεί να γίνει σωστά ή αν βλέπεις ευκαιρία να
-βελτιωθεί το Vitrina: σταμάτα και συζήτησέ το πριν συνεχίσεις.
-
-Ειδικά: αν ένα νέο theme βγαίνει καθαρά καλύτερο από υπάρχον αδύναμο, πρότεινε να μετακινηθεί
-το αδύναμο στο `LEGACY_TEMPLATE_KEYS`. Συλλογή λίγων δυνατών πουλάει καλύτερα από πολλά άνισα.
-Πρότεινέ το — μην το κάνεις μόνος σου.
+Αν νέο theme ξεπερνά υπάρχον αδύναμο → **πρότεινε** μετακίνηση στο `LEGACY_TEMPLATE_KEYS`.
+Μην το κάνεις μόνος σου.
