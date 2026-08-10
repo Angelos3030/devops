@@ -91,6 +91,16 @@
     .proof-card figcaption{padding:11px 14px;font-size:.85rem;color:var(--muted);
       border-top:1px solid rgba(10,10,11,.07);}
     .proof-card b{display:block;color:var(--ink);font-size:.95rem;font-weight:650;}
+    /* Το site του πελάτη στέλνει X-Frame-Options: sameorigin, οπότε το iframe
+       έμενε κενό ενώ το κείμενο υποσχόταν «αυτό που βλέπεις είναι ζωντανό».
+       Στιγμιότυπο + σύνδεσμος: η υπόσχεση τηρείται. */
+    .case-shot{display:block;height:330px;overflow:hidden;}
+    .case-shot img{display:block;width:100%;height:auto;
+      transition:transform 3s cubic-bezier(.33,0,.2,1);}
+    .case-shot:hover img,.case-shot:focus-visible img{transform:translateY(calc(330px - 100%));}
+    .case-shot:focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
+    @media(max-width:640px){ .case-shot{height:260px;} }
+    @media(prefers-reduced-motion:reduce){ .case-shot:hover img,.case-shot:focus-visible img{transform:none;} }
     .proof-lbl{text-align:center;font-size:.86rem;color:var(--muted);margin:0 0 16px;}
     @media(max-width:760px){ .proof-strip{grid-template-columns:1fr;} .nav-cta{font-size:.86rem;padding:0 12px;} }
 
@@ -481,7 +491,11 @@
     <div class="browser reveal">
       <div class="browser-bar"><span class="b-dot"></span><span class="b-dot"></span><span class="b-dot"></span>
         <span class="b-url"><span>🔒</span>koutrakiskouzines.gr</span></div>
-      <iframe src="https://www.koutrakiskouzines.gr" title="koutrakiskouzines.gr — ζωντανό site πελάτη" loading="lazy"></iframe>
+      <a class="case-shot" href="https://www.koutrakiskouzines.gr" target="_blank" rel="noopener"
+         aria-label="Άνοιξε το koutrakiskouzines.gr σε νέα καρτέλα">
+        <img src="showcase/koutrakis.jpg" width="1280" height="1800" loading="lazy" decoding="async"
+             alt="Το site του Κουτράκη: χειροποίητες κουζίνες, με δικές του φωτογραφίες">
+      </a>
     </div>
   </div></section>
 
