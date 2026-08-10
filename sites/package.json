@@ -6,7 +6,9 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
-    "audit:templates": "node scripts/audit-templates.mjs"
+    "audit:templates": "node scripts/audit-templates.mjs",
+    "qa:verticals": "node tests/verticalQa.mjs",
+    "qa:editor": "node tests/editorFlow.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",

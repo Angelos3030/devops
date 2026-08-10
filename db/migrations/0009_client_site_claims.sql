@@ -25,7 +25,7 @@ CREATE OR REPLACE FUNCTION claim_client_site(
   p_email text
 ) RETURNS boolean
 LANGUAGE plpgsql
-SECURITY DEFINER
+SECURITY INVOKER
 SET search_path = public
 AS $$
 DECLARE

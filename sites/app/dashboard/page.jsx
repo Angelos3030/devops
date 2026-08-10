@@ -78,11 +78,19 @@ export default function Dashboard() {
     return res.json()
   }, [session])
 
+  const pendingClient = useCallback(() => {
+    const requested = new URLSearchParams(window.location.search).get('client')
+    if (requested) return requested
+    const key = Object.keys(window.sessionStorage)
+      .find((item) => item.startsWith('vitrina-claim:'))
+    return key ? key.slice('vitrina-claim:'.length) : null
+  }, [])
+
   // --- φόρτωσε τα sites του χρήστη ---
   useEffect(() => {
     if (!session) return
     let alive = true
-    const fromUrl = new URLSearchParams(window.location.search).get('client')
+    const fromUrl = pendingClient()
     const claimKey = fromUrl ? `vitrina-claim:${fromUrl}` : ''
     const claimToken = claimKey ? window.sessionStorage.getItem(claimKey) : null
 
@@ -107,7 +115,7 @@ export default function Dashboard() {
         if (alive) setErr('Δεν μπόρεσα να αποθηκεύσω ή να φορτώσω τα site σου. ' + e.message)
       })
     return () => { alive = false }
-  }, [session, authFetch])
+  }, [session, authFetch, pendingClient])
 
   useEffect(() => {
     if (!clientId) return
@@ -358,7 +366,7 @@ export default function Dashboard() {
 
   async function signInGoogle() {
     setErr('')
-    const requested = new URLSearchParams(window.location.search).get('client')
+    const requested = pendingClient()
     const destination = `${window.location.origin}/dashboard${requested ? `?client=${encodeURIComponent(requested)}` : ''}`
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -371,7 +379,7 @@ export default function Dashboard() {
   async function signInEmail(e) {
     e.preventDefault()
     if (!email.trim()) return
-    const requested = new URLSearchParams(window.location.search).get('client')
+    const requested = pendingClient()
     const destination = `${window.location.origin}/dashboard${requested ? `?client=${encodeURIComponent(requested)}` : ''}`
     const { error } = await supabase.auth.signInWithOtp({
       email: email.trim(),

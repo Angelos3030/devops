@@ -4,6 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vitrina — Ξεκίνα</title>
+  <script>
+    // Supabase falls back to its configured Site URL when an OAuth redirect is
+    // missing from the allow-list. Forward only genuine auth callbacks to the
+    // dashboard; ordinary /connect visitors stay on the onboarding form.
+    (() => {
+      const query = new URLSearchParams(location.search)
+      const hash = new URLSearchParams(location.hash.replace(/^#/, ''))
+      const isAuthCallback = query.has('code') || query.has('error_code') ||
+        hash.has('access_token') || hash.has('error_code')
+      if (isAuthCallback) {
+        location.replace('https://sites-production-da56.up.railway.app/dashboard' +
+          location.search + location.hash)
+      }
+    })()
+  </script>
   <style>
     :root { --p:#1d6fe0; --a:#ff7a00; --bg:#f6f8fb; --tx:#23303a; }
     *{margin:0;padding:0;box-sizing:border-box;}

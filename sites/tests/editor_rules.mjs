@@ -77,6 +77,23 @@ for (const f of ['email', 'facebook', 'instagram']) {
   check(new RegExp(`"${f}"`).test(metaPy), `το ${f} είναι στο allowlist του backend`)
 }
 
+console.log('\n[μητρώο templates — JS ↔ Python]')
+// Το clinic-triage ήταν πρώτο στο verticalProfiles.js αλλά ΕΛΕΙΠΕ από το
+// REACT_TEMPLATES της Python, που φιλτράρει τις προτάσεις. Αποτέλεσμα: το theme
+// που φτιάχτηκε για οδοντιατρεία δεν προτεινόταν ΠΟΤΕ σε οδοντιατρείο.
+const idx = readFileSync(new URL('../lib/templates/index.js', import.meta.url), 'utf8')
+const gen = readFileSync(new URL('../../src/premium_generator.py', import.meta.url), 'utf8')
+const jsKeys = [...idx.match(/export const TEMPLATE_KEYS = \[([^\]]+)\]/)[1]
+  .matchAll(/'([^']+)'/g)].map((m) => m[1])
+const pyKeys = [...gen.match(/REACT_TEMPLATES = \(([^)]+)\)/)[1]
+  .matchAll(/"([^"]+)"/g)].map((m) => m[1])
+const missingPy = jsKeys.filter((k) => !pyKeys.includes(k))
+const missingJs = pyKeys.filter((k) => !jsKeys.includes(k))
+check(missingPy.length === 0, `${jsKeys.length} templates δηλωμένα και στην Python`,
+      missingPy.length ? `λείπουν: ${missingPy.join(', ')} — δεν θα προταθούν ΠΟΤΕ` : '')
+check(missingJs.length === 0, 'κανένα template μόνο στην Python',
+      missingJs.join(', '))
+
 console.log(`\n${'='.repeat(56)}`)
 console.log(`ΠΕΡΑΣΑΝ: ${pass.length}   ΕΣΠΑΣΑΝ: ${fail.length}`)
 if (fail.length) { console.log('\n❌ ' + fail.join('\n   ')); process.exit(1) }

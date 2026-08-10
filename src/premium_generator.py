@@ -315,9 +315,13 @@ REACT_TEMPLATES = (
     "ember", "marble", "runway", "forge", "aegean", "bloom",
     "volt", "motor", "terra", "dispatch", "canvas",
     "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living",
-    "beauty-atelier",
+    "beauty-atelier", "clinic-triage",
     "bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market", "microbakery-lab", "scandinavian-coffee", "heritage-bakery",
 )
+# ΠΡΟΣΟΧΗ: νέο theme χρειάζεται ΚΑΙ εγγραφή εδώ ΚΑΙ στο _TEMPLATES_BY_VERTICAL.
+# Το `recommend_templates` φιλτράρει με αυτή τη λίστα, οπότε theme που λείπει από
+# εδώ δεν προτείνεται ΠΟΤΕ — ακόμα κι αν είναι πρώτο στο vertical mapping.
+# Το sites/lib/verticalProfiles.js είναι ΑΛΛΟ αντίγραφο, για το Next.js.
 
 # Λεπτομερέστερο vertical ΜΟΝΟ για template matching — δεν αγγίζει το _profession()
 # (που τροφοδοτεί το _PROFESSION_COPY και θα έσκαγε με άγνωστο key).
@@ -390,10 +394,10 @@ _TEMPLATES_BY_VERTICAL = {
     "cafe":         ["counter-menu", "neighborhood-market", "scandinavian-coffee", "bloom", "cinematic", "type-gallery", "living", "quiet"],
     "bakery":       ["bakery-editorial", "morning-journal", "microbakery-lab", "heritage-bakery", "neighborhood-market", "bloom", "warmth", "type-gallery"],
     "rooms":        ["aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid", "marble", "magazine", "bloom"],
-    "dentist":      ["marble", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic", "editorial", "bento", "split"],
-    "doctor":       ["marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
-    "aesthetics":   ["beauty-atelier", "bloom", "quiet", "marble", "runway", "living", "cinematic", "type-gallery", "bento", "infinite", "canvas", "magazine"],
-    "massage":      ["living", "quiet", "aegean", "bloom", "warmth", "cinematic", "infinite", "canvas", "marble", "type-gallery", "terra", "magazine"],
+    "dentist":      ["clinic-triage", "marble", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic", "editorial", "bento", "split"],
+    "doctor":       ["clinic-triage", "marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
+    "aesthetics":   ["beauty-atelier", "bloom", "quiet", "clinic-triage", "marble", "runway", "living", "cinematic", "type-gallery", "bento", "infinite", "canvas", "magazine"],
+    "massage":      ["living", "quiet", "aegean", "clinic-triage", "bloom", "warmth", "cinematic", "infinite", "canvas", "marble", "type-gallery", "terra", "magazine"],
     "beauty":       ["beauty-atelier", "runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas", "magazine", "poster"],
     "retail":       ["runway", "type-gallery", "bento", "infinite", "bloom", "canvas", "cinematic", "quiet", "kinetic", "grid", "magazine", "living"],
     "professional": ["marble", "quiet", "cinematic", "grid", "infinite", "canvas", "type-gallery", "living", "kinetic", "editorial", "sidebar", "bento"],

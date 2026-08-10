@@ -71,11 +71,18 @@ const RULES = [
 // «κομμωτήριο» έπεφταν όλα στο ουδέτερο «professional» με φωτογραφίες γραφείου.
 const stripTones = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '')
 
-function categoryFor(data) {
-  const text = stripTones(
-    [data?.TRADE, data?.type, data?.TAGLINE, ...(data?.services || []).map(x => x?.title)]
+export function mediaCategoryFor(data) {
+  // Identity wins over service names. A dentist commonly offers "Αισθητική
+  // οδοντιατρική"; matching the full payload used to classify that as a beauty
+  // salon and replace dental imagery with hair/nail photos.
+  const identity = stripTones([data?.TRADE, data?.type].filter(Boolean).join(' '))
+  const identityMatch = RULES.find(([, pattern]) => pattern.test(identity))
+  if (identityMatch) return identityMatch[0]
+
+  const context = stripTones(
+    [data?.TAGLINE, ...(data?.services || []).map(x => x?.title)]
       .filter(Boolean).join(' '))
-  return RULES.find(([, pattern]) => pattern.test(text))?.[0] || 'professional'
+  return RULES.find(([, pattern]) => pattern.test(context))?.[0] || 'professional'
 }
 
 export function withMediaFallback(data = {}) {
@@ -83,7 +90,7 @@ export function withMediaFallback(data = {}) {
   const hasGallery = Array.isArray(data.gallery) && data.gallery.some(item => item?.image)
   if (hasHero && hasGallery) return { ...data, MEDIA_MODE: data.MEDIA_MODE || 'real' }
 
-  const category = categoryFor(data)
+  const category = mediaCategoryFor(data)
   const images = LIBRARY[category]
   const fallbackGallery = images.slice(1).map(([id, title]) => ({
     image: unsplash(id, 1200),
@@ -101,4 +108,3 @@ export function withMediaFallback(data = {}) {
     MEDIA_NOTICE: 'Οι συμπληρωματικές εικόνες είναι ενδεικτικές και αντικαθίστανται με υλικό της επιχείρησης.',
   }
 }
-
