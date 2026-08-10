@@ -13,6 +13,7 @@ from . import config as cfg
 from .db import (
     get_client_by_stripe,
     get_domain_order_by_session,
+    link_client_email,
     set_client_status,
     update_domain_order_status,
     upsert_subscription,
@@ -68,6 +69,16 @@ async def webhook(request: Request):
 
     elif t == "checkout.session.completed":
         metadata = obj.get("metadata", {}) or {}
+
+        # ΚΡΙΣΙΜΟ για το login: η ροή «site first» φτιάχνει πελάτη χωρίς email.
+        # Το email της αγοράς είναι η ΜΟΝΗ γέφυρα ανάμεσα στον λογαριασμό και το
+        # site του. Χωρίς αυτό, ο πελάτης πληρώνει και βλέπει άδειο dashboard.
+        # Τρέχει για ΚΑΘΕ checkout (και domain purchases) — δεν βλάπτει.
+        buyer = ((obj.get("customer_details") or {}).get("email")
+                 or obj.get("customer_email") or "")
+        if metadata.get("client_id") and buyer:
+            link_client_email(metadata["client_id"], buyer)
+
         if metadata.get("kind") == "domain_purchase":
             session_id = obj["id"]
             order = get_domain_order_by_session(session_id)

@@ -420,3 +420,42 @@ def upsert_subscription(client_id: str, stripe_customer_id: str,
         "plan": plan,
         "status": status,
     }).execute()
+
+
+def link_client_email(client_id: str, email: str) -> str:
+    """Συνδέει τον πελάτη με το email αγοράς — από αυτό εξαρτάται ΟΛΟ το login.
+
+    Το `/clients/lookup` βρίσκει τα sites του χρήστη με `clients.email == email`.
+    Η ροή «site first» (`POST /start`) δημιουργεί πελάτη ΧΩΡΙΣ email, οπότε χωρίς
+    αυτό το βήμα ο πελάτης πληρώνει και μετά βλέπει άδειο dashboard για πάντα.
+
+    Idempotent: αν υπάρχει ήδη το ίδιο email δεν γράφει. Δεν αντικαθιστά έγκυρο
+    διαφορετικό email — ο πελάτης μπορεί να πλήρωσε με άλλο (π.χ. εταιρικό) και
+    δεν θέλουμε να του κόψουμε την πρόσβαση που ήδη δουλεύει.
+
+    Επιστρέφει: 'linked' | 'already' | 'kept-existing' | 'skipped'
+    """
+    email = (email or "").strip().lower()
+    if not client_id or "@" not in email:
+        return "skipped"
+    try:
+        rows = _client().table("clients").select("email").eq("id", client_id).execute().data
+    except Exception as e:  # noqa: BLE001 — ποτέ μη ρίξεις το webhook
+        print(f"[link_email] read failed: {e}")
+        return "skipped"
+    if not rows:
+        return "skipped"
+
+    current = (rows[0].get("email") or "").strip().lower()
+    if current == email:
+        return "already"
+    if current and "@" in current:
+        print(f"[link_email] {client_id}: κρατάω το υπάρχον {current}, δεν γράφω {email}")
+        return "kept-existing"
+    try:
+        _client().table("clients").update({"email": email}).eq("id", client_id).execute()
+        print(f"[link_email] {client_id} → {email}")
+        return "linked"
+    except Exception as e:  # noqa: BLE001
+        print(f"[link_email] write failed: {e}")
+        return "skipped"

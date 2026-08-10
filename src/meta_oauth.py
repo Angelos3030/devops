@@ -92,6 +92,10 @@ def create_checkout(req: CheckoutRequest):
     session = stripe.checkout.Session.create(
         mode="subscription",
         line_items=[{"price": price_id, "quantity": 1}],
+        # Το client_id χρειάζεται ΚΑΙ στα δύο: το subscription metadata τροφοδοτεί
+        # τα customer.subscription.* events, το session metadata το
+        # checkout.session.completed — εκεί γίνεται η σύνδεση email→πελάτη.
+        metadata={"client_id": req.client_id, "plan": req.plan},
         subscription_data={"metadata": {"client_id": req.client_id}},
         success_url="https://getvitrina.gr/connect.html?step=success",
         cancel_url="https://getvitrina.gr/connect.html?step=cancel",
