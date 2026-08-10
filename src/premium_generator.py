@@ -121,12 +121,21 @@ _PROFESSION_COPY = {
         ],
     },
     "cafe": {
-        "hero_word": "φρεσκάδα", "kicker_suffix": "Καφέ & φούρνος",
+        "hero_word": "άρωμα", "kicker_suffix": "Καφετέρια",
         "services": [
             ("Specialty coffee", "Espresso, cappuccino και φίλτρου με προσεκτικά επιλεγμένους κόκκους."),
-            ("Φρέσκο ψωμί & σφολιάτες", "Καθημερινό ψήσιμο με επιλογές για πρωινό και για το σπίτι."),
-            ("Σπιτικά γλυκά", "Γλυκά ημέρας και μικρές δημιουργίες που αλλάζουν με την εποχή."),
-            ("Brunch & take away", "Πρωινές επιλογές, snacks και εύκολη παραλαβή από το κατάστημα."),
+            ("Ροφήματα", "Ζεστά και κρύα ροφήματα για κάθε στιγμή της ημέρας."),
+            ("Brunch & snacks", "Πρωινές επιλογές και ελαφριά συνοδευτικά για τον καφέ."),
+            ("Take away", "Γρήγορη παραλαβή καφέ και ροφημάτων από το κατάστημα."),
+        ],
+    },
+    "bakery": {
+        "hero_word": "φρεσκάδα", "kicker_suffix": "Φούρνος & αρτοποιείο",
+        "services": [
+            ("Φρέσκο ψωμί", "Καθημερινό ψήσιμο με επιλογές για το οικογενειακό τραπέζι."),
+            ("Σφολιάτες & πρωινό", "Φρέσκες αλμυρές και γλυκές επιλογές από νωρίς το πρωί."),
+            ("Γλυκά ημέρας", "Μικρές δημιουργίες που ετοιμάζονται καθημερινά."),
+            ("Παραγγελίες", "Προϊόντα για το σπίτι, το γραφείο και μικρές εκδηλώσεις."),
         ],
     },
     "dentist": {
@@ -253,6 +262,7 @@ _DEFAULT_HERO = {
     "wood": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80",
     "food": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80",
     "cafe": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=80",
+    "bakery": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1800&q=80",
     "dentist": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=80",
     "doctor": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
     "beauty": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=80",
@@ -273,6 +283,7 @@ _LAYOUT_BY_PROFESSION = {
     "wood": "studio",
     "food": "studio",
     "cafe": "studio",
+    "bakery": "studio",
     "dentist": "atelier",
     "doctor": "atelier",
     "beauty": "bold",
@@ -315,7 +326,8 @@ _VERTICAL_RULES = (
     ("garage", ("συνεργει", "φανοποι", "βουλκανιζ", "garage", "service αυτοκιν", "μηχανικ αυτοκιν", "ελαστικ")),
     ("farm", ("παραγωγ", "ελαιολαδ", "ελαιωνα", "μελισσοκομ", "μελι", "οινοποι", "κρασ", "τυροκομ", "αγροτ", "κτημα", "farm", "winery")),
     ("rooms", ("δωματ", "ξενωνα", "ξενοδοχ", "καταλυμ", "hotel", "rooms", "villa", "βιλα", "airbnb", "τουρισ")),
-    ("cafe", ("καφε", "cafe", "coffee", "ζαχαροπλαστ", "φουρν", "αρτοποι", "bakery", "creperie", "κρεπερ", "παγωτ")),
+    ("bakery", ("ζαχαροπλαστ", "φουρν", "αρτοποι", "bakery", "patisserie", "ψωμ")),
+    ("cafe", ("καφε", "cafe", "coffee", "espresso", "brunch", "creperie", "κρεπερ", "παγωτ")),
     ("food", ("ταβερν", "εστιατορ", "taverna", "restaurant", "μεζε", "ψησταρι", "σουβλα", "grill", "pizza", "πιτσαρ", "μπαρ", "cocktail bar", "wine bar")),
     ("dentist", ("οδοντ", "dentist", "dental")),
     ("doctor", ("ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "διαιτολογ", "ψυχολογ", "κτηνιατρ")),
@@ -375,7 +387,8 @@ def _vertical(intake: dict[str, Any]) -> str:
 # επτά καθαρές κατευθύνσεις ώστε να υπάρχει ουσιαστική επιλογή χωρίς άσχετα themes.
 _TEMPLATES_BY_VERTICAL = {
     "food":         ["warmth", "ember", "magazine", "cinematic", "type-gallery", "living", "infinite", "quiet", "kinetic", "poster", "bloom", "aegean"],
-    "cafe":         ["bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market", "microbakery-lab", "scandinavian-coffee", "heritage-bakery", "bloom", "type-gallery", "living", "cinematic", "quiet"],
+    "cafe":         ["counter-menu", "neighborhood-market", "scandinavian-coffee", "bloom", "cinematic", "type-gallery", "living", "quiet"],
+    "bakery":       ["bakery-editorial", "morning-journal", "microbakery-lab", "heritage-bakery", "neighborhood-market", "bloom", "warmth", "type-gallery"],
     "rooms":        ["aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid", "marble", "magazine", "bloom"],
     "dentist":      ["marble", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic", "editorial", "bento", "split"],
     "doctor":       ["marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
@@ -495,8 +508,13 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
 
     if prof == "cafe":
         story_default = [
-            f"Στο {name}, στην περιοχή {city}, η ημέρα ξεκινά με φρεσκοαλεσμένο καφέ και ό,τι μόλις βγήκε από τον φούρνο.",
-            "Διαλέγουμε προσεκτικά τις πρώτες ύλες μας και ετοιμάζουμε καθημερινά γεύσεις για το πρωινό, τη βόλτα και το σπίτι.",
+            f"Στο {name}, στην περιοχή {city}, η ημέρα ξεκινά με φρεσκοαλεσμένο καφέ και φιλική εξυπηρέτηση.",
+            "Διαλέγουμε προσεκτικά τον καφέ μας και δημιουργούμε έναν χώρο για την πρωινή στάση, τη συνάντηση και τη χαλάρωση.",
+        ]
+    elif prof == "bakery":
+        story_default = [
+            f"Στο {name}, στην περιοχή {city}, το ψωμί και οι καθημερινές δημιουργίες ετοιμάζονται φρέσκα από το πρωί.",
+            "Δίνουμε σημασία στις πρώτες ύλες, στη σταθερή ποιότητα και στη ζεστή εξυπηρέτηση της γειτονιάς.",
         ]
     else:
         story_default = [

@@ -49,7 +49,7 @@ async function main() {
   const stamp = Date.now()
   const email = `journey+${stamp}@getvitrina.gr`
   const NAME = 'ΔΟΚΙΜΗ JOURNEY'
-  let clientId = null, userId = null, browser = null
+  let clientId = null, secondClientId = null, secondClaim = null, userId = null, browser = null
 
   const sb = createClient(env.SUPABASE_URL, env.SUPABASE_KEY,
     { auth: { autoRefreshToken: false, persistSession: false } })
@@ -69,6 +69,17 @@ async function main() {
     if (!check('δημιουργήθηκε πελάτης', c === 200, body.slice(0, 90))) return
     clientId = JSON.parse(body).client_id
 
+    const [secondStatus, secondBody] = await api('/start', {
+      method: 'POST',
+      body: JSON.stringify({ text: 'Έχω καφετέρια στη Μάνη και θέλω μοντέρνο site' }),
+    })
+    if (check('δημιουργήθηκε δεύτερο site', secondStatus === 200, secondBody.slice(0, 90))) {
+      const second = JSON.parse(secondBody)
+      secondClientId = second.client_id
+      secondClaim = second.claim_token
+      check('το δεύτερο site πήρε ασφαλές ownership token', Boolean(secondClaim))
+    }
+
     const { data: u, error: uErr } = await sb.auth.admin.createUser(
       { email, email_confirm: true })
     if (!check('δημιουργήθηκε λογαριασμός', !uErr, uErr?.message || '')) return
@@ -81,6 +92,14 @@ async function main() {
     browser = await chromium.launch({ headless: !HEADED })
     const ctx = await browser.newContext({ userAgent: UA, locale: 'el-GR' })
     const page = await ctx.newPage()
+
+    // Store the anonymous ownership token on the Sites origin before login.
+    if (secondClientId && secondClaim) {
+      await page.goto(`${SITES}/choose/${secondClientId}#claim=${encodeURIComponent(secondClaim)}`,
+                      { waitUntil: 'domcontentloaded' })
+      await page.waitForTimeout(800)
+      check('το ownership token αφαιρέθηκε από τη διεύθυνση', !page.url().includes('#claim='))
+    }
 
     // --------------------------------------------- το site: τι φορτώνει όντως
     console.log('\n[ΙΔΙΩΤΙΚΟΤΗΤΑ] Τι ζητάει το site χωρίς να το ξέρει ο επισκέπτης')
@@ -122,11 +141,21 @@ async function main() {
     // --------------------------------------------------------------- login
     console.log('\n[ΣΥΝΔΕΣΗ] Ο πελάτης μπαίνει')
     const target = new URL(link.properties.action_link)
-    target.searchParams.set('redirect_to', `${SITES}/dashboard`)
+    target.searchParams.set('redirect_to', `${SITES}/dashboard${secondClientId ? `?client=${secondClientId}` : ''}`)
     await page.goto(target.toString(), { waitUntil: 'networkidle' })
     await page.waitForTimeout(2500)
     check('βρέθηκε στο dashboard', page.url().includes('/dashboard'), page.url())
     check('βλέπει το site του', (await page.locator('iframe').count()) > 0)
+    if (secondClientId) {
+      const picker = page.locator('select').filter({ has: page.locator(`option[value="${secondClientId}"]`) })
+      check('ο ίδιος λογαριασμός βλέπει δύο sites', await picker.count() === 1)
+      if (await picker.count()) {
+        check('υπάρχουν δύο επιλογές site', await picker.locator('option').count() === 2)
+        await picker.selectOption(clientId)
+        await page.waitForTimeout(800)
+        check('μπορεί να αλλάξει ενεργό site', await picker.inputValue() === clientId)
+      }
+    }
 
     // ------------------------------------------------------------ αλλαγή
     console.log('\n[ΑΛΛΑΓΗ] Αλλάζει κάτι μόνος του')
@@ -201,6 +230,10 @@ async function main() {
       const { error } = await sb.from('clients').delete().eq('id', clientId)
       check('ο δοκιμαστικός πελάτης διαγράφηκε', !error, error?.message || '')
       if (error) console.log(`    ⚠ σβήσε χειροκίνητα: ${clientId}`)
+    }
+    if (secondClientId) {
+      const { error } = await sb.from('clients').delete().eq('id', secondClientId)
+      check('το δεύτερο δοκιμαστικό site διαγράφηκε', !error, error?.message || '')
     }
     console.log('\n' + '='.repeat(64))
     console.log(`ΠΕΡΑΣΑΝ: ${pass.length}   ΕΣΠΑΣΑΝ: ${fail.length}`)

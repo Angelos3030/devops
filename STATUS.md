@@ -165,6 +165,18 @@ Facebook με `instagram_basic`, `instagram_content_publish`, `pages_show_list`,
 
 ## 🆕 ΝΕΟ MVP SCOPE (2026-07-15 — owner pivot) — ΥΠΕΡΙΣΧΥΕΙ
 
+### Account + multi-site ownership (2026-08-10, local only)
+- Google OAuth και passwordless email login υπήρχαν ήδη στο `sites/app/dashboard`.
+- Προστέθηκε ασφαλές anonymous-site claim: migration `0009_client_site_claims.sql`,
+  `POST /clients/{id}/claim`, one-time hashed token και atomic ownership RPC.
+- Ένας λογαριασμός μπορεί να κατέχει πολλά `clients`/sites και να τα αλλάζει από
+  τον selector του dashboard. Προστέθηκε και `+ Νέο site`.
+- Το claim μεταφέρεται με URL fragment → `sessionStorage`, αφαιρείται αμέσως από
+  τη διεύθυνση και καταναλώνεται μετά από Google/email login.
+- Tests: `tests/test_site_claim_flow.py`; το browser journey καλύπτει πλέον 2 sites.
+- **Πριν γίνει live:** εφαρμογή migration 0009 σε staging, staging browser journey,
+  μετά production migration/deploy μόνο με ρητή έγκριση. Δεν έγινε deploy/push.
+
 Ο owner απλοποίησε το MVP:
 1. **❌ Έξω τα social** — ΜΟΝΟ website προϊόν προς το παρόν (ΜΗΝ φτιάχνεις social/ads agents).
    Ο social κώδικας μένει dormant, δεν διαγράφεται.

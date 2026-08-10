@@ -81,14 +81,32 @@ export default function Dashboard() {
   // --- φόρτωσε τα sites του χρήστη ---
   useEffect(() => {
     if (!session) return
-    authFetch('/clients/lookup')
+    let alive = true
+    const fromUrl = new URLSearchParams(window.location.search).get('client')
+    const claimKey = fromUrl ? `vitrina-claim:${fromUrl}` : ''
+    const claimToken = claimKey ? window.sessionStorage.getItem(claimKey) : null
+
+    const claimThenLoad = async () => {
+      if (fromUrl && claimToken) {
+        await authFetch(`/clients/${fromUrl}/claim`, {
+          method: 'POST', body: JSON.stringify({ token: claimToken }),
+        })
+        window.sessionStorage.removeItem(claimKey)
+      }
+      return authFetch('/clients/lookup')
+    }
+
+    claimThenLoad()
       .then((d) => {
+        if (!alive) return
         setClients(d.clients || [])
-        const fromUrl = new URLSearchParams(window.location.search).get('client')
         const pick = (d.clients || []).find((c) => c.id === fromUrl) || (d.clients || [])[0]
         if (pick) setClientId(pick.id)
       })
-      .catch((e) => setErr('Δεν μπόρεσα να φορτώσω τα site σου. ' + e.message))
+      .catch((e) => {
+        if (alive) setErr('Δεν μπόρεσα να αποθηκεύσω ή να φορτώσω τα site σου. ' + e.message)
+      })
+    return () => { alive = false }
   }, [session, authFetch])
 
   useEffect(() => {
@@ -425,6 +443,7 @@ export default function Dashboard() {
     <div className={s.page}>
       <header className={s.top}>
         <span className={s.brand}>Vitrina</span>
+        <a className={s.linkBtn} href="https://getvitrina.gr/">+ Νέο site</a>
         {clients?.length > 1 && (
           <select className={s.picker} value={clientId || ''} onChange={(e) => setClientId(e.target.value)}>
             {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}

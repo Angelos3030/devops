@@ -13,6 +13,8 @@ FastAPI app. Τρέξε: uvicorn src.meta_oauth:app --port 8001
   - Το `redirect_uri` πρέπει να είναι ΑΚΡΙΒΩΣ ίδιο και στο App settings (Valid OAuth URIs).
 """
 
+import hashlib
+import secrets
 import urllib.parse
 import requests
 import stripe
@@ -213,6 +215,10 @@ class QuickStart(BaseModel):
     text: str
 
 
+class ClaimSite(BaseModel):
+    token: str
+
+
 @app.post("/start")
 def quick_start_endpoint(body: QuickStart, bg: BackgroundTasks):
     """Μία πρόταση → πελάτης, χωρίς φόρμα.
@@ -241,9 +247,18 @@ def quick_start_endpoint(body: QuickStart, bg: BackgroundTasks):
     except Exception as e:  # noqa: BLE001 — ο πελάτης δημιουργήθηκε, μη μπλοκάρεις
         print(f"[start] initial content save skipped: {e}")
 
+    claim_token = secrets.token_urlsafe(32)
+    try:
+        db.create_client_claim(client_id, hashlib.sha256(claim_token.encode()).hexdigest())
+    except Exception as e:
+        # A missing migration must be visible in logs, but must not destroy the site
+        # that was already generated. The dashboard will explain that ownership failed.
+        print(f"[start] claim creation failed: {e}")
+        claim_token = None
+
     qs.mark(client_id, "copy", done=False)
     bg.add_task(_build_site_bg, client_id, {**parsed, "description": text})
-    return {"client_id": client_id, "parsed": parsed}
+    return {"client_id": client_id, "parsed": parsed, "claim_token": claim_token}
 
 
 @app.get("/progress/{client_id}")
@@ -358,6 +373,25 @@ def lookup_clients(authorization: str | None = Header(default=None)):
     αλλιώς οποιοσδήποτε θα μπορούσε να διαβάσει δεδομένα άλλων (GDPR)."""
     email = auth.current_email(authorization)
     return {"clients": db.get_clients_by_email(email)}
+
+
+@app.post("/clients/{client_id}/claim")
+def claim_site(client_id: str, body: ClaimSite,
+               authorization: str | None = Header(default=None)):
+    """Attach an anonymously generated site to the signed-in user exactly once."""
+    email = auth.current_email(authorization)
+    token = (body.token or "").strip()
+    if len(token) < 32:
+        raise HTTPException(400, "Μη έγκυρος σύνδεσμος ιδιοκτησίας.")
+    token_hash = hashlib.sha256(token.encode()).hexdigest()
+    try:
+        claimed = db.claim_client_site(client_id, token_hash, email)
+    except Exception as e:
+        print(f"[claim] {client_id}: {e}")
+        raise HTTPException(503, "Δεν μπόρεσα να αποθηκεύσω το site στον λογαριασμό σου.")
+    if not claimed:
+        raise HTTPException(404, "Ο σύνδεσμος ιδιοκτησίας έληξε ή χρησιμοποιήθηκε.")
+    return {"ok": True, "client_id": client_id}
 
 
 # --- Dashboard: περιεχόμενο που επεξεργάζεται ο πελάτης ---------------------

@@ -48,7 +48,9 @@ TRADES: tuple[tuple[str, str], ...] = (
 
 # «στον Γέρακα», «στη Γλυφάδα», «στο Χαλάνδρι» → η πόλη είναι μετά το άρθρο.
 _CITY_RE = re.compile(
-    r"\bστ(?:ον?|ην?|ο|α)\s+([Α-ΩΆΈΉΊΌΎΏA-Z][\wΆ-ώα-ω]+(?:\s+[Α-ΩΆΈΉΊΌΎΏA-Z][\wΆ-ώα-ω]+)?)"
+    r"\bστ(?:ον?|ην?|ο|α)\s+([A-ZΑ-ΩΆΈΉΊΌΎΏa-zα-ωάέήίόύώϊϋΐΰ][\wΆ-ώα-ω]+"
+    r"(?:\s+[A-ZΑ-ΩΆΈΉΊΌΎΏa-zα-ωάέήίόύώϊϋΐΰ][\wΆ-ώα-ω]+)?)",
+    re.IGNORECASE,
 )
 # «Καφέ Ολύμπια», «"Το Στέκι"», «λέγεται Μαρία»
 _NAME_RE = re.compile(r"[«\"']([^»\"']{2,60})[»\"']|(?:λεγεται|ονομαζεται|το λενε)\s+([\wΆ-ώα-ω ]{2,40})")
@@ -121,7 +123,9 @@ def parse(text: str) -> dict[str, Any]:
                 # το verticalProfiles.js. Το AI έδινε «ταβερνιάτης» αντί «Ταβέρνα».
                 for key in ("name", "city"):
                     value = data.get(key)
-                    if isinstance(value, str) and value.strip():
+                    # Deterministic extraction wins when it has a value. This
+                    # prevents the model from changing an explicit city/name.
+                    if not fallback[key] and isinstance(value, str) and value.strip():
                         fallback[key] = value.strip()[:80]
                 if not fallback["type"]:
                     value = data.get("type")

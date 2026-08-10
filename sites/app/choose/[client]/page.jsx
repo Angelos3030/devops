@@ -31,6 +31,17 @@ export default function Choose({ params }) {
   const [hasLogo, setHasLogo] = useState(false)
   const [uploading, setUploading] = useState('')
 
+  // The fragment is not sent to Railway logs or referrers. Keep it only in this
+  // tab until the authenticated dashboard consumes it and owns the site.
+  useEffect(() => {
+    if (isDemo || typeof window === 'undefined') return
+    const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''))
+    const claim = hash.get('claim')
+    if (!claim) return
+    window.sessionStorage.setItem(`vitrina-claim:${client}`, claim)
+    window.history.replaceState(null, '', window.location.pathname + window.location.search)
+  }, [client, isDemo])
+
   useEffect(() => {
     if (isDemo) return
     let tries = 0

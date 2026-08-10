@@ -3,7 +3,7 @@
 """
 
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from supabase import create_client
 from . import config as cfg
 
@@ -338,6 +338,28 @@ def get_clients_by_email(email: str) -> list[dict]:
            .select("id,name,business_type,city,status")
            .eq("email", email).execute())
     return res.data or []
+
+
+def create_client_claim(client_id: str, token_hash: str, *, ttl_hours: int = 24) -> None:
+    """Persist a short-lived, hashed ownership token for a newly generated site."""
+    expires_at = datetime.now(timezone.utc) + timedelta(hours=ttl_hours)
+    (_client().table("client_site_claims").upsert({
+        "client_id": client_id,
+        "token_hash": token_hash,
+        "expires_at": expires_at.isoformat(),
+        "claimed_at": None,
+        "claimed_by": None,
+    }, on_conflict="client_id").execute())
+
+
+def claim_client_site(client_id: str, token_hash: str, email: str) -> bool:
+    """Atomically attach a generated site to its authenticated owner."""
+    result = _client().rpc("claim_client_site", {
+        "p_client_id": client_id,
+        "p_token_hash": token_hash,
+        "p_email": email.strip().lower(),
+    }).execute()
+    return result.data is True
 
 
 def get_live_site(client_id: str) -> str | None:

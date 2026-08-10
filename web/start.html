@@ -164,7 +164,7 @@
     $('err').innerHTML = msg + ' Γράψε μας στο <a href="mailto:hello@getvitrina.gr">hello@getvitrina.gr</a>.';
   }
 
-  let clientId = null, polls = 0;
+  let clientId = null, claimToken = null, polls = 0;
 
   function poll(){
     if (!clientId) return;
@@ -186,7 +186,8 @@
     $('lede').textContent = `Χρειάστηκαν ${secs} δευτερόλεπτα. Δες το και διάλεξε εμφάνιση.`;
     $('reassure').style.display = 'none';
     $('cta').style.display = 'block';
-    $('ctaLink').href = `${SITES}/choose/${encodeURIComponent(clientId)}`;
+    const claim = claimToken ? `#claim=${encodeURIComponent(claimToken)}` : '';
+    $('ctaLink').href = `${SITES}/choose/${encodeURIComponent(clientId)}${claim}`;
     render(SEED.map(([id,label]) => ({id, label, state:'done'})));
     // ΟΧΙ iframe: το site σερβίρεται από άλλο origin με X-Frame-Options:
     // SAMEORIGIN, οπότε το πλαίσιο έμενε ΚΕΝΟ. Δείχνουμε κατάσταση ετοιμότητας
@@ -210,8 +211,9 @@
     body: JSON.stringify({text})
   })
   .then(r => r.ok ? r.json() : Promise.reject(r.status))
-  .then(({client_id, parsed}) => {
+  .then(({client_id, parsed, claim_token}) => {
     clientId = client_id;
+    claimToken = claim_token || null;
     if (parsed && parsed.type) {
       const where = parsed.city ? ` στ${/ς$/.test(parsed.city) ? 'ον' : 'ο'} ${parsed.city}` : '';
       $('lede').textContent = `${parsed.type}${where}. Κρατάει περίπου ένα λεπτό.`;
