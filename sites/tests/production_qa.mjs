@@ -183,6 +183,17 @@ async function flow(browser) {
   check(sent?.text?.includes('καφετέρια'), 'η οθόνη καλεί το POST /start',
         sent ? JSON.stringify(sent).slice(0, 46) : 'δεν στάλθηκε')
   check(await page.$('#stages li') !== null, 'εμφανίζονται τα στάδια εργασίας')
+
+  // Η οθόνη δημιουργίας είχε iframe προς άλλο origin (Railway, X-Frame-Options:
+  // SAMEORIGIN) και το πλαίσιο έμενε ΚΕΝΟ στον πελάτη. Ο έλεγχος της αρχικής δεν
+  // το έπιανε γιατί τρέχει σε άλλη σελίδα.
+  const frames = await page.evaluate(() =>
+    [...document.querySelectorAll('iframe')].map((f) => f.src).filter(Boolean))
+  const foreign = frames.filter((src) => {
+    try { return new URL(src).origin !== location.origin } catch { return false }
+  })
+  check(foreign.length === 0, 'η οθόνη δημιουργίας χωρίς iframe άλλου origin',
+        foreign.join(', ') || '')
   await ctx.close()
 }
 

@@ -41,6 +41,12 @@
       background-size:200% 100%;animation:shimmer 1.4s linear infinite}
   @keyframes shimmer{to{background-position:-200% 0}}
 
+  .ready{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+         justify-content:center;gap:.5rem;padding:2rem;text-align:center;background:#fff}
+  .ready svg{width:44px;height:44px;color:var(--ok)}
+  .ready b{font-size:1.1rem}
+  .ready span{color:var(--muted);font-size:.92rem;max-width:26ch}
+
   /* --- λίστα εργασιών --- */
   .work{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px}
   .work h2{font-size:1.02rem;font-weight:700;letter-spacing:-.01em;margin-bottom:2px}
@@ -182,13 +188,20 @@
     $('cta').style.display = 'block';
     $('ctaLink').href = `${SITES}/choose/${encodeURIComponent(clientId)}`;
     render(SEED.map(([id,label]) => ({id, label, state:'done'})));
-    // Δείχνουμε το πραγματικό site μέσα στο πλαίσιο, όχι σκελετό.
+    // ΟΧΙ iframe: το site σερβίρεται από άλλο origin με X-Frame-Options:
+    // SAMEORIGIN, οπότε το πλαίσιο έμενε ΚΕΝΟ. Δείχνουμε κατάσταση ετοιμότητας
+    // και το άνοιγμα γίνεται με κλικ. Βλ. docs/23-PRODUCTION-QA.md.
     $('skeleton').remove();
-    const frame = document.createElement('iframe');
-    frame.src = `${SITES}/choose/${encodeURIComponent(clientId)}?embed=1`;
-    frame.loading = 'lazy';
-    frame.title = 'Προεπισκόπηση του site σου';
-    $('stage').appendChild(frame);
+    const done = document.createElement('div');
+    done.className = 'ready';
+    done.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+      <b>Έτοιμο</b>
+      <span>Πάτησε δεξιά για να δεις το site σου και να διαλέξεις εμφάνιση.</span>`;
+    $('stage').appendChild(done);
   }
 
   fetch(API + '/start', {
@@ -202,7 +215,9 @@
     if (parsed && parsed.type) {
       const where = parsed.city ? ` στ${/ς$/.test(parsed.city) ? 'ον' : 'ο'} ${parsed.city}` : '';
       $('lede').textContent = `${parsed.type}${where}. Κρατάει περίπου ένα λεπτό.`;
-      $('url').textContent = (parsed.name || parsed.type).toLowerCase().replace(/\s+/g,'-');
+      const label = (parsed.name && parsed.name !== 'Η επιχείρησή μου')
+        ? parsed.name : (parsed.type || 'το site σου');
+      $('url').textContent = label.toLowerCase().replace(/\s+/g, '-');
     }
     setTimeout(poll, 1200);
   })
