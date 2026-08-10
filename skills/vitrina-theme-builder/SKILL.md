@@ -20,6 +20,32 @@ description: Build a new production-ready Vitrina theme from a reference website
 - Μην εξηγείς ξανά αρχιτεκτονική, μην επαναλαμβάνεις το protocol, μην γράφεις status reports.
 - Μόνο ό,τι χρειάζεται για **απόφαση ή implementation**.
 
+## 0. Πού βρίσκεις references (όταν δεν σου δίνεται URL)
+
+**Τα galleries βραβείων δεν έχουν τοπικές επιχειρήσεις.** Awwwards, siteinspire,
+land-book, godly, onepagelove δείχνουν agencies, SaaS και portfolios. Υδραυλικοί,
+ηλεκτρολόγοι και φούρνοι δεν αναθέτουν σε βραβευμένα studios — δοκιμάστηκε και
+επιβεβαιώθηκε: το `onepagelove.com/genre/service` (518 σχέδια) δεν είχε **ούτε ένα**
+τοπικό συνεργείο.
+
+**Για τοπικά επαγγέλματα η σωστή πηγή είναι τα WordPress business templates.**
+Τα demos του Astra ζουν σε ξεχωριστό domain και είναι άμεσα προσπελάσιμα:
+
+```
+https://websitedemos.net/<vertical>/        π.χ. plumber-02, electrician-01
+https://websitedemos.net/<vertical>-0N/     construction-04, painter-03, locksmith-02
+```
+
+Χαρτογράφησέ τα με ένα βρόχο `curl -o /dev/null -w '%{http_code}'` πριν τραβήξεις —
+πολλά slugs δεν υπάρχουν, και κάποια επιστρέφουν 200 με σελίδα-κέλυφος (~1300px ύψος).
+**Ύψος κάτω από 2000px σημαίνει placeholder, όχι σχέδιο.**
+
+Τα galleries βραβείων παραμένουν χρήσιμα για *αισθητική κατεύθυνση* σε premium
+verticals (ξενοδοχεία, εστίαση υψηλού επιπέδου), όχι για τοπικά συνεργεία.
+
+⚠️ Μη σωληνώνεις το capture σε `head` — το SIGPIPE σκοτώνει τη διεργασία μετά το
+πρώτο viewport και μένεις με screenshot χωρίς `reference.json`.
+
 ## 1. Capture
 
 ```bash
