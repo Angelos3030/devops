@@ -89,3 +89,6 @@
   .wrap { grid-template-columns: 1fr; }
   .mapBox { aspect-ratio: 4 / 3; }
 }
+
+/* Social/email κάτω από τα στοιχεία επικοινωνίας. */
+.social { margin-top: 1rem; }

@@ -1,4 +1,5 @@
 import MapEmbed from './MapEmbed'
+import SocialLinks from './SocialLinks'
 import s from './FindUs.module.css'
 
 // «Πού θα μας βρεις» — χάρτης + διεύθυνση + οδηγίες + τηλέφωνο.
@@ -38,6 +39,8 @@ export default function FindUs({ data: d, dark = false }) {
             Δες μας στο Google ↗
           </a>
         )}
+        {/* Ένα σημείο για όλα τα templates — βλ. SocialLinks.jsx */}
+        <SocialLinks data={d} className={s.social} />
       </div>
       <div className={s.mapBox}>
         <MapEmbed embed={embed} directions={directions}

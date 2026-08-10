@@ -459,3 +459,17 @@ def link_client_email(client_id: str, email: str) -> str:
     except Exception as e:  # noqa: BLE001
         print(f"[link_email] write failed: {e}")
         return "skipped"
+
+
+def delete_client_asset(client_id: str, asset_id: str) -> bool:
+    """Διαγράφει asset — ΜΟΝΟ αν ανήκει σε αυτόν τον πελάτη.
+
+    Ο έλεγχος ιδιοκτησίας γίνεται εδώ και όχι στο endpoint: αλλιώς ένα λάθος
+    σε οποιοδήποτε μελλοντικό call site θα επέτρεπε σε πελάτη να σβήσει
+    φωτογραφία άλλου. Επιστρέφει False αν δεν βρέθηκε/δεν ανήκει.
+    """
+    if not client_id or not asset_id:
+        return False
+    res = (_client().table("client_assets").delete()
+           .eq("id", asset_id).eq("client_id", client_id).execute())
+    return bool(res.data)

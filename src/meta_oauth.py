@@ -369,6 +369,9 @@ _EDITABLE = {
     "services", "template", "palette", "font_pair",
     # Local SEO / Google Maps
     "address", "gbp_url", "geo_lat", "geo_lng",
+    # Επικοινωνία & social — χωρίς αυτά ο πελάτης δεν μπορούσε να διορθώσει
+    # λάθος email ούτε να βάλει τη σελίδα του, χωρίς να μας ζητήσει βοήθεια.
+    "email", "facebook", "instagram",
 }
 
 
@@ -728,6 +731,18 @@ def add_client_asset(client_id: str, asset: ClientAsset):
 @app.get("/clients/{client_id}/assets")
 def list_client_assets(client_id: str, usage: str | None = None):
     return {"assets": db.get_client_assets(client_id, usage=usage)}
+
+
+@app.delete("/clients/{client_id}/assets/{asset_id}")
+def delete_client_asset(client_id: str, asset_id: str,
+                        authorization: str | None = Header(default=None)):
+    """Διαγράφει φωτογραφία του πελάτη. Χωρίς αυτό, ο πελάτης δεν μπορούσε να
+    αφαιρέσει ΚΑΜΙΑ εικόνα μετά την αγορά χωρίς να μας γράψει."""
+    client = auth.require_client_access(client_id, authorization)
+    rid = client.get("id", client_id)
+    if not db.delete_client_asset(rid, asset_id):
+        raise HTTPException(404, "Η φωτογραφία δεν βρέθηκε.")
+    return {"ok": True, "deleted": asset_id}
 
 GRAPH = "https://graph.facebook.com/v21.0"
 

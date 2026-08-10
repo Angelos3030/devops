@@ -402,6 +402,29 @@ def _list_of_dicts(value: Any) -> list[dict[str, Any]]:
     return [v for v in value if isinstance(v, dict)] if isinstance(value, list) else []
 
 
+
+def _social(value: object, host: str) -> str:
+    """Κανονικοποιεί ό,τι κι αν γράψει ο πελάτης σε ασφαλές https URL — ή κενό.
+
+    Δέχεται: πλήρες URL, «facebook.com/mypage», «@myhandle», «myhandle».
+    Απορρίπτει: κενά, javascript:, ό,τι δεν καταλήγει σε αναγνωρίσιμο handle.
+    Κενό σημαίνει «μην εμφανίσεις εικονίδιο» — ποτέ σπασμένος σύνδεσμος.
+    """
+    raw = str(value or "").strip()
+    if not raw:
+        return ""
+    low = raw.lower()
+    if low.startswith(("javascript:", "data:", "vbscript:")):
+        return ""
+    if low.startswith(("http://", "https://")):
+        return _e(raw) if host.split(".")[0] in low else ""
+    raw = raw.lstrip("@/")
+    if raw.lower().startswith(host):
+        return _e("https://" + raw)
+    if "/" in raw or " " in raw:
+        return ""
+    return _e(f"https://{host}/{raw}")
+
 def normalize(intake: dict[str, Any]) -> dict[str, Any]:
     prof = _profession(intake)
     copy = _PROFESSION_COPY[prof]
@@ -503,6 +526,11 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
         "GEO_LAT": str(intake.get("geo_lat") or ""),
         "GEO_LNG": str(intake.get("geo_lng") or ""),
         "GBP_URL": _e(str(intake.get("gbp_url") or "")),   # Google Business Profile
+        # Επικοινωνία & social. Το _social() κρατά μόνο έγκυρα http(s) URL ώστε
+        # ένα «facebook.com/…» ή σκέτο handle να μη βγάλει σπασμένο σύνδεσμο.
+        "EMAIL": _e(str(intake.get("email") or "")),
+        "FACEBOOK": _social(intake.get("facebook"), "facebook.com"),
+        "INSTAGRAM": _social(intake.get("instagram"), "instagram.com"),
         "PHONE": phone_disp, "PHONE_INTL": phone_intl,
         "AREAS": areas_str, "DOMAIN": _e(domain_disp), "DOMAIN_URL": _e(domain or "#"),
         "HOURS": _e(intake.get("hours") or "Δευτ.–Σάβ. 08:00–19:00"),

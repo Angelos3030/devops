@@ -18,6 +18,7 @@ EDITABLE_FIELDS = (
     "name", "trade", "city", "phone", "hours", "areas",
     "tagline", "intro", "story_title", "story_paragraphs", "cta_title",
     "services", "template", "palette", "font_pair",
+    "email", "facebook", "instagram", "address",
 )
 
 _SYSTEM = (

@@ -1,0 +1,37 @@
+/* Ουδέτερο by design: κληρονομεί χρώμα από το template που το φιλοξενεί, ώστε
+   να δείχνει σωστό και στο Marble και στο Poster χωρίς παραλλαγές. */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;              /* tap target */
+  padding: 0 0.9rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.12s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.link:hover,
+.link:focus-visible { opacity: 1; transform: translateY(-1px); }
+.link svg { width: 18px; height: 18px; flex: none; }
+.text { white-space: nowrap; }
+
+@media (max-width: 520px) {
+  /* Στο κινητό το email γίνεται μακρύ και σπάει τη γραμμή — μένει το εικονίδιο. */
+  .link:last-child .text { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .link { transition: none; }
+  .link:hover, .link:focus-visible { transform: none; }
+}
