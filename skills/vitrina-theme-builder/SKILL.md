@@ -29,6 +29,10 @@ node sites/scripts/capture_reference.mjs <url> --name <slug> --compact
 Γράφει εκτός repo: `desktop/tablet/mobile.png` + `reference.json` (colors, fonts, type scale,
 spacing, containers, radii, shadows, breakpoints, sections, sticky, interactions).
 
+Το script **ανοίγει τα wrappers**: όποιο στοιχείο κρατάει >35% του ύψους δεν είναι section,
+είναι κουτί — τα παιδιά του βγαίνουν με `↳`. Αν δεις **λιγότερα sections απ' ό,τι δείχνει το
+screenshot**, υπομετράει· διόρθωσε το script, μη συνεχίσεις με λάθος δομή.
+
 Δεν φορτώνει (login/bot) → σταμάτα, ζήτα screenshots.
 
 ## 2. Analysis — ΜΟΝΟ αυτό το format
@@ -86,6 +90,16 @@ services[{title,desc}]  story[{p}]  gallery[{image,title}]
 ```
 Shared: `FindUs`, `CallBar`, `Brand`. Μηδέν hardcoded business δεδομένα.
 
+**Fonts: μόνο από τα ήδη self-hosted.** Αντιστοίχισε τα fonts του reference στο πλησιέστερο
+της λίστας `FAMILIES` στο `scripts/selfhost_fonts.py` (π.χ. Roboto → Noto Sans Display,
+Source Sans Pro → Open Sans). Font εκτός λίστας πέφτει **σιωπηλά σε Arial**.
+
+**Σχεδίασε για μεταβλητό πλήθος δεδομένων.** Το reference έχει σταθερό περιεχόμενο· ο πελάτης
+μας όχι. **Ποτέ ορφανό στοιχείο** — ένα κουτάκι μόνο του δείχνει σαν λάθος, όχι σαν σχεδιασμός.
+Κάνε την κοπή των ενοτήτων προσαρμοστική (π.χ. με 4 υπηρεσίες → 2 panels + 2 κάρτες, όχι
+3 + 1) και δώσε ταβάνι πλάτους + κεντράρισμα στα πλέγματα ώστε 2–3 στοιχεία να δείχνουν σκόπιμα.
+Δοκίμασε με **2, 4, 6, 9 υπηρεσίες** και **0, 3, 8 φωτογραφίες**.
+
 ## 4. Metadata (ο editor οδηγείται από εδώ, ποτέ από hardcoded conditions)
 
 Στο `TEMPLATE_META` (`sites/lib/templates/index.js`):
@@ -103,7 +117,17 @@ Shared: `FindUs`, `CallBar`, `Brand`. Μηδέν hardcoded business δεδομέ
 ```
 
 `customizable: false` = το theme **σπάει** με άλλη τιμή. Να είσαι ειλικρινής.
-Εγγραφή σε `TEMPLATES`, `TEMPLATE_KEYS`, `TEMPLATE_META` (+ `artDirection.js` αν έχει gallery).
+
+### Εγγραφή — και τα τέσσερα, αλλιώς το theme δεν παραδόθηκε
+
+1. `TEMPLATES` + `TEMPLATE_KEYS` + `TEMPLATE_META` → `sites/lib/templates/index.js`
+2. `artDirection.js` → αν έχει gallery
+3. **`sites/lib/verticalProfiles.js` → `compatibleDesignSystemIds`** στα επαγγέλματα που
+   ταιριάζει, **πρώτο** σε όποιο φτιάχτηκε γι' αυτό
+
+Το (3) ξεχνιέται εύκολα και είναι το πιο κρίσιμο: χωρίς αυτό το theme υπάρχει στη γενική λίστα
+αλλά **δεν προτείνεται ποτέ** στον πελάτη για τον οποίο σχεδιάστηκε. Μην το βάζεις παντού —
+μόνο όπου δείχνει πραγματικά σωστό.
 
 ## 5. Αρχιτεκτονική
 
@@ -113,11 +137,35 @@ Shared: `FindUs`, `CallBar`, `Brand`. Μηδέν hardcoded business δεδομέ
 ## 6. Quality gate
 
 ```bash
-node sites/tests/design_guard.mjs
 cd sites && npx next build
+# ΠΑΝΤΑ σκότωσε πρώτα τους παλιούς servers — ένας stale server σερβίρει HTML που
+# δείχνει σε CSS που δεν υπάρχει πια, και το QA βγάζει τέρας (μετρήθηκε 17.759px
+# αντί για 5.142px). Το `pkill` δεν πιάνει πάντα στα Windows.
+node tests/design_guard.mjs --base http://localhost:3100
 ```
+
+Πριν εμπιστευτείς οποιοδήποτε QA screenshot, **επαλήθευσε ότι φόρτωσε το CSS** (η nav να είναι
+μία γραμμή, όχι στοίβα). Ύψος σελίδας πολύ μεγαλύτερο του αναμενόμενου = δεν φόρτωσε.
 Πιστό στο reference · 1440/768/390 χωρίς overflow · όμορφο με άλλα δεδομένα · μηδέν
 copyrighted assets · μηδέν third-party requests · tap targets ≥44px · ένα `h1` · CTA/`tel:` λειτουργικά.
 
 Αν νέο theme ξεπερνά υπάρχον αδύναμο → **πρότεινε** μετακίνηση στο `LEGACY_TEMPLATE_KEYS`.
 Μην το κάνεις μόνος σου.
+
+## 7. Συντήρηση αυτού του αρχείου
+
+Αυτό το SKILL.md είναι το **single source of truth** για τα themes. Ο ιδιοκτήτης δίνει μόνο τη
+γραμμή trigger· όλα τα υπόλοιπα εφαρμόζονται από εδώ.
+
+Όταν ένα πραγματικό bug ή μια αποτυχία theme διδάξει κάτι, μπαίνει εδώ **μόνο αν περνάει και
+τα τρία**:
+
+1. **Γενικεύσιμο** — θα ξανασυμβεί σε άλλο reference, άλλο vertical, άλλο theme.
+2. **Μη προφανές** — δεν προκύπτει ήδη από το `CLAUDE.md` ή τον κώδικα.
+3. **Δράση, όχι ιστορία** — γράφεται ως κανόνας που εκτελείται, όχι ως αφήγηση τι έγινε.
+
+**Δεν μπαίνει:** ό,τι αφορά ένα συγκεκριμένο reference, ένα συγκεκριμένο template, ή ένα
+περιστατικό που δεν θα επαναληφθεί. Αυτά ανήκουν στο commit message.
+
+Αν ένας κανόνας πάψει να ισχύει, **σβήσ' τον**. Ένα skill 800 γραμμών με ιστορικά κατάλοιπα
+δεν διαβάζεται, άρα δεν εφαρμόζεται — και τότε δεν προστατεύει τίποτα.
