@@ -46,10 +46,20 @@ const DEMOS = [
   'clinic-triage?biz=dentist', 'marble?biz=lawyer', 'aegean?biz=rooms',
 ]
 
-const pass = [], fail = []
-const check = (ok, label, detail = '') => {
-  ;(ok ? pass : fail).push(label)
-  console.log(`  ${ok ? '✓' : '✗'} ${label}${detail ? `  — ${detail}` : ''}`)
+// Δύο βαθμίδες, γιατί δεν είναι όλες οι αποτυχίες ίδιες:
+//
+//   critical — accessibility, SEO, σπασμένα αιτήματα, console errors, εγγραφές
+//              στη βάση, overflow, βασική ροή. Το deploy θεωρείται ΑΠΟΤΥΧΗΜΕΝΟ.
+//   perf     — σκορ και χρόνοι. Κυμαίνονται μεταξύ εκτελέσεων, οπότε πέφτουν
+//              κάτω από κατώφλι αντί για απόλυτο 100. Θέλουν προσοχή, όχι rollback.
+//
+// Έξοδος: 0 καθαρό · 1 κρίσιμη αποτυχία · 2 μόνο επιδόσεις κάτω από το όριο.
+const pass = [], failCritical = [], failPerf = []
+const check = (ok, label, detail = '', kind = 'critical') => {
+  if (ok) pass.push(label)
+  else (kind === 'perf' ? failPerf : failCritical).push(`${label}${detail ? ` (${detail})` : ''}`)
+  const mark = ok ? '✓' : (kind === 'perf' ? '!' : '✗')
+  console.log(`  ${mark} ${label}${detail ? `  — ${detail}` : ''}`)
 }
 const head = (t) => console.log(`\n${t}`)
 
@@ -201,13 +211,17 @@ async function audit() {
 
       for (const [key, min] of Object.entries(LH[form])) {
         const score = Math.round(lhr.categories[key].score * 100)
-        check(score >= min, `${key} ${score}`, `όριο ${min}`)
+        // Το performance κυμαίνεται με το δίκτυο· τα υπόλοιπα είναι ντετερμινιστικά.
+        check(score >= min, `${key} ${score}`, `όριο ${min}`,
+              key === 'performance' ? 'perf' : 'critical')
       }
       for (const [key, max] of Object.entries(VITALS[form])) {
         const a = lhr.audits[key]
         if (!a || a.numericValue == null) continue
-        const v = a.numericValue
-        check(v <= max, `${key} ${a.displayValue}`, `όριο ${key.includes('shift') ? max : max + 'ms'}`)
+        // Το CLS είναι σφάλμα διάταξης, όχι διακύμανση δικτύου — κρίσιμο.
+        check(a.numericValue <= max, `${key} ${a.displayValue}`,
+              `όριο ${key.includes('shift') ? max : max + 'ms'}`,
+              key === 'cumulative-layout-shift' ? 'critical' : 'perf')
       }
       // Χωρίς όριο — πολύ θορυβώδες σε lab, αλλά χρήσιμο να το βλέπουμε.
       const si = lhr.audits['speed-index']
@@ -245,10 +259,20 @@ const main = async () => {
   else console.log('\n[Lighthouse] παραλείφθηκε (--skip-lighthouse)')
 
   console.log(`\n${'='.repeat(64)}`)
-  console.log(`ΠΕΡΑΣΑΝ: ${pass.length}   ΕΣΠΑΣΑΝ: ${fail.length}`)
-  if (fail.length) {
-    console.log('\n❌ ' + fail.join('\n   '))
+  console.log(`ΠΕΡΑΣΑΝ: ${pass.length}   ΚΡΙΣΙΜΑ: ${failCritical.length}   ΕΠΙΔΟΣΕΙΣ: ${failPerf.length}`)
+
+  if (failCritical.length) {
+    console.log('\n❌ ΤΟ DEPLOY ΘΕΩΡΕΙΤΑΙ ΑΠΟΤΥΧΗΜΕΝΟ — κρίσιμες αποτυχίες:')
+    console.log('   • ' + failCritical.join('\n   • '))
+    if (failPerf.length) console.log('\n   (επίσης κάτω από όριο: ' + failPerf.join(', ') + ')')
     return 1
+  }
+  if (failPerf.length) {
+    console.log('\n⚠️  Κρίσιμα καθαρά, αλλά επιδόσεις κάτω από το όριο:')
+    console.log('   • ' + failPerf.join('\n   • '))
+    console.log('\n   Τα σκορ κυμαίνονται μεταξύ εκτελέσεων. Ξανατρέξε πριν επέμβεις·')
+    console.log('   αν επιμένει, είναι πραγματική οπισθοδρόμηση.')
+    return 2
   }
   console.log('\n✅ Καθαρό — μπορεί να δοθεί link.')
   return 0
