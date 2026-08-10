@@ -3,6 +3,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { supabase, supabaseReady } from '../../lib/supabase'
 import s from './dashboard.module.css'
 
+import {
+  PHOTO_TYPES, MAX_PHOTO_MB, MAX_SERVICES, validatePhoto, canAddService,
+  countEmptyServices, addService as addSv, setServiceField, removeService as rmSv,
+} from '../../lib/editorRules'
+
 const API = (process.env.NEXT_PUBLIC_API_BASE || '').replace(/\/$/, '')
 
 const SUGGESTIONS = [
@@ -157,6 +162,7 @@ export default function Dashboard() {
   // Χειροκίνητη επεξεργασία — δουλεύει και χωρίς τον βοηθό AI.
   async function openEdit() {
     setTab('edit'); setErr('')
+    if (photos === null) loadPhotos()
     if (form) return
     try {
       const d = await authFetch(`/clients/${clientId}/content`)
@@ -183,6 +189,83 @@ export default function Dashboard() {
   }
 
   const setField = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
+
+  // ---- Υπηρεσίες: το backend δέχεται {name, description}, max 8 ----------
+  // Η σειρά μένει σταθερή: επεξεργαζόμαστε στη θέση, ποτέ δεν ξαναχτίζουμε
+  // τον πίνακα από φιλτράρισμα — αλλιώς οι γραμμές «χοροπηδάνε» καθώς γράφει.
+  const services = Array.isArray(form?.services) ? form.services : []
+  const setService = (i, key) => (e) =>
+    setForm((f) => ({ ...f, services: setServiceField(f.services, i, key, e.target.value) }))
+  const addService = () => setForm((f) => ({ ...f, services: addSv(f.services) }))
+  const removeService = (i) => setForm((f) => ({ ...f, services: rmSv(f.services, i) }))
+  // Το backend πετάει σιωπηλά όσες δεν έχουν όνομα. Το λέμε ΠΡΙΝ πατήσει αποθήκευση.
+  const emptyServices = countEmptyServices(services)
+
+  // ---- Φωτογραφίες -------------------------------------------------------
+  const [photos, setPhotos] = useState(null)
+  const [photoBusy, setPhotoBusy] = useState('')
+  const [photoErr, setPhotoErr] = useState('')
+  const [confirmDel, setConfirmDel] = useState(null)   // asset προς διαγραφή
+  const [staged, setStaged] = useState(null)           // {file, url, replaces}
+
+  async function loadPhotos() {
+    try {
+      const d = await authFetch(`/clients/${clientId}/assets?usage=site`)
+      setPhotos((d.assets || []).filter((a) => a.url))
+    } catch (e) {
+      setPhotoErr('Δεν φόρτωσαν οι φωτογραφίες. ' + e.message)
+    }
+  }
+
+  /** Ελέγχει ΠΡΙΝ σταλεί οτιδήποτε — ο πελάτης δεν περιμένει άδικα το ανέβασμα. */
+  function stagePhoto(file, replaces = null) {
+    setPhotoErr('')
+    if (!file) return
+    const v = validatePhoto(file)
+    if (!v.ok) { setPhotoErr(v.error); return }
+    setStaged({ file, url: URL.createObjectURL(file), replaces })
+  }
+
+  /** Ανεβάζει. Στο replace, η παλιά σβήνει ΜΟΝΟ αφού επιβεβαιωθεί η νέα. */
+  async function confirmUpload() {
+    if (!staged) return
+    setPhotoBusy('upload'); setPhotoErr('')
+    try {
+      const fd = new FormData()
+      fd.append('file', staged.file)
+      fd.append('asset_type', 'photo')
+      const res = await fetch(`${API}/clients/${clientId}/upload`, { method: 'POST', body: fd })
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        throw new Error(body.detail || `Το ανέβασμα απέτυχε (${res.status})`)
+      }
+      if (staged.replaces) {
+        // Η νέα υπάρχει ήδη — τώρα είναι ασφαλές να φύγει η παλιά.
+        await authFetch(`/clients/${clientId}/assets/${staged.replaces}`, { method: 'DELETE' })
+          .catch(() => {})
+      }
+      URL.revokeObjectURL(staged.url)
+      setStaged(null)
+      await loadPhotos()
+      setVer(Date.now())
+    } catch (e) {
+      setPhotoErr(e.message)
+    }
+    setPhotoBusy('')
+  }
+
+  async function deletePhoto(assetId) {
+    setPhotoBusy(assetId); setPhotoErr('')
+    try {
+      await authFetch(`/clients/${clientId}/assets/${assetId}`, { method: 'DELETE' })
+      setConfirmDel(null)
+      await loadPhotos()
+      setVer(Date.now())
+    } catch (e) {
+      setPhotoErr('Δεν διαγράφηκε. ' + e.message)
+    }
+    setPhotoBusy('')
+  }
 
   // Έτοιμα posts για την εβδομάδα — ο πελάτης τα αντιγράφει και τα δημοσιεύει.
   async function openPosts() {
@@ -453,6 +536,48 @@ ${(p.hashtags || []).join(' ')}`)}>
             !form ? (
               <div className={s.formWrap}><p className={s.hint}>Φορτώνει…</p></div>
             ) : (
+              <>
+              {/* Προεπισκόπηση πριν το ανέβασμα: ο πελάτης βλέπει ΤΙ στέλνει. */}
+              {staged && (
+                <div className={s.modal} role="dialog" aria-modal="true" aria-label="Επιβεβαίωση φωτογραφίας">
+                  <div className={s.modalBox}>
+                    <h3>{staged.replaces ? 'Αντικατάσταση φωτογραφίας' : 'Νέα φωτογραφία'}</h3>
+                    <img className={s.stagedImg} src={staged.url} alt="Προεπισκόπηση της φωτογραφίας που ανεβάζεις" />
+                    {staged.replaces && (
+                      <p className={s.hint}>Η παλιά θα σβηστεί μόνο αφού ανέβει με επιτυχία η νέα.</p>
+                    )}
+                    <div className={s.modalBar}>
+                      <button type="button" className={s.reject}
+                              onClick={() => { URL.revokeObjectURL(staged.url); setStaged(null) }}
+                              disabled={photoBusy === 'upload'}>Ακύρωση</button>
+                      <button type="button" className={s.approve} onClick={confirmUpload}
+                              disabled={photoBusy === 'upload'}>
+                        {photoBusy === 'upload' ? 'Ανεβαίνει…' : 'Ναι, ανέβασέ τη'}
+                      </button>
+                    </div>
+                    {photoErr && <p className={s.err}>{photoErr}</p>}
+                  </div>
+                </div>
+              )}
+
+              {confirmDel && (
+                <div className={s.modal} role="dialog" aria-modal="true" aria-label="Επιβεβαίωση διαγραφής">
+                  <div className={s.modalBox}>
+                    <h3>Να τη διαγράψω;</h3>
+                    <img className={s.stagedImg} src={confirmDel.url} alt="Η φωτογραφία που θα διαγραφεί" />
+                    <p className={s.hint}>Θα αφαιρεθεί από το site σου. Δεν αναιρείται.</p>
+                    <div className={s.modalBar}>
+                      <button type="button" className={s.reject} onClick={() => setConfirmDel(null)}
+                              disabled={photoBusy === confirmDel.id}>Άκυρο</button>
+                      <button type="button" className={s.photoDel} onClick={() => deletePhoto(confirmDel.id)}
+                              disabled={photoBusy === confirmDel.id}>
+                        {photoBusy === confirmDel.id ? 'Διαγράφω…' : 'Ναι, διάγραψέ τη'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <form className={s.formWrap} onSubmit={saveForm}>
                 <label>Όνομα<input value={form.name || ''} onChange={setField('name')} /></label>
                 <label>Τι κάνεις<input value={form.trade || ''} onChange={setField('trade')} /></label>
@@ -477,12 +602,97 @@ ${(p.hashtags || []).join(' ')}`)}>
                 <label>Το προφίλ σου στο Google <span className={s.hint}>(προαιρετικό)</span>
                   <input value={form.gbp_url || ''} onChange={setField('gbp_url')} placeholder="https://maps.app.goo.gl/..." /></label>
 
+                <label>Email <span className={s.hint}>(φαίνεται στο site)</span>
+                  <input type="email" value={form.email || ''} onChange={setField('email')}
+                         placeholder="info@tomagazimou.gr" /></label>
+                <label>Facebook <span className={s.hint}>(προαιρετικό)</span>
+                  <input value={form.facebook || ''} onChange={setField('facebook')}
+                         placeholder="facebook.com/tomagazimou" /></label>
+                <label>Instagram <span className={s.hint}>(προαιρετικό)</span>
+                  <input value={form.instagram || ''} onChange={setField('instagram')}
+                         placeholder="instagram.com/tomagazimou" /></label>
+
+                {/* ---- Υπηρεσίες ---------------------------------------- */}
+                <div className={s.block}>
+                  <div className={s.blockHead}>
+                    <h3>Υπηρεσίες</h3>
+                    <span className={s.hint}>{services.length}/{MAX_SERVICES}</span>
+                  </div>
+                  {services.length === 0 && (
+                    <p className={s.hint}>Δεν έχεις υπηρεσίες ακόμα. Πρόσθεσε την πρώτη — φαίνονται στο site σου.</p>
+                  )}
+                  {services.map((sv, i) => (
+                    <div key={i} className={s.svRow}>
+                      <input className={s.svName} value={sv?.name || ''} onChange={setService(i, 'name')}
+                             placeholder="Όνομα υπηρεσίας" aria-label={`Υπηρεσία ${i + 1} — όνομα`} />
+                      <input className={s.svDesc} value={sv?.description || ''} onChange={setService(i, 'description')}
+                             placeholder="Μία σύντομη περιγραφή" aria-label={`Υπηρεσία ${i + 1} — περιγραφή`} />
+                      <button type="button" className={s.svDel} onClick={() => removeService(i)}
+                              aria-label={`Διαγραφή υπηρεσίας ${i + 1}`}>✕</button>
+                    </div>
+                  ))}
+                  {canAddService(services) && (
+                    <button type="button" className={s.addBtn} onClick={addService}>+ Πρόσθεσε υπηρεσία</button>
+                  )}
+                  {emptyServices > 0 && (
+                    <p className={s.warn}>
+                      {emptyServices === 1 ? 'Μία υπηρεσία δεν έχει όνομα και δεν θα αποθηκευτεί.'
+                                           : `${emptyServices} υπηρεσίες δεν έχουν όνομα και δεν θα αποθηκευτούν.`}
+                    </p>
+                  )}
+                </div>
+
+                {/* ---- Φωτογραφίες ------------------------------------- */}
+                <div className={s.block}>
+                  <div className={s.blockHead}>
+                    <h3>Φωτογραφίες</h3>
+                    <span className={s.hint}>{photos?.length || 0} στο site σου</span>
+                  </div>
+
+                  {photos === null ? (
+                    <p className={s.hint}>Φορτώνουν…</p>
+                  ) : photos.length === 0 ? (
+                    <div className={s.emptyPhotos}>
+                      <p><b>Δεν έχεις δικές σου φωτογραφίες.</b></p>
+                      <p className={s.hint}>Το site σου δείχνει κατάλληλες εικόνες για το επάγγελμά σου.
+                        Ανέβασε δικές σου και τις αντικαθιστούν.</p>
+                    </div>
+                  ) : (
+                    <div className={s.photoGrid}>
+                      {photos.map((p) => (
+                        <figure key={p.id} className={s.photo}>
+                          <img src={p.url} alt={p.title || 'Φωτογραφία του μαγαζιού'} loading="lazy" />
+                          <figcaption>
+                            <label className={s.photoAct}>
+                              Αντικατάσταση
+                              <input type="file" accept={PHOTO_TYPES.join(',')} hidden
+                                     onChange={(e) => { stagePhoto(e.target.files?.[0], p.id); e.target.value = '' }} />
+                            </label>
+                            <button type="button" className={s.photoDel}
+                                    onClick={() => setConfirmDel(p)}
+                                    disabled={photoBusy === p.id}>Διαγραφή</button>
+                          </figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  )}
+
+                  <label className={s.uploadBtn}>
+                    + Ανέβασε φωτογραφία
+                    <input type="file" accept={PHOTO_TYPES.join(',')} hidden
+                           onChange={(e) => { stagePhoto(e.target.files?.[0]); e.target.value = '' }} />
+                  </label>
+                  <p className={s.hint}>JPG, PNG, WEBP ή GIF · έως {MAX_PHOTO_MB}MB</p>
+                  {photoErr && <p className={s.err}>{photoErr}</p>}
+                </div>
+
                 <div className={s.formBar}>
                   <button type="submit" disabled={saving}>{saving ? 'Αποθηκεύω…' : 'Αποθήκευση'}</button>
                   {saved && <span className={s.okTag}>✓ Αποθηκεύτηκε</span>}
                 </div>
                 {err && <p className={s.err}>{err}</p>}
               </form>
+              </>
             )
           ) : (
           <>

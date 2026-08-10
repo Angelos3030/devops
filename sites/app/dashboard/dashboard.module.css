@@ -206,3 +206,75 @@
   .preview { min-height: 60vh; order: -1; }
   .chat { border-right: 0; border-top: 1px solid var(--line); }
 }
+
+/* ── Επεξεργασία: υπηρεσίες & φωτογραφίες ─────────────────────────────── */
+.block {
+  display: grid; gap: .6rem;
+  padding: 1rem 0 .2rem;
+  border-top: 1px solid var(--line, #e9eaee);
+}
+.blockHead { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.blockHead h3 { margin: 0; font-size: 1rem; font-weight: 700; }
+.warn { margin: 0; font-size: .86rem; color: #8a5a12; }
+.addBtn {
+  justify-self: start; min-height: 40px; padding: 0 .9rem;
+  border: 1px dashed currentColor; border-radius: 8px; background: none;
+  font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer; opacity: .8;
+}
+.addBtn:hover { opacity: 1; }
+
+/* Η γραμμή υπηρεσίας: όνομα | περιγραφή | διαγραφή */
+.svRow { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.5fr) auto; gap: .5rem; align-items: center; }
+.svRow input { min-width: 0; }
+.svDel {
+  width: 40px; height: 40px; flex: none; border: 1px solid var(--line, #e9eaee);
+  border-radius: 8px; background: none; cursor: pointer; font-size: .9rem; line-height: 1;
+}
+.svDel:hover { background: #fff1ec; border-color: #f0c3b2; }
+
+/* Φωτογραφίες */
+.photoGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: .7rem; }
+.photo { margin: 0; border: 1px solid var(--line, #e9eaee); border-radius: 10px; overflow: hidden; }
+.photo img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.photo figcaption { display: flex; gap: .35rem; padding: .45rem; }
+.photoAct, .photoDel {
+  flex: 1; min-height: 36px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--line, #e9eaee); border-radius: 7px; background: none;
+  font: inherit; font-size: .78rem; font-weight: 600; cursor: pointer; text-align: center;
+}
+.photoAct:hover { background: #f4f6f9; }
+.photoDel { color: #a13a18; border-color: #f0c3b2; }
+.photoDel:hover:not(:disabled) { background: #fff1ec; }
+.photoDel:disabled, .photoAct:has(input:disabled) { opacity: .5; cursor: default; }
+.emptyPhotos { padding: 1rem; background: #f6f7f9; border-radius: 10px; }
+.emptyPhotos p { margin: 0 0 .3rem; }
+.uploadBtn {
+  justify-self: start; min-height: 44px; display: inline-flex; align-items: center;
+  padding: 0 1rem; border: 1px dashed currentColor; border-radius: 8px;
+  font-size: .9rem; font-weight: 600; cursor: pointer; opacity: .85;
+}
+.uploadBtn:hover { opacity: 1; }
+
+/* Επιβεβαιώσεις */
+.modal {
+  position: fixed; inset: 0; z-index: 80; display: grid; place-items: center;
+  padding: 1rem; background: rgba(10, 12, 16, .55); backdrop-filter: blur(3px);
+}
+.modalBox {
+  width: min(420px, 100%); max-height: 90vh; overflow: auto;
+  background: #fff; border-radius: 14px; padding: 1.25rem;
+  box-shadow: 0 24px 60px rgba(10, 20, 40, .3);
+}
+.modalBox h3 { margin: 0 0 .8rem; font-size: 1.05rem; }
+.stagedImg {
+  display: block; width: 100%; max-height: 46vh; object-fit: contain;
+  background: #f2f4f7; border-radius: 10px; margin-bottom: .8rem;
+}
+.modalBar { display: flex; gap: .5rem; margin-top: .8rem; }
+.modalBar > * { flex: 1; min-height: 44px; }
+
+@media (max-width: 560px) {
+  .svRow { grid-template-columns: 1fr auto; }
+  .svRow .svDesc { grid-column: 1 / -1; }
+  .photoGrid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+}
