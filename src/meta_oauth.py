@@ -150,12 +150,19 @@ def _build_site_bg(client_id: str, form: dict) -> None:
     """Τρέχει στο background: παράγει 3 premium designs (studio/commerce/atelier)
     ντετερμινιστικά (0 API tokens) και τα αποθηκεύει ως previews για έγκριση.
     Best-effort — αν λείπει DB, απλώς το logάρει."""
+    from . import quick_start as qs
     try:
         from . import premium_generator as pg
         from . import site_copy
+        qs.mark(client_id, "copy", done=False)
         intake = _enrich_intake(client_id, form)
         intake = site_copy.enrich_with_copy(intake)  # AI copy if key present, else no-op
+        qs.mark(client_id, "copy")
+        qs.mark(client_id, "photos")   # οι εικόνες επιλέγονται μέσα στο enrich
+        qs.mark(client_id, "geo", done=False)
         _ensure_geo(client_id, form.get("address") or "", form.get("city") or "")
+        qs.mark(client_id, "geo")
+        qs.mark(client_id, "design", done=False)
         recommended = pg.recommend_layout(intake)
         variants = pg.generate_variants(intake)
         for layout, html in variants.items():
@@ -164,6 +171,8 @@ def _build_site_bg(client_id: str, form: dict) -> None:
                                      recommended=(layout == recommended))
             except Exception as e:
                 print(f"[onboard bg] save variant {layout} failed: {e}")
+        qs.mark(client_id, "design")
+        qs.mark(client_id, "seo")
         print(f"[onboard bg] 3 designs έτοιμα για {client_id} (recommended={recommended})")
     except Exception as e:
         print(f"[onboard bg] site building failed for {client_id}: {e}")
@@ -194,6 +203,55 @@ def onboard_endpoint(intake: Intake, bg: BackgroundTasks):
             print(f"[onboard] initial content save skipped: {e}")
     bg.add_task(_build_site_bg, client_id, data)
     return {"client_id": client_id}
+
+
+class QuickStart(BaseModel):
+    text: str
+
+
+@app.post("/start")
+def quick_start_endpoint(body: QuickStart, bg: BackgroundTasks):
+    """Μία πρόταση → πελάτης, χωρίς φόρμα.
+
+    «Site first, questions later»: ό,τι λείπει το ρωτάμε ΑΦΟΥ δει αποτέλεσμα.
+    Κάθε βήμα πριν την πρώτη «ουάου» στιγμή είναι σημείο διαρροής."""
+    from . import quick_start as qs
+    text = (body.text or "").strip()
+    if len(text) < 3:
+        raise HTTPException(400, "Πες μας δυο λόγια για την επιχείρησή σου.")
+
+    parsed = qs.parse(text)
+    services = parsed.pop("services", [])
+    try:
+        client_id = db.create_client({k: v for k, v in parsed.items() if k != "description"})
+    except Exception as e:
+        raise HTTPException(500, f"Δεν μπόρεσα να αποθηκεύσω τον πελάτη: {e}")
+
+    # Η ελεύθερη περιγραφή είναι το καύσιμο του vertical matching — αν χαθεί,
+    # το /designs βλέπει μόνο τον τύπο και προτείνει άσχετα templates.
+    content = {"description": parsed.get("description") or text}
+    if services:
+        content["services"] = [{"title": s, "desc": ""} for s in services]
+    try:
+        db.save_site_content(client_id, content)
+    except Exception as e:  # noqa: BLE001 — ο πελάτης δημιουργήθηκε, μη μπλοκάρεις
+        print(f"[start] initial content save skipped: {e}")
+
+    qs.mark(client_id, "copy", done=False)
+    bg.add_task(_build_site_bg, client_id, {**parsed, "description": text})
+    return {"client_id": client_id, "parsed": parsed}
+
+
+@app.get("/progress/{client_id}")
+def progress_endpoint(client_id: str):
+    """Τι κάνει η ομάδα αυτή τη στιγμή — για την οθόνη δημιουργίας."""
+    from . import quick_start as qs
+    snap = qs.snapshot(client_id)
+    try:
+        snap["ready"] = bool(db.list_site_variants(client_id))
+    except Exception:  # noqa: BLE001
+        snap["ready"] = False
+    return snap
 
 
 class SelectDesign(BaseModel):

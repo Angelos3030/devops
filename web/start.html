@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Φτιάχνουμε το site σου — Vitrina</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#0a0a0b; --ink2:#1c1d21; --muted:#5f6470;
+    --line:#e9eaee; --soft:#f6f7f9; --accent:#FF7A1A; --ok:#0f8a5f;
+    --font:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.6;
+       -webkit-font-smoothing:antialiased;min-height:100vh;
+       background:linear-gradient(180deg,#eef6fb 0%,#ffffff 55%)}
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 24px 80px}
+  .logo{font-weight:900;font-size:1.35rem;letter-spacing:-.04em;display:flex;align-items:center;gap:9px}
+
+  h1{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.12;
+     margin:34px 0 8px}
+  .lede{color:var(--muted);font-size:1.05rem;margin-bottom:34px}
+
+  .split{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start}
+  @media(max-width:860px){.split{grid-template-columns:1fr}}
+
+  /* --- ζωντανή προεπισκόπηση --- */
+  .screen{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+          box-shadow:0 24px 60px rgba(31,75,120,.13)}
+  .bar{display:flex;align-items:center;gap:6px;padding:10px 13px;border-bottom:1px solid var(--line);
+       background:var(--soft)}
+  .dot{width:9px;height:9px;border-radius:50%;background:#d7dbe2}
+  .url{margin-left:10px;font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums}
+  .stage{aspect-ratio:4/3;position:relative;background:#f3f5f8;overflow:hidden}
+  .stage iframe{position:absolute;inset:0;width:1200px;height:900px;border:0;
+                transform:scale(.55);transform-origin:top left}
+  .skeleton{position:absolute;inset:0;display:flex;flex-direction:column;gap:12px;padding:20px}
+  .sk{border-radius:8px;background:linear-gradient(90deg,#e9edf2 25%,#f4f7fa 50%,#e9edf2 75%);
+      background-size:200% 100%;animation:shimmer 1.4s linear infinite}
+  @keyframes shimmer{to{background-position:-200% 0}}
+
+  /* --- λίστα εργασιών --- */
+  .work{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px}
+  .work h2{font-size:1.02rem;font-weight:700;letter-spacing:-.01em;margin-bottom:2px}
+  .work .sub{color:var(--muted);font-size:.88rem;margin-bottom:18px}
+  ul{list-style:none;display:grid;gap:2px}
+  li{display:grid;grid-template-columns:24px 1fr auto;gap:11px;align-items:center;
+     padding:11px 0;border-bottom:1px solid var(--line);font-size:.97rem;color:var(--muted);
+     transition:color .2s cubic-bezier(.4,0,.2,1)}
+  li:last-child{border-bottom:0}
+  li[data-state="done"]{color:var(--ink)}
+  li[data-state="running"]{color:var(--ink);font-weight:600}
+  .ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+      border:1.5px solid var(--line);font-size:.7rem;color:var(--muted)}
+  li[data-state="done"] .ic{background:var(--ok);border-color:var(--ok);color:#fff}
+  li[data-state="running"] .ic{border-color:var(--accent);border-right-color:transparent;
+      animation:spin .7s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .t{font-size:.78rem;color:#9aa0ab;font-variant-numeric:tabular-nums}
+
+  .reassure{margin-top:18px;padding:13px 15px;background:var(--soft);border-radius:10px;
+            font-size:.9rem;color:var(--ink2)}
+  .reassure b{font-weight:650}
+
+  .cta{display:none;margin-top:22px}
+  .cta a{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:52px;
+    background:var(--accent);color:#fff;border-radius:10px;font-weight:800;font-size:1.05rem;
+    text-decoration:none;transition:background .12s cubic-bezier(.4,0,.2,1)}
+  .cta a:hover{background:#ee6a07}
+
+  .err{display:none;margin-top:20px;padding:16px 18px;border-radius:10px;
+       background:#fff4f0;border:1px solid #f7d4c6;color:#8a3312;font-size:.95rem}
+  .err a{color:#8a3312;font-weight:700;text-decoration:underline}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="/">
+    <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><rect x="6" y="14" width="20" height="14" rx="2" fill="#0a0a0b"/><rect x="13" y="20" width="6" height="8" rx="1" fill="#fff"/><path d="M3 14 L6 7 H26 L29 14 Z" fill="#FF7A1A"/></svg>
+    Vitrina
+  </a>
+
+  <h1 id="title">Φτιάχνουμε το site σου</h1>
+  <p class="lede" id="lede">Κρατάει περίπου ένα λεπτό. Μπορείς να το βλέπεις να χτίζεται.</p>
+
+  <div class="split">
+    <div class="screen">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="url" id="url">το site σου…</span></div>
+      <div class="stage" id="stage">
+        <div class="skeleton" id="skeleton">
+          <div class="sk" style="height:96px"></div>
+          <div class="sk" style="height:16px;width:62%"></div>
+          <div class="sk" style="height:16px;width:44%"></div>
+          <div class="sk" style="height:110px;margin-top:6px"></div>
+          <div class="sk" style="height:16px;width:54%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work">
+      <h2>Η ομάδα σου δουλεύει</h2>
+      <p class="sub" id="worksub">Ξεκινάμε…</p>
+      <ul id="stages"></ul>
+
+      <div class="reassure" id="reassure">
+        <b>Βάζουμε κατάλληλες φωτογραφίες για το επάγγελμά σου.</b>
+        Αν έχεις δικές σου, τις ανεβάζεις μετά — δεν χάνεται τίποτα.
+      </div>
+
+      <div class="cta" id="cta"><a href="#" id="ctaLink">Δες το site σου →</a></div>
+      <div class="err" id="err"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  const API   = isLocal ? 'http://localhost:8001' : 'https://devops-production-d563.up.railway.app';
+  const SITES = 'https://sites-production-da56.up.railway.app';
+
+  const $ = (id) => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+  const text = (params.get('text') || '').trim();
+
+  if (!text) { location.replace('/'); return; }
+
+  // Η λίστα εμφανίζεται ΑΜΕΣΩΣ με τα πραγματικά στάδια, ώστε ο πελάτης να ξέρει
+  // τι θα γίνει πριν καν ξεκινήσει — η αναμονή είναι προϊόν, όχι spinner.
+  const SEED = [
+    ['copy',   'Γράφουμε τα κείμενα στα ελληνικά'],
+    ['photos', 'Διαλέγουμε φωτογραφίες για το επάγγελμά σου'],
+    ['geo',    'Βάζουμε χάρτη, διεύθυνση και ωράριο'],
+    ['design', 'Δοκιμάζουμε εμφανίσεις και κρατάμε τις 3 καλύτερες'],
+    ['seo',    'Ετοιμάζουμε το site για την Google'],
+  ];
+  const started = Date.now();
+
+  function render(stages){
+    $('stages').innerHTML = stages.map(s => `
+      <li data-state="${s.state}">
+        <span class="ic">${s.state === 'done' ? '✓' : ''}</span>
+        <span>${s.label}</span>
+        <span class="t">${s.state === 'done' ? 'έτοιμο' : ''}</span>
+      </li>`).join('');
+    const done = stages.filter(s => s.state === 'done').length;
+    $('worksub').textContent = done ? `${done} από ${stages.length} έτοιμα` : 'Ξεκινάμε…';
+  }
+  render(SEED.map(([id,label]) => ({id, label, state:'waiting'})));
+
+  function fail(msg){
+    $('err').style.display = 'block';
+    $('err').innerHTML = msg + ' Γράψε μας στο <a href="mailto:hello@getvitrina.gr">hello@getvitrina.gr</a>.';
+  }
+
+  let clientId = null, polls = 0;
+
+  function poll(){
+    if (!clientId) return;
+    fetch(`${API}/progress/${encodeURIComponent(clientId)}`)
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(data => {
+        render(data.stages);
+        if (data.ready) return finish();
+        // ~2.5 λεπτά ανώτατο. Αν αργήσει τόσο, κάτι πάει στραβά στο background build.
+        if (++polls > 60) return fail('Αργεί περισσότερο απ’ όσο έπρεπε.');
+        setTimeout(poll, 2500);
+      })
+      .catch(() => { if (++polls > 60) return fail('Χάθηκε η σύνδεση.'); setTimeout(poll, 3000); });
+  }
+
+  function finish(){
+    const secs = Math.round((Date.now() - started) / 1000);
+    $('title').textContent = 'Το site σου είναι έτοιμο';
+    $('lede').textContent = `Χρειάστηκαν ${secs} δευτερόλεπτα. Δες το και διάλεξε εμφάνιση.`;
+    $('reassure').style.display = 'none';
+    $('cta').style.display = 'block';
+    $('ctaLink').href = `${SITES}/choose/${encodeURIComponent(clientId)}`;
+    render(SEED.map(([id,label]) => ({id, label, state:'done'})));
+    // Δείχνουμε το πραγματικό site μέσα στο πλαίσιο, όχι σκελετό.
+    $('skeleton').remove();
+    const frame = document.createElement('iframe');
+    frame.src = `${SITES}/choose/${encodeURIComponent(clientId)}?embed=1`;
+    frame.loading = 'lazy';
+    frame.title = 'Προεπισκόπηση του site σου';
+    $('stage').appendChild(frame);
+  }
+
+  fetch(API + '/start', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({text})
+  })
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(({client_id, parsed}) => {
+    clientId = client_id;
+    if (parsed && parsed.type) {
+      const where = parsed.city ? ` στ${/ς$/.test(parsed.city) ? 'ον' : 'ο'} ${parsed.city}` : '';
+      $('lede').textContent = `${parsed.type}${where}. Κρατάει περίπου ένα λεπτό.`;
+      $('url').textContent = (parsed.name || parsed.type).toLowerCase().replace(/\s+/g,'-');
+    }
+    setTimeout(poll, 1200);
+  })
+  .catch(() => fail('Δεν μπόρεσα να ξεκινήσω τη δημιουργία.'));
+})();
+</script>
+</body>
+</html>

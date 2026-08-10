@@ -68,6 +68,31 @@
     /* HERO with sky gradient */
     .top{background:linear-gradient(180deg,var(--sky1) 0%,#d8eefb 30%,#eef6fb 65%,#ffffff 100%);}
     nav .nav-in{display:flex;justify-content:center;align-items:center;gap:10px;padding:26px 0;position:relative;}
+    /* Sticky nav: και τα 5 references το έχουν (64–85px). Πάντα υπάρχει ενέργεια στην οθόνη. */
+    nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.82);
+        backdrop-filter:blur(12px);border-bottom:1px solid rgba(10,10,11,.07);}
+    nav .nav-in{padding:14px 0;justify-content:space-between;}
+    .nav-cta{margin-left:auto;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;
+      border-radius:8px;background:var(--ink);color:#fff;font-weight:650;font-size:.92rem;
+      text-decoration:none;transition:background .12s cubic-bezier(.4,0,.2,1);}
+    .nav-cta:hover{background:#26272c;}
+    /* Το .lang ήταν absolute δεξιά — θα καθόταν πάνω στο νέο κουμπί. Μπαίνει στη ροή. */
+    nav .nav-in .lang{position:static;transform:none;margin-left:auto;}
+    nav .nav-in .nav-cta{margin-left:14px;}
+
+    /* Απόδειξη: αληθινά sites που φτιάξαμε, όχι ζωγραφισμένο demo. */
+    .proof-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1080px;
+      margin:0 auto;}
+    .proof-card{border-radius:12px;overflow:hidden;background:#fff;
+      border:1px solid rgba(10,10,11,.09);box-shadow:0 18px 44px rgba(31,75,120,.12);
+      transition:transform .24s cubic-bezier(.4,0,.2,1), box-shadow .24s cubic-bezier(.4,0,.2,1);}
+    .proof-card:hover{transform:translateY(-4px);box-shadow:0 26px 60px rgba(31,75,120,.18);}
+    .proof-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top center;}
+    .proof-card figcaption{padding:11px 14px;font-size:.85rem;color:var(--muted);
+      border-top:1px solid rgba(10,10,11,.07);}
+    .proof-card b{display:block;color:var(--ink);font-size:.95rem;font-weight:650;}
+    .proof-lbl{text-align:center;font-size:.86rem;color:var(--muted);margin:0 0 16px;}
+    @media(max-width:760px){ .proof-strip{grid-template-columns:1fr;} .nav-cta{font-size:.86rem;padding:0 12px;} }
     .logo{font-weight:900;font-size:1.5rem;letter-spacing:-.04em;display:flex;align-items:center;gap:9px;}
     .logo .mark{flex:none;}
     .lang{position:absolute;right:24px;top:50%;transform:translateY(-50%);display:flex;border:1px solid rgba(0,0,0,.12);border-radius:8px;overflow:hidden;font-size:.8rem;}
@@ -218,19 +243,20 @@
         <button id="btn-el" class="active" onclick="setLang('el')">ΕΛ</button>
         <button id="btn-en" onclick="setLang('en')">EN</button>
       </div>
+      <a class="nav-cta" href="#top-prompt" onclick="focusPrompt(event)" data-gr="Ξεκίνα" data-en="Start">Ξεκίνα</a>
     </div></nav>
 
     <div class="wrap">
       <section class="hero">
-        <h1 class="reveal in" data-gr="Το site του μαγαζιού σου, έτοιμο σε δύο λεπτά." data-en="Your shop's website, ready in two minutes.">Το site του μαγαζιού σου, έτοιμο σε δύο λεπτά.</h1>
-        <p class="sub reveal in" data-gr="Πες μας τι επιχείρηση έχεις. Σου στήνουμε online βιτρίνα στα ελληνικά, με δικό σου .gr, χάρτη και τηλέφωνο που πατιέται." data-en="Tell us what business you run. We build your online storefront in Greek, with your own .gr, map and tap-to-call.">Πες μας τι επιχείρηση έχεις. Σου στήνουμε online βιτρίνα στα ελληνικά, με δικό σου .gr, χάρτη και τηλέφωνο που πατιέται.</p>
+        <h1 class="reveal in" data-gr="Η ψηφιακή σου παρουσία. Σε ένα λεπτό." data-en="Your whole digital presence. In one minute.">Η ψηφιακή σου παρουσία. Σε ένα λεπτό.</h1>
+        <p class="sub reveal in" data-gr="Site, Google, SEO και δημοσιεύσεις — τα αναλαμβάνουμε εμείς. Πες μας μόνο τι δουλειά κάνεις." data-en="Website, Google, SEO and posts — we handle all of it. Just tell us what you do.">Site, Google, SEO και δημοσιεύσεις — τα αναλαμβάνουμε εμείς. Πες μας μόνο τι δουλειά κάνεις.</p>
 
         <!-- PROMPT BOX -->
-        <div class="prompt reveal in">
-          <textarea id="prompt" placeholder="π.χ. Έχω ταβέρνα στην Καλαμαριά, οικογενειακή, με σπιτικό φαγητό…"></textarea>
+        <div class="prompt reveal in" id="top-prompt">
+          <textarea id="prompt" placeholder="π.χ. Έχω καφετέρια στον Γέρακα"></textarea>
           <div class="prompt-bar">
             <span class="prompt-hint" data-gr="Γράψε σαν να μας το έλεγες στο τηλέφωνο" data-en="Write it like you would say it on a call">Γράψε σαν να μας το έλεγες στο τηλέφωνο</span>
-            <button class="build" onclick="go()" data-gr="Δες demo →" data-en="See demo →">Δες demo →</button>
+            <button class="build" onclick="go()" data-gr="Φτιάξε το site μου →" data-en="Build my site →">Φτιάξε το site μου →</button>
           </div>
         </div>
 
@@ -239,48 +265,47 @@
           <div class="lbl" data-gr="Δεν ξέρεις πώς να ξεκινήσεις; Δοκίμασε:" data-en="Not sure where to start? Try:">Δεν ξέρεις πώς να ξεκινήσεις; Δοκίμασε:</div>
           <div class="chips">
             <span class="chip-b" onclick="pick('Έχω ταβέρνα')" data-gr="🍽️ Ταβέρνα" data-en="🍽️ Restaurant">🍽️ Ταβέρνα</span>
-            <span class="chip-b" onclick="pick('Έχω καφέ')" data-gr="☕ Καφέ" data-en="☕ Café">☕ Καφέ</span>
-            <span class="chip-b" onclick="pick('Είμαι υδραυλικός')" data-gr="🔧 Μάστορας" data-en="🔧 Tradesman">🔧 Μάστορας</span>
-            <span class="chip-b" onclick="pick('Έχω οδοντιατρείο')" data-gr="🦷 Οδοντίατρος" data-en="🦷 Dentist">🦷 Οδοντίατρος</span>
-            <span class="chip-b" onclick="pick('Έχω κομμωτήριο')" data-gr="💇 Κομμωτήριο" data-en="💇 Salon">💇 Κομμωτήριο</span>
+            <span class="chip-b" onclick="pick('Έχω καφετέρια')" data-gr="☕ Καφετέρια" data-en="☕ Coffee shop">☕ Καφετέρια</span>
+            <span class="chip-b" onclick="pick('Έχω κομμωτήριο')" data-gr="💇 Κομμωτήριο" data-en="💇 Hair salon">💇 Κομμωτήριο</span>
+            <span class="chip-b" onclick="pick('Έχω οδοντιατρείο')" data-gr="🦷 Οδοντιατρείο" data-en="🦷 Dentist">🦷 Οδοντιατρείο</span>
+            <span class="chip-b" onclick="pick('Έχω δικηγορικό γραφείο')" data-gr="⚖️ Δικηγόρος" data-en="⚖️ Lawyer">⚖️ Δικηγόρος</span>
+            <span class="chip-b" onclick="pick('Έχω ξενοδοχείο')" data-gr="🏨 Ξενοδοχείο" data-en="🏨 Hotel">🏨 Ξενοδοχείο</span>
+            <span class="chip-b" onclick="pick('Έχω γυμναστήριο')" data-gr="🏋️ Γυμναστήριο" data-en="🏋️ Gym">🏋️ Γυμναστήριο</span>
+            <span class="chip-b" onclick="pick('Έχω ιατρείο')" data-gr="🏥 Ιατρείο" data-en="🏥 Clinic">🏥 Ιατρείο</span>
+            <span class="chip-b" onclick="pick('Είμαι ηλεκτρολόγος')" data-gr="🔌 Ηλεκτρολόγος" data-en="🔌 Electrician">🔌 Ηλεκτρολόγος</span>
+            <span class="chip-b" onclick="pick('Είμαι υδραυλικός')" data-gr="🚰 Υδραυλικός" data-en="🚰 Plumber">🚰 Υδραυλικός</span>
+            <span class="chip-b" onclick="pick('Είμαι ξυλουργός')" data-gr="🛠 Ξυλουργός" data-en="🛠 Contractor">🛠 Ξυλουργός</span>
           </div>
         </div>
         <p class="freenote reveal in"><span class="stars">★★★★★</span> <span data-gr="Πρώτος μήνας δωρεάν · Χωρίς δέσμευση" data-en="First month free · No commitment">Πρώτος μήνας δωρεάν · Χωρίς δέσμευση</span></p>
         <div class="mini-proof reveal in">
-          <span data-gr="Site σε λίγα λεπτά" data-en="Website in minutes">Site σε λίγα λεπτά</span>
-          <span data-gr="Δικό σου .gr" data-en="Your own .gr">Δικό σου .gr</span>
-          <span data-gr="Ελληνικός τόνος" data-en="Local tone">Ελληνικός τόνος</span>
+          <span data-gr="Site" data-en="Website">Site</span>
+          <span data-gr="Google &amp; χάρτης" data-en="Google &amp; maps">Google &amp; χάρτης</span>
+          <span data-gr="Local SEO" data-en="Local SEO">Local SEO</span>
+          <span data-gr="Δημοσιεύσεις" data-en="Social posts">Δημοσιεύσεις</span>
+          <span data-gr="Διαφημίσεις" data-en="Ads">Διαφημίσεις</span>
         </div>
       </section>
     </div>
 
     <div class="wrap demo-band">
-      <div class="demo-shell reveal in">
-        <div class="site-preview">
-          <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="browser-url">getvitrina.gr/demo/taverna</span></div>
-          <div class="sample-site">
-            <div class="sample-hero">
-              <div>
-                <div class="sample-kicker" data-gr="Demo site" data-en="Demo site">Demo site</div>
-                <h3 data-gr="Ταβέρνα Ο Κήπος" data-en="Kipos Taverna">Ταβέρνα Ο Κήπος</h3>
-                <p data-gr="Σπιτικό φαγητό, φρέσκοι μεζέδες και κρασί για παρέες στην Καλαμαριά." data-en="Homemade food, fresh meze and wine for groups in Kalamaria.">Σπιτικό φαγητό, φρέσκοι μεζέδες και κρασί για παρέες στην Καλαμαριά.</p>
-                <span class="sample-btn" data-gr="Κάλεσε για τραπέζι" data-en="Call for a table">Κάλεσε για τραπέζι</span>
-              </div>
-              <small data-gr="Χάρτης · Ωράριο · Μενού · Τηλέφωνο" data-en="Map · Hours · Menu · Phone">Χάρτης · Ωράριο · Μενού · Τηλέφωνο</small>
-            </div>
-            <div class="sample-menu">
-              <div class="sample-row"><div><strong data-gr="Γιουβέτσι ημέρας" data-en="Daily giouvetsi">Γιουβέτσι ημέρας</strong><small data-gr="στον φούρνο, με μυζήθρα" data-en="oven-baked, with mizithra">στον φούρνο, με μυζήθρα</small></div><span class="euro">€8.50</span></div>
-              <div class="sample-row"><div><strong data-gr="Μεζές για δύο" data-en="Meze for two">Μεζές για δύο</strong><small data-gr="ό,τι βγει ζεστό από την κουζίνα" data-en="whatever is warm from the kitchen">ό,τι βγει ζεστό από την κουζίνα</small></div><span class="euro">€16</span></div>
-              <div class="sample-row"><div><strong data-gr="Κρασί χύμα" data-en="House wine">Κρασί χύμα</strong><small data-gr="λευκό ή κόκκινο" data-en="white or red">λευκό ή κόκκινο</small></div><span class="euro">€4</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="post-preview">
-          <div class="post-head"><div class="avatar">ΤΚ</div><div><strong data-gr="Ταβέρνα Ο Κήπος" data-en="Kipos Taverna">Ταβέρνα Ο Κήπος</strong><small data-gr="Σημερινό post" data-en="Today's post">Σημερινό post</small></div></div>
-          <div class="post-photo"></div>
-          <p data-gr="Σήμερα η κουζίνα μοσχοβολάει γιουβέτσι στον φούρνο. Πέρνα για μεσημεριανό ή κράτησε τραπέζι για το βράδυ." data-en="Today the kitchen smells like oven-baked giouvetsi. Drop by for lunch or book a table for tonight.">Σήμερα η κουζίνα μοσχοβολάει γιουβέτσι στον φούρνο. Πέρνα για μεσημεριανό ή κράτησε τραπέζι για το βράδυ.</p>
-          <div class="hashtags">#καλαμαρια #ταβερνα #σπιτικοφαγητο</div>
-        </div>
+      <p class="proof-lbl reveal in" data-gr="Αληθινά sites που φτιάξαμε — όχι σχέδια" data-en="Real sites we built — not mockups">Αληθινά sites που φτιάξαμε — όχι σχέδια</p>
+      <div class="proof-strip reveal in">
+        <figure class="proof-card">
+          <img src="proof/taverna.jpg" width="1200" height="860" loading="lazy" decoding="async"
+               alt="Site ταβέρνας φτιαγμένο από το Vitrina, με μενού και τηλέφωνο">
+          <figcaption><b data-gr="Ταβέρνα" data-en="Taverna">Ταβέρνα</b><span data-gr="Μενού, ωράριο, τραπέζι με ένα πάτημα" data-en="Menu, hours, one-tap booking">Μενού, ωράριο, τραπέζι με ένα πάτημα</span></figcaption>
+        </figure>
+        <figure class="proof-card">
+          <img src="proof/dentist.jpg" width="1200" height="860" loading="lazy" decoding="async"
+               alt="Site οδοντιατρείου φτιαγμένο από το Vitrina, με ραντεβού και χάρτη">
+          <figcaption><b data-gr="Οδοντιατρείο" data-en="Dental clinic">Οδοντιατρείο</b><span data-gr="Ραντεβού, υπηρεσίες, χάρτης" data-en="Appointments, services, map">Ραντεβού, υπηρεσίες, χάρτης</span></figcaption>
+        </figure>
+        <figure class="proof-card">
+          <img src="proof/salon.jpg" width="1200" height="860" loading="lazy" decoding="async"
+               alt="Site κομμωτηρίου φτιαγμένο από το Vitrina, με υπηρεσίες και φωτογραφίες">
+          <figcaption><b data-gr="Κομμωτήριο" data-en="Hair salon">Κομμωτήριο</b><span data-gr="Υπηρεσίες, τιμοκατάλογος, έργα" data-en="Services, pricing, portfolio">Υπηρεσίες, τιμοκατάλογος, έργα</span></figcaption>
+        </figure>
       </div>
     </div>
   </div>
@@ -374,17 +399,25 @@
 
   <script>
     function pick(t){ const el=document.getElementById('prompt'); el.value=t+' '; el.focus(); }
+    function focusPrompt(e){
+      e.preventDefault();
+      const el=document.getElementById('prompt');
+      el.scrollIntoView({behavior:'smooth',block:'center'}); el.focus();
+    }
+    // Site first, questions later: πάμε κατευθείαν στη δημιουργία. Ό,τι λείπει
+    // (τηλέφωνο, ωράριο, φωτογραφίες) το ζητάμε ΑΦΟΥ δει αποτέλεσμα.
     function go(){
       const v=document.getElementById('prompt').value.trim();
-      window.location.href = 'connect.html' + (v? '?desc='+encodeURIComponent(v):'');
+      if(!v){ document.getElementById('prompt').focus(); return; }
+      window.location.href = 'start.html?text='+encodeURIComponent(v);
     }
     function setLang(l){
       document.documentElement.lang=l;
       document.querySelectorAll('[data-'+l+']').forEach(el=>{ el.innerHTML=el.getAttribute('data-'+l); });
       document.getElementById('btn-el').classList.toggle('active',l==='el');
       document.getElementById('btn-en').classList.toggle('active',l==='en');
-      const ph={el:'π.χ. Έχω ταβέρνα στην Καλαμαριά, οικογενειακή, με σπιτικό φαγητό…',
-                en:'e.g. I run a family taverna in Kalamaria with home-cooked food…'};
+      const ph={el:'π.χ. Έχω καφετέρια στον Γέρακα',
+                en:'e.g. I run a coffee shop in Gerakas'};
       document.getElementById('prompt').placeholder=ph[l];
       try{localStorage.setItem('lang',l);}catch(e){}
     }
