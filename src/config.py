@@ -60,8 +60,13 @@ MODEL_PROD = "claude-sonnet-4-6"      # website
 MODEL_SMART = "claude-opus-4-8"       # μόνο για σύνθετα (σπάνια)
 
 # --- Supabase ---
-SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
+# Τα credentials της βάσης περνούν ΠΑΝΤΑ από τον Environment Manager: εκεί
+# αποφασίζεται ποιο περιβάλλον διαβάζεται και εκεί επιβάλλεται ο διαχωρισμός
+# ονομάτων (*_STAGING / *_PRODUCTION). Ποτέ os.environ απευθείας για αυτά.
+from . import env as _env  # noqa: E402
+
+SUPABASE_URL, SUPABASE_KEY = _env.supabase()
+VITRINA_ENV = _env.current
 
 # --- Meta ---
 META_APP_ID = os.environ.get("META_APP_ID", "")

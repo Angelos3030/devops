@@ -12,7 +12,12 @@ _sb = create_client(cfg.SUPABASE_URL, cfg.SUPABASE_KEY) if cfg.SUPABASE_URL else
 
 def _client():
     if _sb is None:
-        raise RuntimeError("Supabase δεν έχει ρυθμιστεί (SUPABASE_URL/KEY).")
+        from . import env
+        raise RuntimeError(
+            f"Supabase δεν έχει ρυθμιστεί. {env.banner()}\n"
+            f"Χρειάζεται SUPABASE_URL_{'PRODUCTION' if env.is_production else 'STAGING'} "
+            f"και το αντίστοιχο KEY."
+        )
     return _sb
 
 

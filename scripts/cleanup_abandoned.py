@@ -27,7 +27,7 @@ try:
 except Exception:
     pass
 
-from src import db  # noqa: E402
+from src import db, env  # noqa: E402
 
 # Μετά από τόσες μέρες χωρίς πληρωμή, μια εγγραφή θεωρείται εγκαταλελειμμένη.
 DEFAULT_DAYS = 30
@@ -61,7 +61,15 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--days", type=int, default=DEFAULT_DAYS)
     ap.add_argument("--delete", action="store_true", help="πραγματική διαγραφή")
+    ap.add_argument("--confirm-staging", action="store_true",
+                    help="ρητή επιβεβαίωση — απαιτείται μαζί με --delete")
     args = ap.parse_args()
+
+    env.print_banner()
+    # Διπλό guard: σωστό περιβάλλον ΚΑΙ ρητή σημαία. Το ένα χωρίς το άλλο δεν αρκεί —
+    # ένα ξεχασμένο export ή ένα cron που ξαναέτρεξε δεν πρέπει να σβήνει πελάτες.
+    if args.delete:
+        env.require_destructive(args.confirm_staging)
 
     cutoff = datetime.now(timezone.utc) - timedelta(days=args.days)
     rows = (db._client().table("clients")
