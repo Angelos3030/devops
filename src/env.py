@@ -26,6 +26,15 @@ from __future__ import annotations
 import os
 import sys
 
+# Το .env φορτώνεται ΕΔΩ, όχι στο config: αυτό το module διαβάζεται πρώτο από
+# scripts που δεν αγγίζουν καθόλου το config (π.χ. check_env, migrate). Χωρίς
+# αυτό, το VITRINA_ENV του .env αγνοούνταν και όλα έδειχναν «production».
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:  # noqa: BLE001 — σε server τα vars είναι ήδη στο περιβάλλον
+    pass
+
 DEV = "dev"
 STAGING = "staging"
 PRODUCTION = "production"
