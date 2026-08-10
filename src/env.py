@@ -48,25 +48,36 @@ is_dev = current == DEV
 destructive_ok = current in (DEV, STAGING)
 
 
-def _pick(base: str, *, required: bool = True) -> str:
-    """Κλειδί ανά περιβάλλον: `X_STAGING` / `X_PRODUCTION`, με fallback στο σκέτο `X`.
+# Το Railway ορίζει μόνο του αυτές τις μεταβλητές· σε κανένα laptop δεν υπάρχουν.
+# Τις χρησιμοποιούμε ως απόδειξη «τρέχω σε server», όχι ως ρύθμιση.
+_ON_SERVER = any(os.environ.get(v) for v in (
+    "RAILWAY_ENVIRONMENT", "RAILWAY_ENVIRONMENT_NAME",
+    "RAILWAY_SERVICE_ID", "RAILWAY_PROJECT_ID",
+))
+# Ρητή έξοδος κινδύνου, αν ποτέ χρειαστεί σύνδεση στην παραγωγή από αλλού.
+_LEGACY_OK = os.environ.get("VITRINA_ALLOW_LEGACY_DB", "") == "1"
 
-    Το fallback υπάρχει ΜΟΝΟ για την παραγωγή, όπου το Railway έχει ήδη τις
-    παλιές μεταβλητές. Στο staging απαιτούμε ρητό `_STAGING` όνομα ώστε να μη
-    συνδεθεί ποτέ κατά λάθος στην παραγωγή μέσω κληρονομημένης μεταβλητής.
+
+def _pick(base: str, *, required: bool = True) -> str:
+    """Κλειδί ανά περιβάλλον: `X_STAGING` / `X_PRODUCTION`.
+
+    Fallback στο σκέτο `X` **μόνο** όταν τρέχουμε σε παραγωγή ΚΑΙ πάνω σε server.
+    Έτσι το Railway συνεχίζει με τις υπάρχουσες μεταβλητές, ενώ ένα laptop δεν
+    μπορεί να φτάσει στην παραγωγή ακόμα κι αν το `VITRINA_ENV` είναι λάθος —
+    δεν του λείπει η άδεια, του λείπουν τα στοιχεία σύνδεσης.
     """
     suffix = _DB_ENV.upper()
     value = os.environ.get(f"{base}_{suffix}", "").strip()
-    if not value and _DB_ENV == PRODUCTION:
+    if not value and _DB_ENV == PRODUCTION and (_ON_SERVER or _LEGACY_OK):
         value = os.environ.get(base, "").strip()
     if not value and required:
-        hint = (f"Λείπει το {base}_{suffix}." if _DB_ENV == STAGING else
-                f"Λείπει το {base}_{suffix} (ή το {base}).")
+        extra = ""
+        if _DB_ENV == PRODUCTION and not _ON_SERVER:
+            extra = ("\n   Είσαι εκτός server: η σύνδεση στην ΠΑΡΑΓΩΓΗ είναι φραγμένη"
+                     "\n   εκ κατασκευής. Βάλε VITRINA_ENV=dev και τα *_STAGING κλειδιά.")
         sys.exit(
-            f"⛔ {hint}\n"
-            f"   Τρέχεις σε VITRINA_ENV={current} → βάση: {_DB_ENV}.\n"
-            f"   Αν δουλεύεις τοπικά, βάλε τα *_STAGING κλειδιά στο .env.\n"
-            f"   Τα production κλειδιά ΔΕΝ πρέπει να υπάρχουν τοπικά."
+            f"⛔ Λείπει το {base}_{suffix}.\n"
+            f"   Τρέχεις σε VITRINA_ENV={current} → βάση: {_DB_ENV}.{extra}"
         )
     return value
 
