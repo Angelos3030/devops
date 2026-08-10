@@ -24,6 +24,7 @@ class ApprovalDecision(BaseModel):
 
 def _plan_key(client: dict) -> str:
     aliases = {
+        "site": "presence",
         "starter": "presence",
         "social": "growth",
         "premium": "revenue",
@@ -37,10 +38,14 @@ def _plan_key(client: dict) -> str:
 def capabilities(client_id: str, authorization: str | None = Header(default=None)):
     client = require_client_access(client_id, authorization)
     plan_key = _plan_key(client)
-    rows = capability_matrix(
+    resolved = capability_matrix(
         db.list_plan_capabilities(plan_key),
         db.list_workspace_entitlements(client_id),
     )
+    rows = [
+        {"key": ref.key, "version": ref.version, **details}
+        for ref, details in sorted(resolved.items())
+    ]
     return {
         "schema_version": "1.0",
         "workspace_id": client_id,

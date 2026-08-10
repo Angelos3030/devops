@@ -61,10 +61,13 @@ db/migrations/
   0003_domains.sql         domains πελατών
   0004_domain_orders.sql   παραγγελίες domain
   0005_social_engine.sql   ουρά δημοσιεύσεων
-  0006_rls_policies.sql    row-level security — ΠΑΝΤΑ τελευταίο
+  0006_rls_policies.sql    row-level security για τους τότε υπάρχοντες πίνακες
+  0007_site_content.sql    structured site content + δικό του RLS
+  0008_agency_kernel.sql   Stage 4A kernel + δικό του RLS (pending apply)
 ```
 
-Ο πίνακας `schema_migrations` κρατά έκδοση + checksum. Αν πειράξεις εφαρμοσμένο
+Κάθε migration που προσθέτει πίνακες μετά το `0006` ενεργοποιεί το δικό του RLS
+στο ίδιο αρχείο. Ο πίνακας `schema_migrations` κρατά έκδοση + checksum. Αν πειράξεις εφαρμοσμένο
 αρχείο, ο runner το αναφέρει ως `⚠️ ΑΛΛΑΞΕ` — φτιάξε **νέο** αρχείο.
 
 ### Καταστροφικές αλλαγές: expand → migrate → contract

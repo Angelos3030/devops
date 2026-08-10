@@ -1,5 +1,10 @@
 # Vitrina Agent Ecosystem
 
+> **Binding Stage 4A contract:** marketplace registration, versioned capability
+> entitlements and the admission rule are defined in
+> [25-AGENCY-KERNEL.md](25-AGENCY-KERNEL.md). Presence, Growth, Revenue, Agency and
+> Multi-location remain commercial labels; policy operates on capabilities.
+
 > Product thesis: η Vitrina δεν είναι website builder. Είναι ένα approval-first,
 > vertical-aware AI operating system που αναλαμβάνει επαναλαμβανόμενη digital-agency
 > εργασία για μικρές επιχειρήσεις και αποδεικνύει την αξία της με leads, κρατήσεις,

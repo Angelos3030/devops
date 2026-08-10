@@ -3,6 +3,20 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+## Phase 4A Agency Kernel (2026-08-10, local only)
+
+- Προστέθηκε deterministic/provider-agnostic kernel στο `src/agency_kernel.py`.
+- Δεσμεύτηκαν Agent Marketplace manifests, admission/ROI rule και versioned
+  Capability Matrix για Presence/Growth/Revenue/Agency/Multi-location.
+- Προστέθηκε pending migration `0008_agency_kernel.sql` για registry,
+  installations, entitlements, tasks/runs/approvals/artifacts/events/KPIs/audit.
+- Προστέθηκε read/approval-only FastAPI contract. Δεν υπάρχει execute endpoint.
+- Κανένας specialist agent δεν έχει registered/installed/enabled και η migration
+  **δεν έχει εφαρμοστεί**. Δεν έγινε deploy ή push.
+- DeepSeek: μόνο public/repository/synthetic context, ποτέ conversations ή
+  personal/customer data.
+- Αναλυτικό contract: `docs/25-AGENCY-KERNEL.md`.
+
 ## 🟢 CURRENT HANDOFF (2026-08-06, production `main`)
 
 Αυτό το section υπερισχύει από παλιότερα/pivot sections πιο κάτω, τα οποία μένουν μόνο ως
