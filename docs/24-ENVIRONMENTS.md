@@ -95,6 +95,29 @@ db/migrations/
 
 Αν αποτύχει κρίσιμος έλεγχος: **rollback του deployment**, καμία ενέργεια στη βάση.
 
+## Lifecycle E2E
+
+```bash
+VITRINA_ENV=staging python tests/lifecycle_e2e.py          # 51 έλεγχοι
+VITRINA_ENV=staging python tests/lifecycle_e2e.py --keep   # κράτα τα δεδομένα
+```
+
+Σηκώνει μόνο του το API πάνω στη staging βάση, κάνει seed, τρέχει τον πλήρη κύκλο
+και σβήνει ό,τι δημιούργησε. Δύο διαδοχικά runs αφήνουν ακριβώς τους 6 seed πελάτες
+και 0 assets — αυτό είναι το κριτήριο επαναληψιμότητας.
+
+Καλύπτει: `/start` → ιδιοκτησία → περιεχόμενο → CRUD υπηρεσιών → φωτογραφίες
+(upload/replace/delete) → απομόνωση assets → επιστροφή σε νέα συνεδρία →
+`/site-data` → Stripe test mode → σύνδεση email → πολιτική καθαρισμού.
+
+**Δεν** καλύπτει browser rendering — αυτό έρχεται με το Railway staging.
+
+Σε αποτυχία γράφει φάκελο ανά run (`%TEMP%/vitrina-e2e/<id>`) με αίτημα/απάντηση
+**χωρίς μυστικά**, κατηγορία αιτίας (`AUTH`/`DATA`/`STORAGE`/`ISOLATION`/`RENDER`/
+`BILLING`/`CLEANUP`) και correlation id.
+
+Γνωστό χρέος: `docs/25-TECH-DEBT.md`.
+
 ## Γιατί το laptop δεν φτάνει στην παραγωγή
 
 Το fallback στο σκέτο `SUPABASE_URL` ενεργοποιείται **μόνο** όταν ισχύουν και τα δύο:

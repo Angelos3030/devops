@@ -17,12 +17,14 @@ from pydantic import BaseModel
 
 from .meta_oauth import app as _meta_app
 from .stripe_webhook import router as stripe_router
+from .agency_api import router as agency_router
 from . import domain as dom
 from . import config as cfg
 from .db import save_domain, upload_to_storage, save_client_asset
 
 app = _meta_app
 app.include_router(stripe_router)
+app.include_router(agency_router)
 stripe.api_key = cfg.STRIPE_SECRET_KEY
 
 

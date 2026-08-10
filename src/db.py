@@ -21,6 +21,59 @@ def _client():
     return _sb
 
 
+def _one(data: list[dict] | None) -> dict | None:
+    return data[0] if data else None
+
+
+# --- Stage 4A Agency Kernel -----------------------------------------------
+# Thin persistence only. Admission/policy decisions live in agency_kernel.py.
+
+def list_plan_capabilities(plan_key: str) -> list[dict]:
+    return (_client().table("plan_capabilities").select("*")
+            .eq("plan_key", plan_key).execute().data or [])
+
+
+def list_workspace_entitlements(workspace_id: str) -> list[dict]:
+    return (_client().table("workspace_entitlements").select("*")
+            .eq("workspace_id", workspace_id).execute().data or [])
+
+
+def list_agent_installations(workspace_id: str) -> list[dict]:
+    return (_client().table("agent_installations").select("*")
+            .eq("workspace_id", workspace_id).order("installed_at").execute().data or [])
+
+
+def list_agency_actions(workspace_id: str, limit: int = 50) -> list[dict]:
+    return (_client().table("agency_action_queue").select("*")
+            .eq("workspace_id", workspace_id).order("updated_at", desc=True)
+            .limit(limit).execute().data or [])
+
+
+def get_agent_approval(workspace_id: str, approval_id: str) -> dict | None:
+    res = (_client().table("agent_approvals").select("*")
+           .eq("workspace_id", workspace_id).eq("id", approval_id).limit(1).execute())
+    return _one(res.data)
+
+
+def decide_agent_approval(workspace_id: str, approval_id: str, *,
+                          status: str, decided_by: str,
+                          reason: str | None = None) -> dict | None:
+    """Atomic-enough optimistic decision: only a pending approval may change."""
+    res = (_client().table("agent_approvals").update({
+        "status": status,
+        "decided_by": decided_by,
+        "decided_at": datetime.now(timezone.utc).isoformat(),
+        "decision_reason": reason,
+    }).eq("workspace_id", workspace_id).eq("id", approval_id)
+      .eq("status", "pending").execute())
+    return _one(res.data)
+
+
+def append_agency_audit(row: dict) -> str:
+    res = _client().table("agency_audit_log").insert(row).execute()
+    return res.data[0]["id"]
+
+
 def get_active_clients(plans: tuple[str, ...] = ("social", "premium")) -> list[dict]:
     res = (_client().table("clients")
            .select("*").eq("status", "active").in_("plan", list(plans)).execute())
