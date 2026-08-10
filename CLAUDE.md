@@ -135,6 +135,13 @@ Trigger: `New theme | Vertical: dentist | Reference: https://…` → ακολο
 6. σύγκριση με το εγκεκριμένο concept/reference,
 7. καταγραφή QA με τελικό αποτέλεσμα `passed` πριν δοθεί link.
 
+Για τις **δικές μας** σελίδες (`web/`), μετά από κάθε deploy τρέχει υποχρεωτικά
+`node sites/tests/production_qa.mjs` — Playwright + Lighthouse μαζί. Τα thresholds και το
+γιατί υπάρχει κάθε έλεγχος: `docs/23-PRODUCTION-QA.md`. Τρεις κανόνες από εκεί ισχύουν
+παντού: lazy εικόνες επαληθεύονται **μετά από `img.decode()`**, ξένο περιεχόμενο μπαίνει
+ως **στιγμιότυπο + σύνδεσμος και ποτέ ως iframe** (`X-Frame-Options` αφήνει κενό πλαίσιο),
+και **κανένα test δεν γράφει στη βάση παραγωγής** — κόψε το αίτημα και επαλήθευσε το σώμα.
+
 ### 8. Έγκριση, αποθήκευση και live
 
 Η επιλογή template, το κείμενο και τα assets αποθηκεύονται ως structured client/site data στη

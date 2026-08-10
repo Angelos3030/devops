@@ -15,6 +15,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "lighthouse": "^13.4.1",
     "playwright": "^1.62.0"
   }
 }
