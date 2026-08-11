@@ -118,6 +118,20 @@ python scripts/verify_sequence.py     # καθαρός container, σβήνει �
 - **Ποτέ κλήση σε πραγματικό registrar** (Pointer/Papaki). Mock adapter.
 - **Μόνο Stripe test mode**, με δικά του price IDs και webhook secret.
 
+### Canonical rebuild 11 Αυγούστου 2026
+
+Το staging ξαναστήθηκε από `0000 + 0001` μετά από επαληθευμένο raw backup.
+Το safety gate είναι πλέον:
+
+1. `backup_db.py --dump --verify --confirm-staging`
+2. raw archive για rollback, canonical restore χωρίς withdrawn objects
+3. `check_env.py` (απαιτεί claims και απαγορεύει `site_variants`)
+4. `verify_sequence.py`
+5. δύο διαδοχικά `lifecycle_e2e.py`
+
+Τελευταίο αποτέλεσμα: 12/12 environment, 14/14 sequence και 52/52 lifecycle δύο
+φορές. Η παραγωγή δεν άλλαξε και ο Agency Kernel παραμένει staging-only.
+
 ## Production QA: read-only
 
 Μετά το deploy τρέχει `sites/tests/production_qa.mjs` στην παραγωγή. Είναι

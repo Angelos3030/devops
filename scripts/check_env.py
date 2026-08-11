@@ -28,7 +28,8 @@ from src import env  # noqa: E402
 
 # Πίνακες που περιμένει ο κώδικας — αν λείπει κάποιος, τα migrations δεν έτρεξαν.
 TABLES = ("clients", "site_content", "sites", "client_assets",
-          "site_variants", "domains", "schema_migrations")
+          "client_site_claims", "domains", "schema_migrations")
+WITHDRAWN_TABLES = ("site_variants",)
 BUCKET = "client-assets"
 
 ok, bad = [], []
@@ -78,6 +79,19 @@ def main() -> int:
             msg = str(e)
             check(False, f"πίνακας {table}",
                   "δεν υπάρχει — τρέξε migrate.py" if "does not exist" in msg else msg[:70])
+
+    if not env.is_production:
+        for table in WITHDRAWN_TABLES:
+            try:
+                sb.table(table).select("*").limit(1).execute()
+                check(False, f"ο αποσυρμένος πίνακας {table} απουσιάζει",
+                      "υπάρχει ακόμη — το staging δεν είναι canonical")
+            except Exception as e:  # noqa: BLE001
+                msg = str(e).lower()
+                missing = any(marker in msg for marker in (
+                    "does not exist", "could not find", "schema cache", "pgrst205"))
+                check(missing, f"ο αποσυρμένος πίνακας {table} απουσιάζει",
+                      "απρόσμενο API σφάλμα" if not missing else "")
 
     # --- Storage
     print("\n[storage]")

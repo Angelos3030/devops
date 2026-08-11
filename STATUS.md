@@ -989,3 +989,24 @@ scripts/clone-skills.sh → κατεβάζει curated external skills
 Επόμενο (χρειάζεται έγκριση): καθαρό staging από τη νέα ακολουθία, schema-parity gate
 στο CI, δοκιμή restore πάνω στο baseline. Ο Agency Kernel πάει στην παραγωγή μόνο με
 ξεχωριστή έγκριση μετά τη Φάση 4A.
+
+### Ενοποίηση migrations — Βήμα 5 ολοκληρώθηκε (11 Αυγούστου 2026)
+
+- Πριν το reset δημιουργήθηκε raw staging backup 26 πινάκων / 128 γραμμών. Το
+  canonical restore επαληθεύτηκε σε καθαρό Postgres: **25/25 πίνακες**, 0 προβλήματα.
+  Το raw archive κρατά και τα αποσυρμένα δεδομένα για forensic rollback, αλλά το
+  canonical restore αγνοεί μόνο `site_variants` και `clients.selected_layout`.
+- Το `public` schema του staging ξαναστήθηκε αποκλειστικά από
+  `0000_production_baseline.sql` + `0001_agency_kernel.sql`. Η παραγωγή δεν
+  τροποποιήθηκε.
+- Τελική ανεξάρτητη μέτρηση staging: 26 public tables μαζί με `schema_migrations`,
+  2 canonical migrations, 6 synthetic clients, 5 site-content rows, 27 capabilities
+  και 90 plan-capability mappings.
+- Τα αποσυρμένα `site_variants` / `clients.selected_layout` απουσιάζουν. Η
+  `claim_client_site(uuid,text,text)` υπάρχει και εκτελείται μόνο από `service_role`
+  (`anon=false`, `authenticated=false`, `service_role=true`).
+- Gates: `check_env` **12/12**, canonical sequence **14/14**, lifecycle E2E
+  **52/52 δύο συνεχόμενες φορές**. Κανένας agent δεν έγινε register/install/enable.
+
+Επόμενο: schema-parity gate στο CI. Ο Agency Kernel παραμένει staging-only και δεν
+προωθείται στην παραγωγή χωρίς ξεχωριστή έγκριση μετά την ολοκλήρωση της Phase 4A.

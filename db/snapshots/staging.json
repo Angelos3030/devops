@@ -1221,13 +1221,6 @@
   },
   {
    "table_name": "clients",
-   "column_name": "selected_layout",
-   "data_type": "text",
-   "is_nullable": "YES",
-   "column_default": ""
-  },
-  {
-   "table_name": "clients",
    "column_name": "status",
    "data_type": "text",
    "is_nullable": "NO",
@@ -1694,55 +1687,6 @@
    "data_type": "timestamp with time zone",
    "is_nullable": "NO",
    "column_default": "now()"
-  },
-  {
-   "table_name": "site_variants",
-   "column_name": "client_id",
-   "data_type": "uuid",
-   "is_nullable": "NO",
-   "column_default": ""
-  },
-  {
-   "table_name": "site_variants",
-   "column_name": "created_at",
-   "data_type": "timestamp with time zone",
-   "is_nullable": "NO",
-   "column_default": "now()"
-  },
-  {
-   "table_name": "site_variants",
-   "column_name": "html",
-   "data_type": "text",
-   "is_nullable": "NO",
-   "column_default": ""
-  },
-  {
-   "table_name": "site_variants",
-   "column_name": "id",
-   "data_type": "uuid",
-   "is_nullable": "NO",
-   "column_default": "gen_random_uuid()"
-  },
-  {
-   "table_name": "site_variants",
-   "column_name": "layout",
-   "data_type": "text",
-   "is_nullable": "NO",
-   "column_default": ""
-  },
-  {
-   "table_name": "site_variants",
-   "column_name": "recommended",
-   "data_type": "boolean",
-   "is_nullable": "NO",
-   "column_default": "false"
-  },
-  {
-   "table_name": "site_variants",
-   "column_name": "status",
-   "data_type": "text",
-   "is_nullable": "NO",
-   "column_default": "'preview'::text"
   },
   {
    "table_name": "sites",
@@ -2342,21 +2286,6 @@
    "definition": "PRIMARY KEY (client_id)"
   },
   {
-   "table_name": "site_variants",
-   "conname": "site_variants_client_id_fkey",
-   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
-  },
-  {
-   "table_name": "site_variants",
-   "conname": "site_variants_client_id_layout_key",
-   "definition": "UNIQUE (client_id, layout)"
-  },
-  {
-   "table_name": "site_variants",
-   "conname": "site_variants_pkey",
-   "definition": "PRIMARY KEY (id)"
-  },
-  {
    "table_name": "sites",
    "conname": "sites_client_id_fkey",
    "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
@@ -2669,19 +2598,9 @@
    "indexdef": "CREATE UNIQUE INDEX site_content_pkey ON public.site_content USING btree (client_id)"
   },
   {
-   "table_name": "site_variants",
-   "indexname": "site_variants_client_id_layout_key",
-   "indexdef": "CREATE UNIQUE INDEX site_variants_client_id_layout_key ON public.site_variants USING btree (client_id, layout)"
-  },
-  {
-   "table_name": "site_variants",
-   "indexname": "site_variants_client_idx",
-   "indexdef": "CREATE INDEX site_variants_client_idx ON public.site_variants USING btree (client_id)"
-  },
-  {
-   "table_name": "site_variants",
-   "indexname": "site_variants_pkey",
-   "indexdef": "CREATE UNIQUE INDEX site_variants_pkey ON public.site_variants USING btree (id)"
+   "table_name": "site_content",
+   "indexname": "site_content_updated_idx",
+   "indexdef": "CREATE INDEX site_content_updated_idx ON public.site_content USING btree (updated_at DESC)"
   },
   {
    "table_name": "sites",
@@ -2828,10 +2747,6 @@
    "enabled": true
   },
   {
-   "table_name": "site_variants",
-   "enabled": true
-  },
-  {
    "table_name": "sites",
    "enabled": true
   },
@@ -2873,7 +2788,6 @@
   "publish_logs",
   "schema_migrations",
   "site_content",
-  "site_variants",
   "sites",
   "social_accounts",
   "subscriptions",

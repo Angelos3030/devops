@@ -42,6 +42,11 @@ from src import env  # noqa: E402
 
 MIGRATIONS = Path("db/migrations")
 SKIP_TABLES = {"schema_migrations"}
+# Kept in the raw JSON backup for forensic rollback, but intentionally omitted
+# when restoring into the canonical schema. They were staging-only drift and no
+# runtime code reads them anymore.
+WITHDRAWN_TABLES = {"site_variants"}
+WITHDRAWN_COLUMNS = {"clients": {"selected_layout"}}
 
 
 def _dsn() -> str:
@@ -211,10 +216,14 @@ def _restore_and_compare(dsn, src, manifest, teardown) -> int:
 
             print("[4] Φόρτωση backup")
             for table in manifest["order"]:
+                if table in WITHDRAWN_TABLES:
+                    print(f"    ⊘ {table} (αποσυρμένο, διατηρείται μόνο στο raw backup)")
+                    continue
                 rows = json.loads((src / f"{table}.json").read_text(encoding="utf-8"))
                 if not rows:
                     continue
-                cols = list(rows[0].keys())
+                cols = [c for c in rows[0].keys()
+                        if c not in WITHDRAWN_COLUMNS.get(table, set())]
                 collist = ",".join(f'"{c}"' for c in cols)
                 marks = ",".join(["%s"] * len(cols))
                 try:
@@ -235,6 +244,9 @@ def _restore_and_compare(dsn, src, manifest, teardown) -> int:
 
             print("\n[4] Σύγκριση πλήθους γραμμών")
             for table, expected in manifest["tables"].items():
+                if table in WITHDRAWN_TABLES:
+                    print(f"    ⊘ {table:26} αποσυρμένο (raw archive: {expected})")
+                    continue
                 try:
                     cur.execute(f'SELECT count(*) FROM public."{table}"')
                     got = cur.fetchone()[0]
