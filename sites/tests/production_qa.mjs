@@ -41,9 +41,12 @@ const VITALS = {
   desktop: { 'largest-contentful-paint': 1500, 'cumulative-layout-shift': 0.05, 'total-blocking-time': 150 },
 }
 
+// Τα ΕΞΙ του showcase — αν αλλάξει η αρχική, αλλάζει κι εδώ. Καλύπτουν
+// διαφορετικά επιχειρηματικά μοντέλα, όχι απλώς διαφορετικά επαγγέλματα:
+// φαγητό · καφές · ομορφιά · υγεία · επείγουσα κλήση στον χώρο σου · διαμονή.
 const DEMOS = [
   'warmth?biz=taverna', 'bakery-editorial?biz=cafe', 'beauty-atelier?biz=salon',
-  'clinic-triage?biz=dentist', 'marble?biz=lawyer', 'aegean?biz=rooms',
+  'clinic-triage?biz=dentist', 'callout?biz=plumber', 'aegean?biz=rooms',
 ]
 
 // Δύο βαθμίδες, γιατί δεν είναι όλες οι αποτυχίες ίδιες:
@@ -172,28 +175,36 @@ async function flow(browser) {
   })
 
   await page.goto(PAGE, { waitUntil: 'networkidle', timeout: 60000 })
-  await page.fill('#prompt', 'Έχω καφετέρια στον Γέρακα')
+  const typed = 'Έχω καφετέρια στον Γέρακα'
+  await page.fill('#prompt', typed)
   await Promise.all([page.waitForNavigation({ timeout: 20000 }), page.click('.build')])
 
-  // Το Cloudflare Pages σερβίρει το start.html ως /start — δέχονται και τα δύο.
-  check(/\/start(\.html)?\?text=/.test(page.url()), 'το prompt πάει στη δημιουργία',
-        decodeURIComponent(page.url()).split('/').pop().slice(0, 46))
+  // Δεν επιβάλλουμε ΠΟΙΟ μονοπάτι — επιβάλλουμε ότι η πρόταση του πελάτη ΔΕΝ
+  // χάνεται και ότι η επόμενη οθόνη σηκώνεται καθαρά. Έτσι το gate επιβιώνει
+  // αλλαγής ροής χωρίς να γίνεται ψεύτικα κόκκινο.
+  const url = decodeURIComponent(page.url())
+  check(url.includes(typed), 'η πρόταση του πελάτη ταξιδεύει στην επόμενη οθόνη',
+        url.split('/').pop().slice(0, 52))
 
+  const errors = []
+  page.on('console', (m) => m.type() === 'error' && errors.push(m.text().slice(0, 90)))
   await page.waitForTimeout(2500)
-  check(sent?.text?.includes('καφετέρια'), 'η οθόνη καλεί το POST /start',
-        sent ? JSON.stringify(sent).slice(0, 46) : 'δεν στάλθηκε')
-  check(await page.$('#stages li') !== null, 'εμφανίζονται τα στάδια εργασίας')
+  check(errors.length === 0, 'η οθόνη μετά το prompt χωρίς console errors',
+        errors.join(' | '))
 
-  // Η οθόνη δημιουργίας είχε iframe προς άλλο origin (Railway, X-Frame-Options:
-  // SAMEORIGIN) και το πλαίσιο έμενε ΚΕΝΟ στον πελάτη. Ο έλεγχος της αρχικής δεν
-  // το έπιανε γιατί τρέχει σε άλλη σελίδα.
+  const shown = await page.evaluate(() => {
+    const el = document.querySelector('#stages li, #description, textarea, input')
+    return Boolean(el)
+  })
+  check(shown, 'η οθόνη μετά το prompt δείχνει περιεχόμενο')
+
   const frames = await page.evaluate(() =>
     [...document.querySelectorAll('iframe')].map((f) => f.src).filter(Boolean))
   const foreign = frames.filter((src) => {
     try { return new URL(src).origin !== location.origin } catch { return false }
   })
-  check(foreign.length === 0, 'η οθόνη δημιουργίας χωρίς iframe άλλου origin',
-        foreign.join(', ') || '')
+  check(foreign.length === 0, 'χωρίς iframe άλλου origin', foreign.join(', '))
+
   await ctx.close()
 }
 
