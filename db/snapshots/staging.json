@@ -1,0 +1,2858 @@
+{
+ "env": "staging",
+ "columns": [
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "agent_key",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "agent_name",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "agent_version",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "approval_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "approval_policy",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "approval_status",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "capability_key",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "capability_version",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "goal",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "kpi_after",
+   "data_type": "numeric",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "kpi_before",
+   "data_type": "numeric",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "needs_approval",
+   "data_type": "boolean",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "risk",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "task_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "value_metric",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "value_unit",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_action_queue",
+   "column_name": "workspace_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "action",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "actor_id",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "actor_type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "after_state",
+   "data_type": "jsonb",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "before_state",
+   "data_type": "jsonb",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "entity_id",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "entity_type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "reason",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "task_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "trace_id",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_audit_log",
+   "column_name": "workspace_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_events",
+   "column_name": "actor_id",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_events",
+   "column_name": "actor_type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_events",
+   "column_name": "event_type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_events",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "agency_events",
+   "column_name": "occurred_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "agency_events",
+   "column_name": "payload",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "agency_events",
+   "column_name": "run_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_events",
+   "column_name": "task_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_events",
+   "column_name": "trace_id",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agency_events",
+   "column_name": "workspace_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "action_payload",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "action_type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "decided_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "decided_by",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "decision_reason",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "expires_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "payload_hash",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "policy",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "requested_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "requested_by",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "run_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'pending'::text"
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "task_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_approvals",
+   "column_name": "workspace_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_artifacts",
+   "column_name": "artifact_type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_artifacts",
+   "column_name": "checksum",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_artifacts",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "agent_artifacts",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "agent_artifacts",
+   "column_name": "media_type",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_artifacts",
+   "column_name": "metadata",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "agent_artifacts",
+   "column_name": "run_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_artifacts",
+   "column_name": "task_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_artifacts",
+   "column_name": "uri",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_artifacts",
+   "column_name": "workspace_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_capabilities",
+   "column_name": "agent_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_capabilities",
+   "column_name": "agent_version",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_capabilities",
+   "column_name": "capability_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_capabilities",
+   "column_name": "capability_version",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "agent_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "agent_version",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "budget_limits",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{\"max_tokens\": 0, \"max_money_eur\": \"0\", \"max_runtime_seconds\": 300}'::jsonb"
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "config",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "granted_permissions",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[]'::jsonb"
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "installed_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "installed_by",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "revocation_reason",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "revoked_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'installed'::text"
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "verticals",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[\"*\"]'::jsonb"
+  },
+  {
+   "table_name": "agent_installations",
+   "column_name": "workspace_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "agent_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "lifecycle",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'draft'::text"
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "manifest",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "manifest_checksum",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "name",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "purpose",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "registered_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "registered_by",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "revocation_reason",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "revoked_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_registry",
+   "column_name": "version",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "actions_taken",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[]'::jsonb"
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "attempt",
+   "data_type": "integer",
+   "is_nullable": "NO",
+   "column_default": "1"
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "confidence",
+   "data_type": "numeric",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "cost",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "error_code",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "error_detail",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "evidence",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[]'::jsonb"
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "finished_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "input_digest",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "model",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "output_summary",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "provider",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'deterministic'::text"
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "session_ref",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "started_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'created'::text"
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "task_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_runs",
+   "column_name": "workspace_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "agent_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "agent_version",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "approval_policy",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'none'::text"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "budget",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{\"max_tokens\": 0, \"max_money_eur\": \"0\", \"max_runtime_seconds\": 300}'::jsonb"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "capability_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "capability_version",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "completed_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "created_by",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "data_classes",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[\"public\"]'::jsonb"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "expected_outputs",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[]'::jsonb"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "goal",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "idempotency_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "input_refs",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[]'::jsonb"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "mode",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'propose'::text"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "parent_task_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "policy_snapshot",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "requested_permissions",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[]'::jsonb"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "risk",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'low'::text"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'queued'::text"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "trigger_type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "agent_tasks",
+   "column_name": "workspace_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "brand_profiles",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "brand_profiles",
+   "column_name": "profile",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "brand_profiles",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "capability_definitions",
+   "column_name": "capability_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "capability_definitions",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "capability_definitions",
+   "column_name": "description",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "capability_definitions",
+   "column_name": "permissions",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[]'::jsonb"
+  },
+  {
+   "table_name": "capability_definitions",
+   "column_name": "risk",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'low'::text"
+  },
+  {
+   "table_name": "capability_definitions",
+   "column_name": "version",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "content",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "rights_ok",
+   "data_type": "boolean",
+   "is_nullable": "YES",
+   "column_default": "false"
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "title",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "url",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "usage",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": "'site'::text"
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "claimed_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "claimed_by",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "expires_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "token_hash",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "address",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "business_type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "city",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "clients",
+   "column_name": "email",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "clients",
+   "column_name": "name",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "phone",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "plan",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": "'starter'::text"
+  },
+  {
+   "table_name": "clients",
+   "column_name": "selected_layout",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'trial'::text"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "amount_cents",
+   "data_type": "integer",
+   "is_nullable": "NO",
+   "column_default": "2400"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "currency",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'eur'::text"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "domain",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "error",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'pending'::text"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "stripe_session_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "domains",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domains",
+   "column_name": "cloudflare_zone_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domains",
+   "column_name": "domain",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "domains",
+   "column_name": "expires_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domains",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "domains",
+   "column_name": "registered_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "domains",
+   "column_name": "registrar",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": "'papaki'::text"
+  },
+  {
+   "table_name": "domains",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": "'active'::text"
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "column_name": "dimensions",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "column_name": "measured_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "column_name": "metric_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "column_name": "source",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "column_name": "task_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "column_name": "unit",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "column_name": "value",
+   "data_type": "numeric",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "column_name": "workspace_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "plan_capabilities",
+   "column_name": "capability_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "plan_capabilities",
+   "column_name": "capability_version",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "plan_capabilities",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "plan_capabilities",
+   "column_name": "limits",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "plan_capabilities",
+   "column_name": "plan_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "approval_required",
+   "data_type": "boolean",
+   "is_nullable": "NO",
+   "column_default": "true"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "approved_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "approved_by",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "attempts",
+   "data_type": "integer",
+   "is_nullable": "NO",
+   "column_default": "0"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "caption",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "fb_post_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "ig_post_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "image_url",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "last_error",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "max_attempts",
+   "data_type": "integer",
+   "is_nullable": "NO",
+   "column_default": "3"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "published_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "rejected_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "scheduled_for",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": "'pending_approval'::text"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "targets",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[\"facebook\", \"instagram\"]'::jsonb"
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "dry_run",
+   "data_type": "boolean",
+   "is_nullable": "NO",
+   "column_default": "false"
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "error",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "post_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "result",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "success",
+   "data_type": "boolean",
+   "is_nullable": "NO",
+   "column_default": "false"
+  },
+  {
+   "table_name": "schema_migrations",
+   "column_name": "applied_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "schema_migrations",
+   "column_name": "checksum",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "schema_migrations",
+   "column_name": "filename",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "schema_migrations",
+   "column_name": "version",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "site_content",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "site_content",
+   "column_name": "content",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "site_content",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "site_variants",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "site_variants",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "site_variants",
+   "column_name": "html",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "site_variants",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "site_variants",
+   "column_name": "layout",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "site_variants",
+   "column_name": "recommended",
+   "data_type": "boolean",
+   "is_nullable": "NO",
+   "column_default": "false"
+  },
+  {
+   "table_name": "site_variants",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'preview'::text"
+  },
+  {
+   "table_name": "sites",
+   "column_name": "chosen_variant",
+   "data_type": "integer",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "sites",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "sites",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "sites",
+   "column_name": "html",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "sites",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "sites",
+   "column_name": "preset",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "sites",
+   "column_name": "url",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "social_accounts",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "social_accounts",
+   "column_name": "connected_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "social_accounts",
+   "column_name": "fb_page_id",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "social_accounts",
+   "column_name": "ig_user_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "social_accounts",
+   "column_name": "page_token",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "current_period_end",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "plan",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "stripe_customer_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "stripe_sub_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "capability_key",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "capability_version",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "ends_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "limits",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "source",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "source_ref",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "starts_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'granted'::text"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "column_name": "workspace_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  }
+ ],
+ "constraints": [
+  {
+   "table_name": "agency_audit_log",
+   "conname": "agency_audit_log_actor_type_check",
+   "definition": "CHECK ((actor_type = ANY (ARRAY['user'::text, 'operator'::text, 'system'::text, 'agent'::text])))"
+  },
+  {
+   "table_name": "agency_audit_log",
+   "conname": "agency_audit_log_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "agency_audit_log",
+   "conname": "agency_audit_log_task_id_fkey",
+   "definition": "FOREIGN KEY (task_id) REFERENCES agent_tasks(id) ON DELETE SET NULL"
+  },
+  {
+   "table_name": "agency_audit_log",
+   "conname": "agency_audit_log_workspace_id_fkey",
+   "definition": "FOREIGN KEY (workspace_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agency_events",
+   "conname": "agency_events_actor_type_check",
+   "definition": "CHECK ((actor_type = ANY (ARRAY['user'::text, 'operator'::text, 'system'::text, 'agent'::text])))"
+  },
+  {
+   "table_name": "agency_events",
+   "conname": "agency_events_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "agency_events",
+   "conname": "agency_events_run_id_fkey",
+   "definition": "FOREIGN KEY (run_id) REFERENCES agent_runs(id) ON DELETE SET NULL"
+  },
+  {
+   "table_name": "agency_events",
+   "conname": "agency_events_task_id_fkey",
+   "definition": "FOREIGN KEY (task_id) REFERENCES agent_tasks(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agency_events",
+   "conname": "agency_events_workspace_id_fkey",
+   "definition": "FOREIGN KEY (workspace_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agent_approvals",
+   "conname": "agent_approvals_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "agent_approvals",
+   "conname": "agent_approvals_policy_check",
+   "definition": "CHECK ((policy = ANY (ARRAY['client'::text, 'operator'::text, 'dual'::text])))"
+  },
+  {
+   "table_name": "agent_approvals",
+   "conname": "agent_approvals_run_id_fkey",
+   "definition": "FOREIGN KEY (run_id) REFERENCES agent_runs(id) ON DELETE SET NULL"
+  },
+  {
+   "table_name": "agent_approvals",
+   "conname": "agent_approvals_status_check",
+   "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'approved'::text, 'rejected'::text, 'expired'::text, 'revoked'::text])))"
+  },
+  {
+   "table_name": "agent_approvals",
+   "conname": "agent_approvals_task_id_action_type_payload_hash_key",
+   "definition": "UNIQUE (task_id, action_type, payload_hash)"
+  },
+  {
+   "table_name": "agent_approvals",
+   "conname": "agent_approvals_task_id_fkey",
+   "definition": "FOREIGN KEY (task_id) REFERENCES agent_tasks(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agent_approvals",
+   "conname": "agent_approvals_workspace_id_fkey",
+   "definition": "FOREIGN KEY (workspace_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agent_artifacts",
+   "conname": "agent_artifacts_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "agent_artifacts",
+   "conname": "agent_artifacts_run_id_fkey",
+   "definition": "FOREIGN KEY (run_id) REFERENCES agent_runs(id) ON DELETE SET NULL"
+  },
+  {
+   "table_name": "agent_artifacts",
+   "conname": "agent_artifacts_task_id_fkey",
+   "definition": "FOREIGN KEY (task_id) REFERENCES agent_tasks(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agent_artifacts",
+   "conname": "agent_artifacts_workspace_id_fkey",
+   "definition": "FOREIGN KEY (workspace_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agent_capabilities",
+   "conname": "agent_capabilities_agent_key_agent_version_fkey",
+   "definition": "FOREIGN KEY (agent_key, agent_version) REFERENCES agent_registry(agent_key, version) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agent_capabilities",
+   "conname": "agent_capabilities_capability_key_capability_version_fkey",
+   "definition": "FOREIGN KEY (capability_key, capability_version) REFERENCES capability_definitions(capability_key, version) ON DELETE RESTRICT"
+  },
+  {
+   "table_name": "agent_capabilities",
+   "conname": "agent_capabilities_pkey",
+   "definition": "PRIMARY KEY (agent_key, agent_version, capability_key, capability_version)"
+  },
+  {
+   "table_name": "agent_installations",
+   "conname": "agent_installations_agent_key_agent_version_fkey",
+   "definition": "FOREIGN KEY (agent_key, agent_version) REFERENCES agent_registry(agent_key, version) ON DELETE RESTRICT"
+  },
+  {
+   "table_name": "agent_installations",
+   "conname": "agent_installations_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "agent_installations",
+   "conname": "agent_installations_status_check",
+   "definition": "CHECK ((status = ANY (ARRAY['installed'::text, 'enabled'::text, 'disabled'::text, 'revoked'::text])))"
+  },
+  {
+   "table_name": "agent_installations",
+   "conname": "agent_installations_workspace_id_agent_key_agent_version_key",
+   "definition": "UNIQUE (workspace_id, agent_key, agent_version)"
+  },
+  {
+   "table_name": "agent_installations",
+   "conname": "agent_installations_workspace_id_fkey",
+   "definition": "FOREIGN KEY (workspace_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agent_registry",
+   "conname": "agent_registry_lifecycle_check",
+   "definition": "CHECK ((lifecycle = ANY (ARRAY['draft'::text, 'available'::text, 'deprecated'::text, 'revoked'::text])))"
+  },
+  {
+   "table_name": "agent_registry",
+   "conname": "agent_registry_pkey",
+   "definition": "PRIMARY KEY (agent_key, version)"
+  },
+  {
+   "table_name": "agent_runs",
+   "conname": "agent_runs_attempt_check",
+   "definition": "CHECK ((attempt > 0))"
+  },
+  {
+   "table_name": "agent_runs",
+   "conname": "agent_runs_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "agent_runs",
+   "conname": "agent_runs_status_check",
+   "definition": "CHECK ((status = ANY (ARRAY['created'::text, 'running'::text, 'waiting_approval'::text, 'succeeded'::text, 'failed'::text, 'cancelled'::text])))"
+  },
+  {
+   "table_name": "agent_runs",
+   "conname": "agent_runs_task_id_attempt_key",
+   "definition": "UNIQUE (task_id, attempt)"
+  },
+  {
+   "table_name": "agent_runs",
+   "conname": "agent_runs_task_id_fkey",
+   "definition": "FOREIGN KEY (task_id) REFERENCES agent_tasks(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agent_runs",
+   "conname": "agent_runs_workspace_id_fkey",
+   "definition": "FOREIGN KEY (workspace_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agent_tasks",
+   "conname": "agent_tasks_agent_key_agent_version_fkey",
+   "definition": "FOREIGN KEY (agent_key, agent_version) REFERENCES agent_registry(agent_key, version) ON DELETE RESTRICT"
+  },
+  {
+   "table_name": "agent_tasks",
+   "conname": "agent_tasks_approval_policy_check",
+   "definition": "CHECK ((approval_policy = ANY (ARRAY['none'::text, 'client'::text, 'operator'::text, 'dual'::text])))"
+  },
+  {
+   "table_name": "agent_tasks",
+   "conname": "agent_tasks_capability_key_capability_version_fkey",
+   "definition": "FOREIGN KEY (capability_key, capability_version) REFERENCES capability_definitions(capability_key, version) ON DELETE RESTRICT"
+  },
+  {
+   "table_name": "agent_tasks",
+   "conname": "agent_tasks_mode_check",
+   "definition": "CHECK ((mode = ANY (ARRAY['propose'::text, 'execute'::text])))"
+  },
+  {
+   "table_name": "agent_tasks",
+   "conname": "agent_tasks_parent_task_id_fkey",
+   "definition": "FOREIGN KEY (parent_task_id) REFERENCES agent_tasks(id) ON DELETE SET NULL"
+  },
+  {
+   "table_name": "agent_tasks",
+   "conname": "agent_tasks_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "agent_tasks",
+   "conname": "agent_tasks_risk_check",
+   "definition": "CHECK ((risk = ANY (ARRAY['low'::text, 'medium'::text, 'high'::text])))"
+  },
+  {
+   "table_name": "agent_tasks",
+   "conname": "agent_tasks_status_check",
+   "definition": "CHECK ((status = ANY (ARRAY['queued'::text, 'blocked'::text, 'pending_approval'::text, 'ready'::text, 'running'::text, 'succeeded'::text, 'failed'::text, 'cancelled'::text])))"
+  },
+  {
+   "table_name": "agent_tasks",
+   "conname": "agent_tasks_workspace_id_fkey",
+   "definition": "FOREIGN KEY (workspace_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "agent_tasks",
+   "conname": "agent_tasks_workspace_id_idempotency_key_key",
+   "definition": "UNIQUE (workspace_id, idempotency_key)"
+  },
+  {
+   "table_name": "brand_profiles",
+   "conname": "brand_profiles_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "brand_profiles",
+   "conname": "brand_profiles_pkey",
+   "definition": "PRIMARY KEY (client_id)"
+  },
+  {
+   "table_name": "capability_definitions",
+   "conname": "capability_definitions_pkey",
+   "definition": "PRIMARY KEY (capability_key, version)"
+  },
+  {
+   "table_name": "capability_definitions",
+   "conname": "capability_definitions_risk_check",
+   "definition": "CHECK ((risk = ANY (ARRAY['low'::text, 'medium'::text, 'high'::text])))"
+  },
+  {
+   "table_name": "client_assets",
+   "conname": "client_assets_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "client_assets",
+   "conname": "client_assets_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "conname": "client_site_claims_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "client_site_claims",
+   "conname": "client_site_claims_client_id_key",
+   "definition": "UNIQUE (client_id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "conname": "client_site_claims_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "conname": "client_site_claims_token_hash_key",
+   "definition": "UNIQUE (token_hash)"
+  },
+  {
+   "table_name": "clients",
+   "conname": "clients_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "domain_orders",
+   "conname": "domain_orders_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "domain_orders",
+   "conname": "domain_orders_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "domain_orders",
+   "conname": "domain_orders_stripe_session_id_key",
+   "definition": "UNIQUE (stripe_session_id)"
+  },
+  {
+   "table_name": "domains",
+   "conname": "domains_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "domains",
+   "conname": "domains_domain_key",
+   "definition": "UNIQUE (domain)"
+  },
+  {
+   "table_name": "domains",
+   "conname": "domains_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "conname": "kpi_snapshots_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "conname": "kpi_snapshots_task_id_fkey",
+   "definition": "FOREIGN KEY (task_id) REFERENCES agent_tasks(id) ON DELETE SET NULL"
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "conname": "kpi_snapshots_workspace_id_fkey",
+   "definition": "FOREIGN KEY (workspace_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "plan_capabilities",
+   "conname": "plan_capabilities_capability_key_capability_version_fkey",
+   "definition": "FOREIGN KEY (capability_key, capability_version) REFERENCES capability_definitions(capability_key, version) ON DELETE RESTRICT"
+  },
+  {
+   "table_name": "plan_capabilities",
+   "conname": "plan_capabilities_pkey",
+   "definition": "PRIMARY KEY (plan_key, capability_key, capability_version)"
+  },
+  {
+   "table_name": "plan_capabilities",
+   "conname": "plan_capabilities_plan_key_check",
+   "definition": "CHECK ((plan_key = ANY (ARRAY['presence'::text, 'growth'::text, 'revenue'::text, 'agency'::text, 'multi_location'::text])))"
+  },
+  {
+   "table_name": "posts",
+   "conname": "posts_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "posts",
+   "conname": "posts_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "publish_logs",
+   "conname": "publish_logs_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "publish_logs",
+   "conname": "publish_logs_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "publish_logs",
+   "conname": "publish_logs_post_id_fkey",
+   "definition": "FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "schema_migrations",
+   "conname": "schema_migrations_pkey",
+   "definition": "PRIMARY KEY (version)"
+  },
+  {
+   "table_name": "site_content",
+   "conname": "site_content_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "site_content",
+   "conname": "site_content_pkey",
+   "definition": "PRIMARY KEY (client_id)"
+  },
+  {
+   "table_name": "site_variants",
+   "conname": "site_variants_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "site_variants",
+   "conname": "site_variants_client_id_layout_key",
+   "definition": "UNIQUE (client_id, layout)"
+  },
+  {
+   "table_name": "site_variants",
+   "conname": "site_variants_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "sites",
+   "conname": "sites_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "sites",
+   "conname": "sites_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "social_accounts",
+   "conname": "social_accounts_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "social_accounts",
+   "conname": "social_accounts_pkey",
+   "definition": "PRIMARY KEY (client_id)"
+  },
+  {
+   "table_name": "subscriptions",
+   "conname": "subscriptions_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "subscriptions",
+   "conname": "subscriptions_pkey",
+   "definition": "PRIMARY KEY (client_id)"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "conname": "workspace_entitlements_capability_key_capability_version_fkey",
+   "definition": "FOREIGN KEY (capability_key, capability_version) REFERENCES capability_definitions(capability_key, version) ON DELETE RESTRICT"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "conname": "workspace_entitlements_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "conname": "workspace_entitlements_source_check",
+   "definition": "CHECK ((source = ANY (ARRAY['plan'::text, 'trial'::text, 'manual'::text, 'promotion'::text, 'partner'::text])))"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "conname": "workspace_entitlements_status_check",
+   "definition": "CHECK ((status = ANY (ARRAY['granted'::text, 'denied'::text])))"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "conname": "workspace_entitlements_workspace_id_capability_key_capabili_key",
+   "definition": "UNIQUE (workspace_id, capability_key, capability_version, source, source_ref)"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "conname": "workspace_entitlements_workspace_id_fkey",
+   "definition": "FOREIGN KEY (workspace_id) REFERENCES clients(id) ON DELETE CASCADE"
+  }
+ ],
+ "indexes": [
+  {
+   "table_name": "agency_audit_log",
+   "indexname": "agency_audit_log_pkey",
+   "indexdef": "CREATE UNIQUE INDEX agency_audit_log_pkey ON public.agency_audit_log USING btree (id)"
+  },
+  {
+   "table_name": "agency_audit_log",
+   "indexname": "idx_agency_audit_trace",
+   "indexdef": "CREATE INDEX idx_agency_audit_trace ON public.agency_audit_log USING btree (trace_id, created_at)"
+  },
+  {
+   "table_name": "agency_events",
+   "indexname": "agency_events_pkey",
+   "indexdef": "CREATE UNIQUE INDEX agency_events_pkey ON public.agency_events USING btree (id)"
+  },
+  {
+   "table_name": "agency_events",
+   "indexname": "idx_agency_events_trace",
+   "indexdef": "CREATE INDEX idx_agency_events_trace ON public.agency_events USING btree (trace_id, occurred_at)"
+  },
+  {
+   "table_name": "agent_approvals",
+   "indexname": "agent_approvals_pkey",
+   "indexdef": "CREATE UNIQUE INDEX agent_approvals_pkey ON public.agent_approvals USING btree (id)"
+  },
+  {
+   "table_name": "agent_approvals",
+   "indexname": "agent_approvals_task_id_action_type_payload_hash_key",
+   "indexdef": "CREATE UNIQUE INDEX agent_approvals_task_id_action_type_payload_hash_key ON public.agent_approvals USING btree (task_id, action_type, payload_hash)"
+  },
+  {
+   "table_name": "agent_approvals",
+   "indexname": "idx_agent_approvals_pending",
+   "indexdef": "CREATE INDEX idx_agent_approvals_pending ON public.agent_approvals USING btree (workspace_id, requested_at DESC) WHERE (status = 'pending'::text)"
+  },
+  {
+   "table_name": "agent_artifacts",
+   "indexname": "agent_artifacts_pkey",
+   "indexdef": "CREATE UNIQUE INDEX agent_artifacts_pkey ON public.agent_artifacts USING btree (id)"
+  },
+  {
+   "table_name": "agent_artifacts",
+   "indexname": "idx_agent_artifacts_task",
+   "indexdef": "CREATE INDEX idx_agent_artifacts_task ON public.agent_artifacts USING btree (task_id, created_at DESC)"
+  },
+  {
+   "table_name": "agent_capabilities",
+   "indexname": "agent_capabilities_pkey",
+   "indexdef": "CREATE UNIQUE INDEX agent_capabilities_pkey ON public.agent_capabilities USING btree (agent_key, agent_version, capability_key, capability_version)"
+  },
+  {
+   "table_name": "agent_installations",
+   "indexname": "agent_installations_pkey",
+   "indexdef": "CREATE UNIQUE INDEX agent_installations_pkey ON public.agent_installations USING btree (id)"
+  },
+  {
+   "table_name": "agent_installations",
+   "indexname": "agent_installations_workspace_id_agent_key_agent_version_key",
+   "indexdef": "CREATE UNIQUE INDEX agent_installations_workspace_id_agent_key_agent_version_key ON public.agent_installations USING btree (workspace_id, agent_key, agent_version)"
+  },
+  {
+   "table_name": "agent_installations",
+   "indexname": "idx_agent_installations_workspace",
+   "indexdef": "CREATE INDEX idx_agent_installations_workspace ON public.agent_installations USING btree (workspace_id, status)"
+  },
+  {
+   "table_name": "agent_registry",
+   "indexname": "agent_registry_pkey",
+   "indexdef": "CREATE UNIQUE INDEX agent_registry_pkey ON public.agent_registry USING btree (agent_key, version)"
+  },
+  {
+   "table_name": "agent_runs",
+   "indexname": "agent_runs_pkey",
+   "indexdef": "CREATE UNIQUE INDEX agent_runs_pkey ON public.agent_runs USING btree (id)"
+  },
+  {
+   "table_name": "agent_runs",
+   "indexname": "agent_runs_task_id_attempt_key",
+   "indexdef": "CREATE UNIQUE INDEX agent_runs_task_id_attempt_key ON public.agent_runs USING btree (task_id, attempt)"
+  },
+  {
+   "table_name": "agent_runs",
+   "indexname": "idx_agent_runs_task",
+   "indexdef": "CREATE INDEX idx_agent_runs_task ON public.agent_runs USING btree (task_id, attempt DESC)"
+  },
+  {
+   "table_name": "agent_tasks",
+   "indexname": "agent_tasks_pkey",
+   "indexdef": "CREATE UNIQUE INDEX agent_tasks_pkey ON public.agent_tasks USING btree (id)"
+  },
+  {
+   "table_name": "agent_tasks",
+   "indexname": "agent_tasks_workspace_id_idempotency_key_key",
+   "indexdef": "CREATE UNIQUE INDEX agent_tasks_workspace_id_idempotency_key_key ON public.agent_tasks USING btree (workspace_id, idempotency_key)"
+  },
+  {
+   "table_name": "agent_tasks",
+   "indexname": "idx_agent_tasks_queue",
+   "indexdef": "CREATE INDEX idx_agent_tasks_queue ON public.agent_tasks USING btree (workspace_id, status, created_at DESC)"
+  },
+  {
+   "table_name": "brand_profiles",
+   "indexname": "brand_profiles_pkey",
+   "indexdef": "CREATE UNIQUE INDEX brand_profiles_pkey ON public.brand_profiles USING btree (client_id)"
+  },
+  {
+   "table_name": "capability_definitions",
+   "indexname": "capability_definitions_pkey",
+   "indexdef": "CREATE UNIQUE INDEX capability_definitions_pkey ON public.capability_definitions USING btree (capability_key, version)"
+  },
+  {
+   "table_name": "client_assets",
+   "indexname": "client_assets_pkey",
+   "indexdef": "CREATE UNIQUE INDEX client_assets_pkey ON public.client_assets USING btree (id)"
+  },
+  {
+   "table_name": "client_assets",
+   "indexname": "idx_client_assets_client",
+   "indexdef": "CREATE INDEX idx_client_assets_client ON public.client_assets USING btree (client_id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "indexname": "client_site_claims_client_id_key",
+   "indexdef": "CREATE UNIQUE INDEX client_site_claims_client_id_key ON public.client_site_claims USING btree (client_id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "indexname": "client_site_claims_pkey",
+   "indexdef": "CREATE UNIQUE INDEX client_site_claims_pkey ON public.client_site_claims USING btree (id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "indexname": "client_site_claims_token_hash_key",
+   "indexdef": "CREATE UNIQUE INDEX client_site_claims_token_hash_key ON public.client_site_claims USING btree (token_hash)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "indexname": "idx_client_site_claims_active",
+   "indexdef": "CREATE INDEX idx_client_site_claims_active ON public.client_site_claims USING btree (token_hash, expires_at) WHERE (claimed_at IS NULL)"
+  },
+  {
+   "table_name": "clients",
+   "indexname": "clients_pkey",
+   "indexdef": "CREATE UNIQUE INDEX clients_pkey ON public.clients USING btree (id)"
+  },
+  {
+   "table_name": "clients",
+   "indexname": "idx_clients_status",
+   "indexdef": "CREATE INDEX idx_clients_status ON public.clients USING btree (status)"
+  },
+  {
+   "table_name": "domain_orders",
+   "indexname": "domain_orders_pkey",
+   "indexdef": "CREATE UNIQUE INDEX domain_orders_pkey ON public.domain_orders USING btree (id)"
+  },
+  {
+   "table_name": "domain_orders",
+   "indexname": "domain_orders_stripe_session_id_key",
+   "indexdef": "CREATE UNIQUE INDEX domain_orders_stripe_session_id_key ON public.domain_orders USING btree (stripe_session_id)"
+  },
+  {
+   "table_name": "domain_orders",
+   "indexname": "idx_domain_orders_client",
+   "indexdef": "CREATE INDEX idx_domain_orders_client ON public.domain_orders USING btree (client_id)"
+  },
+  {
+   "table_name": "domain_orders",
+   "indexname": "idx_domain_orders_status",
+   "indexdef": "CREATE INDEX idx_domain_orders_status ON public.domain_orders USING btree (status)"
+  },
+  {
+   "table_name": "domains",
+   "indexname": "domains_domain_key",
+   "indexdef": "CREATE UNIQUE INDEX domains_domain_key ON public.domains USING btree (domain)"
+  },
+  {
+   "table_name": "domains",
+   "indexname": "domains_pkey",
+   "indexdef": "CREATE UNIQUE INDEX domains_pkey ON public.domains USING btree (id)"
+  },
+  {
+   "table_name": "domains",
+   "indexname": "idx_domains_client",
+   "indexdef": "CREATE INDEX idx_domains_client ON public.domains USING btree (client_id)"
+  },
+  {
+   "table_name": "domains",
+   "indexname": "idx_domains_status",
+   "indexdef": "CREATE INDEX idx_domains_status ON public.domains USING btree (status)"
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "indexname": "idx_kpi_workspace_metric",
+   "indexdef": "CREATE INDEX idx_kpi_workspace_metric ON public.kpi_snapshots USING btree (workspace_id, metric_key, measured_at DESC)"
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "indexname": "kpi_snapshots_pkey",
+   "indexdef": "CREATE UNIQUE INDEX kpi_snapshots_pkey ON public.kpi_snapshots USING btree (id)"
+  },
+  {
+   "table_name": "plan_capabilities",
+   "indexname": "plan_capabilities_pkey",
+   "indexdef": "CREATE UNIQUE INDEX plan_capabilities_pkey ON public.plan_capabilities USING btree (plan_key, capability_key, capability_version)"
+  },
+  {
+   "table_name": "posts",
+   "indexname": "idx_posts_client",
+   "indexdef": "CREATE INDEX idx_posts_client ON public.posts USING btree (client_id)"
+  },
+  {
+   "table_name": "posts",
+   "indexname": "idx_posts_queue",
+   "indexdef": "CREATE INDEX idx_posts_queue ON public.posts USING btree (status, scheduled_for) WHERE (status = ANY (ARRAY['scheduled'::text, 'publishing'::text]))"
+  },
+  {
+   "table_name": "posts",
+   "indexname": "idx_posts_scheduled",
+   "indexdef": "CREATE INDEX idx_posts_scheduled ON public.posts USING btree (scheduled_for) WHERE (status = 'scheduled'::text)"
+  },
+  {
+   "table_name": "posts",
+   "indexname": "posts_pkey",
+   "indexdef": "CREATE UNIQUE INDEX posts_pkey ON public.posts USING btree (id)"
+  },
+  {
+   "table_name": "publish_logs",
+   "indexname": "idx_publish_logs_client",
+   "indexdef": "CREATE INDEX idx_publish_logs_client ON public.publish_logs USING btree (client_id)"
+  },
+  {
+   "table_name": "publish_logs",
+   "indexname": "idx_publish_logs_post",
+   "indexdef": "CREATE INDEX idx_publish_logs_post ON public.publish_logs USING btree (post_id, created_at DESC)"
+  },
+  {
+   "table_name": "publish_logs",
+   "indexname": "publish_logs_pkey",
+   "indexdef": "CREATE UNIQUE INDEX publish_logs_pkey ON public.publish_logs USING btree (id)"
+  },
+  {
+   "table_name": "schema_migrations",
+   "indexname": "schema_migrations_pkey",
+   "indexdef": "CREATE UNIQUE INDEX schema_migrations_pkey ON public.schema_migrations USING btree (version)"
+  },
+  {
+   "table_name": "site_content",
+   "indexname": "site_content_pkey",
+   "indexdef": "CREATE UNIQUE INDEX site_content_pkey ON public.site_content USING btree (client_id)"
+  },
+  {
+   "table_name": "site_variants",
+   "indexname": "site_variants_client_id_layout_key",
+   "indexdef": "CREATE UNIQUE INDEX site_variants_client_id_layout_key ON public.site_variants USING btree (client_id, layout)"
+  },
+  {
+   "table_name": "site_variants",
+   "indexname": "site_variants_client_idx",
+   "indexdef": "CREATE INDEX site_variants_client_idx ON public.site_variants USING btree (client_id)"
+  },
+  {
+   "table_name": "site_variants",
+   "indexname": "site_variants_pkey",
+   "indexdef": "CREATE UNIQUE INDEX site_variants_pkey ON public.site_variants USING btree (id)"
+  },
+  {
+   "table_name": "sites",
+   "indexname": "sites_pkey",
+   "indexdef": "CREATE UNIQUE INDEX sites_pkey ON public.sites USING btree (id)"
+  },
+  {
+   "table_name": "social_accounts",
+   "indexname": "social_accounts_pkey",
+   "indexdef": "CREATE UNIQUE INDEX social_accounts_pkey ON public.social_accounts USING btree (client_id)"
+  },
+  {
+   "table_name": "subscriptions",
+   "indexname": "subscriptions_pkey",
+   "indexdef": "CREATE UNIQUE INDEX subscriptions_pkey ON public.subscriptions USING btree (client_id)"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "indexname": "idx_workspace_entitlements_active",
+   "indexdef": "CREATE INDEX idx_workspace_entitlements_active ON public.workspace_entitlements USING btree (workspace_id, capability_key, capability_version) WHERE (status = 'granted'::text)"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "indexname": "workspace_entitlements_pkey",
+   "indexdef": "CREATE UNIQUE INDEX workspace_entitlements_pkey ON public.workspace_entitlements USING btree (id)"
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "indexname": "workspace_entitlements_workspace_id_capability_key_capabili_key",
+   "indexdef": "CREATE UNIQUE INDEX workspace_entitlements_workspace_id_capability_key_capabili_key ON public.workspace_entitlements USING btree (workspace_id, capability_key, capability_version, source, source_ref)"
+  }
+ ],
+ "rls": [
+  {
+   "table_name": "agency_audit_log",
+   "enabled": true
+  },
+  {
+   "table_name": "agency_events",
+   "enabled": true
+  },
+  {
+   "table_name": "agent_approvals",
+   "enabled": true
+  },
+  {
+   "table_name": "agent_artifacts",
+   "enabled": true
+  },
+  {
+   "table_name": "agent_capabilities",
+   "enabled": true
+  },
+  {
+   "table_name": "agent_installations",
+   "enabled": true
+  },
+  {
+   "table_name": "agent_registry",
+   "enabled": true
+  },
+  {
+   "table_name": "agent_runs",
+   "enabled": true
+  },
+  {
+   "table_name": "agent_tasks",
+   "enabled": true
+  },
+  {
+   "table_name": "brand_profiles",
+   "enabled": true
+  },
+  {
+   "table_name": "capability_definitions",
+   "enabled": true
+  },
+  {
+   "table_name": "client_assets",
+   "enabled": true
+  },
+  {
+   "table_name": "client_site_claims",
+   "enabled": true
+  },
+  {
+   "table_name": "clients",
+   "enabled": true
+  },
+  {
+   "table_name": "domain_orders",
+   "enabled": true
+  },
+  {
+   "table_name": "domains",
+   "enabled": true
+  },
+  {
+   "table_name": "kpi_snapshots",
+   "enabled": true
+  },
+  {
+   "table_name": "plan_capabilities",
+   "enabled": true
+  },
+  {
+   "table_name": "posts",
+   "enabled": true
+  },
+  {
+   "table_name": "publish_logs",
+   "enabled": true
+  },
+  {
+   "table_name": "schema_migrations",
+   "enabled": false
+  },
+  {
+   "table_name": "site_content",
+   "enabled": true
+  },
+  {
+   "table_name": "site_variants",
+   "enabled": true
+  },
+  {
+   "table_name": "sites",
+   "enabled": true
+  },
+  {
+   "table_name": "social_accounts",
+   "enabled": true
+  },
+  {
+   "table_name": "subscriptions",
+   "enabled": true
+  },
+  {
+   "table_name": "workspace_entitlements",
+   "enabled": true
+  }
+ ],
+ "policies": [],
+ "tables": [
+  "agency_action_queue",
+  "agency_audit_log",
+  "agency_events",
+  "agent_approvals",
+  "agent_artifacts",
+  "agent_capabilities",
+  "agent_installations",
+  "agent_registry",
+  "agent_runs",
+  "agent_tasks",
+  "brand_profiles",
+  "capability_definitions",
+  "client_assets",
+  "client_site_claims",
+  "clients",
+  "domain_orders",
+  "domains",
+  "kpi_snapshots",
+  "plan_capabilities",
+  "posts",
+  "publish_logs",
+  "schema_migrations",
+  "site_content",
+  "site_variants",
+  "sites",
+  "social_accounts",
+  "subscriptions",
+  "workspace_entitlements"
+ ]
+}

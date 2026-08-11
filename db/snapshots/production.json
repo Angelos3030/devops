@@ -1,0 +1,1024 @@
+{
+ "env": "production",
+ "columns": [
+  {
+   "table_name": "brand_profiles",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "brand_profiles",
+   "column_name": "profile",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "brand_profiles",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "content",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "rights_ok",
+   "data_type": "boolean",
+   "is_nullable": "YES",
+   "column_default": "false"
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "title",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "url",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_assets",
+   "column_name": "usage",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": "'site'::text"
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "claimed_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "claimed_by",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "expires_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "client_site_claims",
+   "column_name": "token_hash",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "address",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "business_type",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "city",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "clients",
+   "column_name": "email",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "clients",
+   "column_name": "name",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "phone",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "clients",
+   "column_name": "plan",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": "'starter'::text"
+  },
+  {
+   "table_name": "clients",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'trial'::text"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "amount_cents",
+   "data_type": "integer",
+   "is_nullable": "NO",
+   "column_default": "2400"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "currency",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'eur'::text"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "domain",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "error",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": "'pending'::text"
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "stripe_session_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domain_orders",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "domains",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domains",
+   "column_name": "cloudflare_zone_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domains",
+   "column_name": "domain",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "domains",
+   "column_name": "expires_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "domains",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "domains",
+   "column_name": "registered_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "domains",
+   "column_name": "registrar",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": "'papaki'::text"
+  },
+  {
+   "table_name": "domains",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": "'active'::text"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "approval_required",
+   "data_type": "boolean",
+   "is_nullable": "NO",
+   "column_default": "true"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "approved_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "approved_by",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "attempts",
+   "data_type": "integer",
+   "is_nullable": "NO",
+   "column_default": "0"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "caption",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "fb_post_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "ig_post_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "image_url",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "last_error",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "max_attempts",
+   "data_type": "integer",
+   "is_nullable": "NO",
+   "column_default": "3"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "published_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "rejected_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "scheduled_for",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "posts",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": "'pending_approval'::text"
+  },
+  {
+   "table_name": "posts",
+   "column_name": "targets",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'[\"facebook\", \"instagram\"]'::jsonb"
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "dry_run",
+   "data_type": "boolean",
+   "is_nullable": "NO",
+   "column_default": "false"
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "error",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "post_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "result",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "publish_logs",
+   "column_name": "success",
+   "data_type": "boolean",
+   "is_nullable": "NO",
+   "column_default": "false"
+  },
+  {
+   "table_name": "site_content",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "site_content",
+   "column_name": "content",
+   "data_type": "jsonb",
+   "is_nullable": "NO",
+   "column_default": "'{}'::jsonb"
+  },
+  {
+   "table_name": "site_content",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "NO",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "sites",
+   "column_name": "chosen_variant",
+   "data_type": "integer",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "sites",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "sites",
+   "column_name": "created_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "sites",
+   "column_name": "html",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "sites",
+   "column_name": "id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": "gen_random_uuid()"
+  },
+  {
+   "table_name": "sites",
+   "column_name": "preset",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "sites",
+   "column_name": "url",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "social_accounts",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "social_accounts",
+   "column_name": "connected_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  },
+  {
+   "table_name": "social_accounts",
+   "column_name": "fb_page_id",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "social_accounts",
+   "column_name": "ig_user_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "social_accounts",
+   "column_name": "page_token",
+   "data_type": "text",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "client_id",
+   "data_type": "uuid",
+   "is_nullable": "NO",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "current_period_end",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "plan",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "status",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "stripe_customer_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "stripe_sub_id",
+   "data_type": "text",
+   "is_nullable": "YES",
+   "column_default": ""
+  },
+  {
+   "table_name": "subscriptions",
+   "column_name": "updated_at",
+   "data_type": "timestamp with time zone",
+   "is_nullable": "YES",
+   "column_default": "now()"
+  }
+ ],
+ "constraints": [
+  {
+   "table_name": "brand_profiles",
+   "conname": "brand_profiles_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "brand_profiles",
+   "conname": "brand_profiles_pkey",
+   "definition": "PRIMARY KEY (client_id)"
+  },
+  {
+   "table_name": "client_assets",
+   "conname": "client_assets_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "client_assets",
+   "conname": "client_assets_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "conname": "client_site_claims_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "client_site_claims",
+   "conname": "client_site_claims_client_id_key",
+   "definition": "UNIQUE (client_id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "conname": "client_site_claims_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "conname": "client_site_claims_token_hash_key",
+   "definition": "UNIQUE (token_hash)"
+  },
+  {
+   "table_name": "clients",
+   "conname": "clients_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "domain_orders",
+   "conname": "domain_orders_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "domain_orders",
+   "conname": "domain_orders_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "domain_orders",
+   "conname": "domain_orders_stripe_session_id_key",
+   "definition": "UNIQUE (stripe_session_id)"
+  },
+  {
+   "table_name": "domains",
+   "conname": "domains_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "domains",
+   "conname": "domains_domain_key",
+   "definition": "UNIQUE (domain)"
+  },
+  {
+   "table_name": "domains",
+   "conname": "domains_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "posts",
+   "conname": "posts_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "posts",
+   "conname": "posts_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "publish_logs",
+   "conname": "publish_logs_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "publish_logs",
+   "conname": "publish_logs_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "publish_logs",
+   "conname": "publish_logs_post_id_fkey",
+   "definition": "FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "site_content",
+   "conname": "site_content_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "site_content",
+   "conname": "site_content_pkey",
+   "definition": "PRIMARY KEY (client_id)"
+  },
+  {
+   "table_name": "sites",
+   "conname": "sites_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "sites",
+   "conname": "sites_pkey",
+   "definition": "PRIMARY KEY (id)"
+  },
+  {
+   "table_name": "social_accounts",
+   "conname": "social_accounts_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "social_accounts",
+   "conname": "social_accounts_pkey",
+   "definition": "PRIMARY KEY (client_id)"
+  },
+  {
+   "table_name": "subscriptions",
+   "conname": "subscriptions_client_id_fkey",
+   "definition": "FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE"
+  },
+  {
+   "table_name": "subscriptions",
+   "conname": "subscriptions_pkey",
+   "definition": "PRIMARY KEY (client_id)"
+  }
+ ],
+ "indexes": [
+  {
+   "table_name": "brand_profiles",
+   "indexname": "brand_profiles_pkey",
+   "indexdef": "CREATE UNIQUE INDEX brand_profiles_pkey ON public.brand_profiles USING btree (client_id)"
+  },
+  {
+   "table_name": "client_assets",
+   "indexname": "client_assets_pkey",
+   "indexdef": "CREATE UNIQUE INDEX client_assets_pkey ON public.client_assets USING btree (id)"
+  },
+  {
+   "table_name": "client_assets",
+   "indexname": "idx_client_assets_client",
+   "indexdef": "CREATE INDEX idx_client_assets_client ON public.client_assets USING btree (client_id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "indexname": "client_site_claims_client_id_key",
+   "indexdef": "CREATE UNIQUE INDEX client_site_claims_client_id_key ON public.client_site_claims USING btree (client_id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "indexname": "client_site_claims_pkey",
+   "indexdef": "CREATE UNIQUE INDEX client_site_claims_pkey ON public.client_site_claims USING btree (id)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "indexname": "client_site_claims_token_hash_key",
+   "indexdef": "CREATE UNIQUE INDEX client_site_claims_token_hash_key ON public.client_site_claims USING btree (token_hash)"
+  },
+  {
+   "table_name": "client_site_claims",
+   "indexname": "idx_client_site_claims_active",
+   "indexdef": "CREATE INDEX idx_client_site_claims_active ON public.client_site_claims USING btree (token_hash, expires_at) WHERE (claimed_at IS NULL)"
+  },
+  {
+   "table_name": "clients",
+   "indexname": "clients_pkey",
+   "indexdef": "CREATE UNIQUE INDEX clients_pkey ON public.clients USING btree (id)"
+  },
+  {
+   "table_name": "clients",
+   "indexname": "idx_clients_status",
+   "indexdef": "CREATE INDEX idx_clients_status ON public.clients USING btree (status)"
+  },
+  {
+   "table_name": "domain_orders",
+   "indexname": "domain_orders_pkey",
+   "indexdef": "CREATE UNIQUE INDEX domain_orders_pkey ON public.domain_orders USING btree (id)"
+  },
+  {
+   "table_name": "domain_orders",
+   "indexname": "domain_orders_stripe_session_id_key",
+   "indexdef": "CREATE UNIQUE INDEX domain_orders_stripe_session_id_key ON public.domain_orders USING btree (stripe_session_id)"
+  },
+  {
+   "table_name": "domain_orders",
+   "indexname": "idx_domain_orders_client",
+   "indexdef": "CREATE INDEX idx_domain_orders_client ON public.domain_orders USING btree (client_id)"
+  },
+  {
+   "table_name": "domain_orders",
+   "indexname": "idx_domain_orders_status",
+   "indexdef": "CREATE INDEX idx_domain_orders_status ON public.domain_orders USING btree (status)"
+  },
+  {
+   "table_name": "domains",
+   "indexname": "domains_domain_key",
+   "indexdef": "CREATE UNIQUE INDEX domains_domain_key ON public.domains USING btree (domain)"
+  },
+  {
+   "table_name": "domains",
+   "indexname": "domains_pkey",
+   "indexdef": "CREATE UNIQUE INDEX domains_pkey ON public.domains USING btree (id)"
+  },
+  {
+   "table_name": "domains",
+   "indexname": "idx_domains_client",
+   "indexdef": "CREATE INDEX idx_domains_client ON public.domains USING btree (client_id)"
+  },
+  {
+   "table_name": "domains",
+   "indexname": "idx_domains_status",
+   "indexdef": "CREATE INDEX idx_domains_status ON public.domains USING btree (status)"
+  },
+  {
+   "table_name": "posts",
+   "indexname": "idx_posts_client",
+   "indexdef": "CREATE INDEX idx_posts_client ON public.posts USING btree (client_id)"
+  },
+  {
+   "table_name": "posts",
+   "indexname": "idx_posts_queue",
+   "indexdef": "CREATE INDEX idx_posts_queue ON public.posts USING btree (status, scheduled_for) WHERE (status = ANY (ARRAY['scheduled'::text, 'publishing'::text]))"
+  },
+  {
+   "table_name": "posts",
+   "indexname": "idx_posts_scheduled",
+   "indexdef": "CREATE INDEX idx_posts_scheduled ON public.posts USING btree (scheduled_for) WHERE (status = 'scheduled'::text)"
+  },
+  {
+   "table_name": "posts",
+   "indexname": "posts_pkey",
+   "indexdef": "CREATE UNIQUE INDEX posts_pkey ON public.posts USING btree (id)"
+  },
+  {
+   "table_name": "publish_logs",
+   "indexname": "idx_publish_logs_client",
+   "indexdef": "CREATE INDEX idx_publish_logs_client ON public.publish_logs USING btree (client_id)"
+  },
+  {
+   "table_name": "publish_logs",
+   "indexname": "idx_publish_logs_post",
+   "indexdef": "CREATE INDEX idx_publish_logs_post ON public.publish_logs USING btree (post_id, created_at DESC)"
+  },
+  {
+   "table_name": "publish_logs",
+   "indexname": "publish_logs_pkey",
+   "indexdef": "CREATE UNIQUE INDEX publish_logs_pkey ON public.publish_logs USING btree (id)"
+  },
+  {
+   "table_name": "site_content",
+   "indexname": "site_content_pkey",
+   "indexdef": "CREATE UNIQUE INDEX site_content_pkey ON public.site_content USING btree (client_id)"
+  },
+  {
+   "table_name": "site_content",
+   "indexname": "site_content_updated_idx",
+   "indexdef": "CREATE INDEX site_content_updated_idx ON public.site_content USING btree (updated_at DESC)"
+  },
+  {
+   "table_name": "sites",
+   "indexname": "sites_pkey",
+   "indexdef": "CREATE UNIQUE INDEX sites_pkey ON public.sites USING btree (id)"
+  },
+  {
+   "table_name": "social_accounts",
+   "indexname": "social_accounts_pkey",
+   "indexdef": "CREATE UNIQUE INDEX social_accounts_pkey ON public.social_accounts USING btree (client_id)"
+  },
+  {
+   "table_name": "subscriptions",
+   "indexname": "subscriptions_pkey",
+   "indexdef": "CREATE UNIQUE INDEX subscriptions_pkey ON public.subscriptions USING btree (client_id)"
+  }
+ ],
+ "rls": [
+  {
+   "table_name": "brand_profiles",
+   "enabled": true
+  },
+  {
+   "table_name": "client_assets",
+   "enabled": true
+  },
+  {
+   "table_name": "client_site_claims",
+   "enabled": true
+  },
+  {
+   "table_name": "clients",
+   "enabled": true
+  },
+  {
+   "table_name": "domain_orders",
+   "enabled": true
+  },
+  {
+   "table_name": "domains",
+   "enabled": true
+  },
+  {
+   "table_name": "posts",
+   "enabled": true
+  },
+  {
+   "table_name": "publish_logs",
+   "enabled": true
+  },
+  {
+   "table_name": "site_content",
+   "enabled": true
+  },
+  {
+   "table_name": "sites",
+   "enabled": true
+  },
+  {
+   "table_name": "social_accounts",
+   "enabled": true
+  },
+  {
+   "table_name": "subscriptions",
+   "enabled": true
+  }
+ ],
+ "policies": [],
+ "tables": [
+  "brand_profiles",
+  "client_assets",
+  "client_site_claims",
+  "clients",
+  "domain_orders",
+  "domains",
+  "posts",
+  "publish_logs",
+  "site_content",
+  "sites",
+  "social_accounts",
+  "subscriptions"
+ ]
+}
