@@ -35,6 +35,9 @@ export default function Choose({ params }) {
   // tab until the authenticated dashboard consumes it and owns the site.
   useEffect(() => {
     if (isDemo || typeof window === 'undefined') return
+    // Keep the exact project through Google/magic-link redirects. A user may
+    // own several sites; selecting the first account site is never a safe fallback.
+    window.sessionStorage.setItem('vitrina-active-client', client)
     const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''))
     const claim = hash.get('claim')
     if (!claim) return
@@ -127,6 +130,7 @@ export default function Choose({ params }) {
     if (isDemo || busy) return
     setBusy(true); setErr('')
     try {
+      window.sessionStorage.setItem('vitrina-active-client', client)
       const r = await fetch(`${API}/clients/${client}/select-design`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ layout: selected }),

@@ -950,11 +950,17 @@ scripts/clone-skills.sh → κατεβάζει curated external skills
 
 - Προστέθηκε `sites/tests/visualJourney.mjs`: πραγματικό Playwright render σε desktop/mobile,
   semantic allow/deny λέξεις, broken images, H1, overflow, browser errors και full-page screenshots.
-- Πέρασαν 6 αντιπροσωπευτικά journeys: καφέ, οδοντίατρος, φαρμακείο, νυχάδικο, ξυλουργός,
-  υδραυλικός. Screenshots: `sites/artifacts/visual-journey/` (αγνοούνται από git).
+- Πέρασαν και τα 16 βασικά journeys σε desktop/mobile: καφέ, ταβέρνα, οδοντίατρος, γιατρός,
+  φαρμακείο, νυχάδικο, αισθητική, μασάζ, ξυλουργός, υδραυλικός, retail, δικηγόρος,
+  δωμάτια, γυμναστήριο, συνεργείο και παραγωγός. Screenshots:
+  `sites/artifacts/visual-journey/` (αγνοούνται από git).
 - Διορθώθηκε κρυφό fallback: το `pharmacy` δεν είχε demo data και έπεφτε σε ξυλουργό.
 - Τα νύχια χωρίστηκαν από το γενικό beauty media pool, ώστε καθαρό νυχάδικο να μη δείχνει
   κομμωτήριο/μαλλιά. Προστέθηκε nail-only demo και semantic regression gate.
+- Το κατάλυμα άλλαξε από generic tropical resort stock σε κυκλαδίτικη/αιγαιοπελαγίτικη
+  φωτογραφική κατεύθυνση. Το gate απαιτεί πλέον και συμφωνία τοποθεσίας (Πάρος, όχι Νάξος).
+- Υποστηρίζεται γρήγορος στοχευμένος έλεγχος, π.χ.
+  `npm run qa:visual -- --base http://localhost:3800 --case rooms`.
 - Για παράλληλους agents, το Next υποστηρίζει `NEXT_DIST_DIR`. Το visual QA τρέχει με
   `.next-visual`, ώστε άλλο `next build` να μη σβήνει τα assets του ενεργού server.
 - Δεν έγινε deploy ή push. Επόμενο: ένταξη του visual journey σε CI με προσωρινό isolated server

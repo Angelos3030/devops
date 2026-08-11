@@ -81,9 +81,7 @@ export default function Dashboard() {
   const pendingClient = useCallback(() => {
     const requested = new URLSearchParams(window.location.search).get('client')
     if (requested) return requested
-    const key = Object.keys(window.sessionStorage)
-      .find((item) => item.startsWith('vitrina-claim:'))
-    return key ? key.slice('vitrina-claim:'.length) : null
+    return window.sessionStorage.getItem('vitrina-active-client') || null
   }, [])
 
   // --- φόρτωσε τα sites του χρήστη ---
@@ -107,15 +105,35 @@ export default function Dashboard() {
     claimThenLoad()
       .then((d) => {
         if (!alive) return
-        setClients(d.clients || [])
-        const pick = (d.clients || []).find((c) => c.id === fromUrl) || (d.clients || [])[0]
-        if (pick) setClientId(pick.id)
+        const owned = d.clients || []
+        setClients(owned)
+        const pick = fromUrl ? owned.find((c) => c.id === fromUrl) : owned[0]
+        if (fromUrl && !pick) {
+          setErr('Το νέο site δεν συνδέθηκε ακόμη στον λογαριασμό σου. Δεν ανοίξαμε άλλο site για λόγους ασφάλειας. Γύρισε στην επιλογή σχεδίου και δοκίμασε ξανά.')
+          setClientId(null)
+          return
+        }
+        if (pick) {
+          window.sessionStorage.setItem('vitrina-active-client', pick.id)
+          setClientId(pick.id)
+        }
       })
       .catch((e) => {
         if (alive) setErr('Δεν μπόρεσα να αποθηκεύσω ή να φορτώσω τα site σου. ' + e.message)
       })
     return () => { alive = false }
   }, [session, authFetch, pendingClient])
+
+  function switchClient(nextId) {
+    if (!nextId || nextId === clientId) return
+    window.sessionStorage.setItem('vitrina-active-client', nextId)
+    window.history.replaceState(null, '', `/dashboard?client=${encodeURIComponent(nextId)}`)
+    setAccount(null)
+    setPhotos(null)
+    setLogoDrafts(null)
+    setErr('')
+    setClientId(nextId)
+  }
 
   useEffect(() => {
     if (!clientId) return
@@ -484,9 +502,13 @@ export default function Dashboard() {
         <span className={s.brand}>Vitrina</span>
         <a className={s.linkBtn} href="https://getvitrina.gr/">+ Νέο site</a>
         {clients?.length > 1 && (
-          <select className={s.picker} value={clientId || ''} onChange={(e) => setClientId(e.target.value)}>
-            {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-          </select>
+          <label className={s.projectPicker}>
+            <span>Επεξεργάζεσαι</span>
+            <select className={s.picker} aria-label="Επίλεξε site για επεξεργασία"
+              value={clientId || ''} onChange={(e) => switchClient(e.target.value)}>
+              {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </select>
+          </label>
         )}
         <div className={s.topRight}>
           {account?.domain?.domain && (

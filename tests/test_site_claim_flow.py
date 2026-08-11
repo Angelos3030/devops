@@ -74,12 +74,16 @@ class SiteClaimFlowTests(unittest.TestCase):
 
         self.assertIn("#claim=", start)
         self.assertIn("sessionStorage.setItem(`vitrina-claim:${client}`", choose)
+        self.assertIn("sessionStorage.setItem('vitrina-active-client', client)", choose)
         self.assertIn("history.replaceState", choose)
         self.assertIn("sessionStorage.getItem(claimKey)", dashboard)
         self.assertIn("`/clients/${fromUrl}/claim`", dashboard)
         self.assertIn("sessionStorage.removeItem(claimKey)", dashboard)
         self.assertIn("/clients/lookup", dashboard)
         self.assertIn("clients?.length > 1", dashboard)
+        self.assertIn("sessionStorage.getItem('vitrina-active-client')", dashboard)
+        self.assertIn("if (fromUrl && !pick)", dashboard)
+        self.assertNotIn("owned.find((c) => c.id === fromUrl) || owned[0]", dashboard)
 
 
 if __name__ == "__main__":

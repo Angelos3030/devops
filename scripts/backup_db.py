@@ -2,27 +2,25 @@
 """
 Λογικό backup & ΔΟΚΙΜΑΣΜΕΝΗ επαναφορά.
 
-    python scripts/backup_db.py --dump                       # δεδομένα → φάκελο
-    python scripts/backup_db.py --verify-restore --confirm-staging
-    python scripts/backup_db.py --dump --out C:/backups/2026-08-11
+    python scripts/backup_db.py --dump                                  # δεδομένα → φάκελο
+    python scripts/backup_db.py --dump --verify --confirm-staging       # + απόδειξη επαναφοράς
 
-Γιατί όχι pg_dump: δεν υπάρχει στο μηχάνημα, και η έκδοσή του πρέπει να ταιριάζει
-με τον server. Δεν το χρειαζόμαστε — **το σχήμα ζει ήδη στο `db/migrations/`**.
-Άρα backup = μόνο τα δεδομένα, και επαναφορά = migrations σε άδεια βάση + φόρτωση.
-Αυτό είναι και ανεξάρτητο έκδοσης και επαληθεύσιμο.
+Γιατί όχι pg_dump: δεν υπάρχει στο μηχάνημα και η έκδοσή του πρέπει να ταιριάζει με
+τον server. Δεν το χρειαζόμαστε — **το σχήμα ζει ήδη στο `db/migrations/`**. Άρα
+backup = μόνο δεδομένα, επαναφορά = migrations σε άδεια βάση + φόρτωση. Ανεξάρτητο
+έκδοσης και επαληθεύσιμο.
 
-⚠️ ΤΟ --verify-restore ΔΕΝ ΕΙΝΑΙ ΑΚΟΜΑ ΑΠΟΜΟΝΩΜΕΝΟ — ΜΗΝ ΤΟ ΕΜΠΙΣΤΕΥΕΣΑΙ.
+Η ΕΠΑΛΗΘΕΥΣΗ ΤΡΕΧΕΙ ΣΕ ΠΡΑΓΜΑΤΙΚΑ ΑΔΕΙΑ ΒΑΣΗ (Docker), όχι σε schema.
+Πρώτη προσπάθεια ήταν με προσωρινό schema και απέτυχε: τα migrations 0002/0003/0004
+γράφουν ρητά `public.`, οπότε αγνοούν το `search_path` και πειράζουν το αληθινό
+schema. Άδεια βάση είναι ο μόνος τρόπος να αποδειχθεί κάτι.
 
-Η ιδέα ήταν: προσωρινό schema, migrations εκεί, φόρτωση, σύγκριση, διαγραφή.
-Δεν δουλεύει, γιατί τα migrations 0002/0003/0004 γράφουν ρητά `public.` — άρα
-αγνοούν το search_path και πειράζουν το ΑΛΗΘΙΝΟ schema. Στη δοκιμή δεν έσπασε
-τίποτα (όλα idempotent, επαληθεύτηκε), αλλά η απομόνωση είναι ψεύτικη.
+Κύκλος: container postgres:16 → migrations → φόρτωση → σύγκριση πλήθους ανά
+πίνακα → **σβήσιμο container**, ακόμα κι αν κάτι αποτύχει.
 
-Η σωστή λύση είναι ΠΡΟΣΩΡΙΝΟ SUPABASE PROJECT μέσω Management API: άδεια βάση →
-migrations → φόρτωση → σύγκριση → διαγραφή project. Δεν έχει υλοποιηθεί ακόμα.
-
-Μέχρι τότε το `--dump` είναι αξιόπιστο· η επαλήθευση ΟΧΙ. Και backup χωρίς
-δοκιμασμένη επαναφορά είναι μισή λύση.
+Χρειάζεται να τρέχει ο Docker daemon. Προσωρινό Supabase project δοκιμάστηκε ως
+εναλλακτική και ΔΕΝ γίνεται: το δωρεάν όριο (2 ενεργά) είναι ήδη πιασμένο από
+vitrina + vitrina-staging, και είναι ανά χρήστη, όχι ανά οργανισμό.
 """
 from __future__ import annotations
 
@@ -42,7 +40,6 @@ except Exception:
 
 from src import env  # noqa: E402
 
-SCRATCH = "restore_check"          # προσωρινό schema — ποτέ το public
 MIGRATIONS = Path("db/migrations")
 SKIP_TABLES = {"schema_migrations"}
 
@@ -130,95 +127,133 @@ def dump(out_dir: Path) -> int:
     return 0
 
 
-def verify_restore(src: Path) -> int:
-    """ΑΤΕΛΗΣ — βλ. προειδοποίηση στην κορυφή του αρχείου."""
-    env.require("staging")
-    print("\n⚠️  Η απομόνωση ΔΕΝ είναι πραγματική: τα migrations 0002/0003/0004")
-    print("   γράφουν ρητά σε public. Χρειάζεται προσωρινό project, όχι schema.")
-    manifest = json.loads((src / "manifest.json").read_text(encoding="utf-8"))
-    conn = _connect()
-    ok, bad = [], []
+def _docker_ready() -> bool:
+    """Docker = η καλύτερη απομόνωση: δωρεάν, γρήγορη, χωρίς όρια projects."""
+    import subprocess
     try:
-        with conn.cursor() as cur:
-            print(f"\n[1] Προσωρινό schema «{SCRATCH}»")
-            cur.execute(f'DROP SCHEMA IF EXISTS {SCRATCH} CASCADE')
-            cur.execute(f'CREATE SCHEMA {SCRATCH}')
-            conn.commit()
+        return subprocess.run(["docker", "info"], capture_output=True,
+                              timeout=25).returncode == 0
+    except Exception:  # noqa: BLE001
+        return False
 
-            print("[2] Migrations στο προσωρινό schema")
-            cur.execute(f'SET search_path TO {SCRATCH}, public')
+
+def _throwaway_postgres():
+    """Προσωρινός Postgres σε container. Επιστρέφει (dsn, teardown)."""
+    import secrets, subprocess, time
+    import psycopg2
+
+    name = f"vitrina-restore-{secrets.token_hex(4)}"
+    port = 55000 + secrets.randbelow(2000)
+    pw = secrets.token_hex(12)
+    print(f"    container {name} @ {port}")
+    subprocess.run(["docker", "run", "-d", "--rm", "--name", name,
+                    "-e", f"POSTGRES_PASSWORD={pw}",
+                    "-p", f"{port}:5432", "postgres:16-alpine"],
+                   capture_output=True, check=True, timeout=600)
+
+    def teardown():
+        subprocess.run(["docker", "rm", "-f", name], capture_output=True, timeout=60)
+        print(f"    {name} σβήστηκε")
+
+    dsn = f"postgresql://postgres:{pw}@127.0.0.1:{port}/postgres"
+    for _ in range(45):
+        try:
+            psycopg2.connect(dsn, connect_timeout=3).close()
+            return dsn, teardown
+        except Exception:  # noqa: BLE001
+            time.sleep(1.5)
+    teardown()
+    sys.exit("⛔ Ο προσωρινός Postgres δεν σηκώθηκε.")
+
+
+def _restore_and_compare(dsn, src, manifest, teardown) -> int:
+    """Migrations σε ΑΔΕΙΑ βάση, φόρτωση backup, σύγκριση, καθάρισμα."""
+    import psycopg2
+    ok, bad = [], []
+    conn = None
+    try:
+        conn = psycopg2.connect(dsn); conn.autocommit = False
+        with conn.cursor() as cur:
+            print("[2] Migrations σε άδεια βάση")
             for path in sorted(MIGRATIONS.glob("*.sql")):
-                sql = path.read_text(encoding="utf-8")
                 try:
-                    cur.execute(sql)
-                    conn.commit()
-                    print(f"  ✓ {path.name}")
+                    cur.execute(path.read_text(encoding="utf-8")); conn.commit()
+                    print(f"    ✓ {path.name}")
                 except Exception as e:  # noqa: BLE001
                     conn.rollback()
-                    # Οι πολιτικές RLS αναφέρονται σε ρόλους/πίνακες του public.
-                    # Δεν εμποδίζουν την επαλήθευση δεδομένων.
-                    print(f"  · {path.name} (παραλείφθηκε: {str(e).splitlines()[0][:60]})")
+                    bad.append(f"migration {path.name}: {str(e).splitlines()[0][:70]}")
+                    print(f"    ✗ {path.name}")
 
-            print("[3] Φόρτωση δεδομένων")
-            cur.execute(f'SET search_path TO {SCRATCH}')
+            print("[3] Φόρτωση backup")
             for table in manifest["order"]:
                 rows = json.loads((src / f"{table}.json").read_text(encoding="utf-8"))
                 if not rows:
                     continue
                 cols = list(rows[0].keys())
-                placeholders = ",".join(["%s"] * len(cols))
                 collist = ",".join(f'"{c}"' for c in cols)
+                marks = ",".join(["%s"] * len(cols))
                 try:
                     for row in rows:
                         cur.execute(
-                            f'INSERT INTO {SCRATCH}."{table}" ({collist}) VALUES ({placeholders})'
-                            f' ON CONFLICT DO NOTHING',
+                            f'INSERT INTO public."{table}" ({collist}) VALUES ({marks})',
                             [json.dumps(row[c]) if isinstance(row[c], (dict, list)) else row[c]
                              for c in cols])
                     conn.commit()
                 except Exception as e:  # noqa: BLE001
                     conn.rollback()
                     bad.append(f"{table}: {str(e).splitlines()[0][:70]}")
-                    continue
 
             print("\n[4] Σύγκριση πλήθους γραμμών")
             for table, expected in manifest["tables"].items():
                 try:
-                    cur.execute(f'SELECT count(*) FROM {SCRATCH}."{table}"')
+                    cur.execute(f'SELECT count(*) FROM public."{table}"')
                     got = cur.fetchone()[0]
-                except Exception as e:  # noqa: BLE001
-                    bad.append(f"{table}: δεν διαβάστηκε ({str(e).splitlines()[0][:50]})")
-                    conn.rollback()
-                    continue
-                if got == expected:
-                    ok.append(table)
-                    print(f"  ✓ {table:24} {got:>6} / {expected}")
-                else:
-                    bad.append(f"{table}: {got} αντί για {expected}")
-                    print(f"  ✗ {table:24} {got:>6} / {expected}")
+                except Exception:  # noqa: BLE001
+                    conn.rollback(); bad.append(f"{table}: δεν διαβάστηκε"); continue
+                mark = "✓" if got == expected else "✗"
+                print(f"    {mark} {table:26} {got:>5} / {expected}")
+                (ok if got == expected else bad).append(
+                    table if got == expected else f"{table}: {got} αντί για {expected}")
     finally:
-        try:
-            with conn.cursor() as cur:
-                cur.execute(f'DROP SCHEMA IF EXISTS {SCRATCH} CASCADE')
-                conn.commit()
-            print(f"\n[5] Το προσωρινό schema σβήστηκε")
-        except Exception as e:  # noqa: BLE001
-            print(f"\n⚠️ Δεν σβήστηκε το {SCRATCH}: {e}")
-        conn.close()
+        if conn is not None:
+            conn.close()
+        print("\n[5] Καθαρισμός")
+        teardown()
 
     print("\n" + "=" * 60)
     print(f"ΠΙΝΑΚΕΣ ΟΚ: {len(ok)}   ΠΡΟΒΛΗΜΑΤΑ: {len(bad)}")
     if bad:
         print("\n❌ " + "\n   ".join(bad))
         return 1
-    print("\n✅ Η επαναφορά δοκιμάστηκε και πέτυχε. Το backup είναι πραγματικό.")
+    print("\n✅ Το backup επαναφέρθηκε σε ΑΔΕΙΑ βάση και ταιριάζει γραμμή προς γραμμή.")
     return 0
+
+
+def verify_restore(src: Path) -> int:
+    """Απόδειξη ότι το backup επαναφέρεται — σε πραγματικά άδεια βάση.
+
+    Schema-level απομόνωση δεν αρκεί: τα migrations 0002/0003/0004 γράφουν ρητά
+    `public.` και αγνοούν το search_path.
+    """
+    env.require("staging")
+    manifest = json.loads((src / "manifest.json").read_text(encoding="utf-8"))
+
+    if not _docker_ready():
+        sys.exit("⛔ Χρειάζεται Docker για την επαλήθευση — δεν τρέχει ο daemon.\n"
+                 "   Ξεκίνα το Docker Desktop και ξανατρέξε.\n"
+                 "   (Εναλλακτικά προσωρινό Supabase project, αλλά οι δωρεάν\n"
+                 "    θέσεις είναι εξαντλημένες: vitrina + vitrina-staging.)")
+
+    print("\n[1] Προσωρινός Postgres σε container")
+    dsn, teardown = _throwaway_postgres()
+    return _restore_and_compare(dsn, src, manifest, teardown)
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dump", action="store_true")
-    ap.add_argument("--verify-restore", action="store_true")
+    ap.add_argument("--verify", "--verify-restore", dest="verify_restore",
+                    action="store_true")
     ap.add_argument("--confirm-staging", action="store_true")
     ap.add_argument("--out", default="")
     args = ap.parse_args()
