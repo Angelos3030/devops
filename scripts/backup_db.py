@@ -174,7 +174,32 @@ def _restore_and_compare(dsn, src, manifest, teardown) -> int:
     try:
         conn = psycopg2.connect(dsn); conn.autocommit = False
         with conn.cursor() as cur:
-            print("[2] Migrations σε άδεια βάση")
+            # Τα migrations δίνουν GRANT σε ρόλους που φτιάχνει το Supabase, όχι ο
+            # Postgres. Χωρίς αυτούς η επαναφορά σε καθαρή βάση σκάει με
+            # «role "anon" does not exist» — δηλαδή δεν θα μπορούσαμε να
+            # ανακτήσουμε πουθενά αλλού. Τους δημιουργούμε ρητά.
+            print("[2] Ρόλοι & επεκτάσεις που περιμένει το Supabase")
+            cur.execute("""
+                DO $$ BEGIN
+                  CREATE ROLE anon            NOLOGIN NOINHERIT;
+                  EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+                DO $$ BEGIN
+                  CREATE ROLE authenticated   NOLOGIN NOINHERIT;
+                  EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+                DO $$ BEGIN
+                  CREATE ROLE service_role    NOLOGIN NOINHERIT BYPASSRLS;
+                  EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+                CREATE EXTENSION IF NOT EXISTS pgcrypto;
+                CREATE SCHEMA IF NOT EXISTS auth;
+                CREATE OR REPLACE FUNCTION auth.uid() RETURNS uuid
+                  LANGUAGE sql STABLE AS $$ SELECT NULL::uuid $$;
+                CREATE OR REPLACE FUNCTION auth.role() RETURNS text
+                  LANGUAGE sql STABLE AS $$ SELECT NULL::text $$;
+            """)
+            conn.commit()
+            print("    ✓ anon, authenticated, service_role, auth.uid()")
+
+            print("[3] Migrations σε άδεια βάση")
             for path in sorted(MIGRATIONS.glob("*.sql")):
                 try:
                     cur.execute(path.read_text(encoding="utf-8")); conn.commit()
@@ -184,7 +209,7 @@ def _restore_and_compare(dsn, src, manifest, teardown) -> int:
                     bad.append(f"migration {path.name}: {str(e).splitlines()[0][:70]}")
                     print(f"    ✗ {path.name}")
 
-            print("[3] Φόρτωση backup")
+            print("[4] Φόρτωση backup")
             for table in manifest["order"]:
                 rows = json.loads((src / f"{table}.json").read_text(encoding="utf-8"))
                 if not rows:
@@ -195,7 +220,12 @@ def _restore_and_compare(dsn, src, manifest, teardown) -> int:
                 try:
                     for row in rows:
                         cur.execute(
-                            f'INSERT INTO public."{table}" ({collist}) VALUES ({marks})',
+                            # ON CONFLICT: κάποια migrations σπέρνουν πίνακες
+                            # αναφοράς (capability_definitions, plan_capabilities).
+                            # Χωρίς αυτό η επαναφορά σκάει σε διπλό κλειδί ενώ τα
+                            # δεδομένα είναι ήδη σωστά.
+                            f'INSERT INTO public."{table}" ({collist}) VALUES ({marks})'
+                            f' ON CONFLICT DO NOTHING',
                             [json.dumps(row[c]) if isinstance(row[c], (dict, list)) else row[c]
                              for c in cols])
                     conn.commit()
