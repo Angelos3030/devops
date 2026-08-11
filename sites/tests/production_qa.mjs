@@ -186,8 +186,16 @@ async function flow(browser) {
   check(url.includes(typed), 'η πρόταση του πελάτη ταξιδεύει στην επόμενη οθόνη',
         url.split('/').pop().slice(0, 52))
 
+  // ΠΡΟΣΟΧΗ: εμείς κόβουμε το POST /start ώστε να μη γραφτεί πελάτης στην
+  // παραγωγή. Το abort παράγει «Failed to load resource: net::ERR_FAILED» —
+  // δικό μας αποτύπωμα, όχι σφάλμα του προϊόντος. Το εξαιρούμε ρητά.
   const errors = []
-  page.on('console', (m) => m.type() === 'error' && errors.push(m.text().slice(0, 90)))
+  page.on('console', (m) => {
+    if (m.type() !== 'error') return
+    const text = m.text()
+    if (sent && /ERR_FAILED|Failed to load resource/.test(text)) return
+    errors.push(text.slice(0, 90))
+  })
   await page.waitForTimeout(2500)
   check(errors.length === 0, 'η οθόνη μετά το prompt χωρίς console errors',
         errors.join(' | '))

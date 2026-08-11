@@ -550,7 +550,9 @@
     function go(){
       const v=document.getElementById('prompt').value.trim();
       if(!v){ document.getElementById('prompt').focus(); return; }
-      window.location.href = 'connect.html?desc='+encodeURIComponent(v)+'&step=intake';
+      // Site first: πάμε κατευθείαν στη δημιουργία. Ό,τι λείπει (τηλέφωνο,
+      // email, ωράριο, φωτογραφίες) το ζητάμε ΑΦΟΥ δει αποτέλεσμα.
+      window.location.href = 'start.html?text='+encodeURIComponent(v);
     }
     function setLang(l){
       document.documentElement.lang=l;
