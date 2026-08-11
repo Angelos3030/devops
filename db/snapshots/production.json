@@ -956,6 +956,14 @@
    "indexdef": "CREATE UNIQUE INDEX subscriptions_pkey ON public.subscriptions USING btree (client_id)"
   }
  ],
+ "functions": [
+  {
+   "table_name": "claim_client_site",
+   "args": "p_client_id uuid, p_token_hash text, p_email text",
+   "definition": "CREATE OR REPLACE FUNCTION public.claim_client_site(p_client_id uuid, p_token_hash text, p_email text)\n RETURNS boolean\n LANGUAGE plpgsql\n SET search_path TO 'public'\nAS $function$\nDECLARE\n  claim_row client_site_claims%ROWTYPE;\n  current_owner text;\nBEGIN\n  SELECT * INTO claim_row\n    FROM client_site_claims\n   WHERE client_id = p_client_id AND token_hash = p_token_hash\n   FOR UPDATE;\n\n  IF NOT FOUND OR claim_row.expires_at <= now() THEN\n    RETURN false;\n  END IF;\n\n  SELECT lower(coalesce(email, '')) INTO current_owner\n    FROM clients WHERE id = p_client_id FOR UPDATE;\n\n  IF claim_row.claimed_at IS NOT NULL THEN\n    RETURN current_owner = lower(p_email)\n       AND lower(coalesce(claim_row.claimed_by, '')) = lower(p_email);\n  END IF;\n\n  IF current_owner <> '' AND current_owner <> lower(p_email) THEN\n    RETURN false;\n  END IF;\n\n  UPDATE clients SET email = lower(p_email) WHERE id = p_client_id;\n  UPDATE client_site_claims\n     SET claimed_at = now(), claimed_by = lower(p_email)\n   WHERE id = claim_row.id;\n  RETURN true;\nEND;\n$function$\n"
+  }
+ ],
+ "triggers": [],
  "rls": [
   {
    "table_name": "brand_profiles",

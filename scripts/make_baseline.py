@@ -27,7 +27,7 @@ except Exception:
     pass
 
 SNAPSHOT = Path("db/snapshots/production.json")
-OUT = Path("db/migrations/baseline/0000_production_baseline.sql")
+OUT = Path("db/migrations/0000_production_baseline.sql")
 
 # Τα πρώτα που πρέπει να υπάρχουν για να στηθούν τα foreign keys.
 ROOT_TABLES = ("clients",)
@@ -148,6 +148,23 @@ def main() -> int:
                                             "CREATE UNIQUE INDEX IF NOT EXISTS ", 1)
             out.append(definition + ";")
     out.append("")
+
+    out.append("-- ─── Functions " + "─" * 50)
+    out.append("-- Το claim_client_site() συνδέει atomically ένα site με τον κάτοχό του.")
+    out.append("-- Παραλείπονταν από το baseline: καθαρή βάση περνούσε κάθε έλεγχο σχήματος")
+    out.append("-- και μετά έσπαγε στο πρώτο claim.")
+    for f in sorted(snap.get("functions", []), key=lambda r: (r["table_name"], r["args"])):
+        definition = f["definition"].rstrip().rstrip(";")
+        # pg_get_functiondef δίνει CREATE OR REPLACE — ασφαλές να ξανατρέξει.
+        out.append(definition + ";")
+    out.append("")
+
+    if snap.get("triggers"):
+        out.append("-- ─── Triggers " + "─" * 51)
+        for t in sorted(snap["triggers"], key=lambda r: (r["table_name"], r["tgname"])):
+            out.append(f'DROP TRIGGER IF EXISTS "{t["tgname"]}" ON "{t["table_name"]}";')
+            out.append(t["definition"].rstrip().rstrip(";") + ";")
+        out.append("")
 
     out.append("-- ─── Row Level Security " + "─" * 41)
     for table in order:

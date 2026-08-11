@@ -1,3 +1,12 @@
+-- ENV: staging-only
+--
+-- ΔΕΝ εφαρμόζεται στην παραγωγή. Ο Agency Kernel (Phase 4A) δεν έχει
+-- ολοκληρωθεί και δεν τον χρησιμοποιεί κανένα production specialist/action.
+-- Ο runner το παραλείπει όταν VITRINA_ENV=production, μέχρι ρητή έγκριση.
+--
+-- Για προώθηση στην παραγωγή: αφαίρεσε αυτή τη γραμμή ΕΝV και τρέξε
+--   VITRINA_ENV=production python scripts/migrate.py --apply --confirm-production
+--
 -- Stage 4A: Agency Kernel (deterministic, provider-agnostic, no active agents).
 -- `clients.id` is the workspace id for this stage; no parallel tenancy model.
 

@@ -59,6 +59,32 @@ QUERIES = {
         FROM pg_indexes WHERE schemaname = 'public'
         ORDER BY 1, 2
     """,
+    # Οι functions δεν ήταν στο αποτύπωμα και το baseline βγήκε χωρίς αυτές.
+    # Η παραγωγή έχει το claim_client_site() (RPC για το ownership των sites) —
+    # καθαρό staging από το baseline θα έσπαγε στο claim χωρίς να το δείξει
+    # καμία σύγκριση. Ό,τι δεν μετριέται, αποκλίνει.
+    "functions": """
+        SELECT p.proname AS table_name,
+               pg_get_function_identity_arguments(p.oid) AS args,
+               pg_get_functiondef(p.oid) AS definition
+        FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
+        WHERE n.nspname = 'public' AND p.prokind IN ('f', 'p')
+          -- Οι functions των extensions (pgcrypto, uuid-ossp) μπαίνουν στο public
+          -- σε καθαρό Postgres αλλά σε ξεχωριστό schema στο Supabase. Δεν είναι
+          -- δικό μας σχήμα — αν μετρηθούν, κάθε σύγκριση βγάζει ψεύτικες αποκλίσεις.
+          AND NOT EXISTS (SELECT 1 FROM pg_depend d
+                          WHERE d.objid = p.oid AND d.deptype = 'e')
+        ORDER BY 1, 2
+    """,
+    "triggers": """
+        SELECT c.relname AS table_name, t.tgname,
+               pg_get_triggerdef(t.oid) AS definition
+        FROM pg_trigger t
+        JOIN pg_class c ON c.oid = t.tgrelid
+        JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE n.nspname = 'public' AND NOT t.tgisinternal
+        ORDER BY 1, 2
+    """,
     "rls": """
         SELECT c.relname AS table_name, c.relrowsecurity AS enabled
         FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
@@ -126,6 +152,10 @@ def _key(kind: str, row: dict) -> str:
         return f'{row["table_name"]}.{row["conname"]}'
     if kind == "indexes":
         return f'{row["table_name"]}.{row["indexname"]}'
+    if kind == "functions":
+        return f'{row["table_name"]}({row["args"]})'
+    if kind == "triggers":
+        return f'{row["table_name"]}.{row["tgname"]}'
     if kind == "policies":
         return f'{row["table_name"]}.{row["policyname"]}'
     return row["table_name"]
@@ -152,10 +182,14 @@ def diff(a: dict, b: dict) -> int:
     differences = len(only_a) + len(only_b)
     shared = set(a["tables"]) & set(b["tables"])
 
-    for kind in ("columns", "constraints", "indexes", "policies"):
+    for kind in ("columns", "constraints", "indexes", "policies", "triggers", "functions"):
+        if kind not in a or kind not in b:
+            continue  # παλιό αποτύπωμα, πριν μπουν functions/triggers
         # Μόνο για κοινούς πίνακες — αλλιώς επαναλαμβάνουμε ό,τι είπαμε παραπάνω.
-        ma = {_key(kind, r): r for r in a[kind] if r["table_name"] in shared}
-        mb = {_key(kind, r): r for r in b[kind] if r["table_name"] in shared}
+        # Οι functions δεν ανήκουν σε πίνακα, οπότε συγκρίνονται όλες.
+        keep = (lambda r: True) if kind == "functions" else (lambda r: r["table_name"] in shared)
+        ma = {_key(kind, r): r for r in a[kind] if keep(r)}
+        mb = {_key(kind, r): r for r in b[kind] if keep(r)}
         missing = sorted(set(ma) - set(mb))
         extra = sorted(set(mb) - set(ma))
         changed = sorted(k for k in set(ma) & set(mb) if ma[k] != mb[k])

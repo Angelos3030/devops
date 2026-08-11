@@ -69,12 +69,23 @@ def _dsn() -> str:
     return dsn
 
 
+def _env_scope(path: Path) -> str:
+    """«-- ENV: staging-only» στην κορυφή = δεν φτάνει ποτέ στην παραγωγή.
+
+    Ο Agency Kernel υπάρχει στην ακολουθία αλλά δεν έχει ολοκληρωθεί. Χωρίς
+    αυτή τη σήμανση θα έμπαινε στην παραγωγή με το επόμενο --apply.
+    """
+    first = path.read_text(encoding="utf-8")[:200]
+    return "staging-only" if "-- ENV: staging-only" in first else "all"
+
+
 def _files() -> list[Path]:
     if not MIGRATIONS.is_dir():
         sys.exit(f"⛔ Δεν βρέθηκε ο φάκελος {MIGRATIONS}")
     out = []
+    # Το legacy/ είναι ιστορικό, όχι εκτελέσιμο — δεν διαβάζεται ποτέ.
     for path in sorted(MIGRATIONS.iterdir()):
-        if path.suffix != ".sql":
+        if path.suffix != ".sql" or path.is_dir():
             continue
         if not NAME_RE.match(path.name):
             sys.exit(f"⛔ Λάθος όνομα: {path.name}\n   Μορφή: 0007_short_description.sql")
@@ -123,6 +134,9 @@ def main() -> int:
         for path in files:
             version = NAME_RE.match(path.name).group(1)
             checksum = _checksum(path)
+            if _env_scope(path) == "staging-only" and env.is_production:
+                print(f"  ⊘ {path.name}  (staging-only — δεν αφορά την παραγωγή)")
+                continue
             if version in done:
                 changed = done[version] != checksum
                 mark = "⚠️  ΑΛΛΑΞΕ" if changed else "✓"

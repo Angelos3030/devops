@@ -2,8 +2,10 @@ import unittest
 from pathlib import Path
 
 
+# Ήταν 0008 στην παλιά ακολουθία. Μετά την ενοποίηση η σειρά ξεκινά από το
+# baseline της παραγωγής και ο kernel είναι το 0001 — staging-only.
 SQL = (Path(__file__).parents[1] / "db" / "migrations" /
-       "0008_agency_kernel.sql").read_text(encoding="utf-8")
+       "0001_agency_kernel.sql").read_text(encoding="utf-8")
 
 
 class AgencyMigrationTests(unittest.TestCase):

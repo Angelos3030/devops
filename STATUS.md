@@ -965,3 +965,27 @@ scripts/clone-skills.sh → κατεβάζει curated external skills
   `.next-visual`, ώστε άλλο `next build` να μη σβήνει τα assets του ενεργού server.
 - Δεν έγινε deploy ή push. Επόμενο: ένταξη του visual journey σε CI με προσωρινό isolated server
   και επέκταση της μήτρας στα υπόλοιπα verticals.
+
+### Ενοποίηση migrations — Βήμα 4 ολοκληρώθηκε (11 Αυγούστου 2026)
+
+- **Μία ακολουθία**: `db/migrations/0000_production_baseline.sql` (η παραγωγή ως έχει)
+  + `0001_agency_kernel.sql`. Τα παλιά πήγαν στο `legacy/`, με README που εξηγεί
+  γιατί αποσύρθηκε το καθένα. Ο runner δεν διαβάζει ποτέ το `legacy/`.
+- **`-- ENV: staging-only`**: ο `scripts/migrate.py` παραλείπει τον Agency Kernel όταν
+  `VITRINA_ENV=production`. Χωρίς αυτό, ημιτελές υποσύστημα θα έμπαινε στην παραγωγή
+  με το επόμενο `--apply --confirm-production`.
+- **Νέο `scripts/verify_sequence.py`** — 14 έλεγχοι σε καθαρό container, πράσινοι:
+  baseline parity με παραγωγή, πλήρες replay, τελικό σχήμα ↔ staging, design
+  persistence στον `sites`, `client_site_claims` + RPC, append-only evidence που
+  όντως απορρίπτει UPDATE, μηδέν runtime αναφορές σε `site_variants`/`selected_layout`.
+- **Βρέθηκε κενό**: το αποτύπωμα δεν μετρούσε functions, οπότε το baseline βγήκε χωρίς
+  την `claim_client_site()`. Καθαρή βάση περνούσε κάθε έλεγχο σχήματος και έσπαγε στο
+  πρώτο claim. Το `schema_snapshot.py` μετράει πλέον functions + triggers.
+- 52/52 python tests OK (νέο `tests/test_migration_sequence.py`· το
+  `test_agency_migration.py` έδειχνε σε αρχείο που δεν υπάρχει πια).
+- **Καμία αλλαγή σε παραγωγή ή staging.** Η παραγωγή διαβάστηκε μόνο read-only μέσω
+  Management API. Το staging δεν ξαναστήθηκε — αυτό είναι το Βήμα 5.
+
+Επόμενο (χρειάζεται έγκριση): καθαρό staging από τη νέα ακολουθία, schema-parity gate
+στο CI, δοκιμή restore πάνω στο baseline. Ο Agency Kernel πάει στην παραγωγή μόνο με
+ξεχωριστή έγκριση μετά τη Φάση 4A.

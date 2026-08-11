@@ -2714,6 +2714,30 @@
    "indexdef": "CREATE UNIQUE INDEX workspace_entitlements_workspace_id_capability_key_capabili_key ON public.workspace_entitlements USING btree (workspace_id, capability_key, capability_version, source, source_ref)"
   }
  ],
+ "functions": [
+  {
+   "table_name": "claim_client_site",
+   "args": "p_client_id uuid, p_token_hash text, p_email text",
+   "definition": "CREATE OR REPLACE FUNCTION public.claim_client_site(p_client_id uuid, p_token_hash text, p_email text)\n RETURNS boolean\n LANGUAGE plpgsql\n SET search_path TO 'public'\nAS $function$\nDECLARE\n  claim_row client_site_claims%ROWTYPE;\n  current_owner text;\nBEGIN\n  SELECT * INTO claim_row\n    FROM client_site_claims\n   WHERE client_id = p_client_id AND token_hash = p_token_hash\n   FOR UPDATE;\n\n  IF NOT FOUND OR claim_row.expires_at <= now() THEN\n    RETURN false;\n  END IF;\n\n  SELECT lower(coalesce(email, '')) INTO current_owner\n    FROM clients WHERE id = p_client_id FOR UPDATE;\n\n  IF claim_row.claimed_at IS NOT NULL THEN\n    RETURN current_owner = lower(p_email)\n       AND lower(coalesce(claim_row.claimed_by, '')) = lower(p_email);\n  END IF;\n\n  IF current_owner <> '' AND current_owner <> lower(p_email) THEN\n    RETURN false;\n  END IF;\n\n  UPDATE clients SET email = lower(p_email) WHERE id = p_client_id;\n  UPDATE client_site_claims\n     SET claimed_at = now(), claimed_by = lower(p_email)\n   WHERE id = claim_row.id;\n  RETURN true;\nEND;\n$function$\n"
+  },
+  {
+   "table_name": "prevent_agency_evidence_mutation",
+   "args": "",
+   "definition": "CREATE OR REPLACE FUNCTION public.prevent_agency_evidence_mutation()\n RETURNS trigger\n LANGUAGE plpgsql\nAS $function$\nBEGIN\n  RAISE EXCEPTION '% is append-only; append a compensating record instead', TG_TABLE_NAME;\nEND;\n$function$\n"
+  }
+ ],
+ "triggers": [
+  {
+   "table_name": "agency_audit_log",
+   "tgname": "agency_audit_log_append_only",
+   "definition": "CREATE TRIGGER agency_audit_log_append_only BEFORE DELETE OR UPDATE ON public.agency_audit_log FOR EACH ROW EXECUTE FUNCTION prevent_agency_evidence_mutation()"
+  },
+  {
+   "table_name": "agency_events",
+   "tgname": "agency_events_append_only",
+   "definition": "CREATE TRIGGER agency_events_append_only BEFORE DELETE OR UPDATE ON public.agency_events FOR EACH ROW EXECUTE FUNCTION prevent_agency_evidence_mutation()"
+  }
+ ],
  "rls": [
   {
    "table_name": "agency_audit_log",

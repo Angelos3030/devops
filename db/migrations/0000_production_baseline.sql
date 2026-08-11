@@ -242,6 +242,56 @@ CREATE INDEX IF NOT EXISTS site_content_updated_idx ON public.site_content USING
 CREATE INDEX IF NOT EXISTS idx_publish_logs_client ON public.publish_logs USING btree (client_id);
 CREATE INDEX IF NOT EXISTS idx_publish_logs_post ON public.publish_logs USING btree (post_id, created_at DESC);
 
+-- ─── Functions ──────────────────────────────────────────────────
+-- Το claim_client_site() συνδέει atomically ένα site με τον κάτοχό του.
+-- Παραλείπονταν από το baseline: καθαρή βάση περνούσε κάθε έλεγχο σχήματος
+-- και μετά έσπαγε στο πρώτο claim.
+CREATE OR REPLACE FUNCTION public.claim_client_site(p_client_id uuid, p_token_hash text, p_email text)
+ RETURNS boolean
+ LANGUAGE plpgsql
+ SET search_path TO 'public'
+AS $function$
+DECLARE
+  claim_row client_site_claims%ROWTYPE;
+  current_owner text;
+BEGIN
+  SELECT * INTO claim_row
+    FROM client_site_claims
+   WHERE client_id = p_client_id AND token_hash = p_token_hash
+   FOR UPDATE;
+
+  IF NOT FOUND OR claim_row.expires_at <= now() THEN
+    RETURN false;
+  END IF;
+
+  SELECT lower(coalesce(email, '')) INTO current_owner
+    FROM clients WHERE id = p_client_id FOR UPDATE;
+
+  IF claim_row.claimed_at IS NOT NULL THEN
+    RETURN current_owner = lower(p_email)
+       AND lower(coalesce(claim_row.claimed_by, '')) = lower(p_email);
+  END IF;
+
+  IF current_owner <> '' AND current_owner <> lower(p_email) THEN
+    RETURN false;
+  END IF;
+
+  UPDATE clients SET email = lower(p_email) WHERE id = p_client_id;
+  UPDATE client_site_claims
+     SET claimed_at = now(), claimed_by = lower(p_email)
+   WHERE id = claim_row.id;
+  RETURN true;
+END;
+$function$;
+
+-- PostgreSQL grants EXECUTE on new functions to PUBLIC by default. This RPC
+-- accepts an ownership token and must remain backend-only, exactly as it is in
+-- production.
+REVOKE ALL ON TABLE public.client_site_claims FROM anon, authenticated;
+REVOKE ALL ON FUNCTION public.claim_client_site(uuid, text, text) FROM PUBLIC, anon, authenticated;
+GRANT ALL ON TABLE public.client_site_claims TO service_role;
+GRANT EXECUTE ON FUNCTION public.claim_client_site(uuid, text, text) TO service_role;
+
 -- ─── Row Level Security ─────────────────────────────────────────
 ALTER TABLE "clients" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "brand_profiles" ENABLE ROW LEVEL SECURITY;

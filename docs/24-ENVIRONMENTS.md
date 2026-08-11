@@ -56,19 +56,47 @@ VITRINA_ENV=production python scripts/migrate.py --apply --confirm-production
 
 ```
 db/migrations/
-  0001_schema.sql          βασικοί πίνακες
-  0002_site_variants.sql   τα 3 designs ανά πελάτη
-  0003_domains.sql         domains πελατών
-  0004_domain_orders.sql   παραγγελίες domain
-  0005_social_engine.sql   ουρά δημοσιεύσεων
-  0006_rls_policies.sql    row-level security για τους τότε υπάρχοντες πίνακες
-  0007_site_content.sql    structured site content + δικό του RLS
-  0008_agency_kernel.sql   Stage 4A kernel + δικό του RLS (pending apply)
+  0000_production_baseline.sql   ό,τι υπάρχει σήμερα στην παραγωγή
+  0001_agency_kernel.sql         Stage 4A kernel — ENV: staging-only
+  legacy/                        ιστορικό· ΔΕΝ εκτελείται ποτέ
 ```
 
-Κάθε migration που προσθέτει πίνακες μετά το `0006` ενεργοποιεί το δικό του RLS
-στο ίδιο αρχείο. Ο πίνακας `schema_migrations` κρατά έκδοση + checksum. Αν πειράξεις εφαρμοσμένο
-αρχείο, ο runner το αναφέρει ως `⚠️ ΑΛΛΑΞΕ` — φτιάξε **νέο** αρχείο.
+Ο πίνακας `schema_migrations` κρατά έκδοση + checksum. Αν πειράξεις εφαρμοσμένο
+αρχείο, ο runner το αναφέρει ως `⚠️ ΑΛΛΑΞΕ` — φτιάξε **νέο** αρχείο. Κάθε migration
+που προσθέτει πίνακες ενεργοποιεί το δικό του RLS στο ίδιο αρχείο.
+
+### Μία πηγή αλήθειας
+
+Υπήρχαν **δύο ανεξάρτητα συστήματα**: τα versioned αρχεία του repo (έστησαν το
+staging) και το ιστορικό του Supabase (έστησε την παραγωγή). Είχαν αποκλίνει και
+προς τις δύο κατευθύνσεις — 28 πίνακες έναντι 12, και η παραγωγή είχε index που
+δεν υπήρχε σε κανένα αρχείο μας.
+
+Πηγή αλήθειας είναι **τα αρχεία του repo**. Η παραγωγή δεν γίνεται πηγή αλήθειας:
+τότε κάθε χειροκίνητη αλλαγή νομιμοποιείται. Το `0000` είναι απλώς το σημείο μηδέν —
+παράγεται από το πραγματικό σχήμα (`scripts/make_baseline.py`) και **δεν εφαρμόζεται
+στην παραγωγή**, που ήδη το έχει.
+
+### `-- ENV: staging-only`
+
+Πρώτη γραμμή ενός migration. Ο runner το παραλείπει όταν `VITRINA_ENV=production`.
+Ο Agency Kernel υπάρχει στην ακολουθία αλλά δεν έχει ολοκληρωθεί· χωρίς τη σήμανση
+θα έμπαινε στην παραγωγή με το επόμενο `--apply --confirm-production`.
+
+### Απόδειξη πριν αγγίξεις περιβάλλον
+
+```bash
+python scripts/verify_sequence.py     # καθαρός container, σβήνει πάντα
+```
+
+Έξι έλεγχοι: baseline parity με την παραγωγή, πλήρες replay, τελικό σχήμα ↔ staging,
+**λειτουργίες** (design persistence στον `sites`, `client_site_claims` + η RPC
+`claim_client_site()`, append-only evidence που όντως απορρίπτει UPDATE), καθαρισμός,
+και μηδέν runtime αναφορές στα αποσυρμένα.
+
+Το αποτύπωμα μετράει και **functions/triggers**. Δεν τα μετρούσε, και το baseline
+βγήκε χωρίς την `claim_client_site()`: καθαρή βάση περνούσε κάθε έλεγχο σχήματος και
+μετά έσπαγε στο πρώτο claim. Ό,τι δεν μετριέται, αποκλίνει.
 
 ### Καταστροφικές αλλαγές: expand → migrate → contract
 
