@@ -100,8 +100,12 @@ async function main() {
       await page.waitForTimeout(800)
       check('το ownership token αφαιρέθηκε από τη διεύθυνση', !page.url().includes('#claim='))
       const chooserText = await page.locator('body').innerText()
-      check('οι προτάσεις αφορούν γυμναστήριο', /γυμναστήριο|προπόνηση|fitness/i.test(chooserText))
-      check('οι προτάσεις δεν περιέχουν στοιχεία Κουτράκη', !/Κουτράκ/i.test(chooserText))
+      const previewTexts = await Promise.all(page.frames().slice(1).map(async (frame) => {
+        try { return await frame.locator('body').innerText({ timeout: 5000 }) } catch { return '' }
+      }))
+      const renderedChooser = [chooserText, ...previewTexts].join('\n')
+      check('οι προτάσεις αφορούν γυμναστήριο', /γυμναστήριο|προπόνηση|fitness/i.test(renderedChooser))
+      check('οι προτάσεις δεν περιέχουν στοιχεία Κουτράκη', !/Κουτράκ/i.test(renderedChooser))
     }
 
     // --------------------------------------------- το site: τι φορτώνει όντως
