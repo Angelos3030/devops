@@ -207,8 +207,14 @@ def onboard_endpoint(intake: Intake, bg: BackgroundTasks):
             db.save_site_content(client_id, initial_content)
         except Exception as e:  # noqa: BLE001 — ο πελάτης δημιουργήθηκε, μη μπλοκάρεις
             print(f"[onboard] initial content save skipped: {e}")
+    claim_token = secrets.token_urlsafe(32)
+    try:
+        db.create_client_claim(client_id, hashlib.sha256(claim_token.encode()).hexdigest())
+    except Exception as e:
+        print(f"[onboard] claim creation failed: {e}")
+        claim_token = None
     bg.add_task(_build_site_bg, client_id, data)
-    return {"client_id": client_id}
+    return {"client_id": client_id, "claim_token": claim_token}
 
 
 class QuickStart(BaseModel):

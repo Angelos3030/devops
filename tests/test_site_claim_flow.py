@@ -10,6 +10,26 @@ from src import meta_oauth
 
 
 class SiteClaimFlowTests(unittest.TestCase):
+    def test_full_onboarding_returns_claim_for_prelogin_uploads(self):
+        background_tasks = unittest.mock.Mock()
+        intake = meta_oauth.Intake(
+            name="Νέα Nails", type="Άλλο", city="Αθήνα",
+            email="owner@example.gr", description="νυχάδικο",
+        )
+        with patch.object(meta_oauth.db, "create_client", return_value="client-1"), \
+             patch.object(meta_oauth.db, "save_site_content"), \
+             patch.object(meta_oauth.db, "create_client_claim") as create_claim:
+            result = meta_oauth.onboard_endpoint(intake, background_tasks)
+
+        self.assertEqual(result["client_id"], "client-1")
+        self.assertGreaterEqual(len(result["claim_token"]), 32)
+        stored_hash = create_claim.call_args.args[1]
+        self.assertEqual(
+            stored_hash,
+            hashlib.sha256(result["claim_token"].encode()).hexdigest(),
+        )
+        background_tasks.add_task.assert_called_once()
+
     def test_claim_uses_authenticated_email_and_hashes_token(self):
         raw = "a" * 43
         seen = {}

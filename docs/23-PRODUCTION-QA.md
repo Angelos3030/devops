@@ -8,6 +8,26 @@ node sites/tests/production_qa.mjs --url <url>         # άλλη σελίδα
 node sites/tests/production_qa.mjs --skip-lighthouse   # γρήγορο πέρασμα
 ```
 
+## Release gate πριν από deploy
+
+```bash
+npm --prefix sites run qa:release
+python -m unittest tests.test_vertical_routing
+```
+
+Το `qa:release` είναι ο deterministic πυρήνας του Website QA Agent. Ελέγχει:
+
+- semantic media routing: οι fallback φωτογραφίες ανήκουν στο επάγγελμα,
+- identity precedence: το επάγγελμα υπερισχύει των ονομάτων υπηρεσιών
+  (`Οδοντιατρείο` + `Αισθητική οδοντιατρική` παραμένει health),
+- τη διαδρομή επιλογή theme -> live editor -> palette/typography,
+- την ανάκτηση pending site μετά από Google/email authentication,
+- production build όλων των routes.
+
+Το Python suite ελέγχει ανεξάρτητα το backend intake και το ranking των themes.
+Backend και Sites πρέπει να αναπτύσσονται από το ίδιο commit. Αν αναπτυχθεί μόνο
+το ένα, η αρχική μπορεί να προτείνει theme που δεν εμφανίζεται στον chooser.
+
 Έξοδος `0` = καθαρό, `1` = κάτι έσπασε. **Δεν δίνεται link πριν βγει καθαρό.**
 
 ## Δύο επίπεδα, κανένα δεν αντικαθιστά το άλλο
@@ -122,3 +142,14 @@ Bonus: 6 στιγμιότυπα κοστίζουν λιγότερο από 6 ifr
 Ειρωνικά, το `design_guard` έπιανε αόρατα κουμπιά σε sites πελατών ενώ το δικό μας κύριο
 κουμπί είχε αντίθεση **2,6:1** (λευκό σε `#FF7A1A`). Το βρήκε το Lighthouse. Γι' αυτό
 υπάρχουν δύο επίπεδα.
+
+## Ownership και uploads
+
+Το upload logo/φωτογραφιών έχει δύο επιτρεπτές διαδρομές και καμία τρίτη:
+
+- μετά το login, έγκυρο bearer token ιδιοκτήτη του συγκεκριμένου `client_id`
+- πριν το login, unclaimed και unexpired claim token που εκδόθηκε από το ίδιο
+  onboarding και αποθηκεύτηκε στη βάση μόνο ως SHA-256 hash
+
+Το `tests/test_upload_authorization.py` πρέπει να παραμένει στο release gate της
+API υπηρεσίας. Upload χωρίς ένα από τα δύο απορρίπτεται με `401`.

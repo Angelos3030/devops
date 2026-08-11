@@ -233,6 +233,10 @@ export default function Dashboard() {
   const [photoErr, setPhotoErr] = useState('')
   const [confirmDel, setConfirmDel] = useState(null)   // asset προς διαγραφή
   const [staged, setStaged] = useState(null)           // {file, url, replaces}
+  const [logoDrafts, setLogoDrafts] = useState(null)
+  const [logoDesignBusy, setLogoDesignBusy] = useState('')
+  const logo = photos?.find((asset) => asset.type === 'logo') || null
+  const sitePhotos = photos?.filter((asset) => asset.type !== 'logo') || []
 
   async function loadPhotos() {
     try {
@@ -244,12 +248,12 @@ export default function Dashboard() {
   }
 
   /** Ελέγχει ΠΡΙΝ σταλεί οτιδήποτε — ο πελάτης δεν περιμένει άδικα το ανέβασμα. */
-  function stagePhoto(file, replaces = null) {
+  function stagePhoto(file, replaces = null, assetType = 'photo') {
     setPhotoErr('')
     if (!file) return
     const v = validatePhoto(file)
     if (!v.ok) { setPhotoErr(v.error); return }
-    setStaged({ file, url: URL.createObjectURL(file), replaces })
+    setStaged({ file, url: URL.createObjectURL(file), replaces, assetType })
   }
 
   /** Ανεβάζει. Στο replace, η παλιά σβήνει ΜΟΝΟ αφού επιβεβαιωθεί η νέα. */
@@ -259,8 +263,11 @@ export default function Dashboard() {
     try {
       const fd = new FormData()
       fd.append('file', staged.file)
-      fd.append('asset_type', 'photo')
-      const res = await fetch(`${API}/clients/${clientId}/upload`, { method: 'POST', body: fd })
+      fd.append('asset_type', staged.assetType)
+      const res = await fetch(`${API}/clients/${clientId}/upload`, {
+        method: 'POST', body: fd,
+        headers: { Authorization: `Bearer ${session?.access_token || ''}` },
+      })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
         throw new Error(body.detail || `Το ανέβασμα απέτυχε (${res.status})`)
@@ -291,6 +298,30 @@ export default function Dashboard() {
       setPhotoErr('Δεν διαγράφηκε. ' + e.message)
     }
     setPhotoBusy('')
+  }
+
+  async function designLogos() {
+    setLogoDesignBusy('load'); setPhotoErr('')
+    try {
+      const d = await authFetch(`/clients/${clientId}/logo-drafts`)
+      setLogoDrafts(d.drafts || [])
+    } catch (e) {
+      setPhotoErr('Δεν δημιουργήθηκαν οι προτάσεις λογοτύπου. ' + e.message)
+    }
+    setLogoDesignBusy('')
+  }
+
+  async function approveLogo(draftId) {
+    setLogoDesignBusy(draftId); setPhotoErr('')
+    try {
+      await authFetch(`/clients/${clientId}/logo-drafts/${draftId}/approve`, { method: 'POST' })
+      setLogoDrafts(null)
+      await loadPhotos()
+      setVer(Date.now())
+    } catch (e) {
+      setPhotoErr('Δεν αποθηκεύτηκε το λογότυπο. ' + e.message)
+    }
+    setLogoDesignBusy('')
   }
 
   // Έτοιμα posts για την εβδομάδα — ο πελάτης τα αντιγράφει και τα δημοσιεύει.
@@ -568,8 +599,8 @@ ${(p.hashtags || []).join(' ')}`)}>
               {staged && (
                 <div className={s.modal} role="dialog" aria-modal="true" aria-label="Επιβεβαίωση φωτογραφίας">
                   <div className={s.modalBox}>
-                    <h3>{staged.replaces ? 'Αντικατάσταση φωτογραφίας' : 'Νέα φωτογραφία'}</h3>
-                    <img className={s.stagedImg} src={staged.url} alt="Προεπισκόπηση της φωτογραφίας που ανεβάζεις" />
+                    <h3>{staged.replaces ? 'Αντικατάσταση' : 'Νέο αρχείο'}: {staged.assetType === 'logo' ? 'λογότυπο' : 'φωτογραφία'}</h3>
+                    <img className={s.stagedImg} src={staged.url} alt={`Προεπισκόπηση ${staged.assetType === 'logo' ? 'λογοτύπου' : 'φωτογραφίας'}`} />
                     {staged.replaces && (
                       <p className={s.hint}>Η παλιά θα σβηστεί μόνο αφού ανέβει με επιτυχία η νέα.</p>
                     )}
@@ -588,10 +619,11 @@ ${(p.hashtags || []).join(' ')}`)}>
               )}
 
               {confirmDel && (
-                <div className={s.modal} role="dialog" aria-modal="true" aria-label="Επιβεβαίωση διαγραφής">
+                <div className={s.modal} role="dialog" aria-modal="true" aria-label="Επιβεβαίωση διαγραφής αρχείου">
                   <div className={s.modalBox}>
                     <h3>Να τη διαγράψω;</h3>
-                    <img className={s.stagedImg} src={confirmDel.url} alt="Η φωτογραφία που θα διαγραφεί" />
+                    <img className={s.stagedImg} src={confirmDel.url}
+                      alt={confirmDel.type === 'logo' ? 'Το λογότυπο που θα διαγραφεί' : 'Η φωτογραφία που θα διαγραφεί'} />
                     <p className={s.hint}>Θα αφαιρεθεί από το site σου. Δεν αναιρείται.</p>
                     <div className={s.modalBar}>
                       <button type="button" className={s.reject} onClick={() => setConfirmDel(null)}
@@ -669,16 +701,69 @@ ${(p.hashtags || []).join(' ')}`)}>
                   )}
                 </div>
 
+                {/* ---- Λογότυπο ----------------------------------------- */}
+                <div className={s.block}>
+                  <div className={s.blockHead}>
+                    <h3>Λογότυπο</h3>
+                    <span className={s.hint}>{logo ? 'στο site σου' : 'προαιρετικό'}</span>
+                  </div>
+                  {logo ? (
+                    <div className={s.photoGrid}>
+                      <figure className={s.photo}>
+                        <img src={logo.url} alt={logo.title || 'Λογότυπο επιχείρησης'} loading="lazy" />
+                        <figcaption>
+                          <label className={s.photoAct}>Αντικατάσταση
+                            <input type="file" accept={PHOTO_TYPES.join(',')} hidden
+                              onChange={(e) => { stagePhoto(e.target.files?.[0], logo.id, 'logo'); e.target.value = '' }} />
+                          </label>
+                          <button type="button" className={s.photoDel} onClick={() => setConfirmDel(logo)}
+                            disabled={photoBusy === logo.id}>Διαγραφή</button>
+                        </figcaption>
+                      </figure>
+                    </div>
+                  ) : (
+                    <div className={s.emptyPhotos}>
+                      <p><b>Δεν έχεις λογότυπο ακόμα.</b></p>
+                      <p className={s.hint}>Το site χρησιμοποιεί καθαρό wordmark με το όνομα της επιχείρησης μέχρι να ανεβάσεις ένα.</p>
+                    </div>
+                  )}
+                  {!logo && (
+                    <label className={s.uploadBtn}>+ Ανέβασε λογότυπο
+                      <input type="file" accept={PHOTO_TYPES.join(',')} hidden
+                        onChange={(e) => { stagePhoto(e.target.files?.[0], null, 'logo'); e.target.value = '' }} />
+                    </label>
+                  )}
+                  <button type="button" className={s.addBtn} onClick={designLogos}
+                    disabled={Boolean(logoDesignBusy)}>
+                    {logoDesignBusy === 'load' ? 'Ετοιμάζω…' : 'Δημιούργησε 3 προτάσεις'}
+                  </button>
+                  {logoDrafts?.length > 0 && (
+                    <div className={s.logoDraftGrid}>
+                      {logoDrafts.map((draft) => (
+                        <article key={draft.id} className={s.logoDraft}>
+                          <img src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(draft.svg)}`}
+                            alt={`Πρόταση λογοτύπου: ${draft.label}`} />
+                          <div><strong>{draft.label}</strong><p>{draft.description}</p></div>
+                          <button type="button" onClick={() => approveLogo(draft.id)}
+                            disabled={Boolean(logoDesignBusy)}>
+                            {logoDesignBusy === draft.id ? 'Αποθηκεύω…' : 'Χρησιμοποίησέ το'}
+                          </button>
+                        </article>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
                 {/* ---- Φωτογραφίες ------------------------------------- */}
                 <div className={s.block}>
                   <div className={s.blockHead}>
                     <h3>Φωτογραφίες</h3>
-                    <span className={s.hint}>{photos?.length || 0} στο site σου</span>
+                    <span className={s.hint}>{sitePhotos.length} στο site σου</span>
                   </div>
 
                   {photos === null ? (
                     <p className={s.hint}>Φορτώνουν…</p>
-                  ) : photos.length === 0 ? (
+                  ) : sitePhotos.length === 0 ? (
                     <div className={s.emptyPhotos}>
                       <p><b>Δεν έχεις δικές σου φωτογραφίες.</b></p>
                       <p className={s.hint}>Το site σου δείχνει κατάλληλες εικόνες για το επάγγελμά σου.
@@ -686,7 +771,7 @@ ${(p.hashtags || []).join(' ')}`)}>
                     </div>
                   ) : (
                     <div className={s.photoGrid}>
-                      {photos.map((p) => (
+                      {sitePhotos.map((p) => (
                         <figure key={p.id} className={s.photo}>
                           <img src={p.url} alt={p.title || 'Φωτογραφία του μαγαζιού'} loading="lazy" />
                           <figcaption>

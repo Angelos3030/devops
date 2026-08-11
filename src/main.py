@@ -9,22 +9,26 @@ Production entry point — ένα FastAPI app, ένα port.
   - GET /healthz                                                    (liveness probe)
 """
 
+import hashlib
 import re
 
 import stripe
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Header
 from pydantic import BaseModel
 
 from .meta_oauth import app as _meta_app
 from .stripe_webhook import router as stripe_router
 from .agency_api import router as agency_router
+from .logo_designer import router as logo_designer_router
 from . import domain as dom
 from . import config as cfg
+from . import auth, db
 from .db import save_domain, upload_to_storage, save_client_asset
 
 app = _meta_app
 app.include_router(stripe_router)
 app.include_router(agency_router)
+app.include_router(logo_designer_router)
 stripe.api_key = cfg.STRIPE_SECRET_KEY
 
 
@@ -158,6 +162,8 @@ async def upload_asset(
     file: UploadFile = File(...),
     asset_type: str = Form("photo"),   # logo | photo | menu | other
     rights_ok: bool = Form(True),
+    claim_token: str = Form(""),
+    authorization: str | None = Header(default=None),
 ):
     """
     Δέχεται αρχείο (εικόνα συμπιεσμένη από frontend), ανεβάζει στο Supabase Storage,
@@ -166,6 +172,8 @@ async def upload_asset(
     Supabase Storage bucket: 'client-assets' (πρέπει να το δημιουργήσεις χειροκίνητα:
     Dashboard → Storage → New bucket → Name: client-assets → Public: ON).
     """
+    _require_upload_access(client_id, authorization, claim_token)
+
     allowed = {"image/jpeg", "image/png", "image/webp", "image/gif"}
     if file.content_type not in allowed:
         raise HTTPException(400, f"Μη επιτρεπτός τύπος: {file.content_type}")
@@ -187,6 +195,19 @@ async def upload_asset(
         "rights_ok": rights_ok,
     })
     return {"url": url, "asset_id": asset_id}
+
+
+def _require_upload_access(client_id: str, authorization: str | None,
+                           claim_token: str) -> None:
+    """Allow an authenticated owner or the short-lived onboarding owner token."""
+    if authorization:
+        auth.require_client_access(client_id, authorization)
+        return
+    if len(claim_token or "") < 32:
+        raise HTTPException(401, "Χρειάζεται σύνδεση για την αποστολή αρχείων.")
+    token_hash = hashlib.sha256(claim_token.encode()).hexdigest()
+    if not db.valid_client_claim(client_id, token_hash):
+        raise HTTPException(401, "Ο σύνδεσμος αποστολής έληξε ή δεν είναι έγκυρος.")
 
 
 @app.get("/healthz")

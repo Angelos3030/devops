@@ -274,7 +274,7 @@
     }
 
     // Upload assets after client_id is known
-    async function uploadAssets(client_id) {
+    async function uploadAssets(client_id, claimToken) {
       const tasks = [];
 
       // Logo
@@ -295,7 +295,9 @@
           fd.append('file', t.blob, t.name);
           fd.append('asset_type', t.type);
           fd.append('rights_ok', 'true');
-          await fetch(`${API}/clients/${client_id}/upload`, {method:'POST', body:fd});
+          fd.append('claim_token', claimToken || '');
+          const upload = await fetch(`${API}/clients/${client_id}/upload`, {method:'POST', body:fd});
+          if (!upload.ok) throw new Error(`upload HTTP ${upload.status}`);
         } catch(e) { console.warn('upload skip:', e); }
       }
     }
@@ -380,10 +382,10 @@
           body: JSON.stringify(data),
         });
         if(!res.ok) throw new Error("HTTP " + res.status);
-        const { client_id } = await res.json();
+        const { client_id, claim_token } = await res.json();
         currentClientId = client_id;
         // Ανέβασε logo/photos στο background (non-blocking)
-        uploadAssets(client_id).catch(console.warn);
+        uploadAssets(client_id, claim_token).catch(console.warn);
         // Pilot: δωρεάν προσωρινό Railway preview, χωρίς domain/Stripe.
         const pilot = new URLSearchParams(location.search).get("pilot") === "1";
         window.location.href = SITES + "/choose/" + encodeURIComponent(client_id) +

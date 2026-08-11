@@ -11,6 +11,15 @@ const cases = [
   ['taverna', { TRADE: 'Ταβέρνα', services: [{ title: 'Σχάρα' }] }, 'food', null],
   ['carpenter', { TRADE: 'Ξυλουργός', services: [{ title: 'Κουζίνες' }] }, 'carpenter', null],
   ['doctor', { TRADE: 'Ιατρείο', services: [{ title: 'Αισθητική θεραπεία' }] }, 'health', null],
+  ['aesthetics', { TRADE: 'Κέντρο αισθητικής', services: [{ title: 'Θεραπεία προσώπου' }] }, 'beauty', null],
+  ['massage', { TRADE: 'Κέντρο μασάζ', services: [{ title: 'Spa σώματος' }] }, 'wellness', null],
+  ['retail', { TRADE: 'Κατάστημα ρούχων', services: [{ title: 'Νέα συλλογή' }] }, 'retail', null],
+  ['plumber', { TRADE: 'Υδραυλικός', services: [{ title: 'Επισκευές' }] }, 'technician', null],
+  ['rooms', { TRADE: 'Ενοικιαζόμενα δωμάτια', services: [{ title: 'Διαμονή' }] }, 'hospitality', null],
+  ['gym', { TRADE: 'Γυμναστήριο', services: [{ title: 'Personal training' }] }, 'gym', null],
+  ['garage', { TRADE: 'Συνεργείο αυτοκινήτων', services: [{ title: 'Service' }] }, 'garage', null],
+  ['farm', { TRADE: 'Παραγωγός ελαιολάδου', services: [{ title: 'Προϊόντα' }] }, 'farm', null],
+  ['lawyer', { TRADE: 'Δικηγορικό γραφείο', services: [{ title: 'Συμβουλευτική' }] }, 'professional', null],
 ]
 
 for (const [name, data, expected, allowedImages] of cases) {

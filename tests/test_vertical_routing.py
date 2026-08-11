@@ -43,6 +43,20 @@ class VerticalRoutingTests(unittest.TestCase):
         self.assertNotIn("φούρν", combined)
         self.assertNotIn("ψωμί", combined)
 
+    def test_dentist_with_aesthetic_service_keeps_medical_theme(self):
+        intake = self.parse_without_ai(
+            "έχω οδοντιατρείο στην Αθήνα με αισθητική οδοντιατρική"
+        )
+        self.assertEqual(intake["type"], "Οδοντιατρείο")
+        self.assertEqual(pg._vertical(intake), "dentist")
+        self.assertEqual(pg.recommend_templates(intake)[0], "clinic-triage")
+
+    def test_nail_studio_does_not_route_to_dentist(self):
+        intake = self.parse_without_ai("έχω νυχάδικο στον Γέρακα")
+        self.assertEqual(intake["type"], "Νυχάδικο")
+        self.assertEqual(pg._vertical(intake), "beauty")
+        self.assertEqual(pg.recommend_templates(intake)[0], "beauty-atelier")
+
 
 if __name__ == "__main__":
     unittest.main()

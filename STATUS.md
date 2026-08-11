@@ -3,6 +3,32 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+## Semantic media και customer-journey QA (2026-08-10, local only)
+
+- Διορθώθηκε η ταξινόμηση όπου το `Οδοντιατρείο` με υπηρεσία `Αισθητική
+  οδοντιατρική` έπαιρνε φωτογραφίες beauty/salon.
+- Οι fallback εικόνες έχουν πλέον ξεχωριστές βιβλιοθήκες για health, beauty,
+  wellness, retail, gym, garage, farm, hospitality, τεχνίτες, cafe/food και wood.
+- Προστέθηκε `npm --prefix sites run qa:release`: semantic vertical checks,
+  theme/editor/auth handoff contract και production build.
+- Το Google OAuth callback στο `/connect` προωθείται στο Sites dashboard και το
+  pending ownership claim ανακτάται από session storage αν χαθεί το query string.
+- **Δεν έγινε deploy.** Για να διορθωθεί το live απαιτείται κοινό deploy API +
+  Sites από το ίδιο commit και Supabase Redirect URL για το production dashboard.
+- Η αρχική εξηγεί πλέον τη ροή λογοτύπου/φωτογραφιών. Ο dashboard editor
+  διαχωρίζει logo από gallery και υποστηρίζει upload/replace/delete λογοτύπου.
+- Ο deterministic Logo Designer MVP είναι έτοιμος τοπικά: 3 διαφορετικά SVG
+  drafts ανά κλάδο, ρητή επιλογή πελάτη και αποθήκευση του εγκεκριμένου logo.
+  Παραμένει editor feature και **δεν** έχει ενεργοποιηθεί ως Marketplace agent.
+- Το asset upload προστατεύεται πλέον είτε από authenticated ownership είτε από
+  hashed, unexpired onboarding claim token. Ανώνυμο upload σε ξένο client κόβεται.
+- Η πλήρης φόρμα `/onboard` εκδίδει claim token όπως και το one-line `/start`, ώστε
+  logo/φωτογραφίες πριν το login να ανεβαίνουν νόμιμα και να ακολουθούν το site.
+- Τοπικό verification: 38 backend tests, 15 semantic vertical cases,
+  editor/auth/logo contract και Next production build 22 routes πέρασαν.
+- **Εξωτερικά πριν το live:** εφαρμογή/έλεγχος migration `0009_client_site_claims`,
+  Supabase OAuth redirect allowlist και κοινό deploy API + Sites από το ίδιο commit.
+
 ## Phase 4A Agency Kernel (2026-08-10, local only)
 
 - Προστέθηκε deterministic/provider-agnostic kernel στο `src/agency_kernel.py`.

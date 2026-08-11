@@ -64,6 +64,7 @@ export default function Showcase() {
           <div className={s.feat}><span className={s.fi}>✏️</span><h3>Απεριόριστες αλλαγές</h3><p>Ζητάς με απλά λόγια, το αλλάζουμε εμείς. Δεν ανοίγεις ποτέ editor.</p></div>
           <div className={s.feat}><span className={s.fi}>🔍</span><h3>Local SEO</h3><p>Τίτλοι και λέξεις που ψάχνουν οι πελάτες στην πόλη σου.</p></div>
           <div className={s.feat}><span className={s.fi}>📍</span><h3>Χάρτης · τηλέφωνο · ώρες</h3><p>Τα στοιχεία που ψάχνει ο πελάτης, μπροστά — όχι κρυμμένα.</p></div>
+          <div className={s.feat}><span className={s.fi}>▣</span><h3>Λογότυπο και δικές σου φωτογραφίες</h3><p>Τα ανεβάζεις μετά την επιλογή σχεδίου και τα βλέπεις αμέσως στο site σου.</p></div>
           <div className={s.feat}><span className={s.fi}>⚡</span><h3>Concierge στήσιμο</h3><p>Το στήνουμε μαζί από μια περιγραφή. Δεν σε αφήνουμε με άδειο dashboard.</p></div>
         </div>
       </section>

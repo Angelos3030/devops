@@ -254,8 +254,16 @@ def scenario_content(cid: str, token: str) -> None:
 
 def scenario_photos(cid: str, token: str) -> None:
     head("[4] Φωτογραφίες — ανέβασμα, αντικατάσταση, διαγραφή")
+    auth_h = {"Authorization": f"Bearer {token}"}
+    # ΠΡΩΤΑ ο αρνητικός έλεγχος: χωρίς ταυτότητα δεν ανεβάζει κανείς.
+    anon = requests.post(f"{API}/clients/{cid}/upload",
+                         files={"file": ("anon.png", png_bytes(), "image/png")},
+                         data={"asset_type": "photo"}, timeout=60)
+    check(anon.status_code == 401, ISOLATION, "ανέβασμα χωρίς σύνδεση απορρίπτεται",
+          f"HTTP {anon.status_code}" + (" — ΑΝΟΙΧΤΟ ENDPOINT" if anon.status_code == 200 else ""))
+
     files = {"file": ("e2e.png", png_bytes(), "image/png")}
-    r = requests.post(f"{API}/clients/{cid}/upload", files=files,
+    r = requests.post(f"{API}/clients/{cid}/upload", files=files, headers=auth_h,
                       data={"asset_type": "photo"}, timeout=90)
     if not check(r.status_code == 200, STORAGE, "ανέβασμα φωτογραφίας",
                  f"HTTP {r.status_code}", {"status": r.status_code, "body": r.text[:300]}):
@@ -272,13 +280,13 @@ def scenario_photos(cid: str, token: str) -> None:
     check(len(assets) >= 1, DATA, "η φωτογραφία φαίνεται στη λίστα", str(len(assets)))
 
     # Λάθος τύπος — το backend πρέπει να κόψει
-    r = requests.post(f"{API}/clients/{cid}/upload",
+    r = requests.post(f"{API}/clients/{cid}/upload", headers=auth_h,
                       files={"file": ("x.pdf", b"%PDF-1.4 fake", "application/pdf")},
                       data={"asset_type": "photo"}, timeout=60)
     check(r.status_code == 400, STORAGE, "PDF απορρίπτεται", f"HTTP {r.status_code}")
 
     # Αντικατάσταση: ανεβάζω νέα, μετά σβήνω την παλιά (η σειρά του UI)
-    r2 = requests.post(f"{API}/clients/{cid}/upload",
+    r2 = requests.post(f"{API}/clients/{cid}/upload", headers=auth_h,
                        files={"file": ("e2e2.png", png_bytes(10, 10), "image/png")},
                        data={"asset_type": "photo"}, timeout=90)
     check(r2.status_code == 200, STORAGE, "ανέβασμα αντικαταστάτριας", f"HTTP {r2.status_code}")

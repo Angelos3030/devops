@@ -254,6 +254,17 @@
   font-size: .9rem; font-weight: 600; cursor: pointer; opacity: .85;
 }
 .uploadBtn:hover { opacity: 1; }
+.logoDraftGrid { display: grid; gap: .7rem; margin-top: .35rem; }
+.logoDraft {
+  display: grid; grid-template-columns: minmax(120px, 1.2fr) minmax(150px, 1fr) auto;
+  gap: .75rem; align-items: center; padding: .65rem;
+  border: 1px solid var(--line, #e9eaee); border-radius: 10px; background: #fff;
+}
+.logoDraft img { display: block; width: 100%; aspect-ratio: 8/3; object-fit: contain; background: #f6f7f9; border-radius: 7px; }
+.logoDraft strong { font-size: .9rem; }
+.logoDraft p { margin: .18rem 0 0; color: #666; font-size: .78rem; line-height: 1.35; }
+.logoDraft button { min-height: 38px; padding: 0 .75rem; border: 0; border-radius: 7px; background: #111; color: #fff; font: inherit; font-size: .78rem; font-weight: 700; cursor: pointer; }
+.logoDraft button:disabled { opacity: .55; cursor: default; }
 
 /* Επιβεβαιώσεις */
 .modal {
@@ -277,4 +288,5 @@
   .svRow { grid-template-columns: 1fr auto; }
   .svRow .svDesc { grid-column: 1 / -1; }
   .photoGrid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  .logoDraft { grid-template-columns: 1fr; }
 }

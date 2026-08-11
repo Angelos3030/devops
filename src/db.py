@@ -352,6 +352,20 @@ def create_client_claim(client_id: str, token_hash: str, *, ttl_hours: int = 24)
     }, on_conflict="client_id").execute())
 
 
+def valid_client_claim(client_id: str, token_hash: str) -> bool:
+    """Return whether an unclaimed, unexpired onboarding token owns this site."""
+    if not client_id or not token_hash:
+        return False
+    result = (_client().table("client_site_claims")
+              .select("id")
+              .eq("client_id", client_id)
+              .eq("token_hash", token_hash)
+              .is_("claimed_at", "null")
+              .gt("expires_at", datetime.now(timezone.utc).isoformat())
+              .limit(1).execute())
+    return bool(result.data)
+
+
 def claim_client_site(client_id: str, token_hash: str, email: str) -> bool:
     """Atomically attach a generated site to its authenticated owner."""
     result = _client().rpc("claim_client_site", {
