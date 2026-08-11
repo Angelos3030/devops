@@ -11,14 +11,27 @@ const at = (name, fallback) => {
 const BASE = at('--base', 'http://localhost:3800')
 const OUT = path.resolve(at('--out', 'artifacts/visual-journey'))
 
-const cases = [
+const allCases = [
   { id: 'cafe', description: 'Έχω καφετέρια στη Μάνη με specialty καφέ και brunch', template: 'bakery-editorial', must: [/καφ|coffee|brunch/i], forbid: [/οδοντ|ντουλάπ|υδραυλ|μανικιούρ/i] },
+  { id: 'taverna', description: 'Έχω παραδοσιακή ταβέρνα στη Θεσσαλονίκη', template: 'warmth', must: [/ταβέρν|φαγητ|μεζέ|σχάρα/i], forbid: [/οδοντ|ντουλάπ|μανικιούρ|φαρμακ/i] },
   { id: 'dentist', description: 'Έχω οδοντιατρείο στην Αθήνα', template: 'clinic-triage', must: [/οδοντ|χαμόγελο/i], forbid: [/κομμωτ|μανικιούρ|ντουλάπ|σχάρα/i] },
+  { id: 'physician', description: 'Έχω παθολογικό ιατρείο στο Χαλάνδρι', template: 'clinic-triage', must: [/ιατρ|ασθεν|check-up|παθολογ/i], forbid: [/κομμωτ|μανικιούρ|ντουλάπ|σχάρα/i] },
   { id: 'pharmacy', description: 'Έχω φαρμακείο στον Γέρακα', template: 'quiet', must: [/φαρμακ|συνταγ|υγεία/i], forbid: [/ξυλουργ|κουζίνα|σχάρα|κομμωτ/i] },
   { id: 'nails', description: 'Έχω νυχάδικο στην Αθήνα', template: 'beauty-atelier', must: [/νύχ|μανικιούρ|πεντικιούρ|nail/i], forbid: [/κομμωτ|κούρεμα|μαλλι|οδοντ|υδραυλ|σχάρα|ντουλάπ/i] },
+  { id: 'aesthetics', description: 'Έχω κέντρο αισθητικής στη Γλυφάδα', template: 'beauty-atelier', must: [/αισθητικ|επιδερμίδ|θεραπε/i], forbid: [/οδοντ|υδραυλ|σχάρα|ντουλάπ/i] },
+  { id: 'massage', description: 'Έχω κέντρο μασάζ και ευεξίας στο Κουκάκι', template: 'living', must: [/μασάζ|ευεξ|χαλάρω/i], forbid: [/οδοντ|υδραυλ|σχάρα|ντουλάπ/i] },
   { id: 'carpenter', description: 'Ξυλουργός για κουζίνες και ντουλάπες', template: 'canvas', must: [/κουζίν|ντουλάπ|ξύλ|έπιπλ/i], forbid: [/οδοντ|μανικιούρ|σχάρα|φαρμακ/i] },
   { id: 'plumber', description: 'Υδραυλικός στην Αθήνα', template: 'callout', must: [/υδραυλ|βλάβ|επισκευ|κλήση/i], forbid: [/οδοντ|μανικιούρ|σχάρα|ντουλάπ/i] },
+  { id: 'retail', description: 'Έχω boutique γυναικείων ρούχων στη Νέα Σμύρνη', template: 'bento', must: [/boutique|ρούχ|συλλογ|styling/i], forbid: [/οδοντ|υδραυλ|σχάρα|ντουλάπ/i] },
+  { id: 'lawyer', description: 'Έχω δικηγορικό γραφείο στην Αθήνα', template: 'marble', must: [/δικηγορ|νομικ|υπόθε/i], forbid: [/οδοντ|μανικιούρ|σχάρα|ντουλάπ/i] },
+  { id: 'rooms', description: 'Έχω ενοικιαζόμενα δωμάτια στην Πάρο', template: 'aegean', must: [/δωμάτι|διαμον|φιλοξεν/i, /πάρος|πάρου/i], forbid: [/νάξο|οδοντ|μανικιούρ|σχάρα|ντουλάπ/i] },
+  { id: 'gym', description: 'Έχω γυμναστήριο με personal training', template: 'volt', must: [/γυμναστ|προπόνη|training/i], forbid: [/οδοντ|μανικιούρ|σχάρα|ντουλάπ/i] },
+  { id: 'garage', description: 'Έχω συνεργείο αυτοκινήτων στον Πειραιά', template: 'motor', must: [/συνεργεί|αυτοκιν|service|όχημα/i], forbid: [/οδοντ|μανικιούρ|σχάρα|ντουλάπ/i] },
+  { id: 'farm', description: 'Είμαι παραγωγός ελαιολάδου στην Καλαμάτα', template: 'terra', must: [/παραγωγ|ελαιόλαδ|γη|προϊόν/i], forbid: [/οδοντ|μανικιούρ|σχάρα|ντουλάπ/i] },
 ]
+const onlyCase = at('--case', '')
+const cases = onlyCase ? allCases.filter((item) => item.id === onlyCase) : allCases
+if (!cases.length) throw new Error(`Unknown visual journey case: ${onlyCase}`)
 
 const failures = []
 const check = (ok, label, detail = '') => {
@@ -59,7 +72,7 @@ for (const item of cases) {
       h1: document.querySelectorAll('h1').length,
     }))
     check(response?.ok(), `${viewport.name}: HTTP OK`, String(response?.status()))
-    check(item.must.some((rule) => rule.test(state.text)), `${viewport.name}: σχετικό επαγγελματικό περιεχόμενο`)
+    check(item.must.every((rule) => rule.test(state.text)), `${viewport.name}: σχετικό επαγγελματικό περιεχόμενο και τοποθεσία`)
     check(!item.forbid.some((rule) => rule.test(state.text)), `${viewport.name}: κανένα ξένο επάγγελμα`)
     check(state.brokenImages.length === 0, `${viewport.name}: όλες οι εικόνες φορτώνουν`, state.brokenImages.join(', '))
     check(state.images.length > 0, `${viewport.name}: έχει οπτικό υλικό`, String(state.images.length))

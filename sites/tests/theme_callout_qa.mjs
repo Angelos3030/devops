@@ -2,7 +2,12 @@
 /**
  * QA για το theme «callout» (τεχνίτες).
  *
- *   node sites/tests/theme_callout_qa.mjs --base http://localhost:3107
+ *   NEXT_DIST_DIR=.next-callout npx next build
+ *   NEXT_DIST_DIR=.next-callout npx next start -p 3130
+ *   node sites/tests/theme_callout_qa.mjs --base http://localhost:3130
+ *
+ * Το NEXT_DIST_DIR είναι υποχρεωτικό όταν τρέχει άλλος agent: δύο builds στο ίδιο
+ * `.next` σβήνουν το ένα το άλλο. Βλ. CLAUDE.md → «Παράλληλα Next.js builds».
  *
  * Πέρα από το design_guard (αντίθεση/fonts/trackers), ελέγχει ό,τι είναι ειδικό
  * σε αυτό το theme: τη φόρμα, το «24/7» που δεν πρέπει να λέει ψέματα, και ότι
@@ -12,7 +17,7 @@ import { chromium } from 'playwright'
 
 const args = process.argv.slice(2)
 const i = args.indexOf('--base')
-const BASE = i !== -1 && args[i + 1] ? args[i + 1] : 'http://localhost:3107'
+const BASE = i !== -1 && args[i + 1] ? args[i + 1] : 'http://localhost:3130'
 
 const pass = [], fail = []
 const check = (ok, label, detail = '') => {
