@@ -10,6 +10,7 @@
     "qa:verticals": "node tests/verticalQa.mjs",
     "qa:profiles": "node tests/verticalProfiles.mjs",
     "qa:editor": "node tests/editorFlow.mjs",
+    "qa:journey": "node tests/journey.mjs",
     "qa:visual": "node tests/visualJourney.mjs",
     "qa:release": "npm run qa:profiles && npm run qa:verticals && npm run qa:editor && npm run build"
   },

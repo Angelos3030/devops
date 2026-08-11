@@ -71,7 +71,7 @@ async function main() {
 
     const [secondStatus, secondBody] = await api('/start', {
       method: 'POST',
-      body: JSON.stringify({ text: 'Έχω καφετέρια στη Μάνη και θέλω μοντέρνο site' }),
+      body: JSON.stringify({ text: 'Έχω γυμναστήριο στη Μάνη και θέλω μοντέρνο site' }),
     })
     if (check('δημιουργήθηκε δεύτερο site', secondStatus === 200, secondBody.slice(0, 90))) {
       const second = JSON.parse(secondBody)
@@ -99,6 +99,9 @@ async function main() {
                       { waitUntil: 'domcontentloaded' })
       await page.waitForTimeout(800)
       check('το ownership token αφαιρέθηκε από τη διεύθυνση', !page.url().includes('#claim='))
+      const chooserText = await page.locator('body').innerText()
+      check('οι προτάσεις αφορούν γυμναστήριο', /γυμναστήριο|προπόνηση|fitness/i.test(chooserText))
+      check('οι προτάσεις δεν περιέχουν στοιχεία Κουτράκη', !/Κουτράκ/i.test(chooserText))
     }
 
     // --------------------------------------------- το site: τι φορτώνει όντως
@@ -121,11 +124,16 @@ async function main() {
     check('κανένα cookie πριν από συγκατάθεση', cookies.length === 0,
           cookies.map((k) => k.name).join(', '))
 
-    const fontOK = await page.evaluate(async () => {
+    const fontState = await page.evaluate(async () => {
       await document.fonts.ready
-      return document.fonts.check('16px Fraunces')
+      const loaded = [...document.fonts]
+        .filter((face) => face.status === 'loaded')
+        .map((face) => face.family)
+      return { status: document.fonts.status, loaded }
     })
-    check('τα ελληνικά fonts φορτώνουν τοπικά', fontOK)
+    check('οι self-hosted γραμματοσειρές ολοκλήρωσαν τη φόρτωση',
+          fontState.status === 'loaded' && fontState.loaded.length > 0,
+          fontState.loaded.join(', '))
 
     // ο χάρτης φορτώνει ΜΟΝΟ με κλικ
     const holder = page.locator('#find-us button').first()
@@ -151,9 +159,16 @@ async function main() {
       check('ο ίδιος λογαριασμός βλέπει δύο sites', await picker.count() === 1)
       if (await picker.count()) {
         check('υπάρχουν δύο επιλογές site', await picker.locator('option').count() === 2)
+        check('μετά το login μένει ενεργό το γυμναστήριο', await picker.inputValue() === secondClientId)
+        check('το dashboard δεν άνοιξε site Κουτράκη', !/Κουτράκ/i.test(await page.locator('body').innerText()))
         await picker.selectOption(clientId)
         await page.waitForTimeout(800)
         check('μπορεί να αλλάξει ενεργό site', await picker.inputValue() === clientId)
+        await picker.selectOption(secondClientId)
+        await page.waitForTimeout(800)
+        check('μπορεί να επιστρέψει στο γυμναστήριο', await picker.inputValue() === secondClientId)
+        await picker.selectOption(clientId)
+        await page.waitForTimeout(800)
       }
     }
 
