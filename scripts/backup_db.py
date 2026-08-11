@@ -133,8 +133,7 @@ def dump(out_dir: Path) -> int:
 def verify_restore(src: Path) -> int:
     """ΑΤΕΛΗΣ — βλ. προειδοποίηση στην κορυφή του αρχείου."""
     env.require("staging")
-    print("
-⚠️  Η απομόνωση ΔΕΝ είναι πραγματική: τα migrations 0002/0003/0004")
+    print("\n⚠️  Η απομόνωση ΔΕΝ είναι πραγματική: τα migrations 0002/0003/0004")
     print("   γράφουν ρητά σε public. Χρειάζεται προσωρινό project, όχι schema.")
     manifest = json.loads((src / "manifest.json").read_text(encoding="utf-8"))
     conn = _connect()
