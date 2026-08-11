@@ -99,6 +99,33 @@ class VerticalRoutingTests(unittest.TestCase):
         self.assertEqual(pg._vertical(intake), "beauty")
         self.assertEqual(pg.recommend_templates(intake)[0], "beauty-atelier")
 
+    def test_sparse_hotel_prompt_gets_hospitality_copy_without_fake_facts(self):
+        data = pg.normalize({"name": "Ξενοδοχείο", "type": "Ξενοδοχείο"})
+        combined = " ".join(
+            [data["TAGLINE"], data["STORY_TITLE"], data["CTA_TITLE"]]
+            + [item["title"] + " " + item["desc"] for item in data["services"]]
+            + [item["p"] for item in data["story"]]
+        ).lower()
+        self.assertEqual(pg._vertical({"type": "Ξενοδοχείο"}), "rooms")
+        self.assertIn("διαμον", combined)
+        self.assertIn("φιλοξεν", combined)
+        self.assertNotIn("ένας άνθρωπος που ακούει", combined)
+        self.assertNotIn("υπηρεσίες καθαρισμού", combined)
+        self.assertEqual(data["PHONE"], "")
+        self.assertEqual(data["PHONE_INTL"], "")
+        self.assertEqual(data["CITY"], "")
+        self.assertEqual(data["HOURS"], "")
+        self.assertEqual(data["reviews"], [])
+
+    def test_placeholder_contact_values_are_not_rendered_as_business_facts(self):
+        data = pg.normalize({
+            "name": "Ξενοδοχείο", "type": "Ξενοδοχείο",
+            "city": "—", "phone": "—", "hours": "—",
+        })
+        self.assertEqual(data["CITY"], "")
+        self.assertEqual(data["PHONE"], "")
+        self.assertEqual(data["HOURS"], "")
+
 
 if __name__ == "__main__":
     unittest.main()

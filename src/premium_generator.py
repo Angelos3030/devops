@@ -257,6 +257,36 @@ _PROFESSION_COPY = {
     },
 }
 
+# Safe, vertical-specific defaults for sparse onboarding prompts. These describe
+# the category without inventing facts about the actual business. Contact data,
+# opening hours, reviews and exact location are deliberately never fabricated.
+_VERTICAL_DEFAULTS = {
+    "wood": ("Κατασκευές στα μέτρα του χώρου σου.", "Η λεπτομέρεια φαίνεται στο αποτέλεσμα.", "Ζήτησε προσφορά για την κατασκευή σου."),
+    "food": ("Γεύσεις που φέρνουν την παρέα στο ίδιο τραπέζι.", "Φαγητό φτιαγμένο για να το μοιράζεσαι.", "Κλείσε το τραπέζι σου."),
+    "cafe": ("Καφές, γεύση και μια όμορφη στάση μέσα στην ημέρα.", "Μια γωνιά για τον καφέ σου.", "Πέρνα για τον επόμενο καφέ σου."),
+    "bakery": ("Φρέσκες δημιουργίες, κάθε μέρα.", "Η γειτονιά ξυπνά με άρωμα φρεσκοψημένου ψωμιού.", "Κάνε την παραγγελία σου."),
+    "dentist": ("Σύγχρονη οδοντιατρική φροντίδα με καθαρή ενημέρωση.", "Το χαμόγελό σου, σε καλά χέρια.", "Κλείσε το ραντεβού σου."),
+    "doctor": ("Υπεύθυνη ιατρική φροντίδα με επίκεντρο τον άνθρωπο.", "Η σωστή φροντίδα αρχίζει με προσεκτική ακρόαση.", "Κλείσε το ραντεβού σου."),
+    "pharmacy": ("Καθημερινή φροντίδα και υπεύθυνη ενημέρωση.", "Το φαρμακείο της γειτονιάς σου.", "Επικοινώνησε με το φαρμακείο."),
+    "beauty": ("Περιποίηση που αναδεικνύει το προσωπικό σου στιλ.", "Η λεπτομέρεια κάνει τη διαφορά.", "Κλείσε το ραντεβού σου."),
+    "nails": ("Περιποιημένα άκρα με καθαρό, προσωπικό στιλ.", "Η ομορφιά βρίσκεται στη λεπτομέρεια.", "Κλείσε το ραντεβού σου."),
+    "aesthetics": ("Φροντίδα προσώπου και σώματος προσαρμοσμένη σε εσένα.", "Η σωστή περιποίηση ξεκινά από τις δικές σου ανάγκες.", "Κλείσε μια πρώτη συμβουλευτική."),
+    "massage": ("Χρόνος για αποφόρτιση, ισορροπία και ευεξία.", "Μια εμπειρία φροντίδας με τον δικό σου ρυθμό.", "Κλείσε τη συνεδρία σου."),
+    "retail": ("Επιλεγμένα προϊόντα και προσωπική εξυπηρέτηση.", "Επιλογές που ταιριάζουν στη δική σου καθημερινότητα.", "Ρώτησέ μας για διαθεσιμότητα."),
+    "professional": ("Καθαρή καθοδήγηση για κάθε επόμενο βήμα.", "Εξειδίκευση με συνέπεια και σαφή επικοινωνία.", "Κλείσε μια πρώτη συνάντηση."),
+    "rooms": ("Άνετη διαμονή και ξεκάθαρη επικοινωνία πριν από την άφιξη.", "Μια διαμονή που ξεκινά με σωστή φιλοξενία.", "Ρώτησε για διαθεσιμότητα."),
+    "gym": ("Προπόνηση με στόχο, καθοδήγηση και συνέπεια.", "Η πρόοδος χτίζεται σε κάθε προπόνηση.", "Κλείσε το δοκιμαστικό σου."),
+    "garage": ("Σωστός έλεγχος και καθαρή ενημέρωση για το αυτοκίνητό σου.", "Ξέρεις τι χρειάζεται το όχημά σου πριν ξεκινήσει η εργασία.", "Κλείσε ραντεβού για έλεγχο."),
+    "farm": ("Προϊόντα με καθαρή προέλευση και φροντίδα στην παραγωγή.", "Από τον τόπο μας, με σεβασμό σε κάθε στάδιο.", "Ρώτησε για τα διαθέσιμα προϊόντα."),
+    "trade": ("Τεχνική εργασία με σωστή συνεννόηση και συνέπεια.", "Λύσεις που εξηγούνται καθαρά πριν ξεκινήσει η εργασία.", "Ζήτησε εκτίμηση για την εργασία σου."),
+}
+
+
+def _optional(value: Any) -> str:
+    """Return empty for UI placeholder values accidentally persisted as data."""
+    raw = str(value or "").strip()
+    return "" if raw.casefold() in {"—", "-", "n/a", "none", "null"} else raw
+
 # Neutral fallback hero images (Unsplash) when the client has not uploaded photos yet.
 _DEFAULT_HERO = {
     "wood": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80",
@@ -447,15 +477,16 @@ def _social(value: object, host: str) -> str:
 def normalize(intake: dict[str, Any]) -> dict[str, Any]:
     prof = _profession(intake)
     copy = _PROFESSION_COPY[prof]
+    tagline_default, story_title_default, cta_title_default = _VERTICAL_DEFAULTS[prof]
 
     name = _e(intake.get("name") or intake.get("business_name") or "Η Επιχείρησή σας")
-    city = _e(intake.get("city") or intake.get("area") or "Αθήνα")
+    city = _e(_optional(intake.get("city") or intake.get("area")))
     trade = _e(intake.get("trade") or intake.get("type") or copy["kicker_suffix"])
-    phone_raw = str(intake.get("phone") or intake.get("telephone") or "").strip()
+    phone_raw = _optional(intake.get("phone") or intake.get("telephone"))
     phone_digits = re.sub(r"\D", "", phone_raw)
     phone_intl = phone_digits if phone_digits.startswith("30") else ("30" + phone_digits if phone_digits else "")
-    phone_disp = _e(phone_raw or "—")
-    tagline = _e(intake.get("tagline") or intake.get("style") or "Ποιότητα και προσοχή στη λεπτομέρεια.")
+    phone_disp = _e(phone_raw)
+    tagline = _e(_optional(intake.get("tagline") or intake.get("style")) or tagline_default)
 
     areas_raw = intake.get("areas")
     areas = [_e(a) for a in areas_raw if str(a).strip()] if isinstance(areas_raw, list) else [city]
@@ -503,14 +534,7 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
             for r in rev_src
         ][:3]
     else:
-        reviews = [
-            {"text": "Καθαρή δουλειά, στην ώρα του και σωστές τιμές. Το συνιστώ ανεπιφύλακτα.",
-             "author": "Μαρία Κ.", "area": areas[0] if areas else city, "initials": "ΜΚ"},
-            {"text": "Άνθρωπος με μεράκι — το αποτέλεσμα ξεπέρασε τις προσδοκίες μου.",
-             "author": "Γιώργος Π.", "area": (areas[1] if len(areas) > 1 else city), "initials": "ΓΠ"},
-            {"text": "Μου εξήγησε τα πάντα καθαρά, καμία κρυφή χρέωση. Θα τον ξαναφωνάξω.",
-             "author": "Ελένη Δ.", "area": (areas[2] if len(areas) > 2 else city), "initials": "ΕΔ"},
-        ]
+        reviews = []
 
     if prof == "cafe":
         story_default = [
@@ -522,9 +546,16 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
             f"Στο {name}, στην περιοχή {city}, το ψωμί και οι καθημερινές δημιουργίες ετοιμάζονται φρέσκα από το πρωί.",
             "Δίνουμε σημασία στις πρώτες ύλες, στη σταθερή ποιότητα και στη ζεστή εξυπηρέτηση της γειτονιάς.",
         ]
-    else:
+    elif prof == "rooms":
+        location = f" στην περιοχή {city}" if city else ""
         story_default = [
-            f"Η επιχείρηση {name} βρίσκεται στην περιοχή {city} και δίνει προτεραιότητα στην προσωπική εξυπηρέτηση και την καθαρή ενημέρωση.",
+            f"Το {name} προσφέρει οργανωμένη φιλοξενία{location}, με σαφή ενημέρωση πριν από την άφιξη.",
+            "Οι επισκέπτες μπορούν να ενημερωθούν για τη διαμονή, τις διαθέσιμες παροχές και τη διαδικασία κράτησης.",
+        ]
+    else:
+        location = f" στην περιοχή {city}" if city else ""
+        story_default = [
+            f"Η επιχείρηση {name}{location} δίνει προτεραιότητα στην προσωπική εξυπηρέτηση και την καθαρή ενημέρωση.",
             "Στόχος μας είναι κάθε επίσκεψη ή συνεργασία να ολοκληρώνεται με συνέπεια, φροντίδα και σεβασμό στις πραγματικές σας ανάγκες.",
         ]
     story_paras = intake.get("story_paragraphs") if isinstance(intake.get("story_paragraphs"), list) else story_default
@@ -557,14 +588,14 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
         "INSTAGRAM": _social(intake.get("instagram"), "instagram.com"),
         "PHONE": phone_disp, "PHONE_INTL": phone_intl,
         "AREAS": areas_str, "DOMAIN": _e(domain_disp), "DOMAIN_URL": _e(domain or "#"),
-        "HOURS": _e(intake.get("hours") or "Δευτ.–Σάβ. 08:00–19:00"),
+        "HOURS": _e(_optional(intake.get("hours"))),
         "PALETTE": _e(intake.get("palette") or "original"),
         "FONT_PAIR": _e(intake.get("font_pair") or "editorial"),
         "KICKER": f"{trade} · {city}",
         "HERO_WORD": copy["hero_word"],
         "HERO_IMAGE": hero_image, "STORY_IMAGE": story_image,
-        "STORY_TITLE": _e(intake.get("story_title") or "Ένας άνθρωπος που ακούει πρώτα."),
-        "CTA_TITLE": _e(intake.get("cta_title") or "Πες μας τι έχεις στο μυαλό σου."),
+        "STORY_TITLE": _e(_optional(intake.get("story_title")) or story_title_default),
+        "CTA_TITLE": _e(_optional(intake.get("cta_title")) or cta_title_default),
         "INTRO": _e(intake.get("intro") or tagline),
         "YEAR": "2026",
         "services": services, "gallery": gallery, "reviews": reviews, "story": story_paras,

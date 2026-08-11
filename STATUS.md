@@ -1010,3 +1010,15 @@ scripts/clone-skills.sh → κατεβάζει curated external skills
 
 Επόμενο: schema-parity gate στο CI. Ο Agency Kernel παραμένει staging-only και δεν
 προωθείται στην παραγωγή χωρίς ξεχωριστή έγκριση μετά την ολοκλήρωση της Phase 4A.
+
+### Content integrity για sparse prompts (11 Αυγούστου 2026)
+
+- Διορθώθηκε το σενάριο «Έχω ξενοδοχείο»: το `rooms` vertical δεν πέφτει πλέον
+  σε γενικό story/CTA ούτε εμφανίζει κείμενο προσανατολισμένο υποχρεωτικά σε νησί.
+- Κάθε vertical έχει ελεγμένα deterministic tagline/story/CTA defaults. Το AI copy
+  δεν καλείται όταν το prompt δεν περιέχει αρκετά πραγματικά στοιχεία.
+- Δεν εφευρίσκονται πλέον πόλη, τηλέφωνο, ωράριο ή κριτικές. Placeholder τιμές όπως
+  `—` καθαρίζονται και τα αντίστοιχα contact/map controls κρύβονται.
+- Regression: 57/57 Python tests, vertical profiles/media QA καθαρά και Next
+  production build επιτυχές. Το συνολικό `qa:release` εξακολουθεί να σταματά σε
+  παλιό `editorFlow` assertion για `connect.html?desc=` και καταγράφεται χωριστά.

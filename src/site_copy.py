@@ -107,6 +107,16 @@ def write_copy(intake: dict[str, Any]) -> dict[str, Any]:
         f"{reference}\n\"\"\""
     ) if reference else ""
 
+    # A category-only prompt (for example «έχω ξενοδοχείο») does not contain
+    # enough facts for responsible AI copy. Calling the model here produced
+    # invented services and generic claims that displaced the reviewed vertical
+    # defaults. Use AI only when the customer supplied meaningful context,
+    # explicit services, or an existing public website to ground the result.
+    detail_words = re.findall(r"[\wά-ώΆ-Ώ]+", str(extra), flags=re.UNICODE)
+    has_grounding = has_services or bool(reference) or len(detail_words) >= 5
+    if not has_grounding:
+        return {}
+
     ask_services = "" if has_services else (
         "\n- Πρόσθεσε 4-6 υπηρεσίες με σύντομη περιγραφή στο πεδίο \"services\", "
         "ταξινομημένες από την πιο σημαντική/συχνή στη λιγότερο."

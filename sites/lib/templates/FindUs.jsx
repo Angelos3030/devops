@@ -32,7 +32,7 @@ export default function FindUs({ data: d, dark = false }) {
           <a className={s.primary} href={directions} target="_blank" rel="noreferrer">
             Οδηγίες πρόσβασης ↗
           </a>
-          <a className={s.secondary} href={tel}>📞 {d.PHONE}</a>
+          {d.PHONE_INTL && <a className={s.secondary} href={tel}>📞 {d.PHONE}</a>}
         </div>
         {d.GBP_URL && (
           <a className={s.gbp} href={d.GBP_URL} target="_blank" rel="noreferrer">
