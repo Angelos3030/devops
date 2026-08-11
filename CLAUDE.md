@@ -190,3 +190,17 @@ Supabase. Μην κρατάς κρίσιμες αλλαγές μόνο σε έν
 μην επαναφέρεις αλλαγές που δεν έκανες και ενημέρωσε το `STATUS.md` όταν αλλάζει ουσιαστικά η
 κατάσταση του project. Τα secrets μπαίνουν μόνο σε `.env`/platform variables, ποτέ σε docs,
 chat, screenshots ή commits.
+
+### Παράλληλα Next.js builds
+
+Δύο agents δεν επιτρέπεται να χρησιμοποιούν ταυτόχρονα το ίδιο `sites/.next`. Κάθε παράλληλος
+dev/QA worker ορίζει μοναδικό directory, π.χ. PowerShell:
+
+```powershell
+$env:NEXT_DIST_DIR='.next-visual'; npx next dev -p 3800
+```
+
+Χρησιμοποίησε άλλο suffix/port ανά agent (`.next-agent2`, `.next-callout`, κ.λπ.). Το production
+build χωρίς `NEXT_DIST_DIR` συνεχίζει να χρησιμοποιεί `.next`. Μην εκτελείς clean/delete σε
+`.next*` όταν υπάρχει άλλος ενεργός agent. Τα browser screenshots γράφονται στο αγνοημένο
+`sites/artifacts/`, ποτέ μέσα σε source directories.

@@ -945,3 +945,17 @@ scripts/clone-skills.sh → κατεβάζει curated external skills
 Κάθε φορά που σταματάς δουλειά: **ενημέρωσε αυτό το αρχείο** —
 τι έγινε, πού σταμάτησες, τι ακολουθεί. Έτσι όποιος συνεχίσει (άλλο account/session)
 ξέρει ακριβώς από πού να πιάσει.
+
+### Browser vertical journey QA (11 Αυγούστου 2026)
+
+- Προστέθηκε `sites/tests/visualJourney.mjs`: πραγματικό Playwright render σε desktop/mobile,
+  semantic allow/deny λέξεις, broken images, H1, overflow, browser errors και full-page screenshots.
+- Πέρασαν 6 αντιπροσωπευτικά journeys: καφέ, οδοντίατρος, φαρμακείο, νυχάδικο, ξυλουργός,
+  υδραυλικός. Screenshots: `sites/artifacts/visual-journey/` (αγνοούνται από git).
+- Διορθώθηκε κρυφό fallback: το `pharmacy` δεν είχε demo data και έπεφτε σε ξυλουργό.
+- Τα νύχια χωρίστηκαν από το γενικό beauty media pool, ώστε καθαρό νυχάδικο να μη δείχνει
+  κομμωτήριο/μαλλιά. Προστέθηκε nail-only demo και semantic regression gate.
+- Για παράλληλους agents, το Next υποστηρίζει `NEXT_DIST_DIR`. Το visual QA τρέχει με
+  `.next-visual`, ώστε άλλο `next build` να μη σβήνει τα assets του ενεργού server.
+- Δεν έγινε deploy ή push. Επόμενο: ένταξη του visual journey σε CI με προσωρινό isolated server
+  και επέκταση της μήτρας στα υπόλοιπα verticals.

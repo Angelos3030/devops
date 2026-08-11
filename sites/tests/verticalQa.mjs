@@ -6,7 +6,7 @@ const cases = [
     TRADE: 'Οδοντιατρείο',
     services: [{ title: 'Αισθητική οδοντιατρική' }, { title: 'Θεραπείες' }],
   }, 'health', /1629909613654|1588776814546|1606811841689|1519494026892/],
-  ['nail-studio', { TRADE: 'Νυχάδικο', services: [{ title: 'Μανικιούρ' }] }, 'beauty', null],
+  ['nail-studio', { TRADE: 'Νυχάδικο', services: [{ title: 'Μανικιούρ' }] }, 'nails', /1604654894610|1610992015732|1632345031435|1607779097040/],
   ['cafe-not-food', { TRADE: 'Καφετέρια', services: [{ title: 'Brunch' }] }, 'cafe', null],
   ['taverna', { TRADE: 'Ταβέρνα', services: [{ title: 'Σχάρα' }] }, 'food', null],
   ['carpenter', { TRADE: 'Ξυλουργός', services: [{ title: 'Κουζίνες' }] }, 'carpenter', null],

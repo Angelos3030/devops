@@ -13,6 +13,9 @@ const securityHeaders = [
 ]
 
 const nextConfig = {
+  // QA/dev workers can use an isolated directory so a concurrent `next build`
+  // cannot delete the files of a running visual test server.
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   images: { unoptimized: true }, // static hosting friendly (Cloudflare Pages)
   eslint: { ignoreDuringBuilds: true },
   poweredByHeader: false,
