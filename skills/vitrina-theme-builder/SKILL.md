@@ -43,6 +43,12 @@ https://websitedemos.net/<vertical>-0N/     construction-04, painter-03, locksmi
 Τα galleries βραβείων παραμένουν χρήσιμα για *αισθητική κατεύθυνση* σε premium
 verticals (ξενοδοχεία, εστίαση υψηλού επιπέδου), όχι για τοπικά συνεργεία.
 
+**Για μηχανική συστήματος, οι εμπορικές σελίδες των builders είναι άχρηστες.**
+Λένε «300+ templates» και τίποτα για το πώς κρατιούνται συνεπή. Πήγαινε κατευθείαν
+στα docs τους (`/docs/`, `/help-center/`) ή στα design systems (Radix, Material,
+Geist). Ό,τι έχει ήδη αναλυθεί ζει στο `references/reference-library.md` — διάβασέ
+το πριν ξοδέψεις κύκλο σε πηγή που απορρίφθηκε ήδη.
+
 ⚠️ Μη σωληνώνεις το capture σε `head` — το SIGPIPE σκοτώνει τη διεργασία μετά το
 πρώτο viewport και μένεις με screenshot χωρίς `reference.json`.
 
