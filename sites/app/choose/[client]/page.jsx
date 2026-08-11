@@ -188,7 +188,7 @@ export default function Choose({ params }) {
               onChange={(e) => uploadFiles(e.target.files, 'logo')} />
             <span className={s.dropIcon}>🏷️</span>
             <strong>{hasLogo ? 'Το λογότυπο ανέβηκε ✓' : 'Έχεις λογότυπο; Ανέβασέ το'}</strong>
-            <span className={s.dropHint}>{uploading === 'logo' ? 'Ανεβαίνει…' : 'Αλλιώς φτιάχνουμε κομψό με το όνομά σου'}</span>
+            <span className={s.dropHint}>{uploading === 'logo' ? 'Ανεβαίνει…' : 'Αλλιώς σου ετοιμάζουμε 3 προτάσεις λογοτύπου'}</span>
           </label>
         </div>
       </section>

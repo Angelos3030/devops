@@ -4,6 +4,7 @@ const DESIGN_SYSTEM_IDS = Object.freeze([
   'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas',
   'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living',
   'beauty-atelier',
+  'clinic-triage',
   'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery',
 ])
 
@@ -94,11 +95,11 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['graphic-procedures', 'guaranteed-medical-outcomes', 'unconsented-patient-images']),
       fallbackStrategy: 'clinical-abstracts-and-credential-led-layout',
     },
-    compatibleDesignSystemIds: ['clinic-triage', 'marble', 'quiet', 'cinematic', 'living', 'grid', 'infinite', 'canvas', 'type-gallery', 'kinetic', 'editorial', 'bento', 'split'],
+    compatibleDesignSystemIds: ['clinic-triage', 'marble', 'quiet', 'cinematic', 'living', 'grid', 'infinite', 'canvas', 'type-gallery', 'editorial', 'bento', 'split'],
   }),
   physician: profile({
     id: 'physician', label: 'Ιατρείο',
-    aliases: ['physician', 'doctor', 'medical office', 'γιατρός', 'ιατρός', 'ιατρείο', 'ιατρικό κέντρο', 'παθολόγος', 'καρδιολόγος', 'παιδίατρος', 'δερματολόγος', 'γυναικολόγος', 'ορθοπεδικός', 'οφθαλμίατρος', 'ωρλ', 'ψυχολόγος', 'διατροφολόγος', 'κτηνίατρος', 'φαρμακείο'],
+    aliases: ['physician', 'doctor', 'medical office', 'γιατρός', 'ιατρός', 'ιατρείο', 'ιατρικό κέντρο', 'παθολόγος', 'καρδιολόγος', 'παιδίατρος', 'δερματολόγος', 'γυναικολόγος', 'ορθοπεδικός', 'οφθαλμίατρος', 'ωρλ', 'ψυχολόγος', 'διατροφολόγος', 'κτηνίατρος'],
     conversionGoal: { primary: 'book-appointment', secondary: 'phone-call' },
     requiredSections: ['hero', 'services', 'doctor-profile', 'credentials', 'visit-information', 'hours', 'contact', 'find-us'],
     motionIntensity: 'restrained', schemaType: 'Physician',
@@ -108,7 +109,21 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['graphic-procedures', 'guaranteed-outcomes', 'patient-identifying-images']),
       fallbackStrategy: 'credential-led-editorial-with-clinical-abstracts',
     },
-    compatibleDesignSystemIds: ['clinic-triage', 'marble', 'quiet', 'editorial', 'split', 'cinematic', 'grid', 'living', 'bento', 'canvas', 'sidebar', 'infinite', 'type-gallery'],
+    compatibleDesignSystemIds: ['clinic-triage', 'marble', 'quiet', 'editorial', 'split', 'cinematic', 'grid', 'living', 'bento', 'canvas', 'sidebar', 'infinite'],
+  }),
+  pharmacy: profile({
+    id: 'pharmacy', label: 'Φαρμακείο',
+    aliases: ['pharmacy', 'drugstore', 'φαρμακείο', 'φαρμακοποιός', 'παραφαρμακείο', 'δερμοκαλλυντικά'],
+    conversionGoal: { primary: 'phone-or-visit', secondary: 'directions' },
+    requiredSections: ['hero', 'services', 'product-categories', 'on-duty-information', 'hours', 'contact', 'find-us'],
+    motionIntensity: 'restrained', schemaType: 'Pharmacy',
+    media: {
+      minimumPreferredImages: 2,
+      requiredSubjects: Object.freeze(['pharmacy-space-or-team', 'product-category-detail']),
+      avoid: Object.freeze(['prescription-claims', 'unverified-health-claims', 'patient-identifying-images']),
+      fallbackStrategy: 'health-service-and-category-led-layout',
+    },
+    compatibleDesignSystemIds: ['quiet', 'marble', 'grid', 'editorial', 'bento', 'split', 'living', 'clinic-triage', 'sidebar', 'canvas', 'infinite', 'type-gallery'],
   }),
   aesthetics: profile({
     id: 'aesthetics', label: 'Κέντρο αισθητικής',
@@ -164,7 +179,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unavailable-products', 'misleading-brand-affiliations', 'unlicensed-campaign-images']),
       fallbackStrategy: 'editorial-product-cards-and-brand-led-layout',
     },
-    compatibleDesignSystemIds: ['runway', 'type-gallery', 'bento', 'infinite', 'bloom', 'canvas', 'cinematic', 'quiet', 'kinetic', 'grid', 'magazine', 'living'],
+    compatibleDesignSystemIds: ['bento', 'grid', 'type-gallery', 'quiet', 'living', 'infinite', 'canvas', 'cinematic', 'kinetic', 'magazine', 'editorial', 'split'],
   }),
   lawyer: profile({
     id: 'lawyer', label: 'Δικηγορικό γραφείο',
@@ -192,7 +207,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unsafe-repair-scenes', 'unattributed-project-claims']),
       fallbackStrategy: 'service-icons-and-high-contrast-call-led',
     },
-    compatibleDesignSystemIds: ['dispatch', 'kinetic', 'grid', 'type-gallery', 'infinite', 'cinematic', 'quiet', 'living', 'canvas', 'forge', 'poster', 'bento'],
+    compatibleDesignSystemIds: ['forge', 'grid', 'sidebar', 'poster', 'bento', 'kinetic', 'type-gallery', 'infinite', 'cinematic', 'quiet', 'living', 'canvas'],
   }),
   rooms: profile({
     id: 'rooms', label: 'Ενοικιαζόμενα δωμάτια',
@@ -278,8 +293,21 @@ const VERTICAL_ALIASES = new Map(
     [item.id, ...item.aliases].map((alias) => [normalize(alias), item.id])),
 )
 
+// Περιγραφές onboarding περιέχουν επωνυμία, πόλη και ελεύθερο κείμενο. Exact
+// lookup δεν αρκεί: «Φαρμακείο Μαρία στον Γέρακα» πρέπει να αναγνωρίζεται. Η
+// μεγαλύτερη φράση κερδίζει ώστε «οδοντιατρική κλινική» να προηγείται του
+// γενικότερου «κλινική» όταν προστεθούν νέες κατηγορίες.
+const SORTED_ALIASES = Object.freeze(
+  [...VERTICAL_ALIASES.entries()].sort((a, b) => b[0].length - a[0].length),
+)
+
 export function getVerticalProfile(vertical) {
-  const key = VERTICAL_ALIASES.get(normalize(vertical))
+  const normalized = normalize(vertical)
+  const exact = VERTICAL_ALIASES.get(normalized)
+  const matched = exact || SORTED_ALIASES.find(([alias]) =>
+    normalized === alias || normalized.includes(alias),
+  )?.[1]
+  const key = matched
   return VERTICAL_PROFILES[key] || VERTICAL_PROFILES.generic
 }
 

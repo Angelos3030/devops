@@ -315,7 +315,7 @@ REACT_TEMPLATES = (
     "ember", "marble", "runway", "forge", "aegean", "bloom",
     "volt", "motor", "terra", "dispatch", "canvas",
     "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living",
-    "beauty-atelier", "clinic-triage",
+    "beauty-atelier", "clinic-triage", "callout",
     "bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market", "microbakery-lab", "scandinavian-coffee", "heritage-bakery",
 )
 # ΠΡΟΣΟΧΗ: νέο theme χρειάζεται ΚΑΙ εγγραφή εδώ ΚΑΙ στο _TEMPLATES_BY_VERTICAL.
@@ -334,6 +334,7 @@ _VERTICAL_RULES = (
     ("cafe", ("καφε", "cafe", "coffee", "espresso", "brunch", "creperie", "κρεπερ", "παγωτ")),
     ("food", ("ταβερν", "εστιατορ", "taverna", "restaurant", "μεζε", "ψησταρι", "σουβλα", "grill", "pizza", "πιτσαρ", "μπαρ", "cocktail bar", "wine bar")),
     ("dentist", ("οδοντ", "dentist", "dental")),
+    ("pharmacy", ("φαρμακει", "φαρμακοποι", "pharmacy", "drugstore", "παραφαρμακ", "δερμοκαλλυν")),
     ("doctor", ("ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "διαιτολογ", "ψυχολογ", "κτηνιατρ")),
     ("aesthetics", ("αισθητικ", "beauty clinic", "κεντρο ομορφια", "μακιγι", "laser αποτριχ")),
     ("massage", ("μασαζ", "massage", "spa", "wellness")),
@@ -396,16 +397,17 @@ _TEMPLATES_BY_VERTICAL = {
     "rooms":        ["aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid", "marble", "magazine", "bloom"],
     "dentist":      ["clinic-triage", "marble", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic", "editorial", "bento", "split"],
     "doctor":       ["clinic-triage", "marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
+    "pharmacy":     ["quiet", "marble", "grid", "editorial", "bento", "split", "living", "clinic-triage", "sidebar", "canvas", "infinite", "type-gallery"],
     "aesthetics":   ["beauty-atelier", "bloom", "quiet", "clinic-triage", "marble", "runway", "living", "cinematic", "type-gallery", "bento", "infinite", "canvas", "magazine"],
     "massage":      ["living", "quiet", "aegean", "clinic-triage", "bloom", "warmth", "cinematic", "infinite", "canvas", "marble", "type-gallery", "terra", "magazine"],
     "beauty":       ["beauty-atelier", "runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas", "magazine", "poster"],
-    "retail":       ["runway", "type-gallery", "bento", "infinite", "bloom", "canvas", "cinematic", "quiet", "kinetic", "grid", "magazine", "living"],
+    "retail":       ["bento", "grid", "type-gallery", "quiet", "living", "infinite", "canvas", "cinematic", "kinetic", "magazine", "editorial", "split"],
     "professional": ["marble", "quiet", "cinematic", "grid", "infinite", "canvas", "type-gallery", "living", "kinetic", "editorial", "sidebar", "bento"],
-    "trade":        ["dispatch", "kinetic", "grid", "type-gallery", "infinite", "cinematic", "quiet", "living", "canvas", "forge", "poster", "bento"],
+    "trade":        ["callout", "kinetic", "grid", "type-gallery", "infinite", "cinematic", "quiet", "living", "canvas", "forge", "poster", "bento"],
     "garage":       ["motor", "kinetic", "grid", "infinite", "type-gallery", "cinematic", "quiet", "living", "canvas", "volt", "forge", "poster"],
     "gym":          ["volt", "kinetic", "type-gallery", "infinite", "runway", "grid", "cinematic", "living", "quiet", "poster", "bento", "motor"],
     "farm":         ["terra", "living", "quiet", "cinematic", "canvas", "infinite", "type-gallery", "kinetic", "grid", "editorial", "magazine", "warmth"],
-    "wood":         ["canvas", "runway", "grid", "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living", "forge", "editorial", "magazine"],
+    "wood":         ["forge", "quiet", "living", "grid", "cinematic", "type-gallery", "infinite", "canvas", "kinetic", "editorial", "magazine", "bento"],
 }
 
 

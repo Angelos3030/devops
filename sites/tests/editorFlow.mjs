@@ -6,6 +6,7 @@ const dashboard = await readFile(new URL('../app/dashboard/page.jsx', import.met
 const site = await readFile(new URL('../app/site/[client]/page.jsx', import.meta.url), 'utf8')
 const theme = await readFile(new URL('../app/site/[client]/theme.module.css', import.meta.url), 'utf8')
 const connect = await readFile(new URL('../../web/connect.html', import.meta.url), 'utf8')
+const landing = await readFile(new URL('../../web/index.html', import.meta.url), 'utf8')
 
 assert.match(choose, /Διαμόρφωσέ το με live chat/)
 assert.match(choose, /select-design/)
@@ -22,6 +23,18 @@ assert.match(dashboard, /asset_type', staged\.assetType/)
 assert.match(dashboard, /Ανέβασε λογότυπο/)
 assert.match(dashboard, /asset\.type === 'logo'/)
 assert.match(dashboard, /logo-drafts/)
+assert.match(choose, /3 προτάσεις λογοτύπου/)
+assert.match(landing, /Logo Designer περιλαμβάνεται/)
+assert.match(landing, /σου ετοιμάζουμε 3 προτάσεις/)
+assert.match(landing, /connect\.html\?desc=/)
+assert.match(connect, /Βήμα 2 — Συμπλήρωσε τα στοιχεία του μαγαζιού/)
+assert.match(connect, /Δείξε μου τα σχέδια →/)
+for (const businessType of ['Φαρμακείο', 'Γιατρός / Ιατρείο', 'Νύχια / Nail studio',
+  'Κέντρο αισθητικής', 'Μασάζ / Wellness', 'Κατάστημα λιανικής',
+  'Ενοικιαζόμενα δωμάτια', 'Συνεργείο αυτοκινήτων']) {
+  assert.match(connect, new RegExp(`<option>${businessType.replace('/', '\\/')}</option>`))
+}
+assert.match(choose, /dashboard\?client=/)
 assert.match(dashboard, /Δημιούργησε 3 προτάσεις/)
 assert.match(dashboard, /Χρησιμοποίησέ το/)
 assert.match(site, /data-palette=/)

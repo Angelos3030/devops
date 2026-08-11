@@ -11,7 +11,7 @@
 import {
   PHOTO_TYPES, MAX_PHOTO_MB, MAX_SERVICES,
   validatePhoto, canAddService, countEmptyServices,
-  addService, setServiceField, removeService,
+  addService, setServiceField, removeService, buildQuoteMailto,
 } from '../lib/editorRules.js'
 import { readFileSync } from 'node:fs'
 
@@ -76,6 +76,22 @@ check(metaPy.includes(`][:${MAX_SERVICES}]`),
 for (const f of ['email', 'facebook', 'instagram']) {
   check(new RegExp(`"${f}"`).test(metaPy), `το ${f} είναι στο allowlist του backend`)
 }
+
+console.log('\n[φόρμα προσφοράς — theme callout]')
+// Η σύνθεση βγήκε από το component ώστε να ελέγχεται χωρίς browser: η υποβολή
+// ορίζει window.location.href, που δεν στήνεται αξιόπιστα σε test.
+const mail = buildQuoteMailto({ email: 'info@x.gr', name: 'Γιώργος', phone: '6900000000',
+                                need: 'στάζει ο θερμοσίφωνας' })
+check(mail.startsWith('mailto:info@x.gr?'), 'πάει στο email ΤΟΥ ΠΕΛΑΤΗ', mail.slice(0, 28))
+const decoded = decodeURIComponent(mail)
+check(decoded.includes('Γιώργος') && decoded.includes('6900000000'),
+      'όνομα και τηλέφωνο μπαίνουν στο μήνυμα')
+check(decoded.includes('θερμοσίφωνας'), 'η περιγραφή περνάει')
+check(buildQuoteMailto({ email: 'info@x.gr' }).includes('%CE%98%CE%B1'),
+      'χωρίς περιγραφή μπαίνει ουδέτερο κείμενο')
+check(buildQuoteMailto({ email: '' }) === '', 'χωρίς email δεν συνθέτει τίποτα')
+check(buildQuoteMailto({ email: 'οχι-email' }) === '', 'άκυρο email απορρίπτεται')
+check(buildQuoteMailto() === '', 'χωρίς ορίσματα δεν σπάει')
 
 console.log('\n[μητρώο templates — JS ↔ Python]')
 // Το clinic-triage ήταν πρώτο στο verticalProfiles.js αλλά ΕΛΕΙΠΕ από το

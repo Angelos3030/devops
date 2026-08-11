@@ -3,6 +3,38 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+## Vertical recommendation hardening (2026-08-11, local only)
+
+- Το frontend profile matching αναγνωρίζει πλέον επάγγελμα μέσα σε ολόκληρη
+  περιγραφή (`Φαρμακείο Μαρία στον Γέρακα`), όχι μόνο όταν το input είναι ακριβώς
+  ένα alias. Η μεγαλύτερη/ειδικότερη φράση έχει προτεραιότητα.
+- Προστέθηκε ξεχωριστό `pharmacy` profile με schema `Pharmacy`, health-safe media
+  rules και ήρεμες επιλογές. Φαρμακείο δεν παίρνει πλέον fashion `runway`.
+- Ξυλουργός προτείνεται πλέον με `forge` και craft-first κατευθύνσεις, χωρίς
+  `runway`. Retail ξεκινά με product-first `bento`, όχι fashion gallery.
+- Το `dispatch` αποκλείστηκε από το profile τεχνιτών. Το νέο `callout` του άλλου
+  agent παραμένει πρώτο στο backend για υδραυλικό/ηλεκτρολόγο και δεν τροποποιήθηκε.
+- Το release gate τρέχει πλέον και `qa:profiles`: 16 vertical profiles + generic,
+  18 real-world Greek descriptions, 15 semantic media cases και editor contract.
+- Ο chooser αναφέρει καθαρά το υπάρχον Logo Designer: αν δεν ανέβει logo,
+  ετοιμάζονται 3 προτάσεις λογοτύπου.
+- Verification: 41 Python tests και Next production build 22 routes πέρασαν.
+- **Δεν έγινε push ή deploy.** Τα αρχεία του `Callout` ανήκουν στον παράλληλο
+  agent και δεν πειράχτηκαν από αυτή την εργασία.
+
+## Onboarding order (2026-08-11, local only)
+
+- Το primary funnel είναι πλέον: **μία πρόταση στην αρχική → Βήμα 2 intake →
+  designs → επιλογή → login → αποθήκευση/editor**.
+- Η αρχική στέλνει το prompt στο `connect.html?desc=...&step=intake`, όπου η
+  περιγραφή, ο τύπος και γνωστές περιοχές προγεμίζονται πριν δημιουργηθεί client.
+- Τα CTA τιμολόγησης/τέλους επιστρέφουν στο prompt και δεν ανοίγουν κενή φόρμα.
+- Το intake απέκτησε εμφανείς επιλογές για γιατρούς, φαρμακεία, νύχια, αισθητική,
+  wellness, retail, δωμάτια, συνεργεία και παραγωγούς.
+- Το login παραμένει μετά την επιλογή σχεδίου. Το `start.html` διατηρείται ως
+  legacy/εναλλακτικό fast path, αλλά δεν είναι το κύριο funnel.
+- Τα editor/profile/vertical routing contracts πέρασαν. Δεν έγινε deploy.
+
 ## Semantic media και customer-journey QA (2026-08-10, local only)
 
 - Διορθώθηκε η ταξινόμηση όπου το `Οδοντιατρείο` με υπηρεσία `Αισθητική

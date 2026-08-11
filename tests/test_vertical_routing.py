@@ -6,6 +6,48 @@ from src import quick_start
 
 
 class VerticalRoutingTests(unittest.TestCase):
+    def test_real_world_descriptions_cover_all_vertical_families(self):
+        cases = [
+            ("Παραδοσιακή ταβέρνα στην Καλαμάτα", "food", "warmth"),
+            ("Καφετέρια στη Μάνη με brunch", "cafe", "counter-menu"),
+            ("Οικογενειακός φούρνος με ψωμί ημέρας", "bakery", "bakery-editorial"),
+            ("Οδοντιατρείο με αισθητική οδοντιατρική", "dentist", "clinic-triage"),
+            ("Καρδιολόγος με ιατρείο στο Χαλάνδρι", "doctor", "clinic-triage"),
+            ("Φαρμακείο Μαρία στον Γέρακα", "pharmacy", "quiet"),
+            ("Κέντρο αισθητικής με laser αποτρίχωση", "aesthetics", "beauty-atelier"),
+            ("Κέντρο μασάζ και wellness", "massage", "living"),
+            ("Νυχάδικο για μανικιούρ και πεντικιούρ", "beauty", "beauty-atelier"),
+            ("Ανθοπωλείο με λουλούδια και δώρα", "retail", "bento"),
+            ("Δικηγορικό γραφείο οικογενειακού δικαίου", "professional", "marble"),
+            ("Ξυλουργείο για κουζίνες και ντουλάπες", "wood", "forge"),
+            ("Υδραυλικός 24 ώρες στην Αθήνα", "trade", "callout"),
+            ("Ηλεκτρολόγος στον Πειραιά", "trade", "callout"),
+            ("Ενοικιαζόμενα δωμάτια στη Νάξο", "rooms", "aegean"),
+            ("Γυμναστήριο και personal training", "gym", "volt"),
+            ("Συνεργείο αυτοκινήτων και βουλκανιζατέρ", "garage", "motor"),
+            ("Παραγωγός ελαιόλαδου στη Μεσσηνία", "farm", "terra"),
+        ]
+        for description, expected_vertical, expected_first in cases:
+            with self.subTest(description=description):
+                intake = {"type": "Άλλο", "description": description}
+                self.assertEqual(pg._vertical(intake), expected_vertical)
+                self.assertEqual(pg.recommend_templates(intake)[0], expected_first)
+
+    def test_pharmacy_is_not_treated_as_fashion_retail(self):
+        intake = {"type": "Άλλο", "description": "Φαρμακείο Μαρία στον Γέρακα"}
+        templates = pg.recommend_templates(intake)
+        self.assertEqual(templates[0], "quiet")
+        self.assertNotIn("runway", templates)
+
+    def test_carpenter_starts_with_craft_not_fashion_gallery(self):
+        intake = {
+            "type": "Άλλο",
+            "description": "Ξυλουργικό εργαστήριο με κουζίνες και ντουλάπες",
+        }
+        templates = pg.recommend_templates(intake)
+        self.assertEqual(templates[0], "forge")
+        self.assertNotIn("runway", templates)
+
     def parse_without_ai(self, text):
         with patch.object(quick_start.ai, "available", return_value=False):
             return quick_start.parse(text)

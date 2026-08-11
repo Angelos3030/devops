@@ -1,0 +1,263 @@
+/* Callout — τεχνίτες. Βαθύ ναυτικό μπλε + safety amber, συμπυκνωμένη βαριά
+   τυπογραφία. Η αίσθηση είναι «συνεργείο που απαντά», όχι στούντιο.
+   Mobile-first: η φόρμα και το τηλέφωνο μπαίνουν πριν από οτιδήποτε άλλο. */
+.root {
+  --navy: #0e1a2b;
+  --navy-2: #16273e;
+  --amber: #ffb020;
+  --amber-dk: #e08c00;      /* μόνο για ΦΟΝΤΟ κουμπιών */
+  /* Το amber σε ανοιχτό φόντο έδινε αντίθεση 2,42 — αποτυγχάνει ακόμα και για
+     μεγάλο κείμενο. Ξεχωριστό, πιο σκούρο, ΜΟΝΟ για κείμενο: 5,8:1 στο tint. */
+  --amber-text: #8a5600;
+  --ink: #12181f;
+  --ink-soft: #4a5563;
+  --paper: #ffffff;
+  --tint: #f2f5f8;
+  --line: #dbe2ea;
+  --radius: 10px;
+  --container: 1200px;
+  --pad: clamp(1.1rem, 5vw, 2.4rem);
+  --section: clamp(3.2rem, 7vw, 5.5rem);
+
+  /* Συμπυκνωμένη βαριά γραφή: διαβάζεται από μακριά, «εργαλείο» όχι «boutique».
+     Και τα δύο self-hosted με ελληνικό subset. */
+  --display: 'Fira Sans Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --body: 'Open Sans', system-ui, sans-serif;
+
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+.root :where(h1, h2, h3, p, ol, li, figure, figcaption, form) { margin: 0; padding: 0; }
+.root :where(ol) { list-style: none; }
+.root :where(a) { color: inherit; text-decoration: none; }
+.root :where(h1, h2, h3) {
+  font-family: var(--display); color: var(--ink);
+  font-weight: 800; letter-spacing: -0.01em; line-height: 1.06;
+}
+.root img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ------------------------------------------------------------------ nav */
+.nav {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 1.2rem;
+  padding: 0.7rem var(--pad);
+  background: var(--navy); color: #fff;
+}
+.brandLink { margin-right: auto; min-width: 0; display: inline-flex; align-items: center; min-height: 44px; }
+.brand {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(1.05rem, 2.6vw, 1.35rem); color: #fff; text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.navLinks { display: flex; gap: 1.4rem; font-size: 15px; font-weight: 600; }
+.navLinks a { display: inline-flex; align-items: center; min-height: 44px; }
+.navLinks a { color: #c6d2e0; transition: color 0.12s cubic-bezier(.4,0,.2,1); }
+.navLinks a:hover { color: #fff; }
+.navCall {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.1rem;
+  background: var(--amber); color: var(--navy);
+  border-radius: 6px; font-family: var(--display); font-weight: 800;
+  font-size: 1.05rem; white-space: nowrap;
+  transition: background 0.12s cubic-bezier(.4,0,.2,1);
+}
+.navCall:hover { background: var(--amber-dk); }
+
+/* ----------------------------------------------------------------- hero */
+.hero { position: relative; isolation: isolate; background: var(--navy); }
+.heroImg { position: absolute; inset: 0; z-index: -2; }
+.heroVeil {
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(105deg, rgba(14,26,43,.95) 0%, rgba(14,26,43,.86) 46%, rgba(14,26,43,.62) 100%);
+}
+.heroInner {
+  display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+  width: min(var(--container), 100%); margin: 0 auto;
+  padding: var(--section) var(--pad);
+}
+.heroCopy { color: #dce5ef; }
+.eyebrow {
+  display: inline-block; margin-bottom: 0.7rem;
+  font-family: var(--display); font-size: 14px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber);
+}
+.title {
+  color: #fff; font-size: clamp(2.2rem, 5.4vw, 3.4rem);
+  text-transform: uppercase; text-wrap: balance;
+}
+.lede { margin-top: 0.9rem; max-width: 34rem; font-size: 1.05rem; line-height: 1.6; }
+
+.callBlock {
+  display: inline-flex; flex-direction: column; gap: 0.15rem;
+  margin-top: 1.6rem; padding: 0.9rem 1.3rem;
+  border-left: 4px solid var(--amber); background: rgba(255,255,255,.06);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.callLabel {
+  font-family: var(--display); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber);
+}
+.callNumber {
+  font-family: var(--display); font-weight: 800; color: #fff;
+  font-size: clamp(1.8rem, 4.5vw, 2.5rem); line-height: 1.1;
+  /* Condensed γραφή: το ύψος γραμμής έβγαινε 32px παρότι το κείμενο δείχνει
+     μεγάλο. Είναι ο πιο σημαντικός σύνδεσμος της σελίδας — πρέπει να πατιέται. */
+  min-height: 44px; display: inline-flex; align-items: center;
+  transition: color 0.12s cubic-bezier(.4,0,.2,1);
+}
+.callNumber:hover { color: var(--amber); }
+.callAreas { font-size: 14px; color: #a9b8c9; }
+
+/* --------------------------------------------------------- κάρτα προσφοράς */
+.quote {
+  display: grid; gap: 0.7rem;
+  background: var(--paper); border-radius: 12px;
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  box-shadow: 0 24px 60px rgba(6, 14, 26, .38);
+}
+.quoteTitle { font-size: 1.4rem; text-transform: uppercase; }
+.quoteSub { font-size: 14px; color: var(--ink-soft); margin-top: -0.35rem; }
+.field { display: grid; gap: 0.3rem; font-size: 14px; font-weight: 600; color: var(--ink); }
+.field em { font-style: normal; font-weight: 400; color: var(--ink-soft); }
+.field input, .field textarea {
+  font: inherit; font-weight: 400; color: var(--ink);
+  min-height: 46px; padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--tint);
+  transition: border-color 0.12s cubic-bezier(.4,0,.2,1), background 0.12s cubic-bezier(.4,0,.2,1);
+}
+.field textarea { min-height: 68px; resize: vertical; }
+.field input:focus, .field textarea:focus {
+  outline: none; border-color: var(--navy); background: #fff;
+  box-shadow: 0 0 0 3px rgba(14,26,43,.12);
+}
+.quoteBtn {
+  min-height: 52px; margin-top: 0.2rem; border: 0; cursor: pointer;
+  background: var(--amber); color: var(--navy);
+  border-radius: 8px; font-family: var(--display); font-weight: 800;
+  font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.02em;
+  transition: background 0.12s cubic-bezier(.4,0,.2,1);
+}
+.quoteBtn:hover { background: var(--amber-dk); }
+/* Το ίδιο κουμπί χρησιμοποιείται και ως σύνδεσμος όταν δεν υπάρχει email. */
+a.quoteBtn { display: flex; align-items: center; justify-content: center; text-align: center; }
+.quoteAlt {
+  text-align: center; font-size: 14px; font-weight: 600; color: var(--ink-soft);
+  min-height: 32px; display: flex; align-items: center; justify-content: center;
+}
+.quoteAlt:hover { color: var(--ink); }
+
+/* ------------------------------------------------------------- segments */
+.segments {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.segment {
+  display: flex; flex-direction: column; gap: 0.35rem;
+  padding: clamp(1.4rem, 3vw, 2.1rem) var(--pad);
+  background: var(--paper);
+  transition: background 0.14s cubic-bezier(.4,0,.2,1);
+}
+.segment:hover, .segment:focus-visible { background: var(--tint); }
+.segNum { width: 34px; height: 3px; background: var(--amber); margin-bottom: 0.5rem; }
+.segment h2 { font-size: 1.2rem; }
+.segment p { font-size: 15px; }
+.segGo {
+  margin-top: auto; min-height: 44px; display: inline-flex; align-items: flex-end;
+  font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--navy);
+}
+
+/* -------------------------------------------------------------- services */
+.services { width: min(var(--container), 100%); margin: 0 auto; padding: var(--section) var(--pad); }
+.secHead { max-width: 42rem; margin-bottom: 2.2rem; }
+.eyebrowDark {
+  display: block; margin-bottom: 0.5rem;
+  font-family: var(--display); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber-text);
+}
+.secTitle { font-size: clamp(1.8rem, 4vw, 2.6rem); text-transform: uppercase; text-wrap: balance; }
+
+.svGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.svItem {
+  display: flex; flex-direction: column; gap: 0.4rem;
+  padding: 1.3rem 1.4rem; background: var(--tint);
+  border-radius: var(--radius); border-top: 3px solid var(--navy);
+  transition: border-color 0.14s cubic-bezier(.4,0,.2,1), transform 0.14s cubic-bezier(.4,0,.2,1);
+}
+.svItem:hover { border-top-color: var(--amber); transform: translateY(-2px); }
+.svNum {
+  font-family: var(--display); font-weight: 800; font-size: 1.5rem;
+  color: var(--amber-text); line-height: 1;
+}
+.svItem h3 { font-size: 1.15rem; }
+.svItem p { font-size: 15px; }
+.svLink {
+  margin-top: auto; min-height: 44px; display: inline-flex; align-items: flex-end;
+  font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--navy);
+}
+.svLink:hover { color: var(--amber-text); }
+
+/* ------------------------------------------------------------------ why */
+.why { background: var(--navy-2); color: #cfdae7; padding: var(--section) var(--pad); }
+.whyInner { width: min(var(--container), 100%); margin: 0 auto; }
+.whyTitle { color: #fff; font-size: clamp(1.6rem, 3.4vw, 2.2rem); text-transform: uppercase; margin-bottom: 1.4rem; }
+.whyGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem; }
+.whyItem {
+  padding-left: 1rem; border-left: 3px solid var(--amber);
+  font-size: 15px; line-height: 1.7;
+}
+
+/* ----------------------------------------------------------------- work */
+.work { width: min(var(--container), 100%); margin: 0 auto; padding: var(--section) var(--pad); }
+.workGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.shot { border-radius: var(--radius); overflow: hidden; background: var(--tint); }
+.shot img { aspect-ratio: 4 / 3; }
+.shot figcaption { padding: 0.7rem 0.9rem; font-size: 14px; font-weight: 600; color: var(--ink); }
+
+/* ----------------------------------------------------------------- band */
+.band { background: var(--amber); color: var(--navy); padding: clamp(1.8rem, 4vw, 2.6rem) var(--pad); }
+.bandInner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 1.2rem; width: min(var(--container), 100%); margin: 0 auto;
+}
+.bandTitle { font-size: clamp(1.5rem, 3.6vw, 2.2rem); text-transform: uppercase; }
+.bandHours { font-size: 15px; font-weight: 600; margin-top: 0.2rem; }
+.bandCall {
+  display: inline-flex; align-items: center; min-height: 56px; padding: 0 1.6rem;
+  background: var(--navy); color: #fff; border-radius: 8px;
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(1.4rem, 3.4vw, 1.9rem); white-space: nowrap;
+  transition: background 0.12s cubic-bezier(.4,0,.2,1);
+}
+.bandCall:hover { background: #06101d; }
+
+/* --------------------------------------------------------------- footer */
+.footer {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.6rem;
+  width: min(var(--container), 100%); margin: 0 auto;
+  padding: 1.8rem var(--pad); font-size: 14px; color: var(--ink-soft);
+}
+
+/* ----------------------------------------------------------- responsive */
+@media (max-width: 940px) {
+  .heroInner { grid-template-columns: 1fr; }
+  /* Mobile-first στην ουσία: η φόρμα ΠΡΙΝ το κείμενο — ο επισκέπτης έχει βλάβη. */
+  .quote { order: -1; }
+  .segments { grid-template-columns: 1fr; }
+  .svGrid { grid-template-columns: repeat(2, 1fr); }
+  .navLinks { display: none; }
+}
+@media (max-width: 560px) {
+  .svGrid { grid-template-columns: 1fr; }
+  .bandInner { flex-direction: column; align-items: stretch; }
+  .bandCall { justify-content: center; }
+  .footer { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .root * { transition: none !important; }
+  .svItem:hover { transform: none; }
+}

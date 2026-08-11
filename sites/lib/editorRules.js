@@ -52,3 +52,22 @@ export function setServiceField(services, index, key, value) {
 
 export const removeService = (services, index) =>
   (services || []).filter((_, i) => i !== index)
+
+
+/** Συνθέτει mailto για τη φόρμα προσφοράς του theme «callout».
+ *
+ * Είναι εδώ και όχι μέσα στο component ώστε να ελέγχεται χωρίς browser: η
+ * υποβολή ορίζει `window.location.href`, που δεν στήνεται σε test.
+ * Επιστρέφει '' αν λείπει email — τότε το theme δείχνει κάρτα κλήσης.
+ */
+export function buildQuoteMailto({ email, name = '', phone = '', need = '' } = {}) {
+  if (!email || !String(email).includes('@')) return ''
+  const body = [
+    `Όνομα: ${String(name).trim()}`,
+    `Τηλέφωνο: ${String(phone).trim()}`,
+    '',
+    String(need).trim() || 'Θα ήθελα προσφορά.',
+  ].join('\n')
+  return `mailto:${email}?subject=${encodeURIComponent('Αίτημα προσφοράς από το site')}`
+       + `&body=${encodeURIComponent(body)}`
+}

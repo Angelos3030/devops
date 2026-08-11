@@ -8,8 +8,9 @@
     "start": "next start",
     "audit:templates": "node scripts/audit-templates.mjs",
     "qa:verticals": "node tests/verticalQa.mjs",
+    "qa:profiles": "node tests/verticalProfiles.mjs",
     "qa:editor": "node tests/editorFlow.mjs",
-    "qa:release": "npm run qa:verticals && npm run qa:editor && npm run build"
+    "qa:release": "npm run qa:profiles && npm run qa:verticals && npm run qa:editor && npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",

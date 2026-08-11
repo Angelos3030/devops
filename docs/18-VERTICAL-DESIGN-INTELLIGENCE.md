@@ -23,6 +23,7 @@ section treatment.
 | Restaurant / taverna | Reservation, call, directions | Menu, signature dishes, hours, map | Appetite, atmosphere, warm human photography | Corporate service grids |
 | Cafe / bakery | Visit, directions, order | Products, atmosphere, hours, map | Daylight, texture, editorial product moments | Dark luxury by default |
 | Dentist / medical | Book appointment, call | Services, practitioner, credentials, hours, map | Calm, clean, reassuring, highly legible | Aggressive motion, alarming claims, unconsented before/after |
+| Pharmacy | Phone, visit, directions | Services, product categories, on-duty information, hours, map | Clear health-service retail, calm navigation, practical category access | Fashion-gallery treatment, prescription claims, invented health claims |
 | Gym / fitness | Trial session, membership lead | Programs, coaches, schedule, facilities | Energy, movement, progress, bold type | Passive luxury, dense medical copy |
 | Beauty / salon | Book appointment | Services, price cues, work gallery, hours | Fashion/editorial, transformation, personal style | Industrial trade styling |
 | Carpenter / maker | Quote request, project enquiry | Portfolio, materials, process, service area | Project-first, tactile craft, detail photography | Generic stock construction imagery |
@@ -85,4 +86,3 @@ and may exclude a system when it harms trust, usability or conversion.
 - All nine previews are structurally distinct, not palette variants.
 - Motion supports meaning and honors `prefers-reduced-motion`.
 - Real business facts, consent, accessibility, local SEO and schema are verified.
-

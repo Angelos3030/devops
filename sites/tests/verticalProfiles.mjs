@@ -6,7 +6,7 @@ const moduleUrl = `data:text/javascript;base64,${Buffer.from(source).toString('b
 const { DESIGN_SYSTEM_IDS, VERTICAL_PROFILES, getVerticalProfile, isDesignCompatible } = await import(moduleUrl)
 
 const demoVerticals = [
-  'carpenter', 'taverna', 'salon', 'dentist', 'physician', 'aesthetics', 'massage', 'cafe', 'retail', 'lawyer',
+  'carpenter', 'taverna', 'salon', 'dentist', 'physician', 'pharmacy', 'aesthetics', 'massage', 'cafe', 'retail', 'lawyer',
   'plumber', 'rooms', 'gym', 'garage', 'farm',
 ]
 const allowedMotion = new Set(['restrained', 'moderate', 'expressive'])
@@ -32,6 +32,11 @@ for (const id of [...demoVerticals, 'generic']) {
 assert.equal(getVerticalProfile('Ξυλουργικό Εργαστήριο').id, 'carpenter')
 assert.equal(getVerticalProfile('ΟΔΟΝΤΙΑΤΡΕΙΟ').id, 'dentist')
 assert.equal(getVerticalProfile('Ιατρείο').id, 'physician')
+assert.equal(getVerticalProfile('Έχω φαρμακείο στον Γέρακα').id, 'pharmacy')
+assert.equal(getVerticalProfile('Φαρμακείο Μαρία 15344').id, 'pharmacy')
+assert.equal(getVerticalProfile('Οδοντιατρείο Μαρία στην Αθήνα').id, 'dentist')
+assert.equal(getVerticalProfile('Καφετέρια στη Μάνη με brunch').id, 'cafe')
+assert.equal(getVerticalProfile('Ξυλουργικό εργαστήριο με κουζίνες και ντουλάπες').id, 'carpenter')
 assert.equal(getVerticalProfile('Κέντρο αισθητικής').id, 'aesthetics')
 assert.equal(getVerticalProfile('Κέντρο μασάζ').id, 'massage')
 assert.equal(getVerticalProfile('Ηλεκτρολόγος').id, 'plumber')
@@ -47,8 +52,12 @@ assert.equal(getVerticalProfile('Βουλκανιζατέρ').id, 'garage')
 assert.equal(getVerticalProfile('Οινοποιείο').id, 'farm')
 assert.equal(getVerticalProfile('Ξενώνας').id, 'rooms')
 assert.equal(getVerticalProfile('unknown future vertical').id, 'generic')
-assert.equal(isDesignCompatible('υδραυλικός', 'dispatch'), true)
+assert.equal(isDesignCompatible('υδραυλικός', 'dispatch'), false)
 assert.equal(isDesignCompatible('υδραυλικός', 'aegean'), false)
+assert.equal(isDesignCompatible('φαρμακείο', 'runway'), false)
+assert.equal(VERTICAL_PROFILES.plumber.compatibleDesignSystemIds[0], 'forge')
+assert.equal(VERTICAL_PROFILES.retail.compatibleDesignSystemIds[0], 'bento')
+assert.equal(VERTICAL_PROFILES.pharmacy.compatibleDesignSystemIds[0], 'quiet')
 assert.equal(VERTICAL_PROFILES.rooms.media.supportsNoPhoto, false)
 
 console.log(`verticalProfiles: ${demoVerticals.length} demo verticals + generic fallback passed`)
