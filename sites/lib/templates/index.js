@@ -74,7 +74,12 @@ export const TEMPLATE_META = {
   callout: {
     label: 'Τεχνίτης', desc: 'Επείγουσα κλήση — κάρτα προσφοράς πάνω στο hero, μεγάλο τηλέφωνο, αριθμημένες υπηρεσίες.',
     category: 'trade', style: 'urgent-utility',
-    customizable: { palette: false, fontPair: false },
+    /* Το palette ήταν `false` επειδή το theme όντως έσπαγε: το amber δούλευε ως
+       φόντο κουμπιού και ήταν αδιάβαστο ως κείμενο. Μετά τη μετάβαση στο spine
+       οι δύο δουλειές είναι δύο ρόλοι και το `tests/spine_guard.mjs` επαληθεύει
+       την αντίθεση σε κάθε παλέτα — οπότε είναι πλέον αληθινά `true`.
+       Το fontPair μένει `false`: η συμπυκνωμένη γραφή ΕΙΝΑΙ η ταυτότητα. */
+    customizable: { palette: true, fontPair: false },
     variants: {},
     sections: ['nav', 'hero+quote', 'segments', 'services', 'why', 'work', 'band', 'findus', 'footer'],
     requiredAssets: { minServices: 3, minGallery: 0 },
@@ -111,4 +116,19 @@ const MAP = {
 }
 export function pickTemplate(layout) {
   return TEMPLATES[MAP[layout] || layout] || Editorial
+}
+
+/**
+ * Τι επιτρέπεται να αλλάξει ο πελάτης σε ΑΥΤΟ το theme.
+ *
+ * Το SKILL.md λέει ότι ο editor οδηγείται από τα metadata, «ποτέ από hardcoded
+ * conditions» — αλλά ο renderer έβαζε `data-font` σε κάθε site ανεξαιρέτως, με
+ * αποτέλεσμα ένα theme που δηλώνει «η τυπογραφία μου σπάει» να τη χάνει σε κάθε
+ * πελάτη. Η δήλωση πρέπει να δεσμεύει.
+ *
+ * Προεπιλογή `true`: τα themes χωρίς metadata κρατούν τη σημερινή συμπεριφορά.
+ */
+export function themeControls(key) {
+  const c = TEMPLATE_META[key]?.customizable
+  return { palette: c?.palette !== false, fontPair: c?.fontPair !== false }
 }

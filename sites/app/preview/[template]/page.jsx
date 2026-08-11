@@ -1,9 +1,10 @@
-import { TEMPLATES } from '../../../lib/templates'
+import { TEMPLATES, themeControls } from '../../../lib/templates'
 import { demoBusinesses, demoData } from '../../../lib/demoData'
 import CallBar from '../../../lib/templates/CallBar'
 import { withMediaFallback } from '../../../lib/mediaFallback'
 import MediaDisclosure from '../../../lib/templates/MediaDisclosure'
 import { artDirect } from '../../../lib/artDirection'
+import theme from '../../site/[client]/theme.module.css'
 
 // Full-screen render of one template with a chosen demo business (for showcase/ads).
 export default function PreviewTemplate({ params, searchParams }) {
@@ -12,11 +13,17 @@ export default function PreviewTemplate({ params, searchParams }) {
   const input = searchParams?.photos === 'none'
     ? { ...selected, HERO_IMAGE: '', STORY_IMAGE: '', gallery: [] }
     : selected
+  const controls = themeControls(params.template)
   const data = artDirect(withMediaFallback(input), params.template)
-  // Ίδια μπάρα κλήσης με τα ζωντανά site, ώστε το preview να δείχνει την αλήθεια.
+  // Ίδιο scope με το ζωντανό site: χωρίς αυτό το preview δεν μπορούσε να δείξει
+  // παλέτα, άρα ούτε να επαληθευτεί ότι ένα theme ακολουθεί το συμβόλαιο.
   return (
     <>
-      <Tpl data={data} />
+      <div className={theme.scope}
+        data-palette={controls.palette ? (searchParams?.palette || 'original') : undefined}
+        data-font={controls.fontPair ? (searchParams?.font || 'editorial') : undefined}>
+        <Tpl data={data} />
+      </div>
       <MediaDisclosure data={data} />
       <CallBar data={data} />
     </>

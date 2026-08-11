@@ -1,5 +1,5 @@
 import { getSiteData } from '../../../lib/api'
-import { pickTemplate } from '../../../lib/templates'
+import { pickTemplate, themeControls } from '../../../lib/templates'
 import { buildMetadata, buildJsonLd } from '../../../lib/seo'
 import CallBar from '../../../lib/templates/CallBar'
 import { withMediaFallback } from '../../../lib/mediaFallback'
@@ -49,6 +49,7 @@ export default async function SitePage({ params, searchParams }) {
   }
   const draft = readDraft(searchParams?.draft)
   const templateKey = draft.template || payload.layout
+  const controls = themeControls(templateKey)
   const siteData = artDirect(withMediaFallback({ ...payload.data, ...draft }), templateKey)
   const Template = pickTemplate(templateKey)
   const domain = String(params.client).includes('.') ? params.client : undefined
@@ -57,8 +58,12 @@ export default async function SitePage({ params, searchParams }) {
     <>
       {/* Local-SEO structured data (Google rich results + local ranking) */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className={theme.scope} data-palette={siteData.palette || siteData.PALETTE || 'original'}
-        data-font={siteData.font_pair || siteData.FONT_PAIR || 'editorial'}>
+      {/* Τα metadata του theme δεσμεύουν: theme που δηλώνει ότι σπάει με άλλη
+          τυπογραφία δεν την παίρνει. Πριν, το `data-font` έμπαινε σε κάθε site
+          και ένα theme με συμπυκνωμένη ταυτότητα σερβιριζόταν με Alegreya. */}
+      <div className={theme.scope}
+        data-palette={controls.palette ? (siteData.palette || siteData.PALETTE || 'original') : undefined}
+        data-font={controls.fontPair ? (siteData.font_pair || siteData.FONT_PAIR || 'editorial') : undefined}>
         <Template data={siteData} />
       </div>
       <MediaDisclosure data={siteData} />

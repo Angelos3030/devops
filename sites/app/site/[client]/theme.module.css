@@ -1,3 +1,74 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   VITRINA SPINE — το συμβόλαιο χρώματος
+
+   Έντεκα ρόλοι με δεσμευμένο σκοπό. Ένα theme ΔΕΝ ορίζει χρώματα: δηλώνει τη
+   δική του ταυτότητα σε αυτούς τους ρόλους και μετά τους καταναλώνει.
+
+     --vt-surface       φόντο σελίδας
+     --vt-surface-2     εναλλασσόμενη ζώνη
+     --vt-surface-deep  σκούρα ζώνη / footer
+     --vt-ink           κύριο κείμενο πάνω στο surface
+     --vt-ink-soft      δευτερεύον κείμενο πάνω στο surface
+     --vt-on-deep       κείμενο πάνω στο surface-deep
+     --vt-accent        ΦΟΝΤΟ κουμπιού / συμπαγές accent
+     --vt-on-accent     κείμενο ΠΑΝΩ στο accent
+     --vt-accent-ink    accent ΩΣ ΚΕΙΜΕΝΟ πάνω στο surface
+     --vt-accent-on-deep accent ΩΣ ΚΕΙΜΕΝΟ πάνω στο surface-deep
+     --vt-line          γραμμές, περιγράμματα, διαχωριστικά
+
+   Τα ζεύγη `on-` είναι δανεισμένα από το Material 3: η αντίθεση μπαίνει στη
+   δομή του token, όχι στην κρίση του καθενός. Το `accent-ink` υπάρχει επειδή
+   το ίδιο amber έδινε 2,42 ως κείμενο και μια χαρά ως φόντο κουμπιού — δύο
+   διαφορετικές δουλειές, δύο μεταβλητές. Το `tests/spine_guard.mjs` μετράει
+   και τα δύο σε ΚΑΘΕ παλέτα.
+
+   ΠΡΟΣΩΠΙΚΟΤΗΤΑ: ο spine είναι μόνο χρώμα. Τυπογραφία, ακτίνες, ρυθμός
+   ενοτήτων, πλάτος και κίνηση μένουν στο theme — εκεί ζει το vertical.
+
+   Χωρίς `!important`: `.scope[data-palette]` έχει μεγαλύτερη ειδικότητα από
+   το `.root` του theme, οπότε η παλέτα κερδίζει από μόνη της.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.scope[data-palette='warm'] > :first-child {
+  --vt-surface: #f7f0e6; --vt-surface-2: #ede6dc; --vt-surface-deep: #2d1f19;
+  --vt-ink: #35251d; --vt-ink-soft: #6b5e55; --vt-on-deep: #ffffff;
+  --vt-accent: #b95732; --vt-on-accent: #ffffff; --vt-accent-ink: #a54d2d;
+  --vt-line: #dcd4ca; --vt-accent-on-deep: #c67557;
+}
+.scope[data-palette='forest'] > :first-child {
+  --vt-surface: #f1f4ec; --vt-surface-2: #e6eae2; --vt-surface-deep: #142d24;
+  --vt-ink: #17352a; --vt-ink-soft: #546a60; --vt-on-deep: #ffffff;
+  --vt-accent: #3d7a58; --vt-on-accent: #ffffff; --vt-accent-ink: #356b4d;
+  --vt-line: #d2d9d1; --vt-accent-on-deep: #6c9a80;
+}
+.scope[data-palette='ocean'] > :first-child {
+  --vt-surface: #f1f6f7; --vt-surface-2: #e6ecee; --vt-surface-deep: #142f3c;
+  --vt-ink: #173746; --vt-ink-soft: #546c78; --vt-on-deep: #ffffff;
+  --vt-accent: #247997; --vt-on-accent: #ffffff; --vt-accent-ink: #206a85;
+  --vt-line: #d2dbde; --vt-accent-on-deep: #5d9cb2;
+}
+.scope[data-palette='rose'] > :first-child {
+  /* Το accent σκούρυνε από #c55f78: το λευκό από πάνω του έδινε 3,98. */
+  --vt-surface: #faf2f3; --vt-surface-2: #f1e8e9; --vt-surface-deep: #37252a;
+  --vt-ink: #412b31; --vt-ink-soft: #756367; --vt-on-deep: #ffffff;
+  --vt-accent: #b75870; --vt-on-accent: #ffffff; --vt-accent-ink: #a34e64;
+  --vt-line: #e0d6d8; --vt-accent-on-deep: #c77d8f;
+}
+.scope[data-palette='mono'] > :first-child {
+  --vt-surface: #f7f7f5; --vt-surface-2: #ececea; --vt-surface-deep: #121212;
+  --vt-ink: #151515; --vt-ink-soft: #545454; --vt-on-deep: #ffffff;
+  --vt-accent: #151515; --vt-on-accent: #ffffff; --vt-accent-ink: #151515;
+  --vt-line: #d7d7d6; --vt-accent-on-deep: #818181;
+}
+
+/* ── LEGACY γέφυρα ─────────────────────────────────────────────────────────
+   Τα themes που δεν έχουν μεταφερθεί ακόμη ορίζουν δικά τους ονόματα χρωμάτων
+   (--coral, --leaf, --sea, --gold…). Αυτό το μπλοκ πρέπει να τα ξέρει ένα-ένα
+   και να τα πατήσει με !important — γι' αυτό υπάρχει ο spine.
+
+   ΣΥΡΡΙΚΝΩΝΕΤΑΙ: με κάθε theme που μεταφέρεται, ονόματα φεύγουν από εδώ.
+   Μην προσθέσεις καινούργιο. Νέο theme = spine, χωρίς εξαίρεση.
+   ────────────────────────────────────────────────────────────────────────── */
 .scope[data-palette='warm'] > :first-child {
   --accent:#b95732!important;--coral:#c65e42!important;--gold:#c08a3e!important;--rust:#a94d2f!important;
   --paper:#f7f0e6!important;--bg:#f7f0e6!important;--bone:#f7f0e6!important;--ink:#35251d!important;--night:#35251d!important;
@@ -19,6 +90,8 @@
   --sea:#151515!important;--sea-deep:#151515!important;--gold:#555!important;--rust:#333!important;
   --paper:#f7f7f5!important;--bg:#f7f7f5!important;--bone:#f7f7f5!important;--ink:#151515!important;--night:#151515!important;
 }
+
+/* Τυπογραφία: επιλογή του πελάτη, κοινή για όλα τα themes. */
 .scope[data-font='editorial'] > :first-child {--display:'Alegreya',Georgia,serif!important;--serif:'Alegreya',Georgia,serif!important;}
 .scope[data-font='modern'] > :first-child {--display:'Manrope','Inter',Arial,sans-serif!important;--serif:'Manrope','Inter',Arial,sans-serif!important;--sans:'Manrope','Inter',Arial,sans-serif!important;}
 .scope[data-font='friendly'] > :first-child {--display:'Comfortaa','Inter',Arial,sans-serif!important;--serif:'Comfortaa','Inter',Arial,sans-serif!important;--sans:'Comfortaa','Inter',Arial,sans-serif!important;}
