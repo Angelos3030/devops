@@ -97,14 +97,37 @@ async function main() {
     if (secondClientId && secondClaim) {
       await page.goto(`${SITES}/choose/${secondClientId}#claim=${encodeURIComponent(secondClaim)}`,
                       { waitUntil: 'domcontentloaded' })
-      await page.waitForTimeout(800)
+      try {
+        await page.waitForFunction(() => !window.location.hash.includes('claim='), null,
+                                   { timeout: 10000 })
+      } catch {}
       check('το ownership token αφαιρέθηκε από τη διεύθυνση', !page.url().includes('#claim='))
+      try {
+        await page.locator('iframe').first().waitFor({ state: 'attached', timeout: 30000 })
+      } catch {}
       const chooserText = await page.locator('body').innerText()
-      const previewTexts = await Promise.all(page.frames().slice(1).map(async (frame) => {
-        try { return await frame.locator('body').innerText({ timeout: 5000 }) } catch { return '' }
-      }))
+      const previewFrames = page.locator('iframe')
+      const previewTexts = []
+      for (let i = 0; i < await previewFrames.count(); i++) {
+        const iframe = previewFrames.nth(i)
+        // Chooser previews are lazy. Read each rendered page only after its card
+        // enters the viewport, otherwise Chromium legitimately leaves it blank.
+        await iframe.scrollIntoViewIfNeeded()
+        const frame = await iframe.contentFrame()
+        try {
+          await frame.locator('body').waitFor({ state: 'visible', timeout: 10000 })
+          previewTexts.push(await frame.locator('body').innerText())
+        } catch {
+          previewTexts.push('')
+        }
+      }
       const renderedChooser = [chooserText, ...previewTexts].join('\n')
-      check('οι προτάσεις αφορούν γυμναστήριο', /γυμναστήριο|προπόνηση|fitness/i.test(renderedChooser))
+      const relevantPreviews = previewTexts.filter((text) => /γυμναστήριο|προπόνηση|fitness/i.test(text))
+      check('όλες οι προτάσεις αφορούν γυμναστήριο',
+            previewTexts.length > 0 && relevantPreviews.length === previewTexts.length,
+            `${relevantPreviews.length}/${previewTexts.length} σωστές`)
+      check('καμία πρόταση δεν δείχνει άλλο επάγγελμα',
+            !/οδοντιατρ|κομμωτ|νύχι|μανικιούρ|ταβέρνα|σχάρα|Κουτράκ/i.test(renderedChooser))
       check('οι προτάσεις δεν περιέχουν στοιχεία Κουτράκη', !/Κουτράκ/i.test(renderedChooser))
     }
 

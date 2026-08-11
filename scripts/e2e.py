@@ -121,8 +121,11 @@ def test_per_domain_seo() -> None:
     check("περιέχει ΜΟΝΟ το domain του", "koutrakiskouzines.gr" in sm and "/gia/" not in sm)
 
     code, ours = req(SITES + "/sitemap.xml")
-    check("το δικό μας sitemap έμεινε ανέπαφο", code == 200 and ours.count("<loc>") == 10,
-          f"{ours.count('<loc>')} σελίδες")
+    own_urls = re.findall(r"<loc>([^<]+)</loc>", ours)
+    check("το δικό μας sitemap περιέχει μόνο σελίδες επαγγελμάτων",
+          code == 200 and len(own_urls) >= 10 and
+          all(url.startswith(SITES + "/gia/") for url in own_urls),
+          f"{len(own_urls)} σελίδες")
 
 
 def test_oauth_domain() -> None:
