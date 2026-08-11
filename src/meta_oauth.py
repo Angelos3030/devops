@@ -51,6 +51,8 @@ app.add_middleware(
         cfg.APP_BASE_URL,
         "http://localhost:3000",
         "http://localhost:8001",
+        "http://127.0.0.1:3700",
+        "http://127.0.0.1:3701",
         "http://127.0.0.1:5500",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
