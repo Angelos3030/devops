@@ -139,6 +139,12 @@ def _enrich_intake(client_id: str, form: dict) -> dict:
 
 def _ensure_geo(client_id: str, address: str, city: str) -> None:
     """Γεωκωδικοποιεί μία φορά και αποθηκεύει — για το `geo` του schema + τον χάρτη."""
+    # Χωρίς διεύθυνση ΚΑΙ χωρίς πόλη δεν υπάρχει τίποτα να γεωκωδικοποιηθεί: το
+    # Nominatim απαντούσε με το κέντρο της Ελλάδας (38.99, 21.98) και το site
+    # έπαιρνε καρφίτσα σε λάθος σημείο — μαζί με geo στο JSON-LD. Ψεύτικη τοποθεσία
+    # είναι χειρότερη από καθόλου: τη βλέπει και η Google.
+    if not (address or "").strip() and not (city or "").strip():
+        return
     try:
         content = db.get_site_content(client_id)
         if content.get("geo_lat") and content.get("geo_lng"):
@@ -249,7 +255,12 @@ def quick_start_endpoint(body: QuickStart, bg: BackgroundTasks):
     # το /designs βλέπει μόνο τον τύπο και προτείνει άσχετα templates.
     content = {"description": parsed.get("description") or text}
     if services:
-        content["services"] = [{"title": s, "desc": ""} for s in services]
+        # Ο parser επιστρέφει πλέον {title, desc}. Τα σκέτα κείμενα παραμένουν
+        # δεκτά ώστε μια παλιότερη απάντηση του μοντέλου να μη ρίξει τη ροή.
+        content["services"] = [
+            s if isinstance(s, dict) else {"title": str(s), "desc": ""}
+            for s in services
+        ]
     try:
         db.save_site_content(client_id, content)
     except Exception as e:  # noqa: BLE001 — ο πελάτης δημιουργήθηκε, μη μπλοκάρεις

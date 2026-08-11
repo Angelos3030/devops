@@ -85,10 +85,14 @@ def create_client(intake: dict) -> str:
 
     intake keys (από connect.html): name, type, city, phone, style, description
     """
+    # ΠΟΤΕ «—» για ό,τι λείπει. Οι στήλες είναι NOT NULL με default '' — η παύλα
+    # δεν χρειαζόταν ποτέ, και περνούσε στη σελίδα ως δεδομένο: «Ξενοδοχείο · —»,
+    # «📞 —», «Εξυπηρετούμε: —», και χάρτης που έψαχνε «—, Ελλάδα». Το κενό είναι
+    # η ειλικρινής τιμή: τα templates ξέρουν να κρύβουν ενότητα που δεν έχει στοιχεία.
     row = {
-        "name": intake.get("name") or "—",
-        "business_type": intake.get("type") or intake.get("business_type") or "—",
-        "city": intake.get("city") or "—",
+        "name": intake.get("name") or "",
+        "business_type": intake.get("type") or intake.get("business_type") or "",
+        "city": intake.get("city") or "",
         "phone": intake.get("phone"),
         "email": intake.get("email"),
         "status": "trial",

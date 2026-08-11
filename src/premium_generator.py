@@ -301,7 +301,10 @@ _DEFAULT_HERO = {
     "massage": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1800&q=80",
     "retail": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80",
     "professional": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80",
-    "rooms": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=80",
+    # Ήταν τροπικό resort με φοίνικες και ξύλινα μπανγκαλόου. Το vertical ήταν
+    # σωστό, η ήπειρος όχι: για ξενοδοχείο στην Πάρο διαβάζεται αμέσως ως ξένο
+    # stock. Κυκλαδίτικη εικόνα, ίδια κατεύθυνση με το mediaFallback.js.
+    "rooms": "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=1800&q=80",
     "gym": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=80",
     "garage": "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1800&q=80",
     "farm": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=80",
@@ -479,9 +482,12 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
     copy = _PROFESSION_COPY[prof]
     tagline_default, story_title_default, cta_title_default = _VERTICAL_DEFAULTS[prof]
 
-    name = _e(intake.get("name") or intake.get("business_name") or "Η Επιχείρησή σας")
+    # Το _optional() παντού, όχι μόνο στην πόλη: εγγραφές που γράφτηκαν πριν τη
+    # διόρθωση του create_client κουβαλούν κυριολεκτικό «—» σε name/type/city.
+    # Χωρίς αυτό, ένα ολόκληρο site δείχνει παύλες σαν να είναι περιεχόμενο.
+    name = _e(_optional(intake.get("name") or intake.get("business_name")) or "Η Επιχείρησή σας")
     city = _e(_optional(intake.get("city") or intake.get("area")))
-    trade = _e(intake.get("trade") or intake.get("type") or copy["kicker_suffix"])
+    trade = _e(_optional(intake.get("trade") or intake.get("type")) or copy["kicker_suffix"])
     phone_raw = _optional(intake.get("phone") or intake.get("telephone"))
     phone_digits = re.sub(r"\D", "", phone_raw)
     phone_intl = phone_digits if phone_digits.startswith("30") else ("30" + phone_digits if phone_digits else "")
@@ -489,7 +495,8 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
     tagline = _e(_optional(intake.get("tagline") or intake.get("style")) or tagline_default)
 
     areas_raw = intake.get("areas")
-    areas = [_e(a) for a in areas_raw if str(a).strip()] if isinstance(areas_raw, list) else [city]
+    areas = ([_e(_optional(a)) for a in areas_raw if _optional(a)]
+             if isinstance(areas_raw, list) else ([city] if city else []))
     areas_str = " · ".join(areas[:4])
 
     domain = str(intake.get("site_url") or intake.get("url") or intake.get("domain") or "").strip()
@@ -503,6 +510,13 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
              "desc": _e(s.get("SERVICE_DESC") or s.get("description") or s.get("desc") or "")}
             for s in svc_src
         ]
+        # Το /start αποθηκεύει τίτλους υπηρεσιών με κενή περιγραφή. Χωρίς αυτό,
+        # η ενότητα βγαίνει σαν αριθμημένη λίστα χωρίς περιεχόμενο. Δεν επινοούμε:
+        # συμπληρώνουμε ΜΟΝΟ από τη δική μας ελεγμένη περιγραφή για τον ίδιο τίτλο.
+        reviewed = {_normalize_text(t): d for t, d in copy["services"]}
+        for s in services:
+            if not s["desc"]:
+                s["desc"] = _e(reviewed.get(_normalize_text(s["title"]), ""))
     else:
         services = [{"title": _e(t), "desc": _e(d)} for t, d in copy["services"]]
     services = services[:6]
@@ -577,13 +591,13 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
         "INITIAL": _initials(name)[:1],
         "LOGO": _asset(str(intake.get("logo") or "")),  # uploaded logo URL ('' → wordmark)
         # Local SEO / Google Maps
-        "ADDRESS": _e(str(intake.get("address") or "")),
+        "ADDRESS": _e(_optional(intake.get("address"))),
         "GEO_LAT": str(intake.get("geo_lat") or ""),
         "GEO_LNG": str(intake.get("geo_lng") or ""),
         "GBP_URL": _e(str(intake.get("gbp_url") or "")),   # Google Business Profile
         # Επικοινωνία & social. Το _social() κρατά μόνο έγκυρα http(s) URL ώστε
         # ένα «facebook.com/…» ή σκέτο handle να μη βγάλει σπασμένο σύνδεσμο.
-        "EMAIL": _e(str(intake.get("email") or "")),
+        "EMAIL": _e(_optional(intake.get("email"))),
         "FACEBOOK": _social(intake.get("facebook"), "facebook.com"),
         "INSTAGRAM": _social(intake.get("instagram"), "instagram.com"),
         "PHONE": phone_disp, "PHONE_INTL": phone_intl,
@@ -591,7 +605,8 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
         "HOURS": _e(_optional(intake.get("hours"))),
         "PALETTE": _e(intake.get("palette") or "original"),
         "FONT_PAIR": _e(intake.get("font_pair") or "editorial"),
-        "KICKER": f"{trade} · {city}",
+        # Χωρίς πόλη, το «Ξενοδοχείο · » κρέμαγε διαχωριστικό στο πρώτο viewport.
+        "KICKER": " · ".join(x for x in (trade, city) if x),
         "HERO_WORD": copy["hero_word"],
         "HERO_IMAGE": hero_image, "STORY_IMAGE": story_image,
         "STORY_TITLE": _e(_optional(intake.get("story_title")) or story_title_default),

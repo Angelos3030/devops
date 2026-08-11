@@ -67,8 +67,11 @@ _SCHEMA = (
     '"type": "το είδος της ΕΠΙΧΕΙΡΗΣΗΣ σε ονομαστική — «Ταβέρνα», «Κομμωτήριο», '
     '«Οδοντιατρείο». ΠΟΤΕ το επάγγελμα του ατόμου («ταβερνιάρης», «κομμώτρια»)", '
     '"city": "πόλη/περιοχή σε ονομαστική («στον Γέρακα» → «Γέρακας») ή null", '
-    '"services": ["έως 4 συνηθισμένες υπηρεσίες για ΑΥΤΟ το είδος επιχείρησης, '
-    'γενικές, χωρίς επινοημένες λεπτομέρειες, τιμές ή χρόνια"]}'
+    # Σκέτοι τίτλοι έβγαζαν αριθμημένη λίστα χωρίς περιεχόμενο («01 Διαμονή» και
+    # τίποτα από κάτω). Η περιγραφή ζητείται στην ΙΔΙΑ κλήση — δεν κοστίζει δεύτερη.
+    '"services": [{"name": "έως 4 συνηθισμένες υπηρεσίες για ΑΥΤΟ το είδος '
+    'επιχείρησης, γενικές, χωρίς επινοημένες λεπτομέρειες, τιμές ή χρόνια", '
+    '"desc": "μία πρόταση που εξηγεί την υπηρεσία, χωρίς υποσχέσεις ή αριθμούς"}]}'
 )
 
 
@@ -86,13 +89,23 @@ def _guess_trade(text: str) -> str | None:
     return None
 
 
+# Το δεύτερο σκέλος του regex πιάνει διώνυμα («Νέα Σμύρνη», «Άγιος Στέφανος»),
+# αλλά με IGNORECASE κόλλαγε και την επόμενη κοινή λέξη: «στην Πάρο με 12 δωμάτια»
+# έδινε πόλη «Πάρο με» — και ο χάρτης έψαχνε «Πάρο με, Ελλάδα».
+_CITY_TAIL = {"με", "και", "που", "για", "στο", "στη", "στον", "στην", "απο", "σε",
+              "εχω", "εχει", "ειναι", "θα", "να", "το", "του", "της", "των"}
+
+
 def _guess_city(text: str) -> str | None:
     match = _CITY_RE.search(text)
     if not match:
         return None
+    words = match.group(1).split()
+    while len(words) > 1 and _strip_tones(words[-1]).lower() in _CITY_TAIL:
+        words.pop()
     # Κρατάμε την πόλη όπως γράφτηκε. Η αιτιατική («στον Γέρακα») διορθώνεται
     # από το AI όταν υπάρχει· δεν κάνουμε γραμματική με regex — βγάζει τέρατα.
-    return match.group(1).strip()
+    return " ".join(words).strip() or None
 
 
 def _guess_name(text: str) -> str | None:
@@ -100,6 +113,58 @@ def _guess_name(text: str) -> str | None:
     if not match:
         return None
     return (match.group(1) or match.group(2) or "").strip() or None
+
+
+_TRADE_LABELS = {_strip_tones(label).lower() for label, _ in TRADES}
+
+
+def _is_category(value: str, detected_type: str | None) -> bool:
+    """Είναι απλώς το είδος της επιχείρησης, όχι επωνυμία;
+
+    Στο «ξενοδοχείο» το μοντέλο επέστρεφε name="Ξενοδοχείο" — και το site
+    υπέγραφε «Ξενοδοχείο» σαν να ήταν μάρκα. Η επωνυμία λείπει· τη ζητάμε στις
+    συμπληρωματικές ερωτήσεις, δεν τη φτιάχνουμε από την κατηγορία."""
+    flat = _strip_tones(str(value or "")).strip().lower()
+    if not flat:
+        return True
+    return flat in _TRADE_LABELS or flat == _strip_tones(str(detected_type or "")).lower()
+
+
+def _clean_services(raw: Any) -> list[dict[str, str]]:
+    """[{title, desc}] — δέχεται και τη σκέτη λίστα κειμένων παλιότερων απαντήσεων."""
+    out: list[dict[str, str]] = []
+    for item in raw[:4]:
+        if isinstance(item, dict):
+            title = str(item.get("name") or item.get("title") or "").strip()[:60]
+            desc = str(item.get("desc") or item.get("description") or "").strip()[:200]
+        else:
+            title, desc = str(item).strip()[:60], ""
+        if title:
+            out.append({"title": title, "desc": desc})
+    return out
+
+
+def _same_place(a: str, b: str) -> bool:
+    """Ίδιος τόπος σε άλλη πτώση; «Πάρο» ↔ «Πάρος», «Γέρακα» ↔ «Γέρακας».
+
+    Συγκρίνουμε το κοινό στέλεχος: οι ελληνικές καταλήξεις αλλάζουν, η ρίζα όχι.
+    Σκοπός είναι μόνο να επιτραπεί η διόρθωση πτώσης — ποτέ αλλαγή πόλης."""
+    fa, fb = _strip_tones(a).lower(), _strip_tones(b).lower()
+    stem = min(len(fa), len(fb), 5)
+    return stem >= 3 and fa[:stem] == fb[:stem]
+
+
+def _is_grounded(text: str, detected_type: str | None) -> bool:
+    """Έδωσε ο πελάτης αρκετά ώστε το AI να έχει πάνω σε τι να πατήσει;
+
+    Ίδιος κανόνας με το `site_copy.write_copy`: μια σκέτη κατηγορία («ξενοδοχείο»)
+    δεν περιέχει γεγονότα. Το μοντέλο τότε γεμίζει το κενό — για ξενοδοχείο
+    επέστρεψε «Πρόσφυση» και «Καθαρισμός δωματίων» χωρίς περιγραφές, που
+    εκτόπισαν τις ελεγμένες υπηρεσίες του vertical."""
+    words = re.findall(r"[\wά-ώΆ-Ώ]+", text, flags=re.UNICODE)
+    without_category = [w for w in words
+                        if _strip_tones(w).lower() not in _TRADE_LABELS]
+    return len(without_category) >= 4
 
 
 def parse(text: str) -> dict[str, Any]:
@@ -129,13 +194,24 @@ def parse(text: str) -> dict[str, Any]:
                     # prevents the model from changing an explicit city/name.
                     if not fallback[key] and isinstance(value, str) and value.strip():
                         fallback[key] = value.strip()[:80]
+                # Εξαίρεση: το AI διορθώνει την πτώση («στην Πάρο» → «Πάρος»).
+                # Δεκτό ΜΟΝΟ αν είναι ο ίδιος τόπος — αλλιώς θα άλλαζε την πόλη
+                # που έγραψε ρητά ο πελάτης.
+                ai_city = str(data.get("city") or "").strip()[:80]
+                if ai_city and fallback["city"] and _same_place(ai_city, fallback["city"]):
+                    fallback["city"] = ai_city
                 if not fallback["type"]:
                     value = data.get("type")
                     if isinstance(value, str) and value.strip():
                         fallback["type"] = value.strip()[:80]
+                if _is_category(fallback["name"], fallback["type"]):
+                    fallback["name"] = None
                 services = data.get("services")
-                if isinstance(services, list):
-                    fallback["services"] = [str(s)[:60] for s in services[:4] if s]
+                # Υπηρεσίες από το AI ΜΟΝΟ όταν ο πελάτης είπε κάτι συγκεκριμένο.
+                # Αλλιώς μένουν κενές και το normalize() βάζει τις ελεγμένες του
+                # vertical — που έχουν και περιγραφή, όχι μόνο τίτλο.
+                if isinstance(services, list) and _is_grounded(text, fallback["type"]):
+                    fallback["services"] = _clean_services(services)
         except Exception as exc:  # noqa: BLE001 — η ροή δεν σπάει ποτέ για το AI
             print(f"[quick_start] AI parse skipped: {exc}")
 

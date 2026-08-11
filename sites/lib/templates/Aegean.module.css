@@ -26,9 +26,15 @@
 /* hero — full-bleed sea */
 .hero { position: relative; min-height: min(94vh, 860px); display: flex; flex-direction: column; isolation: isolate; }
 .heroBg { position: absolute; inset: 0; z-index: -2; }
+/* Το πέπλο ήταν φτιαγμένο για σκούρες θαλασσινές φωτογραφίες. Με κυκλαδίτικο
+   ασβεστωμένο φόντο, το λευκό κείμενο στη μέση του hero χανόταν πάνω στους
+   άσπρους τοίχους. Δεύτερη, κεντρική βαθμίδα: σκουραίνει εκεί που κάθεται το
+   κείμενο, αφήνοντας τις άκρες της φωτογραφίας καθαρές. */
 .heroVeil {
   position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(180deg, rgba(13, 61, 97, 0.35) 0%, rgba(13, 61, 97, 0.15) 40%, rgba(13, 61, 97, 0.55) 100%);
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 52%, rgba(13, 61, 97, 0.42) 0%, rgba(13, 61, 97, 0) 100%),
+    linear-gradient(180deg, rgba(13, 61, 97, 0.35) 0%, rgba(13, 61, 97, 0.15) 40%, rgba(13, 61, 97, 0.55) 100%);
 }
 .nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem clamp(1.2rem, 4vw, 3rem); color: #fff; }
 .brand { font-family: var(--serif); font-weight: 300; font-size: 1.35rem; letter-spacing: 0.04em; }
