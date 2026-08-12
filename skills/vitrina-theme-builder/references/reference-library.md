@@ -158,3 +158,84 @@ Open Props, Every Layout (layout primitives), USWDS και GOV.UK Design System 
 Οι **εμπορικές σελίδες** των builders δεν περιγράφουν ποτέ το σύστημά τους. Λένε
 «300+ templates» και τίποτα για το πώς κρατιούνται συνεπή. Πήγαινε στα `/docs/`,
 `/help-center/` ή στα design systems. Πέρασε στο `SKILL.md §0`.
+
+---
+
+# Candidate Future Themes — gap analysis 2026-08-11γ
+
+Ερώτημα: **ποια themes αξίζει να δημιουργήσουμε**, όχι πόσα μπορούμε.
+Βάση σύγκρισης: τα 40 καταχωρημένα αρχέτυπα (37 ενεργά + 4 legacy).
+
+## Τι καλύπτεται ήδη — και γι' αυτό απορρίπτεται
+
+| Pattern | Το καλύπτει |
+|---|---|
+| stacked editorial · longform · magazine στήλες | `editorial` `longform` `magazine` |
+| sticky conversion rail | `sidebar` |
+| bento / modular πλέγμα | `bento` `neighborhood-market` |
+| brutalist oversized τυπογραφία | `poster` `type-gallery` |
+| ελβετικό grid · ήρεμο minimal | `grid` `quiet` |
+| menu board / κατάλογος | `warmth` `counter-menu` `ember` |
+| gallery έργων · portfolio | `canvas` `runway` `cinematic` `infinite` |
+| motion-first | `kinetic` `living` |
+| μία οθόνη, μηδέν σκρολ | `dispatch` |
+| triage «τι θέλεις να κάνεις» | `clinic-triage` |
+| κάρτα προσφοράς πάνω στο hero | `callout` |
+| ευρετήριο τομέων | `marble` |
+| ετικέτες προϊόντων | `terra` |
+| process-first αφήγηση | `microbakery-lab` |
+
+**Η αισθητική κάλυψη είναι πλήρης.** Κάθε νέο reference που είναι «άλλο χρώμα πάνω
+στον ίδιο σκελετό» απορρίπτεται αυτόματα.
+
+## References που εξετάστηκαν σε αυτόν τον κύκλο
+
+| Reference | Αποτέλεσμα |
+|---|---|
+| [Astra Cleaning-04](https://websitedemos.net/cleaning-services-04/) | **Απορρίφθηκε.** Το μόνο νέο του είναι πλέγμα υπηρεσιών από φωτογραφικά πλακίδια με χρωματικό πέπλο — απαιτεί **εικόνα ανά υπηρεσία**. Ο πελάτης μας συνήθως δεν έχει καμία· στο `no-photo` mode καταρρέει. Τα υπόλοιπα είναι ο γνωστός σκελετός. |
+| [Avada Plumber](https://avada.website/plumber/) | Ήδη καταγεγραμμένο. Το triage επιπέδου υπηρεσίας είναι **section**, όχι theme. |
+| Open-source Next.js/Astro ([AstroWind](https://github.com/arthelokyo/astrowind), [Astroship](https://github.com/surjithctly/astroship), [Startup](https://github.com/NextJSTemplates/startup-nextjs), [Astrofy](https://github.com/manuelernestog/astrofy) — όλα MIT) | **Απορρίφθηκαν ως πηγές themes.** Το οικοσύστημα είναι SaaS / startup / portfolio. Καμία τοπική επιχείρηση — ίδιο εύρημα με τα award galleries. Οι άδειες είναι καθαρές (MIT), αλλά δεν υπάρχει τι να πάρουμε. |
+
+## Τα πραγματικά gaps — και γιατί ΔΕΝ είναι themes
+
+Τέσσερα UX patterns λείπουν όντως από τα 37. Και τα τέσσερα είναι **ενότητες ή
+επεκτάσεις του data contract**, όχι δομικά αρχέτυπα:
+
+| Gap | Vertical | Τι χρειάζεται | Επίπεδο |
+|---|---|---|---|
+| **Πριν/μετά** | αισθητική, ελαιοχρωματιστές, οδοντίατροι, ανακαινίσεις | ζεύγη εικόνων — το `gallery[{image,title}]` δεν τα υποστηρίζει | contract + section |
+| **Ομάδα / πρόσωπα** | πολυϊατρείο, κομμωτήριο, δικηγορικό, coaches | `people[{name,role,photo}]` — δεν υπάρχει | contract + section |
+| **Πακέτα / επίπεδα υπηρεσίας** | συντήρηση, λογιστικά, συνδρομές, καθαρισμοί | `tiers[{name,includes}]` — δεν υπάρχει | contract + section |
+| **Περιοχές εξυπηρέτησης ως κύρια IA** | τεχνίτες πολλών περιοχών, delivery, σχολές οδηγών | **τίποτα — το `AREAS` υπάρχει ήδη** | section μόνο |
+
+Ένα theme είναι δομικό αρχέτυπο. Ένα «πριν/μετά» ή ένα «πακέτα» είναι **ενότητα
+που πρέπει να δουλεύει σε πολλά themes** — αν γίνει theme, το pattern κλειδώνεται
+σε μία αισθητική και δεν το βλέπει ποτέ ο πελάτης που διάλεξε άλλο design.
+
+## Πρόταση
+
+> **No new theme justified.**
+
+Τα gaps ανήκουν στο **Component Contract** του δεύτερου επιπέδου design system
+(βλ. `skills/vitrina-design-system/ARCHITECTURE.md §3.4`), μαζί με τις αντίστοιχες
+επεκτάσεις του data contract. Σειρά προτεραιότητας όταν φτάσουμε εκεί:
+
+1. **Πακέτα/επίπεδα** — επιβεβαιωμένο από reference (Avada), καθαρά τίμιο (δομή
+   της προσφοράς, όχι ισχυρισμός), και χωρίς ανάγκη φωτογραφιών
+2. **Περιοχές ως IA** — μηδενικό κόστος contract, το `AREAS` υπάρχει
+3. **Ομάδα** — υψηλή αξία εμπιστοσύνης, αλλά θέλει φωτογραφίες προσώπων
+4. **Πριν/μετά** — ισχυρότατο conversion, αλλά **επικίνδυνο**: το `CLAUDE.md`
+   απαγορεύει ρητά ψεύτικο before/after. Μπαίνει μόνο με πραγματικά ζεύγη πελάτη
+   και ρητή σήμανση προέλευσης
+
+## Τι θα άλλαζε αυτό το συμπέρασμα
+
+Ένα reference που δείχνει **διαφορετική αρχιτεκτονική πληροφορίας**, όχι
+διαφορετική ενότητα. Παραδείγματα που θα άξιζαν theme:
+
+- σελίδα οργανωμένη γύρω από **διαθεσιμότητα/ημερολόγιο** (χρειάζεται backend
+  κρατήσεων που δεν έχουμε — άρα όχι τώρα)
+- σελίδα οργανωμένη γύρω από **τιμοκατάλογο** ως κύριο περιεχόμενο, όχι ως ενότητα
+- σελίδα όπου η **περιοχή** είναι το πρώτο φίλτρο και όλα τα υπόλοιπα ακολουθούν
+
+Κανένα από τα τρία δεν βρέθηκε σε αυτόν τον κύκλο.
