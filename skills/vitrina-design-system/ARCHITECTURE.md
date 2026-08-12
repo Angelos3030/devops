@@ -110,11 +110,26 @@ Hover/focus/active/disabled ως καταστάσεις με ορισμένη σ
 ## 6. Δύο κίνδυνοι που βρέθηκαν
 
 **α) Ο φάκελος του skill είναι ταυτόχρονα runtime asset directory.**
-Το `src/premium_generator.py:22` διαβάζει `skills/vitrina-design-system/templates/`
-για τα legacy `.tpl.html`. Δηλαδή ένας φάκελος οδηγιών προς agent σερβίρει
-production assets. Οποιαδήποτε αναδιοργάνωση του skill **σπάει τη γεννήτρια**.
-Πρέπει να λυθεί πρώτο: τα runtime templates μετακομίζουν εκτός skill, ή δηλώνεται
-ρητά ότι ο φάκελος είναι διπλής χρήσης και παγώνει.
+
+Επαληθευμένη διαδρομή κλήσης, ενεργή σε **κάθε δημιουργία site**:
+
+```
+meta_oauth.py:181   _build_site_bg → pg.generate_variants(intake)
+premium_generator.py:646              (TEMPLATE_DIR / f"{layout}.tpl.html").read_text()
+premium_generator.py:22   TEMPLATE_DIR = ROOT/"skills"/"vitrina-design-system"/"templates"
+```
+
+Ένας φάκελος οδηγιών προς agent σερβίρει production assets. Αναδιοργάνωση του
+skill **σπάει τη γεννήτρια για κάθε νέο πελάτη**.
+
+⚠️ **Παγίδα για όποιον κάνει το refactor:** η διαδρομή χτίζεται με `Path`
+segments, οπότε `grep "vitrina-design-system/templates"` επιστρέφει **μηδέν
+αποτελέσματα**. Δοκιμάστηκε και επιβεβαιώθηκε. Ψάξε `TEMPLATE_DIR`, όχι τη
+διαδρομή — αλλιώς θα συμπεράνεις ότι ο φάκελος είναι αχρησιμοποίητος και θα τον
+σβήσεις.
+
+Λύση: τα runtime templates μετακομίζουν εκτός skill (π.χ. `sites/legacy-layouts/`
+ή `assets/`), ή δηλώνεται ρητά ότι ο φάκελος είναι διπλής χρήσης και παγώνει.
 
 **β) Το υπάρχον `vitrina-design-system/SKILL.md` περιγράφει το παλιό στατικό
 σύστημα** (studio/atelier/commerce routes), όχι τα 37 React templates. Αν γίνει
