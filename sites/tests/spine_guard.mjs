@@ -52,7 +52,7 @@ const PAIRS = [
 ]
 
 // Themes που έχουν μεταφερθεί. Προσθήκη = υπόσχεση ότι περνά όλα τα παραπάνω.
-export const MIGRATED = ['ClinicTriage', 'Callout']
+export const MIGRATED = ['ClinicTriage', 'Callout', 'Ember', 'Motor', 'Terra', 'Forge', 'Volt']
 
 const toRgb = (h) => {
   h = h.replace('#', '')

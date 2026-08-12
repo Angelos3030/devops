@@ -67,10 +67,12 @@
    και να τα πατήσει με !important — γι' αυτό υπάρχει ο spine.
 
    ΣΥΡΡΙΚΝΩΝΕΤΑΙ: με κάθε theme που μεταφέρεται, ονόματα φεύγουν από εδώ.
+   Παρτίδα 1 (ember, motor, terra, forge, volt): έφυγε το --rust, κανένα theme
+   δεν το χρησιμοποιεί πια. Το --ink κρατά 24 χρήστες — φεύγει τελευταίο.
    Μην προσθέσεις καινούργιο. Νέο theme = spine, χωρίς εξαίρεση.
    ────────────────────────────────────────────────────────────────────────── */
 .scope[data-palette='warm'] > :first-child {
-  --accent:#b95732!important;--coral:#c65e42!important;--gold:#c08a3e!important;--rust:#a94d2f!important;
+  --accent:#b95732!important;--coral:#c65e42!important;--gold:#c08a3e!important;
   --paper:#f7f0e6!important;--bg:#f7f0e6!important;--bone:#f7f0e6!important;--ink:#35251d!important;--night:#35251d!important;
 }
 .scope[data-palette='forest'] > :first-child {
@@ -87,7 +89,7 @@
 }
 .scope[data-palette='mono'] > :first-child {
   --accent:#151515!important;--coral:#151515!important;--leaf:#151515!important;--leaf-deep:#151515!important;
-  --sea:#151515!important;--sea-deep:#151515!important;--gold:#555!important;--rust:#333!important;
+  --sea:#151515!important;--sea-deep:#151515!important;--gold:#555!important;
   --paper:#f7f7f5!important;--bg:#f7f7f5!important;--bone:#f7f7f5!important;--ink:#151515!important;--night:#151515!important;
 }
 

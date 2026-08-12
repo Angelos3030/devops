@@ -52,18 +52,47 @@ export const TEMPLATE_META = {
   coast: { label: 'Coast', desc: 'Μεσογειακό, φωτεινό, zigzag rows — τουρισμός.' },
   magazine: { label: 'Magazine', desc: 'Εφημερίδα/multi-column, masthead, στήλες.' },
   warmth: { label: 'Warmth', desc: 'Ζεστό hospitality, menu-style — ταβέρνες/φούρνοι.' },
-  ember: { label: 'Ember', desc: 'Νυχτερινή ψησταριά — καπνιστό, λάμψη κάρβουνου, κατάλογος. Premium food/night.' },
+  ember: {
+    label: 'Ember', desc: 'Νυχτερινή ψησταριά — καπνιστό, λάμψη κάρβουνου, κατάλογος. Premium food/night.',
+    /* ΣΚΟΥΡΟ theme. Οι πέντε κοινές παλέτες έχουν όλες ανοιχτή επιφάνεια, και
+       η ταυτότητα εδώ στηρίζεται σε δευτερεύοντα χρώματα που διαβάζονται ΜΟΝΟ σε
+       σκούρο φόντο (μετρήθηκε: --brass 7,89:1 στο δικό του, 2,12:1 σε warm). Με ανοιχτή παλέτα το theme δεν
+       «αλλάζει χρώμα», σπάει. Γίνεται true όταν αποκτήσουμε σκούρες παλέτες. */
+    customizable: { palette: false, fontPair: true },
+  },
   marble: { label: 'Marble', desc: 'Minimal-luxe — πορσελάνη, χρυσές hairlines, ευρετήριο τομέων. Δικηγόροι/ιατροί.' },
   runway: { label: 'Gallery Noir', desc: 'Ασπρόμαυρη gallery με μία έντονη υπογραφή και έργα σε πρώτο πλάνο.' },
-  forge: { label: 'Workshop', desc: 'Βιομηχανικό εργαστήριο — ατσάλι, safety yellow και δυνατή αξιοπιστία.' },
+  forge: {
+    label: 'Workshop', desc: 'Βιομηχανικό εργαστήριο — ατσάλι, safety yellow και δυνατή αξιοπιστία.',
+    /* Ανοιχτή επιφάνεια — ο spine guard επαληθεύει την αντίθεση σε κάθε παλέτα. */
+    customizable: { palette: true, fontPair: true },
+  },
   aegean: { label: 'Aegean', desc: 'Κυκλαδίτικο — full-bleed θάλασσα, καρτ-ποστάλ gallery. Τουρισμός/δωμάτια.' },
   bloom: { label: 'Bloom', desc: 'Πρωινό φως — καμάρες βιτρίνας, βοτανικό πράσινο. Καφέ/φούρνοι.' },
   pulse: { label: 'Pulse', desc: 'Κλινική ηρεμία — λευκό/teal, γραμμή παλμού. Ιατρεία/κλινικές.' },
-  volt: { label: 'Volt', desc: 'Ενέργεια — ανθρακί + electric lime, διαγώνιες τομές. Γυμναστήρια.' },
-  motor: { label: 'Motor', desc: 'Γκαράζ — gunmetal, signal red, δελτίο εργασιών. Συνεργεία.' },
+  volt: {
+    label: 'Volt', desc: 'Ενέργεια — ανθρακί + electric lime, διαγώνιες τομές. Γυμναστήρια.',
+    /* ΣΚΟΥΡΟ theme. Οι πέντε κοινές παλέτες έχουν όλες ανοιχτή επιφάνεια, και
+       η ταυτότητα εδώ στηρίζεται σε δευτερεύοντα χρώματα που διαβάζονται ΜΟΝΟ σε
+       σκούρο φόντο (μετρήθηκε: ο τίτλος του hero έγινε δυσανάγνωστος πάνω στη φωτογραφία). Με ανοιχτή παλέτα το theme δεν
+       «αλλάζει χρώμα», σπάει. Γίνεται true όταν αποκτήσουμε σκούρες παλέτες. */
+    customizable: { palette: false, fontPair: true },
+  },
+  motor: {
+    label: 'Motor', desc: 'Γκαράζ — gunmetal, signal red, δελτίο εργασιών. Συνεργεία.',
+    /* ΣΚΟΥΡΟ theme. Οι πέντε κοινές παλέτες έχουν όλες ανοιχτή επιφάνεια, και
+       η ταυτότητα εδώ στηρίζεται σε δευτερεύοντα χρώματα που διαβάζονται ΜΟΝΟ σε
+       σκούρο φόντο (μετρήθηκε: --steel 8,35:1 στο δικό του, 1,81:1 σε warm). Με ανοιχτή παλέτα το theme δεν
+       «αλλάζει χρώμα», σπάει. Γίνεται true όταν αποκτήσουμε σκούρες παλέτες. */
+    customizable: { palette: false, fontPair: true },
+  },
   canvas: { label: 'Portfolio Canvas', desc: 'Κατάλογος έργων με ήρεμη πολυτέλεια και μεγάλες φωτογραφίες.' },
   dispatch: { label: 'One Screen', desc: 'Μία οθόνη, μηδέν σκρολ — κινηματογραφικό φόντο και τηλέφωνο-ήρωας.' },
-  terra: { label: 'Terra', desc: 'Γη & kraft — ετικέτες προϊόντων, ελιά. Παραγωγοί/αγροτικά.' },
+  terra: {
+    label: 'Terra', desc: 'Γη & kraft — ετικέτες προϊόντων, ελιά. Παραγωγοί/αγροτικά.',
+    /* Ανοιχτή επιφάνεια — ο spine guard επαληθεύει την αντίθεση σε κάθε παλέτα. */
+    customizable: { palette: true, fontPair: true },
+  },
   cinematic: { label: 'Cinematic Residence', desc: 'Κινηματογραφική αφήγηση χώρου με μεγάλα έργα και ήρεμες μεταβάσεις.' },
   'type-gallery': { label: 'Type Gallery', desc: 'Εκφραστική τυπογραφία, poster ρυθμός και τολμηρή παρουσίαση έργων.' },
   quiet: { label: 'Quiet Precision', desc: 'Ήρεμη ακρίβεια, λεπτομέρεια και αυστηρή minimal σύνθεση.' },
