@@ -52,7 +52,7 @@ const PAIRS = [
 ]
 
 // Themes που έχουν μεταφερθεί. Προσθήκη = υπόσχεση ότι περνά όλα τα παραπάνω.
-export const MIGRATED = ['ClinicTriage', 'Callout', 'Ember', 'Motor', 'Terra', 'Forge', 'Volt', 'Aegean', 'Bloom', 'Marble', 'Runway', 'Dispatch']
+export const MIGRATED = ['ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living']
 
 const toRgb = (h) => {
   h = h.replace('#', '')
@@ -108,8 +108,13 @@ for (const name of MIGRATED) {
   let css
   try { css = readFileSync(file, 'utf8') } catch { fail(`${name}: δεν βρέθηκε το CSS`); continue }
 
-  const start = css.indexOf('.root {')
-  const end = css.indexOf('}', start)
+  // Τρία templates είναι minified σε μία γραμμή: το '.root {' με κενό δεν υπάρχει
+  // εκεί. Ο guard πρέπει να διαβάζει ΚΑΙ τα minified, αλλιώς τα αφήνει έξω σιωπηλά.
+  // Τρία templates είναι minified σε μία γραμμή: εκεί δεν υπάρχει «.root {» με
+  // κενό. Ο guard πρέπει να διαβάζει ΚΑΙ τα minified, αλλιώς τα άφηνε έξω σιωπηλά
+  // — και ένα theme εκτός συμβολαίου που «περνάει» είναι χειρότερο από ένα που κόβει.
+  const start = css.search(/\.root\s*\{/)
+  const end = css.indexOf('}', css.indexOf('{', start))
   const identity = rolesIn(css.slice(start, end))
   identities[name] = identity
 

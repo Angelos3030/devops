@@ -100,11 +100,23 @@ export const TEMPLATE_META = {
     /* Ανοιχτή επιφάνεια — ο spine guard επαληθεύει την αντίθεση σε κάθε παλέτα. */
     customizable: { palette: true, fontPair: true },
   },
-  cinematic: { label: 'Cinematic Residence', desc: 'Κινηματογραφική αφήγηση χώρου με μεγάλα έργα και ήρεμες μεταβάσεις.' },
+  cinematic: {
+    label: 'Cinematic Residence', desc: 'Κινηματογραφική αφήγηση χώρου με μεγάλα έργα και ήρεμες μεταβάσεις.',
+    /* ΣΚΟΥΡΟ theme με κείμενο πάνω σε φωτογραφία. Με ανοιχτή παλέτα ο τίτλος του
+       hero γίνεται σκούρος πάνω σε φωτεινή εικόνα (φωτογραφήθηκε). Ο spine guard δεν το
+       πιάνει: μετράει ζεύγη ρόλων, όχι κείμενο πάνω σε φωτογραφία. */
+    customizable: { palette: false, fontPair: true },
+  },
   'type-gallery': { label: 'Type Gallery', desc: 'Εκφραστική τυπογραφία, poster ρυθμός και τολμηρή παρουσίαση έργων.' },
   quiet: { label: 'Quiet Precision', desc: 'Ήρεμη ακρίβεια, λεπτομέρεια και αυστηρή minimal σύνθεση.' },
   kinetic: { label: 'Kinetic Workshop', desc: 'Motion-first layout με clipped reveals, marquee και δυναμική τυπογραφία.' },
-  infinite: { label: 'Infinite Showroom', desc: 'Οριζόντια περιήγηση έργων, sticky αφήγηση και αίσθηση showroom.' },
+  infinite: {
+    label: 'Infinite Showroom', desc: 'Οριζόντια περιήγηση έργων, sticky αφήγηση και αίσθηση showroom.',
+    /* ΣΚΟΥΡΟ theme με κείμενο πάνω σε φωτογραφία. Με ανοιχτή παλέτα ο τίτλος του
+       hero γίνεται σκούρος πάνω σε φωτεινή εικόνα (ο τίτλος έγινε σχεδόν αόρατος). Ο spine guard δεν το
+       πιάνει: μετράει ζεύγη ρόλων, όχι κείμενο πάνω σε φωτογραφία. */
+    customizable: { palette: false, fontPair: true },
+  },
   living: { label: 'Living Material', desc: 'Οργανικές φόρμες, υλικά και tactile παρουσίαση με απαλή κίνηση.' },
   'beauty-atelier': { label: 'Beauty Atelier', desc: 'Premium editorial εμπειρία για νύχια, κομμωτήριο και αισθητική, με υπηρεσίες, έργα και booking-first ροή.' },
   callout: {
