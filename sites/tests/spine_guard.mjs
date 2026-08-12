@@ -54,10 +54,10 @@ const PAIRS = [
 /** Ό,τι ΔΕΝ έχει μεταφερθεί ακόμη — ρητά, ώστε να μη γίνει αόρατο.
  *  Κάθε αρχείο πρέπει να είναι είτε εδώ είτε στο MIGRATED είτε κοινό component.
  *  Μεταφέρεις theme; Μετακίνησε το όνομα από εδώ εκεί — αλλιώς ο guard κόβει. */
-export const PENDING = ['CafeCollection', 'Pulse', 'Quiet', 'Warmth']
+export const PENDING = ['CafeCollection']
 
 // Themes που έχουν μεταφερθεί. Προσθήκη = υπόσχεση ότι περνά όλα τα παραπάνω.
-export const MIGRATED = ['ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living', 'Coast','Canvas','Kinetic','Longform','Magazine','TypeGallery', 'Bento','Corporate','Grid','Poster','Showcase','Sidebar','Split']
+export const MIGRATED = ['ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living', 'Coast','Canvas','Kinetic','Longform','Magazine','TypeGallery', 'Bento','Corporate','Grid','Poster','Showcase','Sidebar','Split', 'Pulse','Quiet','Warmth']
 
 const toRgb = (h) => {
   h = h.replace('#', '')

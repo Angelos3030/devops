@@ -61,40 +61,9 @@
   --vt-line: #d7d7d6; --vt-accent-on-deep: #818181;
 }
 
-/* ── LEGACY γέφυρα ─────────────────────────────────────────────────────────
-   Τα themes που δεν έχουν μεταφερθεί ακόμη ορίζουν δικά τους ονόματα χρωμάτων
-   (--coral, --leaf, --sea, --gold…). Αυτό το μπλοκ πρέπει να τα ξέρει ένα-ένα
-   και να τα πατήσει με !important — γι' αυτό υπάρχει ο spine.
-
-   ΣΥΡΡΙΚΝΩΝΕΤΑΙ: με κάθε theme που μεταφέρεται, ονόματα φεύγουν από εδώ.
-   Παρτίδα 1: έφυγε --rust.  Παρτίδα 2: --peach, --leaf-deep.
-   Παρτίδα 3: --coral, --gold, --leaf, --night, --bone (−20).
-   Παρτίδα 4: --sea, --sea-deep, --paper.
-   Παρτίδα 5: --accent, --bg.  ΑΠΟΜΕΝΕΙ ΜΟΝΟ ΤΟ --ink (4 themes).
-   Το --ink φεύγει τελευταίο — 19 χρήστες.
-   Μην προσθέσεις καινούργιο. Νέο theme = spine, χωρίς εξαίρεση.
-   ────────────────────────────────────────────────────────────────────────── */
-.scope[data-palette='warm'] > :first-child {
-  
-  --ink:#35251d!important;
-}
-.scope[data-palette='forest'] > :first-child {
-  
-  --ink:#17352a!important;
-}
-.scope[data-palette='ocean'] > :first-child {
-  
-  --ink:#173746!important;
-}
-.scope[data-palette='rose'] > :first-child {
-  
-  --ink:#412b31!important;
-}
-.scope[data-palette='mono'] > :first-child {
-  
-  
-  --ink:#151515!important;
-}
+/* Η legacy γέφυρα ΔΙΑΓΡΑΦΗΚΕ στις 11 Αυγούστου 2026.
+   Και τα 33 themes καταναλώνουν πλέον μόνο τους ρόλους του spine. Αν χρειαστείς
+   ποτέ !important για χρώμα, κάτι έχει σπάσει στο συμβόλαιο — μην το ξαναφέρεις. */
 
 /* Τυπογραφία: επιλογή του πελάτη, κοινή για όλα τα themes. */
 .scope[data-font='editorial'] > :first-child {--display:'Alegreya',Georgia,serif!important;--serif:'Alegreya',Georgia,serif!important;}
