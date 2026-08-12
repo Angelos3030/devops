@@ -3,24 +3,36 @@
    σαν γυαλί. Ο ιδιοκτήτης το βλέπει και εντυπωσιάζεται, ο πελάτης του βρίσκει
    το τηλέφωνο σε δύο δευτερόλεπτα. Δεν χρειάζεται να διαλέξουμε. */
 .root {
-  --ink: #f6f7f9;
-  --dim: rgba(246, 247, 249, .62);
-  --line: rgba(246, 247, 249, .16);
-  --amber: #ffb020;
+  /* ── Ταυτότητα στους ρόλους του spine (ΣΚΟΥΡΟ theme) ──
+     Μία οθόνη, κινηματογραφικό φόντο. Το παλιό --ink ήταν ΚΕΙΜΕΝΟ σε σκούρο
+     φόντο που δεν είχε καν όνομα — ήταν γραμμένο ως #0b0d10 μέσα στο .root. */
+  --vt-surface: #0b0d10;
+  --vt-surface-2: #14171c;
+  --vt-surface-deep: #060809;
+  --vt-ink: #f6f7f9;
+  --vt-ink-soft: #abacae;
+  --vt-on-deep: #ffffff;
+  --vt-accent: #ffb020;
+  --vt-on-accent: #111111;
+  --vt-accent-ink: #ffb020;
+  --vt-accent-on-deep: #ffb020;
+  --vt-line: #313235;
+  /* Πράσινο «ανοιχτά τώρα»: κατάσταση, όχι μάρκα. */
+  --status-open: var(--status-open);
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   --cond: 'Fira Sans Condensed', 'Inter', system-ui, sans-serif;
   --sans: 'Inter', system-ui, sans-serif;
 
   position: relative;
   min-height: 100dvh;
-  color: var(--ink);
+  color: var(--vt-ink);
   font-family: var(--sans);
   display: grid;
   place-items: center;
   padding: clamp(.9rem, 3vw, 2.4rem);
   overflow-x: hidden;
   overflow-y: auto;
-  background: #0b0d10;
+  background: var(--vt-surface);
 }
 .root :where(h1, p, dl, dd, dt, ul, li) { margin: 0; padding: 0; }
 .root :where(li) { list-style: none; }
@@ -48,7 +60,7 @@
   width: min(560px, 100%);
   background: rgba(18, 21, 27, .58);
   backdrop-filter: blur(22px) saturate(1.25);
-  border: 1px solid var(--line);
+  border: 1px solid var(--vt-line);
   border-radius: 20px;
   padding: clamp(1.3rem, 4vw, 2.1rem);
   display: flex; flex-direction: column; gap: clamp(1rem, 2.6vw, 1.45rem);
@@ -58,7 +70,7 @@
 .head { display: flex; flex-direction: column; gap: .4rem; }
 .trade {
   font-family: var(--mono); font-size: .68rem; letter-spacing: .26em;
-  text-transform: uppercase; color: var(--amber);
+  text-transform: uppercase; color: var(--vt-accent-ink);
 }
 .name {
   font-family: var(--cond); font-weight: 800;
@@ -70,7 +82,7 @@
 /* ---- ο ήρωας: το τηλέφωνο ---- */
 .dial {
   display: flex; flex-direction: column; gap: .12rem;
-  background: var(--ink); color: #0b0d10;
+  background: var(--vt-ink); color: var(--vt-surface);
   border-radius: 15px; padding: 1rem 1.2rem;
   box-shadow: 0 18px 44px -20px rgba(0, 0, 0, .8);
   transition: transform .16s ease, box-shadow .16s ease;
@@ -91,33 +103,33 @@
 .fact { display: flex; flex-direction: column; gap: .42rem; }
 .fact dt {
   font-family: var(--mono); font-size: .62rem; letter-spacing: .2em;
-  text-transform: uppercase; color: var(--dim);
+  text-transform: uppercase; color: var(--vt-ink-soft);
 }
 .fact dd { font-size: .93rem; display: flex; align-items: center; gap: .45rem; flex-wrap: wrap; }
 .live {
-  width: 7px; height: 7px; border-radius: 50%; background: #35d07f; flex: none;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--status-open); flex: none;
   box-shadow: 0 0 0 3px rgba(53, 208, 127, .18);
 }
 .areas { gap: .32rem; }
 .chip {
   font-size: .78rem; padding: .22rem .58rem; border-radius: 999px;
-  border: 1px solid var(--line); color: var(--ink); background: rgba(255, 255, 255, .06);
+  border: 1px solid var(--vt-line); color: var(--vt-ink); background: rgba(255, 255, 255, .06);
 }
 
 /* ---- τι ακριβώς κάνει ---- */
 .jobs { display: flex; flex-direction: column; }
 .job {
   display: grid; grid-template-columns: auto 1fr; gap: .12rem .85rem;
-  padding: .72rem 0; border-top: 1px solid var(--line);
+  padding: .72rem 0; border-top: 1px solid var(--vt-line);
 }
-.jobNo { font-family: var(--mono); font-size: .72rem; color: var(--amber); grid-row: span 2; padding-top: .18rem; }
+.jobNo { font-family: var(--mono); font-size: .72rem; color: var(--vt-accent-ink); grid-row: span 2; padding-top: .18rem; }
 .jobName { font-weight: 650; font-size: .97rem; }
-.jobDesc { font-size: .84rem; color: var(--dim); line-height: 1.45; }
+.jobDesc { font-size: .84rem; color: var(--vt-ink-soft); line-height: 1.45; }
 
 .foot {
   display: flex; flex-direction: column; gap: .35rem;
-  border-top: 1px solid var(--line); padding-top: .9rem;
-  font-size: .83rem; color: var(--dim);
+  border-top: 1px solid var(--vt-line); padding-top: .9rem;
+  font-size: .83rem; color: var(--vt-ink-soft);
 }
 .by { font-family: var(--mono); font-size: .66rem; opacity: .6; }
 

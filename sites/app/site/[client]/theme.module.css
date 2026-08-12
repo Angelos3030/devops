@@ -67,8 +67,10 @@
    και να τα πατήσει με !important — γι' αυτό υπάρχει ο spine.
 
    ΣΥΡΡΙΚΝΩΝΕΤΑΙ: με κάθε theme που μεταφέρεται, ονόματα φεύγουν από εδώ.
-   Παρτίδα 1 (ember, motor, terra, forge, volt): έφυγε το --rust, κανένα theme
-   δεν το χρησιμοποιεί πια. Το --ink κρατά 24 χρήστες — φεύγει τελευταίο.
+   Παρτίδα 1 (ember, motor, terra, forge, volt): έφυγε το --rust.
+   Παρτίδα 2 (aegean, bloom, marble, runway, dispatch): έφυγαν --peach και
+   --leaf-deep. Το --peach ΣΥΓΚΡΟΥΟΤΑΝ: η Bloom το κρατά ως τοπικό διακοσμητικό
+   και η γέφυρα το πατούσε με !important. Το --ink κρατά 19 χρήστες — τελευταίο.
    Μην προσθέσεις καινούργιο. Νέο theme = spine, χωρίς εξαίρεση.
    ────────────────────────────────────────────────────────────────────────── */
 .scope[data-palette='warm'] > :first-child {
@@ -76,7 +78,7 @@
   --paper:#f7f0e6!important;--bg:#f7f0e6!important;--bone:#f7f0e6!important;--ink:#35251d!important;--night:#35251d!important;
 }
 .scope[data-palette='forest'] > :first-child {
-  --accent:#3d7a58!important;--leaf:#3d7a58!important;--leaf-deep:#173f2b!important;--gold:#9b8047!important;
+  --accent:#3d7a58!important;--leaf:#3d7a58!important;--gold:#9b8047!important;
   --paper:#f1f4ec!important;--bg:#f1f4ec!important;--bone:#f1f4ec!important;--ink:#17352a!important;--night:#122c22!important;
 }
 .scope[data-palette='ocean'] > :first-child {
@@ -84,11 +86,11 @@
   --paper:#f1f6f7!important;--bg:#f1f6f7!important;--bone:#f1f6f7!important;--ink:#173746!important;--night:#102f3e!important;
 }
 .scope[data-palette='rose'] > :first-child {
-  --accent:#c55f78!important;--coral:#c55f78!important;--peach:#edb3bd!important;--gold:#b78b70!important;
+  --accent:#c55f78!important;--coral:#c55f78!important;--gold:#b78b70!important;
   --paper:#faf2f3!important;--bg:#faf2f3!important;--bone:#faf2f3!important;--ink:#412b31!important;--night:#342127!important;
 }
 .scope[data-palette='mono'] > :first-child {
-  --accent:#151515!important;--coral:#151515!important;--leaf:#151515!important;--leaf-deep:#151515!important;
+  --accent:#151515!important;--coral:#151515!important;--leaf:#151515!important;
   --sea:#151515!important;--sea-deep:#151515!important;--gold:#555!important;
   --paper:#f7f7f5!important;--bg:#f7f7f5!important;--bone:#f7f7f5!important;--ink:#151515!important;--night:#151515!important;
 }
