@@ -68,31 +68,31 @@
 
    ΣΥΡΡΙΚΝΩΝΕΤΑΙ: με κάθε theme που μεταφέρεται, ονόματα φεύγουν από εδώ.
    Παρτίδα 1: έφυγε --rust.  Παρτίδα 2: --peach, --leaf-deep.
-   Παρτίδα 3: --coral, --gold, --leaf, --night, --bone (−20 !important).
-   Απομένουν: --accent, --paper, --bg, --ink, --sea, --sea-deep.
+   Παρτίδα 3: --coral, --gold, --leaf, --night, --bone (−20).
+   Παρτίδα 4: --sea, --sea-deep, --paper.  Απομένουν: --accent, --bg, --ink.
    Το --ink φεύγει τελευταίο — 19 χρήστες.
    Μην προσθέσεις καινούργιο. Νέο theme = spine, χωρίς εξαίρεση.
    ────────────────────────────────────────────────────────────────────────── */
 .scope[data-palette='warm'] > :first-child {
   --accent:#b95732!important;
-  --paper:#f7f0e6!important;--bg:#f7f0e6!important;--ink:#35251d!important;
+  --bg:#f7f0e6!important;--ink:#35251d!important;
 }
 .scope[data-palette='forest'] > :first-child {
   --accent:#3d7a58!important;
-  --paper:#f1f4ec!important;--bg:#f1f4ec!important;--ink:#17352a!important;
+  --bg:#f1f4ec!important;--ink:#17352a!important;
 }
 .scope[data-palette='ocean'] > :first-child {
-  --accent:#247997!important;--sea:#247997!important;--sea-deep:#123f55!important;
-  --paper:#f1f6f7!important;--bg:#f1f6f7!important;--ink:#173746!important;
+  --accent:#247997!important;
+  --bg:#f1f6f7!important;--ink:#173746!important;
 }
 .scope[data-palette='rose'] > :first-child {
   --accent:#c55f78!important;
-  --paper:#faf2f3!important;--bg:#faf2f3!important;--ink:#412b31!important;
+  --bg:#faf2f3!important;--ink:#412b31!important;
 }
 .scope[data-palette='mono'] > :first-child {
   --accent:#151515!important;
-  --sea:#151515!important;--sea-deep:#151515!important;
-  --paper:#f7f7f5!important;--bg:#f7f7f5!important;--ink:#151515!important;
+  
+  --bg:#f7f7f5!important;--ink:#151515!important;
 }
 
 /* Τυπογραφία: επιλογή του πελάτη, κοινή για όλα τα themes. */

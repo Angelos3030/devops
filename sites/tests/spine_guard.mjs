@@ -51,8 +51,16 @@ const PAIRS = [
   ['line', 'surface', 1.2],
 ]
 
+/** Ό,τι ΔΕΝ έχει μεταφερθεί ακόμη — ρητά, ώστε να μη γίνει αόρατο.
+ *  Κάθε αρχείο πρέπει να είναι είτε εδώ είτε στο MIGRATED είτε κοινό component.
+ *  Μεταφέρεις theme; Μετακίνησε το όνομα από εδώ εκεί — αλλιώς ο guard κόβει. */
+export const PENDING = [
+  'Bento', 'CafeCollection', 'Corporate', 'Grid',   'Poster', 'Pulse', 'Quiet', 'Showcase', 'Sidebar',
+  'Split', 'Warmth',
+]
+
 // Themes που έχουν μεταφερθεί. Προσθήκη = υπόσχεση ότι περνά όλα τα παραπάνω.
-export const MIGRATED = ['ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living']
+export const MIGRATED = ['ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living', 'Coast','Canvas','Kinetic','Longform','Magazine','TypeGallery']
 
 const toRgb = (h) => {
   h = h.replace('#', '')
@@ -108,12 +116,16 @@ for (const name of MIGRATED) {
   let css
   try { css = readFileSync(file, 'utf8') } catch { fail(`${name}: δεν βρέθηκε το CSS`); continue }
 
-  // Τρία templates είναι minified σε μία γραμμή: το '.root {' με κενό δεν υπάρχει
-  // εκεί. Ο guard πρέπει να διαβάζει ΚΑΙ τα minified, αλλιώς τα αφήνει έξω σιωπηλά.
   // Τρία templates είναι minified σε μία γραμμή: εκεί δεν υπάρχει «.root {» με
   // κενό. Ο guard πρέπει να διαβάζει ΚΑΙ τα minified, αλλιώς τα άφηνε έξω σιωπηλά
   // — και ένα theme εκτός συμβολαίου που «περνάει» είναι χειρότερο από ένα που κόβει.
-  const start = css.search(/\.root\s*\{/)
+  // Το `Split` χρησιμοποιεί `.shell` αντί για `.root`: δεχόμαστε και τα δύο, αλλά
+  // αν δεν βρεθεί κανένα, ΚΟΒΟΥΜΕ αντί να συνεχίσουμε με άδειο μπλοκ.
+  const start = css.search(/\.(root|shell)\s*\{/)
+  if (start < 0) {
+    fail(`${name}: δεν βρέθηκε μπλοκ ταυτότητας (.root/.shell) — δεν ελέγχθηκε`)
+    continue
+  }
   const end = css.indexOf('}', css.indexOf('{', start))
   const identity = rolesIn(css.slice(start, end))
   identities[name] = identity
@@ -157,11 +169,32 @@ for (const [setName, roles] of Object.entries(sets)) {
 }
 console.log(`\n  χαμηλότερη αντίθεση κειμένου: ${worst.ratio.toFixed(2)}:1 — ${worst.where}`)
 
-// ── 4. Η legacy γέφυρα συρρικνώνεται ──────────────────────────────────────
-console.log('\n[4] Πρόοδος μετάβασης')
+// ── 4. COVERAGE — «πράσινο επειδή δεν κοίταξε» δεν επιτρέπεται ────────────
+// Ο guard ήταν πράσινος ενώ τρία minified themes δεν είχαν ελεγχθεί ποτέ: δεν
+// ήταν στη λίστα, άρα δεν υπήρχαν γι' αυτόν. Αυτό ήταν σοβαρότερο από τα ίδια
+// τα σφάλματα αντίθεσης. Τώρα κάθε αρχείο πρέπει να είναι ΡΗΤΑ κάπου.
+console.log('\n[4] Κάλυψη')
+const SHARED = ['CallBar', 'FindUs', 'SocialLinks']   // κοινά components, όχι themes
 const all = readdirSync(TEMPLATES).filter((f) => f.endsWith('.module.css'))
+  .map((f) => f.replace('.module.css', ''))
+const accounted = new Set([...MIGRATED, ...PENDING, ...SHARED])
+const orphans = all.filter((n) => !accounted.has(n))
+const ghosts = [...accounted].filter((n) => !all.includes(n))
+
+orphans.length
+  ? fail(`αρχεία που δεν είναι ούτε migrated ούτε pending: ${orphans.join(' ')}`)
+  : pass(`και τα ${all.length} αρχεία λογοδοτούν`)
+ghosts.length
+  ? fail(`ονόματα σε λίστα χωρίς αρχείο: ${ghosts.join(' ')}`)
+  : pass('καμία λίστα δεν δείχνει σε ανύπαρκτο αρχείο')
+
+const inspected = Object.keys(identities).length
+inspected === MIGRATED.length
+  ? pass(`ελέγχθηκαν ${inspected} από ${MIGRATED.length} δηλωμένα`)
+  : fail(`ελέγχθηκαν ${inspected} ενώ δηλώθηκαν ${MIGRATED.length} — κάποιο ξέφυγε`)
+
 const bangs = (spine.match(/!important/g) || []).length
-console.log(`  μεταφερμένα: ${MIGRATED.length}/${all.length}   ·   !important στη γέφυρα: ${bangs}`)
+console.log(`\n  μεταφερμένα: ${MIGRATED.length}/${all.length - SHARED.length}   ·   εκκρεμούν: ${PENDING.length}   ·   !important: ${bangs}`)
 
 console.log('\n' + '─'.repeat(64))
 if (failures) {
