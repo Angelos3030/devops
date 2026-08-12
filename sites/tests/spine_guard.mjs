@@ -54,10 +54,10 @@ const PAIRS = [
 /** Ό,τι ΔΕΝ έχει μεταφερθεί ακόμη — ρητά, ώστε να μη γίνει αόρατο.
  *  Κάθε αρχείο πρέπει να είναι είτε εδώ είτε στο MIGRATED είτε κοινό component.
  *  Μεταφέρεις theme; Μετακίνησε το όνομα από εδώ εκεί — αλλιώς ο guard κόβει. */
-export const PENDING = ['CafeCollection']
+export const PENDING = []
 
 // Themes που έχουν μεταφερθεί. Προσθήκη = υπόσχεση ότι περνά όλα τα παραπάνω.
-export const MIGRATED = ['ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living', 'Coast','Canvas','Kinetic','Longform','Magazine','TypeGallery', 'Bento','Corporate','Grid','Poster','Showcase','Sidebar','Split', 'Pulse','Quiet','Warmth']
+export const MIGRATED = ['ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living', 'Coast','Canvas','Kinetic','Longform','Magazine','TypeGallery', 'Bento','Corporate','Grid','Poster','Showcase','Sidebar','Split', 'Pulse','Quiet','Warmth', 'CafeCollection']
 
 const toRgb = (h) => {
   h = h.replace('#', '')
@@ -105,47 +105,86 @@ for (const [name, roles] of Object.entries(palettes)) {
     : pass(`${name}: και οι ${ROLES.length} ρόλοι`)
 }
 
-// ── 2. Τα μεταφερμένα themes ──────────────────────────────────────────────
-console.log('\n[2] Ταυτότητα και καθαρότητα ανά theme')
+/** Αρχεία με ΠΟΛΛΑΠΛΕΣ ταυτότητες στο ίδιο CSS.
+ *
+ *  Το `CafeCollection` είναι επτά themes σε ένα αρχείο: κοινό structural `.root`
+ *  (μηδέν χρώμα) και επτά sibling scopes, καθένα με δική του ταυτότητα. Ο guard
+ *  ΔΕΝ επιτρέπεται να ελέγξει μία και να βγει πράσινος.
+ *
+ *  `scope → prefix`: τα rules κάθε variant ξεκινούν με αυτό το prefix (`.patNav`,
+ *  `.urbanHero`…), οπότε τα literals χρεώνονται στον σωστό — αλλιώς ένα χρώμα του
+ *  `.urban*` θα κατηγορούσε το `.scandi`. */
+export const MULTI_IDENTITY = {
+  CafeCollection: {
+    patisserie: 'pat', urban: 'urban', greekBakery: 'gr', brunch: 'brunch',
+    micro: 'micro', scandi: 'scandi', heritage: 'heritage',
+  },
+}
+
+/** Κάθε rule του αρχείου ως {selector, body}. Δουλεύει και σε minified. */
+function rulesOf(css) {
+  const out = []
+  for (const m of css.matchAll(/([^{}]+)\{([^}]*)\}/g)) out.push({ sel: m[1].trim(), body: m[2] })
+  return out
+}
+const LITERAL = /(?<!-)#[0-9a-fA-F]{3,6}\b/g
+const isNeutral = (h) => /^#(fff|ffffff|000|000000)$/i.test(h)
+const LEGACY_NAMES = /var\(--(accent|ink|ink-soft|paper|tint|bone|bg|night|coral|leaf|sea|gold|rust)\)/g
+
+// ── 2. Ταυτότητες — ΟΧΙ αρχεία ────────────────────────────────────────────
+console.log('\n[2] Ταυτότητα και καθαρότητα ανά ταυτότητα')
 const identities = {}
+const identityCount = {}
 for (const name of MIGRATED) {
   const file = join(TEMPLATES, `${name}.module.css`)
   let css
   try { css = readFileSync(file, 'utf8') } catch { fail(`${name}: δεν βρέθηκε το CSS`); continue }
 
-  // Τρία templates είναι minified σε μία γραμμή: εκεί δεν υπάρχει «.root {» με
-  // κενό. Ο guard πρέπει να διαβάζει ΚΑΙ τα minified, αλλιώς τα άφηνε έξω σιωπηλά
-  // — και ένα theme εκτός συμβολαίου που «περνάει» είναι χειρότερο από ένα που κόβει.
-  // Το `Split` χρησιμοποιεί `.shell` αντί για `.root`: δεχόμαστε και τα δύο, αλλά
-  // αν δεν βρεθεί κανένα, ΚΟΒΟΥΜΕ αντί να συνεχίσουμε με άδειο μπλοκ.
-  const start = css.search(/\.(root|shell)\s*\{/)
-  if (start < 0) {
-    fail(`${name}: δεν βρέθηκε μπλοκ ταυτότητας (.root/.shell) — δεν ελέγχθηκε`)
+  const rules = rulesOf(css)
+  const multi = MULTI_IDENTITY[name]
+  // Ταυτότητα = κάθε rule που δηλώνει έστω έναν ρόλο. Έτσι πιάνονται και τα
+  // minified, και το `.shell` του Split, και τα επτά scopes του CafeCollection.
+  // ΔΗΛΩΣΗ ρόλου, όχι χρήση: το `var(--vt-ink)` περιέχει κι αυτό «--vt-».
+  const found = rules.filter((r) => /(^|[;{\s])--vt-[a-z0-9-]+\s*:/.test(r.body))
+  identityCount[name] = found.length
+
+  if (!found.length) {
+    fail(`${name}: καμία ταυτότητα (κανένα --vt-*) — ΔΕΝ ελέγχθηκε`)
     continue
   }
-  const end = css.indexOf('}', css.indexOf('{', start))
-  const identity = rolesIn(css.slice(start, end))
-  identities[name] = identity
 
-  const missing = ROLES.filter((r) => !identity[r])
-  missing.length
-    ? fail(`${name}: δεν δηλώνει — ${missing.join(', ')}`)
-    : pass(`${name}: δηλώνει και τους ${ROLES.length} ρόλους`)
+  for (const rule of found) {
+    const scope = (rule.sel.match(/\.([A-Za-z][\w-]*)/) || [, rule.sel])[1]
+    const key = multi ? `${name}:${scope}` : name
+    const roles = rolesIn(rule.body)
+    identities[key] = roles
 
-  // Χρώμα κυριολεκτικά επιτρέπεται ΜΟΝΟ στην ταυτότητα. Οπουδήποτε αλλού
-  // σημαίνει σημείο που δεν θα ακολουθήσει την παλέτα του πελάτη.
-  const outside = css.slice(end)
-  const literals = (outside.match(/(?<!-)#[0-9a-fA-F]{3,6}\b/g) || [])
-    .filter((h) => !/^#(fff|ffffff|000|000000)$/i.test(h))
-  literals.length
-    ? fail(`${name}: χρώμα εκτός .root — ${[...new Set(literals)].join(' ')}`)
-    : pass(`${name}: κανένα χρώμα εκτός ταυτότητας`)
+    const missing = ROLES.filter((r) => !roles[r])
+    missing.length
+      ? fail(`${key}: δεν δηλώνει — ${missing.join(', ')}`)
+      : pass(`${key}: δηλώνει και τους ${ROLES.length} ρόλους`)
 
-  // Παλιά ονόματα σημαίνουν ότι το theme εξαρτάται ακόμη από τη legacy γέφυρα.
-  const legacy = outside.match(/var\(--(accent|ink|ink-soft|paper|tint|bone|bg|night|coral|leaf|sea|gold|rust)\)/g)
-  legacy
-    ? fail(`${name}: κρέμεται από legacy tokens — ${[...new Set(legacy)].join(' ')}`)
-    : pass(`${name}: μηδέν legacy tokens`)
+    // Χρώμα κυριολεκτικά επιτρέπεται ΜΟΝΟ στην ταυτότητα. Σε αρχείο με πολλές
+    // ταυτότητες, το κάθε rule χρεώνεται σε όποια/όποιες ταιριάζει το prefix του
+    // — συνδυασμένος selector (`.patQuote,.grStory`) χρεώνεται και στις δύο.
+    const prefix = multi?.[scope]
+    const mine = rules.filter((r) => {
+      if (r === rule) return false
+      if (!multi) return true
+      if (!prefix) return false
+      return new RegExp(String.raw`\.${prefix}[A-Z0-9]`).test(r.sel) || r.sel.includes(`.${scope}`)
+    })
+    const body = mine.map((r) => r.body).join(';')
+    const literals = [...new Set((body.match(LITERAL) || []).filter((h) => !isNeutral(h)))]
+    literals.length
+      ? fail(`${key}: χρώμα εκτός ταυτότητας — ${literals.join(' ')}`)
+      : pass(`${key}: κανένα χρώμα εκτός ταυτότητας`)
+
+    const legacy = body.match(LEGACY_NAMES)
+    legacy
+      ? fail(`${key}: κρέμεται από legacy tokens — ${[...new Set(legacy)].join(' ')}`)
+      : pass(`${key}: μηδέν legacy tokens`)
+  }
 }
 
 // ── 3. Αντίθεση σε κάθε παλέτα × κάθε theme ───────────────────────────────
@@ -185,10 +224,20 @@ ghosts.length
   ? fail(`ονόματα σε λίστα χωρίς αρχείο: ${ghosts.join(' ')}`)
   : pass('καμία λίστα δεν δείχνει σε ανύπαρκτο αρχείο')
 
+// Πόσες ταυτότητες περιμένουμε ανά αρχείο. Ένα αρχείο με 7 variants που δίνει 6
+// ΔΕΝ επιτρέπεται να περάσει — αυτό ακριβώς είναι το «πράσινο επειδή δεν κοίταξε».
+const expected = Object.fromEntries(MIGRATED.map((n) =>
+  [n, MULTI_IDENTITY[n] ? Object.keys(MULTI_IDENTITY[n]).length : 1]))
+const wrong = MIGRATED.filter((n) => (identityCount[n] ?? 0) !== expected[n])
+wrong.length
+  ? wrong.forEach((n) => fail(`${n}: βρέθηκαν ${identityCount[n] ?? 0} ταυτότητες, περίμενα ${expected[n]}`))
+  : pass(`κάθε αρχείο έδωσε ακριβώς όσες ταυτότητες περιμέναμε`)
+
+const totalExpected = Object.values(expected).reduce((a, b) => a + b, 0)
 const inspected = Object.keys(identities).length
-inspected === MIGRATED.length
-  ? pass(`ελέγχθηκαν ${inspected} από ${MIGRATED.length} δηλωμένα`)
-  : fail(`ελέγχθηκαν ${inspected} ενώ δηλώθηκαν ${MIGRATED.length} — κάποιο ξέφυγε`)
+inspected === totalExpected
+  ? pass(`ελέγχθηκαν ${inspected} ταυτότητες από ${totalExpected} αναμενόμενες`)
+  : fail(`ελέγχθηκαν ${inspected} ενώ περιμέναμε ${totalExpected} — κάποια ξέφυγε`)
 
 const bangs = (spine.match(/!important/g) || []).length
 console.log(`\n  μεταφερμένα: ${MIGRATED.length}/${all.length - SHARED.length}   ·   εκκρεμούν: ${PENDING.length}   ·   !important: ${bangs}`)

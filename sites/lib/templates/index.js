@@ -144,13 +144,50 @@ export const TEMPLATE_META = {
     imageRatios: { hero: '16/9', panel: '3/2', gallery: '16/9' },
     tokens: { display: 'Noto Sans Display', body: 'Open Sans', accent: '#0078bf', container: '1300px', radius: '10px' },
   },
-  'bakery-editorial': { label: 'Bakery Editorial', desc: 'Μεγάλη φωτογραφία, refined τυπογραφία και premium αφήγηση προϊόντος.' },
-  'counter-menu': { label: 'Counter Menu', desc: 'Conversion-first πάγκος με menu board, ωράριο και άμεση επικοινωνία.' },
-  'morning-journal': { label: 'Morning Journal', desc: 'Editorial εφημερίδα γειτονιάς με ιστορία, προϊόν και καθαρή πληροφορία.' },
-  'neighborhood-market': { label: 'Neighborhood Market', desc: 'Χρώμα, modular tiles και ζωντανή local ταυτότητα για σύγχρονο καφέ ή φούρνο.' },
-  'microbakery-lab': { label: 'Microbakery Lab', desc: 'Πειραματικό monochrome grid, process-first αφήγηση και έντονη τυπογραφία.' },
-  'scandinavian-coffee': { label: 'Scandinavian Coffee House', desc: 'Φως, αρχιτεκτονική φωτογραφία και ήρεμη specialty coffee εμπειρία.' },
-  'heritage-bakery': { label: 'Heritage Bakery', desc: 'Οικογενειακή ιστορία, πλούσια προϊόντα και σύγχρονη ελληνική παράδοση.' },
+  'bakery-editorial': {
+    label: 'Bakery Editorial', desc: 'Μεγάλη φωτογραφία, refined τυπογραφία και premium αφήγηση προϊόντος.',
+    /* CafeCollection — επτά ταυτότητες σε ένα αρχείο, κοινό structural .root.
+       Ένα accent, μία σκούρα ζώνη. Η ταυτότητα είναι η τυπογραφία (Georgia editorial) και ο ρυθμός. */
+    customizable: { palette: true, fontPair: true },
+  },
+  'counter-menu': {
+    label: 'Counter Menu', desc: 'Conversion-first πάγκος με menu board, ωράριο και άμεση επικοινωνία.',
+    /* CafeCollection — επτά ταυτότητες σε ένα αρχείο, κοινό structural .root.
+       ΔΥΟ ανεξάρτητα accents ως φόντα ενοτήτων (lime menu, κόκκινο visit). Το «electric» δεν εκφράζεται με ένα accent. */
+    customizable: { palette: false, fontPair: true },
+  },
+  'morning-journal': {
+    label: 'Morning Journal', desc: 'Editorial εφημερίδα γειτονιάς με ιστορία, προϊόν και καθαρή πληροφορία.',
+    /* CafeCollection — επτά ταυτότητες σε ένα αρχείο, κοινό structural .root.
+       ΔΟΚΙΜΑΣΤΗΚΕ ΟΠΤΙΚΑ και απορρίφθηκε: η κίτρινη ζώνη είναι υπογραφή, όχι
+       εναλλασσόμενο tint. Σε ocean γίνεται σχεδόν λευκή και το terracotta teal —
+       μένει γενική ψυχρή σελίδα, χάνεται ο «φούρνος της γειτονιάς». */
+    customizable: { palette: false, fontPair: true },
+  },
+  'neighborhood-market': {
+    label: 'Neighborhood Market', desc: 'Χρώμα, modular tiles και ζωντανή local ταυτότητα για σύγχρονο καφέ ή φούρνο.',
+    /* CafeCollection — επτά ταυτότητες σε ένα αρχείο, κοινό structural .root.
+       ΤΕΣΣΕΡΑ χρώματα ως φόντα ενοτήτων — είναι το δηλωμένο concept, όχι διακόσμηση. */
+    customizable: { palette: false, fontPair: true },
+  },
+  'microbakery-lab': {
+    label: 'Microbakery Lab', desc: 'Πειραματικό monochrome grid, process-first αφήγηση και έντονη τυπογραφία.',
+    /* CafeCollection — επτά ταυτότητες σε ένα αρχείο, κοινό structural .root.
+       Monochrome + ένα safety red. Η ταυτότητα είναι το αυστηρό grid, όχι το χρώμα. */
+    customizable: { palette: true, fontPair: true },
+  },
+  'scandinavian-coffee': {
+    label: 'Scandinavian Coffee House', desc: 'Φως, αρχιτεκτονική φωτογραφία και ήρεμη specialty coffee εμπειρία.',
+    /* CafeCollection — επτά ταυτότητες σε ένα αρχείο, κοινό structural .root.
+       Ένα sage band, ένα σκούρο. Η ταυτότητα είναι το φως και ο χώρος. */
+    customizable: { palette: true, fontPair: true },
+  },
+  'heritage-bakery': {
+    label: 'Heritage Bakery', desc: 'Οικογενειακή ιστορία, πλούσια προϊόντα και σύγχρονη ελληνική παράδοση.',
+    /* CafeCollection — επτά ταυτότητες σε ένα αρχείο, κοινό structural .root.
+       Χρυσή ζώνη + terracotta = δύο signature χρώματα. Με ένα accent καταρρέουν σε ένα. */
+    customizable: { palette: false, fontPair: true },
+  },
 }
 
 // Map backend layout names → React archetype (until backend adopts react keys).
