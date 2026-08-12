@@ -5,96 +5,55 @@
 
 Ποιότητα 1–5 = πόσο χρήσιμη ήταν η πηγή **για εμάς**, όχι πόσο ωραίο είναι το site.
 
+Η βιβλιοθήκη χωρίζεται σε τέσσερις κατηγορίες. Η διάκριση δεν είναι ποιοτική —
+είναι **πρόσβασης**. Μια πηγή στο *Pending Commercial Review* δεν απορρίφθηκε·
+απλώς δεν μπορούμε να τη δούμε νόμιμα ακόμη.
+
+- **Accessible Sources** — αναλύθηκαν, μετρήθηκαν, αξιοποιήθηκαν
+- **Pending Commercial Review** — αξιόλογες, αλλά τα demos δεν είναι δημόσια
+- **Open Source Sources** — δημόσιος κώδικας και δημοσιευμένα design systems
+- **Real Business References** — πραγματικές ελληνικές επιχειρήσεις
+
 ---
 
-## Κύκλος 2026-08-11 — «μία γλώσσα σε πολλά themes»
+# Accessible Sources
 
-Ερώτηση του κύκλου: πώς κρατούν τα premium συστήματα ενιαία σχεδιαστική γλώσσα σε
-δεκάδες templates, αφήνοντας σε κάθε vertical δική του προσωπικότητα;
+## Design systems — η μηχανική της συνέπειας
 
-### ✅ Δεκτές
+Ερώτημα: πώς κρατούν τα premium συστήματα ενιαία γλώσσα σε δεκάδες templates;
 
-| Πηγή | Tier | Vertical | Q | Δυνατά | Αδύναμα |
-|---|---|---|---|---|---|
-| [Astra Global Color Palette](https://wpastra.com/docs/astra-global-color-palette-settings/) | 1 | — (σύστημα) | 5 | 9 αριθμημένα slots `--ast-global-color-0..8`· κάθε ρύθμιση είτε **δένεται** στο slot είτε γίνεται custom | το custom override σπάει σιωπηλά τη σύνδεση — καμία προειδοποίηση |
-| [Kadence Color Palette](https://www.kadencewp.com/help-center/docs/kadence-theme/how-to-use-the-kadence-theme-color-palette/) | 1 | — (σύστημα) | 5 | `--global-palette1..9` **+ σημασιολογικά ψευδώνυμα** (Light=9, Dark=3, Highlight=1)· Style Guide ως ξεχωριστή οθόνη | τα ψευδώνυμα είναι λίγα· δεν καλύπτουν borders/soft ink |
-| [Radix Themes — Color](https://www.radix-ui.com/themes/docs/theme/color) | 3 | — (σύστημα) | 5 | κλίμακα 12 βημάτων με **δεσμευμένο σκοπό ανά βήμα** (1-2 φόντα, 3-5 interactive, 6-8 γραμμές, 9-10 solid, 11-12 κείμενο)· accent+gray ζεύγος· μία αλλαγή prop ξαναβάφει τα πάντα | φτιαγμένο για app UI, όχι για marketing sites με φωτογραφίες |
-| [Material 3 — Color roles](https://m3.material.io/styles/color/roles) | 3 | — (σύστημα) | 5 | ρόλοι αντί για ονόματα χρωμάτων· **ζεύγη `on-`** που εγγυώνται αντίθεση εξ ορισμού | βαρύ για μικρή βιβλιοθήκη· δεν χρειαζόμαστε όλη την ταξινομία |
-| [Vercel Geist — Colors](https://vercel.com/geist/colors) | 3 | — (σύστημα) | 4 | 10 βήματα με χαρτογραφημένο σκοπό (100 default → 200 hover → 400-600 borders → 900-1000 κείμενο) | ίδιος περιορισμός με Radix: product UI |
+| Πηγή | Q | Δυνατά | Αδύναμα |
+|---|---|---|---|
+| [Astra Global Color Palette](https://wpastra.com/docs/astra-global-color-palette-settings/) | 5 | 9 slots `--ast-global-color-0..8`· κάθε ρύθμιση **δένεται** ή γίνεται custom | το custom override σπάει σιωπηλά τη σύνδεση |
+| [Kadence Color Palette](https://www.kadencewp.com/help-center/docs/kadence-theme/how-to-use-the-kadence-theme-color-palette/) | 5 | `--global-palette1..9` **+ σημασιολογικά ψευδώνυμα**· Style Guide ως ξεχωριστή οθόνη | τα ψευδώνυμα δεν καλύπτουν borders/soft ink |
+| [Radix Themes — Color](https://www.radix-ui.com/themes/docs/theme/color) | 5 | 12 βήματα με **δεσμευμένο σκοπό ανά βήμα**· μία αλλαγή ξαναβάφει τα πάντα | φτιαγμένο για app UI, όχι marketing sites |
+| [Material 3 — Color roles](https://m3.material.io/styles/color/roles) | 5 | ρόλοι αντί χρωμάτων· **ζεύγη `on-`** που εγγυώνται αντίθεση εξ ορισμού | βαριά ταξινομία για τη δική μας κλίμακα |
+| [Vercel Geist — Colors](https://vercel.com/geist/colors) | 4 | 10 βήματα χαρτογραφημένα: default → hover → borders → κείμενο | ίδιος περιορισμός με Radix |
+| [GenerateBlocks Pattern Library](https://generatepress.com/build-consistent-pattern-library-generateblocks-pro-generatepress/) | 5 | **Τρεις πηγές στυλ**: Theme Styles → Local → Global Styles. Κανόνας: pattern που εισάγεται **κληρονομεί**, δεν αντικαθιστά | κλάσεις WordPress-specific |
 
-**Σύγκλιση και στις πέντε:** τα templates **δεν ορίζουν χρώματα**. Καταναλώνουν
+**Σύγκλιση και στις έξι:** τα templates **δεν ορίζουν χρώματα**. Καταναλώνουν
 tokens με δεσμευμένο σκοπό. Η προσωπικότητα ζει σε τυπογραφία, ρυθμό, εικόνα και
 κίνηση — **ποτέ σε νέα ονόματα χρωμάτων**.
 
-### ❌ Απορρίφθηκαν
+## Template libraries με δημόσια demos
 
-| Πηγή | Λόγος |
-|---|---|
-| [Kadence starter templates](https://www.kadencewp.com/kadence-starter-templates/) | 301 → σελίδα μεταπωλητή· μηδέν μηχανική |
-| [Astra website templates](https://wpastra.com/website-templates/) | marketing· «300+ templates» χωρίς καμία δομή |
-| [GeneratePress site library](https://generatepress.com/site-library/) | marketing· «80+ starter sites» χωρίς σύστημα |
-| [Blocksy](https://creativethemes.com/blocksy/) | HTTP 403 |
-
-**Μάθημα:** οι εμπορικές σελίδες των builders δεν περιγράφουν ποτέ το σύστημά τους.
-Πήγαινε κατευθείαν στα docs τους. Πέρασε στο `SKILL.md §0`.
-
-Σταμάτησα στις 9 πηγές αντί για 10–15: η απάντηση είχε συγκλίνει σε τέσσερα
-ανεξάρτητα συστήματα και η δέκατη θα επαναλάμβανε την ίδια μηχανική.
-
-### Τι έγινε με αυτή τη γνώση
-
-Υλοποιήθηκε ως **Vitrina Spine** — ένδεκα ρόλοι με δεσμευμένο σκοπό, με τα ζεύγη
-`on-` του Material και τη λογική «ένα swap ξαναβάφει τα πάντα» του Radix, χωρίς
-την ταξινομία που δεν χρειαζόμαστε. Μεταφέρθηκαν `clinic-triage` και `callout`.
-
-Τρία πράγματα φάνηκαν μόνο επειδή μετρήθηκαν, και ισχύουν για κάθε μελλοντικό theme:
-
-- το ωμό accent **ως κείμενο σε σκούρη ζώνη** απέτυχε σε 6 στις 7 παλέτες
-- το `accent-ink` πρέπει να μετριέται στη **σκουρότερη** επιφάνεια, όχι στη λευκή
-- το `on-accent` **δεν είναι πάντα λευκό** — πάνω σε amber είναι σκούρο
-
-### Δεν αναλύθηκαν ακόμη
-
-Awwwards, siteinspire, land-book, lapa, godly, cssdesignawards, onepagelove,
-base44, linear, stripe, raycast, framer showcase, webflow made-in-webflow.
-Χρήσιμα για **αισθητική κατεύθυνση ανά vertical**, όχι για το ερώτημα αυτού του
-κύκλου. Το `SKILL.md §0` ήδη προειδοποιεί ότι δεν έχουν τοπικές επιχειρήσεις.
-
----
-
-## Κύκλος 2026-08-11β — οι εννέα WordPress builders
-
-Καθαρά έρευνα: κανένας κώδικας, κανένα theme. Ερώτηση: τι φτιάχνουν πραγματικά
-οι μεγάλοι builders για τοπικές επιχειρήσεις, και τι από αυτό αξίζει.
-
-### Βαθμολογία (χρησιμότητα για εμάς, όχι ομορφιά)
-
-| Builder | Q | Templates προσβάσιμα; | Γιατί |
+| Builder | Q | Πρόσβαση | Σημείωση |
 |---|---|---|---|
-| **Astra** (`websitedemos.net/<vertical>-0N/`) | 5 | ✅ δημόσια | Πραγματικά τοπικά verticals, άμεσα μετρήσιμα. Ήδη η πηγή #1 του §0. |
-| **Avada** (`avada.website/<vertical>/`) | 5 | ✅ δημόσια | 100+ demos στο ίδιο μοτίβο URL. Και blog posts «deconstructing» που εξηγούν section-section το **γιατί**. Δεύτερη πηγή για τοπικά. |
-| **GeneratePress** | 5 | ⚠️ μερικώς | Services 2.0 ειδικά για τοπικές υπηρεσίες (ηλεκτρολόγος, κηπουρός, λογιστής) + το καθαρότερο μοντέλο συνέπειας που είδαμε (κάτω). |
-| **Kadence** | 4 | ⚠️ μέσω plugin | `--global-palette1..9` + σημασιολογικά ψευδώνυμα· ξεχωριστή οθόνη **Style Guide**. |
-| **Blocksy** | 3 | ❌ 403 | 25+ starter sites· 8 slots + global colors ανά ρόλο (κείμενο, σύνδεσμοι, περιγράμματα, headings, φόντο). Το site μπλοκάρει fetch. |
-| **Bricks** | 2 | ❌ πίσω από το προϊόν | 8 design sets (Karlson/Auron/Velora/Liv/Sizzle/Reality/Digital) + **Wireframes: 180+ modular sections**. Η ιδέα «βιβλιοθήκη ενοτήτων» είναι σωστή· τα demos δεν ανοίγουν. |
-| **Breakdance** | 2 | ❌ πίσω από το προϊόν | 100+ layout components, «Global Styles» χωρίς δημοσιευμένη μηχανική. Το `/samba/` είναι σελίδα πώλησης, όχι το kit. |
-| **Elementor** | 2 | ❌ μέσα στον editor | 30+ container kits, 100+ section kits. Καμία δημόσια πληροφορία για design tokens. |
-| **Oxygen** | 2 | ❌ | Class-first, «variables» για global τιμές. Εργαλείο developer· δεν προσφέρει έτοιμη σχεδιαστική γνώση. |
-
-**Κανόνας που προκύπτει:** οι builders χωρίζονται σε αυτούς που **δημοσιεύουν τα
-demos τους** (Astra, Avada) και σε αυτούς που τα κρύβουν πίσω από την άδεια
-(Bricks, Breakdance, Elementor, Oxygen). Μόνο οι πρώτοι είναι αξιοποιήσιμοι για
-μέτρηση. Μη χάνεις κύκλο στους δεύτερους.
+| **Astra** | 5 | `websitedemos.net/<vertical>-0N/` | Πραγματικά τοπικά verticals, άμεσα μετρήσιμα. Πηγή #1 του `SKILL.md §0`. |
+| **Avada** | 5 | `avada.website/<vertical>/` | 100+ demos, ίδιο μοτίβο URL. Και posts «deconstructing» που εξηγούν section-section το **γιατί**. |
+| **GeneratePress** | 5 | μερική | Services 2.0 ειδικά για τοπικές υπηρεσίες (ηλεκτρολόγος, κηπουρός, λογιστής). |
+| **Kadence** | 4 | μέσω plugin | Starter templates· η μηχανική τεκμηριώνεται δημόσια. |
+| **Blocksy** | 3 | ❌ 403 στο fetch | 25+ starter sites· 8 slots + global colors ανά ρόλο (κείμενο, σύνδεσμοι, περιγράμματα, headings, φόντο). |
 
 ### Ο κοινός σκελετός των τοπικών υπηρεσιών
 
 Μετρήθηκε στο **ίδιο vertical από δύο ανεξάρτητους builders** — Avada Plumber και
-Astra Plumber-02. Παρότι διαφέρουν αισθητικά (μπλε/φωτεινό vs μαύρο/editorial),
-η δομή είναι σχεδόν ταυτόσημη:
+Astra Plumber-02. Διαφέρουν αισθητικά (μπλε/φωτεινό vs μαύρο/editorial)· η δομή
+είναι σχεδόν ταυτόσημη:
 
 ```
 sticky nav + κουμπί CTA
-hero: φωτογραφία + κάρτα φόρμας που «κάθεται» πάνω της + τηλέφωνο έκτακτης ανάγκης
+hero: φωτογραφία + κάρτα φόρμας πάνω της + τηλέφωνο έκτακτης ανάγκης
 about / why-us με εικόνες
 πλέγμα υπηρεσιών, ΑΡΙΘΜΗΜΕΝΟ 01–06
 testimonials
@@ -102,45 +61,100 @@ testimonials
 fat footer πολλών στηλών
 ```
 
-Το `callout` μας έχει ήδη 7 από τα 8. Δεν είναι σύμπτωση — είναι σύγκλιση.
+Το `callout` μας έχει 7 από τα 8. Δεν το αντιγράψαμε — καταλήξαμε στο ίδιο.
 
 ### ✅ Αξίζουν
 
-1. **Triage επιπέδου υπηρεσίας** (Avada: *One-off Repairs · Care Plan ·
-   Installations*). Δεν είναι ισχυρισμός, είναι η δομή της προσφοράς — τίμιο και
-   δυνατό. Χωρίζει την πρόθεση πριν από τη λίστα υπηρεσιών.
-2. **Κουμπί «όλες οι υπηρεσίες»** μετά από 6 κάρτες. Λύνει το πρόβλημα του
-   μεταβλητού πλήθους που ήδη μας απασχολεί (2/4/6/9).
-3. **Στρώμα κοινών κλάσεων πάνω από τα tokens** (GeneratePress `.gbp-section`,
-   `.gbp-card`, `.gbp-button--primary`). Ο spine έλυσε το χρώμα· η **δομή**
-   (πλάτη, ρυθμός, κάρτες, κουμπιά) είναι ακόμη ανά theme.
-4. **Κανόνας κληρονομιάς**: «ένα pattern που εισάγεται ΔΕΝ αντικαθιστά υπάρχον
-   global style — κληρονομεί από αυτό». Ακριβώς η πειθαρχία που λείπει από τη
-   legacy γέφυρα με τα `!important`.
-5. **Style Guide ως ξεχωριστή οθόνη** (Kadence). Θα ήταν εξαιρετικό εσωτερικό QA:
-   μία σελίδα που δείχνει όλους τους ρόλους του spine σε κάθε παλέτα.
+1. **Triage επιπέδου υπηρεσίας** (Avada: *One-off · Care Plan · Installations*).
+   Δομή της προσφοράς, όχι ισχυρισμός. Χωρίζει την πρόθεση πριν από τη λίστα.
+2. **Κουμπί «όλες οι υπηρεσίες»** μετά από 6 κάρτες — λύνει το μεταβλητό πλήθος.
+3. **Στρώμα κοινών κλάσεων πάνω από τα tokens** (`.gbp-section`, `.gbp-card`,
+   `.gbp-button--primary`). Ο spine έλυσε το χρώμα· η **δομή** μένει ανά theme.
+4. **Κανόνας κληρονομιάς**: pattern που εισάγεται κληρονομεί, δεν αντικαθιστά.
+5. **Style Guide ως ξεχωριστή οθόνη** (Kadence) — εξαιρετικό εσωτερικό QA.
 
 ### ❌ Δεν αξίζουν
 
-1. **Σειρές με σήματα κριτικών** (Astra Plumber-02: Google, BBB, Facebook, Yelp).
-   Ψεύτικα στοιχεία εμπιστοσύνης — απαγορευμένα ρητά.
-2. **Ισχυρισμοί μακροβιότητας στο hero** («Serving our clients for over 25 years»).
-   Invented facts.
-3. **Πυκνότητα κειμένου lorem ipsum.** Και τα δύο demos έχουν μπλοκ που καμία
-   πραγματική μικρή επιχείρηση δεν γεμίζει. Ο έλεγχος του §2 ισχύει.
-4. **Ύψος σελίδας ~4.850px** και στα δύο. Ο πελάτης μας δεν έχει τόσο περιεχόμενο.
-5. **30 media queries** (Avada) με device-specific breakpoints αντί content-driven.
-6. **Φόρμα callback ως προεπιλογή στο hero.** Δεν υπάρχει endpoint για leads· ο
-   κανόνας «χωρίς παραλήπτη → κάρτα κλήσης» μένει.
-7. **Cookie banner** που σκεπάζει το hero (Avada). Μηδέν third-party ⇒ χωρίς banner.
+1. **Σειρές με σήματα κριτικών** (Google/BBB/Facebook/Yelp) — ψεύτικα trust signals.
+2. **Ισχυρισμοί μακροβιότητας στο hero** («over 25 years») — invented facts.
+3. **Πυκνότητα lorem ipsum** που καμία μικρή επιχείρηση δεν γεμίζει.
+4. **Ύψος σελίδας ~4.850px** και στα δύο demos.
+5. **30 media queries** με device-specific breakpoints αντί content-driven.
+6. **Φόρμα callback ως προεπιλογή** — δεν έχουμε endpoint για leads.
+7. **Cookie banner** — μηδέν third-party ⇒ δεν χρειάζεται.
 
-### Screenshots
+### Τι έγινε με αυτή τη γνώση
+
+Υλοποιήθηκε ως **Vitrina Spine**: έντεκα ρόλοι με δεσμευμένο σκοπό, με τα ζεύγη
+`on-` του Material και τη λογική «ένα swap ξαναβάφει τα πάντα» του Radix.
+
+Τρία πράγματα φάνηκαν μόνο επειδή μετρήθηκαν:
+
+- το ωμό accent **ως κείμενο σε σκούρη ζώνη** απέτυχε σε 6 στις 7 παλέτες
+- το `accent-ink` μετριέται στη **δυσκολότερη** επιφάνεια, όχι στην ευκολότερη
+- το `on-accent` **δεν είναι πάντα λευκό** — πάνω σε amber είναι σκούρο
+
+---
+
+# Pending Commercial Review
+
+Δεν απορρίφθηκαν. Τα premium demos τους **δεν είναι δημόσια** — χρειάζεται νόμιμη
+πρόσβαση (άδεια). Αν αποκτηθεί, επιστρέφουν στον κύκλο ανάλυσης.
+
+| Builder | Τι ξέρουμε | Γιατί αξίζει επιστροφή |
+|---|---|---|
+| **Bricks** | 8 design sets (Karlson, Auron, Velora, Liv, Sizzle, Reality, Digital) + **Wireframes: 180+ modular sections** | Η βιβλιοθήκη ενοτήτων είναι ακριβώς η δομή που μας λείπει μετά τον Color Spine. |
+| **Breakdance** | 100+ layout components, UI kit «Samba», αναφορά σε «Global Styles» | Θα δείξει πώς οργανώνεται βιβλιοθήκη ενοτήτων σε κλίμακα. |
+| **Elementor** | 30+ container kits, 100+ section kits, κατηγορίες ανά κλάδο | Ο μεγαλύτερος όγκος επαγγελματικών kits της αγοράς. |
+| **Oxygen** | class-first workflow, «variables» για global τιμές | Η προσέγγιση developer στα tokens — χρήσιμη αντιπαραβολή. |
+
+**Κόστος πρόσβασης:** άδεια ανά builder. Απόφαση του ιδιοκτήτη — όχι του agent.
+Και αν αποκτηθεί: **μόνο σχεδιαστική λογική**, ποτέ κώδικας ή assets.
+
+---
+
+# Open Source Sources
+
+Δημόσιος κώδικας και δημοσιευμένα design systems — αναλύονται ελεύθερα.
+
+| Πηγή | Q | Κατάσταση |
+|---|---|---|
+| [Radix Themes](https://www.radix-ui.com/themes/docs/theme/color) | 5 | ✅ αναλύθηκε — 12-step scale |
+| [Material 3](https://m3.material.io/styles/color/roles) | 5 | ✅ αναλύθηκε — ρόλοι + ζεύγη `on-` |
+| [Vercel Geist](https://vercel.com/geist/colors) | 4 | ✅ αναλύθηκε — 10 βήματα |
+
+**Δεν αναλύθηκαν ακόμη:** shadcn/ui (theming layer), Tailwind (spacing/type scale),
+Open Props, Every Layout (layout primitives), USWDS και GOV.UK Design System — τα
+δύο τελευταία είναι το ισχυρότερο δημόσιο υλικό για **accessibility contract**.
+Προτεραιότητα όταν ξεκινήσει το δεύτερο επίπεδο design system.
+
+---
+
+# Real Business References
+
+Πραγματικές ελληνικές επιχειρήσεις — για γλώσσα, δομή προσφοράς και το τι όντως
+γράφουν οι πελάτες μας.
+
+**Κενό. Δεν έχει γίνει ακόμη κύκλος.**
+
+Γιατί έχει σημασία: όλα τα παραπάνω είναι αγγλόφωνα demos με lorem ipsum. Δεν μας
+λένε πώς περιγράφει τις υπηρεσίες του ένας Έλληνας υδραυλικός, τι ωράριο γράφει,
+πώς διατυπώνει τιμές, ή τι εμπιστεύεται ο πελάτης του. Είναι η μόνη πηγή που δεν
+αντικαθίσταται από builders.
+
+Όταν γίνει: **μόνο δημόσιες σελίδες**, μηδέν προσωπικά δεδομένα, μηδέν αντιγραφή
+κειμένου ή φωτογραφιών — μόνο μοτίβα.
+
+---
+
+## Screenshots
 
 Εκτός repo, σε `%TEMP%/vitrina-refs/`: `avada-plumber`, `astra-plumber02`,
-`breakdance-samba` (desktop/tablet/mobile + measurements.json). Υλικό ανάλυσης —
+`breakdance-samba` (desktop/tablet/mobile + `measurements.json`). Υλικό ανάλυσης —
 δεν γίνονται ποτέ commit.
 
-### Δεν λύθηκε
+## Μάθημα για τη μεθοδολογία
 
-Bricks, Breakdance, Elementor, Oxygen: τα templates δεν είναι δημόσια. Για να
-αναλυθούν χρειάζεται άδεια — απόφαση του ιδιοκτήτη, όχι δική μου.
+Οι **εμπορικές σελίδες** των builders δεν περιγράφουν ποτέ το σύστημά τους. Λένε
+«300+ templates» και τίποτα για το πώς κρατιούνται συνεπή. Πήγαινε στα `/docs/`,
+`/help-center/` ή στα design systems. Πέρασε στο `SKILL.md §0`.
