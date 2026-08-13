@@ -124,7 +124,10 @@ def _enrich_intake(client_id: str, form: dict) -> dict:
         atype = (a.get("type") or "").lower()
         url = a.get("url")
         if atype in _PHOTO_TYPES and url:
-            gallery.append({"image": url, "title": a.get("title") or "Έργο"})
+            # Η κλάση ταξιδεύει μαζί με την εικόνα: ο renderer δεν επιτρέπεται
+            # να μαντέψει αν αυτό είναι ο χώρος, η δουλειά ή το πρόσωπό του.
+            gallery.append({"image": url, "title": a.get("title") or "Έργο",
+                            "media_class": a.get("media_class")})
         elif atype == "service":
             services.append({"name": a.get("title") or "Υπηρεσία",
                              "description": a.get("content") or ""})
@@ -381,6 +384,26 @@ def site_data(client_id: str, layout: str = ""):
         return v
 
     data = {k: _unesc(v) for k, v in ctx.items() if not k.startswith("_")}
+
+    # Πολιτική εικόνων ανά site (opt-in, βλ. db/migrations/0002_media_semantics.sql).
+    # Με 'real-only' καμία δανεική εικόνα δεν γεμίζει ενότητα ταυτότητας: όπου
+    # λείπει πραγματικό υλικό, η σελίδα γίνεται τυπογραφική αντί να δανειστεί
+    # πρόσωπο, χώρο ή δουλειά. Χωρίς τη ρύθμιση, η συμπεριφορά μένει η ίδια.
+    policy = (_resolve_client(client_id) or {}).get("media_policy")
+    if policy == "real-only":
+        from . import media_semantics as msem
+        assets = [
+            msem.Asset(g["image"], g.get("media_class") or msem.ILLUSTRATIVE, g.get("title") or "")
+            for g in (data.get("gallery") or []) if g.get("image")
+        ]
+        plan = msem.plan(assets, ("hero", "work", "space", "portrait", "product"))
+        data["MEDIA_POLICY"] = "real-only"
+        data["gallery"] = [a.to_dict() for a in assets if a.is_real]
+        data["HERO_IS_REAL"] = not plan["typographic"]
+        data["MEDIA_ILLUSTRATIVE"] = plan["typographic"]
+        if plan["typographic"]:
+            data["GALLERY_TITLE"] = msem.NEUTRAL_TITLE["work"]
+
     return {"layout": chosen, "layouts": list(pg.LAYOUTS), "data": data}
 
 

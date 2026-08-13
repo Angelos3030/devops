@@ -398,6 +398,9 @@ def save_client_asset(client_id: str, asset: dict) -> str:
         "url": asset.get("url"),
         "usage": asset.get("usage") or "site",
         "rights_ok": bool(asset.get("rights_ok")),
+        # Τι ΔΕΙΧΝΕΙ η εικόνα, δηλωμένο από τον πελάτη. Χωρίς αυτό ο renderer
+        # μαντεύει, και το μάντεμα δημοσιεύεται ως ισχυρισμός ταυτότητας.
+        "media_class": asset.get("media_class") or None,
     }
     res = _client().table("client_assets").insert(row).execute()
     return res.data[0]["id"]

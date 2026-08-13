@@ -30,6 +30,8 @@ export default function Choose({ params }) {
   const [nPhotos, setNPhotos] = useState(0)  // πόσες φωτο ανέβηκαν εδώ
   const [hasLogo, setHasLogo] = useState(false)
   const [uploading, setUploading] = useState('')
+  // Τι δείχνουν οι φωτογραφίες που ανεβάζει — το λέει ΑΥΤΟΣ, δεν το μαντεύουμε.
+  const [mediaClass, setMediaClass] = useState('REAL_WORK')
 
   // The fragment is not sent to Railway logs or referrers. Keep it only in this
   // tab until the authenticated dashboard consumes it and owns the site.
@@ -87,6 +89,7 @@ export default function Choose({ params }) {
         fd.append('file', file)
         fd.append('asset_type', assetType)
         fd.append('rights_ok', 'true')
+        if (assetType === 'photo') fd.append('media_class', mediaClass)
         const r = await fetch(`${API}/clients/${client}/upload`, { method: 'POST', body: fd })
         if (r.ok) ok++
       } catch (e) {}
@@ -185,8 +188,17 @@ export default function Choose({ params }) {
               onChange={(e) => uploadFiles(e.target.files, 'photo')} />
             <span className={s.dropIcon}>📸</span>
             <strong>{nPhotos ? `${nPhotos} φωτογραφίες ανέβηκαν ✓` : 'Ανέβασε φωτο από τη δουλειά σου'}</strong>
-            <span className={s.dropHint}>{uploading === 'photo' ? 'Ανεβαίνουν…' : 'Από το κινητό σου, έως 12. Δεν έχεις; Βάζουμε εμείς κατάλληλες.'}</span>
+            <span className={s.dropHint}>{uploading === 'photo' ? 'Ανεβαίνουν…' : 'Από το κινητό σου, έως 12. Δεν έχεις; Το site μένει καθαρό και τυπογραφικό — δεν βάζουμε ξένες φωτογραφίες στη θέση των δικών σου.'}</span>
           </label>
+          {/* Η κλάση δηλώνεται πριν το ανέβασμα: ενότητες που μιλούν για σένα
+              (ο χώρος μου, η δουλειά μου, εγώ) δέχονται ΜΟΝΟ δικό σου υλικό. */}
+          <div className={s.kinds} role="group" aria-label="Τι δείχνουν οι φωτογραφίες">
+            {[['REAL_WORK', 'Η δουλειά μου'], ['REAL_SPACE', 'Ο χώρος μου'],
+              ['REAL_OWNER_PERSON', 'Εγώ / η ομάδα'], ['REAL_BUSINESS', 'Άλλο']].map(([v, label]) => (
+              <button key={v} type="button" className={s.kind} aria-pressed={mediaClass === v}
+                onClick={() => setMediaClass(v)}>{label}</button>
+            ))}
+          </div>
           <label className={s.drop}>
             <input type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" hidden
               onChange={(e) => uploadFiles(e.target.files, 'logo')} />

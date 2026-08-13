@@ -161,6 +161,9 @@ async def upload_asset(
     client_id: str,
     file: UploadFile = File(...),
     asset_type: str = Form("photo"),   # logo | photo | menu | other
+    # Τι ΔΕΙΧΝΕΙ η φωτογραφία, δηλωμένο από τον πελάτη. Δεν το συμπεραίνουμε:
+    # μοντέλο που μαντεύει «αυτό είναι ο χώρος σου» δημοσιεύει τον ισχυρισμό.
+    media_class: str = Form(""),       # REAL_WORK | REAL_SPACE | REAL_OWNER_PERSON | REAL_BUSINESS
     rights_ok: bool = Form(True),
     claim_token: str = Form(""),
     authorization: str | None = Header(default=None),
@@ -187,12 +190,15 @@ async def upload_asset(
     except Exception as e:
         raise HTTPException(502, f"Storage upload απέτυχε: {e}")
 
+    from .media_semantics import CLASSES, REAL_BUSINESS
+    declared = media_class if media_class in CLASSES else (REAL_BUSINESS if asset_type == "photo" else None)
     asset_id = save_client_asset(client_id, {
         "type": asset_type,
         "url": url,
         "title": file.filename,
         "usage": "site",
         "rights_ok": rights_ok,
+        "media_class": declared,
     })
     return {"url": url, "asset_id": asset_id}
 

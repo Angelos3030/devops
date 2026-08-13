@@ -63,7 +63,7 @@ REAL_FIXTURES: dict[str, list[tuple[str, str, str]]] = {
         ("1522337360788-8b13dee7a37e", ms.REAL_WORK, "Κούρεμα"),
         ("1595476108010-b4d1f102b1b1", ms.REAL_WORK, "Βαφή"),
         ("1521590832167-7bcbfaa6381f", ms.REAL_WORK, "Χτένισμα"),
-        ("1502767089025-6572583495b0", ms.REAL_OWNER_PERSON, "Η Ελένη"),
+        ("1580618672591-eb180b1a973f", ms.REAL_OWNER_PERSON, "Η Ελένη"),
     ],
     "bench-06-bakery": [
         ("1509440159596-0249088772ff", ms.REAL_WORK, "Ψωμί με προζύμι"),
@@ -161,7 +161,30 @@ def build(entry: dict, mode: str) -> dict:
             "gallery": len(data.get("gallery") or [])}
 
 
+def verify_fixtures() -> None:
+    """Άκυρο fixture = άκυρη μέτρηση. Το benchmark το βρίσκει ΠΡΙΝ τρέξει.
+
+    Στην πρώτη μέτρηση ένα ανύπαρκτο Unsplash id άφησε 3 σπασμένες θέσεις και
+    κράτησε ένα site κάτω από το κατώφλι. Το σφάλμα ήταν δικό μας, αλλά μπήκε
+    στα αποτελέσματα ως αδυναμία του προϊόντος."""
+    import urllib.request
+    bad = []
+    for bid, items in REAL_FIXTURES.items():
+        for pid, _cls, title in items:
+            try:
+                req = urllib.request.Request(U.format(pid), method="HEAD",
+                                             headers={"User-Agent": "Mozilla/5.0"})
+                if urllib.request.urlopen(req, timeout=15).status != 200:
+                    bad.append((bid, pid, title))
+            except Exception:
+                bad.append((bid, pid, title))
+    if bad:
+        raise SystemExit("Άκυρα fixtures: "
+                         + "; ".join(f"{b} {p} {t}" for b, p, t in bad))
+
+
 def main() -> None:
+    verify_fixtures()
     rows = []
     for mode in ("A", "B"):
         for entry in BUSINESSES:

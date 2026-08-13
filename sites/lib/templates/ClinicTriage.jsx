@@ -34,7 +34,12 @@ export default function ClinicTriage({ data: d }) {
   const services = Array.isArray(d.services) ? d.services : []
   // Πόσες υπηρεσίες γίνονται panels: ποτέ δεν αφήνουμε ΕΝΑ ορφανό κουτάκι στο
   // πλέγμα από κάτω — δείχνει σαν λάθος. Με 4 υπηρεσίες: 2 panels + 2 κουτάκια.
-  const cut = services.length === 4 ? 2 : Math.min(3, services.length)
+  // ΧΩΡΙΣ ΚΑΜΙΑ ΦΩΤΟΓΡΑΦΙΑ δεν υπάρχουν εναλλασσόμενα panels: το benchmark έδειξε
+  // ότι το `panelPlain` άφηνε στενό κείμενο να επιπλέει σε τεράστιο κενό — η
+  // σελίδα δεν φαινόταν λιτή, φαινόταν μισοφορτωμένη. Τότε οι υπηρεσίες γίνονται
+  // αριθμημένο τυπογραφικό ευρετήριο σε πλήρες πλάτος, που ΕΙΝΑΙ σύνθεση.
+  const noPhoto = gallery.length === 0
+  const cut = noPhoto ? 0 : (services.length === 4 ? 2 : Math.min(3, services.length))
   const panels = services.slice(0, cut)        // εναλλασσόμενα εικόνα/κείμενο
   const rest = services.slice(cut)             // ό,τι περισσεύει, σε πλέγμα
   const why = (Array.isArray(d.story) ? d.story : []).slice(0, 4)
@@ -119,11 +124,17 @@ export default function ClinicTriage({ data: d }) {
         })}
 
         {rest.length > 0 && (
-          <ul className={s.restGrid}>
+          <ul className={noPhoto ? s.index : s.restGrid}>
             {rest.map((sv, i) => (
-              <li key={i} className={s.restItem}>
+              <li key={i} className={noPhoto ? s.indexRow : s.restItem}>
+                {noPhoto && <span className={s.indexNum}>{String(i + 1).padStart(2, '0')}</span>}
                 <h3>{sv.title}</h3>
                 <p>{sv.desc}</p>
+                {noPhoto && (
+                  <a href={book} className={s.indexLink}>
+                    {d.PRIMARY_CTA || 'Κλείσε ραντεβού'}<span aria-hidden="true"> ›</span>
+                  </a>
+                )}
               </li>
             ))}
           </ul>
