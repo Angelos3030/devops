@@ -141,6 +141,22 @@ export function mediaCategoryFor(data) {
 }
 
 export function withMediaFallback(data = {}) {
+  // OPT-IN, προεπιλογή αμετάβλητη. Όταν το data layer δηλώνει ότι το site
+  // ακολουθεί το συμβόλαιο σημασιολογίας (src/media_semantics.py) και δεν
+  // υπάρχει πραγματικό υλικό, ΔΕΝ δανειζόμαστε εικόνες για να γεμίσουμε
+  // ενότητες ταυτότητας: η σελίδα στέκεται τυπογραφικά. Χωρίς το flag,
+  // η συμπεριφορά είναι ακριβώς η προηγούμενη.
+  if (data.MEDIA_POLICY === 'real-only') {
+    const own = Array.isArray(data.gallery) ? data.gallery.filter((g) => g?.image) : []
+    return {
+      ...data,
+      gallery: own,
+      HERO_IS_REAL: own.length > 0,
+      MEDIA_MODE: own.length ? 'real' : 'no-photo',
+      MEDIA_ILLUSTRATIVE: own.length === 0,
+    }
+  }
+
   // Ο generator ΞΕΡΕΙ αν η φωτογραφία είναι του πελάτη· εδώ βλέπουμε μόνο ότι
   // κάποιο URL υπάρχει. Όταν το δηλώνει, η δήλωσή του υπερισχύει.
   const hasHero = typeof data.HERO_IS_REAL === 'boolean'

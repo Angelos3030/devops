@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>STAGING — Ροή φωτογραφιών μετά το preview</title>
+<!--
+  ΠΡΩΤΟΤΥΠΟ STAGING. Δεν συνδέεται από πουθενά, δεν μπαίνει στο sitemap, δεν
+  αγγίζει παραγωγή. Δοκιμάζει ΜΙΑ υπόθεση:
+
+    «Ο πελάτης δίνει αληθινές φωτογραφίες αν του τις ζητήσουμε ΑΦΟΥ δει
+     αποτέλεσμα, και αν το να μη δώσει δεν τον τιμωρεί.»
+
+  Η σειρά είναι το προϊόν: preview πρώτα, αίτημα μετά, παράλειψη πάντα ανοιχτή.
+  Βλ. src/media_semantics.py για το τι σημαίνει κάθε κλάση εικόνας.
+-->
+<style>
+  :root{
+    --ink:#171512; --ink-soft:#6b6660; --line:#e4e0d9; --surface:#fbfaf8;
+    --surface-2:#f2efe9; --accent:#2f5d63; --on-accent:#fff; --ok:#2f6d4f;
+    --radius:10px; --pad:clamp(1rem,4vw,2rem);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--surface);color:var(--ink);
+       font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:var(--pad)}
+  .steps{display:flex;gap:.5rem;flex-wrap:wrap;font-size:.78rem;letter-spacing:.08em;
+         text-transform:uppercase;color:var(--ink-soft);margin-bottom:1.5rem}
+  .steps b{color:var(--ink)}
+  .steps span::after{content:'›';margin-left:.5rem;opacity:.4}
+  .steps span:last-child::after{content:''}
+
+  /* ---- Βήμα 1: το preview ΠΡΩΤΑ. Δεν ζητάμε τίποτα πριν φανεί. ---- */
+  .previewCard{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+               background:#fff;box-shadow:0 14px 40px rgba(20,18,15,.07)}
+  .previewBar{display:flex;align-items:center;gap:.5rem;padding:.6rem .9rem;
+              background:var(--surface-2);border-bottom:1px solid var(--line);font-size:.8rem;color:var(--ink-soft)}
+  .dot{width:9px;height:9px;border-radius:50%;background:#d9d4cc}
+  .frame{width:100%;height:min(52vh,460px);border:0;display:block;background:#fff}
+  h1{font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.15;margin:.2rem 0 .4rem;letter-spacing:-.02em}
+  .lede{color:var(--ink-soft);max-width:58ch;margin:0 0 1.4rem}
+
+  /* ---- Βήμα 2: το αίτημα. Προαιρετικό, με λόγο, όχι φραγμός. ---- */
+  .ask{margin-top:2rem;border:1px solid var(--line);border-radius:var(--radius);
+       background:#fff;padding:clamp(1rem,3vw,1.8rem)}
+  .askHead{display:flex;justify-content:space-between;align-items:start;gap:1rem;flex-wrap:wrap}
+  .why{margin:.8rem 0 1.2rem;padding:.85rem 1rem;background:var(--surface-2);
+       border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.94rem}
+  .why b{color:var(--accent)}
+  .drop{border:2px dashed var(--line);border-radius:var(--radius);padding:1.6rem 1rem;
+        text-align:center;color:var(--ink-soft);cursor:pointer;transition:border-color .15s,background .15s}
+  .drop:hover,.drop.over{border-color:var(--accent);background:var(--surface-2)}
+  .kinds{display:flex;gap:.4rem;flex-wrap:wrap;margin:.9rem 0 0;justify-content:center}
+  .kind{border:1px solid var(--line);background:#fff;border-radius:100px;padding:.35rem .8rem;
+        font-size:.82rem;cursor:pointer}
+  .kind[aria-pressed=true]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.8rem;margin-top:1.2rem}
+  .shot{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface-2)}
+  .shot img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+  .shot .meta{padding:.45rem .55rem;font-size:.74rem;color:var(--ink-soft);
+              display:flex;justify-content:space-between;gap:.3rem;align-items:center}
+  .tag{font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+  .tools{position:absolute;inset:auto .35rem .35rem auto;display:flex;gap:.25rem}
+  .tools button{width:30px;height:30px;border-radius:6px;border:1px solid var(--line);
+                background:rgba(255,255,255,.94);cursor:pointer;font-size:.85rem;line-height:1}
+  .tools button:hover{border-color:var(--accent)}
+  .shot[draggable=true]{cursor:grab}
+  .shot.dragging{opacity:.45}
+
+  .actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.5rem;align-items:center}
+  .btn{border:0;border-radius:8px;padding:.75rem 1.3rem;font:inherit;font-weight:600;cursor:pointer;min-height:46px}
+  .primary{background:var(--accent);color:var(--on-accent)}
+  .ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .skip{background:none;border:0;color:var(--ink-soft);text-decoration:underline;cursor:pointer;font:inherit}
+  .note{font-size:.86rem;color:var(--ink-soft);margin-top:.8rem}
+  .saved{color:var(--ok);font-weight:600}
+
+  /* ---- Τι θα δείξει το site με το υλικό που υπάρχει ---- */
+  .plan{margin-top:1.2rem;border-top:1px solid var(--line);padding-top:1rem}
+  .plan table{width:100%;border-collapse:collapse;font-size:.88rem}
+  .plan td{padding:.4rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+  .plan td:last-child{text-align:right;color:var(--ink-soft)}
+  .yes{color:var(--ok);font-weight:600}
+  .typo{color:var(--accent);font-weight:600}
+  @media (max-width:560px){ .frame{height:44vh} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="steps">
+    <span>Περιγραφή</span><span>Δημιουργία</span><span><b>Το site σου</b></span>
+    <span>Φωτογραφίες</span><span>Στοιχεία</span><span>Δημοσίευση</span>
+  </div>
+
+  <!-- ΒΗΜΑ 1 — Το αποτέλεσμα πρώτα. Καμία απαίτηση πριν από αυτό. -->
+  <h1>Το site σου είναι έτοιμο.</h1>
+  <p class="lede">Δες το πρώτα. Αν σου αρέσει, υπάρχει ένα πράγμα που το κάνει
+    να μοιάζει αληθινά δικό σου — και το έχεις ήδη στο κινητό σου.</p>
+
+  <div class="previewCard">
+    <div class="previewBar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span id="urlLabel">το-site-σου.gr</span></div>
+    <iframe class="frame" id="preview" title="Προεπισκόπηση του site" src="about:blank"></iframe>
+  </div>
+
+  <!-- ΒΗΜΑ 2 — Το αίτημα. Με λόγο, με έξοδο, χωρίς φραγμό. -->
+  <section class="ask" id="ask">
+    <div class="askHead">
+      <div>
+        <h2 style="margin:0;font-size:1.25rem">Βάλε 4–6 δικές σου φωτογραφίες</h2>
+        <p style="margin:.3rem 0 0;color:var(--ink-soft);font-size:.94rem">
+          Προαιρετικό. Το site είναι ήδη έτοιμο και δημοσιεύεται και χωρίς αυτές.</p>
+      </div>
+      <span id="counter" class="tag">0 φωτογραφίες</span>
+    </div>
+
+    <div class="why">
+      <b>Γιατί το ζητάμε:</b> οι δικές σου φωτογραφίες είναι το μόνο πράγμα που δεν
+      μπορούμε να φτιάξουμε εμείς. Χωρίς αυτές, δείχνουμε <b>ενδεικτικές</b> εικόνες
+      και το γράφουμε καθαρά — ποτέ δεν παρουσιάζουμε ξένη φωτογραφία ως τον χώρο σου,
+      τη δουλειά σου ή εσένα. Ένα site με τέσσερις αληθινές φωτογραφίες πείθει
+      περισσότερο από είκοσι δανεικές.
+    </div>
+
+    <div class="drop" id="drop" tabindex="0" role="button"
+         aria-label="Ανέβασε φωτογραφίες ή σύρε τες εδώ">
+      <strong>Σύρε φωτογραφίες εδώ</strong><br>
+      <span style="font-size:.9rem">ή πάτησε για να επιλέξεις από τη συσκευή σου</span>
+      <div class="kinds" id="kinds" aria-label="Τι δείχνει η φωτογραφία">
+        <button class="kind" data-kind="work" aria-pressed="true">Η δουλειά μου</button>
+        <button class="kind" data-kind="space" aria-pressed="false">Ο χώρος μου</button>
+        <button class="kind" data-kind="person" aria-pressed="false">Εγώ / η ομάδα</button>
+        <button class="kind" data-kind="business" aria-pressed="false">Άλλο</button>
+      </div>
+    </div>
+    <input type="file" id="file" accept="image/*" multiple hidden>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="actions">
+      <button class="btn primary" id="save">Αποθήκευσε και συνέχισε</button>
+      <button class="btn ghost" id="later">Θα τις βάλω αργότερα</button>
+      <button class="skip" id="never">Δεν έχω φωτογραφίες — συνέχισε χωρίς</button>
+    </div>
+    <p class="note" id="note">Η πρόοδός σου κρατιέται ούτως ή άλλως. Μπορείς να
+      προσθέσεις ή να αλλάξεις φωτογραφίες όποτε θες από τον πίνακά σου.</p>
+
+    <div class="plan">
+      <p style="margin:0 0 .5rem;font-weight:600;font-size:.92rem">Τι θα δείξει το site με το σημερινό υλικό</p>
+      <table id="planTable"></table>
+    </div>
+  </section>
+</div>
+
+<script type="module">
+// Οι ίδιοι κανόνες με το src/media_semantics.py. Το πρωτότυπο δεν επιτρέπεται να
+// είναι πιο επιεικές από το συμβόλαιο — αλλιώς δοκιμάζουμε άλλο προϊόν.
+const POLICY = {
+  hero:      ['REAL_BUSINESS','REAL_WORK','REAL_SPACE','ILLUSTRATIVE','GENERATED'],
+  portrait:  ['REAL_OWNER_PERSON'],
+  team:      ['REAL_OWNER_PERSON'],
+  work:      ['REAL_WORK'],
+  space:     ['REAL_SPACE','REAL_BUSINESS'],
+  product:   ['REAL_WORK','REAL_BUSINESS','ILLUSTRATIVE'],
+  testimonial: [],
+}
+const KIND_TO_CLASS = { work:'REAL_WORK', space:'REAL_SPACE', person:'REAL_OWNER_PERSON', business:'REAL_BUSINESS' }
+const LABEL = { REAL_WORK:'Δουλειά', REAL_SPACE:'Χώρος', REAL_OWNER_PERSON:'Πρόσωπο',
+                REAL_BUSINESS:'Επιχείρηση', ILLUSTRATIVE:'Ενδεικτική' }
+const SECTION_LABEL = { hero:'Κεντρική εικόνα', work:'«Η δουλειά μας»', space:'«Ο χώρος μας»',
+                        portrait:'Πρόσωπο / ομάδα', product:'Προϊόντα' }
+
+const STORE = 'vitrina-staging-media'
+let kind = 'work'
+let assets = load()
+
+function load(){ try { return JSON.parse(sessionStorage.getItem(STORE)) || [] } catch { return [] } }
+function persist(){ sessionStorage.setItem(STORE, JSON.stringify(assets)) }   // «κρατάμε την πρόοδο»
+
+const $ = (id) => document.getElementById(id)
+
+$('kinds').addEventListener('click', (e) => {
+  const b = e.target.closest('.kind'); if (!b) return
+  e.stopPropagation()
+  kind = b.dataset.kind
+  ;[...$('kinds').children].forEach((c) => c.setAttribute('aria-pressed', String(c === b)))
+})
+
+$('drop').addEventListener('click', () => $('file').click())
+$('drop').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') $('file').click() })
+$('drop').addEventListener('dragover', (e) => { e.preventDefault(); $('drop').classList.add('over') })
+$('drop').addEventListener('dragleave', () => $('drop').classList.remove('over'))
+$('drop').addEventListener('drop', (e) => {
+  e.preventDefault(); $('drop').classList.remove('over'); add([...e.dataTransfer.files])
+})
+$('file').addEventListener('change', (e) => add([...e.target.files]))
+
+function add(files){
+  files.filter((f) => f.type.startsWith('image/')).forEach((f) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      assets.push({ id: crypto.randomUUID(), url: reader.result,
+                    media_class: KIND_TO_CLASS[kind], title: f.name.replace(/\.[^.]+$/, '') })
+      persist(); render()
+    }
+    reader.readAsDataURL(f)
+  })
+}
+
+function render(){
+  const grid = $('grid'); grid.innerHTML = ''
+  assets.forEach((a, i) => {
+    const el = document.createElement('figure')
+    el.className = 'shot'; el.draggable = true; el.dataset.i = String(i)
+    el.innerHTML = `<img src="${a.url}" alt="">
+      <div class="meta"><span class="tag">${LABEL[a.media_class] || ''}</span><span>${i + 1}/${assets.length}</span></div>
+      <div class="tools">
+        <button title="Αντικατάσταση" data-act="replace">↻</button>
+        <button title="Διαγραφή" data-act="delete">✕</button>
+      </div>`
+    // Αναδιάταξη με σύρσιμο — η σειρά είναι περιεχόμενο, όχι λεπτομέρεια.
+    el.addEventListener('dragstart', () => { el.classList.add('dragging'); el.dataset.drag = '1' })
+    el.addEventListener('dragend', () => el.classList.remove('dragging'))
+    el.addEventListener('dragover', (e) => {
+      e.preventDefault()
+      const from = grid.querySelector('.dragging'); if (!from || from === el) return
+      const fi = Number(from.dataset.i), ti = Number(el.dataset.i)
+      assets.splice(ti, 0, assets.splice(fi, 1)[0]); persist(); render()
+    })
+    el.querySelector('[data-act=delete]').addEventListener('click', () => {
+      assets.splice(i, 1); persist(); render()
+    })
+    el.querySelector('[data-act=replace]').addEventListener('click', () => {
+      const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*'
+      inp.onchange = () => {
+        const f = inp.files[0]; if (!f) return
+        const r = new FileReader()
+        r.onload = () => { assets[i].url = r.result; persist(); render() }
+        r.readAsDataURL(f)
+      }
+      inp.click()
+    })
+    grid.appendChild(el)
+  })
+  $('counter').textContent = `${assets.length} ${assets.length === 1 ? 'φωτογραφία' : 'φωτογραφίες'}`
+  renderPlan()
+}
+
+// Ο πελάτης βλέπει ΤΩΡΑ τι θα δείξει το site — όχι μετά τη δημοσίευση.
+function renderPlan(){
+  const t = $('planTable'); t.innerHTML = ''
+  const classes = new Set(assets.map((a) => a.media_class))
+  let identityFilled = 0
+  for (const [section, allowedClasses] of Object.entries(POLICY)) {
+    if (!SECTION_LABEL[section]) continue
+    const real = allowedClasses.filter((c) => c.startsWith('REAL_') && classes.has(c))
+    const identity = allowedClasses.every((c) => c.startsWith('REAL_'))
+    if (identity && real.length) identityFilled++
+    let verdict
+    if (real.length) verdict = '<span class="yes">δικές σου φωτογραφίες</span>'
+    else if (identity) verdict = '<span class="typo">τυπογραφική παρουσίαση</span>'
+    else verdict = 'ενδεικτική εικόνα, με σήμανση'
+    t.insertAdjacentHTML('beforeend', `<tr><td>${SECTION_LABEL[section]}</td><td>${verdict}</td></tr>`)
+  }
+  $('note').innerHTML = identityFilled
+    ? '<span class="saved">✓</span> Οι ενότητες που μιλούν για σένα θα δείχνουν δικό σου υλικό.'
+    : 'Χωρίς δικές σου φωτογραφίες, οι ενότητες που μιλούν για σένα γίνονται '
+      + '<b>τυπογραφικές</b> — καθαρές και σκόπιμες, ποτέ ξένο πρόσωπο στη θέση σου.'
+}
+
+// Και οι τρεις έξοδοι προχωρούν. Καμία δεν χάνει δουλειά.
+$('save').addEventListener('click', () => finish('αποθηκεύτηκαν'))
+$('later').addEventListener('click', () => finish('θα προστεθούν αργότερα'))
+$('never').addEventListener('click', () => finish('συνεχίζουμε χωρίς φωτογραφίες'))
+function finish(how){
+  persist()
+  $('note').innerHTML = `<span class="saved">✓ Η πρόοδός σου κρατήθηκε (${how}).</span> `
+    + 'Επόμενο βήμα: στοιχεία επικοινωνίας.'
+}
+
+// Το preview δείχνει ένα πραγματικό παραγόμενο site του benchmark.
+const params = new URLSearchParams(location.search)
+const client = params.get('client') || 'bench-03-accountant'
+$('preview').src = (params.get('base') || 'http://127.0.0.1:3812/site/') + client + '?v=proto'
+$('urlLabel').textContent = client.replace(/^bench-\d+-/, '') + '.gr'
+render()
+</script>
+</body>
+</html>

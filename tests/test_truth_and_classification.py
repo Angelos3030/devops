@@ -189,3 +189,49 @@ class ServiceCompleteness(unittest.TestCase):
         ctx = pg.normalize({"name": "Χ", "type": "Φούρνος", "services": self._svc(15)})
         self.assertEqual(ctx["SERVICES_TOTAL"], 15)
         self.assertGreater(ctx["SERVICES_TOTAL"], len(ctx["services"]))
+
+
+class MediaSemantics(unittest.TestCase):
+    """Δανεική εικόνα δεν μπαίνει ποτέ σε ενότητα που ισχυρίζεται ταυτότητα."""
+
+    def setUp(self):
+        from src import media_semantics as ms
+        self.ms = ms
+        self.stock = ms.Asset("s.jpg", ms.ILLUSTRATIVE, "Χώρος")
+        self.real_space = ms.Asset("r.jpg", ms.REAL_SPACE, "Το κατάστημα")
+        self.owner = ms.Asset("p.jpg", ms.REAL_OWNER_PERSON, "Η ιδιοκτήτρια")
+
+    def test_stock_banned_from_identity_sections(self):
+        for section in ("space", "work", "portrait", "team", "testimonial"):
+            with self.subTest(section=section):
+                self.assertFalse(self.ms.allowed(section, self.stock))
+
+    def test_stock_allowed_as_atmosphere(self):
+        self.assertTrue(self.ms.allowed("hero", self.stock))
+
+    def test_real_allowed_in_matching_section(self):
+        self.assertTrue(self.ms.allowed("space", self.real_space))
+        self.assertTrue(self.ms.allowed("portrait", self.owner))
+
+    def test_work_photo_is_not_a_portrait(self):
+        work = self.ms.Asset("w.jpg", self.ms.REAL_WORK, "Έργο")
+        self.assertFalse(self.ms.allowed("portrait", work))
+
+    def test_no_real_media_means_typographic(self):
+        plan = self.ms.plan([self.stock], ("hero", "space", "work", "portrait"))
+        self.assertTrue(plan["typographic"])
+        self.assertEqual(plan["identity_filled"], [])
+
+    def test_real_media_fills_identity_sections(self):
+        plan = self.ms.plan([self.stock, self.real_space, self.owner],
+                            ("hero", "space", "work", "portrait"))
+        self.assertFalse(plan["typographic"])
+        self.assertIn("space", plan["identity_filled"])
+
+    def test_identity_title_follows_the_truth(self):
+        self.assertEqual(self.ms.title_for("space", [self.stock]), "Πού θα μας βρεις")
+        self.assertEqual(self.ms.title_for("space", [self.real_space]), "Ο χώρος μας")
+
+    def test_borrowed_media_carries_its_mark(self):
+        self.assertIn("Ενδεικτική", self.ms.caption_for(self.stock))
+        self.assertNotIn("Ενδεικτική", self.ms.caption_for(self.real_space))
