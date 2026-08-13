@@ -12,8 +12,9 @@
     "qa:editor": "node tests/editorFlow.mjs",
     "qa:journey": "node tests/journey.mjs",
     "qa:visual": "node tests/visualJourney.mjs",
-    "qa:release": "npm run qa:spine && npm run qa:profiles && npm run qa:verticals && npm run qa:editor && npm run build",
-    "qa:spine": "node tests/spine_guard.mjs"
+    "qa:release": "npm run qa:spine && npm run qa:registry && npm run qa:profiles && npm run qa:verticals && npm run qa:editor && npm run build",
+    "qa:spine": "node tests/spine_guard.mjs",
+    "qa:registry": "node tests/templateRegistry.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",

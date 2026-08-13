@@ -134,7 +134,7 @@ export function mediaCategoryFor(data) {
 export function withMediaFallback(data = {}) {
   const hasHero = Boolean(data.HERO_IMAGE)
   const hasGallery = Array.isArray(data.gallery) && data.gallery.some(item => item?.image)
-  if (hasHero && hasGallery) return { ...data, MEDIA_MODE: data.MEDIA_MODE || 'real' }
+  if (hasHero && hasGallery) return { ...data, HERO_IS_REAL: true, MEDIA_MODE: data.MEDIA_MODE || 'real' }
 
   const category = mediaCategoryFor(data)
   const images = LIBRARY[category]
@@ -147,6 +147,11 @@ export function withMediaFallback(data = {}) {
 
   return {
     ...data,
+    // Το MEDIA_MODE ΔΕΝ απαντά «είναι δικιά του η φωτογραφία του hero;»: με
+    // gallery αλλά χωρίς hero βγαίνει 'mixed' ενώ το HERO_IMAGE είναι stock.
+    // Το `signature` χρειάζεται ακριβώς αυτή την απάντηση — stock πρόσωπο σε
+    // site προσώπου είναι κατασκευασμένη ταυτότητα, όχι διακόσμηση.
+    HERO_IS_REAL: hasHero,
     HERO_IMAGE: data.HERO_IMAGE || unsplash(images[0][0]),
     STORY_IMAGE: data.STORY_IMAGE || unsplash(images[1][0], 1200),
     gallery: hasGallery ? data.gallery : fallbackGallery,

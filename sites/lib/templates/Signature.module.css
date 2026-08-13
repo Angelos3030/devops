@@ -1,0 +1,188 @@
+/* Signature — ο άνθρωπος είναι η μάρκα.
+   Editorial τυπογραφία, χαρτί, μία ήρεμη ακουαρέλα ως accent. Το όνομα είναι το
+   μεγαλύτερο στοιχείο της σελίδας· όλα τα άλλα το υπηρετούν. */
+.root {
+  /* Ταυτότητα στους ρόλους του spine */
+  --vt-surface:#fbfaf8;--vt-surface-2:#f1efe9;--vt-surface-deep:#23201c;--vt-ink:#1b1815;--vt-ink-soft:#66635f;--vt-on-deep:#ffffff;--vt-accent:#2f5d63;--vt-on-accent:#ffffff;--vt-accent-ink:#2f5d63;--vt-accent-on-deep:#729195;--vt-line:#d7d6d4;
+  /* soft κείμενο ΜΕΣΑ στη σκούρη ζώνη — το ink-soft είναι για την ανοιχτή */
+  --soft-deep: color-mix(in srgb, var(--vt-on-deep) 74%, var(--vt-surface-deep));
+
+  --container: 1180px;
+  --pad: clamp(1.2rem, 5vw, 3.5rem);
+  --section: clamp(3.5rem, 8vw, 6.5rem);
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  background: var(--vt-surface);
+  color: var(--vt-ink);
+  font-family: var(--sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+.root :where(h1, h2, h3, p, ol, li, figure, figcaption, dl, dt, dd) { margin: 0; padding: 0; }
+.root :where(ol) { list-style: none; }
+.root :where(a) { color: inherit; text-decoration: none; }
+.root img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------------------------------------------------------------- nav */
+.nav {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0.9rem var(--pad);
+  background: color-mix(in srgb, var(--vt-surface) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--vt-line);
+}
+.brandLink { min-width: 0; display: inline-flex; align-items: center; min-height: 44px; }
+.navCall {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.1rem;
+  background: var(--vt-accent); color: var(--vt-on-accent);
+  font-weight: 600; font-size: 0.95rem; white-space: nowrap; border-radius: 2px;
+}
+
+/* --------------------------------------------------------------- hero */
+/* Δύο στήλες: τυπογραφία + (πορτρέτο ή κάρτα ταυτότητας). */
+.hero {
+  display: grid; grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2rem, 6vw, 5rem); align-items: center;
+  width: min(var(--container), 100%); margin: 0 auto;
+  padding: var(--section) var(--pad);
+}
+.eyebrow, .eyebrowDark, .eyebrowDeep {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.eyebrow, .eyebrowDark { color: var(--vt-accent-ink); }
+.eyebrowDeep { color: var(--vt-accent-on-deep); }
+.name {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.9rem, 7vw, 5.4rem); line-height: 0.98; letter-spacing: -0.03em;
+  margin: 1rem 0 1.1rem; text-wrap: balance;
+}
+/* Χωρίς πορτρέτο, το όνομα παίρνει τον χώρο που θα έπαιρνε το πρόσωπο. */
+.noPortrait .name { font-size: clamp(3.2rem, 8.5vw, 6.4rem); }
+.lede { max-width: 38ch; font-size: clamp(1.02rem, 1.5vw, 1.2rem); color: var(--vt-ink-soft); }
+.actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.9rem; }
+.primary, .secondary {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 1.5rem; font-weight: 600; font-size: 1rem; border-radius: 2px;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.primary { background: var(--vt-accent); color: var(--vt-on-accent); }
+.primary:hover { background: color-mix(in srgb, var(--vt-accent) 84%, #000); }
+.secondary { border: 1px solid var(--vt-line); color: var(--vt-ink); }
+.secondary:hover { background: var(--vt-surface-2); }
+
+.portrait {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden;
+  border-radius: 2px;
+}
+/* Λεπτό πλαίσιο με μετατόπιση: κάνει τη φωτογραφία «τοποθετημένη», όχι κολλημένη. */
+.portrait::after {
+  content: ''; position: absolute; inset: 0;
+  outline: 1px solid var(--vt-line); outline-offset: 12px; pointer-events: none;
+}
+
+/* ---- Κάρτα ταυτότητας (no-photo) ---- */
+.card {
+  display: grid; gap: 1.4rem; padding: clamp(1.6rem, 3vw, 2.4rem);
+  background: var(--vt-surface-2); border: 1px solid var(--vt-line); border-radius: 2px;
+}
+.monogram {
+  display: grid; place-items: center; width: 92px; height: 92px; border-radius: 50%;
+  border: 1px solid var(--vt-accent-ink); color: var(--vt-accent-ink);
+  font-family: var(--serif); font-size: 2.6rem; line-height: 1;
+}
+.facts { display: grid; gap: 0; }
+.fact {
+  display: grid; grid-template-columns: 8.5rem 1fr; gap: 1rem;
+  padding: 0.85rem 0; border-top: 1px solid var(--vt-line);
+}
+.fact dt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--vt-ink-soft); }
+.fact dd { font-size: 0.95rem; }
+.cardCall {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-family: var(--serif); font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  color: var(--vt-accent-ink); border-bottom: 1px solid var(--vt-accent-ink);
+  justify-self: start;
+}
+
+/* ----------------------------------------------------------- services */
+.services { width: min(var(--container), 100%); margin: 0 auto; padding: 0 var(--pad) var(--section); }
+.secHead { max-width: 44ch; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.secTitle {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -0.02em;
+  margin-top: 0.8rem;
+}
+/* Ευρετήριο, όχι πλέγμα: 2 ή 9 υπηρεσίες δείχνουν εξίσου σκόπιμες. */
+.index { display: grid; }
+.row {
+  display: grid; grid-template-columns: 3.5rem minmax(0, 22ch) 1fr; gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: baseline; padding: clamp(1.1rem, 2.2vw, 1.7rem) 0;
+  border-top: 1px solid var(--vt-line);
+}
+.row:last-child { border-bottom: 1px solid var(--vt-line); }
+.num { font-family: var(--mono); font-size: 0.72rem; color: var(--vt-accent-ink); }
+.rowTitle { font-family: var(--serif); font-weight: 400; font-size: clamp(1.15rem, 2vw, 1.5rem); line-height: 1.2; }
+.rowDesc { color: var(--vt-ink-soft); font-size: 0.96rem; max-width: 62ch; }
+
+/* ----------------------------------------------------------- approach */
+.approach {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.6rem);
+  width: min(var(--container), 100%); margin: 0 auto; padding: 0 var(--pad) var(--section);
+}
+.approachCard { padding: clamp(1.3rem, 2.4vw, 1.9rem); background: var(--vt-surface-2); border-radius: 2px; }
+.approachCard h3 { font-family: var(--serif); font-weight: 400; font-size: 1.2rem; margin-bottom: 0.5rem; }
+.approachCard p { color: var(--vt-ink-soft); font-size: 0.94rem; }
+
+/* -------------------------------------------------------------- story */
+.story { background: var(--vt-surface-deep); color: var(--vt-on-deep); padding: var(--section) var(--pad); }
+.storyIn { width: min(64ch, 100%); margin: 0 auto; }
+.storyTitle {
+  font-family: var(--serif); font-weight: 400; font-size: clamp(1.9rem, 4.4vw, 3.2rem);
+  line-height: 1.05; margin: 0.8rem 0 1.4rem;
+}
+.storyP { color: var(--soft-deep); margin-bottom: 1rem; }
+.sign {
+  font-family: var(--serif); font-style: italic; font-size: 1.4rem;
+  margin-top: 1.6rem; color: var(--vt-accent-on-deep);
+}
+
+/* -------------------------------------------------------------- strip */
+.strip {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--vt-line);
+}
+.shot { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--vt-surface-2); }
+.shot figcaption {
+  position: absolute; inset: auto 0 0; padding: 2.5rem 1rem 0.9rem;
+  background: linear-gradient(transparent, color-mix(in srgb, var(--vt-surface-deep) 82%, transparent));
+  color: var(--vt-on-deep); font-size: 0.8rem;
+}
+
+/* ---------------------------------------------------------------- cta */
+.cta { text-align: center; padding: var(--section) var(--pad); }
+.ctaTitle { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.05; }
+.ctaCall {
+  display: inline-flex; align-items: center; min-height: 52px; margin-top: 1.2rem;
+  font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--vt-accent-ink); border-bottom: 2px solid var(--vt-accent-ink);
+}
+.ctaSub { margin-top: 1rem; font-family: var(--mono); font-size: 0.74rem; color: var(--vt-ink-soft); }
+.footer { text-align: center; padding: 1.6rem var(--pad); font-family: var(--mono); font-size: 0.7rem; color: var(--vt-ink-soft); border-top: 1px solid var(--vt-line); }
+
+/* --------------------------------------------------------- responsive */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .portrait { aspect-ratio: 3 / 4; max-height: 62vh; }
+  .approach { grid-template-columns: 1fr; }
+  .row { grid-template-columns: 2.5rem 1fr; }
+  .rowDesc { grid-column: 2; }
+  .strip { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .fact { grid-template-columns: 1fr; gap: 0.2rem; }
+  .navCall { padding: 0 0.9rem; font-size: 0.88rem; }
+}

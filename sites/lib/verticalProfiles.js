@@ -8,6 +8,8 @@ const DESIGN_SYSTEM_IDS = Object.freeze([
   // Έλειπε από εδώ — γι' αυτό ΔΕΝ μπορούσε καν να μπει σε profile: το
   // tests/verticalProfiles.mjs κόβει κάθε id εκτός αυτής της λίστας.
   'callout',
+  // Μονοπρόσωπος επαγγελματίας: ο άνθρωπος ΕΙΝΑΙ η μάρκα.
+  'signature',
   'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery',
 ])
 
@@ -112,7 +114,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['graphic-procedures', 'guaranteed-outcomes', 'patient-identifying-images']),
       fallbackStrategy: 'credential-led-editorial-with-clinical-abstracts',
     },
-    compatibleDesignSystemIds: ['clinic-triage', 'marble', 'quiet', 'editorial', 'split', 'cinematic', 'grid', 'living', 'bento', 'canvas', 'sidebar', 'infinite'],
+    compatibleDesignSystemIds: ['clinic-triage', 'signature', 'marble', 'quiet', 'editorial', 'split', 'cinematic', 'grid', 'living', 'bento', 'canvas', 'sidebar'],
   }),
   pharmacy: profile({
     id: 'pharmacy', label: 'Φαρμακείο',
@@ -154,7 +156,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['sexualized-imagery', 'medical-cure-claims', 'unconsented-client-images']),
       fallbackStrategy: 'calm-materials-and-wellness-typography',
     },
-    compatibleDesignSystemIds: ['living', 'quiet', 'aegean', 'bloom', 'clinic-triage', 'cinematic', 'infinite', 'canvas', 'marble', 'type-gallery', 'terra', 'magazine'],
+    compatibleDesignSystemIds: ['living', 'quiet', 'signature', 'aegean', 'bloom', 'clinic-triage', 'cinematic', 'infinite', 'canvas', 'marble', 'type-gallery', 'terra'],
   }),
   cafe: profile({
     id: 'cafe', label: 'Καφέ',
@@ -198,7 +200,7 @@ export const VERTICAL_PROFILES = Object.freeze({
     },
     // Το `longform` (στενή στήλη, drop-cap, magazine ανάγνωση) ταιριάζει σε
     // επάγγελμα που πρέπει να ΕΞΗΓΗΣΕΙ: νομικά κείμενα, διαδικασίες, όροι.
-    compatibleDesignSystemIds: ['marble', 'quiet', 'cinematic', 'longform', 'grid', 'infinite', 'canvas', 'type-gallery', 'living', 'kinetic', 'editorial', 'sidebar'],
+    compatibleDesignSystemIds: ['marble', 'signature', 'quiet', 'cinematic', 'longform', 'grid', 'infinite', 'canvas', 'type-gallery', 'living', 'kinetic', 'editorial'],
   }),
   plumber: profile({
     id: 'plumber', label: 'Υδραυλικός',
