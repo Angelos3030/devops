@@ -183,6 +183,15 @@ _PROFESSION_COPY = {
             ("Συμβουλευτική", "Αξιολόγηση αναγκών και πρόταση κατάλληλου πλάνου περιποίησης."),
         ],
     },
+    "pet": {
+        "hero_word": "φροντίδα", "kicker_suffix": "Περιποίηση κατοικιδίων",
+        "services": [
+            ("Μπάνιο & στέγνωμα", "Καθαρισμός με προϊόντα κατάλληλα για το τρίχωμα."),
+            ("Κούρεμα", "Κούρεμα ράτσας ή απλό φρεσκάρισμα, με ραντεβού."),
+            ("Νύχια & αυτιά", "Βασική περιποίηση με ηρεμία και υπομονή."),
+            ("Περιποίηση γάτας", "Ήσυχη διαδικασία σε ξεχωριστή ώρα."),
+        ],
+    },
     "massage": {
         "hero_word": "ηρεμία", "kicker_suffix": "Massage & wellness",
         "services": [
@@ -271,6 +280,7 @@ _VERTICAL_DEFAULTS = {
     "beauty": ("Περιποίηση που αναδεικνύει το προσωπικό σου στιλ.", "Η λεπτομέρεια κάνει τη διαφορά.", "Κλείσε το ραντεβού σου."),
     "nails": ("Περιποιημένα άκρα με καθαρό, προσωπικό στιλ.", "Η ομορφιά βρίσκεται στη λεπτομέρεια.", "Κλείσε το ραντεβού σου."),
     "aesthetics": ("Φροντίδα προσώπου και σώματος προσαρμοσμένη σε εσένα.", "Η σωστή περιποίηση ξεκινά από τις δικές σου ανάγκες.", "Κλείσε μια πρώτη συμβουλευτική."),
+    "pet": ("Φροντίδα για τον σκύλο και τη γάτα σου, με ηρεμία και ραντεβού.", "Κάθε ζώο έχει τον δικό του ρυθμό.", "Κλείσε ραντεβού για το κατοικίδιό σου."),
     "massage": ("Χρόνος για αποφόρτιση, ισορροπία και ευεξία.", "Μια εμπειρία φροντίδας με τον δικό σου ρυθμό.", "Κλείσε τη συνεδρία σου."),
     "retail": ("Επιλεγμένα προϊόντα και προσωπική εξυπηρέτηση.", "Επιλογές που ταιριάζουν στη δική σου καθημερινότητα.", "Ρώτησέ μας για διαθεσιμότητα."),
     "professional": ("Καθαρή καθοδήγηση για κάθε επόμενο βήμα.", "Εξειδίκευση με συνέπεια και σαφή επικοινωνία.", "Κλείσε μια πρώτη συνάντηση."),
@@ -295,6 +305,7 @@ _DEFAULT_HERO = {
     "bakery": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1800&q=80",
     "dentist": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=80",
     "doctor": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
+    "pet": "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=1800&q=80",
     "beauty": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=80",
     "nails": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1800&q=80",
     "aesthetics": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1800&q=80",
@@ -370,11 +381,13 @@ _VERTICAL_RULES = (
     ("pharmacy", ("φαρμακει", "φαρμακοποι", "pharmacy", "drugstore", "παραφαρμακ", "δερμοκαλλυν")),
     ("doctor", ("ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "διαιτολογ", "ψυχολογ", "κτηνιατρ")),
     ("aesthetics", ("αισθητικ", "beauty clinic", "κεντρο ομορφια", "μακιγι", "laser αποτριχ")),
+    ("pet", ("pet grooming", "petshop", "pet shop", "κατοικιδ", "σκυλ", "γατ",
+             "grooming", "groomer", "κτηνιατ", "εκπαιδευτ σκυλ", "τετραποδ")),
     ("massage", ("μασαζ", "massage", "spa", "wellness")),
     ("beauty", ("κομμωτ", "beauty", "hair", "salon", "barber", "κουρει", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ", "nail", "nixia", "nyxia", "nuxia")),
     ("retail", ("καταστημα", "retail", "store", "boutique", "μπουτικ", "ανθοπωλ", "λουλουδ", "ρουχ", "υποδημα", "παπουτσ", "κοσμημ", "οπτικ", "βιβλιοπωλ", "δωρα")),
     ("wood", ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")),
-    ("professional", ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "μεσιτ", "ασφαλισ", "notary", "συμβολαιογρ")),
+    ("professional", ("ακινητ", "δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "μεσιτ", "ασφαλισ", "notary", "συμβολαιογρ")),
     ("trade", ("υδραυλικ", "ηλεκτρολ", "ελαιοχρωματ", "μαστορ", "τεχνιτ", "ψυκτικ", "αλουμιν", "σιδηρ", "πλακα", "μονωσ", "κλιματισ", "plumber", "electrician")),
 )
 
@@ -411,11 +424,71 @@ def _vertical_by_ai(text: str) -> str | None:
         return None
 
 
-def _vertical(intake: dict[str, Any]) -> str:
-    text = _normalize_text(" ".join(str(intake.get(k, "")) for k in ("type", "trade", "description", "name")))
+# ── Ταξινόμηση με προτεραιότητα σήματος, όχι με σειρά κανόνων ──────────────
+#
+# Το παλιό `_vertical` επέστρεφε τον ΠΡΩΤΟ κανόνα με substring match. Επειδή το
+# `garage` είναι γραμμένο πριν το `trade`, το «μικρό **συνεργείο** υδραυλικών»
+# έβγαινε συνεργείο αυτοκινήτων — και το site πήρε φωτογραφία μηχανής. Ομοίως
+# το «Pet **Spa** Λούνα» έπεφτε στο `massage` και εικονογραφήθηκε με ανθρώπινο
+# μανικιούρ. Και στις δύο περιπτώσεις μια ΓΕΝΙΚΗ λέξη νίκησε μια λέξη που ορίζει
+# το επάγγελμα.
+#
+# Τώρα κάθε ένδειξη έχει βάρος και τα συμφραζόμενα μπορούν να ακυρώσουν κατηγορία:
+#   STRONG  — ορίζει το επάγγελμα («υδραυλικ», «οδοντ», «ζαχαροπλαστ»)
+#   WEAK    — γενικό ουσιαστικό που εμφανίζεται σε πολλά επαγγέλματα
+#             («συνεργει», «spa», «κεντρο», «studio»)
+# Το πεδίο μετράει κι αυτό: `type`/`trade` είναι δήλωση επαγγέλματος, το `name`
+# είναι εμπορική επωνυμία και δεν επιτρέπεται να καθορίσει μόνο του κατηγορία.
+
+_WEAK_WORDS = frozenset((
+    "συνεργει", "spa", "wellness", "κεντρο", "studio", "στουντιο", "salon",
+    "boutique", "μπουτικ", "καταστημα", "store", "γραφειο", "atelier", "house",
+    "lab", "club", "shop", "point", "room", "rooms", "service",
+))
+# Συμφραζόμενα που ΑΚΥΡΩΝΟΥΝ κατηγορίες: ένα κομμωτήριο σκύλων δεν είναι
+# ανθρώπινο κομμωτήριο, όσες φορές κι αν γράφει «spa» η επωνυμία.
+_CONTEXT_BLOCKS = (
+    (("κατοικιδ", "σκυλ", "σκυλο", "γατα", "γατε", "γατων", "pet", " dog", "dog ",
+      "cat ", "grooming", "groomer", "κτηνιατ", "ζωακ", "τετραποδ"),
+     ("beauty", "nails", "massage", "aesthetics", "food", "cafe")),
+)
+_FIELD_WEIGHT = {"type": 3, "trade": 3, "description": 2, "name": 1}
+# Μια κατηγορία δεν κερδίζει από ΜΟΝΟ ένα weak σήμα σε επωνυμία.
+_MIN_SCORE = 2
+
+
+def _signals(intake: dict[str, Any]) -> dict[str, int]:
+    fields = {k: _normalize_text(str(intake.get(k, ""))) for k in _FIELD_WEIGHT}
+    blob = " ".join(fields.values())
+    blocked: set[str] = set()
+    for triggers, verticals in _CONTEXT_BLOCKS:
+        if any(t in blob for t in triggers):
+            blocked.update(verticals)
+
+    scores: dict[str, int] = {}
     for vertical, words in _VERTICAL_RULES:
-        if any(w in text for w in words):
-            return vertical
+        if vertical in blocked:
+            continue
+        best = 0
+        for word in words:
+            strength = 1 if word in _WEAK_WORDS else 4
+            for field, text in fields.items():
+                if word in text:
+                    best = max(best, strength * _FIELD_WEIGHT[field])
+        if best:
+            scores[vertical] = best
+    return scores
+
+
+def _vertical(intake: dict[str, Any]) -> str:
+    scores = _signals(intake)
+    if scores:
+        order = {v: i for i, (v, _) in enumerate(_VERTICAL_RULES)}
+        # Ισοβαθμία → η σειρά των κανόνων, ώστε το ίδιο intake να δίνει ΠΑΝΤΑ
+        # το ίδιο αποτέλεσμα (το theme selection πρέπει να είναι αναπαραγώγιμο).
+        best = max(scores.items(), key=lambda kv: (kv[1], -order[kv[0]]))
+        if best[1] >= _MIN_SCORE:
+            return best[0]
     raw = " ".join(str(intake.get(k, "")) for k in ("type", "trade", "description")).strip()
     return (_vertical_by_ai(raw) if raw else None) or _VERTICAL_FALLBACK
 
@@ -432,6 +505,7 @@ _TEMPLATES_BY_VERTICAL = {
     "doctor":       ["clinic-triage", "signature", "marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
     "pharmacy":     ["quiet", "marble", "grid", "editorial", "bento", "split", "living", "clinic-triage", "sidebar", "canvas", "infinite", "type-gallery"],
     "aesthetics":   ["beauty-atelier", "bloom", "quiet", "clinic-triage", "marble", "runway", "living", "cinematic", "type-gallery", "bento", "infinite", "canvas", "magazine"],
+    "pet":          ["living", "bloom", "quiet", "grid", "type-gallery", "cinematic", "infinite", "canvas", "bento", "editorial", "magazine", "split"],
     "massage":      ["living", "quiet", "signature", "aegean", "clinic-triage", "bloom", "warmth", "cinematic", "infinite", "canvas", "marble", "type-gallery", "terra", "magazine"],
     "beauty":       ["beauty-atelier", "runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas", "magazine", "poster"],
     "retail":       ["bento", "grid", "type-gallery", "quiet", "living", "infinite", "canvas", "cinematic", "kinetic", "magazine", "editorial", "split"],
@@ -444,9 +518,64 @@ _TEMPLATES_BY_VERTICAL = {
 }
 
 
+# Λέξεις που δηλώνουν ΟΡΓΑΝΙΣΜΟ, όχι πρόσωπο. Αν υπάρχουν στην επωνυμία, η
+# επιχείρηση δεν παρουσιάζεται ως ένας άνθρωπος.
+_ORG_WORDS = (
+    "αε", "α.ε", "επε", "ε.π.ε", "ικε", "ι.κ.ε", "οε", "ο.ε", "ομιλ", "εταιρ",
+    "κεντρο", "ομαδα", "group", "clinic", "κλινικ", "studio", "salon", "shop",
+    "καταστημα", "συνεργατ", "& σια", "και σια", "αφοι", "υιοι",
+)
+# Πρώτο πρόσωπο ενικού: ο ίδιος ο επαγγελματίας μιλάει.
+_SOLO_HINTS = ("δουλευω", "αναλαμβανω", "ειμαι ", "εργαζομαι", "συνεργαζομαι",
+               "ενος ατομου", "μονη μου", "μονος μου", "προσωπικα ")
+# Verticals όπου η μονάδα εμπιστοσύνης ΜΠΟΡΕΙ να είναι ο άνθρωπος.
+_PERSON_FIRST_VERTICALS = frozenset(("professional", "doctor", "massage", "gym"))
+
+
+def _is_solo_practitioner(intake: dict[str, Any]) -> bool:
+    """Είναι η επιχείρηση ΕΝΑΣ άνθρωπος; Ντετερμινιστικό, χωρίς AI.
+
+    Δύο ανεξάρτητες ενδείξεις, καμία από τις οποίες δεν αρκεί μόνη της αν η
+    επωνυμία δηλώνει οργανισμό: (α) η επωνυμία είναι ονοματεπώνυμο, (β) η
+    περιγραφή μιλάει σε πρώτο πρόσωπο ενικού.
+    """
+    name = str(intake.get("name") or "").strip()
+    norm_name = _normalize_text(name)
+    if any(w in norm_name for w in _ORG_WORDS):
+        return False
+    # Επωνυμία που ΔΗΛΩΝΕΙ το επάγγελμα είναι εμπορική, όχι ονοματεπώνυμο:
+    # «Ακίνητα Δουκάκης» και «Οδοντιατρείο Παπαδάκη» δεν είναι πρόσωπα, όσο κι αν
+    # μοιάζουν μορφολογικά με δύο κεφαλαία αρχικά.
+    declares_trade = any(w in norm_name for _, words_ in _VERTICAL_RULES for w in words_)
+    words = [w for w in re.split(r"\s+", name) if w]
+    # «Γεωργία Στεφανίδου» → δύο λέξεις με κεφαλαίο αρχικό, χωρίς εμπορικό ουσιαστικό.
+    looks_like_person = (
+        not declares_trade
+        and 1 < len(words) <= 3
+        and all(w[:1].isupper() for w in words if w[:1].isalpha())
+        and not any(ch.isdigit() for ch in name)
+    )
+    desc = _normalize_text(" ".join(str(intake.get(k, "")) for k in ("description", "style", "about")))
+    speaks_singular = any(h in desc for h in _SOLO_HINTS)
+    return bool(looks_like_person or speaks_singular)
+
+
 def recommend_templates(intake: dict[str, Any], limit: int = 7) -> list[str]:
-    """Τέσσερις ranked React προτάσεις, με την καταλληλότερη πρώτη."""
-    keys = _TEMPLATES_BY_VERTICAL.get(_vertical(intake), _TEMPLATES_BY_VERTICAL["trade"])
+    """Ranked React προτάσεις, με την καταλληλότερη πρώτη.
+
+    Η κατάταξη ήταν σταθερή ανά vertical, οπότε το `signature` έβγαινε #2 και
+    ΔΕΝ επιλεγόταν ποτέ (η παραγωγή παίρνει `[0]`). Ένας μονοπρόσωπος λογιστής
+    και ένα λογιστικό γραφείο δέκα ατόμων έπαιρναν το ίδιο theme, παρότι το ένα
+    πουλάει άνθρωπο και το άλλο οργανισμό.
+
+    Το σήμα είναι ντετερμινιστικό: ίδιο intake → ίδια σειρά, πάντα.
+    """
+    vertical = _vertical(intake)
+    keys = list(_TEMPLATES_BY_VERTICAL.get(vertical, _TEMPLATES_BY_VERTICAL["trade"]))
+    if (vertical in _PERSON_FIRST_VERTICALS
+            and "signature" in keys
+            and _is_solo_practitioner(intake)):
+        keys.insert(0, keys.pop(keys.index("signature")))
     return [k for k in keys if k in REACT_TEMPLATES][:limit]
 
 
@@ -534,6 +663,11 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
     ][:8]
 
     _fallback_hero = _DEFAULT_HERO.get(prof, _DEFAULT_HERO["trade"])
+    # ΠΟΙΟΣ έβαλε την εικόνα, όχι μόνο ΑΝ υπάρχει. Το `normalize` γεμίζει πάντα
+    # το HERO_IMAGE με stock, οπότε το JS `withMediaFallback` έβγαζε πάντα
+    # `HERO_IS_REAL: true` — ακόμη και για πελάτη με μηδέν φωτογραφίες. Ένα theme
+    # που ρωτά «είναι δική του η φωτογραφία;» έπαιρνε λάθος απάντηση.
+    _own_hero = bool(str(intake.get("hero_image") or "").strip() or gallery)
     hero_image = _asset(str(intake.get("hero_image") or (gallery[0]["image"] if gallery else "") or _fallback_hero))
     story_image = _asset(str(intake.get("workshop_image") or intake.get("story_image")
                              or (gallery[-1]["image"] if gallery else "") or _fallback_hero))
@@ -609,6 +743,8 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
         "KICKER": " · ".join(x for x in (trade, city) if x),
         "HERO_WORD": copy["hero_word"],
         "HERO_IMAGE": hero_image, "STORY_IMAGE": story_image,
+        "HERO_IS_REAL": _own_hero, "MEDIA_ILLUSTRATIVE": not _own_hero,
+
         "STORY_TITLE": _e(_optional(intake.get("story_title")) or story_title_default),
         "CTA_TITLE": _e(_optional(intake.get("cta_title")) or cta_title_default),
         "INTRO": _e(intake.get("intro") or tagline),

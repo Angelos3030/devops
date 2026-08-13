@@ -6,6 +6,8 @@ import Brand from './Brand'
 // το δελτίο εργασιών — υπηρεσίες σαν service checklist με τετράγωνα κουτάκια ✓.
 export default function Motor({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
+  // Μόνο δηλωμένα στοιχεία — κανένας ισχυρισμός που δεν έδωσε ο πελάτης.
+  const badges = [d.HOURS, d.AREAS || d.CITY].filter(Boolean).map((x) => `✓ ${x}`)
   return (
     <div className={s.root}>
       <nav className={s.nav}>
@@ -19,10 +21,14 @@ export default function Motor({ data: d }) {
           <span className={s.eyebrow}>{d.KICKER}</span>
           <h1 className={s.title}>{d.NAME}</h1>
           <p className={s.lede}>{d.TAGLINE}</p>
-          <div className={s.badges}>
-            <span className={s.badge}>✓ Γραπτή εγγύηση</span>
-            <span className={s.badge}>✓ Τιμή πριν την εργασία</span>
-          </div>
+          {/* Έλεγαν «✓ Γραπτή εγγύηση» και «✓ Τιμή πριν την εργασία» σε κάθε
+              πελάτη, χωρίς κανείς να το έχει δηλώσει. Τα badges δείχνουν πλέον
+              μόνο δηλωμένα στοιχεία — ώρες και περιοχές. */}
+          {badges.length > 0 && (
+            <div className={s.badges}>
+              {badges.map((b) => <span className={s.badge} key={b}>{b}</span>)}
+            </div>
+          )}
           <a href={tel} className={s.cta}>Κλείσε ραντεβού</a>
         </div>
         {d.HERO_IMAGE && (

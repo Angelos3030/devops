@@ -148,7 +148,7 @@ export default function ClinicTriage({ data: d }) {
         <section className={s.gallery}>
           <header className={s.secHead}>
             {d.GALLERY_EYEBROW && <span className={s.eyebrowDark}>{d.GALLERY_EYEBROW}</span>}
-            <h2 className={s.secTitle}>{d.GALLERY_TITLE || 'Ο χώρος μας'}</h2>
+            <h2 className={s.secTitle}>{d.GALLERY_TITLE || (d.MEDIA_ILLUSTRATIVE ? 'Έτσι δουλεύουμε' : 'Ο χώρος μας')}</h2>
           </header>
           <div className={s.galleryGrid}>
             {gallery.slice(0, 8).map((g, i) => (

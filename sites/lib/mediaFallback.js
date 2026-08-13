@@ -70,6 +70,14 @@ const LIBRARY = {
     ['photo-1471193945509-9ad0617afabf', 'Φρέσκα προϊόντα'],
     ['photo-1498579397066-22750a3cb424', 'Από τη γη'],
   ],
+  // Κατοικίδια: ΠΟΤΕ ανθρώπινο μανικιούρ. Το benchmark έδειξε pet grooming
+  // εικονογραφημένο με ανθρώπινα νύχια, κάτω από τον τίτλο «ο χώρος μας».
+  pet: [
+    ['photo-1601758228041-f3b2795255f1', 'Φροντίδα κατοικιδίων'],
+    ['photo-1583337130417-3346a1be7dee', 'Στο κομμωτήριο'],
+    ['photo-1615751072497-5f5169febe17', 'Περιποίηση'],
+    ['photo-1518717758536-85ae29035b6d', 'Ήρεμη διαδικασία'],
+  ],
   professional: [
     ['photo-1497366216548-37526070297c', 'Επαγγελματικός χώρος'],
     ['photo-1521737604893-d14cc237f11d', 'Συνεργασία'],
@@ -100,6 +108,7 @@ const RULES = [
   // το «καφε» πιάνεται από τον κανόνα της ταβέρνας.
   ['cafe', /καφε|καφέ|cafe|coffee|φουρν|αρτοποι|ζαχαροπλ|bakery|creperi|κρεπερ|παγωτ|brunch/i],
   ['food', /ταβερ|εστια|ψησταρ|σουβλα|grill|πιτσαρ|pizza|μεζε|bar|μπαρ/i],
+  ['pet', /κατοικιδ|σκυλ|γατ|pet |pet$|petshop|grooming|groomer|κτηνιατ|τετραποδ|dog|cat /i],
   ['wellness', /μασαζ|massage|wellness|ευεξ|ρεφλεξολογ|pilates|yoga/i],
   ['nails', /νυχι|νυχαδ|μανικιουρ|πεντικιουρ|nail/i],
   ['beauty', /κομμ|κουρει|barber|hair|salon|beauty|αισθητ|spa/i],
@@ -132,7 +141,11 @@ export function mediaCategoryFor(data) {
 }
 
 export function withMediaFallback(data = {}) {
-  const hasHero = Boolean(data.HERO_IMAGE)
+  // Ο generator ΞΕΡΕΙ αν η φωτογραφία είναι του πελάτη· εδώ βλέπουμε μόνο ότι
+  // κάποιο URL υπάρχει. Όταν το δηλώνει, η δήλωσή του υπερισχύει.
+  const hasHero = typeof data.HERO_IS_REAL === 'boolean'
+    ? data.HERO_IS_REAL
+    : Boolean(data.HERO_IMAGE)
   const hasGallery = Array.isArray(data.gallery) && data.gallery.some(item => item?.image)
   if (hasHero && hasGallery) return { ...data, HERO_IS_REAL: true, MEDIA_MODE: data.MEDIA_MODE || 'real' }
 

@@ -12,9 +12,9 @@ function Credit({ d, light = false }) {
 export function BakeryEditorial({ data: d }) {
   const gallery = photos(d)
   return <main className={`${s.root} ${s.patisserie}`}>
-    <nav className={s.patNav}><Brand data={d} /><span>Maison artisanale</span><a href={tel(d)}>Παραγγελίες</a></nav>
+    <nav className={s.patNav}><Brand data={d} /><span>{d.TRADE}</span><a href={tel(d)}>Παραγγελίες</a></nav>
     <header className={s.patHero}>
-      <div className={s.patTitle}><span>Depuis 2026 · {d.CITY}</span><h1>{d.NAME}</h1><p>{d.TAGLINE}</p></div>
+      <div className={s.patTitle}><span>{[d.TRADE, d.CITY].filter(Boolean).join(' · ')}</span><h1>{d.NAME}</h1><p>{d.TAGLINE}</p></div>
       {d.HERO_IMAGE && <figure><img src={d.HERO_IMAGE} alt={d.NAME} /><figcaption>Η τέχνη της καθημερινής απόλαυσης</figcaption></figure>}
       <div className={s.patSeal}>fait<br />main</div>
     </header>
@@ -119,7 +119,7 @@ export function HeritageBakery({ data: d }) {
   const gallery = photos(d)
   return <main className={`${s.root} ${s.heritage}`}>
     <div className={s.heritageTop}>ΠΑΡΑΔΟΣΗ · ΠΟΙΟΤΗΤΑ · ΚΑΘΗΜΕΡΙΝΗ ΦΡΕΣΚΑΔΑ</div>
-    <nav className={s.heritageNav}><Brand data={d} /><span>Από το 1960</span><a href={tel(d)}>Παραγγελίες · {d.PHONE}</a></nav>
+    <nav className={s.heritageNav}><Brand data={d} /><span>{[d.TRADE, d.CITY].filter(Boolean).join(' · ')}</span><a href={tel(d)}>Παραγγελίες · {d.PHONE}</a></nav>
     <header className={s.heritageHero}>
       <div><span>ΟΙΚΟΓΕΝΕΙΑΚΟΣ ΦΟΥΡΝΟΣ</span><h1>Εδώ ζυμώνεται.<br /><i>Εδώ ψήνεται.</i></h1><p>{d.TAGLINE}</p><a href="#products">Δες τα προϊόντα μας</a></div>
       {d.HERO_IMAGE && <figure><img src={d.HERO_IMAGE} alt={d.NAME} /><figcaption>Φρέσκα κάθε μέρα</figcaption></figure>}

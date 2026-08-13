@@ -6,7 +6,12 @@ export default function BeautyAtelier({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
   const booking = d.BOOKING_URL || tel
   const gallery = d.gallery || []
-  const proof = d.PROOF_ITEMS || ['Προσωπικό ραντεβού', 'Επαγγελματικά προϊόντα', 'Χωρίς βιασύνη', 'Φροντίδα στη λεπτομέρεια']
+  // Το «Επαγγελματικά προϊόντα» ήταν ισχυρισμός για προϊόντα που κανείς δεν είχε
+  // δηλώσει. Η λωρίδα δείχνει πρώτα δηλωμένα στοιχεία (ώρες, περιοχές) και μετά
+  // μόνο μη-επαληθεύσιμο ΥΦΟΣ, όχι γεγονότα.
+  const proof = d.PROOF_ITEMS || [
+    d.HOURS, d.AREAS || d.CITY, 'Με ραντεβού', 'Φροντίδα στη λεπτομέρεια',
+  ].filter(Boolean).slice(0, 4)
   return <div className={s.root}>
     <nav className={s.nav} aria-label="Κύρια πλοήγηση"><a href="#top" className={s.brandLink}><Brand data={d} className={s.brand}/></a><div className={s.navLinks}><a href="#services">Υπηρεσίες</a><a href="#work">Έργα</a><a href="#find-us">Επίσκεψη</a></div><a href={booking} className={s.book}>Κλείσε ραντεβού</a></nav>
     <header id="top" className={`${s.hero} ${d.HERO_IMAGE ? '' : s.heroNoPhoto}`}>

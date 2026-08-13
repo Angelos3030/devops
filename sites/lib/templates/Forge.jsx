@@ -8,6 +8,15 @@ import Brand from './Brand'
 export default function Forge({ data: d }) {
   const tel = `tel:+${d.PHONE_INTL}`
   const primaryArea = String(d.AREAS || d.CITY || 'Η περιοχή σας').split('·')[0].trim()
+  // Μόνο δηλωμένα γεγονότα. Καμία εγγύηση, κανένας χρόνος απόκρισης, καμία τιμή.
+  const areaList = String(d.AREAS || '').split('·').map((x) => x.trim()).filter(Boolean)
+  const trust = [
+    d.TRADE && [d.TRADE, d.CITY || ''],
+    d.HOURS && ['Ωράριο', d.HOURS],
+    areaList.length > 1 ? [primaryArea, `& ${areaList.length - 1} ακόμη περιοχές`]
+      : (d.CITY && [primaryArea, 'και γύρω περιοχές']),
+    d.PHONE && ['Τηλέφωνο', d.PHONE],
+  ].filter(Boolean)
   return (
     <div className={s.root}>
       <div className={s.stripe} aria-hidden="true" />
@@ -34,12 +43,17 @@ export default function Forge({ data: d }) {
         )}
       </header>
 
-      <div className={s.trust}>
-        <div className={s.trustItem}><strong>Γρήγορη</strong><span>ανταπόκριση</span></div>
-        <div className={s.trustItem}><strong>Εγγύηση</strong><span>σε κάθε εργασία</span></div>
-        <div className={s.trustItem}><strong>Καθαρές</strong><span>τιμές από πριν</span></div>
-        <div className={s.trustItem}><strong>{primaryArea}</strong><span>& γύρω περιοχές</span></div>
-      </div>
+      {/* Η ζώνη έλεγε «Εγγύηση σε κάθε εργασία» και «Καθαρές τιμές από πριν» σε
+          ΚΑΘΕ πελάτη που πήρε αυτό το theme — ισχυρισμοί που κανείς δεν είχε
+          δηλώσει. Τώρα δείχνει μόνο δηλωμένα στοιχεία, και ό,τι λείπει απλώς
+          δεν εμφανίζεται. Βλ. docs/ai/DECISIONS.md §D4. */}
+      {trust.length > 0 && (
+        <div className={s.trust}>
+          {trust.map(([strong, sub]) => (
+            <div className={s.trustItem} key={strong}><strong>{strong}</strong><span>{sub}</span></div>
+          ))}
+        </div>
+      )}
 
       <section id="services" className={s.svc}>
         <h2 className={s.secTitle}>Τι αναλαμβάνω</h2>

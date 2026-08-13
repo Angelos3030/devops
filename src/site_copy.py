@@ -29,6 +29,15 @@ _SYSTEM = (
     "Είσαι Έλληνας copywriter για μικρές τοπικές επιχειρήσεις. Γράφεις σύντομα, "
     "συγκεκριμένα και ανθρώπινα ελληνικά — ΟΧΙ μεταφρασμένα αγγλικά, ΟΧΙ κλισέ όπως "
     "«κορυφαία ποιότητα» ή «ο αξιόπιστος συνεργάτης σας». Επιστρέφεις ΜΟΝΟ έγκυρο JSON."
+    "\n\nΑΠΟΛΥΤΟΣ ΚΑΝΟΝΑΣ — ΜΗΝ ΕΦΕΥΡΙΣΚΕΙΣ ΓΕΓΟΝΟΤΑ. Γράφεις μόνο ό,τι σου δόθηκε. "
+    "ΑΠΑΓΟΡΕΥΟΝΤΑΙ, εκτός αν υπάρχουν ΑΥΤΟΛΕΞΕΙ στα στοιχεία που σου δίνονται: "
+    "χρόνια λειτουργίας ή εμπειρίας, έτος ίδρυσης («από το 1998», «since», «depuis»), "
+    "τιμές και ποσά, εγγυήσεις, πιστοποιήσεις, βραβεία, βαθμολογίες, κριτικές, "
+    "αριθμοί πελατών ή έργων, συνεργασίες, χρόνος απόκρισης, 24/7 διαθεσιμότητα, "
+    "ιατρικοί ισχυρισμοί, και υπερθετικά σαν γεγονός («ο καλύτερος», «Νο1»). "
+    "Αν δεν ξέρεις κάτι, ΜΗΝ το γράψεις καθόλου — μη μαντεύεις και μη στρογγυλοποιείς. "
+    "Ένα σύντομο, αληθινό κείμενο είναι σωστό· ένα πλούσιο κείμενο με έναν "
+    "εφευρεμένο αριθμό είναι άχρηστο και θα απορριφθεί ολόκληρο."
 )
 
 _SCHEMA_HINT = (
@@ -153,6 +162,20 @@ def write_copy(intake: dict[str, Any]) -> dict[str, Any]:
 
 
 def enrich_with_copy(intake: dict[str, Any]) -> dict[str, Any]:
-    """Return a copy of intake with AI marketing copy merged in (no-op without key)."""
+    """Return a copy of intake with AI marketing copy merged in (no-op without key).
+
+    Το prompt ΔΕΝ αρκεί. Το benchmark των 10 sites έδειξε ότι το μοντέλο γεμίζει
+    κενά με χρόνια, τιμές και εγγυήσεις ακόμη κι όταν δεν του δόθηκαν. Κάθε
+    πεδίο περνά από ντετερμινιστικό έλεγχο πριν φτάσει σε site πελάτη· ό,τι δεν
+    στηρίζεται στο intake κόβεται, και το πεδίο πέφτει πίσω στο ελεγμένο default.
+    """
     copy = write_copy(intake)
-    return {**intake, **copy} if copy else intake
+    if not copy:
+        return intake
+    from . import truth_guard
+    clean, removed = truth_guard.scrub_copy(copy, intake)
+    if removed:
+        kinds = ", ".join(sorted({c.kind for c in removed}))
+        print(f"[truth] αφαιρέθηκαν {len(removed)} ατεκμηρίωτοι ισχυρισμοί ({kinds}): "
+              + " | ".join(c.text for c in removed[:5]))
+    return {**intake, **clean}
