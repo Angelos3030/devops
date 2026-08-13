@@ -648,7 +648,12 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
                 s["desc"] = _e(reviewed.get(_normalize_text(s["title"]), ""))
     else:
         services = [{"title": _e(t), "desc": _e(d)} for t, d in copy["services"]]
-    services = services[:6]
+    # Το cap ήταν 6 και ήταν ΣΙΩΠΗΛΟ: ένας φούρνος με 9 προϊόντα έχανε τρία και
+    # κανείς δεν το μάθαινε — ούτε εμείς, ούτε ο πελάτης. Ό,τι δήλωσε ο πελάτης
+    # ανήκει στο site του. Το όριο ανεβαίνει σε ρεαλιστικό μέγιστο και ό,τι
+    # περισσεύει ΔΗΛΩΝΕΤΑΙ, δεν εξαφανίζεται.
+    services_total = len(services)
+    services = services[:12]
     for i, s in enumerate(services):
         s["num"] = f"{i + 1:02d}"
         s["icon"] = _ICONS[i % len(_ICONS)]
@@ -744,6 +749,9 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
         "HERO_WORD": copy["hero_word"],
         "HERO_IMAGE": hero_image, "STORY_IMAGE": story_image,
         "HERO_IS_REAL": _own_hero, "MEDIA_ILLUSTRATIVE": not _own_hero,
+        # Πόσες υπηρεσίες ΔΗΛΩΣΕ ο πελάτης — τα themes που δείχνουν λιγότερες
+        # οφείλουν να το πουν, αντί να τις εξαφανίσουν.
+        "SERVICES_TOTAL": services_total,
 
         "STORY_TITLE": _e(_optional(intake.get("story_title")) or story_title_default),
         "CTA_TITLE": _e(_optional(intake.get("cta_title")) or cta_title_default),

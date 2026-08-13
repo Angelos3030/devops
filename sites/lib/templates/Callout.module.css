@@ -222,7 +222,10 @@ a.quoteBtn { display: flex; align-items: center; justify-content: center; text-a
 
 /* ----------------------------------------------------------------- work */
 .work { width: min(var(--container), 100%); margin: 0 auto; padding: var(--section) var(--pad); }
+/* Με ΜΙΑ φωτογραφία το auto-fit την τέντωνε σε ολόκληρο το πλάτος (1200px ύψος).
+   Το max-width κρατά ρεαλιστικό μέγεθος· με πολλές, τίποτα δεν αλλάζει. */
 .workGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.workGrid:has(> :only-child) { max-width: 720px; }
 .shot { border-radius: var(--radius); overflow: hidden; background: var(--vt-surface-2); }
 .shot img { aspect-ratio: 4 / 3; }
 .shot figcaption { padding: 0.7rem 0.9rem; font-size: 14px; font-weight: 600; color: var(--vt-ink); }
@@ -254,8 +257,12 @@ a.quoteBtn { display: flex; align-items: center; justify-content: center; text-a
 /* ----------------------------------------------------------- responsive */
 @media (max-width: 940px) {
   .heroInner { grid-template-columns: 1fr; }
-  /* Mobile-first στην ουσία: η φόρμα ΠΡΙΝ το κείμενο — ο επισκέπτης έχει βλάβη. */
-  .quote { order: -1; }
+  /* ΗΤΑΝ `order: -1` με σκεπτικό «ο επισκέπτης έχει βλάβη, δώσ' του τη φόρμα
+     πρώτα». Το benchmark στα 390px έδειξε το κόστος: το πρώτο πράγμα στην οθόνη
+     ήταν φόρμα που ζητάει όνομα και τηλέφωνο, πριν ο επισκέπτης μάθει ποιος
+     είναι αυτός που ρωτάει. Η επείγουσα ανάγκη εξυπηρετείται ΗΔΗ από το
+     `callBlock` με το τεράστιο τηλέφωνο, που μένει πάνω από τη φόρμα: ταυτότητα
+     και άμεση κλήση πρώτα, φόρμα αμέσως μετά. */
   .segments { grid-template-columns: 1fr; }
   .svGrid { grid-template-columns: repeat(2, 1fr); }
   .navLinks { display: none; }

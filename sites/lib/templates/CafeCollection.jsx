@@ -2,7 +2,14 @@ import s from './CafeCollection.module.css'
 import Brand from './Brand'
 
 const tel = (d) => `tel:+${d.PHONE_INTL}`
-const services = (d) => (d.services || []).slice(0, 4)
+// Ήταν σκληρό 4: ένας φούρνος με 9 προϊόντα έδειχνε 4 και έχανε σιωπηλά 5.
+// Τα grids του αρχείου δουλεύουν μέχρι 8· ό,τι περισσεύει το λέει το `more()`.
+const services = (d) => (d.services || []).slice(0, 8)
+// «και άλλα N» — δηλωμένη υπέρβαση αντί για εξαφάνιση.
+const more = (d, shown) => {
+  const total = d.SERVICES_TOTAL || (d.services || []).length
+  return total > shown ? `+ ${total - shown} ακόμη — ρωτήστε μας` : ''
+}
 const photos = (d) => (d.gallery || []).filter((item) => item?.image).slice(0, 6)
 
 function Credit({ d, light = false }) {
@@ -15,12 +22,15 @@ export function BakeryEditorial({ data: d }) {
     <nav className={s.patNav}><Brand data={d} /><span>{d.TRADE}</span><a href={tel(d)}>Παραγγελίες</a></nav>
     <header className={s.patHero}>
       <div className={s.patTitle}><span>{[d.TRADE, d.CITY].filter(Boolean).join(' · ')}</span><h1>{d.NAME}</h1><p>{d.TAGLINE}</p></div>
-      {d.HERO_IMAGE && <figure><img src={d.HERO_IMAGE} alt={d.NAME} /><figcaption>Η τέχνη της καθημερινής απόλαυσης</figcaption></figure>}
-      <div className={s.patSeal}>fait<br />main</div>
+      {d.HERO_IMAGE && <figure><img src={d.HERO_IMAGE} alt={d.NAME} /><figcaption>{[d.TRADE, d.CITY].filter(Boolean).join(' · ')}</figcaption></figure>}
+      {/* Ήταν «fait main» — γαλλικός ισχυρισμός χειροποίητης παραγωγής σε φούρνο
+          των Ιωαννίνων. Η σφραγίδα δείχνει πλέον την πόλη του πελάτη. */}
+      {d.CITY && <div className={s.patSeal}>{d.CITY}</div>}
     </header>
     <section className={s.patIntro}><span>01 · Η συλλογή</span><h2>Μικρές δημιουργίες,<br /><em>μεγάλη φροντίδα.</em></h2><p>{d.INTRO}</p></section>
-    <aside className={s.patBanner}><span>ÉDITION DU JOUR</span><p>Καφές και γλυκό.<br /><i>Η μικρή πολυτέλεια της ημέρας.</i></p><a href={tel(d)}>Κράτησέ το για μένα ↗</a></aside>
+    <aside className={s.patBanner}><span>{d.HOURS || d.TRADE}</span><p>Καφές και γλυκό.<br /><i>Η μικρή πολυτέλεια της ημέρας.</i></p><a href={tel(d)}>Κράτησέ το για μένα ↗</a></aside>
     <section className={s.patProducts}>{services(d).map((item, i) => <article key={item.title}>{gallery[i] && <img src={gallery[i].image} alt={item.title} loading="lazy" />}<div><span>0{i + 1}</span><h3>{item.title}</h3><p>{item.desc}</p></div></article>)}</section>
+    {more(d, services(d).length) && <p className={s.patMore}>{more(d, services(d).length)}</p>}
     <section className={s.patQuote}><p>«{d.STORY_TITLE}»</p><a href={tel(d)}>Κάλεσέ μας · {d.PHONE}</a></section>
     <Credit d={d} />
   </main>

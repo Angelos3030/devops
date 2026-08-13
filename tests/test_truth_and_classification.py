@@ -168,3 +168,24 @@ class MediaIdentity(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ServiceCompleteness(unittest.TestCase):
+    """Ό,τι δήλωσε ο πελάτης δεν εξαφανίζεται σιωπηλά."""
+
+    def _svc(self, n):
+        return [{"name": f"Υπηρεσία {i + 1}", "description": "Περιγραφή."} for i in range(n)]
+
+    def test_all_declared_services_reach_the_data(self):
+        for n in (2, 4, 6, 9):
+            with self.subTest(n=n):
+                ctx = pg.normalize({"name": "Χ", "type": "Φούρνος", "city": "Ιωάννινα",
+                                    "services": self._svc(n)})
+                self.assertEqual(len(ctx["services"]), n)
+                self.assertEqual(ctx["SERVICES_TOTAL"], n)
+
+    def test_overflow_is_declared_not_hidden(self):
+        """Πάνω από το ρεαλιστικό μέγιστο, το πλήθος παραμένει γνωστό στο theme."""
+        ctx = pg.normalize({"name": "Χ", "type": "Φούρνος", "services": self._svc(15)})
+        self.assertEqual(ctx["SERVICES_TOTAL"], 15)
+        self.assertGreater(ctx["SERVICES_TOTAL"], len(ctx["services"]))
