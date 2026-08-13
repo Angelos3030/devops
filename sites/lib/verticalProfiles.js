@@ -5,6 +5,9 @@ const DESIGN_SYSTEM_IDS = Object.freeze([
   'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living',
   'beauty-atelier',
   'clinic-triage',
+  // Έλειπε από εδώ — γι' αυτό ΔΕΝ μπορούσε καν να μπει σε profile: το
+  // tests/verticalProfiles.mjs κόβει κάθε id εκτός αυτής της λίστας.
+  'callout',
   'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery',
 ])
 
@@ -193,7 +196,9 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['courtroom-result-claims', 'guaranteed-legal-outcomes', 'client-identifying-material']),
       fallbackStrategy: 'typography-credentials-and-practice-area-led',
     },
-    compatibleDesignSystemIds: ['marble', 'quiet', 'cinematic', 'grid', 'infinite', 'canvas', 'type-gallery', 'living', 'kinetic', 'editorial', 'sidebar', 'bento'],
+    // Το `longform` (στενή στήλη, drop-cap, magazine ανάγνωση) ταιριάζει σε
+    // επάγγελμα που πρέπει να ΕΞΗΓΗΣΕΙ: νομικά κείμενα, διαδικασίες, όροι.
+    compatibleDesignSystemIds: ['marble', 'quiet', 'cinematic', 'longform', 'grid', 'infinite', 'canvas', 'type-gallery', 'living', 'kinetic', 'editorial', 'sidebar'],
   }),
   plumber: profile({
     id: 'plumber', label: 'Υδραυλικός',
@@ -207,7 +212,12 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unsafe-repair-scenes', 'unattributed-project-claims']),
       fallbackStrategy: 'service-icons-and-high-contrast-call-led',
     },
-    compatibleDesignSystemIds: ['forge', 'grid', 'sidebar', 'poster', 'bento', 'kinetic', 'type-gallery', 'infinite', 'cinematic', 'quiet', 'living', 'canvas'],
+    // Το `callout` φτιάχτηκε ΓΙΑ τεχνίτες (κάρτα προσφοράς στο hero, τηλέφωνο
+    // έκτακτης, αριθμημένες υπηρεσίες) και ήταν ήδη πρώτο στο backend — αλλά
+    // έλειπε από εδώ, οπότε ο πελάτης δεν το έβλεπε ΠΟΤΕ στον chooser.
+    // Το `dispatch` ΔΕΝ επιστρέφει εδώ: αποκλείστηκε συνειδητά όταν το `callout`
+    // το αντικατέστησε, και το tests/verticalProfiles.mjs το φυλάει ρητά.
+    compatibleDesignSystemIds: ['callout', 'forge', 'grid', 'sidebar', 'poster', 'bento', 'kinetic', 'type-gallery', 'infinite', 'cinematic', 'quiet', 'living'],
   }),
   rooms: profile({
     id: 'rooms', label: 'Ενοικιαζόμενα δωμάτια',
@@ -264,7 +274,9 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unsupported-certifications', 'misleading-origin-claims', 'generic-imported-product-stock']),
       fallbackStrategy: 'packaging-labels-and-origin-story-led',
     },
-    compatibleDesignSystemIds: ['terra', 'living', 'quiet', 'cinematic', 'canvas', 'infinite', 'type-gallery', 'kinetic', 'grid', 'editorial', 'magazine', 'warmth'],
+    // Ο παραγωγός έχει ιστορία να πει (γενιές, τόπος, μέθοδος) — το `longform`
+    // είναι το μόνο μας αρχέτυπο φτιαγμένο για συνεχή ανάγνωση.
+    compatibleDesignSystemIds: ['terra', 'living', 'quiet', 'cinematic', 'longform', 'canvas', 'infinite', 'type-gallery', 'kinetic', 'grid', 'editorial', 'magazine'],
   }),
   generic: profile({
     id: 'generic', label: 'Τοπική επιχείρηση',

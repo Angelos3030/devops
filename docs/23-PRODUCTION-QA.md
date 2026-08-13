@@ -153,3 +153,28 @@ Bonus: 6 στιγμιότυπα κοστίζουν λιγότερο από 6 ifr
 
 Το `tests/test_upload_authorization.py` πρέπει να παραμένει στο release gate της
 API υπηρεσίας. Upload χωρίς ένα από τα δύο απορρίπτεται με `401`.
+
+## «Target crashed» στο Playwright — πρώτα ύποπτο το harness, όχι το theme
+
+Στις 12/8/2026 το `bakery-editorial` κράσαρε τον renderer στα 390px. Απομονώθηκε
+(`sites/artifacts/crash_probe.mjs`) και **δεν είναι σφάλμα του theme**:
+
+| υπόθεση | αποτέλεσμα |
+|---|---|
+| πλάτος 1440 → 900 → 600 → 500 → 430 → 390 → 360 | **όλα περνούν**, ~1,1s το καθένα |
+| χωρίς φωτογραφίες (`?photos=none`) | περνά |
+| με animations (χωρίς `reducedMotion`) | περνά |
+| και τα 7 CafeCollection variants @390 | περνούν |
+| άλλο theme (`aegean`) @390 | περνά |
+| 14 διαδοχικά contexts σε **ένα** browser | περνούν |
+
+Το crash είχε συμβεί ενώ έτρεχαν **ταυτόχρονα** δεύτερος browser και `next build`.
+Δηλαδή εξάντληση μνήμης του sandbox, όχι responsive defect.
+
+**Κανόνας:** «Target crashed» σημαίνει πρώτα *πόσοι browsers τρέχουν τώρα;* — όχι
+*τι έχει το theme*. Πριν κατηγορήσεις κώδικα, τρέξε το ίδιο URL μόνο του με φρέσκο
+browser. Και μη σωληνώνεις QA έξοδο σε `head`: το SIGPIPE σκοτώνει τη διεργασία και
+μοιάζει με κόλλημα.
+
+⚠️ Ο Firefox δεν είναι εγκατεστημένος σε αυτό το περιβάλλον (`npx playwright install`
+αν χρειαστεί cross-engine έλεγχος).

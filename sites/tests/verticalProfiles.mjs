@@ -55,7 +55,12 @@ assert.equal(getVerticalProfile('unknown future vertical').id, 'generic')
 assert.equal(isDesignCompatible('υδραυλικός', 'dispatch'), false)
 assert.equal(isDesignCompatible('υδραυλικός', 'aegean'), false)
 assert.equal(isDesignCompatible('φαρμακείο', 'runway'), false)
-assert.equal(VERTICAL_PROFILES.plumber.compatibleDesignSystemIds[0], 'forge')
+// Άλλαξε από `forge` σε `callout` στις 13/8/2026. Λόγος: το backend
+// (`premium_generator._TEMPLATES_BY_VERTICAL['trade']`) είχε ΗΔΗ το `callout`
+// πρώτο, ενώ ο frontend chooser έδειχνε `forge` — οι δύο πηγές διαφωνούσαν και
+// το purpose-built theme τεχνιτών δεν εμφανιζόταν ποτέ στον πελάτη.
+assert.equal(VERTICAL_PROFILES.plumber.compatibleDesignSystemIds[0], 'callout')
+assert.equal(isDesignCompatible('υδραυλικός', 'callout'), true)
 assert.equal(VERTICAL_PROFILES.retail.compatibleDesignSystemIds[0], 'bento')
 assert.equal(VERTICAL_PROFILES.pharmacy.compatibleDesignSystemIds[0], 'quiet')
 assert.equal(VERTICAL_PROFILES.rooms.media.supportsNoPhoto, false)
