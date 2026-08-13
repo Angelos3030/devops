@@ -235,3 +235,27 @@ class MediaSemantics(unittest.TestCase):
     def test_borrowed_media_carries_its_mark(self):
         self.assertIn("Ενδεικτική", self.ms.caption_for(self.stock))
         self.assertNotIn("Ενδεικτική", self.ms.caption_for(self.real_space))
+
+
+class MediaClassPropagation(unittest.TestCase):
+    """Η κλάση δεν επιτρέπεται να χαθεί στη διαδρομή προς τον renderer.
+
+    Το `normalize()` έχτιζε το gallery χωρίς `media_class`, οπότε κάθε πραγματική
+    φωτογραφία πελάτη έφτανε ως άγνωστης προέλευσης — και η πολιτική `real-only`
+    την πετούσε. Βρέθηκε στη staging βάση, όχι σε unit test."""
+
+    def test_normalize_preserves_media_class(self):
+        ctx = pg.normalize({
+            "name": "Χ", "type": "Υδραυλικός", "city": "Λάρισα",
+            "gallery": [
+                {"image": "https://e/a.jpg", "title": "Έργο", "media_class": "REAL_WORK"},
+                {"image": "https://e/b.jpg", "title": "Χώρος", "media_class": "REAL_SPACE"},
+            ],
+        })
+        classes = [g.get("media_class") for g in ctx["services"] and ctx["gallery"]]
+        self.assertEqual(classes, ["REAL_WORK", "REAL_SPACE"])
+
+    def test_unclassified_gallery_stays_none(self):
+        ctx = pg.normalize({"name": "Χ", "type": "Υδραυλικός",
+                            "gallery": [{"image": "https://e/a.jpg", "title": "Έργο"}]})
+        self.assertIsNone(ctx["gallery"][0]["media_class"])

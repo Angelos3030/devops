@@ -361,6 +361,8 @@ REACT_TEMPLATES = (
     "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living",
     "beauty-atelier", "clinic-triage", "callout", "signature",
     "bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market", "microbakery-lab", "scandinavian-coffee", "heritage-bakery",
+    "area-first", "horizontal-story", "price-first", "chapter-snap",
+    "type-specimen", "directory-index", "split-carousel", "spatial-grid", "visual-selector",
 )
 # ΠΡΟΣΟΧΗ: νέο theme χρειάζεται ΚΑΙ εγγραφή εδώ ΚΑΙ στο _TEMPLATES_BY_VERTICAL.
 # Το `recommend_templates` φιλτράρει με αυτή τη λίστα, οπότε theme που λείπει από
@@ -501,20 +503,20 @@ _TEMPLATES_BY_VERTICAL = {
     "cafe":         ["counter-menu", "neighborhood-market", "scandinavian-coffee", "bloom", "cinematic", "type-gallery", "living", "quiet"],
     "bakery":       ["bakery-editorial", "morning-journal", "microbakery-lab", "heritage-bakery", "neighborhood-market", "bloom", "warmth", "type-gallery"],
     "rooms":        ["aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid", "marble", "magazine", "bloom"],
-    "dentist":      ["clinic-triage", "marble", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic", "editorial", "bento", "split"],
-    "doctor":       ["clinic-triage", "signature", "marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
+    "dentist":      ["clinic-triage", "marble", "directory-index", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic", "editorial", "bento", "split"],
+    "doctor":       ["clinic-triage", "signature", "directory-index", "marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
     "pharmacy":     ["quiet", "marble", "grid", "editorial", "bento", "split", "living", "clinic-triage", "sidebar", "canvas", "infinite", "type-gallery"],
     "aesthetics":   ["beauty-atelier", "bloom", "quiet", "clinic-triage", "marble", "runway", "living", "cinematic", "type-gallery", "bento", "infinite", "canvas", "magazine"],
     "pet":          ["living", "bloom", "quiet", "grid", "type-gallery", "cinematic", "infinite", "canvas", "bento", "editorial", "magazine", "split"],
     "massage":      ["living", "quiet", "signature", "aegean", "clinic-triage", "bloom", "warmth", "cinematic", "infinite", "canvas", "marble", "type-gallery", "terra", "magazine"],
-    "beauty":       ["beauty-atelier", "runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas", "magazine", "poster"],
-    "retail":       ["bento", "grid", "type-gallery", "quiet", "living", "infinite", "canvas", "cinematic", "kinetic", "magazine", "editorial", "split"],
-    "professional": ["marble", "signature", "quiet", "cinematic", "grid", "infinite", "canvas", "type-gallery", "living", "kinetic", "editorial", "sidebar", "bento"],
-    "trade":        ["callout", "kinetic", "grid", "type-gallery", "infinite", "cinematic", "quiet", "living", "canvas", "forge", "poster", "bento"],
+    "beauty":       ["beauty-atelier", "price-first", "chapter-snap", "split-carousel", "runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas", "magazine", "poster"],
+    "retail":       ["bento", "visual-selector", "spatial-grid", "grid", "type-gallery", "living", "directory-index", "quiet", "infinite", "canvas", "cinematic", "kinetic", "magazine", "editorial", "split"],
+    "professional": ["marble", "signature", "type-specimen", "directory-index", "quiet", "chapter-snap", "horizontal-story", "cinematic", "grid", "infinite", "canvas", "type-gallery", "living", "kinetic", "editorial", "sidebar", "bento"],
+    "trade":        ["callout", "area-first", "split-carousel", "forge", "grid", "price-first", "sidebar", "kinetic", "type-gallery", "infinite", "cinematic", "quiet", "living", "canvas", "poster", "bento"],
     "garage":       ["motor", "kinetic", "grid", "infinite", "type-gallery", "cinematic", "quiet", "living", "canvas", "volt", "forge", "poster"],
     "gym":          ["volt", "kinetic", "type-gallery", "infinite", "runway", "grid", "cinematic", "living", "quiet", "poster", "bento", "motor"],
     "farm":         ["terra", "living", "quiet", "cinematic", "canvas", "infinite", "type-gallery", "kinetic", "grid", "editorial", "magazine", "warmth"],
-    "wood":         ["forge", "quiet", "living", "grid", "cinematic", "type-gallery", "infinite", "canvas", "kinetic", "editorial", "magazine", "bento"],
+    "wood":         ["forge", "spatial-grid", "horizontal-story", "canvas", "grid", "type-specimen", "visual-selector", "quiet", "living", "cinematic", "type-gallery", "infinite", "kinetic", "editorial", "magazine", "bento"],
 }
 
 
@@ -560,7 +562,36 @@ def _is_solo_practitioner(intake: dict[str, Any]) -> bool:
     return bool(looks_like_person or speaks_singular)
 
 
-def recommend_templates(intake: dict[str, Any], limit: int = 7) -> list[str]:
+def _capability_rank(keys: list[str], intake: dict[str, Any], vertical: str) -> list[str]:
+    """Μετακινεί συμβατές κατευθύνσεις μπροστά, χωρίς AI και χωρίς duplicates."""
+    text = _normalize_text(" ".join(str(intake.get(k) or "") for k in ("description", "style", "features")))
+    features = {str(v) for v in intake.get("features", [])} if isinstance(intake.get("features"), list) else set()
+    wanted: list[str] = []
+    if intake.get("media_available") is False or any(x in text for x in ("χωρις φωτο", "δεν εχω φωτο")):
+        wanted.extend(["type-specimen", "directory-index", "price-first"])
+    if intake.get("pricing") or "pricing" in features or any(x in text for x in ("τιμοκαταλογ", "τιμες", "κοστο")):
+        wanted.append("price-first")
+    if intake.get("booking") or "online-booking" in features or "ραντεβου" in text:
+        wanted.extend(["beauty-atelier", "split-carousel"])
+    if "service-area" in features or any(x in text for x in ("διαθεσιμοτ", "ταχυδρομ", "περιοχ εξυπηρετ")):
+        wanted.append("area-first")
+    if "inventory" in features:
+        wanted.extend(["visual-selector", "spatial-grid"])
+    if any(x in text for x in ("fullscreen", "πληρη οθον", "κινηματογραφ")):
+        wanted.append("chapter-snap")
+    if any(x in text for x in ("minimal", "λιτο", "οχι πολυ φανταχτερ")):
+        wanted.extend(["quiet", "type-specimen"])
+    if any(x in text for x in ("τολμηρ", "bold", "εντον")):
+        wanted.extend(["poster", "kinetic"])
+
+    # Το πρώτο vertical anchor διατηρείται, εκτός από service-area τεχνίτη όπου
+    # η ίδια η απαίτηση είναι το conversion goal του πρώτου viewport.
+    anchor = [] if (vertical == "trade" and "area-first" in wanted) else keys[:1]
+    ordered = [*anchor, *wanted, *keys]
+    return list(dict.fromkeys(k for k in ordered if k in keys))
+
+
+def recommend_templates(intake: dict[str, Any], limit: int = 12) -> list[str]:
     """Ranked React προτάσεις, με την καταλληλότερη πρώτη.
 
     Η κατάταξη ήταν σταθερή ανά vertical, οπότε το `signature` έβγαινε #2 και
@@ -576,6 +607,7 @@ def recommend_templates(intake: dict[str, Any], limit: int = 7) -> list[str]:
             and "signature" in keys
             and _is_solo_practitioner(intake)):
         keys.insert(0, keys.pop(keys.index("signature")))
+    keys = _capability_rank(keys, intake, vertical)
     return [k for k in keys if k in REACT_TEMPLATES][:limit]
 
 
@@ -636,7 +668,9 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
     if svc_src:
         services = [
             {"title": _e(s.get("SERVICE_NAME") or s.get("name") or s.get("title") or "Υπηρεσία"),
-             "desc": _e(s.get("SERVICE_DESC") or s.get("description") or s.get("desc") or "")}
+             "desc": _e(s.get("SERVICE_DESC") or s.get("description") or s.get("desc") or ""),
+             "price": _e(s.get("price") or ""),
+             "duration": _e(s.get("duration") or "")}
             for s in svc_src
         ]
         # Το /start αποθηκεύει τίτλους υπηρεσιών με κενή περιγραφή. Χωρίς αυτό,
@@ -663,7 +697,12 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
     gallery = [
         {"image": _asset(str(g.get("image", ""))),
          "title": _e(g.get("title") or "Έργο"),
-         "sub": _e(g.get("sub") or g.get("alt") or city)}
+         "sub": _e(g.get("sub") or g.get("alt") or city),
+         # Η κλάση ΔΕΝ χάνεται εδώ. Χωρίς αυτήν, κάθε πραγματική φωτογραφία
+         # πελάτη έφτανε στον renderer ως άγνωστης προέλευσης — δηλαδή ως
+         # δανεική — και η πολιτική `real-only` την πετούσε.
+         "media_class": g.get("media_class") or None,
+         "illustrative": bool(g.get("illustrative"))}
         for g in gal_src if str(g.get("image", "")).strip()
     ][:8]
 
@@ -757,7 +796,12 @@ def normalize(intake: dict[str, Any]) -> dict[str, Any]:
         "CTA_TITLE": _e(_optional(intake.get("cta_title")) or cta_title_default),
         "INTRO": _e(intake.get("intro") or tagline),
         "YEAR": "2026",
-        "services": services, "gallery": gallery, "reviews": reviews, "story": story_paras,
+        "services": services, "pricingServices": services,
+        "booking": {"provider": "configured" if intake.get("booking") else "demo",
+                    "url": _e(str(intake.get("booking_url") or ""))},
+        "features": intake.get("features") if isinstance(intake.get("features"), list) else [],
+        "media_available": intake.get("media_available"),
+        "gallery": gallery, "reviews": reviews, "story": story_paras,
         "tiles": tiles,
         "_recommended": recommend_layout(intake),
     }
