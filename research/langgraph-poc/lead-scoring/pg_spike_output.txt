@@ -1,0 +1,69 @@
+Captured output of: python research/langgraph-poc/lead-scoring/pg_spike.py
+Run date: 2026-08-13, executed by the user on their own machine against the
+REAL staging Supabase project (DATABASE_URL_STAGING) — not the sandbox
+fallback. This supersedes the earlier local-Postgres-substitute transcript.
+
+One real bug surfaced and fixed between the first and this (successful)
+attempt: Supabase's pooler (Supavisor) requires connecting usernames to carry
+a "<role>.<project_ref>" suffix so the multi-tenant pooler knows which
+project's Postgres to route to. The restricted role's connection didn't have
+that suffix and failed with "ENOIDENTIFIER: no tenant identifier provided".
+Fixed in `tenant_role_connection()` by reusing the project_ref suffix already
+present in the admin connection's username. See pg_spike.py inline comment
+for detail. This affects any new role connecting through Supabase's pooler,
+not just this POC.
+
+=== transcript ===
+
+[spike] backend in use: REAL STAGING SUPABASE
+[spike] production credentials used: NO (staging URL only tested for reachability, never successfully connected in this environment; local runs use a throwaway pgserver instance)
+[spike] schema vitrina_poc_lead_scoring + RLS-protected lead_scoring_runs table created
+=== PROPERTY: tenant isolation (RLS, restricted role, NOT superuser) ===
+  session tenant_id=tenant-A sees: [('tenant-A', 'lead-A-1')]
+  session tenant_id=tenant-B sees: [('tenant-B', 'lead-B-1')]
+  PROVEN: cross-tenant row is invisible under RLS with a non-superuser role.
+=== PROPERTY: persisted graph state + human approval interrupt ===
+  interrupted: True
+  interrupt payload tier: hot
+  paused before: ('human_approval',)
+  audit events so far: 5
+    - validate         system    validated  valid=True errors=[]
+    - enrich_classify  system    features_extracted {'service_category': 'ξυλουργός', 'source_channel': 'web_form', 'message_length': 45, 'urg
+    - deepseek_score   deepseek  scored     score=95 confidence=0.7 kernel_reasons=['autonomy_a1']
+    - business_rules   system    classified {'tier': 'hot', 'score': 95, 'escalate_to_claude': True}
+    - claude_review    claude    reviewed   hot risk_flag=True
+=== PROPERTY: resume after simulated process restart ===
+  state survived restart: tier='hot'
+  still paused before: ('human_approval',)
+  crm_draft.status: DRAFT_ONLY_NOT_WRITTEN
+  crm_draft.tier: hot
+=== PROPERTY: idempotency — resubmit the SAME lead_id ===
+  [idempotency] thread tenant-A::lead-42 already terminal — returning cached result, no re-run
+  second submit cached=True (no nodes re-ran)
+=== PROPERTY: DeepSeek -> Claude escalation path (low-signal lead: escalates to Claude on low confidence, but not hot enough for human approval) ===
+  tier: warm  escalated_to_claude: True  claude_reviewed: True  interrupted: False
+=== PROPERTY: retry behavior (transient DeepSeek failure recovers via RetryPolicy) ===
+  deepseek_score succeeded despite injected first-attempt failure: True
+  (RetryPolicy(max_attempts=3, retry_on=(RuntimeError,)) attached to this node absorbed it — no exception reached submit_lead())
+=== PROPERTY: policy-level failure recovery (Kernel denies DeepSeek on raw-PII misuse) ===
+  Kernel decision for DeepSeek+personal data: allowed=False reasons=['deepseek_data_policy', 'autonomy_a1']
+  Kernel decision for DeepSeek+synthetic (stripped) data: allowed=True
+=== PROPERTY: audit trail (full, post-resume) ===
+  2026-08-13T05:08:05.536094+00:00  validate         system    validated  valid=True errors=[]
+  2026-08-13T05:08:05.538097+00:00  enrich_classify  system    features_extracted {'service_category': 'ξυλουργός', 'source_channel': 'web_form', 'message_length': 45, 'urg
+  2026-08-13T05:08:05.539092+00:00  deepseek_score   deepseek  scored     score=95 confidence=0.7 kernel_reasons=['autonomy_a1']
+  2026-08-13T05:08:05.540092+00:00  business_rules   system    classified {'tier': 'hot', 'score': 95, 'escalate_to_claude': True}
+  2026-08-13T05:08:05.541088+00:00  claude_review    claude    reviewed   hot risk_flag=True
+  2026-08-13T05:08:06.140739+00:00  human_approval   human     approved   spike approval
+  2026-08-13T05:08:06.143851+00:00  crm_draft        system    draft_built DRAFT_ONLY_NOT_WRITTEN
+  2026-08-13T05:08:06.145880+00:00  audit            system    run_complete
+=== SPIKE COMPLETE — backend was: REAL STAGING SUPABASE ===
+=== Nothing written outside schema vitrina_poc_lead_scoring or research/langgraph-poc/lead-scoring/ ===
+
+=== verdict ===
+All 10 required properties proven against REAL staging Supabase:
+persisted state, resume after restart, tenant isolation (RLS, non-superuser
+role), idempotency, retry behavior, human approval (interrupt), audit trail,
+failure recovery (both transient and policy fail-closed), DeepSeek->Claude
+escalation, and no production credentials/data used (staging only, all
+synthetic test leads). ADR-0002's staging caveat is resolved.

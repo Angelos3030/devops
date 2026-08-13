@@ -1,0 +1,67 @@
+# Research Summary — agent-discovery/runs/2026-08-12-deepseek
+
+**Objective:** Discover architectures, workflows, patterns and open-source implementations that could accelerate the Vitrina autonomous AI digital agency. Identify replacement opportunities for agents we're planning to build ourselves.
+**Generated:** 2026-08-12T20:47:06.973771+00:00
+**Models:** Pass 1 = deepseek-chat | Pass 2 = deepseek-reasoner
+**Tokens:** in=47,063 out=44,150 (~$0.1112 USD)
+**Sources analyzed:** 1  |  **Deep-analysed:** 38  |  **Rejected:** 74  |  **Pending (over budget):** 0
+
+## Findings (deep-analysed)
+
+- **Lead Score Flow (CrewAI)** — ADAPT — Directly matches Vitrina's lead scoring and human approval requirements, demonstrating a stateful orchestration pattern with human-in-the-loop review.
+- **Marketing Strategy Generator (CrewAI)** — ADAPT — Directly matches Vitrina's marketing strategy capability; provides a working multi-agent example for generating marketing campaigns, which can be adapted to generate strategies for Greek SMBs.
+- **Instagram Post Generator (CrewAI)** — ADAPT — Directly matches Vitrina's social media generation capability, demonstrating a concrete multi-agent pattern for creating engaging Instagram content. It can be adapted to support Greek SMBs, including local context, branding, and scheduling integration.
+- **Landing Page Generator (CrewAI)** — ADAPT — Directly matches Vitrina's website/theme generation capability. Provides a working example of multi-agent collaboration for landing page production, including content and design generation, which can be adapted for Greek SMB market needs.
+- **Customer Support Agent (LangGraph)** — ADAPT — Directly matches Vitrina's customer support capability. Showcases patterns for stateful agents, memory, human approval, and orchestration that can be adapted or reused.
+- **Multi-Agent Workflow (Supervisor) LangGraph** — REUSE — Directly matches agent orchestration capability; provides supervisor-based multi-agent patterns, durable execution, human-in-the-loop, and memory features essential for Vitrina's agent coordination and workflow engine needs.
+- **Hierarchical Agent Teams (LangGraph)** — REUSE — Directly provides multi-agent coordination, stateful workflows, human approval, retry/resume, and observability needed for Vitrina's autonomous agency orchestration. The hierarchical team pattern is a proven architecture for delegating tasks across specialized agents.
+- **Plan-and-Execute Agent (LangGraph)** — ADAPT — Directly matches Vitrina's workflow orchestration needs with durable execution, human-in-the-loop, memory, and multi-agent coordination. The plan-and-execute pattern is ideal for autonomous task planning and execution.
+- **Reflection Agent (LangGraph)** — REUSE — Directly addresses Vitrina's need for guardrails and self-improvement. The reflection pattern enables agents to critique and refine their outputs, and LangGraph provides durable execution, human-in-the-loop, and memory features essential for reliable autonomous agency operations.
+- **Extraction with Retries (LangGraph)** — ADAPT — Directly matches Vitrina's retry/recovery capability. LangGraph provides low-level orchestration for stateful agents, including durable execution, human-in-the-loop, memory, and multi-agent coordination, which are core needs for the autonomous digital agency.
+- **AgentEval: Multi-Agent Assessment System (AutoGen)** — ADAPT — Directly matches the observability/evaluation capability needed for Vitrina's autonomous agents. Provides a pattern for automated multi-agent assessment that can be adapted to validate Vitrina's agent outputs across marketing, social media, and customer support.
+- **Track LLM Calls and Errors using AgentOps (AutoGen)** — ADAPT — Directly addresses Vitrina's observability requirement by demonstrating how to monitor LLM calls, errors, and agent workflow execution in real time, which is critical for reliability and debugging of autonomous agents.
+- **TrustBoost PII Sanitizer** — WRAP — Directly addresses the PII protection capability required for Vitrina's autonomous agents; prevents raw PII from leaking to external LLMs and APIs, and is listed as an awesome MCP server for security.
+- **Agent Memory Guard** — ADAPT — Directly addresses agent memory security and guardrails for Vitrina: protects PII, prevents memory-poisoning attacks, and supports multi-agent orchestration safety.
+- **Citadel** — STUDY ONLY — Directly matches agent orchestration and lifecycle management needs. Demonstrates production patterns for request routing, state persistence across sessions, parallel work coordination, guardrails, observability, evidence logging, human approval boundaries, and handoff workflows—all relevant to Vitrina's multi-agent orchestration, workflow, and governance requirements.
+- **24/7 AI Chatbot (Customer Service)** — STUDY ONLY — Provides a reference implementation for a customer support agent with structured conversation flow, relevant to Vitrina's customer support capability
+- **Recruitment Recommendation Agent** — STUDY ONLY — Demonstrates robust patterns for browser automation, planner-agent coordination, multi-agent conversation, and finite-state-machine orchestration. These patterns can inform Vitrina's autonomous web-based lead generation, social media scheduling, testing/QA, and other browser-dependent workflows. The FSM variant highlights scalable state management with structured-output constraints, which is useful for reliable agent orchestration.
+- **Real-Time Threat Detection Agent** — STUDY ONLY — Relevant to Vitrina's security capability, though not PII-specific. Could provide patterns for autonomous threat monitoring and alerting within the platform.
+- **Vibe Hacking Agent** — STUDY ONLY — Relevant to Vitrina's security testing capability; could be used to test the security of generated client websites or as inspiration for building an in-house security QA agent.
+- **Email Auto Responder Flow (CrewAI)** — ADAPT — Directly demonstrates automated email handling, a capability Vitrina plans to build. Provides a reference implementation of CrewAI Flows for stateful, multi-step automation that could be adapted for email lead triage, response drafting, and follow-up scheduling.
+- **Meeting Assistant Flow (CrewAI)** — STUDY ONLY — Showcases CrewAI Flows for workflow automation, including human-in-the-loop review, state management, and external API integrations (Trello/Slack). Valuable for understanding multi-agent orchestration patterns that could be adapted for Vitrina's internal meeting/action-item automation or client-facing workflow features.
+- **Self Evaluation Loop Flow (CrewAI)** — ADAPT — Demonstrates a self-evaluation loop pattern for improving content generation, which can be adapted for Vitrina's guardrails and self-improvement capabilities, e.g., for marketing content or website copy generation.
+- **Job Posting Generator (CrewAI)** — STUDY ONLY — Provides a working example of multi-agent content generation and orchestration, which can inform Vitrina's agent patterns for content creation workflows, though job postings are not a core capability.
+- **Recruitment Workflow (CrewAI)** — STUDY ONLY — Though recruitment is not a core Vitrina capability, this example showcases CrewAI's multi-agent orchestration and Flows for stateful, human-in-the-loop workflows. The patterns for agent coordination, structured task assignment, and approval gates directly parallel Vitrina's needs for workflow engines, multi-agent coordination, human approval, and lead qualification flows (e.g., similar to the Lead Score Flow also in this repo).
+- **Match Profile to Positions (CrewAI)** — ADAPT — Demonstrates a profile-to-position scoring workflow analogous to lead scoring for Vitrina, including agent orchestration and human-in-the-loop review patterns that can be adapted for lead qualification and CRM integration.
+- **Chatbot Simulation Evaluation (LangGraph)** — ADAPT — Provides an automated QA/testing approach for conversational AI agents, which could be adapted to validate Vitrina's own AI agents (e.g., customer support, social media responders) without manual testing, aligning with the QA/testing and agent memory/orchestration capabilities of interest.
+- **Multi-Agent Collaboration (LangGraph)** — REUSE — Directly matches multi-agent coordination capability, providing a proven foundation for orchestrating specialized agents, with built-in resilience, state persistence, and human oversight—key for an autonomous AI agency.
+- **Reflexion Agent (LangGraph)** — ADAPT — Directly relevant to Vitrina's guardrails and self-improvement needs; the reflexion pattern enables agents to learn from mistakes and refine outputs autonomously. LangGraph's durable execution, human-in-the-loop, and memory features also support robust agent orchestration.
+- **Group Chat (3 members, 1 manager) (AutoGen)** — ADAPT — Directly demonstrates a multi-agent coordination pattern with a manager agent, which matches Vitrina's need for orchestrating diverse agents (e.g., website generation, marketing, SEO) under supervisory control.
+- **Complex Task Solving by Group Chat (6 members) (AutoGen)** — ADAPT — Vitrina requires multi-agent coordination and orchestration. This group chat pattern is directly applicable for enabling collaborative problem-solving among agents handling website generation, marketing strategy, social media, and other capabilities.
+- **Task Solving with Graph Transition Paths (AutoGen)** — ADAPT — Offers a pattern for structured multi-agent orchestration with explicit state transitions, which aligns with Vitrina's needs for agent orchestration, workflow engines, multi-agent coordination, and human-in-the-loop approval.
+- **Group Chat with Custom Speaker Selection (AutoGen)** — ADAPT — Vitrina requires multi-agent coordination to route tasks among specialized agents (e.g., website generation, marketing strategy, social media). This pattern shows how to implement custom speaker selection for context-aware task dispatch, which can improve orchestration flexibility and efficiency.
+- **Sequential Task-Solving (single initiating agent) (AutoGen)** — ADAPT — Vitrina requires agent orchestration and workflow engines to handle diverse tasks like website generation, marketing strategy, and social media scheduling. This sequential task-solving pattern directly maps to coordinating specialized agents step-by-step, reducing the need to build orchestration from scratch and providing proven conversation-based control flow, human approval hooks, and retry mechanisms.
+- **Async Sequential Task-Solving (AutoGen)** — ADAPT — Directly relevant to Vitrina's need for agent orchestration, workflow engines, and multi-agent coordination. Demonstrates handling multiple tasks in async sequential order, which can accelerate task pipelines for website generation, social media, and marketing workflows.
+- **Sequential Chats with Different Initiating Agents (AutoGen)** — STUDY ONLY — Shows how to implement sequential multi-agent interactions, relevant to Vitrina's need for agent orchestration, workflow engines, and human approval loops.
+- **Solving Complex Tasks with Nested Chats (AutoGen)** — ADAPT — Vitrina needs robust multi-agent coordination. Nested chat patterns allow an agent to spawn and manage sub-conversations, which is directly applicable to complex task execution, workflow decomposition, and human-in-the-loop oversight.
+- **Sequence of Nested Chats (AutoGen)** — STUDY ONLY — Directly addresses multi-agent coordination and workflow orchestration, which are key capabilities for Vitrina's autonomous AI agency. The nested chat pattern allows for hierarchical delegation and context management, supporting complex task execution.
+- **Auto Build Multi-agent System with AgentBuilder (AutoGen)** — STUDY ONLY — Explores automated multi-agent orchestration and team-building patterns, relevant to Vitrina's agent orchestration needs, but AutoGen is in maintenance mode and not recommended for new development.
+
+## Rejected (sample)
+
+- Game Builder Crew (CrewAI) — Game development not relevant to Vitrina.
+- Stock Analysis Tool (CrewAI) — Finance domain not relevant to Vitrina.
+- Trip Planner (CrewAI) — Travel domain not relevant to Vitrina.
+- Surprise Trip Planner (CrewAI) — Travel domain not relevant to Vitrina.
+- Write a Book with Flows (CrewAI) — Creative writing not relevant to Vitrina.
+- Screenplay Writer (CrewAI) — Creative writing not relevant to Vitrina.
+- Markdown Validator (CrewAI) — Documentation tool not relevant to Vitrina.
+- Meta Quest Knowledge (CrewAI) — VR knowledge not relevant to Vitrina.
+- NVIDIA Models Integration (CrewAI) — Model integration not directly relevant.
+- Prep for a Meeting (CrewAI) — Meeting prep not relevant to Vitrina.
+- Starter Template (CrewAI) — Generic template not directly relevant.
+- CrewAI + LangGraph Integration — Integration example not directly relevant.
+- Automated Trading Bot — Finance domain not relevant to Vitrina.
+- Agent Wallet SDK — Finance domain not relevant to Vitrina.
+- Virtual AI Tutor — Education domain not relevant to Vitrina.
+- … and 59 more (see rejected.json)

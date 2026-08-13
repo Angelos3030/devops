@@ -1,0 +1,51 @@
+Captured output of: python3 research/langgraph-poc/poc_graph.py
+Run date: 2026-08-12 (sandbox environment; checkpoint DB at /tmp, see poc_graph.py comment
+— the mounted repo share does not support SQLite's locking mode).
+
+=== STEP 1: invoke — expect retry on deepseek_research, then interrupt before finalize ===
+  node raised as expected (no retry policy attached yet): simulated DeepSeek transient failure (attempt 1)
+  elapsed=0.067s
+
+=== STEP 2: rebuild graph WITH a retry policy on the flaky node, invoke again ===
+  interrupted=True
+  interrupt payload question: Approve this research artifact for promotion?
+  interrupt payload artifact.name: Example candidate surfaced by DeepSeek
+  next node pending: ('human_approval',)
+  audit events so far: 2
+    - deepseek_research_node / deepseek / artifact_produced :: attempt=2
+    - claude_review_node / claude / review_produced :: looks reasonable, license confirmed MIT
+
+=== STEP 3: simulate process restart — new connection, new graph object, same thread_id ===
+  state survived process restart: 'Example candidate surfaced by DeepSeek'
+  still paused before: ('human_approval',)
+
+=== STEP 4: resume after (simulated) human approval ===
+  final_artifact.name: Example candidate surfaced by DeepSeek
+  approval_note: Reviewed manually — MIT license confirmed, adapt only.
+
+=== STEP 5: full audit trail for the completed run ===
+  2026-08-12T21:00:23.278379+00:00  deepseek_research_node deepseek  artifact_produced    attempt=2
+  2026-08-12T21:00:23.279538+00:00  claude_review_node     claude    review_produced      looks reasonable, license confirmed MIT
+  2026-08-12T21:00:23.329483+00:00  human_approval_node    human     approved             Reviewed manually — MIT license confirmed, adapt only.
+  2026-08-12T21:00:23.330572+00:00  finalize_node          system    finalized
+
+=== POC COMPLETE — nothing written outside research/langgraph-poc/ ===
+
+What this proves (see ADR docs/adr/0001-langgraph-agent-runtime.md for interpretation):
+  - DeepSeek node + Claude node in one graph, one shared typed state.
+  - Persistence: SqliteSaver checkpoint survives a simulated process restart
+    (new connection, new graph object, same thread_id) — this is real durable
+    state, not in-process memory.
+  - Interruption: interrupt() genuinely halts execution before human_approval;
+    graph.invoke() returns with `__interrupt__` in the result and no further
+    nodes run until resumed.
+  - Resume: Command(resume={...}) is the only way past the interrupt — no
+    implicit continuation.
+  - Retry: STEP 1 (no retry_policy) shows the raw failure surfacing to the
+    caller. STEP 2 (retry_policy=RetryPolicy(retry_on=(RuntimeError,))) shows
+    the same flaky node recovering automatically on attempt 2 — proven by the
+    audit log showing "attempt=2", not asserted.
+  - Structured outputs: artifact/review/final_artifact are plain typed dicts,
+    not free text.
+  - Audit events: every node appends to audit_log; the trail survives
+    checkpointing and is printed in full after resume.

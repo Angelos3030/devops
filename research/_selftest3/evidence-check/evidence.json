@@ -1,0 +1,11 @@
+{
+  "task_id": "_selftest3/evidence-check",
+  "evidence": [
+    {
+      "source": "fake",
+      "ok": true,
+      "content": "fake",
+      "truncated": false
+    }
+  ]
+}

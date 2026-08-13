@@ -1,0 +1,449 @@
+{
+  "task_id": "agent-discovery/runs/2026-08-12-deepseek",
+  "rejected": [
+    {
+      "name": "Game Builder Crew (CrewAI)",
+      "relevance": "LOW",
+      "reason": "Game development not relevant to Vitrina.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/crews/game-builder-crew"
+    },
+    {
+      "name": "Stock Analysis Tool (CrewAI)",
+      "relevance": "LOW",
+      "reason": "Finance domain not relevant to Vitrina.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/crews/stock_analysis"
+    },
+    {
+      "name": "Trip Planner (CrewAI)",
+      "relevance": "LOW",
+      "reason": "Travel domain not relevant to Vitrina.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/crews/trip_planner"
+    },
+    {
+      "name": "Surprise Trip Planner (CrewAI)",
+      "relevance": "LOW",
+      "reason": "Travel domain not relevant to Vitrina.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/crews/surprise_trip"
+    },
+    {
+      "name": "Write a Book with Flows (CrewAI)",
+      "relevance": "LOW",
+      "reason": "Creative writing not relevant to Vitrina.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/flows/write_a_book_with_flows"
+    },
+    {
+      "name": "Screenplay Writer (CrewAI)",
+      "relevance": "LOW",
+      "reason": "Creative writing not relevant to Vitrina.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/crews/screenplay_writer"
+    },
+    {
+      "name": "Markdown Validator (CrewAI)",
+      "relevance": "LOW",
+      "reason": "Documentation tool not relevant to Vitrina.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/crews/markdown_validator"
+    },
+    {
+      "name": "Meta Quest Knowledge (CrewAI)",
+      "relevance": "LOW",
+      "reason": "VR knowledge not relevant to Vitrina.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/crews/meta_quest_knowledge"
+    },
+    {
+      "name": "NVIDIA Models Integration (CrewAI)",
+      "relevance": "LOW",
+      "reason": "Model integration not directly relevant.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/integrations/nvidia_models"
+    },
+    {
+      "name": "Prep for a Meeting (CrewAI)",
+      "relevance": "LOW",
+      "reason": "Meeting prep not relevant to Vitrina.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/crews/prep-for-a-meeting"
+    },
+    {
+      "name": "Starter Template (CrewAI)",
+      "relevance": "LOW",
+      "reason": "Generic template not directly relevant.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/crews/starter_template"
+    },
+    {
+      "name": "CrewAI + LangGraph Integration",
+      "relevance": "LOW",
+      "reason": "Integration example not directly relevant.",
+      "reference": "https://github.com/crewAIInc/crewAI-examples/tree/main/integrations/CrewAI-LangGraph"
+    },
+    {
+      "name": "Automated Trading Bot",
+      "relevance": "LOW",
+      "reason": "Finance domain not relevant to Vitrina.",
+      "reference": "https://github.com/MingyuJ666/Stockagent"
+    },
+    {
+      "name": "Agent Wallet SDK",
+      "relevance": "LOW",
+      "reason": "Finance domain not relevant to Vitrina.",
+      "reference": "https://github.com/up2itnow0822/agent-wallet-sdk"
+    },
+    {
+      "name": "Virtual AI Tutor",
+      "relevance": "LOW",
+      "reason": "Education domain not relevant to Vitrina.",
+      "reference": "https://github.com/hqanhh/EduGPT"
+    },
+    {
+      "name": "Product Recommendation Agent",
+      "relevance": "LOW",
+      "reason": "Retail domain not relevant to Vitrina.",
+      "reference": "https://github.com/microsoft/RecAI"
+    },
+    {
+      "name": "Self-Driving Delivery Agent",
+      "relevance": "LOW",
+      "reason": "Transportation domain not relevant to Vitrina.",
+      "reference": "https://github.com/sled-group/driVLMe"
+    },
+    {
+      "name": "Factory Process Monitoring Agent",
+      "relevance": "LOW",
+      "reason": "Manufacturing domain not relevant to Vitrina.",
+      "reference": "https://github.com/yuchenxia/llm4ias"
+    },
+    {
+      "name": "Property Pricing Agent",
+      "relevance": "LOW",
+      "reason": "Real estate domain not relevant to Vitrina.",
+      "reference": "https://github.com/AleksNeStu/ai-real-estate-assistant"
+    },
+    {
+      "name": "Smart Farming Assistant",
+      "relevance": "LOW",
+      "reason": "Agriculture domain not relevant to Vitrina.",
+      "reference": "https://github.com/mohammed97ashraf/LLM_Agri_Bot"
+    },
+    {
+      "name": "Energy Demand Forecasting Agent",
+      "relevance": "LOW",
+      "reason": "Energy domain not relevant to Vitrina.",
+      "reference": "https://github.com/yecchen/MIRAI"
+    },
+    {
+      "name": "Content Personalization Agent",
+      "relevance": "LOW",
+      "reason": "Entertainment domain not relevant to Vitrina.",
+      "reference": "https://github.com/crosleythomas/MirrorGPT"
+    },
+    {
+      "name": "Legal Document Review Assistant",
+      "relevance": "LOW",
+      "reason": "Legal domain not relevant to Vitrina.",
+      "reference": "https://github.com/firica/legalai"
+    },
+    {
+      "name": "Virtual Travel Assistant",
+      "relevance": "LOW",
+      "reason": "Travel domain not relevant to Vitrina.",
+      "reference": "https://github.com/nirbar1985/ai-travel-agent"
+    },
+    {
+      "name": "AI Game Companion Agent",
+      "relevance": "LOW",
+      "reason": "Gaming domain not relevant to Vitrina.",
+      "reference": "https://github.com/onjas-buidl/LLM-agent-game"
+    },
+    {
+      "name": "E-commerce Personal Shopper Agent",
+      "relevance": "LOW",
+      "reason": "E-commerce domain not relevant to Vitrina.",
+      "reference": "https://github.com/Hoanganvu123/ShoppingGPT"
+    },
+    {
+      "name": "Logistics Optimization Agent",
+      "relevance": "LOW",
+      "reason": "Supply chain domain not relevant to Vitrina.",
+      "reference": "https://github.com/microsoft/OptiGuide"
+    },
+    {
+      "name": "MediSuite-AI-Agent",
+      "relevance": "LOW",
+      "reason": "Health insurance domain not relevant to Vitrina.",
+      "reference": "https://github.com/ahmedmansour5/MediSuite-Ai-Agent"
+    },
+    {
+      "name": "Lina Egyptian Medical Chatbot",
+      "relevance": "LOW",
+      "reason": "Healthcare domain not relevant to Vitrina.",
+      "reference": "https://github.com/dina-khalid/Lina-Egyptian-Medical-Chatbot"
+    },
+    {
+      "name": "NextRole (AI Career Assistant)",
+      "relevance": "LOW",
+      "reason": "HR domain not relevant to Vitrina.",
+      "reference": "https://github.com/tam159/next-role"
+    },
+    {
+      "name": "HIA (Health Insights Agent)",
+      "relevance": "LOW",
+      "reason": "Healthcare domain not relevant to Vitrina.",
+      "reference": "https://github.com/harshhh28/hia"
+    },
+    {
+      "name": "AI Health Assistant",
+      "relevance": "LOW",
+      "reason": "Healthcare domain not relevant to Vitrina.",
+      "reference": "https://github.com/ahmadvh/AI-Agents-for-Medical-Diagnostics"
+    },
+    {
+      "name": "Support Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Framework support not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/agno_support_agent.py"
+    },
+    {
+      "name": "YouTube Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Media analysis not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/youtube_agent.py"
+    },
+    {
+      "name": "Finance Agent (Thinking) (Agno)",
+      "relevance": "LOW",
+      "reason": "Finance domain not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/thinking_finance_agent.py"
+    },
+    {
+      "name": "Study Partner (Agno)",
+      "relevance": "LOW",
+      "reason": "Education domain not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/study_partner.py"
+    },
+    {
+      "name": "Shopping Partner Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "E-commerce domain not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/shopping_partner.py"
+    },
+    {
+      "name": "Research Scholar Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Academic research not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/research_agent_exa.py"
+    },
+    {
+      "name": "Research Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Journalism not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/research_agent.py"
+    },
+    {
+      "name": "Recipe Creator (Agno)",
+      "relevance": "LOW",
+      "reason": "Food domain not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/recipe_creator.py"
+    },
+    {
+      "name": "Financial Reasoning Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Finance domain not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/reasoning_finance_agent.py"
+    },
+    {
+      "name": "Readme Generator Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Software dev tool not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/readme_generator.py"
+    },
+    {
+      "name": "Movie Recommendation Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Entertainment domain not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/movie_recommedation.py"
+    },
+    {
+      "name": "Media Trend Analysis Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Media analysis not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/media_trend_analysis_agent.py"
+    },
+    {
+      "name": "Legal Document Analysis Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Legal domain not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/legal_consultant.py"
+    },
+    {
+      "name": "DeepKnowledge (Agno)",
+      "relevance": "LOW",
+      "reason": "Research tool not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/deep_knowledge.py"
+    },
+    {
+      "name": "Book Recommendation Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Publishing domain not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/book_recommendation.py"
+    },
+    {
+      "name": "MCP Airbnb Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Hospitality domain not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/airbnb_mcp.py"
+    },
+    {
+      "name": "Agno Assist Agent (Agno)",
+      "relevance": "LOW",
+      "reason": "Framework support not relevant to Vitrina.",
+      "reference": "https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/agno_assist.py"
+    },
+    {
+      "name": "Information Gathering via Prompting (LangGraph)",
+      "relevance": "LOW",
+      "reason": "Generic research not relevant to Vitrina.",
+      "reference": "https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/chatbots/information-gather-prompting.ipynb"
+    },
+    {
+      "name": "Code Assistant with LangGraph",
+      "relevance": "LOW",
+      "reason": "Software dev tool not relevant to Vitrina.",
+      "reference": "https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/code_assistant/langgraph_code_assistant.ipynb"
+    },
+    {
+      "name": "SQL Agent (LangGraph)",
+      "relevance": "LOW",
+      "reason": "Database interaction not relevant to Vitrina.",
+      "reference": "https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/sql-agent.ipynb"
+    },
+    {
+      "name": "Adaptive RAG (LangGraph)",
+      "relevance": "LOW",
+      "reason": "RAG not core to Vitrina.",
+      "reference": "https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/rag/langgraph_adaptive_rag.ipynb"
+    },
+    {
+      "name": "Agentic RAG (LangGraph)",
+      "relevance": "LOW",
+      "reason": "RAG not core to Vitrina.",
+      "reference": "https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/rag/langgraph_agentic_rag.ipynb"
+    },
+    {
+      "name": "Corrective RAG (CRAG) (LangGraph)",
+      "relevance": "LOW",
+      "reason": "RAG not core to Vitrina.",
+      "reference": "https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/rag/langgraph_crag.ipynb"
+    },
+    {
+      "name": "Self-RAG (LangGraph)",
+      "relevance": "LOW",
+      "reason": "RAG not core to Vitrina.",
+      "reference": "https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/rag/langgraph_self_rag.ipynb"
+    },
+    {
+      "name": "Adaptive RAG (Local) (LangGraph)",
+      "relevance": "LOW",
+      "reason": "RAG not core to Vitrina.",
+      "reference": "https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/rag/langgraph_adaptive_rag_local.ipynb"
+    },
+    {
+      "name": "Self-RAG (Local) (LangGraph)",
+      "relevance": "LOW",
+      "reason": "RAG not core to Vitrina.",
+      "reference": "https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/rag/langgraph_self_rag_local.ipynb"
+    },
+    {
+      "name": "Automated Task Solving with Code Gen, Execution & Debugging (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Code generation not core to Vitrina.",
+      "reference": "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_auto_feedback_from_code_execution"
+    },
+    {
+      "name": "Code Generation and Q&A with Retrieval Augmented Agents (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Code generation not core to Vitrina.",
+      "reference": "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_RetrieveChat"
+    },
+    {
+      "name": "Code Generation and Q&A with Qdrant-based Retrieval (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Code generation not core to Vitrina.",
+      "reference": "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_RetrieveChat_qdrant"
+    },
+    {
+      "name": "Data Visualization by Group Chat (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Data visualization not core to Vitrina.",
+      "reference": "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_groupchat_vis"
+    },
+    {
+      "name": "Task Solving with Coding & Planning Agents (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Coding not core to Vitrina.",
+      "reference": "https://github.com/microsoft/autogen/blob/0.2/notebook/agentchat_planning.ipynb"
+    },
+    {
+      "name": "SocietyOfMindAgent Inner-Monologue (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Cognitive simulation not relevant to Vitrina.",
+      "reference": "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_society_of_mind"
+    },
+    {
+      "name": "OptiGuide Supply Chain with Nested Chats (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Supply chain domain not relevant to Vitrina.",
+      "reference": "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_nestedchat_optiguide"
+    },
+    {
+      "name": "Conversational Chess with Nested Chats (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Gaming domain not relevant to Vitrina.",
+      "reference": "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_nested_chats_chess"
+    },
+    {
+      "name": "Web Search: Solve Tasks Requiring Web Info (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Generic web search not core to Vitrina.",
+      "reference": "https://github.com/microsoft/autogen/blob/0.2/notebook/agentchat_web_info.ipynb"
+    },
+    {
+      "name": "Use Provided Tools as Functions (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Tool integration example not directly relevant.",
+      "reference": "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_function_call_currency_calculator"
+    },
+    {
+      "name": "RAG Group Chat (AutoGen)",
+      "relevance": "LOW",
+      "reason": "RAG not core to Vitrina.",
+      "reference": "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_groupchat_RAG"
+    },
+    {
+      "name": "Agent Chat with Whisper (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Audio processing not core to Vitrina.",
+      "reference": "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_video_transcript_translate_with_whisper"
+    },
+    {
+      "name": "SQL: Natural Language to SQL Query (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Database interaction not core to Vitrina.",
+      "reference": "https://github.com/microsoft/autogen/blob/0.2/notebook/agentchat_sql_spider.ipynb"
+    },
+    {
+      "name": "Multimodal Agent with DALLE and GPT-4V (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Multimodal not core to Vitrina.",
+      "reference": "https://github.com/microsoft/autogen/blob/0.2/notebook/agentchat_dalle_and_gpt4v.ipynb"
+    },
+    {
+      "name": "Multimodal Agent with Llava (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Multimodal not core to Vitrina.",
+      "reference": "https://github.com/microsoft/autogen/blob/0.2/notebook/agentchat_lmm_llava.ipynb"
+    },
+    {
+      "name": "Multimodal Agent with GPT-4V (AutoGen)",
+      "relevance": "LOW",
+      "reason": "Multimodal not core to Vitrina.",
+      "reference": "https://github.com/microsoft/autogen/blob/0.2/notebook/agentchat_lmm_gpt-4v.ipynb"
+    }
+  ]
+}

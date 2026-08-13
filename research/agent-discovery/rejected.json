@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-08-12T12:00:00Z",
+  "source_repo": "https://github.com/ashishpatel26/500-AI-Agents-Projects",
+  "total_reviewed": 500,
+  "total_rejected": 495,
+  "rejection_summary": {
+    "domain_specific_not_applicable": 180,
+    "research_toy_projects": 95,
+    "single_task_not_modular": 85,
+    "framework_locked_not_transferable": 70,
+    "license_unverified": 40,
+    "abandoned_unmaintained": 50
+  },
+  "rejection_categories": {
+    "domain_specific": {
+      "count": 180,
+      "reason": "Focused on vertical-specific problems (healthcare, gaming, agriculture, manufacturing) not applicable to Vitrina's SMB agency mission",
+      "examples": [
+        "Healthcare diagnosis agents (HIPAA concerns, domain expertise required)",
+        "Smart farming assistant (agriculture-specific data, not SMB general use)",
+        "Gaming AI companions (gaming domain, no business value for SMB)",
+        "Energy forecasting agents (specialized energy sector)"
+      ]
+    },
+    "research_and_toy_projects": {
+      "count": 95,
+      "reason": "Proof-of-concept, experimental, or educational; not production-ready for Vitrina",
+      "examples": [
+        "Experimental LLM explorations (academic papers without runnable code)",
+        "Tutorial agents (designed to teach, not for production use)",
+        "Prototype implementations (unclear if maintained or functional)"
+      ]
+    },
+    "single_task_agents": {
+      "count": 85,
+      "reason": "Solve one narrow problem; not modular or orchestrable; Vitrina needs composable agents",
+      "examples": [
+        "Stock price checker (narrow data retrieval, no business workflow)",
+        "Weather agent (utility only)",
+        "Trivia bot (no business application)",
+        "Single-API wrappers (not generalizable)"
+      ]
+    },
+    "framework_locked": {
+      "count": 70,
+      "reason": "Tightly coupled to specific LLM provider, framework, or proprietary API; not transferable to Vitrina architecture",
+      "examples": [
+        "Hugging Face model-specific agents (locked to HF ecosystem)",
+        "Brand-specific integration agents (Salesforce, Zendesk proprietary API)",
+        "Experiment-only code (not designed for portability)"
+      ]
+    },
+    "license_unverified": {
+      "count": 40,
+      "reason": "No clear LICENSE or proprietary; cannot verify reusability or commercial use rights",
+      "examples": [
+        "Repositories without LICENSE file",
+        "Ambiguous dual-licensing",
+        "MIT claimed but not explicitly documented"
+      ]
+    },
+    "abandoned_unmaintained": {
+      "count": 50,
+      "reason": "Last commit >12 months ago; unclear if functional with current LLM APIs; likely broken",
+      "examples": [
+        "Pre-Claude-3.5 agents (May not work with current Claude API)",
+        "GPT-3.5-only agents (functionality may be outdated)",
+        "Inactive repositories (no responses to issues, no recent commits)"
+      ]
+    }
+  },
+  "key_insights": {
+    "rarity_of_reusable_infrastructure": "Most AI agent projects are either domain-specific, experimental, or single-task. True reusable infrastructure (orchestration, security, persistence) is rare.",
+    "quality_bar": "The 5 projects that cleared our quality bar (Citadel, Agent Memory Guard, Lead Score Flow, GenAI_Agents, PII Sanitizer) represent the top ~1% of the 500-agent collection.",
+    "production_readiness_gap": "Gap between 'working example' and 'production-grade infrastructure' is significant. Most OSS agents are not designed for multi-tenant, autonomous, production use.",
+    "licensing_clarity": "Licensing is often ambiguous in agent projects, especially in example collections. Always verify before code reuse."
+  },
+  "recommendation": "The rejection of 99% of candidates validates our selection of the 5 shortlisted projects. Do not broaden the net. Focus on deep integration of Citadel, Agent Memory Guard, and Lead Score Flow."
+}

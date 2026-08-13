@@ -1,0 +1,20 @@
+{
+  "task_id": "_selftest2/pending-check",
+  "objective": "unit test",
+  "findings": [
+    {
+      "name": "x",
+      "purpose": "p",
+      "recommended_treatment": "STUDY ONLY",
+      "pass1_reason": "reason0",
+      "reference": "x"
+    },
+    {
+      "name": "x",
+      "purpose": "p",
+      "recommended_treatment": "STUDY ONLY",
+      "pass1_reason": "reason1",
+      "reference": "x"
+    }
+  ]
+}

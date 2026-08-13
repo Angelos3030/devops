@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-08-12T12:00:00Z",
+  "note": "Licenses verified independently per repository. Do NOT assume master repo (500-AI-Agents-Projects) MIT license applies to linked repositories. Each repository has its own license.",
+  "critical_note": "LICENSE_UNVERIFIED projects are suitable for study/learning only. They should NOT be recommended for code reuse until license is explicitly verified.",
+  "licenses": [
+    {
+      "name": "Citadel",
+      "github_url": "https://github.com/SethGammon/Citadel",
+      "license": "MIT",
+      "license_source": "LICENSE file in SethGammon/Citadel/main",
+      "license_verified": true,
+      "code_reuse_safe": true,
+      "code_reuse_restrictions": "MIT license — no restrictions. Attribution required.",
+      "commercial_use_allowed": true,
+      "modification_allowed": true,
+      "distribution_allowed": true,
+      "sublicense_allowed": true
+    },
+    {
+      "name": "Agent Memory Guard",
+      "github_url": "https://github.com/OWASP/www-project-agent-memory-guard",
+      "license": "Apache-2.0",
+      "license_source": "LICENSE.md in OWASP/www-project-agent-memory-guard/main",
+      "license_verified": true,
+      "code_reuse_safe": true,
+      "code_reuse_restrictions": "Apache 2.0 — includes patent grant. Include NOTICE file. Attribution required.",
+      "commercial_use_allowed": true,
+      "modification_allowed": true,
+      "distribution_allowed": true,
+      "sublicense_allowed": true,
+      "patent_grant_included": true
+    },
+    {
+      "name": "Lead Score Flow",
+      "github_url": "https://github.com/crewAIInc/crewAI-examples",
+      "license": "MIT (INFERRED)",
+      "license_source": "Parent repo (crewAI-examples) has no explicit LICENSE file in lead-score-flow directory",
+      "license_verified": false,
+      "code_reuse_safe": false,
+      "code_reuse_restrictions": "CANNOT CONFIRM LICENSE — recommend contacting CrewAI maintainers before code reuse",
+      "verification_status": "UNVERIFIED - RECOMMEND VERIFICATION BEFORE CODE REUSE",
+      "recommended_action": "Query CrewAI: Are examples MIT licensed? Get explicit permission before copying code.",
+      "alternative": "Use as reference for workflow structure, reimplement logic in Vitrina"
+    },
+    {
+      "name": "GenAI_Agents",
+      "github_url": "https://github.com/NirDiamant/GenAI_Agents",
+      "license": "MIT (INFERRED)",
+      "license_source": "Likely MIT (metadata suggests open source, but explicit LICENSE file not verified)",
+      "license_verified": false,
+      "code_reuse_safe": false,
+      "code_reuse_restrictions": "CANNOT CONFIRM — many example notebooks may have different or ambiguous licenses",
+      "verification_status": "UNVERIFIED - UNSUITABLE FOR CODE REUSE",
+      "recommended_action": "Study patterns and architecture only. Do not copy code.",
+      "suitable_for": "STUDY ONLY — extract architectural patterns, reimplement in Vitrina"
+    },
+    {
+      "name": "PII Sanitization Agent",
+      "github_url": "https://github.com/teodorofodocrispin-cmyk/TrustBoost-PII-Sanitizer",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No LICENSE file found in repository. GitHub API returned no license metadata.",
+      "license_verified": false,
+      "code_reuse_safe": false,
+      "code_reuse_restrictions": "CANNOT DETERMINE LICENSE — DO NOT COPY CODE",
+      "verification_status": "UNVERIFIED - UNSUITABLE FOR CODE REUSE",
+      "recommended_action": "Contact repository owner for license clarification before any integration.",
+      "alternative": "Wrap as external service (call API, don't embed code) OR build custom PII detection"
+    }
+  ],
+  "summary": {
+    "safe_for_code_reuse": [
+      "Citadel (MIT)",
+      "Agent Memory Guard (Apache-2.0)"
+    ],
+    "requires_verification": [
+      "Lead Score Flow (MIT assumed, needs explicit confirmation)",
+      "GenAI_Agents (MIT assumed, needs explicit confirmation)"
+    ],
+    "unsafe_for_reuse": [
+      "PII Sanitization Agent (LICENSE_UNVERIFIED)"
+    ]
+  },
+  "recommendation": "Before any code integration beyond Citadel and Agent Memory Guard, obtain explicit license confirmation from repository maintainers. Use GenAI_Agents and similar unverified projects for reference/study only."
+}

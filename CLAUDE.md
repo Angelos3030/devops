@@ -207,6 +207,16 @@ site — γιατί η διαδρομή χτίζεται με `Path` segments κ
 μετακινείται και δεν διαγράφεται χωρίς migration plan και regression test.
 Φυλάσσεται από το `tests/test_runtime_assets.py`.
 
+## Μαζική έρευνα → DeepSeek worker
+
+Μεγάλες, read-only εργασίες ανακάλυψης (GitHub repos, theme references, ανταγωνιστές,
+αρχιτεκτονικά patterns, license research) περνάνε πρώτα από τον DeepSeek worker
+(`scripts/research.py`, υλοποίηση στο `src/research_worker.py`) — όχι απευθείας από
+το Claude. Το Claude διαβάζει το `research/<task-id>/summary.md`, επικυρώνει τα
+σημαντικά συμπεράσματα και αποφασίζει/υλοποιεί· δεν ξαναρχίζει την ίδια έρευνα από
+την αρχή. Production αλλαγές, migrations, security review και ενεργά refactors
+(π.χ. το τρέχον Spine migration) μένουν πάντα στο Claude.
+
 ## Συντονισμός agents
 
 Πριν ξεκινήσεις, διάβασε `STATUS.md` και `git status`. Μην επαναλαμβάνεις εργασία άλλου agent,

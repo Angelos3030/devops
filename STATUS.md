@@ -3,6 +3,191 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+## ADR-0003: real (non-mocked) Lead Scoring staging implementation (2026-08-13)
+
+- Νέο πακέτο `src/lead_scoring/` — πραγματικές κλήσεις (όχι mock): DeepSeek
+  scoring (`providers.deepseek_score`), Claude review (`providers.
+  claude_review`, ίδιο GDPR-approved κανάλι με `src/ai.py`), Kernel gate που
+  διαβάζει το ΠΡΑΓΜΑΤΙΚΟ `agent_registry`/`agent_installations` staging
+  (`kernel_registry.py`), graph σε `graph.py`.
+- `kernel_registry.register()` γράφει μόνο σε `agent_registry` +
+  `agent_capabilities` (χρησιμοποιεί το ήδη σπαρμένο `lead.capture`@1, όχι
+  νέο capability key). **Δεν αγγίζει `agent_installations`/`clients` ΚΑΘΟΛΟΥ**
+  — εσκεμμένα, γιατί χρειάζεται πραγματικό `workspace_id` FK και το
+  «enable» είναι ξεχωριστό βήμα έγκρισης ακόμα και σε staging, per
+  `docs/25-AGENCY-KERNEL.md`. Αναμενόμενο αποτέλεσμα σε πρώτο run:
+  `evaluate_policy()` μπλοκάρει σωστά με `installation:missing` — αυτό
+  ΕΙΝΑΙ η σωστή, τρέχουσα συμπεριφορά, όχι bug.
+- Επαληθεύτηκε από εδώ (χωρίς δίκτυο): imports καθαρά, pure business logic
+  (`validate_node`→`enrich_classify_node`→`business_rules_node`→routing)
+  δοκιμάστηκε πραγματικά — καμία PII (email/message) δεν φτάνει στο
+  DeepSeek-bound feature dict, routing σωστό.
+- Χρειάζεται από τον χρήστη (ίδιο pattern με πριν): `VITRINA_ENV=staging
+  python -m src.lead_scoring.run_staging_pilot` — πραγματικό DeepSeek/Claude
+  call, πραγματικό PostgresSaver σε νέο isolated schema
+  `vitrina_lead_scoring_runtime`, αναμενόμενο τελικό αποτέλεσμα το
+  `installation:missing` block.
+- Πλήρης σύγκριση custom vs LangGraph (πραγματικές γραμμές κώδικα, real
+  testability χωρίς DB) στο `docs/adr/0003-lead-scoring-staging-
+  implementation.md`. Token/timing numbers ΔΕΝ έχουν κατασκευαστεί —
+  χρειάζονται πραγματικό run από τον χρήστη.
+- **Git commit εκκρεμεί**: `.git/index.lock` ξαναδημιουργείται σε κάθε git
+  write από αυτό το sandbox και δεν μπορεί να διαγραφεί (ίδιο permission
+  πρόβλημα με τα `research/_selftest*`). Χρειάζεται χειροκίνητο commit από
+  τον χρήστη — ακριβείς εντολές δόθηκαν στο chat.
+
+## ADR-0002 staging-verified, accepted as baseline (2026-08-13)
+
+- Ο χρήστης έτρεξε `pg_spike.py` από δικό του μηχάνημα με πρόσβαση στο
+  πραγματικό `DATABASE_URL_STAGING`. Βρέθηκε πραγματικό bug στο πρώτο
+  πέρασμα: το Supabase pooler (Supavisor) απαιτεί username με suffix
+  `<role>.<project_ref>` για να δρομολογήσει σωστά· ο περιορισμένος
+  (μη-superuser) role δεν το είχε → `ENOIDENTIFIER`. Διορθώθηκε στο
+  `tenant_role_connection()` (επαναχρησιμοποιεί το suffix από το admin
+  connection). Μετά τη διόρθωση, **και τα 10 ζητούμενα πέρασαν καθαρά σε
+  πραγματικό staging Supabase** — όχι μόνο στο τοπικό pgserver fallback.
+  Transcript: `research/langgraph-poc/lead-scoring/pg_spike_output.txt`.
+- `docs/adr/0002-lead-scoring-langgraph-pilot.md` ενημερώθηκε σε **Accepted**
+  — γίνεται baseline για την πραγματική staging υλοποίηση του Lead Scoring.
+- Commit έγινε **μόνο** για δικά μου αρχεία (`docs/adr/`, `research/`,
+  `scripts/research*.py`, `src/research_worker.py`, `CLAUDE.md`,
+  `STATUS.md`) — τα προϋπάρχοντα uncommitted αρχεία άλλων agents
+  (`db/migrations/*`, `db/snapshots/*`, `sites/lib/templates/*`,
+  `web/clients/*`, `skills/*/agents/openai.yaml`) ΔΕΝ συμπεριλήφθηκαν, όπως
+  ορίζει το «Συντονισμός agents» πιο κάτω.
+- Επόμενο: πραγματική (όχι mocked) staging υλοποίηση του Lead Scoring
+  workflow — βλ. παρακάτω section.
+
+## ADR-0002: Lead Scoring LangGraph pilot — GO (2026-08-13, local only)
+
+- Πρώτο πραγματικό migration target μετά την έγκριση του ADR-0001: Lead
+  Scoring μέσα στο μελλοντικό "Leads & CRM" domain graph. Πλήρες σχέδιο +
+  isolated proof σε `docs/adr/0002-lead-scoring-langgraph-pilot.md`.
+- Γράφος: `lead.received → validate → enrich_classify (strips PII) →
+  deepseek_score (Kernel-gated, μόνο stripped features) → business_rules →
+  [conditional] claude_review → [conditional] human_approval (interrupt) →
+  crm_draft (draft only, ΔΕΝ γράφει σε πραγματικό CRM) → audit`.
+- Κάθε node που αγγίζει provider ή permission καλεί το **πραγματικό**
+  `evaluate_policy()` από `src/agency_kernel.py` — όχι αναπαραγωγή. Ο
+  Kernel έπιασε δύο πραγματικά προβλήματα κατά το τρέξιμο: αρνήθηκε να
+  τρέξει manifest με `lifecycle="draft"`, και αρνήθηκε DeepSeek call με
+  `data_classes=("personal",)` (`deepseek_data_policy`) — το GDPR όριο
+  δουλεύει μέσα σε LangGraph node ακριβώς όπως έξω από αυτό.
+- `research/langgraph-poc/lead-scoring/pg_spike.py` αποδεικνύει και τα 10
+  ζητούμενα: persisted state, resume μετά από restart, tenant isolation
+  (πραγματικό RLS policy, δοκιμασμένο μέσω μη-superuser role), idempotency
+  (resubmit ίδιου lead_id = cached, καμία επανεκτέλεση node), retry
+  (injected transient failure σε deepseek_score, RetryPolicy το απορρόφησε),
+  human approval (πραγματικό interrupt), audit trail (8 events),
+  failure recovery (transient + policy fail-closed, ξεχωριστά), DeepSeek→
+  Claude escalation (πραγματικά εκτελέστηκε το routing, όχι περιγραφή), και
+  ΚΑΜΙΑ production credential/data — `DATABASE_URL_STAGING` δοκιμάστηκε
+  πρώτα, απέτυχε σε DNS resolution (ίδιο πρόβλημα δικτύου με το DeepSeek
+  νωρίτερα), fallback σε τοπικό πραγματικό Postgres 16 (`pgserver`, ΟΧΙ
+  SQLite) με σαφή ετικέτα στο output. Πλήρες transcript:
+  `research/langgraph-poc/lead-scoring/pg_spike_output.txt`.
+- Σύγκριση custom vs LangGraph (γραμμές/complexity, testability, failure
+  recovery, observability, token cost, maintenance burden) στο ίδιο το ADR.
+  Δεν υπάρχει υπάρχον Lead Scoring custom implementation — η σύγκριση
+  extrapolate από το `social_engine.py` pattern, με σαφή σήμανση ότι είναι
+  εκτίμηση όπου δεν υπάρχει πραγματικός κώδικας να μετρηθεί.
+- **Απόφαση: GO**, με ρητούς όρους πριν από πραγματικό migration: re-run
+  του spike από μηχάνημα με πρόσβαση σε πραγματικό staging Supabase (για
+  να επιβεβαιωθεί RLS πάνω σε πραγματικό Supabase, όχι μόνο τοπικό
+  Postgres), πραγματικό Kernel manifest registration (όχι το in-memory
+  stub), αντικατάσταση mock DeepSeek/Claude calls με πραγματικά (ίδιο
+  pattern με `research_worker.py`/`agent_runtime.py`), CRM παραμένει
+  draft-only μέχρι ξεχωριστή έγκριση.
+- **Καμία αλλαγή σε production κώδικα, καμία πραγματική CRM σύνδεση, καμία
+  production εγγραφή.** Μόνο νέα αρχεία κάτω από `research/langgraph-poc/`
+  και `docs/adr/`.
+
+## ADR-0001: LangGraph ADAPT decision + isolated POC (2026-08-12, local only)
+
+- Βάσει των DeepSeek research findings (LangGraph, 9 ξεχωριστά matches, MIT,
+  REUSE/ADAPT), γράφτηκε `docs/adr/0001-langgraph-agent-runtime.md` —
+  αξιολόγηση LangGraph έναντι του υπάρχοντος custom orchestration
+  (`agent_runtime.py` απευθείας-κλήση pattern, `agency_kernel.py` ως pure
+  policy layer, `social_engine.py` ως το μόνο υπάρχον hand-rolled
+  durable/approval-gated pattern) πάνω σε 15 κριτήρια.
+- **Απόφαση: ADAPT**, όχι πλήρης αντικατάσταση. Ο Agency Kernel
+  (`evaluate_policy()`, entitlements, DeepSeek data-class gate) παραμένει
+  ακριβώς όπως είναι — το LangGraph αντικαθιστά μόνο execution/state/
+  checkpoint plumbing, ποτέ policy.
+- Isolated POC σε `research/langgraph-poc/poc_graph.py`
+  (`Research request → DeepSeek node (mocked) → Claude node (mocked) →
+  human_approval interrupt() → finalize μετά Command(resume=...)`) — Sqlite
+  checkpointer, real LangGraph `interrupt`/`RetryPolicy`. Αποδείχτηκε (όχι
+  απλά ισχυρίστηκε): persisted state που επιβιώνει simulated process
+  restart, πραγματικό halt στο interrupt, retry ενός node που αποτυγχάνει
+  στην 1η προσπάθεια και πετυχαίνει στη 2η, πλήρες audit trail. Καταγραφή
+  εξόδου: `research/langgraph-poc/poc_run_output.txt`.
+- Η πρόταση για το roadmap των ~42 agents: παραμένει catalog/ROI backlog,
+  αλλά υλοποιείται ως ~6 domain-level LangGraph graphs (ευθυγραμμισμένα με
+  Presence/Growth/Revenue/Agency capability packages) αντί για 42
+  ανεξάρτητους agents. Λεπτομέρειες/migration path/risks στο ίδιο το ADR.
+- **Καμία αλλαγή σε production κώδικα.** Δεν εγκαταστάθηκε τίποτα στο
+  production dependency tree, δεν άλλαξε κανένα υπάρχον agent flow. Τα
+  parked findings (OWASP Agent Memory Guard, TrustBoost, CrewAI examples,
+  Citadel) παραμένουν parked, δεν ενσωματώθηκαν.
+- Επόμενο βήμα (χρειάζεται έγκριση, βλ. ADR §Action Items): πρώτο πραγματικό
+  migration ενός υπάρχοντος workflow (Lead Scoring ή Social approval queue),
+  ξεκινώντας με `PostgresSaver` spike σε isolated Supabase schema με RLS.
+
+## DeepSeek research worker (2026-08-12, local only)
+
+- Νέος γενικός, read-only worker: `src/research_worker.py` +
+  `scripts/research.py`. Διαβάζει αποκλειστικά `DEEPSEEK_API_KEY` (ξεχωριστό
+  από το production `AI_API_KEY` του `src/ai.py` — δεν μοιράζονται ποτέ
+  credentials/quota). Δύο περάσματα: φθηνή ευρεία ταξινόμηση → βαθιά ανάλυση
+  μόνο στη shortlist. Έξοδος πάντα δομημένη κάτω από `research/<task-id>/`
+  (`findings.json`, `rejected.json`, `evidence.json`, `summary.md`,
+  `metadata.json` με telemetry — ποτέ API key).
+- Αντικαθιστά/γενικεύει το one-off script της αρχικής agent-discovery έρευνας.
+  Το `--preset 500-agents` αναπαράγει ακριβώς εκείνο το task
+  (`research/agent-discovery/`). Custom tasks μέσω `--task-id/--objective/
+  --sources`.
+- `--dry-run` ελέγχει κλειδί, `.gitignore` και διαθέσιμα DeepSeek μοντέλα
+  χωρίς να ξοδέψει tokens.
+- Μία γραμμή προστέθηκε στο `CLAUDE.md` (§ "Μαζική έρευνα → DeepSeek worker"):
+  μεγάλες read-only discovery εργασίες πάνε πρώτα από DeepSeek, το Claude
+  διαβάζει `summary.md` και επικυρώνει — δεν ξαναρχίζει την έρευνα. Το
+  `AGENTS.md` δεν άγγιξε (δεν υπάρχει ακόμα στο repo).
+- **Καμία αλλαγή σε production κώδικα, Design System, Theme Builder ή στο
+  ενεργό Spine migration** (batch 5 παραμένει όπως το άφησε ο άλλος agent —
+  δεν έγινε ούτε `git add`/commit από αυτή την εργασία).
+- `python scripts/research.py --dry-run` έτρεξε πραγματικά πάνω στο live `.env`:
+  βρήκε το `DEEPSEEK_API_KEY` (χωρίς να το τυπώσει), επιβεβαίωσε το
+  `.gitignore`. Το network egress του sandbox της ανάλυσης δεν επιτρέπει
+  `api.deepseek.com` (proxy 403) — ο έλεγχος διαθέσιμων μοντέλων απέτυχε
+  όπως σχεδιάστηκε (graceful warning, όχι crash) και συνέχισε με τα defaults.
+  Δοκιμάστηκε και το πλήρες `--preset 500-agents`: ίδιο proxy block στο
+  `/chat/completions`, καθαρή αποτυχία, **καμία μερική/σπασμένη έξοδος δεν
+  γράφτηκε** (fail-fast πριν το write). Χρειάζεται τρέξιμο από περιβάλλον με
+  κανονική πρόσβαση internet (τοπικό dev, Railway) για πλήρη end-to-end
+  επιβεβαίωση με πραγματικό token/cost telemetry.
+- **Versioned runs**: το `--preset` πλέον γράφει σε
+  `research/agent-discovery/runs/<run-id>-deepseek/` (default run-id =
+  σημερινή ημερομηνία), ΟΧΙ πάνω στο `research/agent-discovery/` — εκείνο
+  παραμένει historical, first-pass αποτέλεσμα. Το task_id validation στο
+  worker χαλάρωσε ώστε να επιτρέπει subpaths (μπλοκάρει μόνο `..` και
+  absolute paths· η πραγματική ασφάλεια είναι το containment check κάτω
+  από `research/`).
+- Τα αρχικά first-pass αρχεία (`shortlist.json`, `licenses.json`,
+  `rejected.json`, `report.md`, `architecture-patterns.md`) δεν υπήρχαν ποτέ
+  μέσα στο πραγματικό repo — είχαν γραφτεί μόνο σε προσωρινό scratchpad σε
+  προηγούμενη συνεδρία. Αντιγράφηκαν τώρα σε `research/agent-discovery/`
+  ώστε να υπάρχει κάτι για να συγκριθεί το πρώτο live DeepSeek run.
+- Νέο `scripts/research_diff.py`: συγκρίνει `--old`/`--new` research
+  φακέλους (schema-agnostic — καλύπτει και τα δύο formats), γράφει
+  `delta_report.md` ΜΟΝΟ μέσα στο `--new` (shortlist changes, license
+  diffs, added/removed, treatment/priority changes, DeepSeek token/cost,
+  εκτίμηση Claude work avoided). Δεν αποφασίζει ποιο γίνεται canonical.
+
+**Επόμενο βήμα (χρειάζεται εκτέλεση εκτός sandbox):**
+`python scripts/research.py --preset 500-agents` → μετά
+`python scripts/research_diff.py --old research/agent-discovery --new research/agent-discovery/runs/<ημερομηνία>-deepseek`
+
 ## Vertical recommendation hardening (2026-08-11, local only)
 
 - Το frontend profile matching αναγνωρίζει πλέον επάγγελμα μέσα σε ολόκληρη

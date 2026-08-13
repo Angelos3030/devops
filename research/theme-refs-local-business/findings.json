@@ -1,0 +1,5 @@
+{
+  "task_id": "theme-refs-local-business",
+  "objective": "Find open-source website templates/components genuinely suitable for REAL LOCAL BUSINESSES (restaurant, taverna, cafe, bakery, plumber, electrician, HVAC, cleaning, construction, mechanic, dentist, clinic, salon, barber, gym, hotel, accountant, real estate, pet services, photography, local retail). For each: repo URL, EXACT license from its own LICENSE file, vertical, what its information architecture does differently, whether it depends on professional photography, and whether it is merely a generic SaaS/startup/portfolio template (reject those). Reject anything without a clearly permissive license (MIT/Apache-2.0/BSD).",
+  "findings": []
+}
