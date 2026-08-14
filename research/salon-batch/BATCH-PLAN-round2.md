@@ -126,6 +126,73 @@ short `"content"` means the fetch failed), that studio needs a browser-based
 check (Claude in Chrome, or manual) instead of another guessed URL — don't
 keep guessing paths blind a third time.
 
+## Round 3 result (2026-08-14) — homepages don't show category pages, another dead end
+
+Fixed sources still failed: Colorlib and free-css.com 404'd/connection-failed
+again (wrong guessed paths), and the 5 that loaded (Themefisher, GetHugoThemes,
+Cruip, TemplateMo, BootstrapMade) only returned **homepage** content — which
+shows recent/featured releases (SaaS, AI-agent landing pages), not the actual
+salon/barber category. 0 shortlisted, 4 rejected, all irrelevant. HTML5 UP's
+round-2 success (full catalog on one page) turned out to be unusual, not the
+norm — most studios paginate or feature-only on their homepage.
+
+**Fix that actually worked**: instead of guessing URLs a third time, used
+live web search (WebSearch tool, not the DeepSeek worker) to find real,
+specific, individually-named product/category pages. This surfaced genuine
+new candidates immediately:
+
+- **Themefisher — MenzSaloon** (`https://themefisher.com/products/menzsaloon-bootstrap`)
+  — a real barber/salon-specific Bootstrap template, not found in rounds 1-2.
+- **GetHugoThemes, Cruip, BootstrapMade** — search confirms no salon/barber-
+  specific offerings exist on these sites. Dropped, not worth more budget.
+- **Colorlib** — a real catalog: Barbero, BarberKraft, The Barber, Barber,
+  Hairsal, Haircare, Pretty (7 named templates, all with individual product
+  pages, not a guessed category path).
+- **Independent Gumroad authors** (search priority #2, real named designers
+  rather than anonymous aggregators): StyleTrim and Salone/Beauty-and-Nail
+  (templatesjungle), a barber-salon template (dotthemes), Alexandra
+  (mourithemes), two more (kitteeh, imaketemplates).
+
+## Round 4 — real, specific URLs (not categories/homepages), ready to run
+
+```bash
+python scripts/research.py \
+  --task-id salon-batch-r4-verified \
+  --objective "Analyze each of these specific barber/hair-salon/beauty-salon template product pages. For each: confirm it is customer-facing (not admin/booking-app), extract and quote the EXACT license/usage terms stated on the page (do not mark LICENSE_UNVERIFIED if the page states terms — quote them), note whether it credits an original designer, and assess visual architecture (layout style, photo dependency, motion/slider use) so later cross-candidate comparison is possible. Do NOT include anything from research/salon-batch/LICENSE-GATE.md's exclusion list." \
+  --context "Vitrina builds Greek SMB websites — see docs/18-VERTICAL-DESIGN-INTELLIGENCE.md. These are pre-verified as real, relevant, individually-named templates (found via live web search, not guessed catalog paths) — analyze each on its own merits, don't reject for genericness the way round 3's homepage dump should have been." \
+  --sources \
+    "https://themefisher.com/products/menzsaloon-bootstrap" \
+    "https://colorlib.com/wp/template/barbero/" \
+    "https://colorlib.com/wp/template/barberkraft/" \
+    "https://colorlib.com/wp/template/the-barber/" \
+    "https://colorlib.com/wp/template/barber/" \
+    "https://colorlib.com/wp/template/hairsal/" \
+    "https://colorlib.com/wp/template/haircare/" \
+    "https://colorlib.com/wp/template/pretty/" \
+    "https://dotthemes.gumroad.com/l/barber-salon-website-template" \
+    "https://templatesjungle.gumroad.com/l/styletrim" \
+    "https://templatesjungle.gumroad.com/l/salone-beauty-salon-template" \
+    "https://templatesjungle.gumroad.com/l/beauty-and-nail-salon-website-template" \
+    "https://mourithemes.gumroad.com/l/alexandra" \
+    "https://kitteeh.gumroad.com/l/bbfob" \
+    "https://imaketemplates.gumroad.com/l/bbhom" \
+  --max-pass2 15
+```
+
+15 real, individually-verified sources — every one should return `"ok": true`
+with actual product content (check `evidence.json` if not, and flag rather
+than re-guess). This is Pass 1/Pass 2 doing real per-template analysis
+instead of sifting a noisy homepage or category dump — expect a much higher
+useful-candidate rate than rounds 2-3.
+
+**Colorlib license note**: Colorlib's free templates are typically stated as
+free for personal/commercial use directly on the page (not always a GitHub
+LICENSE file), so the deterministic GitHub-only checker in
+`src/research_worker.py`'s `_detect_license()` won't fire for these — the
+objective above explicitly asks DeepSeek to quote the page's own license
+text instead. Claude must still re-verify the exact wording before any
+PORT_OK decision, same discipline as every candidate so far.
+
 ## After all three batches finish
 
 1. Read `research/salon-batch-r2-*/summary.md` and `findings.json` for each.

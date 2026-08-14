@@ -10,7 +10,7 @@
 | Navigator | themefisher/navigator-hugo | **ΟΧΙ** | ⛔ **BLOCKED — ΠΕΡΙΒΑΛΛΟΝ** |
 | Timer | themefisher/timer-hugo | **ΟΧΙ** | ⛔ **BLOCKED — ΠΕΡΙΒΑΛΛΟΝ** |
 | Kross | themefisher/kross-hugo | **ΟΧΙ** | ⛔ **BLOCKED — ΠΕΡΙΒΑΛΛΟΝ** |
-| Thomson | themefisher/thomson-bootstrap | **ΝΑΙ** | 🟡 **FIT: οριακό** — βλ. κάτω |
+| Thomson | themefisher/thomson-bootstrap | **ΝΑΙ** | ✅ **PORT_OK** → `thomson-stylist` |
 
 ---
 
@@ -97,7 +97,50 @@ freelancer, όχι καταστήματος.
 ## Κατάσταση
 
 - **PORT_OK και ολοκληρωμένα:** `blue-onepage`, `billys-barber` (προηγούμενα batch)
-- **BLOCKED — περιβάλλον:** Meghna, Navigator, Timer, Kross
-- **Αναμονή απόφασης:** Thomson (οριακή καταλληλότητα)
+- **ENVIRONMENT_BLOCKED (ΟΧΙ source/license):** Meghna, Navigator, Timer, Kross —
+  παραμένουν στον κανονικό κατάλογο και επανεξετάζονται μόλις υπάρξει Go ή
+  πρόσβαση στα demo.
+- **PORT_OK:** Thomson → `thomson-stylist` (βλ. παρακάτω)
 
 Δεν έψαξα αντικαταστάτες. Δεν άγγιξα Phantom ή Menzsaloon.
+
+
+---
+
+## Thomson → `thomson-stylist` — ΟΛΟΚΛΗΡΩΘΗΚΕ
+
+Πορτάρισμα ως **ανεξάρτητος hair artist**, όχι ως γενικό κατάστημα.
+
+**Αντιστοίχιση:** δήλωση σχεδιαστή → τοποθέτηση κομμωτή («Κάνω / Κομμωτήριο») ·
+πλέγμα έργων → πραγματική δουλειά μαλλιών · core services → υπηρεσίες κόμμωσης ·
+contact → στοιχεία και χάρτης Vitrina.
+
+**Τι κρατήθηκε:** αριστερή στοίχιση με τεράστια βαριά τυπογραφία σε δύο γραμμές,
+η δεύτερη κόκκινη · το πολύ λευκό γύρω από τη δήλωση — η πραγματική ταυτότητα
+του Thomson · πλέγμα 3×2 με zoom στο hover · «Υπηρεσίες.» με τελεία, γκρι lede
+και εικονίδιο/τίτλος/κείμενο σε πλέγμα · σκούρο footer με στοιχεία δεξιά.
+
+**Αποκλίσεις πιστότητας — τεκμηριωμένες:**
+
+| Απόκλιση | Λόγος |
+|---|---|
+| **Φίλτρα κατηγοριών έργων** αφαιρέθηκαν | Δεν υπάρχει ταξινόμηση έργων στο data model. **Δεν** αντικαταστάθηκαν με νέα δομή. |
+| **Blog** (grid/sidebar/single) αφαιρέθηκε | Δεν υπάρχει blog στο Vitrina. |
+| **Δευτερεύουσες σελίδες και dropdowns** αφαιρέθηκαν | Το Vitrina είναι μονοσέλιδο. |
+| **Κόκκινο #f44336 → #d32f2f** | Το πρωτότυπο δίνει **3,3:1** σε λευκό, κάτω από το όριο για κανονικό κείμενο. |
+| **Work Sans → Manrope, Lato → Nunito Sans** | Runtime Google Fonts απαγορεύονται· απαιτείται ελληνικό subset. |
+| Εφέ γραφομηχανής στο hero | Απαιτεί JS σε server component· η θέση του κρατά το κόκκινο CTA. |
+
+**Fidelity: PASS** — αναγνωρίζεται αμέσως ως το ίδιο design.
+
+| QA | Desktop 1440 | Mobile 390 |
+|---|---|---|
+| Ύψος | 2820px | 3929px |
+| Overflow | 0 | 0 |
+| Σπασμένες εικόνες | 0/6 | 0/6 |
+| `h1` | 1 | 1 |
+| Console errors | 0 | 0 |
+| Tap < 40px | 1 | 1 |
+
+Spine 51/51 · trust καθαρός · registry 56 themes.
+Screenshots: `fidelity/thomson-{original,vitrina}-{desktop,mobile}.jpg`.
