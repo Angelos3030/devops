@@ -75,6 +75,57 @@ python scripts/research.py \
   --max-pass2 15
 ```
 
+## Round 2 result (2026-08-14) — zero new PORT_OK, do not use as-is
+
+- **Batch 1 (studios):** 5/8 source URLs 404'd or returned empty (Themefisher,
+  GetHugoThemes, Cruip, Colorlib, TemplateMo tag-path guesses were wrong).
+  Start Bootstrap returned only its Angular app shell (client-rendered, no
+  usable HTML from a plain fetch). Only `html5up.net` returned real content —
+  DeepSeek then classified the ENTIRE HTML5 UP catalog (~44 generic templates,
+  none salon-specific) as "ADAPT," and separately **missed that the fetched
+  page text literally says "Licensed under the Creative Commons Attribution
+  license"** — every finding was recorded `license: LICENSE_UNVERIFIED`
+  despite the fact being present in the source DeepSeek was given. Decision:
+  **skip HTML5 UP entirely** for this vertical — not salon-specific, requires
+  redesign (forbidden by the brief), and the CC-BY attribution question isn't
+  worth resolving for generic templates.
+- **Batch 2 (GitHub):** found real barbershop-named repos
+  (shock-dev/barbershop, samsalgado/Barbershop-Template, 6 more) — all
+  correctly LICENSE_BLOCKED, no LICENSE file on any of them. Same pattern as
+  round 1: real GitHub barbershop projects almost never ship a license.
+- **Batch 3 (independent authors):** dead batch — sources were Dribbble/
+  CodePen tag/search pages, not individual attributable pieces. Orchestrator
+  error (bad source selection), not a DeepSeek failure. Not retried in round 3
+  — low expected yield for the effort.
+
+**Round 3 fixes the batch-1 source problem**: use each studio's actual
+catalog/homepage root instead of a guessed tag-filtered path (the same
+pattern that worked for html5up.net — root page, not a guessed sub-path).
+These still need live verification (this sandbox cannot check reachability
+before handoff):
+
+```bash
+python scripts/research.py \
+  --task-id salon-batch-r3-studios \
+  --objective "Find barber shop / hair salon / beauty salon website templates from established professional template studios. Scan each studio's FULL catalog listing for anything genuinely salon/barber/beauty-relevant (service-menu layouts, gallery/portfolio-of-work layouts, booking-adjacent CTAs) — do not just list the whole catalog as 'adaptable.' A generic portfolio/blog/SaaS-landing template that would require redesign to fit a salon is NOT a candidate, even from a reputable studio. Do NOT include any HTML5 UP template (already reviewed, see research/salon-batch/BATCH-PLAN-round2.md) or anything from research/salon-batch/LICENSE-GATE.md's exclusion list. For each candidate, extract and quote the EXACT license text found on the page — do not mark LICENSE_UNVERIFIED if the source content contains a license statement." \
+  --context "Vitrina builds Greek SMB websites — see docs/18-VERTICAL-DESIGN-INTELLIGENCE.md. Target 15-20 genuinely relevant candidates from this batch. Reject generic multi-purpose templates that aren't service/gallery-oriented." \
+  --sources \
+    "https://themefisher.com/" \
+    "https://gethugothemes.com/" \
+    "https://cruip.com/" \
+    "https://colorlib.com/wp/free-html5-templates/" \
+    "https://www.templatemo.com/" \
+    "https://bootstrapmade.com/free-website-templates/" \
+    "https://www.free-css.com/free-css-templates" \
+  --max-pass2 20
+```
+
+If any of these root URLs also 404 or return an empty/JS-shell page (check
+`research/salon-batch-r3-studios/evidence.json` — `"ok": false` or suspiciously
+short `"content"` means the fetch failed), that studio needs a browser-based
+check (Claude in Chrome, or manual) instead of another guessed URL — don't
+keep guessing paths blind a third time.
+
 ## After all three batches finish
 
 1. Read `research/salon-batch-r2-*/summary.md` and `findings.json` for each.
