@@ -1,0 +1,216 @@
+/* Freight Lane — ΑΝΕΞΑΡΤΗΤΗ υλοποίηση, καμία γραμμή από το FreightEdge.
+   Βλ. FreightLane.jsx για την ανάλυση της αντιφατικής άδειας.
+
+   Σχεδιαστική κατεύθυνση: **νυχτερινή αποστολή**. Τα άλλα τρία masters είναι
+   ανοιχτά· αυτό είναι σκούρο εξ ορισμού, γιατί ο κλάδος δουλεύει πριν ξημερώσει
+   και το high-vis κεχριμπάρι είναι η γλώσσα του. Οι λεπτές οριζόντιες γραμμές
+   στα «lanes» είναι διαδρομές, όχι διακόσμηση. */
+.root {
+  --vt-surface:#f6f7f9;
+  --vt-surface-2:#e8ecf1;
+  --vt-surface-deep:#0b1a2b;
+  --vt-ink:#10202f;
+  --vt-ink-soft:#54636f;
+  --vt-on-deep:#ffffff;
+  --vt-accent:#9a4a06;
+  --vt-on-accent:#ffffff;
+  --vt-accent-ink:#9a4a06;
+  --vt-accent-on-deep:#f0a95c;
+  --vt-line:#d5dbe3;
+
+  --container: 1220px;
+  --pad: clamp(1.1rem, 5vw, 3.4rem);
+  --section: clamp(3.2rem, 7vw, 5.6rem);
+  --display: 'Inter', system-ui, sans-serif;
+  --body: 'Inter', system-ui, sans-serif;
+
+  background: var(--vt-surface);
+  color: var(--vt-ink);
+  font-family: var(--body);
+  line-height: 1.58;
+  overflow-x: hidden;
+}
+.root :where(h1, h2, h3, p, ol, ul, li, dl, figure) { margin: 0; padding: 0; }
+.root :where(ol, ul) { list-style: none; }
+.root :where(a) { color: inherit; text-decoration: none; }
+.root img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* --------------------------------------------------------------- utility */
+.utility {
+  display: flex; flex-wrap: wrap; gap: 0 1.6rem; justify-content: flex-end;
+  padding: 0.45rem var(--pad);
+  background: var(--vt-surface-deep); color: var(--vt-on-deep);
+  font-size: 0.78rem;
+}
+.utility a { min-height: 32px; display: inline-flex; align-items: center; font-weight: 600; color: var(--vt-accent-on-deep); }
+
+/* ------------------------------------------------------------------- nav */
+.nav {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0.7rem var(--pad);
+  background: var(--vt-surface-deep); color: var(--vt-on-deep);
+  border-bottom: 3px solid var(--vt-accent);
+}
+.brandLink { display: inline-flex; align-items: center; min-height: 44px; min-width: 0; }
+.navLinks { display: flex; gap: 1.7rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.navLinks a { min-height: 44px; display: inline-flex; align-items: center; }
+.navLinks a:hover { color: var(--vt-accent-on-deep); }
+.navCta {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.2rem;
+  background: var(--vt-accent); color: var(--vt-on-accent);
+  font-weight: 700; font-size: 0.9rem; letter-spacing: 0.03em; white-space: nowrap;
+  transition: background-color 0.16s linear;
+}
+.navCta:hover { background: color-mix(in srgb, var(--vt-accent) 84%, #000); }
+
+/* ------------------------------------------------------------------ hero */
+.hero { position: relative; isolation: isolate; background: var(--vt-surface-deep); }
+.heroImg { position: absolute; inset: 0; z-index: -2; }
+.heroVeil {
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(100deg, rgba(11,26,43,.96) 0%, rgba(11,26,43,.88) 52%, rgba(11,26,43,.66) 100%);
+}
+.heroIn {
+  width: min(var(--container), 100%); margin: 0 auto;
+  padding: var(--section) var(--pad);
+  color: var(--vt-on-deep);
+}
+.eyebrow {
+  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--vt-accent-on-deep);
+}
+.title {
+  font-size: clamp(2.3rem, 5.6vw, 4rem); font-weight: 800;
+  line-height: 1.02; letter-spacing: -0.03em; text-transform: uppercase;
+  margin: 1rem 0 1.1rem; max-width: 20ch; text-wrap: balance;
+}
+.lede { max-width: 48ch; font-size: clamp(1rem, 1.4vw, 1.15rem); color: color-mix(in srgb, var(--vt-on-deep) 82%, var(--vt-surface-deep)); }
+/* Το τηλέφωνο ως μπλοκ, όχι ως σύνδεσμος: στον κλάδο αυτό είναι η μετατροπή. */
+.phoneBlock {
+  display: inline-flex; flex-direction: column; gap: 0.1rem;
+  margin-top: 2rem; padding: 0.8rem 1.5rem;
+  border-left: 4px solid var(--vt-accent-on-deep);
+  background: rgba(255, 255, 255, 0.06);
+}
+.phoneBlock span { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vt-accent-on-deep); }
+.phoneBlock strong { font-size: clamp(1.6rem, 3.4vw, 2.4rem); font-weight: 800; letter-spacing: -0.01em; }
+
+/* ---------------------------------------------------------------- checks */
+.checks {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  width: min(var(--container), 100%); margin: 0 auto;
+  border-bottom: 1px solid var(--vt-line);
+}
+.checks > div { padding: clamp(1.3rem, 2.6vw, 2rem) var(--pad); border-left: 1px solid var(--vt-line); }
+.checks > div:first-child { border-left: 0; }
+.checks b { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; color: var(--vt-accent-ink); }
+.checks h2 { margin-top: 0.4rem; font-size: 1.05rem; font-weight: 700; }
+.checks p { margin-top: 0.2rem; color: var(--vt-ink-soft); font-size: 0.93rem; }
+
+/* ----------------------------------------------------------------- lanes */
+.lanes { width: min(var(--container), 100%); margin: 0 auto; padding: var(--section) var(--pad); }
+.secHead { max-width: 46ch; margin-bottom: clamp(1.6rem, 3.4vw, 2.4rem); }
+.eyebrowDark {
+  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--vt-accent-ink);
+}
+.secTitle {
+  font-size: clamp(1.8rem, 3.8vw, 2.8rem); font-weight: 800;
+  line-height: 1.05; letter-spacing: -0.03em; text-transform: uppercase; margin-top: 0.6rem;
+}
+.laneList { display: grid; }
+.lane {
+  display: grid; grid-template-columns: 3.5rem 1fr auto;
+  gap: clamp(1rem, 3vw, 2.5rem); align-items: center;
+  padding: clamp(1.1rem, 2.4vw, 1.7rem) 0;
+  border-top: 1px solid var(--vt-line);
+  transition: background-color 0.16s linear;
+}
+.lane:last-child { border-bottom: 1px solid var(--vt-line); }
+.lane:hover { background: var(--vt-surface-2); }
+.laneNum { font-size: 0.8rem; font-weight: 800; color: var(--vt-accent-ink); }
+.lane h3 { font-size: clamp(1.05rem, 2vw, 1.35rem); font-weight: 700; line-height: 1.2; }
+.lane p { margin-top: 0.25rem; color: var(--vt-ink-soft); font-size: 0.95rem; max-width: 62ch; }
+.laneLink {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-size: 0.88rem; font-weight: 700; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--vt-accent-ink); white-space: nowrap;
+}
+.laneLink:hover { text-decoration: underline; }
+.more { margin-top: 1.4rem; font-size: 0.88rem; color: var(--vt-ink-soft); }
+
+/* -------------------------------------------------------------- coverage */
+.coverage { background: var(--vt-surface-2); padding: var(--section) var(--pad); }
+.coverageTitle {
+  width: min(var(--container), 100%); margin: 0 auto 1.4rem;
+  font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800;
+  letter-spacing: -0.02em; text-transform: uppercase;
+}
+.areaList {
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
+  width: min(var(--container), 100%); margin: 0 auto;
+}
+.areaList li {
+  padding: 0.55rem 1.1rem;
+  background: var(--vt-surface); border: 1px solid var(--vt-line);
+  font-size: 0.92rem; font-weight: 600;
+}
+
+/* ----------------------------------------------------------------- about */
+.about { width: min(var(--container), 100%); margin: 0 auto; padding: var(--section) var(--pad); }
+.aboutIn { width: min(64ch, 100%); }
+.aboutTitle {
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem); font-weight: 800;
+  line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 1rem;
+}
+.aboutIn p { color: var(--vt-ink-soft); margin-bottom: 0.9rem; }
+
+/* ----------------------------------------------------------------- fleet */
+.fleet { padding: 0 var(--pad) var(--section); }
+.fleetGrid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 2px; width: min(var(--container), 100%); margin: 0 auto;
+}
+.fleetGrid figure { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.fleetGrid figcaption {
+  position: absolute; inset: auto 0 0; padding: 2rem 0.9rem 0.7rem;
+  background: linear-gradient(transparent, color-mix(in srgb, var(--vt-surface-deep) 84%, transparent));
+  color: var(--vt-on-deep); font-size: 0.76rem;
+}
+
+/* ------------------------------------------------------------------- cta */
+.cta {
+  background: var(--vt-accent); color: var(--vt-on-accent);
+  text-align: center; padding: var(--section) var(--pad);
+}
+.cta h2 {
+  font-size: clamp(1.7rem, 3.8vw, 2.7rem); font-weight: 800;
+  line-height: 1.06; letter-spacing: -0.025em; text-transform: uppercase; text-wrap: balance;
+}
+.ctaBtn {
+  display: inline-flex; align-items: center; min-height: 56px; margin-top: 1.3rem;
+  padding: 0 2rem;
+  background: var(--vt-surface-deep); color: var(--vt-on-deep);
+  font-size: clamp(1.4rem, 2.8vw, 2rem); font-weight: 800; letter-spacing: -0.01em;
+}
+.cta p { margin-top: 0.9rem; font-size: 0.88rem; }
+.footer {
+  padding: 1.5rem var(--pad); text-align: center;
+  font-size: 0.78rem; color: var(--vt-ink-soft); border-top: 1px solid var(--vt-line);
+}
+
+/* ------------------------------------------------------------ responsive */
+@media (max-width: 940px) {
+  .navLinks { display: none; }
+  .checks { grid-template-columns: 1fr; }
+  .checks > div { border-left: 0; border-top: 1px solid var(--vt-line); }
+  .checks > div:first-child { border-top: 0; }
+}
+@media (max-width: 560px) {
+  .lane { grid-template-columns: 2.6rem 1fr; }
+  .laneLink { grid-column: 2; }
+  .utility { justify-content: flex-start; font-size: 0.72rem; }
+  .navCta { padding: 0 0.85rem; font-size: 0.84rem; }
+}
+@media (prefers-reduced-motion: reduce) { .root * { transition: none !important; } }

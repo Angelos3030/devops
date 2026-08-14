@@ -1,0 +1,176 @@
+/* Vex Counter — δικό του σύστημα από άκρη σε άκρη.
+   PORT από themefisher/vex-hugo (MIT).
+
+   Σχεδιαστική κατεύθυνση, αντίθετη από το Educenter Campus: εκεί ζεστό χαρτί και
+   στρογγυλεμένες φόρμες· εδώ **ψυχρό λευκό, ορθές γωνίες και τεράστια αντίθεση**.
+   Το προϊόν πρέπει να είναι το μόνο χρώμα στη σελίδα, οπότε το περιβάλλον
+   κρατιέται σχεδόν ασπρόμαυρο και το signature κόκκινο μπαίνει μόνο σε δράση. */
+.root {
+  --vt-surface:#ffffff;
+  --vt-surface-2:#f4f3f1;
+  --vt-surface-deep:#101010;
+  --vt-ink:#141414;
+  --vt-ink-soft:#585858;
+  --vt-on-deep:#ffffff;
+  --vt-accent:#b3311d;
+  --vt-on-accent:#ffffff;
+  --vt-accent-ink:#b3311d;
+  --vt-accent-on-deep:#f0805f;
+  --vt-line:#e2e0dc;
+
+  --container: 1240px;
+  --pad: clamp(1.1rem, 5vw, 3.5rem);
+  --section: clamp(3.4rem, 7.5vw, 6rem);
+  --display: 'Inter', system-ui, sans-serif;
+  --body: 'Inter', system-ui, sans-serif;
+
+  background: var(--vt-surface);
+  color: var(--vt-ink);
+  font-family: var(--body);
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+.root :where(h1, h2, h3, p, ol, li, dl, dt, dd, figure) { margin: 0; padding: 0; }
+.root :where(ol) { list-style: none; }
+.root :where(a) { color: inherit; text-decoration: none; }
+.root img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ------------------------------------------------------------------- nav */
+.nav {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0.7rem var(--pad);
+  background: var(--vt-surface);
+  border-bottom: 2px solid var(--vt-ink);
+}
+.brandLink { display: inline-flex; align-items: center; min-height: 44px; min-width: 0; }
+.navLinks { display: flex; gap: 1.8rem; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.navLinks a { min-height: 44px; display: inline-flex; align-items: center; }
+.navLinks a:hover { color: var(--vt-accent-ink); }
+.navCall {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.1rem;
+  background: var(--vt-ink); color: var(--vt-surface);
+  font-weight: 700; font-size: 0.92rem; white-space: nowrap;
+  transition: background-color 0.16s linear;
+}
+.navCall:hover { background: var(--vt-accent); }
+
+/* ------------------------------------------------------------------ hero */
+.hero {
+  width: min(var(--container), 100%); margin: 0 auto;
+  padding: var(--section) var(--pad) 0;
+}
+.eyebrow {
+  font-size: 0.74rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--vt-accent-ink);
+}
+.title {
+  /* Product-first: ο τίτλος καταλαμβάνει τον χώρο που θα έπαιρνε ένα banner. */
+  font-size: clamp(2.6rem, 8vw, 6rem); font-weight: 800;
+  line-height: 0.95; letter-spacing: -0.045em; text-transform: uppercase;
+  margin: 1rem 0 1.2rem; text-wrap: balance;
+}
+.lede { max-width: 46ch; font-size: clamp(1.02rem, 1.5vw, 1.2rem); color: var(--vt-ink-soft); }
+.heroActions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 2rem 0 2.6rem; }
+.primary, .ghost {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 52px; padding: 0 1.8rem;
+  font-weight: 700; font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase;
+  transition: background-color 0.16s linear, color 0.16s linear;
+}
+.primary { background: var(--vt-accent); color: var(--vt-on-accent); }
+.primary:hover { background: var(--vt-ink); }
+.ghost { border: 2px solid var(--vt-ink); }
+.ghost:hover { background: var(--vt-ink); color: var(--vt-surface); }
+.heroFig { position: relative; aspect-ratio: 21 / 9; overflow: hidden; }
+.heroFig figcaption {
+  position: absolute; inset: auto 0 0; padding: 2rem 1rem 0.7rem;
+  background: linear-gradient(transparent, color-mix(in srgb, var(--vt-surface-deep) 82%, transparent));
+  color: var(--vt-on-deep); font-size: 0.76rem;
+}
+
+/* ----------------------------------------------------------------- strip */
+/* Στατική λωρίδα, ΟΧΙ marquee: κινούμενο κείμενο είναι εχθρικό στην ανάγνωση
+   και άχρηστο για SEO. Η ίδια πληροφορία, χωρίς κίνηση. */
+.strip {
+  display: flex; flex-wrap: wrap; gap: 0 2.5rem;
+  padding: 0.9rem var(--pad);
+  background: var(--vt-ink); color: var(--vt-on-deep);
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.strip span { position: relative; padding-left: 1.1rem; }
+.strip span::before {
+  content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 6px; height: 6px; background: var(--vt-accent-on-deep);
+}
+
+/* ----------------------------------------------------------------- shelf */
+.shelf { width: min(var(--container), 100%); margin: 0 auto; padding: var(--section) var(--pad); }
+.secHead { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: clamp(1.8rem, 4vw, 3rem); }
+.secTitle {
+  font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800;
+  line-height: 1; letter-spacing: -0.03em; text-transform: uppercase;
+}
+.shelfGrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: clamp(1.2rem, 2.4vw, 2rem);
+}
+.item { display: flex; flex-direction: column; }
+.itemFig { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: var(--vt-surface-2); }
+.itemFig figcaption {
+  position: absolute; inset: auto 0 0; padding: 1.6rem 0.7rem 0.5rem;
+  background: linear-gradient(transparent, color-mix(in srgb, var(--vt-surface-deep) 80%, transparent));
+  color: var(--vt-on-deep); font-size: 0.7rem;
+}
+.itemBody { padding: 1rem 0 0; border-top: 2px solid var(--vt-ink); margin-top: 1rem; }
+.item:first-child .itemBody, .itemFig + .itemBody { margin-top: 1rem; }
+.itemNum { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; color: var(--vt-accent-ink); }
+.item h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; margin-top: 0.3rem; }
+.item p { margin-top: 0.4rem; color: var(--vt-ink-soft); font-size: 0.93rem; }
+.more { margin-top: 1.6rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vt-ink-soft); }
+
+/* ----------------------------------------------------------------- about */
+.about { background: var(--vt-surface-2); padding: var(--section) var(--pad); }
+.aboutIn { width: min(66ch, 100%); margin: 0 auto; }
+.aboutTitle {
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 800;
+  line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.1rem;
+}
+.aboutIn p { color: var(--vt-ink-soft); margin-bottom: 0.9rem; }
+
+/* ----------------------------------------------------------------- visit */
+.visit {
+  background: var(--vt-surface-deep); color: var(--vt-on-deep);
+  padding: var(--section) var(--pad);
+}
+.visit h2 {
+  width: min(var(--container), 100%); margin: 0 auto 1.8rem;
+  font-size: clamp(1.9rem, 4.4vw, 3.2rem); font-weight: 800;
+  line-height: 1; letter-spacing: -0.03em; text-transform: uppercase;
+}
+.visitFacts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
+  width: min(var(--container), 100%); margin: 0 auto;
+}
+.visitFacts > div { border-top: 2px solid var(--vt-accent-on-deep); padding-top: 0.9rem; }
+.visitFacts dt {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--vt-accent-on-deep);
+}
+.visitFacts dd { margin-top: 0.35rem; font-size: 1.05rem; }
+.visitFacts a { min-height: 44px; display: inline-flex; align-items: center; }
+.visitFacts a:hover { color: var(--vt-accent-on-deep); }
+.footer {
+  padding: 1.4rem var(--pad); text-align: center;
+  font-size: 0.76rem; letter-spacing: 0.06em; color: var(--vt-ink-soft);
+  border-top: 1px solid var(--vt-line);
+}
+
+/* ------------------------------------------------------------ responsive */
+@media (max-width: 900px) { .navLinks { display: none; } }
+@media (max-width: 560px) {
+  .navCall { padding: 0 0.85rem; font-size: 0.86rem; }
+  .strip { gap: 0 1.4rem; font-size: 0.72rem; }
+}
+@media (prefers-reduced-motion: reduce) { .root * { transition: none !important; } }
