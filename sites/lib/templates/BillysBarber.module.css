@@ -1,0 +1,172 @@
+/* Billy's Barber — ΠΙΣΤΟ PORT του joayo13/barbershop (MIT).
+   Τα χρώματα βγήκαν από τις ίδιες τις κλάσεις Tailwind του πρωτοτύπου:
+   red-800 #991b1b, red-950 #450a0a, neutral-950 #0a0a0a, neutral-300 #d4d4d4
+   (το `body` ορίζει ρητά `rgb(212,212,212)` — γκρι σώμα, όχι λευκό).
+
+   ΑΠΟΚΛΙΣΗ ΓΡΑΜΜΑΤΟΣΕΙΡΑΣ, υποχρεωτική: το πρωτότυπο φορτώνει Playfair Display
+   και Lato από Google Fonts κατά την εκτέλεση. Το Vitrina απαγορεύει runtime
+   Google Fonts και απαιτεί ελληνικό subset (CLAUDE.md). Χρησιμοποιούνται τα
+   πλησιέστερα self-hosted: Noto Serif Display για τον υψηλής αντίθεσης σερίφ,
+   Nunito Sans για την ουμανιστική sans της πλοήγησης. */
+.root {
+  --vt-surface:#d4d4d4;
+  --vt-surface-2:#c4c4c4;
+  --vt-surface-deep:#0a0a0a;
+  --vt-ink:#171717;
+  --vt-ink-soft:#4a4a4a;
+  --vt-on-deep:#ffffff;
+  --vt-accent:#991b1b;
+  --vt-on-accent:#ffffff;
+  --vt-accent-ink:#8a1818;
+  --vt-accent-on-deep:#e59a9a;
+  --vt-line:#a3a3a3;
+
+  --container: 1180px;
+  --pad: clamp(1rem, 4vw, 2.4rem);
+  --section: clamp(2.6rem, 6vw, 4.5rem);
+  --serif: 'Noto Serif Display', Georgia, serif;
+  --sans: 'Nunito Sans', system-ui, sans-serif;
+
+  background: var(--vt-surface);
+  color: var(--vt-ink);
+  font-family: var(--serif);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+.root :where(h1,h2,h3,p,ul,li,figure) { margin: 0; padding: 0; }
+.root :where(ul) { list-style: none; }
+.root :where(a) { color: inherit; text-decoration: none; }
+.root img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ------------------------------------------------------------------- nav */
+.nav {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0.5rem var(--pad);
+  background: var(--vt-surface-deep); color: var(--vt-on-deep);
+  font-family: var(--sans);
+}
+/* Το λογότυπο μέσα σε λευκό πλαίσιο — χαρακτηριστικό του πρωτοτύπου. */
+.logoBox {
+  display: inline-flex; align-items: center; min-height: 44px;
+  padding: 0.25rem 0.7rem; border: 2px solid var(--vt-on-deep);
+}
+.navLinks { display: flex; gap: 1.6rem; font-size: 0.95rem; }
+.navLinks a { display: inline-flex; align-items: center; min-height: 44px; }
+.navLinks a:hover { color: var(--vt-accent-on-deep); }
+
+/* ------------------------------------------------------------------ hero */
+.hero { position: relative; isolation: isolate; min-height: min(600px, 72vh); display: grid; place-items: center; background: var(--vt-surface-deep); }
+.heroImg { position: absolute; inset: 0; z-index: -2; }
+.heroVeil { position: absolute; inset: 0; z-index: -1; background: rgba(0, 0, 0, 0.42); }
+.heroCopy { text-align: center; padding: 2rem var(--pad); color: #fff; }
+.heroTitle {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem); line-height: 1.25;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); text-wrap: balance;
+}
+.bookBtn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 46px; margin-top: 1.5rem; padding: 0 1.5rem;
+  background: var(--vt-accent); color: var(--vt-on-accent);
+  font-family: var(--sans); font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+.bookBtn:hover { background: color-mix(in srgb, var(--vt-accent) 82%, #000); }
+
+/* ------------------------------------------------------------- title band */
+.titleBand { text-align: center; padding: clamp(1.6rem, 3.4vw, 2.6rem) var(--pad); }
+.bandTitle {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; color: var(--vt-accent-ink);
+}
+.bandSub {
+  margin-top: 0.4rem; font-style: italic; font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  color: var(--vt-ink);
+}
+
+/* ----------------------------------------------------------------- strip */
+/* Λωρίδα τριών εικόνων. Το πρωτότυπο τη γυρίζει με JS carousel· εδώ είναι
+   scroll-snap: ίδια οπτική, χωρίς JavaScript, φιλικό σε reduced motion. */
+.strip {
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+}
+.strip::-webkit-scrollbar { display: none; }
+.stripItem { position: relative; aspect-ratio: 16 / 11; scroll-snap-align: start; }
+.stripItem figcaption {
+  position: absolute; inset: auto 0 0; padding: 1.6rem 0.7rem 0.5rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.72));
+  color: #fff; font-family: var(--sans); font-size: 0.72rem;
+}
+
+/* ----------------------------------------------------------------- about */
+.about {
+  display: grid; grid-template-columns: 5rem 1.1fr 0.9fr;
+  gap: clamp(1rem, 3vw, 2.5rem); align-items: start;
+  width: min(var(--container), 100%); margin: 0 auto;
+  padding: var(--section) var(--pad);
+}
+/* Η υπογραφή: κατακόρυφος τεράστιος κόκκινος τίτλος στο περιθώριο. */
+.vertical {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: var(--serif); font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  line-height: 1; color: var(--vt-accent-ink); letter-spacing: 0.02em;
+  justify-self: center;
+}
+.aboutTitle { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 3vw, 2.1rem); }
+.aboutMeta {
+  margin: 0.4rem 0 1rem; font-style: italic; font-size: 0.9rem;
+  color: var(--vt-accent-ink);
+}
+.aboutText p { margin-bottom: 0.9rem; color: var(--vt-ink); }
+.aboutFig { aspect-ratio: 3 / 4; overflow: hidden; }
+
+/* -------------------------------------------------------------- services */
+.services {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 5vw, 4rem);
+  width: min(var(--container), 100%); margin: 0 auto;
+  padding: var(--section) var(--pad);
+  background: var(--vt-surface-2);
+}
+.colTitle {
+  text-align: center; font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem); color: var(--vt-accent-ink);
+  margin-bottom: 1.4rem;
+}
+.list li { padding: 0.7rem 0; border-bottom: 1px solid var(--vt-line); }
+.listHead {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  font-family: var(--sans); font-weight: 700; font-size: 0.98rem;
+}
+.list p { margin-top: 0.25rem; font-family: var(--sans); font-size: 0.9rem; color: var(--vt-ink-soft); }
+.more {
+  width: min(var(--container), 100%); margin: 0 auto;
+  padding: 0 var(--pad) var(--section);
+  font-family: var(--sans); font-size: 0.9rem; color: var(--vt-ink-soft); text-align: right;
+}
+
+/* ---------------------------------------------------------------- footer */
+.footer {
+  display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+  padding: var(--section) var(--pad);
+  background: var(--vt-surface-deep); color: var(--vt-on-deep);
+  font-family: var(--sans); text-align: center;
+}
+.footLinks { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.95rem; }
+.footLinks a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.footLinks a:hover { color: var(--vt-accent-on-deep); }
+.copy { font-size: 0.78rem; color: rgba(255, 255, 255, 0.65); }
+
+/* ------------------------------------------------------------ responsive */
+@media (max-width: 900px) {
+  .about { grid-template-columns: 3.2rem 1fr; }
+  .aboutFig { grid-column: 2; aspect-ratio: 4 / 3; }
+  .services { grid-template-columns: 1fr; }
+  .strip { grid-auto-columns: 86%; }
+}
+@media (max-width: 560px) {
+  .nav { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+  .navLinks { flex-wrap: wrap; gap: 1rem; font-size: 0.88rem; }
+}
+@media (prefers-reduced-motion: reduce) { .root * { transition: none !important; } }
