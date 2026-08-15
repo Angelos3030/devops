@@ -291,7 +291,10 @@ def _register(rec: dict[str, Any]) -> bool:
     sg = SITES / "tests" / "spine_guard.mjs"
     stxt = sg.read_text(encoding="utf-8")
     if f"'{comp}'" not in stxt:
-        stxt = re.sub(r"(export const MIGRATED = \[)", rf"'{comp}', ", stxt, count=1)
+        # Χωρίς backreference: ένα χαμένο  σε προηγούμενη έκδοση ΔΙΕΓΡΑΨΕ τη
+        # δήλωση αντί να προσθέσει, και το spine_guard.mjs έσπαγε με SyntaxError.
+        anchor = "export const MIGRATED = ["
+        stxt = stxt.replace(anchor, f"{anchor}'{comp}', ", 1)
         sg.write_text(stxt, encoding="utf-8")
 
     # Το templateRegistry.mjs απαιτεί ΓΡΑΠΤΟ λόγο για κάθε theme εκτός profiles.
@@ -367,7 +370,7 @@ def port_source(source_id: str) -> dict[str, Any]:
     files: list[dict[str, str]] = []
     problem: str | None = None
 
-    def _one(step: str, instruction: str) -> dict[str, Any] | None:
+    def _one(step: str, instruction: str, keep: str) -> dict[str, Any] | None:
         nonlocal problem
         for attempt in range(1 + MAX_REPAIR_ATTEMPTS):
             prompt = f"{user}\n\n=== ΒΗΜΑ: {step} ===\n{instruction}"
@@ -382,7 +385,12 @@ def port_source(source_id: str) -> dict[str, Any]:
             (out / f"deepseek-{step}-{attempt + 1}.json").write_text(raw, encoding="utf-8")
             try:
                 data = json.loads(raw)
-                _validate(data.get("files", []), rec)
+                # Κρατάμε ΜΟΝΟ το αρχείο που ζητά αυτό το βήμα.
+                data["files"] = [f for f in data.get("files", [])
+                                 if f.get("path", "").endswith(keep)]
+                if not data["files"]:
+                    raise PortWorkerError(f"το βήμα {step} δεν επέστρεψε αρχείο {keep}")
+                _validate(data["files"], rec)
                 problem = None
                 return data
             except (json.JSONDecodeError, PortWorkerError) as exc:
@@ -398,14 +406,14 @@ def port_source(source_id: str) -> dict[str, Any]:
                  "Διόρθωσε ΑΚΡΙΒΩΣ αυτά. Μην αλλάξεις τίποτε άλλο.") if feedback else ""
         jsx = _one("JSX", f"Return ONLY sites/lib/templates/{rec['component']}.jsx in files[]. "
                           "Use semantic class names via the `s` import; the stylesheet comes next."
-                          + extra)
+                          + extra, keep=".jsx")
         if not jsx:
             return
         jsx_src = jsx["files"][0]["content"]
         css = _one("CSS", f"Return ONLY sites/lib/templates/{rec['component']}.module.css in files[]. "
                           "It must style EXACTLY the class names used below and nothing else."
                           + extra
-                          + f"\n=== THE JSX YOU JUST WROTE ===\n{jsx_src}")
+                          + f"\n=== THE JSX YOU JUST WROTE ===\n{jsx_src}", keep=".css")
         if not css:
             return
         payload["files"] = jsx["files"] + css["files"]
@@ -558,155 +566,6 @@ def port_source(source_id: str) -> dict[str, Any]:
     res["status"] = ("READY_FOR_REVIEW"
                      if res["tests_failed"] == 0 and not render_problems
                      else "FAILED")
-    res["original_metrics"] = orig
-    (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
-    _set_state(source_id, res["status"], result=str((out / "result.json").relative_to(ROOT)))
-    return res
-
-    # ---- 2. μηχανικό πέρασμα DeepSeek
-    html, css = _read_source(rec)
-    chat = _Chat(source_id)
-    chat._safety_checks()
-    res["model"] = chat._pass2_model
-    contract = extract()
-    user = (_contract(rec, contract) + "\n\n=== ORIGINAL index.html ===\n" + html
-            + "\n\n=== ORIGINAL CSS ===\n" + css)
-    # ΔΥΟ κλήσεις, όχι μία. Μετρήθηκε: ένα ολόκληρο theme (JSX+CSS) σε ένα JSON
-    # χτυπά το όριο εξόδου και κόβεται στη μέση — τρεις σερί αποτυχίες
-    # «Unterminated string». Χωριστά χωρά, και το CSS γράφεται γνωρίζοντας τα
-    # πραγματικά class names του JSX αντί να τα μαντεύει.
-    payload: dict[str, Any] = {"files": [], "deviations": []}
-    files: list[dict[str, str]] = []
-    problem: str | None = None
-
-    def _one(step: str, instruction: str) -> dict[str, Any] | None:
-        nonlocal problem
-        for attempt in range(1 + MAX_REPAIR_ATTEMPTS):
-            prompt = f"{user}\n\n=== ΒΗΜΑ: {step} ===\n{instruction}"
-            if problem:
-                prompt += (f"\n\n=== Η ΠΡΟΗΓΟΥΜΕΝΗ ΑΠΑΝΤΗΣΗ ΑΠΟΡΡΙΦΘΗΚΕ ===\n{problem}\n"
-                           "Διόρθωσέ το και ξαναδώσε ΟΛΟΚΛΗΡΟ το αρχείο.")
-            try:
-                raw = chat.ask(SYSTEM, prompt, max_tokens=32000)
-            except ResearchWorkerError as exc:
-                problem = str(exc)[:300]
-                return None
-            (out / f"deepseek-{step}-{attempt + 1}.json").write_text(raw, encoding="utf-8")
-            try:
-                data = json.loads(raw)
-                _validate(data.get("files", []), rec)
-                problem = None
-                return data
-            except (json.JSONDecodeError, PortWorkerError) as exc:
-                problem = str(exc)[:300]
-                res.setdefault("repair_attempts", []).append(f"{step}: {problem}")
-        return None
-
-    def _generate(feedback: str = "") -> None:
-        """Ένας πλήρης κύκλος JSX+CSS. Το `feedback` είναι ό,τι απέρριψαν οι
-        guards ή το build — πάει αυτούσιο πίσω στο μοντέλο."""
-        nonlocal payload, files
-        extra = (f"\n\n=== Η ΠΡΟΗΓΟΥΜΕΝΗ ΠΡΟΣΠΑΘΕΙΑ ΑΠΟΡΡΙΦΘΗΚΕ ===\n{feedback}\n"
-                 "Διόρθωσε ΑΚΡΙΒΩΣ αυτά. Μην αλλάξεις τίποτε άλλο.") if feedback else ""
-        jsx = _one("JSX", f"Return ONLY sites/lib/templates/{rec['component']}.jsx in files[]. "
-                          "Use semantic class names via the `s` import; the stylesheet comes next."
-                          + extra)
-        if not jsx:
-            return
-        jsx_src = jsx["files"][0]["content"]
-        css = _one("CSS", f"Return ONLY sites/lib/templates/{rec['component']}.module.css in files[]. "
-                          "It must style EXACTLY the class names used below and nothing else."
-                          + extra
-                          + f"\n=== THE JSX YOU JUST WROTE ===\n{jsx_src}")
-        if not css:
-            return
-        payload["files"] = jsx["files"] + css["files"]
-        payload["deviations"] = (jsx.get("deviations") or []) + (css.get("deviations") or [])
-        files = _validate(payload["files"], rec)
-
-    # Guards ΠΡΙΝ γραφτεί οτιδήποτε στον δίσκο: ένα port με λάθος prop ή με
-    # μηδέν δεμένες εικόνες δεν αξίζει καν build. Ό,τι απορρίπτουν πάει
-    # αυτούσιο πίσω στο μοντέλο, μέχρι MAX_REPAIR_ATTEMPTS φορές.
-    _generate()
-    for _ in range(MAX_REPAIR_ATTEMPTS):
-        if not files:
-            break
-        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
-        if not any(guard_out.values()):
-            break
-        res.setdefault("repair_attempts", []).append("guards: " + summarize(guard_out)[:400])
-        _generate(summarize(guard_out))
-    if files:
-        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
-        res["guards"] = guard_out
-        if any(guard_out.values()):
-            _set_state(source_id, "FAILED", failure="guards")
-            res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
-            (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
-            return res
-
-    tele = chat._telemetry_dict()
-    res["token_usage"] = {"input": tele["input_tokens"], "output": tele["output_tokens"]}
-    res["cost_usd"] = tele["estimated_cost_usd"]
-    if res["cost_usd"] > MAX_COST_USD:
-        _set_state(source_id, "FAILED", failure="υπέρβαση ορίου κόστους")
-        res.update(status="FAILED", reason=f"κόστος {res['cost_usd']} > {MAX_COST_USD}")
-        return res
-    if problem is not None:
-        _set_state(source_id, "FAILED", failure=problem)
-        res.update(status="FAILED", reason=problem)
-        (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
-        return res
-
-    # ---- 3. build/tests, με ανατροφοδότηση σφαλμάτων στο μοντέλο
-    def _suite() -> dict[str, dict[str, Any]]:
-        out_tests: dict[str, dict[str, Any]] = {}
-        for name, cmd in (("templateRegistry", ["node", "tests/templateRegistry.mjs"]),
-                          ("spine_guard", ["node", "tests/spine_guard.mjs"]),
-                          ("trust_guard", ["node", "tests/trust_guard.mjs"])):
-            ok, log = _run(cmd, SITES, timeout=240)
-            out_tests[name] = {"passed": ok, "log": log[-900:]}
-        # Δικό μας NEXT_DIST_DIR: δύο agents δεν μοιράζονται .next (CLAUDE.md).
-        bok, blog = _run(["npx", "next", "build"], SITES, timeout=900,
-                         env=dict(os.environ, NEXT_DIST_DIR=".next-port"))
-        out_tests["next_build"] = {"passed": bok, "log": blog[-1800:]}
-        return out_tests
-
-    res["files_changed"] = _apply(files)
-    res["deviations"] = payload.get("deviations", [])
-    res["registered"] = _register(rec)
-    tests = _suite()
-
-    # Ένα σφάλμα build είναι ακριβώς το είδος που το μοντέλο μπορεί να διορθώσει
-    # μόνο του — αρκεί να το δει. Στο πρώτο proof δεν του το έδειχνα ποτέ και
-    # έπρεπε να μπω εγώ για ένα «selector is not pure».
-    for _ in range(MAX_REPAIR_ATTEMPTS):
-        failed = {k: v for k, v in tests.items() if not v["passed"]}
-        if not failed:
-            break
-        report = "\n\n".join(f"--- {k} ΑΠΕΤΥΧΕ ---\n{v['log'][-900:]}" for k, v in failed.items())
-        res.setdefault("repair_attempts", []).append("build: " + ", ".join(failed))
-        _generate(report)
-        if not files:
-            break
-        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
-        res["guards"] = guard_out
-        if any(guard_out.values()):
-            _set_state(source_id, "FAILED", failure="guards μετά από build repair")
-            res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
-            (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
-            return res
-        res["files_changed"] = _apply(files)
-        tests = _suite()
-
-    res["tests_run"] = len(tests)
-    res["tests_passed"] = sum(1 for t in tests.values() if t["passed"])
-    res["tests_failed"] = res["tests_run"] - res["tests_passed"]
-    res["tests"] = {k: {"passed": v["passed"]} for k, v in tests.items()}
-    (out / "test-logs.json").write_text(json.dumps(tests, indent=1, ensure_ascii=False), encoding="utf-8")
-
-    res["elapsed_seconds"] = round(time.time() - started, 1)
-    res["status"] = "READY_FOR_REVIEW" if res["tests_failed"] == 0 else "FAILED"
     res["original_metrics"] = orig
     (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
     _set_state(source_id, res["status"], result=str((out / "result.json").relative_to(ROOT)))

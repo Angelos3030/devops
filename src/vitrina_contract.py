@@ -115,8 +115,15 @@ def _canonical_usage() -> dict[str, Any]:
         cm = re.search(rf"<{comp}\s+([A-Za-z_]+)=\{{d\}}", txt)
         if cm:
             calls[comp] = cm.group(1)
+    # Οι γραμμές import ΠΡΕΠΕΙ να μπουν στο συμβόλαιο. Χωρίς αυτές το μοντέλο
+    # βλέπει μόνο πώς ΚΑΛΟΥΝΤΑΙ τα shared («<Brand data={d} />») και μαντεύει τη
+    # διαδρομή: μετρήθηκε να γράφει `../components/Brand`, `../../components/Brand`
+    # και `../components/shared` σε τρεις σερί απόπειρες, καίγοντας όλο το
+    # repair budget σε ένα σφάλμα που η προδιαγραφή απλώς δεν του έλεγε.
+    imports = "\n".join(re.findall(r"^import .+$", txt, re.M))
     return {"signature": sig.group(1).strip() if sig else "", "fields_used": used,
-            "shared_prop": calls, "excerpt": txt[txt.index("return ("):][:1400]}
+            "shared_prop": calls, "imports": imports,
+            "excerpt": txt[txt.index("return ("):][:1400]}
 
 
 def _shared_signatures() -> dict[str, str]:
@@ -175,6 +182,12 @@ ARRAY fields (μόνο αυτά δέχονται .map()):
 ΔΕΝ ΥΠΑΡΧΕΙ κανένα άλλο πεδίο. Μην επινοήσεις `d.name`, `d.hours[]`, `d.about[]`,
 `d.social`, `d.mapQuery` — δεν υπάρχουν. Χρησιμοποίησε μόνο τα παραπάνω, με
 ακριβώς αυτά τα ονόματα και αυτούς τους τύπους.
+
+IMPORTS — γράψε ΑΚΡΙΒΩΣ αυτές τις γραμμές στην κορυφή (αλλάζοντας μόνο το όνομα
+του δικού σου module CSS). Όλα τα themes και τα shared components ζουν στον ΙΔΙΟ
+φάκελο· καμία διαδρομή δεν έχει `../`:
+
+{contract['canonical_usage']['imports'].replace(contract['canonical_theme'], component)}
 
 Shared components — κάλεσέ τα έτσι, μην τα ξαναγράψεις:
 {shared}
