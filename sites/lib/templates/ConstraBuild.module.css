@@ -1,0 +1,324 @@
+.root {
+  --yellow: #f2bd18;
+  --black: #171717;
+  --steel: #3c4145;
+  --paper: #f5f4ef;
+  background: var(--paper);
+  color: var(--black);
+  font-family: "Open Sans", Arial, sans-serif;
+}
+.root * {
+  box-sizing: border-box;
+}
+.root a {
+  color: inherit;
+  text-decoration: none;
+}
+.utility {
+  height: 34px;
+  padding: 0 5vw;
+  background: var(--black);
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 28px;
+  font-size: 0.72rem;
+}
+.nav {
+  height: 80px;
+  padding: 0 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav > div {
+  display: flex;
+  gap: 34px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+.quote,
+.hero > div > a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 22px;
+  background: var(--yellow);
+  color: var(--black) !important;
+  font-weight: 800;
+}
+.hero {
+  min-height: 690px;
+  position: relative;
+  background: var(--steel);
+  color: white;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.hero > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero > span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(12, 12, 12, 0.88),
+    rgba(12, 12, 12, 0.12)
+  );
+}
+.hero > div {
+  position: relative;
+  z-index: 2;
+  padding: 110px 6vw;
+  max-width: 1000px;
+}
+.hero > div p,
+.services header p,
+.projects header p {
+  color: var(--yellow);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 800;
+}
+.hero h1 {
+  font-family: "Fira Sans Condensed", Arial, sans-serif;
+  font-size: clamp(4rem, 8vw, 9rem);
+  line-height: 0.82;
+  text-transform: uppercase;
+  max-width: 900px;
+}
+.hero aside {
+  position: absolute;
+  z-index: 2;
+  right: 4vw;
+  bottom: 4vw;
+  display: grid;
+  border-left: 5px solid var(--yellow);
+  padding-left: 20px;
+}
+.hero aside b {
+  font-size: 3.5rem;
+}
+.services {
+  padding: 120px 5vw;
+}
+.services header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 5vw;
+  align-items: start;
+}
+.services h2,
+.projects h2 {
+  font-family: "Fira Sans Condensed", Arial, sans-serif;
+  font-size: clamp(3rem, 6vw, 6rem);
+  text-transform: uppercase;
+  line-height: 0.9;
+  margin: 0;
+}
+.services header > span {
+  line-height: 1.8;
+  color: #616366;
+}
+.services > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 60px;
+}
+.services article {
+  min-height: 320px;
+  padding: 32px;
+  border: 1px solid #c5c4bd;
+  margin: -1px 0 0 -1px;
+}
+.services article b {
+  font-size: 3rem;
+  color: #d2d0c7;
+}
+.services h3 {
+  font-size: 1.4rem;
+}
+.services p {
+  line-height: 1.7;
+  color: #5e6061;
+}
+.services a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  font-weight: 800;
+  border-bottom: 3px solid var(--yellow);
+}
+.projects {
+  padding: 110px 5vw;
+  background: var(--black);
+  color: white;
+}
+.projects > div {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 50px;
+}
+.projects figure {
+  margin: 0;
+  min-height: 260px;
+  position: relative;
+}
+.projects figure:first-child {
+  grid-row: span 2;
+}
+.projects img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.75);
+}
+.projects figcaption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: var(--yellow);
+  color: var(--black);
+  padding: 10px 14px;
+  font-weight: 800;
+}
+.noProjects ol {
+  list-style: none;
+  padding: 0;
+  margin: 50px 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.noProjects li {
+  border-top: 1px solid #555;
+  padding: 30px;
+  font-size: 1.5rem;
+}
+.noProjects li span {
+  color: var(--yellow);
+  margin-right: 30px;
+}
+.band {
+  padding: 65px 5vw;
+  background: var(--yellow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.band p {
+  font-family: "Fira Sans Condensed", Arial, sans-serif;
+  font-size: clamp(2.4rem, 5vw, 5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
+}
+.band a {
+  font-size: 2rem;
+  font-weight: 800;
+}
+.footer {
+  padding: 30px 5vw;
+  background: var(--black);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+@media (max-width: 700px) {
+  .utility {
+    padding: 0 18px;
+  }
+  .utility span {
+    display: none;
+  }
+  .nav {
+    height: 68px;
+    padding: 0 18px;
+  }
+  .nav > div {
+    display: none;
+  }
+  .quote {
+    padding: 0 14px;
+  }
+  .hero {
+    min-height: 720px;
+  }
+  .hero > span {
+    background: linear-gradient(
+      0deg,
+      rgba(12, 12, 12, 0.92),
+      rgba(12, 12, 12, 0.12)
+    );
+  }
+  .hero > div {
+    padding: 80px 20px;
+  }
+  .hero h1 {
+    font-size: 4rem;
+  }
+  .hero aside {
+    right: 20px;
+    top: 35%;
+    bottom: auto;
+  }
+  .services {
+    padding: 80px 20px;
+  }
+  .services header {
+    display: block;
+  }
+  .services h2,
+  .projects h2 {
+    font-size: 3.2rem;
+  }
+  .services header > span {
+    display: block;
+    margin-top: 25px;
+  }
+  .services > div {
+    grid-template-columns: 1fr;
+  }
+  .services article {
+    min-height: 260px;
+  }
+  .projects {
+    padding: 80px 20px;
+  }
+  .projects > div {
+    grid-template-columns: 1fr 1fr;
+  }
+  .projects figure,
+  .projects figure:first-child {
+    min-height: 260px;
+    grid-row: auto;
+  }
+  .projects figure:first-child {
+    grid-column: 1/-1;
+  }
+  .noProjects ol {
+    grid-template-columns: 1fr;
+  }
+  .band {
+    padding: 55px 20px;
+    display: block;
+  }
+  .band a {
+    display: block;
+    margin-top: 25px;
+  }
+  .footer {
+    padding: 28px 20px;
+    display: grid;
+    gap: 8px;
+  }
+}
