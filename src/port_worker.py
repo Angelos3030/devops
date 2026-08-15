@@ -499,6 +499,8 @@ def port_source(source_id: str) -> dict[str, Any]:
     files: list[dict[str, str]] = []
     problem: str | None = None
 
+    _step_log: list[dict[str, Any]] = res.setdefault("generation_steps", [])
+
     def _one(step: str, instruction: str, keep: str) -> dict[str, Any] | None:
         nonlocal problem
         for attempt in range(1 + MAX_REPAIR_ATTEMPTS):
@@ -510,6 +512,10 @@ def port_source(source_id: str) -> dict[str, Any]:
                 raw = chat.ask(SYSTEM, prompt, max_tokens=32000)
             except ResearchWorkerError as exc:
                 problem = str(exc)[:300]
+                _step_log.append({"step": step, "attempt": attempt + 1,
+                                  "outcome": "GENERATION_FAILED",
+                                  "reason": problem, "patch_produced": False,
+                                  "applied": False})
                 return None
             (out / f"deepseek-{step}-{attempt + 1}.json").write_text(raw, encoding="utf-8")
             try:
@@ -521,13 +527,23 @@ def port_source(source_id: str) -> dict[str, Any]:
                     raise PortWorkerError(f"το βήμα {step} δεν επέστρεψε αρχείο {keep}")
                 _validate(data["files"], rec)
                 problem = None
+                _step_log.append({"step": step, "attempt": attempt + 1,
+                                  "outcome": "SUCCESS", "reason": "",
+                                  "patch_produced": True, "applied": False})
                 return data
             except (json.JSONDecodeError, PortWorkerError) as exc:
                 problem = str(exc)[:300]
+                _step_log.append({"step": step, "attempt": attempt + 1,
+                                  "outcome": "VALIDATION_FAILED",
+                                  "reason": problem, "patch_produced": True,
+                                  "applied": False})
                 res.setdefault("repair_attempts", []).append(f"{step}: {problem}")
+        _step_log.append({"step": step, "attempt": 1 + MAX_REPAIR_ATTEMPTS,
+                          "outcome": "BUDGET_EXHAUSTED", "reason": problem or "",
+                          "patch_produced": False, "applied": False})
         return None
 
-    def _generate(feedback: str = "") -> None:
+    def _generate(feedback: str = "") -> bool:
         """Ένας πλήρης κύκλος JSX+CSS. Το `feedback` είναι ό,τι απέρριψαν οι
         guards ή το build — πάει αυτούσιο πίσω στο μοντέλο."""
         nonlocal payload, files
@@ -537,17 +553,32 @@ def port_source(source_id: str) -> dict[str, Any]:
                           "Use semantic class names via the `s` import; the stylesheet comes next."
                           + extra, keep=".jsx")
         if not jsx:
-            return
+            res["generation_blocked"] = "JSX: το βήμα δεν παρήγαγε έγκυρο αρχείο"
+            return False
         jsx_src = jsx["files"][0]["content"]
         css = _one("CSS", f"Return ONLY sites/lib/templates/{rec['component']}.module.css in files[]. "
-                          "It must style EXACTLY the class names used below and nothing else."
+                          "It must style EXACTLY the class names used below and nothing else.\n"
+                          "HARD RULES — μία παράβαση απορρίπτει ΟΛΟ το αρχείο:\n"
+                          "  1. ΠΟΤΕ !important. Ούτε μία φορά, για κανέναν λόγο.\n"
+                          "  2. CSS Modules: κάθε selector πρέπει να περιέχει τοπική κλάση. "
+                          "     a:focus-visible σκέτο ΔΕΝ μεταγλωττίζεται — .root a:focus-visible.\n"
+                          "  3. Κάθε χρώμα από τους 11 --vt-* ρόλους στο .root. Κανένα hex αλλού.\n"
+                          "  4. Την αντίθεση τη διορθώνεις αλλάζοντας την ΤΙΜΗ του ρόλου στο "
+                          "     .root — ποτέ παρακάμπτοντας ή διπλασιάζοντας κανόνα αλλού.\n"
                           + extra
                           + f"\n=== THE JSX YOU JUST WROTE ===\n{jsx_src}", keep=".css")
         if not css:
-            return
+            # ΚΡΙΣΙΜΟ: χωρίς αυτό ο βρόχος συνέχιζε πάνω σε ΠΑΛΙΟ css και έκαιγε
+            # το budget χωρίς να γράψει τίποτα. Τρία τρεξίματα έδειξαν ακριβώς
+            # το ίδιο #247cff / 3.69:1 επειδή καμία συνταγή δεν έφτανε ποτέ
+            # στον δίσκο, ενώ ο worker προχωρούσε σαν να έγινε repair.
+            res["generation_blocked"] = ("CSS: το βήμα εξάντλησε τις απόπειρές του — "
+                                         "τα προηγούμενα αρχεία ΔΕΝ είναι επιδιόρθωση")
+            return False
         payload["files"] = jsx["files"] + css["files"]
         payload["deviations"] = (jsx.get("deviations") or []) + (css.get("deviations") or [])
         files = _validate(payload["files"], rec)
+        return True
 
     # Guards ΠΡΙΝ γραφτεί οτιδήποτε στον δίσκο: ένα port με λάθος prop ή με
     # μηδέν δεμένες εικόνες δεν αξίζει καν build. Ό,τι απορρίπτουν πάει
