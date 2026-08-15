@@ -1,0 +1,18 @@
+{
+ "templateRegistry": {
+  "passed": true,
+  "log": "templateRegistry: 57 themes × 4 σημεία εγγραφής · 49 design ids · 47 components · όλα λογοδοτούν\n"
+ },
+ "spine_guard": {
+  "passed": false,
+  "log": "(original): όλα τα ζεύγη περνούν\n  ✓ FreightLane (original): όλα τα ζεύγη περνούν\n  ✓ BlueOnepage (original): όλα τα ζεύγη περνούν\n  ✓ BillysBarber (original): όλα τα ζεύγη περνούν\n  ✓ ThomsonStylist (original): όλα τα ζεύγη περνούν\n\n  χαμηλότερη αντίθεση κειμένου: 4.52:1 — rose on-accent/accent\n\n[4] Κάλυψη\n  ✗ αρχεία που δεν είναι ούτε migrated ούτε pending: FrostBakery\n  ✓ καμία λίστα δεν δείχνει σε ανύπαρκτο αρχείο\n  ✓ κάθε αρχείο έδωσε ακριβώς όσες ταυτότητες περιμέναμε\n  ✓ ελέγχθηκαν 51 ταυτότητες από 51 αναμενόμενες\n\n  spine: 45   ·   local masters: 6   ·   εκκρεμούν: 1   ·   !important: 12\n\n────────────────────────────────────────────────────────────────\n❌ 1 παραβάσεις του συμβολαίου\n"
+ },
+ "trust_guard": {
+  "passed": true,
+  "log": "  ✓ ελέγχθηκαν 59 templates × 12 κατηγορίες ισχυρισμού\n  ✓ 1 εξαίρεση αποδεδειγμένα data-bound\n────────────────────────────────────────────────────────────\n✅ Κανένα theme δεν ισχυρίζεται κάτι εκ μέρους του πελάτη.\n"
+ },
+ "next_build": {
+  "passed": false,
+  "log": "oaders\\css-loader\\src\\index.js??ruleSet[1].rules[14].oneOf[7].use[1]!C:\\greek-smb-agent\\sites\\node_modules\\next\\dist\\build\\webpack\\loaders\\postcss-loader\\src\\index.js??ruleSet[1].rules[14].oneOf[7].use[2]!C:\\greek-smb-agent\\sites\\lib\\templates\\FrostBakery.module.css|ssr': No serializer registered for CssSyntaxError\n<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> webpack/lib/ModuleBuildError -> CssSyntaxError\nFailed to compile.\n\n./lib/templates/FrostBakery.module.css:679:1\nSyntax error: Selector \"a:focus-visible,\nbutton:focus-visible,\ninput:focus-visible + label\" is not pure (pure selectors must contain at least one local class or id)\n\n \u001b[90m 677 | \u001b[39m\u001b[33m}\u001b[39m\n \u001b[90m 678 | \u001b[39m\n\u001b[1m\u001b[31m>\u001b[39m\u001b[22m\u001b[90m 679 | \u001b[39ma\u001b[33m:\u001b[39mfocus-visible,\n \u001b[90m     | \u001b[39m\u001b[1m\u001b[31m^\u001b[39m\u001b[22m\n \u001b[90m 680 | \u001b[39mbutton\u001b[33m:\u001b[39mfocus-visible,\n \u001b[90m 681 | \u001b[39minput\u001b[33m:\u001b[39mfocus-visible + label \u001b[33m{\u001b[39m\n\n./lib/templates/FrostBakery.module.css:679:1\nSyntax error: Selector \"a:focus-visible,\nbutton:focus-visible,\ninput:focus-visible + label\" is not pure (pure selectors must contain at least one local class or id)\n\n \u001b[90m 677 | \u001b[39m\u001b[33m}\u001b[39m\n \u001b[90m 678 | \u001b[39m\n\u001b[1m\u001b[31m>\u001b[39m\u001b[22m\u001b[90m 679 | \u001b[39ma\u001b[33m:\u001b[39mfocus-visible,\n \u001b[90m     | \u001b[39m\u001b[1m\u001b[31m^\u001b[39m\u001b[22m\n \u001b[90m 680 | \u001b[39mbutton\u001b[33m:\u001b[39mfocus-visible,\n \u001b[90m 681 | \u001b[39minput\u001b[33m:\u001b[39mfocus-visible + label \u001b[33m{\u001b[39m\n\n\n> Build failed because of webpack errors\n"
+ }
+}

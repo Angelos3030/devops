@@ -1,0 +1,65 @@
+{
+ "_comment": "Canonical ουρά port. ΜΟΝΟ εγγραφές με decision=PORT_OK εκτελούνται. Πηγή αλήθειας για τις αποφάσεις: research/verticals/*.md — εδώ αντιγράφονται, δεν ξανακρίνονται.",
+ "_states": [
+  "PENDING",
+  "IN_PROGRESS_DEEPSEEK",
+  "READY_FOR_REVIEW",
+  "IN_REVIEW",
+  "DONE",
+  "BLOCKED",
+  "FAILED"
+ ],
+ "_rule": "Ο worker δεν παράγει ποτέ DONE. Μόνο ο validator (Claude/άνθρωπος) μετά από σύγκριση screenshots.",
+ "sources": {
+  "frost-bakery": {
+   "name": "613 Frost Bakery",
+   "source_url": "https://templatemo.com/tm-613-frost-bakery",
+   "decision": "PORT_OK",
+   "status": "IN_REVIEW",
+   "license": "Templatemo — «You are allowed to download, edit and use this Frost Bakery HTML CSS layout for your commercial or non-commercial sites.» Credit αφαιρείται ρητά. Επαληθεύτηκε στη σελίδα του template (research/verticals/LICENSE-MAP.md).",
+   "provenance": "Templatemo, δικό τους template. Καμία ξένη υπογραφή στο footer.",
+   "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται. Χρησιμοποιούνται αποκλειστικά Vitrina media μέσω d.gallery.",
+   "theme_key": "frost-bakery",
+   "component": "FrostBakery",
+   "label": "Frost Bakery",
+   "desc": "Πιστό port του Frost Bakery (Templatemo): πλαϊνή πλοήγηση με ωράριο, παστέλ παλέτα, display serif, εποχιακά tabs και αριθμημένα βήματα.",
+   "verticals": [
+    "food",
+    "retail"
+   ],
+   "local_path": "sites/artifacts/food-src/613_frost_bakery",
+   "entry": "templatemo_613_frost_bakery/index.html",
+   "fidelity_notes": "Σταθερή πλαϊνή πλοήγηση με ωράριο στη βάση της· παστέλ παλέτα σε θερμό off-white· display serif με πλάγια έμφαση στη δεύτερη γραμμή του hero· 3D σφαίρες αντί για stock φωτογραφία· κάρτες γεύσεων με badge· τέσσερα αριθμημένα βήματα δίπλα σε sticky κάρτα σύνοψης· εποχιακά tabs. Οι δύο τελευταίες δομές δεν υπάρχουν σε κανένα από τα 56 themes και είναι ο λόγος που εγκρίθηκε.",
+   "required_removals": [
+    "κάρτα πιστότητας με σφραγίδες — δεν υπάρχει μοντέλο πιστότητας",
+    "«Book a Cart» / catering με τιμές πακέτων — δεν υπάρχει ροή κράτησης",
+    "εταιρικό footer με Careers/Press — δεν αφορά ελληνική μικρή επιχείρηση",
+    "κάθε badge τύπου «MOST POPULAR» χωρίς δεδομένα"
+   ],
+   "updated_at": "2026-08-15T07:48:00+00:00",
+   "failure": "Unterminated string starting at: line 11 column 18 (char 10521)",
+   "result": "research\\port-worker\\frost-bakery\\result.json",
+   "validator_verdict": "ΜΕΡΙΚΗ ΠΙΣΤΟΤΗΤΑ — δομή/παλέτα/τυπογραφία ναι· αγγλικά κείμενα, μηδέν εικόνες, ξεχείλισμα σειράς καρτών. Βλ. PROOF-frost-bakery.md",
+   "intervention_level": "HIGH"
+  },
+  "garage": {
+   "name": "Garage (Tooplate)",
+   "source_url": "https://www.tooplate.com/view/2109-garage",
+   "decision": "FIT_REJECT",
+   "status": "PENDING",
+   "_why_here": "Σκόπιμα στην ουρά: αποδεικνύει ότι ο worker κάνει fail-closed σε ό,τι δεν είναι PORT_OK. Δεν πρέπει ΠΟΤΕ να εκτελεστεί.",
+   "license": "Tooplate — εμπορική, credit αφαιρείται",
+   "theme_key": "garage",
+   "component": "Garage",
+   "label": "Garage",
+   "desc": "—",
+   "verticals": [
+    "automotive"
+   ],
+   "local_path": "sites/artifacts/cand-src/garage",
+   "entry": "index.html",
+   "fidelity_notes": "—",
+   "required_removals": []
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "tag": "vitrina",
+ "desktop": {
+  "height": 3357,
+  "overflow": 0,
+  "images": 0,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 1,
+  "consoleErrors": 0,
+  "errorSamples": []
+ },
+ "mobile": {
+  "height": 3366,
+  "overflow": 0,
+  "images": 0,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 1,
+  "consoleErrors": 0,
+  "errorSamples": []
+ }
+}
