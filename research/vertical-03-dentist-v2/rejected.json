@@ -1,0 +1,23 @@
+{
+  "task_id": "vertical-03-dentist-v2",
+  "rejected": [
+    {
+      "name": "Adrian Bootstrap",
+      "relevance": "REJECT",
+      "reason": "E-commerce template, δεν ταιριάζει σε ιατρείο.",
+      "reference": "https://themefisher.com/products/adrian-bootstrap | license: unknown-from-listing"
+    },
+    {
+      "name": "Aviato Bootstrap",
+      "relevance": "REJECT",
+      "reason": "E-commerce template, άσχετο.",
+      "reference": "https://themefisher.com/products/aviato-bootstrap | license: unknown-from-listing"
+    },
+    {
+      "name": "Bitbank Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Cryptocurrency template, εντελώς άσχετο.",
+      "reference": "https://themefisher.com/products/bitbank-bootstrap | license: unknown-from-listing"
+    }
+  ]
+}

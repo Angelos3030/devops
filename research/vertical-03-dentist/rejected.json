@@ -1,0 +1,71 @@
+{
+  "task_id": "vertical-03-dentist",
+  "rejected": [
+    {
+      "name": "Airspace Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Good clinic fit but no explicit license in source",
+      "reference": "https://themefisher.com/products/airspace-bootstrap"
+    },
+    {
+      "name": "Bexer Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Business template, but no explicit license shown",
+      "reference": "https://themefisher.com/products/bexer-bootstrap"
+    },
+    {
+      "name": "Bizcraft Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Multipurpose business template, lacks explicit license",
+      "reference": "https://themefisher.com/products/bizcraft-bootstrap"
+    },
+    {
+      "name": "Biztrox Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Business template, no explicit license",
+      "reference": "https://themefisher.com/products/biztrox-bootstrap"
+    },
+    {
+      "name": "Blue Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Onepage business template, no explicit license",
+      "reference": "https://themefisher.com/products/blue-bootstrap"
+    },
+    {
+      "name": "Agen Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Agency template with services, no license",
+      "reference": "https://themefisher.com/products/agen-bootstrap"
+    },
+    {
+      "name": "Bingo Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Business template, no explicit license",
+      "reference": "https://themefisher.com/products/bingo-bootstrap"
+    },
+    {
+      "name": "Airspace Hugo",
+      "relevance": "REJECT",
+      "reason": "Business Hugo theme, no explicit license",
+      "reference": "https://gethugothemes.com/products/airspace"
+    },
+    {
+      "name": "Bexer Hugo",
+      "relevance": "REJECT",
+      "reason": "Business Hugo theme, no explicit license",
+      "reference": "https://gethugothemes.com/products/bexer"
+    },
+    {
+      "name": "Bigspring Hugo",
+      "relevance": "REJECT",
+      "reason": "Agency theme, no explicit license shown",
+      "reference": "https://gethugothemes.com/products/bigspring"
+    },
+    {
+      "name": "Bizcraft Hugo",
+      "relevance": "REJECT",
+      "reason": "Business Hugo theme, no explicit license",
+      "reference": "https://gethugothemes.com/products/bizcraft"
+    }
+  ]
+}
