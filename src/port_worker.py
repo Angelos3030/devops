@@ -430,12 +430,25 @@ VERTICAL_DEMO = {
 }
 
 
+class DemoMappingMissing(PortWorkerError):
+    """Το vertical δεν έχει ρητή αντιστοίχιση σε demo business."""
+
+
 def demo_for(rec: dict[str, Any]) -> str:
-    """Ποιο demo business ταιριάζει στο vertical του theme."""
+    """Ποιο demo business ταιριάζει στο vertical του theme.
+
+    FAIL CLOSED: χωρίς ρητή αντιστοίχιση δεν αποδίδουμε τίποτα. Ένα σιωπηλό
+    fallback στο προεπιλεγμένο demo είναι ακριβώς το σφάλμα που έκρινε ιατρικό
+    theme πάνω σε φωτογραφίες κουζίνας — και το χειρότερο είδος σφάλματος,
+    γιατί το QA βγαίνει πράσινο πάνω σε λάθος σενάριο.
+    """
     for v in rec.get("verticals", []):
         if v in VERTICAL_DEMO:
             return VERTICAL_DEMO[v]
-    return ""
+    raise DemoMappingMissing(
+        f"DEMO_MAPPING_MISSING: τα verticals {rec.get('verticals')} δεν έχουν "
+        f"αντιστοίχιση στο VERTICAL_DEMO. Πρόσθεσέ την εκεί — δεν χρησιμοποιείται "
+        "ποτέ γενικό ή προηγούμενο demo ως εφεδρεία.")
 
 
 def port_source(source_id: str) -> dict[str, Any]:
@@ -584,8 +597,15 @@ def port_source(source_id: str) -> dict[str, Any]:
         out_tests["next_build"] = {"passed": bok, "log": blog[-1800:]}
         return out_tests
 
-    biz = demo_for(rec)
-    preview_path = f"preview/{rec['theme_key']}" + (f"?biz={biz}" if biz else "")
+    try:
+        biz = demo_for(rec)
+    except DemoMappingMissing as exc:
+        _set_state(source_id, "BLOCKED", blocked_reason=str(exc))
+        res.update(status="BLOCKED", reason=str(exc), demo_business=None)
+        (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
+        return res
+    res["demo_business"] = biz
+    preview_path = f"preview/{rec['theme_key']}?biz={biz}"
 
     def _render_vitrina() -> dict[str, Any]:
         """Απόδοση Vitrina. Μέρος του ΒΡΟΧΟΥ, όχι επόμενο βήμα — αλλιώς ένα
