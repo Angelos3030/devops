@@ -1,0 +1,65 @@
+{
+  "task_id": "vertical-03-dentist-fixed2",
+  "rejected": [
+    {
+      "name": "Adrian Bootstrap",
+      "relevance": "REJECT",
+      "reason": "E-commerce template, wrong domain; license unknown from this source.",
+      "reference": "https://themefisher.com/products/adrian-bootstrap"
+    },
+    {
+      "name": "Agen Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Agency template, wrong domain; license unknown from this source.",
+      "reference": "https://themefisher.com/products/agen-bootstrap"
+    },
+    {
+      "name": "Airspace Bootstrap",
+      "relevance": "LOW",
+      "reason": "Generic corporate template, no medical focus; license unknown from this source.",
+      "reference": "https://themefisher.com/products/airspace-bootstrap"
+    },
+    {
+      "name": "Aviato Bootstrap",
+      "relevance": "REJECT",
+      "reason": "E-commerce template, wrong domain; license unknown from this source.",
+      "reference": "https://themefisher.com/products/aviato-bootstrap"
+    },
+    {
+      "name": "Bitbank Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Cryptocurrency template, wrong domain; license unknown from this source.",
+      "reference": "https://themefisher.com/products/bitbank-bootstrap"
+    },
+    {
+      "name": "Blue Pro Bootstrap",
+      "relevance": "LOW",
+      "reason": "Agency-focused template, less suitable; license unknown from this source.",
+      "reference": "https://themefisher.com/products/blue-pro-bootstrap"
+    },
+    {
+      "name": "Copper Bootstrap",
+      "relevance": "REJECT",
+      "reason": "SaaS website template, wrong domain; license unknown from this source.",
+      "reference": "https://themefisher.com/products/copper-bootstrap"
+    },
+    {
+      "name": "Devgent Nextjs",
+      "relevance": "REJECT",
+      "reason": "AI agent landing template, wrong domain; license unknown from this source.",
+      "reference": "https://themefisher.com/products/devgent-nextjs"
+    },
+    {
+      "name": "Fortify Astro",
+      "relevance": "REJECT",
+      "reason": "Security SaaS theme, wrong domain; license unknown from this source.",
+      "reference": "https://themefisher.com/products/fortify-astro"
+    },
+    {
+      "name": "Novai Astro",
+      "relevance": "REJECT",
+      "reason": "AI agent landing template, wrong domain; license unknown from this source.",
+      "reference": "https://themefisher.com/products/novai-astro"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "task_id": "vertical-03-dentist-fixed",
+  "note": "HIGH/MEDIUM in Pass 1 but not deep-analysed — over max_pass2_candidates budget, or cut short by an interrupt. Rerun with a higher --max-pass2 to analyse these too.",
+  "pending": []
+}

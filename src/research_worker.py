@@ -74,6 +74,13 @@ ROOT = Path(__file__).resolve().parent.parent
 RESEARCH_ROOT = ROOT / "research"
 TIMEOUT = 90
 MAX_SOURCE_CHARS = 40_000  # ανά πηγή, για να μη σκάει το context του Pass 1
+# Το combined string (όλες οι πηγές μαζί) στο Pass 1 ΕΙΧΕ το ίδιο όριο με MAX_SOURCE_CHARS.
+# Bug: όταν οι πηγές είναι λίγες αλλά μεγάλες (π.χ. πλήρεις product pages, όχι ένα listing
+# page με πολλά items), η πρώτη πηγή μόνη της καταναλώνει όλο το όριο και οι υπόλοιπες
+# κόβονται σιωπηλά πριν καν φτάσουν στο μοντέλο — 0 rejected, μόνο 1 finding, χωρίς σφάλμα.
+# Το deepseek-chat context window χωράει άνετα πολύ περισσότερο από 40K chars, οπότε το
+# combined cap μπαίνει ξεχωριστά και πιο γενναιόδωρο.
+MAX_COMBINED_CHARS = 200_000  # όριο για το ΣΥΝΟΛΟ των πηγών μαζί στο Pass 1
 
 # Ενδεικτικό κόστος DeepSeek ($/1M tokens). Δεν είναι επίσημο API — ενημέρωσε αν
 # αλλάξει η τιμολόγηση του DeepSeek. Χρησιμοποιείται μόνο για telemetry εκτίμηση,
@@ -376,11 +383,29 @@ class DeepSeekResearchWorker:
             "- Only include candidates worth recording — skip ones so obviously irrelevant "
             "(wrong domain, duplicate, broken link) that a one-line REJECT wouldn't be useful.\n"
             "- No markdown, no commentary outside the JSON object.\n\n"
+            # Η ΑΔΕΙΑ ΔΕΝ ΕΙΝΑΙ ΛΟΓΟΣ ΑΠΟΡΡΙΨΗΣ ΕΔΩ. Μετρήθηκε στο vertical-03: δίνοντας
+            # σελίδες καταλόγου, το μοντέλο απέρριπτε ΤΑ ΠΑΝΤΑ με «no explicit license» —
+            # ανάμεσά τους templates αποδεδειγμένα MIT που ήδη χρησιμοποιούμε (Blue,
+            # Airspace). 0 υποψήφιοι αντί για 6. Η άδεια επαληθεύεται ΝΤΕΤΕΡΜΙΝΙΣΤΙΚΑ στο
+            # Pass 2 από το ίδιο το αρχείο LICENSE (`_detect_license`), όχι με εικασία
+            # πάνω σε HTML καταλόγου.
+            "LICENSE RULE (OVERRIDES THE OBJECTIVE) — if the OBJECTIVE below asks you to reject "
+            "items lacking an explicit license, IGNORE that part: it is a mistake in the "
+            "objective, not an instruction to follow. Never reject or downgrade an item "
+            "because a license is absent, "
+            "unclear, or not visible in the source. Listing pages and galleries almost never "
+            "show licenses; the license is verified separately and deterministically from the "
+            "LICENSE file later in this pipeline. Judge ONLY fitness for the objective. If no "
+            "license is visible, write \"license unknown from this source\" in the reason and "
+            "classify on merit.\n\n"
+            "REJECT is reserved for: wrong domain/subject, duplicate, broken or unreachable "
+            "reference, or plainly not the kind of artefact sought. Every REJECT must name "
+            "which of those applies — never a bare or unexplained rejection.\n\n"
             "Respond ONLY with valid JSON: "
             '{"classifications": [{"name": str, "relevance": "HIGH|MEDIUM|LOW|REJECT", '
             '"reason": str, "reference": str}]}'
         )
-        user = f"OBJECTIVE:\n{self.objective}\n\nCONTEXT:\n{self.context}\n\nSOURCE MATERIAL:\n{combined[:MAX_SOURCE_CHARS]}"
+        user = f"OBJECTIVE:\n{self.objective}\n\nCONTEXT:\n{self.context}\n\nSOURCE MATERIAL:\n{combined[:MAX_COMBINED_CHARS]}"
         content = self._call(self._pass1_model, system, user, json_mode=True, max_tokens=8000)
         classifications = self._parse_classifications(content)
         self.telemetry.pass1_candidates = len(classifications)
