@@ -68,7 +68,7 @@ export const demoBusinesses = {
     TAGLINE: 'Look που σου ταιριάζει — από κούρεμα και χρώμα μέχρι περιποίηση.',
     INTRO: 'Σχεδιάζουμε το look σου με βάση το πρόσωπο, τα μαλλιά και το ύφος σου.',
     STORY_TITLE: 'Ομορφιά με φροντίδα και γνώση.', CTA_TITLE: 'Κλείσε το ραντεβού σου.',
-    HERO_IMAGE: img('photo-1560066984-138dadb4c035', 1800), STORY_IMAGE: img('photo-1522337660859-02fbefca4702'),
+    HERO_IMAGE: img('photo-1560066984-138dadb4c035', 1800), STORY_IMAGE: img('photo-1522337360788-8b13dee7a37e'),
     services: [
       { num: '01', title: 'Κούρεμα & styling', desc: 'Σχεδιασμός look που κρατάει και σου ταιριάζει.', duration: '60 λεπτά', price: 'από €28' },
       { num: '02', title: 'Βαφή & ανταύγειες', desc: 'Χρώμα με σύγχρονες τεχνικές και φροντίδα.', duration: '120 λεπτά', price: 'από €55' },
@@ -76,7 +76,7 @@ export const demoBusinesses = {
       { num: '04', title: 'Χτενίσματα', desc: 'Για γάμους, βαφτίσεις και ιδιαίτερες βραδιές.', duration: '60 λεπτά', price: 'από €35' },
     ],
     gallery: [
-      { image: img('photo-1522337660859-02fbefca4702', 1000), title: 'Styling', sub: 'Look' },
+      { image: img('photo-1522337360788-8b13dee7a37e', 1000), title: 'Styling', sub: 'Look' },
       { image: img('photo-1595476108010-b4d1f102b1b1', 1000), title: 'Χρώμα', sub: 'Ανταύγειες' },
       { image: img('photo-1521590832167-7bcbfaa6381f', 1000), title: 'Κούρεμα', sub: 'Σχεδιασμός' },
       { image: img('photo-1560869713-7d0a29430803', 1000), title: 'Χτένισμα', sub: 'Εκδήλωση' },
@@ -302,6 +302,30 @@ export const demoBusinesses = {
       { p: 'Γνωρίζουμε τις συλλογές μας και αφιερώνουμε χρόνο για να βρούμε μαζί αυτό που πραγματικά σου ταιριάζει.' },
     ],
   },
+  realestate: {
+    NAME: 'Ακίνητα Δουκάκης', CITY: 'Βόλος', TRADE: 'Μεσιτικό Γραφείο', INITIAL: 'Δ',
+    KICKER: 'Κατοικίες & επαγγελματικοί χώροι · Βόλος', HERO_WORD: 'τόπος', YEAR: '2026',
+    PHONE: '24210 55660', PHONE_INTL: '302421055660', AREAS: 'Βόλος · Νέα Ιωνία · Πήλιο · Αγριά', HOURS: 'Δευτ.–Παρ. 09:00–17:00, Σάβ. με ραντεβού',
+    TAGLINE: 'Ακίνητα που ταιριάζουν στη ζωή, την επένδυση και το επόμενο βήμα σου.',
+    INTRO: 'Ακούμε τι αναζητάς και οργανώνουμε καθαρές, ουσιαστικές επιλογές στον Βόλο και το Πήλιο.',
+    STORY_TITLE: 'Το σωστό ακίνητο ξεκινά από τη σωστή συζήτηση.', CTA_TITLE: 'Πες μας τι αναζητάς.',
+    PRIMARY_CTA: 'Μίλησε με σύμβουλο', SERVICES_TITLE: 'Από την αναζήτηση έως το συμβόλαιο',
+    services: [
+      { num: '01', title: 'Πώληση ακινήτου', desc: 'Εκτίμηση, φωτογράφιση, προβολή και διαπραγμάτευση.' },
+      { num: '02', title: 'Ενοικίαση', desc: 'Οργανωμένες υποδείξεις και υποστήριξη μέχρι το μισθωτήριο.' },
+      { num: '03', title: 'Αναζήτηση κατοικίας', desc: 'Καταγραφή κριτηρίων και επιλογές που ανταποκρίνονται στις ανάγκες σου.' },
+      { num: '04', title: 'Έλεγχος εγγράφων', desc: 'Συγκέντρωση τίτλων, τοπογραφικών και απαραίτητων βεβαιώσεων.' },
+    ],
+    gallery: [
+      { image: img('photo-1512917774080-9991f1c4c750', 1000), title: 'Κατοικία στον Βόλο', sub: 'Προς πώληση' },
+      { image: img('photo-1560448204-e02f11c3d0e2', 1000), title: 'Σύγχρονο διαμέρισμα', sub: 'Κέντρο Βόλου' },
+      { image: img('photo-1449844908441-8829872d2607', 1000), title: 'Μονοκατοικία', sub: 'Πήλιο' },
+    ],
+    story: [
+      { p: 'Γνωρίζουμε την τοπική αγορά και παρουσιάζουμε κάθε επιλογή με καθαρή, πραγματική πληροφορία.' },
+      { p: 'Συντονίζουμε τα βήματα από την πρώτη υπόδειξη έως τη συμφωνία, χωρίς περιττή ταλαιπωρία.' },
+    ],
+  },
   lawyer: {
     NAME: 'Αντωνίου & Συνεργάτες', CITY: 'Αθήνα', TRADE: 'Δικηγορικό Γραφείο', INITIAL: 'Α',
     KICKER: 'Δικηγορικό γραφείο · Αθήνα', HERO_WORD: 'εμπιστοσύνη', YEAR: '2026',
@@ -460,6 +484,36 @@ export const demoBusinesses = {
     ],
   },
 }
+
+// Structured capability demos. These live beside business data, never inside
+// theme JSX, so the same business can be rendered by any compatible system.
+demoBusinesses.plumber.serviceArea = {
+  postcodes: ['10', '11', '12', '13', '14', '15', '16', '17'],
+  limitedPostcodes: ['18', '19'], nextAvailable: 'Σήμερα, 17:00–20:00',
+  specialCoverageMessage: 'Για πιο μακρινές περιοχές, τηλεφώνησε για διαθεσιμότητα συνεργείου.',
+}
+demoBusinesses.plumber.pricingServices = [
+  { id: 'leak', category: 'Επείγοντα', name: 'Έλεγχος διαρροής', shortDescription: 'Διάγνωση και απομόνωση της αιτίας.', priceType: 'from', priceFrom: 35, duration: '45–60 λεπτά', featured: true },
+  { id: 'tap', category: 'Επισκευές', name: 'Αλλαγή μπαταρίας', shortDescription: 'Αφαίρεση, τοποθέτηση και έλεγχος στεγανότητας.', priceType: 'from', priceFrom: 45, duration: '60 λεπτά' },
+  { id: 'heater', category: 'Εγκαταστάσεις', name: 'Τοποθέτηση θερμοσίφωνα', shortDescription: 'Αυτοψία και ασφαλής εγκατάσταση.', priceType: 'quote', duration: '2–3 ώρες' },
+  { id: 'visit', category: 'Έλεγχος', name: 'Τεχνική επίσκεψη', shortDescription: 'Εκτίμηση εργασίας στον χώρο σου.', priceType: 'fixed', price: 25, duration: '30 λεπτά' },
+]
+demoBusinesses.salon.treatments = [
+  { id: 'cut', category: 'Μαλλιά', name: 'Κούρεμα & styling', shortDescription: 'Συμβουλευτική, λούσιμο, κούρεμα και styling.', longDescription: 'Ξεκινάμε από το σχήμα, την υφή και την καθημερινότητά σου ώστε το αποτέλεσμα να δουλεύει και μετά το ραντεβού.', priceType: 'from', priceFrom: 28, duration: '60 λεπτά', featured: true },
+  { id: 'color', category: 'Χρώμα', name: 'Βαφή ρίζας', shortDescription: 'Ανανέωση χρώματος με διάγνωση τόνου.', priceType: 'from', priceFrom: 38, duration: '90 λεπτά' },
+  { id: 'care', category: 'Θεραπεία', name: 'Εντατική αναδόμηση', shortDescription: 'Πρωτόκολλο φροντίδας για ταλαιπωρημένα μαλλιά.', priceType: 'fixed', price: 25, duration: '35 λεπτά' },
+  { id: 'consult', category: 'Συμβουλευτική', name: 'Color consultation', shortDescription: 'Σχεδιασμός αλλαγής πριν από τη μεγάλη υπηρεσία.', priceType: 'free', duration: '20 λεπτά' },
+]
+demoBusinesses.retail.inventoryOptions = (demoBusinesses.retail.gallery || []).map((item, index) => ({
+  id: `retail-${index + 1}`, label: item.title, image: item.image, category: item.sub,
+  price: [42, 68, 55, 76][index], inventoryStatus: ['available', 'low-stock', 'unavailable', 'made-to-order'][index],
+  quantityAvailable: [8, 2, 0, null][index], selectable: index !== 2, leadTime: index === 3 ? '5–7 εργάσιμες' : '',
+}))
+demoBusinesses.carpenter.inventoryOptions = (demoBusinesses.carpenter.gallery || []).slice(0, 4).map((item, index) => ({
+  id: `wood-${index + 1}`, label: item.title, image: item.image, category: 'Υλικό / ύφος',
+  inventoryStatus: ['available', 'made-to-order', 'on-request', 'low-stock'][index], selectable: true,
+  leadTime: index === 1 ? 'Κατασκευή σε 15–20 ημέρες' : '',
+}))
 
 export const demoOrder = ['carpenter', 'taverna', 'salon', 'dentist', 'physician', 'aesthetics', 'massage', 'cafe', 'retail', 'lawyer', 'plumber', 'rooms', 'gym', 'garage', 'farm']
 export const demoData = demoBusinesses.carpenter

@@ -210,6 +210,15 @@ _PROFESSION_COPY = {
             ("Παραλαβή από το κατάστημα", "Γρήγορη συνεννόηση και εύκολη παραλαβή από τον χώρο μας."),
         ],
     },
+    "realestate": {
+        "hero_word": "χώρος", "kicker_suffix": "Ακίνητα",
+        "services": [
+            ("Πώληση ακινήτου", "Οργάνωση της παρουσίασης και της διαδικασίας πώλησης με καθαρή ενημέρωση."),
+            ("Ενοικίαση", "Συντονισμός ενδιαφερομένων και υποστήριξη έως την ολοκλήρωση της μίσθωσης."),
+            ("Αναζήτηση ακινήτου", "Καταγραφή αναγκών και επιλογές που ανταποκρίνονται στα κριτήριά σας."),
+            ("Υποστήριξη εγγράφων", "Οργάνωση των απαραίτητων στοιχείων σε συνεργασία με τους αρμόδιους επαγγελματίες."),
+        ],
+    },
     "professional": {
         "hero_word": "εμπιστοσύνη", "kicker_suffix": "Γραφείο",
         "services": [
@@ -283,6 +292,7 @@ _VERTICAL_DEFAULTS = {
     "pet": ("Φροντίδα για τον σκύλο και τη γάτα σου, με ηρεμία και ραντεβού.", "Κάθε ζώο έχει τον δικό του ρυθμό.", "Κλείσε ραντεβού για το κατοικίδιό σου."),
     "massage": ("Χρόνος για αποφόρτιση, ισορροπία και ευεξία.", "Μια εμπειρία φροντίδας με τον δικό σου ρυθμό.", "Κλείσε τη συνεδρία σου."),
     "retail": ("Επιλεγμένα προϊόντα και προσωπική εξυπηρέτηση.", "Επιλογές που ταιριάζουν στη δική σου καθημερινότητα.", "Ρώτησέ μας για διαθεσιμότητα."),
+    "realestate": ("Καθαρές επιλογές για την επόμενη κίνησή σου.", "Κάθε ακίνητο ξεκινά από τις πραγματικές σου ανάγκες.", "Πες μας τι ακίνητο αναζητάς."),
     "professional": ("Καθαρή καθοδήγηση για κάθε επόμενο βήμα.", "Εξειδίκευση με συνέπεια και σαφή επικοινωνία.", "Κλείσε μια πρώτη συνάντηση."),
     "rooms": ("Άνετη διαμονή και ξεκάθαρη επικοινωνία πριν από την άφιξη.", "Μια διαμονή που ξεκινά με σωστή φιλοξενία.", "Ρώτησε για διαθεσιμότητα."),
     "gym": ("Προπόνηση με στόχο, καθοδήγηση και συνέπεια.", "Η πρόοδος χτίζεται σε κάθε προπόνηση.", "Κλείσε το δοκιμαστικό σου."),
@@ -311,6 +321,7 @@ _DEFAULT_HERO = {
     "aesthetics": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1800&q=80",
     "massage": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1800&q=80",
     "retail": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80",
+    "realestate": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1800&q=80",
     "professional": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80",
     # Ήταν τροπικό resort με φοίνικες και ξύλινα μπανγκαλόου. Το vertical ήταν
     # σωστό, η ήπειρος όχι: για ξενοδοχείο στην Πάρο διαβάζεται αμέσως ως ξένο
@@ -335,6 +346,7 @@ _LAYOUT_BY_PROFESSION = {
     "aesthetics": "fresh",
     "massage": "fresh",
     "retail": "bold",
+    "realestate": "atelier",
     "professional": "trust",
     "rooms": "atelier",
     "gym": "bold",
@@ -361,8 +373,14 @@ REACT_TEMPLATES = (
     "cinematic", "type-gallery", "quiet", "kinetic", "infinite", "living",
     "beauty-atelier", "clinic-triage", "callout", "signature",
     "bakery-editorial", "counter-menu", "morning-journal", "neighborhood-market", "microbakery-lab", "scandinavian-coffee", "heritage-bakery",
-    "area-first", "horizontal-story", "price-first", "chapter-snap",
-    "type-specimen", "directory-index", "split-carousel", "spatial-grid", "visual-selector",
+    "area-first", "horizontal-story", "price-first", "chapter-snap", "directory-index", "vertical-snap",
+    "elegance-salon", "grecko-table", "novena-care", "bigspring-advisory", "constra-build", "property-atlas",
+    "educenter-campus", "vex-counter", "airspace-office", "freight-lane",
+)
+LAUNCH_REACT_TEMPLATES = (
+    "elegance-salon", "grecko-table", "novena-care", "bigspring-advisory",
+    "constra-build", "property-atlas", "beauty-atelier", "clinic-triage",
+    "callout", "signature", "cinematic", "bakery-editorial",
 )
 # ΠΡΟΣΟΧΗ: νέο theme χρειάζεται ΚΑΙ εγγραφή εδώ ΚΑΙ στο _TEMPLATES_BY_VERTICAL.
 # Το `recommend_templates` φιλτράρει με αυτή τη λίστα, οπότε theme που λείπει από
@@ -389,7 +407,8 @@ _VERTICAL_RULES = (
     ("beauty", ("κομμωτ", "beauty", "hair", "salon", "barber", "κουρει", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ", "nail", "nixia", "nyxia", "nuxia")),
     ("retail", ("καταστημα", "retail", "store", "boutique", "μπουτικ", "ανθοπωλ", "λουλουδ", "ρουχ", "υποδημα", "παπουτσ", "κοσμημ", "οπτικ", "βιβλιοπωλ", "δωρα")),
     ("wood", ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")),
-    ("professional", ("ακινητ", "δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "μεσιτ", "ασφαλισ", "notary", "συμβολαιογρ")),
+    ("realestate", ("ακινητ", "μεσιτ", "real estate", "realestate", "πωλησ ακινητ", "ενοικιασ ακινητ")),
+    ("professional", ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "ασφαλισ", "notary", "συμβολαιογρ")),
     ("trade", ("υδραυλικ", "ηλεκτρολ", "ελαιοχρωματ", "μαστορ", "τεχνιτ", "ψυκτικ", "αλουμιν", "σιδηρ", "πλακα", "μονωσ", "κλιματισ", "plumber", "electrician")),
 )
 
@@ -499,24 +518,25 @@ def _vertical(intake: dict[str, Any]) -> str:
 # Κρατάμε ολόκληρο το ranking για το chat editor, αλλά το αρχικό chooser δείχνει
 # επτά καθαρές κατευθύνσεις ώστε να υπάρχει ουσιαστική επιλογή χωρίς άσχετα themes.
 _TEMPLATES_BY_VERTICAL = {
-    "food":         ["warmth", "ember", "magazine", "cinematic", "type-gallery", "living", "infinite", "quiet", "kinetic", "poster", "bloom", "aegean"],
+    "food":         ["grecko-table", "cinematic", "bakery-editorial", "warmth", "ember", "magazine", "type-gallery", "living", "infinite", "quiet", "kinetic", "poster", "bloom"],
     "cafe":         ["counter-menu", "neighborhood-market", "scandinavian-coffee", "bloom", "cinematic", "type-gallery", "living", "quiet"],
     "bakery":       ["bakery-editorial", "morning-journal", "microbakery-lab", "heritage-bakery", "neighborhood-market", "bloom", "warmth", "type-gallery"],
-    "rooms":        ["aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid", "marble", "magazine", "bloom"],
-    "dentist":      ["clinic-triage", "marble", "directory-index", "quiet", "cinematic", "living", "grid", "infinite", "canvas", "type-gallery", "kinetic", "editorial", "bento", "split"],
-    "doctor":       ["clinic-triage", "signature", "directory-index", "marble", "quiet", "editorial", "split", "cinematic", "grid", "living", "bento", "canvas", "sidebar", "infinite", "type-gallery"],
+    "rooms":        ["vertical-snap", "chapter-snap", "aegean", "cinematic", "infinite", "living", "quiet", "canvas", "type-gallery", "kinetic", "grid", "marble"],
+    "dentist":      ["novena-care", "clinic-triage", "signature", "bigspring-advisory", "cinematic", "marble", "directory-index", "quiet", "living", "grid", "canvas", "editorial"],
+    "doctor":       ["novena-care", "clinic-triage", "signature", "bigspring-advisory", "cinematic", "marble", "quiet", "editorial", "split", "grid", "living", "canvas"],
     "pharmacy":     ["quiet", "marble", "grid", "editorial", "bento", "split", "living", "clinic-triage", "sidebar", "canvas", "infinite", "type-gallery"],
     "aesthetics":   ["beauty-atelier", "bloom", "quiet", "clinic-triage", "marble", "runway", "living", "cinematic", "type-gallery", "bento", "infinite", "canvas", "magazine"],
     "pet":          ["living", "bloom", "quiet", "grid", "type-gallery", "cinematic", "infinite", "canvas", "bento", "editorial", "magazine", "split"],
     "massage":      ["living", "quiet", "signature", "aegean", "clinic-triage", "bloom", "warmth", "cinematic", "infinite", "canvas", "marble", "type-gallery", "terra", "magazine"],
-    "beauty":       ["beauty-atelier", "price-first", "chapter-snap", "split-carousel", "runway", "type-gallery", "living", "cinematic", "infinite", "kinetic", "quiet", "bloom", "canvas", "magazine", "poster"],
-    "retail":       ["bento", "visual-selector", "spatial-grid", "grid", "type-gallery", "living", "directory-index", "quiet", "infinite", "canvas", "cinematic", "kinetic", "magazine", "editorial", "split"],
-    "professional": ["marble", "signature", "type-specimen", "directory-index", "quiet", "chapter-snap", "horizontal-story", "cinematic", "grid", "infinite", "canvas", "type-gallery", "living", "kinetic", "editorial", "sidebar", "bento"],
-    "trade":        ["callout", "area-first", "split-carousel", "forge", "grid", "price-first", "sidebar", "kinetic", "type-gallery", "infinite", "cinematic", "quiet", "living", "canvas", "poster", "bento"],
+    "beauty":       ["elegance-salon", "beauty-atelier", "cinematic", "signature", "price-first", "runway", "type-gallery", "living", "chapter-snap", "infinite", "kinetic", "quiet"],
+    "retail":       ["bento", "grid", "type-gallery", "living", "quiet", "infinite", "canvas", "cinematic", "kinetic", "magazine", "editorial", "split"],
+    "professional": ["bigspring-advisory", "property-atlas", "signature", "cinematic", "directory-index", "marble", "quiet", "grid", "infinite", "canvas", "type-gallery", "living"],
+    "realestate":   ["property-atlas", "bigspring-advisory", "cinematic", "signature", "grid", "canvas", "quiet", "living", "directory-index", "marble", "editorial", "bento"],
+    "trade":        ["constra-build", "callout", "cinematic", "area-first", "forge", "grid", "sidebar", "kinetic", "type-gallery", "infinite", "quiet", "living"],
     "garage":       ["motor", "kinetic", "grid", "infinite", "type-gallery", "cinematic", "quiet", "living", "canvas", "volt", "forge", "poster"],
     "gym":          ["volt", "kinetic", "type-gallery", "infinite", "runway", "grid", "cinematic", "living", "quiet", "poster", "bento", "motor"],
     "farm":         ["terra", "living", "quiet", "cinematic", "canvas", "infinite", "type-gallery", "kinetic", "grid", "editorial", "magazine", "warmth"],
-    "wood":         ["forge", "spatial-grid", "horizontal-story", "canvas", "grid", "type-specimen", "visual-selector", "quiet", "living", "cinematic", "type-gallery", "infinite", "kinetic", "editorial", "magazine", "bento"],
+    "wood":         ["constra-build", "cinematic", "horizontal-story", "forge", "canvas", "grid", "quiet", "living", "type-gallery", "infinite", "kinetic", "editorial"],
 }
 
 
@@ -608,7 +628,8 @@ def recommend_templates(intake: dict[str, Any], limit: int = 12) -> list[str]:
             and _is_solo_practitioner(intake)):
         keys.insert(0, keys.pop(keys.index("signature")))
     keys = _capability_rank(keys, intake, vertical)
-    return [k for k in keys if k in REACT_TEMPLATES][:limit]
+    launch = [k for k in keys if k in LAUNCH_REACT_TEMPLATES]
+    return launch[:limit]
 
 
 def _list_of_dicts(value: Any) -> list[dict[str, Any]]:

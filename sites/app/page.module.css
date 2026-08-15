@@ -35,6 +35,7 @@
 .tag{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700}
 .cardBody h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;margin:0}
 .cardBody p{color:var(--ink-soft);font-size:.92rem;margin:0;flex:1}
+.capabilities{font-size:.68rem;line-height:1.35;color:var(--ink);border-top:1px solid var(--line);padding-top:.6rem;margin-top:.35rem;text-transform:uppercase;letter-spacing:.07em}
 .open{color:var(--accent);font-weight:600;font-size:.9rem;margin-top:.6rem}
 .cta{text-align:center;max-width:800px;margin:0 auto;padding:clamp(50px,8vw,100px) clamp(16px,4vw,40px)}
 .cta h2{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,5vw,3.2rem);margin-bottom:.7rem}

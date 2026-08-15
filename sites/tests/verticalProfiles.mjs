@@ -6,7 +6,7 @@ const moduleUrl = `data:text/javascript;base64,${Buffer.from(source).toString('b
 const { DESIGN_SYSTEM_IDS, VERTICAL_PROFILES, getVerticalProfile, isDesignCompatible } = await import(moduleUrl)
 
 const demoVerticals = [
-  'carpenter', 'taverna', 'salon', 'dentist', 'physician', 'pharmacy', 'aesthetics', 'massage', 'cafe', 'retail', 'lawyer',
+  'carpenter', 'taverna', 'salon', 'dentist', 'physician', 'pharmacy', 'aesthetics', 'massage', 'cafe', 'retail', 'realestate', 'lawyer',
   'plumber', 'rooms', 'gym', 'garage', 'farm',
 ]
 const allowedMotion = new Set(['restrained', 'moderate', 'expressive'])
@@ -41,6 +41,7 @@ assert.equal(getVerticalProfile('Κέντρο αισθητικής').id, 'aesthe
 assert.equal(getVerticalProfile('Κέντρο μασάζ').id, 'massage')
 assert.equal(getVerticalProfile('Ηλεκτρολόγος').id, 'plumber')
 assert.equal(getVerticalProfile('Λογιστικό γραφείο').id, 'lawyer')
+assert.equal(getVerticalProfile('Μεσιτικό γραφείο στον Βόλο').id, 'realestate')
 assert.equal(getVerticalProfile('Παιδίατρος').id, 'physician')
 assert.equal(getVerticalProfile('Barbershop').id, 'salon')
 assert.equal(getVerticalProfile('Νυχάδικο').id, 'salon')
@@ -55,11 +56,10 @@ assert.equal(getVerticalProfile('unknown future vertical').id, 'generic')
 assert.equal(isDesignCompatible('υδραυλικός', 'dispatch'), false)
 assert.equal(isDesignCompatible('υδραυλικός', 'aegean'), false)
 assert.equal(isDesignCompatible('φαρμακείο', 'runway'), false)
-// Άλλαξε από `forge` σε `callout` στις 13/8/2026. Λόγος: το backend
-// (`premium_generator._TEMPLATES_BY_VERTICAL['trade']`) είχε ΗΔΗ το `callout`
-// πρώτο, ενώ ο frontend chooser έδειχνε `forge` — οι δύο πηγές διαφωνούσαν και
-// το purpose-built theme τεχνιτών δεν εμφανιζόταν ποτέ στον πελάτη.
-assert.equal(VERTICAL_PROFILES.plumber.compatibleDesignSystemIds[0], 'callout')
+// Το reference-approved Service Area theme είναι πλέον το conversion-first
+// anchor για τεχνίτες. Το callout παραμένει διαθέσιμο ως δεύτερη κατεύθυνση.
+assert.equal(VERTICAL_PROFILES.plumber.compatibleDesignSystemIds[0], 'area-first')
+assert.equal(isDesignCompatible('υδραυλικός', 'area-first'), true)
 assert.equal(isDesignCompatible('υδραυλικός', 'callout'), true)
 assert.equal(VERTICAL_PROFILES.retail.compatibleDesignSystemIds[0], 'bento')
 assert.equal(VERTICAL_PROFILES.pharmacy.compatibleDesignSystemIds[0], 'quiet')

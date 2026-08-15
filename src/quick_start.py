@@ -71,8 +71,33 @@ _SCHEMA = (
     # τίποτα από κάτω). Η περιγραφή ζητείται στην ΙΔΙΑ κλήση — δεν κοστίζει δεύτερη.
     '"services": [{"name": "έως 4 συνηθισμένες υπηρεσίες για ΑΥΤΟ το είδος '
     'επιχείρησης, γενικές, χωρίς επινοημένες λεπτομέρειες, τιμές ή χρόνια", '
-    '"desc": "μία πρόταση που εξηγεί την υπηρεσία, χωρίς υποσχέσεις ή αριθμούς"}]}'
+    '"desc": "μία πρόταση που εξηγεί την υπηρεσία, χωρίς υποσχέσεις", '
+    '"price": "τιμή μόνο αν γράφτηκε ρητά, αλλιώς null", '
+    '"duration": "διάρκεια μόνο αν γράφτηκε ρητά, αλλιώς null"}], '
+    '"style": "ζητούμενο ύφος ή null", '
+    '"features": ["μόνο λειτουργίες που ζητήθηκαν ρητά"], '
+    '"booking": true αν ζητά online ραντεβού, αλλιώς false, '
+    '"pricing": true αν ζητά τιμοκατάλογο ή τιμές, αλλιώς false, '
+    '"media_available": true/false μόνο αν το δηλώνει, αλλιώς null}'
 )
+
+
+def _requested_product_signals(text: str) -> dict[str, Any]:
+    """Product signals για matching, ακόμη και όταν ο AI provider λείπει."""
+    flat = _strip_tones(text).lower()
+    booking = bool(re.search(r"ραντεβου|booking|book online|online κρατησ", flat))
+    pricing = bool(re.search(r"τιμοκαταλογ|τιμες|κοστο|price|pricing|\d+[,.]?\d*\s*€", flat))
+    no_media = bool(re.search(r"δεν (εχω|υπαρχουν).*φωτο|χωρις φωτο|no photos", flat))
+    has_media = bool(re.search(r"εχω.*φωτο|δικες μου φωτο|φωτογραφιες μου", flat))
+    features = []
+    if booking: features.append("online-booking")
+    if pricing: features.append("pricing")
+    if re.search(r"περιοχ|ακτινα|ταχυδρομ|διαθεσιμοτ|24.?ωρ|επειγον", flat): features.append("service-area")
+    if re.search(r"καταλογ|προιον|διαθεσιμ.*προιον|stock", flat): features.append("inventory")
+    style_words = [word for word in ("minimal", "μοντερνο", "κλασικο", "τολμηρο", "editorial", "luxury", "λιτο") if word in flat]
+    return {"booking": booking, "pricing": pricing, "features": features,
+            "style": " ".join(style_words),
+            "media_available": True if has_media else (False if no_media else None)}
 
 
 def _strip_tones(text: str) -> str:
@@ -137,10 +162,15 @@ def _clean_services(raw: Any) -> list[dict[str, str]]:
         if isinstance(item, dict):
             title = str(item.get("name") or item.get("title") or "").strip()[:60]
             desc = str(item.get("desc") or item.get("description") or "").strip()[:200]
+            price = str(item.get("price") or "").strip()[:30]
+            duration = str(item.get("duration") or "").strip()[:40]
         else:
-            title, desc = str(item).strip()[:60], ""
+            title, desc, price, duration = str(item).strip()[:60], "", "", ""
         if title:
-            out.append({"title": title, "desc": desc})
+            row = {"title": title, "desc": desc}
+            if price: row["price"] = price
+            if duration: row["duration"] = duration
+            out.append(row)
     return out
 
 
@@ -175,6 +205,7 @@ def parse(text: str) -> dict[str, Any]:
         "type": _guess_trade(text),
         "city": _guess_city(text),
         "services": [],
+        **_requested_product_signals(text),
     }
 
     if ai.available() and text:
@@ -182,7 +213,7 @@ def parse(text: str) -> dict[str, Any]:
             data = ai.complete_json(
                 _SYSTEM,
                 f"Πρόταση: «{text}»\n\nΕπίστρεψε ΜΟΝΟ JSON:\n{_SCHEMA}",
-                max_tokens=400,
+                max_tokens=650,
             )
             if isinstance(data, dict):
                 # Το `type` τροφοδοτεί το vertical matching, οπότε το λεξιλόγιο του
@@ -206,6 +237,18 @@ def parse(text: str) -> dict[str, Any]:
                         fallback["type"] = value.strip()[:80]
                 if _is_category(fallback["name"], fallback["type"]):
                     fallback["name"] = None
+                for key in ("booking", "pricing"):
+                    if isinstance(data.get(key), bool):
+                        fallback[key] = fallback[key] or data[key]
+                if isinstance(data.get("features"), list):
+                    fallback["features"] = list(dict.fromkeys([
+                        *fallback["features"],
+                        *(str(v)[:60] for v in data["features"] if v),
+                    ]))
+                if not fallback["style"] and isinstance(data.get("style"), str):
+                    fallback["style"] = data["style"].strip()[:120]
+                if fallback["media_available"] is None and isinstance(data.get("media_available"), bool):
+                    fallback["media_available"] = data["media_available"]
                 services = data.get("services")
                 # Υπηρεσίες από το AI ΜΟΝΟ όταν ο πελάτης είπε κάτι συγκεκριμένο.
                 # Αλλιώς μένουν κενές και το normalize() βάζει τις ελεγμένες του

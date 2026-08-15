@@ -257,6 +257,9 @@ def quick_start_endpoint(body: QuickStart, bg: BackgroundTasks):
     # Η ελεύθερη περιγραφή είναι το καύσιμο του vertical matching — αν χαθεί,
     # το /designs βλέπει μόνο τον τύπο και προτείνει άσχετα templates.
     content = {"description": parsed.get("description") or text}
+    for key in ("style", "features", "booking", "pricing", "media_available"):
+        if parsed.get(key) not in (None, "", []):
+            content[key] = parsed[key]
     if services:
         # Ο parser επιστρέφει πλέον {title, desc}. Τα σκέτα κείμενα παραμένουν
         # δεκτά ώστε μια παλιότερη απάντηση του μοντέλου να μη ρίξει τη ροή.
@@ -476,7 +479,7 @@ def get_content(client_id: str, authorization: str | None = Header(default=None)
         "font_pair": intake.get("font_pair") or "editorial",
     }
     current.update({k: v for k, v in overrides.items() if k in _EDITABLE})
-    return {"content": current, "templates": pg.recommend_templates(intake, limit=9),
+    return {"content": current, "templates": pg.recommend_templates(intake, limit=12),
             "all_templates": list(pg.REACT_TEMPLATES)}
 
 
@@ -690,7 +693,7 @@ def chat_edit(client_id: str, body: ChatEdit,
 
     current = get_content(client_id, authorization)["content"]
     intake = _intake_from_db(client_id)
-    result = se.chat_edit(body.message, current, pg.recommend_templates(intake, limit=9))
+    result = se.chat_edit(body.message, current, pg.recommend_templates(intake, limit=12))
 
     proposed = {k: v for k, v in result["changes"].items() if k in _EDITABLE}
     return {
@@ -754,7 +757,7 @@ def put_content(client_id: str, body: ContentUpdate,
 def list_designs(client_id: str):
     """Οι προτάσεις design του πελάτη + ποια είναι προτεινόμενη/επιλεγμένη + live URL.
 
-    `templates`: smart-match — 7 curated React templates με το premium της κατηγορίας του πρώτο
+    `templates`: smart-match — 12 διαφορετικές, συμβατές React κατευθύνσεις
     (αυτά δείχνει το /choose). `variants`: τα legacy static layouts (συμβατότητα)."""
     from . import premium_generator as pg
     rid = _resolve_client(client_id).get("id", client_id)
@@ -762,7 +765,7 @@ def list_designs(client_id: str):
     selected = db.get_selected_design(rid)
     deployed_url = db.get_live_site(rid)
     try:
-        templates = pg.recommend_templates(_intake_from_db(client_id))
+        templates = pg.recommend_templates(_intake_from_db(client_id), limit=12)
     except Exception as e:  # noqa: BLE001 — ποτέ να μη μπλοκάρει το choose
         print(f"[designs] smart-match skipped: {e}")
         templates = []

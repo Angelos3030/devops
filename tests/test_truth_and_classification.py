@@ -76,6 +76,17 @@ class TruthContract(unittest.TestCase):
         _, removed = self._scrub("Είμαστε διαθέσιμοι 24/7 για κάθε επείγον περιστατικό.")
         self.assertIn("availability", {c.kind for c in removed})
 
+    def test_health_outcome_needs_evidence(self):
+        intake = {
+            "name": "Pet Spa Λούνα",
+            "type": "Pet grooming",
+            "description": "Μπάνιο και κούρεμα για σκύλους και γάτες.",
+        }
+        _, removed = self._scrub(
+            "Φροντίζουμε το τρίχωμα και την υγεία του κατοικίδιου σας.", intake
+        )
+        self.assertIn("health_claim", {c.kind for c in removed})
+
     def test_supported_claim_survives(self):
         """Ό,τι ΕΧΕΙ δηλώσει ο πελάτης πρέπει να επιτρέπεται — αλλιώς φτιάξαμε λογοκρισία."""
         intake = {**BASE, "description": BASE["description"] + " Δίνουμε εγγύηση 2 χρόνια στα υλικά."}
@@ -141,7 +152,7 @@ class ThemeSelection(unittest.TestCase):
     def test_trade_business_never_gets_signature(self):
         intake = {"name": "Υδραυλικά Βεργίνα", "type": "Υδραυλικός",
                   "description": "Μικρό συνεργείο υδραυλικών."}
-        self.assertEqual(pg.recommend_templates(intake)[0], "callout")
+        self.assertEqual(pg.recommend_templates(intake)[0], "constra-build")
 
     def test_selection_is_deterministic(self):
         intake = {"name": "Νίκη Αρβανίτη", "type": "Διαιτολόγος",

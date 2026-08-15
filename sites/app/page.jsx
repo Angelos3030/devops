@@ -1,9 +1,15 @@
 import Link from 'next/link'
-import { TEMPLATE_KEYS, TEMPLATE_META } from '../lib/templates'
+import { LAUNCH_TEMPLATE_KEYS, TEMPLATE_META } from '../lib/templates'
 import { demoBusinesses } from '../lib/demoData'
 import s from './page.module.css'
 
 const DEMO_BY_TEMPLATE = {
+  'elegance-salon': 'salon',
+  'grecko-table': 'taverna',
+  'novena-care': 'dentist',
+  'bigspring-advisory': 'lawyer',
+  'constra-build': 'plumber',
+  'property-atlas': 'realestate',
   editorial: 'carpenter',
   split: 'lawyer',
   bento: 'cafe',
@@ -27,6 +33,16 @@ const DEMO_BY_TEMPLATE = {
   cinematic: 'massage',
   quiet: 'physician',
   living: 'massage',
+  'area-first': 'plumber',
+  'horizontal-story': 'carpenter',
+  'price-first': 'salon',
+  'chapter-snap': 'rooms',
+  'treatment-studio': 'salon',
+  'type-specimen': 'lawyer',
+  'directory-index': 'lawyer',
+  'split-carousel': 'gym',
+  'spatial-grid': 'carpenter',
+  'visual-selector': 'retail',
 }
 
 export const metadata = {
@@ -46,7 +62,7 @@ export default function Showcase() {
           <a href="#designs" className={s.btnLine}>Δες τα designs ↓</a>
         </div>
         <div className={s.stats}>
-          <div><b>{TEMPLATE_KEYS.length}+</b><span>έτοιμα designs</span></div>
+          <div><b>{LAUNCH_TEMPLATE_KEYS.length}</b><span>επιλεγμένα designs</span></div>
           <div><b>Λεπτά</b><span>όχι εβδομάδες</span></div>
           <div><b>.gr</b><span>στο domain σου</span></div>
         </div>
@@ -75,7 +91,7 @@ export default function Showcase() {
           <h2>Διάλεξε το ύφος σου.</h2>
         </div>
         <div className={s.grid}>
-          {TEMPLATE_KEYS.map((k) => {
+          {LAUNCH_TEMPLATE_KEYS.map((k) => {
             const bizKey = DEMO_BY_TEMPLATE[k] || 'carpenter'
             const biz = demoBusinesses[bizKey]
             const href = `/preview/${k}?biz=${bizKey}`
@@ -88,6 +104,9 @@ export default function Showcase() {
                   <span className={s.tag}>{biz.TRADE} · {TEMPLATE_META[k].label}</span>
                   <h3>{biz.NAME}</h3>
                   <p>{TEMPLATE_META[k].desc}</p>
+                  {TEMPLATE_META[k].supportedCapabilities?.length > 0 && (
+                    <span className={s.capabilities}>{TEMPLATE_META[k].supportedCapabilities.join(' · ')}</span>
+                  )}
                   <span className={s.open}>Άνοιξε το design →</span>
                 </div>
               </Link>

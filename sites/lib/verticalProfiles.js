@@ -11,6 +11,8 @@ const DESIGN_SYSTEM_IDS = Object.freeze([
   // Μονοπρόσωπος επαγγελματίας: ο άνθρωπος ΕΙΝΑΙ η μάρκα.
   'signature',
   'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery',
+  'area-first', 'horizontal-story', 'price-first', 'chapter-snap', 'directory-index', 'vertical-snap',
+  'elegance-salon', 'grecko-table', 'novena-care', 'bigspring-advisory', 'constra-build', 'property-atlas',
 ])
 
 const REQUIRED_BASE_SECTIONS = Object.freeze(['hero', 'services', 'contact', 'find-us'])
@@ -58,7 +60,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unattributed-project-claims', 'unsafe-workshop-scenes']),
       fallbackStrategy: 'material-textures-and-typographic-project-cards',
     },
-    compatibleDesignSystemIds: ['canvas', 'runway', 'grid', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living', 'forge', 'editorial', 'magazine'],
+    compatibleDesignSystemIds: ['constra-build', 'horizontal-story', 'forge', 'canvas', 'grid', 'runway', 'editorial', 'quiet', 'living', 'cinematic', 'type-gallery', 'infinite'],
   }),
   taverna: profile({
     id: 'taverna', label: 'Ταβέρνα / Εστιατόριο',
@@ -72,7 +74,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['generic-food-unrelated-to-menu', 'misleading-dish-claims']),
       fallbackStrategy: 'menu-led-layout-with-ingredient-illustrations',
     },
-    compatibleDesignSystemIds: ['warmth', 'ember', 'magazine', 'cinematic', 'type-gallery', 'living', 'infinite', 'quiet', 'kinetic', 'poster', 'bloom', 'aegean'],
+    compatibleDesignSystemIds: ['grecko-table', 'warmth', 'ember', 'magazine', 'cinematic', 'type-gallery', 'living', 'infinite', 'quiet', 'kinetic', 'poster', 'bloom'],
   }),
   salon: profile({
     id: 'salon', label: 'Κομμωτήριο',
@@ -86,7 +88,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unlicensed-before-after', 'misleading-client-results']),
       fallbackStrategy: 'editorial-color-and-typography-with-service-lookbook',
     },
-    compatibleDesignSystemIds: ['beauty-atelier', 'runway', 'type-gallery', 'living', 'cinematic', 'infinite', 'kinetic', 'quiet', 'bloom', 'canvas', 'magazine', 'poster'],
+    compatibleDesignSystemIds: ['elegance-salon', 'price-first', 'beauty-atelier', 'runway', 'type-gallery', 'living', 'cinematic', 'chapter-snap', 'kinetic', 'bloom', 'canvas', 'poster'],
   }),
   dentist: profile({
     id: 'dentist', label: 'Οδοντιατρείο',
@@ -100,7 +102,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['graphic-procedures', 'guaranteed-medical-outcomes', 'unconsented-patient-images']),
       fallbackStrategy: 'clinical-abstracts-and-credential-led-layout',
     },
-    compatibleDesignSystemIds: ['clinic-triage', 'marble', 'quiet', 'cinematic', 'living', 'grid', 'infinite', 'canvas', 'type-gallery', 'editorial', 'bento', 'split'],
+    compatibleDesignSystemIds: ['novena-care', 'clinic-triage', 'marble', 'directory-index', 'quiet', 'cinematic', 'living', 'grid', 'canvas', 'editorial', 'bento', 'split'],
   }),
   physician: profile({
     id: 'physician', label: 'Ιατρείο',
@@ -114,7 +116,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['graphic-procedures', 'guaranteed-outcomes', 'patient-identifying-images']),
       fallbackStrategy: 'credential-led-editorial-with-clinical-abstracts',
     },
-    compatibleDesignSystemIds: ['clinic-triage', 'signature', 'marble', 'quiet', 'editorial', 'split', 'cinematic', 'grid', 'living', 'bento', 'canvas', 'sidebar'],
+    compatibleDesignSystemIds: ['novena-care', 'clinic-triage', 'signature', 'marble', 'quiet', 'editorial', 'split', 'cinematic', 'grid', 'living', 'bento', 'canvas'],
   }),
   pharmacy: profile({
     id: 'pharmacy', label: 'Φαρμακείο',
@@ -186,9 +188,23 @@ export const VERTICAL_PROFILES = Object.freeze({
     },
     compatibleDesignSystemIds: ['bento', 'grid', 'type-gallery', 'quiet', 'living', 'infinite', 'canvas', 'cinematic', 'kinetic', 'magazine', 'editorial', 'split'],
   }),
+  realestate: profile({
+    id: 'realestate', label: 'Μεσιτικό γραφείο',
+    aliases: ['real estate', 'realestate', 'μεσίτης', 'μεσιτικό γραφείο', 'ακίνητα', 'πωλήσεις ακινήτων', 'ενοικιάσεις ακινήτων'],
+    conversionGoal: { primary: 'property-enquiry', secondary: 'phone-call' },
+    requiredSections: ['hero', 'listings', 'services', 'service-areas', 'contact', 'find-us'],
+    motionIntensity: 'moderate', schemaType: 'RealEstateAgent',
+    media: {
+      minimumPreferredImages: 3,
+      requiredSubjects: Object.freeze(['actual-property-exterior-or-interior']),
+      avoid: Object.freeze(['unrelated-office-stock', 'unavailable-properties', 'misleading-property-claims']),
+      fallbackStrategy: 'map-and-service-led-listing-index',
+    },
+    compatibleDesignSystemIds: ['property-atlas', 'bigspring-advisory', 'cinematic', 'signature', 'grid', 'canvas', 'quiet', 'living', 'directory-index', 'marble', 'editorial', 'bento'],
+  }),
   lawyer: profile({
     id: 'lawyer', label: 'Δικηγορικό γραφείο',
-    aliases: ['lawyer', 'attorney', 'legal office', 'δικηγόρος', 'δικηγορικό γραφείο', 'νομικές υπηρεσίες', 'λογιστής', 'λογιστικό γραφείο', 'συμβολαιογράφος', 'ασφαλιστής', 'σύμβουλος επιχειρήσεων', 'μεσίτης', 'μεσιτικό γραφείο', 'μηχανικός', 'αρχιτέκτονας'],
+    aliases: ['lawyer', 'attorney', 'legal office', 'δικηγόρος', 'δικηγορικό γραφείο', 'νομικές υπηρεσίες', 'λογιστής', 'λογιστικό γραφείο', 'συμβολαιογράφος', 'ασφαλιστής', 'σύμβουλος επιχειρήσεων', 'μηχανικός', 'αρχιτέκτονας'],
     conversionGoal: { primary: 'request-consultation', secondary: 'phone-call' },
     requiredSections: ['hero', 'practice-areas', 'credentials', 'process', 'contact', 'find-us'],
     motionIntensity: 'restrained', schemaType: 'LegalService',
@@ -200,7 +216,7 @@ export const VERTICAL_PROFILES = Object.freeze({
     },
     // Το `longform` (στενή στήλη, drop-cap, magazine ανάγνωση) ταιριάζει σε
     // επάγγελμα που πρέπει να ΕΞΗΓΗΣΕΙ: νομικά κείμενα, διαδικασίες, όροι.
-    compatibleDesignSystemIds: ['marble', 'signature', 'quiet', 'cinematic', 'longform', 'grid', 'infinite', 'canvas', 'type-gallery', 'living', 'kinetic', 'editorial'],
+    compatibleDesignSystemIds: ['bigspring-advisory', 'property-atlas', 'directory-index', 'marble', 'signature', 'quiet', 'longform', 'grid', 'canvas', 'type-gallery', 'editorial', 'chapter-snap'],
   }),
   plumber: profile({
     id: 'plumber', label: 'Υδραυλικός',
@@ -219,7 +235,7 @@ export const VERTICAL_PROFILES = Object.freeze({
     // έλειπε από εδώ, οπότε ο πελάτης δεν το έβλεπε ΠΟΤΕ στον chooser.
     // Το `dispatch` ΔΕΝ επιστρέφει εδώ: αποκλείστηκε συνειδητά όταν το `callout`
     // το αντικατέστησε, και το tests/verticalProfiles.mjs το φυλάει ρητά.
-    compatibleDesignSystemIds: ['callout', 'forge', 'grid', 'sidebar', 'poster', 'bento', 'kinetic', 'type-gallery', 'infinite', 'cinematic', 'quiet', 'living'],
+    compatibleDesignSystemIds: ['area-first', 'constra-build', 'callout', 'forge', 'grid', 'sidebar', 'poster', 'bento', 'kinetic', 'type-gallery', 'quiet', 'living'],
   }),
   rooms: profile({
     id: 'rooms', label: 'Ενοικιαζόμενα δωμάτια',
@@ -234,7 +250,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['misleading-room-category', 'unavailable-amenities', 'unrelated-destination-stock']),
       fallbackStrategy: 'request-property-photos-before-publication',
     },
-    compatibleDesignSystemIds: ['aegean', 'cinematic', 'infinite', 'living', 'quiet', 'canvas', 'type-gallery', 'kinetic', 'grid', 'marble', 'magazine', 'bloom'],
+    compatibleDesignSystemIds: ['vertical-snap', 'chapter-snap', 'aegean', 'cinematic', 'infinite', 'living', 'quiet', 'canvas', 'type-gallery', 'kinetic', 'grid', 'marble'],
   }),
   gym: profile({
     id: 'gym', label: 'Γυμναστήριο',

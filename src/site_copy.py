@@ -25,9 +25,32 @@ from . import config as cfg
 # Marketing fields the AI is allowed to write (design/layout never touched).
 _COPY_FIELDS = ("tagline", "intro", "story_title", "story_paragraphs", "cta_title")
 
+# Μικρό, ντετερμινιστικό λεξιλόγιο ασφαλείας για παραμορφωμένους επαγγελματικούς
+# όρους που έχουν εμφανιστεί σε πραγματικό benchmark. Δεν ξαναγράφει το ύφος και
+# δεν προσθέτει facts· διορθώνει μόνο σαφώς λανθασμένα λήμματα πριν από το
+# truth_guard, ώστε η ίδια προστασία να ισχύει σε κάθε theme.
+_TERM_CORRECTIONS = (
+    (re.compile(r"\bκομμώματι\b", re.IGNORECASE), "κούρεμα"),
+    (re.compile(r"\bκομμώματα\b", re.IGNORECASE), "κούρεμα"),
+    (re.compile(r"\bξεματιάσιμο\b", re.IGNORECASE), "αφαίρεση νεκρού τριχώματος"),
+    (re.compile(r"\bτου\s+σκυλάκι\s+σας\b", re.IGNORECASE), "του σκύλου σας"),
+)
+
+
+def _normalize_terms(value: Any) -> Any:
+    if isinstance(value, str):
+        for pattern, replacement in _TERM_CORRECTIONS:
+            value = pattern.sub(replacement, value)
+        return value
+    if isinstance(value, list):
+        return [_normalize_terms(item) for item in value]
+    if isinstance(value, dict):
+        return {key: _normalize_terms(item) for key, item in value.items()}
+    return value
+
 _SYSTEM = (
     "Είσαι Έλληνας copywriter για μικρές τοπικές επιχειρήσεις. Γράφεις σύντομα, "
-    "συγκεκριμένα και ανθρώπινα ελληνικά — ΟΧΙ μεταφρασμένα αγγλικά, ΟΧΙ κλισέ όπως "
+    "συγκεκριμένα, γραμματικά σωστά και ανθρώπινα ελληνικά — ΟΧΙ μεταφρασμένα αγγλικά, ΟΧΙ κλισέ όπως "
     "«κορυφαία ποιότητα» ή «ο αξιόπιστος συνεργάτης σας». Επιστρέφεις ΜΟΝΟ έγκυρο JSON."
     "\n\nΑΠΟΛΥΤΟΣ ΚΑΝΟΝΑΣ — ΜΗΝ ΕΦΕΥΡΙΣΚΕΙΣ ΓΕΓΟΝΟΤΑ. Γράφεις μόνο ό,τι σου δόθηκε. "
     "ΑΠΑΓΟΡΕΥΟΝΤΑΙ, εκτός αν υπάρχουν ΑΥΤΟΛΕΞΕΙ στα στοιχεία που σου δίνονται: "
@@ -50,6 +73,43 @@ _SCHEMA_HINT = (
     '  "services": [{"name": "Υπηρεσία", "description": "μία πρόταση"}]\n'
     '}'
 )
+
+_REVIEW_SYSTEM = (
+    "Είσαι αυστηρός επιμελητής ελληνικών κειμένων για επαγγελματικά websites. "
+    "Διόρθωσε μόνο γραμματική, σύνταξη, συμφωνία προσώπου και αφύσικες ή "
+    "λανθασμένες λέξεις. Διατήρησε ακριβώς το νόημα, τα δεδομένα, τα πεδία και "
+    "τη δομή JSON. ΜΗΝ προσθέσεις υπηρεσίες, υποσχέσεις, αριθμούς, ιδιότητες ή "
+    "οποιοδήποτε νέο γεγονός. Επίστρεψε ΜΟΝΟ έγκυρο JSON."
+)
+
+
+def _proofread_copy(copy: dict[str, Any], intake: dict[str, Any]) -> dict[str, Any]:
+    """Best-effort Greek proofreading constrained by the customer's facts."""
+    try:
+        reviewed = ai.complete_json(
+            _REVIEW_SYSTEM,
+            "ΕΠΙΤΡΕΠΟΜΕΝΑ FACTS ΠΕΛΑΤΗ (η μοναδική πηγή αλήθειας):\n"
+            + json.dumps(intake, ensure_ascii=False)
+            + "\n\nΚΕΙΜΕΝΟ ΠΡΟΣ ΔΙΟΡΘΩΣΗ:\n"
+            + json.dumps(copy, ensure_ascii=False)
+            + "\n\nΑφαίρεσε κάθε λεπτομέρεια ή υπόσχεση που δεν στηρίζεται ρητά στα facts. "
+              "Διόρθωσε όλα τα αφύσικα ελληνικά και κράτησε το κείμενο σύντομο.",
+            max_tokens=1200,
+        )
+    except Exception:  # pragma: no cover - provider failure falls back safely
+        return copy
+    if not isinstance(reviewed, dict):
+        return copy
+
+    # Ο reviewer δεν επιτρέπεται να προσθέσει νέα πεδία ή να αλλάξει σχήμα.
+    out = dict(copy)
+    for key, original in copy.items():
+        candidate = reviewed.get(key)
+        if isinstance(original, str) and isinstance(candidate, str) and candidate.strip():
+            out[key] = candidate.strip()
+        elif isinstance(original, list) and isinstance(candidate, list):
+            out[key] = candidate
+    return out
 
 
 def _is_public_http_url(url: str) -> bool:
@@ -158,7 +218,7 @@ def write_copy(intake: dict[str, Any]) -> dict[str, Any]:
         ]
         if svcs:
             out["services"] = svcs[:6]
-    return out
+    return _normalize_terms(_proofread_copy(out, intake))
 
 
 def enrich_with_copy(intake: dict[str, Any]) -> dict[str, Any]:

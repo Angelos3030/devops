@@ -11,7 +11,7 @@ export default function PreviewTemplate({ params, searchParams }) {
   const Tpl = TEMPLATES[params.template] || TEMPLATES.editorial
   const selected = demoBusinesses[searchParams?.biz] || demoData
   const input = searchParams?.photos === 'none'
-    ? { ...selected, HERO_IMAGE: '', STORY_IMAGE: '', gallery: [] }
+    ? { ...selected, HERO_IMAGE: '', STORY_IMAGE: '', gallery: [], MEDIA_POLICY: 'real-only' }
     : selected
   const controls = themeControls(params.template)
   const data = artDirect(withMediaFallback(input), params.template)

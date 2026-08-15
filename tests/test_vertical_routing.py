@@ -99,6 +99,35 @@ class VerticalRoutingTests(unittest.TestCase):
         self.assertEqual(pg._vertical(intake), "beauty")
         self.assertEqual(pg.recommend_templates(intake)[0], "beauty-atelier")
 
+    def test_describe_structure_match_twelve_for_salon(self):
+        text = ("Έχω κομμωτήριο στο Περιστέρι, γυναίκες και άντρες, θέλω online "
+                "ραντεβού, τιμοκατάλογο και κάτι μοντέρνο αλλά όχι πολύ φανταχτερό.")
+        intake = self.parse_without_ai(text)
+        self.assertEqual(intake["type"], "Κομμωτήριο")
+        self.assertEqual(intake["city"], "Περιστέρι")
+        self.assertTrue(intake["booking"])
+        self.assertTrue(intake["pricing"])
+        self.assertIn("online-booking", intake["features"])
+        templates = pg.recommend_templates(intake)
+        self.assertEqual(len(templates), 12)
+        self.assertEqual(templates[0], "price-first")
+        self.assertIn("beauty-atelier", templates[:4])
+        self.assertEqual(len(templates), len(set(templates)))
+
+    def test_unapproved_capability_does_not_replace_trade_anchor(self):
+        intake = self.parse_without_ai(
+            "Είμαι υδραυλικός στην Αθήνα και θέλω έλεγχο περιοχής και διαθεσιμότητας"
+        )
+        self.assertEqual(pg.recommend_templates(intake)[0], "callout")
+
+    def test_no_photo_request_stays_with_approved_professional_themes(self):
+        intake = self.parse_without_ai(
+            "Έχω δικηγορικό γραφείο στο Χαλάνδρι, δεν έχω φωτογραφίες και θέλω minimal site"
+        )
+        templates = pg.recommend_templates(intake)
+        self.assertIn("quiet", templates[:4])
+        self.assertNotIn("type-specimen", templates)
+
     def test_sparse_hotel_prompt_gets_hospitality_copy_without_fake_facts(self):
         data = pg.normalize({"name": "Ξενοδοχείο", "type": "Ξενοδοχείο"})
         combined = " ".join(

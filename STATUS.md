@@ -3,6 +3,188 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+## ADR-0005: production-pilot plan γραμμένο, production ΠΑΡΑΜΕΝΕΙ ανενεργό (2026-08-13)
+
+- Και τα 4 pre-production controls που ζητήθηκαν είναι έτοιμα:
+  (1) **models pinned** — `providers.py` πλέον `deepseek-v4-flash` +
+  `claude-haiku-4-5-20251001` ρητά, όχι floating aliases, ανεξάρτητα από το
+  κοινό `cfg.MODEL_CHEAP` (επαληθεύτηκε με AST-level test ότι ο κώδικας δεν
+  διαβάζει καν `cfg.MODEL_CHEAP`). (2) **DeepSeek mapping επιβεβαιωμένο**
+  από το επίσημο changelog τους (api-docs.deepseek.com/updates,
+  2026-04-24 entry) — το `deepseek-chat` ήταν σκόπιμο legacy alias για το
+  V4-Flash, ήδη περασμένο το discontinuation date του (2026-07-24).
+  (3) **πραγματικό Kernel eval artifact** — `evals` δείχνει τώρα σε
+  `tests/test_lead_scoring_offline_eval.py` (πραγματικό, περνάει, 2 tests)
+  αντί για placeholder string. (4) **stray checkpoint cleanup script**
+  γραμμένο (`cleanup_stray_public_checkpoints.py`, staging-only, διπλό
+  confirm), όχι ακόμα τρέξιμο — cosmetic, δεν μπλοκάρει.
+- **Pricing επαληθεύτηκε από επίσημες πηγές**: DeepSeek V4-Flash
+  $0.14/$0.28 ανά MTok (api-docs.deepseek.com/quick_start/pricing), Claude
+  Haiku 4.5 $1/$5 ανά MTok (platform.claude.com/docs — official). Με pinned
+  μοντέλα το `cost_report.status` γίνεται πλέον `VERIFIED` (πριν ήταν
+  UNVERIFIED λόγω model mismatch) — μετρημένο κόστος €0.00061 για το ίδιο
+  hot-lead run, μάλιστα φθηνότερο από την παλιά εκτίμηση.
+- **13/13 τοπικά regression tests περνούν** (`test_lead_scoring_graph.py`,
+  `test_lead_scoring_offline_eval.py`, `test_lead_scoring_pinning_and_cost.py`)
+  — χωρίς δίκτυο/staging credentials. Επιβεβαιώνουν: pinned μοντέλα σε
+  χρήση, cost VERIFIED, manifest eval artifact υπαρκτό+περνάει, Kernel
+  `validate_manifest()` δέχεται ακόμα το staging manifest.
+- **`docs/adr/0005-lead-scoring-production-pilot-plan.md` γράφτηκε** — πλήρες
+  production-pilot plan: exact config changes (Railway env vars), exact
+  production DB records (agent_registry/agent_capabilities/
+  workspace_entitlements/agent_installations — με σημείωση ότι
+  `kernel_registry.py`'s functions είναι ΣΚΟΠΙΜΑ staging-only σήμερα, ένα
+  νέο production-safe equivalent περιγράφεται αλλά ΔΕΝ γράφτηκε), rollback/
+  kill-switch procedure, budget limits, monitoring SQL queries, success/
+  failure thresholds. Tenant επιλογή αφέθηκε ρητά στον χρήστη (business
+  decision, όχι engineering).
+- **Production ΔΕΝ ενεργοποιήθηκε.** Κανένα production record δεν
+  δημιουργήθηκε, κανένας νέος production-targeting κώδικας δεν γράφτηκε.
+  Εκκρεμεί ξεχωριστή ρητή έγκριση πριν από οποιοδήποτε βήμα του ADR-0005.
+
+## ADR-0004 ΚΛΕΙΣΤΟ: READY FOR LIMITED PRODUCTION PILOT (2026-08-13)
+
+- **Rerun σε πραγματικό staging πέρασε πλήρως** — 10/10 βήματα, μηδέν
+  AssertionError. `[7/10]` επιβεβαίωσε `halted_reason=human_rejected` live.
+  `[8/8b/8c]` concurrency: **καμία race συνθήκη** — 5 ταυτόχρονα duplicate
+  submits έδωσαν ακριβώς 1 εκτέλεση `deepseek_score`/`crm_draft`, tenant
+  isolation κράτησε κάτω από ταυτόχρονο load, 3 concurrent retries έγιναν
+  ανεξάρτητα χωρίς cross-talk.
+- **Νέο εύρημα από το `[9/10]` cost telemetry validation**: ΚΑΙ τα δύο
+  μοντέλα resolved σε διαφορετικό string από το requested — DeepSeek
+  `deepseek-chat` → `deepseek-v4-flash` (χρειάζεται επιβεβαίωση αν είναι
+  σκόπιμο floating alias ή version drift), Claude `claude-haiku-4-5` →
+  `claude-haiku-4-5-20251001` (πιθανότατα φυσιολογικό alias→snapshot
+  resolution). Αποτέλεσμα: το cost telemetry δεν έχει καν ενδεικτικό νούμερο
+  αυτή τη στιγμή, μόνο `UNVERIFIED` — πιο τίμιο από πριν αλλά τυφλό.
+- **Τελικό verdict: READY FOR LIMITED PRODUCTION PILOT.** Όλες οι ασφαλείς
+  ιδιότητες κράτησαν, ΚΑΙ κάτω από concurrency που δεν είχε δοκιμαστεί πριν.
+  Τα ανοιχτά items (pin μοντέλων αντί για floating aliases, πραγματικό
+  Kernel eval artifact, καθαρισμός stray public-schema rows) είναι
+  observability/governance θέματα, όχι safety gaps. Πλήρες report στο
+  `docs/adr/0004-lead-scoring-staging-enablement.md`.
+- **Καμία production ενεργοποίηση έγινε.** Χρειάζεται ξεχωριστή ρητή έγκριση
+  πριν από οποιαδήποτε production-track δουλειά.
+
+## ADR-0004 δεύτερο pass: concurrency + cost telemetry + deployment topology (2026-08-13) — superseded by section above
+
+- Μετά το fix του `halted_reason`, προστέθηκαν στο `staging_e2e_report.py`:
+  (1) **concurrency/idempotency tests** `[8]/[8b]/[8c]` — 5 ταυτόχρονα
+  duplicate submits του ίδιου lead μέσω ανεξάρτητων DB connections (ρεαλιστική
+  προσομοίωση connection pool), ελέγχει ότι `deepseek_score`/`crm_draft`
+  εκτελέστηκαν το πολύ 1 φορά παρά το race· αν όχι, τυπώνει ρητά
+  `⚠ RACE DETECTED` αντί να περάσει σιωπηλά. Επίσης: tenant isolation κάτω
+  από ταυτόχρονο load, και concurrent retries σε 3 ανεξάρτητα leads χωρίς
+  cross-talk. (2) **cost telemetry validation** `[9]` — το `providers.py`
+  διαβάζει τώρα το πραγματικό `model` από το response body (όχι μόνο το
+  requested config) και σημαίνει `model_mismatch`· το `_cost_eur()`
+  ξαναγράφτηκε ώστε να επιστρέφει `status=UNVERIFIED` γιατί ΚΑΝΕΝΑ από τα δύο
+  pricing tables (DeepSeek, Claude Haiku) δεν προέρχεται από authoritative
+  πηγή — το DeepSeek table λέει ρητά στο δικό του σχόλιο "Δεν είναι επίσημο
+  API". Το `measured_cost_eur_approx` του πρώτου run πρέπει να διαβάζεται ως
+  ενδεικτικό, όχι επιβεβαιωμένο.
+- **ADR-0001 deployment-topology ερώτημα λύθηκε για το Lead Scoring
+  συγκεκριμένα** (νέο section στο ADR-0001): in-process/event-triggered
+  invocation αρκεί — το `interrupt()` δεν κρατάει process ανοιχτό στο
+  human-wait, και το ενεργό compute μετρήθηκε στα 4.43s. Παραμένει ανοιχτό
+  (σκόπιμα, όχι λυμένο) για μελλοντικά multi-day-pause workflows
+  (Follow-up, No-show Prevention, Reactivation).
+- **Εκκρεμεί ένα rerun**: `VITRINA_ENV=staging python -m
+  src.lead_scoring.staging_e2e_report` — καλύπτει ΚΑΙ την επιβεβαίωση του
+  `halted_reason=human_rejected` ΚΑΙ τα νέα concurrency/cost-telemetry
+  βήματα σε ένα run. Το τελικό verdict (READY FOR LIMITED PRODUCTION PILOT /
+  NEEDS CHANGES / REJECT) γράφεται μετά από αυτό — προσωρινά
+  "NEEDS CHANGES" εκκρεμεί επιβεβαίωσης. **Καμία production ενεργοποίηση σε
+  καμία περίπτωση χωρίς ξεχωριστή ρητή έγκριση.**
+
+## ADR-0004: real staging run complete, one fix pending reconfirm (2026-08-13) — superseded by section above
+
+- `enable_staging.py` και `staging_e2e_report.py` έτρεξαν πραγματικά σε
+  staging: **positive E2E πέρασε πλήρως** (interrupted πριν το approval,
+  total 4.43s, real DeepSeek 137/39 tokens + real Claude 240/82 tokens,
+  10 checkpoints πραγματικά isolated στο `vitrina_lead_scoring_runtime`,
+  `crm_draft.status=DRAFT_ONLY_NOT_WRITTEN`). **5/6 negative tests καθαρά**
+  (pii_to_deepseek, disabled_agent, duplicate_lead, transient_failure,
+  tenant_mismatch — όλα blocked/recovered όπως έπρεπε).
+- **Πραγματικό bug βρέθηκε από το ίδιο το αποτέλεσμα**, όχι από στατική
+  ανάλυση: το negative test #6 (`human_rejection`) ανέφερε
+  `halted_reason=validation_failed` ενώ ο λόγος ήταν ρητή απόρριψη από
+  άνθρωπο, όχι αποτυχία validation — `halt_invalid_node` επέστρεφε πάντα
+  το ίδιο generic default γιατί τίποτα πριν από αυτόν τον κόμβο δεν έγραφε
+  `halted_reason` στο approval-rejection path. Η ίδια η ασφάλεια δούλεψε
+  σωστά (δεν δημιουργήθηκε `crm_draft`) — μόνο το audit label ήταν λάθος.
+  **Διορθώθηκε**: `human_approval_node` γράφει τώρα ρητά
+  `halted_reason="human_rejected"` όταν `approved=False`. **Regression
+  test προστέθηκε**: `tests/test_lead_scoring_graph.py` (3 tests, χωρίς
+  δίκτυο/staging credentials, τρέχει με in-memory checkpointer + stub
+  providers/kernel_gate) — επιβεβαιώνει ότι τα δύο halt reasons παραμένουν
+  διακριτά. Τρέχει τοπικά: `python3 -m unittest tests.test_lead_scoring_graph
+  -v` → OK.
+- **Εκκρεμεί μόνο ένα βήμα**: rerun του `staging_e2e_report.py` σε
+  πραγματικό staging για να επιβεβαιωθεί `halted_reason=human_rejected`
+  live (το report JSON που υπάρχει τώρα είναι πριν το fix).
+- Τελικό report γραμμένο στο ADR-0004 με πλήρη μετρημένα νούμερα (cost,
+  timings, audit trail, issues, changes required). **Verdict: NEEDS
+  CHANGES** (όχι REJECT — όλες οι ασφαλείς ιδιότητες κράτησαν· όχι καθαρό
+  READY — εκκρεμεί το rerun, unverified Claude pricing, καμία load/
+  concurrency δοκιμή, ανοιχτά ερωτήματα deployment topology από ADR-0001).
+  **Καμία production ενεργοποίηση έγινε ή θα γίνει χωρίς ξεχωριστή ρητή
+  έγκριση, ανεξάρτητα από το verdict.**
+
+## ADR-0004: controlled staging enablement built, awaiting run (2026-08-13) — superseded by section above
+
+- Νέα scripts: `enable_staging.py` (promote σε `available`, δημιουργία ΕΝΟΣ
+  synthetic workspace `qa-leadscoring@vitrina.test`/`aaaa0007-...` — ίδια
+  σύμβαση με `scripts/seed_staging.py`, install με `crm.write` μόνο +
+  tight budget limits), `disable_staging.py` (άμεση ανάκληση),
+  `staging_e2e_report.py` (πλήρες θετικό E2E + 6 negative tests, μετρημένα
+  όχι εκτιμημένα tokens/timing/checkpoints).
+- **Δύο πραγματικά bugs βρέθηκαν και διορθώθηκαν πριν από οποιοδήποτε
+  handoff** (static review, όχι live failure): (1) το `register()` έγραφε
+  πάντα `lifecycle='draft'` hardcoded στο SQL, ανεξάρτητα από το manifest —
+  θα έκανε το promotion σε `available` σιωπηλά ανενεργό· (2)
+  `kernel_gate()` δεν όριζε ρητό per-call budget, οπότε το default
+  `max_runtime_seconds=300` θα ξεπερνούσε πάντα το installation cap των
+  120s — θα μπλόκαρε ΜΟΝΙΜΑ ακόμα και μετά από σωστό enable, για άσχετο
+  λόγο. Και τα δύο επιβεβαιώθηκαν διορθωμένα offline (χωρίς δίκτυο, με
+  πραγματικό `evaluate_policy()` call πάνω σε ίδιο manifest/installation
+  shape) πριν δοθούν οδηγίες στον χρήστη.
+- **Διόρθωση σε προηγούμενη υπόθεση (ADR-0002/0003)**: το `PostgresSaver`
+  δεν έχει schema parameter — τα δικά του checkpoint tables πήγαιναν πάντα
+  σε `public`, όχι στο isolated schema που είχε δημιουργηθεί (μόνο το RLS
+  proof table ήταν πραγματικά isolated). Διορθώθηκε τώρα με ρητό
+  `search_path` στο connection string.
+- Χρειάζεται από τον χρήστη: `enable_staging.py` μετά `staging_e2e_report.py`
+  (staging only). Το τελικό report με πραγματικά μετρημένα νούμερα και
+  READY/NEEDS CHANGES/REJECT verdict γράφεται μετά την πραγματική εκτέλεση —
+  ΔΕΝ κατασκευάζεται τώρα. Καμία production αλλαγή σε καμία περίπτωση χωρίς
+  ξεχωριστή ρητή έγκριση.
+
+## ADR-0003 confirmed against real staging (2026-08-13) — closed out
+
+- Commit έγινε (`150fef4`), βρέθηκαν stray αρχεία (`research/_selftest2`,
+  `research/_selftest3`, `poc_state.sqlite*`) που μπήκαν κατά λάθος λόγω
+  ημιτελούς `git reset` πριν διορθωθεί το index.lock. Καθαρίστηκαν με
+  ξεχωριστό commit (`b09c517`) — `git rm -r`, καμία ανάγκη rewrite (τίποτα
+  δεν είχε γίνει push/share).
+- Πρώτο πραγματικό run του `run_staging_pilot.py` βρήκε πραγματικό bug στο
+  ίδιο το test harness: `tenant_id=None` έκοβε το lead στο `validate_node`
+  πριν καν φτάσει στο Kernel gate. Διορθώθηκε (synthetic all-zero UUID).
+- Μετά τη διόρθωση: **επιβεβαιώθηκε το αναμενόμενο αποτέλεσμα σε
+  πραγματικό staging** — `evaluate_policy()` μπλόκαρε σωστά με
+  `['agent_lifecycle:draft', 'installation:missing', 'autonomy_a1']`. Ο
+  πραγματικός Kernel σε πραγματικό staging αρνείται να εκτελέσει
+  unregistered-for-execution agent, ακριβώς όπως σχεδιάστηκε.
+- **Τρέχουσα κατάσταση**: κώδικας πλήρης και επαληθευμένος σε staging,
+  ΚΑΝΕΝΑ lead δεν έχει τρέξει end-to-end (ούτε πρέπει, χωρίς ξεχωριστή
+  έγκριση για promotion σε `lifecycle=available` + πραγματικό
+  `agent_installations` row). ΚΑΜΙΑ αλλαγή σε production. ΚΑΝΕΝΑ CRM
+  connected.
+- Επόμενο βήμα είναι ξεχωριστή απόφαση του χρήστη, όχι αυτόματο επόμενο
+  βήμα εδώ: πότε/αν να γίνει promote το manifest σε `available` και να
+  δημιουργηθεί πραγματικό `agent_installations` row για πραγματικό
+  staging workspace, ώστε να τρέξει το πρώτο πραγματικό lead end-to-end.
+
 ## ADR-0003: real (non-mocked) Lead Scoring staging implementation (2026-08-13)
 
 - Νέο πακέτο `src/lead_scoring/` — πραγματικές κλήσεις (όχι mock): DeepSeek

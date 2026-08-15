@@ -16,6 +16,7 @@
     "qa:spine": "node tests/spine_guard.mjs",
     "qa:registry": "node tests/templateRegistry.mjs",
     "qa:trust": "node tests/trust_guard.mjs"
+    ,"qa:capabilities": "node tests/capabilitySystems.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",
