@@ -69,13 +69,21 @@ def main() -> None:
         graph = build_graph(checkpointer)
 
         print("\n[3/3] Submitting one synthetic lead through the real graph...")
+        # A syntactically valid but all-zeros UUID — obviously fake, never a
+        # real clients.id. validate_node only checks tenant_id is truthy, so
+        # this passes validation and reaches the Kernel-gated deepseek_score
+        # node, which is the actual thing this run is meant to exercise.
+        # (First attempt at this script passed tenant_id=None, which tripped
+        # validate_node's own missing_tenant_id check instead — a bug in this
+        # harness, not the Kernel; fixed here.)
+        SYNTHETIC_TENANT_ID = "00000000-0000-0000-0000-000000000000"
         lead = {"email": "pilot-test@example.gr", "service": "ξυλουργός", "source": "web_form",
                 "message": "Χρειάζομαι επισκευή τώρα, έχω budget 500 ευρώ"}
         thread_id = f"staging-pilot::{int(time.time())}"
         config = {"configurable": {"thread_id": thread_id}}
         try:
             result = graph.invoke(
-                {"tenant_id": None, "lead_id": thread_id, "raw_lead": lead, "audit_log": []},
+                {"tenant_id": SYNTHETIC_TENANT_ID, "lead_id": thread_id, "raw_lead": lead, "audit_log": []},
                 config,
             )
         except PermissionError as exc:

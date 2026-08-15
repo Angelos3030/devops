@@ -22,7 +22,7 @@ from typing import TypedDict
 from langgraph.graph import StateGraph, END, START
 from langgraph.types import interrupt, RetryPolicy
 
-from ..agency_kernel import TaskRequest, VersionedRef, evaluate_policy
+from ..agency_kernel import CostEnvelope, TaskRequest, VersionedRef, evaluate_policy
 from . import kernel_registry, providers
 
 _URGENCY_WORDS = {"σήμερα", "τώρα", "επείγον", "άμεσα", "urgent", "asap"}
@@ -46,7 +46,12 @@ class LeadState(TypedDict, total=False):
     approval: dict | None
     crm_draft: dict
     audit_log: list[dict]
+    usage_log: list[dict]  # real measured token usage per provider call
     halted_reason: str | None
+
+
+def _usage(state: dict, entry: dict) -> list[dict]:
+    return [*state.get("usage_log", []), entry]
 
 
 def kernel_gate(*, capability: str, version: str, permissions: tuple[str, ...],
@@ -61,6 +66,12 @@ def kernel_gate(*, capability: str, version: str, permissions: tuple[str, ...],
         requested_permissions=frozenset(permissions),
         data_classes=frozenset(data_classes),
         risk=risk, mode="execute", provider=provider,
+        # Explicit, tight per-call budget — NOT the CostEnvelope default
+        # (max_runtime_seconds=300), which would exceed enable_staging.py's
+        # installation cap (120s) on every single call and permanently block
+        # execution even once correctly enabled. Discovered by reviewing this
+        # code before handoff, not by a failed live run.
+        budget=CostEnvelope.from_mapping({"max_money_eur": 0, "max_tokens": 0, "max_runtime_seconds": 60}),
     )
     decision = evaluate_policy(
         manifest=manifest, installation=installation,
@@ -119,8 +130,10 @@ def deepseek_score_node(state: LeadState) -> dict:
     if not decision["allowed"]:
         raise PermissionError(f"Kernel denied DeepSeek scoring: {decision['reasons']}")
     result = providers.deepseek_score(state["features"])
+    usage = result.pop("_usage", {})
     return {
         "deepseek_score": result,
+        "usage_log": _usage(state, {**usage, "node": "deepseek_score"}) if usage else state.get("usage_log", []),
         "audit_log": _audit(state, "deepseek_score", "deepseek", "scored",
                              f"score={result['score']} confidence={result['confidence']} "
                              f"kernel_reasons={decision['reasons']}"),
@@ -150,8 +163,10 @@ def claude_review_node(state: LeadState) -> dict:
     if not decision["allowed"]:
         raise PermissionError(f"Kernel denied Claude review: {decision['reasons']}")
     review = providers.claude_review(state["raw_lead"], state["features"], state["business_rule"])
+    usage = review.pop("_usage", {})
     return {
         "claude_review": review,
+        "usage_log": _usage(state, {**usage, "node": "claude_review"}) if usage else state.get("usage_log", []),
         "audit_log": _audit(state, "claude_review", "claude", "reviewed",
                              f"{review['recommended_tier']} risk_flag={review['risk_flag']}"),
     }
@@ -171,11 +186,23 @@ def human_approval_node(state: LeadState) -> dict:
         "tenant_id": state["tenant_id"], "lead_id": state["lead_id"],
         "tier": state["business_rule"]["tier"], "claude_review": state.get("claude_review"),
     })
-    return {
-        "approval": {"approved": bool(decision.get("approved")), "note": decision.get("note", "")},
+    approved = bool(decision.get("approved"))
+    update: dict = {
+        "approval": {"approved": approved, "note": decision.get("note", "")},
         "audit_log": _audit(state, "human_approval", "human",
-                             "approved" if decision.get("approved") else "rejected", decision.get("note", "")),
+                             "approved" if approved else "rejected", decision.get("note", "")),
     }
+    if not approved:
+        # halt_invalid_node's own default ("validation_failed") is reused by
+        # BOTH the real-validation-failure path (route_after_validate) and
+        # this approval-rejection path, since neither previously set
+        # halted_reason before reaching halt_invalid_node. That made the
+        # audit trail wrongly claim a rejected-by-human lead had failed
+        # input validation. Set the real reason here so halt_invalid_node's
+        # `state.get("halted_reason") or "validation_failed"` picks THIS
+        # value up instead of falling through to the generic default.
+        update["halted_reason"] = "human_rejected"
+    return update
 
 
 def route_after_approval(state: LeadState) -> str:

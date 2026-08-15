@@ -264,6 +264,50 @@ independently-built, independently-approved, independently-tested agents. This
 is a recommendation to revisit at the start of Phase 2 planning
 (`docs/22-AGENT-ECOSYSTEM.md` §4), not a change to make now.
 
+## Deployment-topology resolution for Lead Scoring (2026-08-13, ADR-0004 follow-up)
+
+Criterion 13 flagged this as unresolved: "a decision on where the graph
+*runs* (same FastAPI process vs. a worker)... not evaluated by this POC —
+first real migration should measure this explicitly." The first real
+migration (Lead Scoring, ADR-0002/0003/0004) has now run against real
+staging, so this can be answered for that workflow specifically — it is
+**not** a blanket answer for every future domain graph.
+
+**Decision for Lead Scoring: in-process, request/event-triggered invocation.
+No dedicated worker process is required for this workflow.**
+
+Reasoning, grounded in what was actually measured:
+
+1. `interrupt()` does not hold a process open while waiting for a human.
+   `graph.invoke()` returns control to the caller the moment it hits
+   `human_approval`, with `__interrupt__` populated — confirmed by both the
+   POC and every staging run since. The wait for approval happens with
+   **zero process holding it open**; state sits in Postgres via the
+   checkpointer. Resuming is a separate, later `graph.invoke(Command(resume=...))`
+   call, naturally triggered by whatever UI action records the approval
+   (dashboard button, API call) — not a polling loop.
+2. Active compute time per lead is short and now measured, not estimated:
+   4.43s wall time end-to-end for a hot lead requiring both DeepSeek and
+   Claude, of which ~3.7s is the two model calls themselves. This is well
+   within a normal HTTP request timeout or a lightweight background task —
+   it does not need a separate long-running worker to avoid blocking
+   anything.
+3. This reasoning does **not** generalize to every future domain graph.
+   Workflows with genuinely multi-day pauses (Follow-up, No-show Prevention,
+   Reactivation — named explicitly in criterion 12 as LangGraph's strongest
+   fit) still need an explicit decision about what triggers the resume call
+   after days of real-world waiting: an inbound webhook/event is the natural
+   fit (same pattern as Lead Scoring's approval trigger), but a cron-style
+   sweep may still be needed as a fallback for missed events. **That decision
+   is deferred to whichever of those workflows is migrated next** — it is
+   not required to unblock a Lead Scoring pilot and forcing it now would be
+   solving a problem the current workflow doesn't have.
+
+**What this means for production readiness:** the deployment-topology
+question is resolved for Lead Scoring specifically and is not a blocker for
+a limited pilot. It remains open, and should stay explicitly tracked, for
+any future migration of a multi-day-pause workflow.
+
 ## Action Items
 
 1. [ ] Review this ADR and the POC transcript; decide go/no-go on the first real migration (recommend Lead Scoring or Social Media approval queue).
