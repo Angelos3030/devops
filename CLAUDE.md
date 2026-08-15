@@ -142,6 +142,26 @@ Trigger: `New theme | Vertical: dentist | Reference: https://…` → ακολο
 ως **στιγμιότυπο + σύνδεσμος και ποτέ ως iframe** (`X-Frame-Options` αφήνει κενό πλαίσιο),
 και **κανένα test δεν γράφει στη βάση παραγωγής** — κόψε το αίτημα και επαλήθευσε το σώμα.
 
+### 7β. Το QA γίνεται ΠΑΝΤΑ με δεδομένα του επαγγέλματος
+
+Ένα theme δεν κρίνεται ποτέ με τα προεπιλεγμένα demo δεδομένα. Κρίνεται με το
+demo business του **δικού του** vertical.
+
+Μετρήθηκε: ο port worker απέδιδε ιατρικό theme (`medic-care`) με τις φωτογραφίες
+του **ξυλουργού** — κουζίνες μέσα σε ιατρείο, «Η Κλινική μας» πάνω από ντουλάπες.
+Κάθε μέτρηση εικόνων, ύψους, υπερχείλισης και κάθε οπτική κρίση γινόταν σε λάθος
+περιεχόμενο, και τα πραγματικά σφάλματα του theme κρύβονταν πίσω από τον θόρυβο
+της αναντιστοιχίας.
+
+Το preview route δέχεται `?biz=<key>`. Διαθέσιμα:
+`carpenter · taverna · salon · nails · dentist · physician · pharmacy ·
+aesthetics · massage · cafe · retail · realestate · lawyer · plumber · rooms ·
+gym · garage · farm`.
+
+Ο κανόνας ισχύει παντού: screenshots, design QA, fidelity σύγκριση, browser
+έλεγχος. Η αντιστοίχιση vertical→demo ζει στο `VERTICAL_DEMO` του
+`src/port_worker.py` και επεκτείνεται εκεί όταν προστίθεται vertical.
+
 ### 8. Έγκριση, αποθήκευση και live
 
 Η επιλογή template, το κείμενο και τα assets αποθηκεύονται ως structured client/site data στη

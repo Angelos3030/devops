@@ -417,6 +417,27 @@ def _render_prescription(vit: dict[str, Any], orig_images: int) -> str:
     return "\n".join(dict.fromkeys(out))
 
 
+# ΚΑΝΟΝΑΣ: ένα theme κρίνεται ΠΑΝΤΑ με δεδομένα του επαγγέλματός του.
+# Μέχρι τώρα ο worker απέδιδε το /preview/<key> με το προεπιλεγμένο demo
+# (ξυλουργός) — δηλαδή έκρινε ιατρικό theme πάνω σε φωτογραφίες κουζίνας.
+# Οι μετρήσεις εικόνων, ύψους και υπερχείλισης ήταν όλες σε λάθος περιεχόμενο.
+VERTICAL_DEMO = {
+    "medical": "physician", "dentist": "dentist", "pharmacy": "pharmacy",
+    "food": "taverna", "cafe": "cafe", "retail": "retail", "beauty": "salon",
+    "fitness": "gym", "property": "realestate", "hospitality": "rooms",
+    "trades": "plumber", "automotive": "garage", "construction": "carpenter",
+    "professional": "lawyer", "farm": "farm", "wellness": "massage",
+}
+
+
+def demo_for(rec: dict[str, Any]) -> str:
+    """Ποιο demo business ταιριάζει στο vertical του theme."""
+    for v in rec.get("verticals", []):
+        if v in VERTICAL_DEMO:
+            return VERTICAL_DEMO[v]
+    return ""
+
+
 def port_source(source_id: str) -> dict[str, Any]:
     q = _load_queue()
     rec = q["sources"].get(source_id)
@@ -563,6 +584,9 @@ def port_source(source_id: str) -> dict[str, Any]:
         out_tests["next_build"] = {"passed": bok, "log": blog[-1800:]}
         return out_tests
 
+    biz = demo_for(rec)
+    preview_path = f"preview/{rec['theme_key']}" + (f"?biz={biz}" if biz else "")
+
     def _render_vitrina() -> dict[str, Any]:
         """Απόδοση Vitrina. Μέρος του ΒΡΟΧΟΥ, όχι επόμενο βήμα — αλλιώς ένα
         +10px ξεχείλισμα δεν έφτανε ποτέ στο μοντέλο."""
@@ -572,10 +596,10 @@ def port_source(source_id: str) -> dict[str, Any]:
             with PreviewServer(SITES, PREVIEW_PORT) as srv:
                 res["preview_server"] = {"pid": srv.proc.pid if srv.proc else None,
                                          "port": PREVIEW_PORT, "reclaimed": srv.reclaimed}
-                if not srv.wait_ready(f"preview/{rec['theme_key']}"):
+                if not srv.wait_ready(preview_path):
                     return {"fail": "ο preview server δεν απάντησε 200 εντός ορίου"}
                 return _render(f"http://127.0.0.1:{PREVIEW_PORT}",
-                               f"preview/{rec['theme_key']}", "vitrina", out)
+                               preview_path, "vitrina", out)
         except PreviewServerError as exc:
             return {"fail": str(exc)}
 
