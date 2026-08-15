@@ -1,0 +1,5 @@
+{
+  "task_id": "salon-batch-r3-studios",
+  "objective": "Find barber shop / hair salon / beauty salon website templates from established professional template studios. Scan each studio's FULL catalog listing for anything genuinely salon/barber/beauty-relevant (service-menu layouts, gallery/portfolio-of-work layouts, booking-adjacent CTAs) — do not just list the whole catalog as 'adaptable.' A generic portfolio/blog/SaaS-landing template that would require redesign to fit a salon is NOT a candidate, even from a reputable studio. Do NOT include any HTML5 UP template (already reviewed, see research/salon-batch/BATCH-PLAN-round2.md) or anything from research/salon-batch/LICENSE-GATE.md's exclusion list. For each candidate, extract and quote the EXACT license text found on the page — do not mark LICENSE_UNVERIFIED if the source content contains a license statement.",
+  "findings": []
+}

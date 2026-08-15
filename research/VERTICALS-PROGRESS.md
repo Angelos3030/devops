@@ -15,12 +15,12 @@
 | 3+4 | Medical / dentist / pharmacy | **1** | ✅ ταξινομήθηκε | Medic Care PORT_OK· Health FIT_REJECT (πολυϊατρείο). Καθαρές πηγές έχουν μόνο 2 | 15/8 |
 | 5 | Gym / fitness | **1** | ✅ ταξινομήθηκε | Gymso Fitness PORT_OK — εβδομαδιαίο πρόγραμμα σε πλέγμα | 15/8 |
 | 6 | Beauty / salon | **3** | ✅ ολοκληρωμένο | 9 × blocked (βλ. `salon-batch/`) | 13–14/8 |
-| 7 | Carpenter / maker | — | ⏳ 2 αποτυπωμένα, εκκρεμεί οπτική κρίση | moso_interior, kool_form_pack | 15/8 |
+| 7 | Carpenter / maker | — | ⏳ 1 αποτυπωμένο | kool_form_pack (το moso_interior πήγε στο retail) | 15/8 |
 | 8 | Home trade / technician | **1** | ✅ ταξινομήθηκε | Clean Work PORT_OK — κάρτες με τιμή+διάρκεια· electric_xtra εκκρεμεί | 15/8 |
 | 9 | Lawyer / accountant / consultant | — | ⏸️ κορεσμός | 4 themes ήδη· καμία καθαρή vertical πηγή | — |
 | 10 | Hospitality / rooms | **0** | ⚠️ καθαρές πηγές: 0 | Το μόνο εύρημα ήταν μεσιτικό → V12. Δεξαμενή στο Untree (LICENSE_REVIEW) | 15/8 |
 | 11 | Garage / automotive | **0** | ✅ ταξινομήθηκε | Garage FIT_REJECT (αγορά αυτοκινήτων, όχι συνεργείο)· `motor` καλύπτει ήδη | 15/8 |
-| 12 | Retail / local shop | — | ⏳ 6 αποτυπωμένα, εκκρεμεί οπτική κρίση | 6/7 έχουν καλάθι → πιθανό FIT_REJECT, αδήλωτο χωρίς έλεγχο | 15/8 |
+| 12 | Retail / local shop | **1** | ⏳ 6 ακόμη εκκρεμούν | **Moso Interior PORT_OK** (redirect από construction): προϊόντα με τιμές, χωρίς καλάθι. Τα υπόλοιπα 6 έχουν καλάθι | 15/8 |
 | 13 | Farm / producer | — | ⏳ εκκρεμεί | `terra` ήδη· καμία καθαρή vertical πηγή | — |
 | 14 | **Property / μεσιτικό** | **1** | ✅ νέο vertical | Villa Agency PORT_OK (redirect από hospitality) | 15/8 |
 | 15 | Events / wedding | — | ⏳ 4 αποτυπωμένα, εκκρεμεί οπτική κρίση | venue, leadership_event, wedding_lite, event_invitation | 15/8 |
@@ -136,11 +136,11 @@ site** για αφαίρεση backlink. Σε συνδρομητικό προϊ�
 | | |
 |---|---|
 | Μοναδικές πηγές που ερευνήθηκαν | **255** (226 ευρετήριο studios + 29 food) |
-| PORT_OK συνολικά | **8** |
-| Ανά vertical | food 2 · beauty 3 · medical 1 · fitness 1 · property 1 · trades 1 |
+| PORT_OK συνολικά | **9** |
+| Ανά vertical | food 2 · beauty 3 · medical 1 · fitness 1 · property 1 · trades 1 · retail 1 |
 | Απορρίψεις | 5 FIT_REJECT · 3 QUALITY_REJECT · 5 PROVENANCE_BLOCKED · 5 FIT (παλαιά) |
-| Redirects | Aviato → retail · Villa Agency → property |
-| Εκκρεμής οπτική κρίση | **23** αποτυπωμένα (βλ. `BATCH2-CLASSIFICATION.md`) |
+| Redirects | Aviato → retail · Villa Agency → property · Moso Interior → retail |
+| Εκκρεμής οπτική κρίση | **22** αποτυπωμένα (βλ. `BATCH2-CLASSIFICATION.md`) |
 | LICENSE_REVIEW | Untree 24 κατηγορίες · Colorlib 6 λίστες · HTML5 UP · Styleshout |
 | LICENSE_BLOCKED | BootstrapMade — 22 κατηγορίες |
 | Χωρίς καμία πηγή | **pets/vet** (0 στα 226) |

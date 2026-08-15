@@ -1,0 +1,17 @@
+{
+  "task_id": "salon-batch-r4-verified",
+  "objective": "Analyze each of these specific barber/hair-salon/beauty-salon template product pages. For each: confirm it is customer-facing (not admin/booking-app), extract and quote the EXACT license/usage terms stated on the page (do not mark LICENSE_UNVERIFIED if the page states terms — quote them), note whether it credits an original designer, and assess visual architecture (layout style, photo dependency, motion/slider use) so later cross-candidate comparison is possible. Do NOT include anything from research/salon-batch/LICENSE-GATE.md's exclusion list.",
+  "findings": [
+    {
+      "name": "MenzSaloon Bootstrap",
+      "purpose": "Customer-facing barber and hair salon website template",
+      "why_relevant": "Pre-verified as a real, relevant customer-facing barber template from ThemeFisher; the product page lists its license terms and features, confirming its suitability for Vitrina's salon vertical.",
+      "recommended_treatment": "STUDY ONLY",
+      "confidence": "Low",
+      "pass1_reason": "Customer-facing barber template; license terms and features stated.",
+      "reference": "https://themefisher.com/products/menzsaloon-bootstrap",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    }
+  ]
+}

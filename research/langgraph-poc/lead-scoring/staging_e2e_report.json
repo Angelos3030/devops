@@ -1,0 +1,247 @@
+{
+  "generated_at": "2026-08-13T12:32:58.682191+00:00",
+  "positive_e2e": {
+    "lead_id": "e2e-1cb77f65",
+    "interrupted_before_approval": true,
+    "approval_wait_to_resume_seconds": 0.6012,
+    "total_wall_seconds": 4.7559,
+    "node_timings": [
+      {
+        "from": "validate",
+        "to": "enrich_classify",
+        "seconds": 0.002004
+      },
+      {
+        "from": "enrich_classify",
+        "to": "deepseek_score",
+        "seconds": 2.026271
+      },
+      {
+        "from": "deepseek_score",
+        "to": "business_rules",
+        "seconds": 0.001
+      },
+      {
+        "from": "business_rules",
+        "to": "claude_review",
+        "seconds": 1.931906
+      },
+      {
+        "from": "claude_review",
+        "to": "human_approval",
+        "seconds": 0.128519
+      },
+      {
+        "from": "human_approval",
+        "to": "crm_draft",
+        "seconds": 0.447259
+      },
+      {
+        "from": "crm_draft",
+        "to": "audit",
+        "seconds": 0.001
+      }
+    ],
+    "audit_events": [
+      {
+        "ts": "2026-08-13T12:33:00.107178+00:00",
+        "node": "validate",
+        "actor": "system",
+        "action": "validated",
+        "detail": "valid=True errors=[]"
+      },
+      {
+        "ts": "2026-08-13T12:33:00.109182+00:00",
+        "node": "enrich_classify",
+        "actor": "system",
+        "action": "features_extracted",
+        "detail": "{'service_category': 'ξυλουργός', 'source_channel': 'web_form', 'message_length': 45, 'urgency_keyword_count': 1, 'has_budget_mention': True}"
+      },
+      {
+        "ts": "2026-08-13T12:33:02.135453+00:00",
+        "node": "deepseek_score",
+        "actor": "deepseek",
+        "action": "scored",
+        "detail": "score=78 confidence=0.85 kernel_reasons=['autonomy_a1']"
+      },
+      {
+        "ts": "2026-08-13T12:33:02.136453+00:00",
+        "node": "business_rules",
+        "actor": "system",
+        "action": "classified",
+        "detail": "{'tier': 'hot', 'score': 78, 'escalate_to_claude': True}"
+      },
+      {
+        "ts": "2026-08-13T12:33:04.068359+00:00",
+        "node": "claude_review",
+        "actor": "claude",
+        "action": "reviewed",
+        "detail": "hot risk_flag=False"
+      },
+      {
+        "ts": "2026-08-13T12:33:04.196878+00:00",
+        "node": "human_approval",
+        "actor": "human",
+        "action": "approved",
+        "detail": "e2e report approval"
+      },
+      {
+        "ts": "2026-08-13T12:33:04.644137+00:00",
+        "node": "crm_draft",
+        "actor": "system",
+        "action": "draft_built",
+        "detail": "DRAFT_ONLY_NOT_WRITTEN"
+      },
+      {
+        "ts": "2026-08-13T12:33:04.645137+00:00",
+        "node": "audit",
+        "actor": "system",
+        "action": "run_complete",
+        "detail": ""
+      }
+    ],
+    "usage_log": [
+      {
+        "provider": "deepseek",
+        "model": "deepseek-v4-flash",
+        "requested_model": "deepseek-chat",
+        "model_mismatch": true,
+        "input_tokens": 137,
+        "output_tokens": 33,
+        "node": "deepseek_score"
+      },
+      {
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "requested_model": "claude-haiku-4-5",
+        "model_mismatch": true,
+        "input_tokens": 240,
+        "output_tokens": 79,
+        "node": "claude_review"
+      }
+    ],
+    "cost_report": {
+      "status": "UNVERIFIED",
+      "models_used": [
+        "claude-haiku-4-5-20251001",
+        "deepseek-v4-flash"
+      ],
+      "models_missing_authoritative_rate": [
+        "claude-haiku-4-5-20251001",
+        "deepseek-v4-flash"
+      ],
+      "model_mismatches_detected": [
+        {
+          "provider": "deepseek",
+          "node": "deepseek_score",
+          "requested_model": "deepseek-chat",
+          "actual_model": "deepseek-v4-flash"
+        },
+        {
+          "provider": "anthropic",
+          "node": "claude_review",
+          "requested_model": "claude-haiku-4-5",
+          "actual_model": "claude-haiku-4-5-20251001"
+        }
+      ],
+      "indicative_eur_approx": 0.0,
+      "warnings": [
+        "no indicative rate for model='deepseek-v4-flash', excluded from even the indicative figure",
+        "no indicative rate for model='claude-haiku-4-5-20251001', excluded from even the indicative figure",
+        "UNVERIFIED: no authoritative pricing configured for ['claude-haiku-4-5-20251001', 'deepseek-v4-flash'] — cost is NOT confirmed against a real billing/pricing source.",
+        "MODEL MISMATCH: requested 'deepseek-chat' but response reported 'deepseek-v4-flash' — cost/telemetry for this call may reflect the wrong rate.",
+        "MODEL MISMATCH: requested 'claude-haiku-4-5' but response reported 'claude-haiku-4-5-20251001' — cost/telemetry for this call may reflect the wrong rate."
+      ]
+    },
+    "checkpoints_created": 10,
+    "crm_draft": {
+      "tenant_id": "aaaa0007-0000-4000-8000-000000000007",
+      "lead_id": "e2e-1cb77f65",
+      "tier": "hot",
+      "score": 78,
+      "note": "Immediate need signaled by 'τώρα', explicit budget of 500EUR mentioned, clear service request for carpentry repair. Urgency keyword present. Score of 78 is appropriate.",
+      "status": "DRAFT_ONLY_NOT_WRITTEN"
+    },
+    "final_tier": "hot"
+  },
+  "negative_tests": {
+    "pii_to_deepseek": {
+      "allowed": false,
+      "reasons": [
+        "deepseek_data_policy",
+        "autonomy_a1"
+      ]
+    },
+    "disabled_agent": {
+      "blocked": true,
+      "detail": "Kernel denied DeepSeek scoring: ['installation:disabled', 'autonomy_a1']"
+    },
+    "duplicate_lead": {
+      "first_cached": false,
+      "second_cached": true
+    },
+    "transient_failure": {
+      "recovered": true
+    },
+    "tenant_mismatch": {
+      "blocked": true
+    },
+    "human_rejection": {
+      "crm_draft_created": false,
+      "halted_reason": "human_rejected"
+    }
+  },
+  "concurrency_tests": {
+    "duplicate_lead_race": {
+      "workers_fired": 5,
+      "cached_count": 0,
+      "not_cached_count": 5,
+      "deepseek_score_executions": 1,
+      "crm_draft_executions": 1,
+      "single_effective_run": true,
+      "checkpoints_for_thread": 41
+    },
+    "tenant_isolation_under_concurrency": {
+      "real_tenant_succeeded": true,
+      "fake_tenant_blocked": true,
+      "real_tenant_state_has_own_data": true
+    },
+    "concurrent_retries": {
+      "leads_tested": 3,
+      "all_recovered_independently": true
+    }
+  },
+  "cost_telemetry_validation": {
+    "status": "UNVERIFIED",
+    "models_used": [
+      "claude-haiku-4-5-20251001",
+      "deepseek-v4-flash"
+    ],
+    "models_missing_authoritative_rate": [
+      "claude-haiku-4-5-20251001",
+      "deepseek-v4-flash"
+    ],
+    "model_mismatches_detected": [
+      {
+        "provider": "deepseek",
+        "node": "deepseek_score",
+        "requested_model": "deepseek-chat",
+        "actual_model": "deepseek-v4-flash"
+      },
+      {
+        "provider": "anthropic",
+        "node": "claude_review",
+        "requested_model": "claude-haiku-4-5",
+        "actual_model": "claude-haiku-4-5-20251001"
+      }
+    ],
+    "indicative_eur_approx": 0.0,
+    "warnings": [
+      "no indicative rate for model='deepseek-v4-flash', excluded from even the indicative figure",
+      "no indicative rate for model='claude-haiku-4-5-20251001', excluded from even the indicative figure",
+      "UNVERIFIED: no authoritative pricing configured for ['claude-haiku-4-5-20251001', 'deepseek-v4-flash'] — cost is NOT confirmed against a real billing/pricing source.",
+      "MODEL MISMATCH: requested 'deepseek-chat' but response reported 'deepseek-v4-flash' — cost/telemetry for this call may reflect the wrong rate.",
+      "MODEL MISMATCH: requested 'claude-haiku-4-5' but response reported 'claude-haiku-4-5-20251001' — cost/telemetry for this call may reflect the wrong rate."
+    ]
+  }
+}

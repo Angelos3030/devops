@@ -1,0 +1,19 @@
+{
+  "provider": "deepseek",
+  "pass1_model": "deepseek-chat",
+  "pass2_model": "deepseek-reasoner",
+  "input_tokens": 17610,
+  "output_tokens": 2662,
+  "total_tokens": 20272,
+  "estimated_cost_usd": 0.0106,
+  "started_at": "2026-08-14T06:34:56.985274+00:00",
+  "finished_at": "2026-08-14T06:35:26.407381+00:00",
+  "sources_analyzed": 15,
+  "pass1_candidates": 1,
+  "pass2_candidates": 1,
+  "pass2_evidence_fetched": 0,
+  "errors": [],
+  "duration_seconds": 29.4,
+  "interrupted": false,
+  "pass2_pending_count": 0
+}

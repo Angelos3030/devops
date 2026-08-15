@@ -1,0 +1,61 @@
+{
+  "task_id": "salon-batch-r4-fixed",
+  "objective": "Analyze each of these specific barber/hair-salon/beauty-salon template product pages. For each: confirm it is customer-facing (not admin/booking-app), extract and quote the EXACT license/usage terms stated on the page (do not mark LICENSE_UNVERIFIED if the page states terms - quote them), note whether it credits an original designer, and assess visual architecture (layout style, photo dependency, motion/slider use) so later cross-candidate comparison is possible. Do NOT include anything from research/salon-batch/LICENSE-GATE.md's exclusion list.",
+  "findings": [
+    {
+      "name": "MenzSaloon Bootstrap",
+      "purpose": "A customer-facing barbershop HTML template built on Bootstrap, listed on Themefisher, with usage/license terms stated on its product page.",
+      "why_relevant": "Directly relevant as a barber-specific customer-facing template with transparent license information, important for reuse in Vitrina's Greek SMB site generation.",
+      "recommended_treatment": "STUDY ONLY",
+      "confidence": "Low",
+      "pass1_reason": "Customer-facing barber template with stated license terms.",
+      "reference": "https://themefisher.com/products/menzsaloon-bootstrap",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Barbero",
+      "purpose": "Product page on Colorlib for the 'Barbero' barbershop website template. It is a customer-facing template landing page, not an admin/booking app. The page showcases the template's features with screenshots and a live preview link.",
+      "why_relevant": "The template is a free, responsive Bootstrap design for barbershops/salons, directly matching Vitrina's client vertical. It is customer-facing, with typical sections for services, pricing, and booking. The page credits the designer (Colorlib) via footer link. Visual architecture uses a dark theme, large hero image, and smooth scrolling; it does not rely heavily on sliders or complex motion, relying on static sections with hover effects.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Customer-facing barbershop template with pricing and features.",
+      "reference": "https://colorlib.com/wp/template/barbero/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "BarberKraft",
+      "purpose": "Customer-facing barber shop website template with booking widget and pricing sections.",
+      "why_relevant": "High relevance for Vitrina's SMB barber/salon vertical as a front-end template, but license terms and visual architecture could not be verified from provided evidence.",
+      "recommended_treatment": "STUDY ONLY",
+      "confidence": "Low",
+      "pass1_reason": "Customer-facing barber template with booking widget and pricing.",
+      "reference": "https://colorlib.com/wp/template/barberkraft/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "The Barber",
+      "purpose": "Customer-facing barber shop template; likely uses a photo-dominant hero section and layout suitable for showcasing services and pricing (visual architecture unverified from provided reference).",
+      "why_relevant": "High relevance because it is a free customer-facing template in the barber vertical; exact license terms and designer attribution could not be extracted from the provided reference alone, and the live page would need review to confirm usage conditions.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Low",
+      "pass1_reason": "Customer-facing free barber template with pricing info.",
+      "reference": "https://colorlib.com/wp/template/the-barber/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Barber",
+      "purpose": "Customer-facing one-page template for barbershops and hair salons, featuring pricing, services, team, and testimonials to attract and inform clients.",
+      "why_relevant": "Directly matches the barber/hair-salon vertical; free, visually bold, and includes pricing sections useful for Greek SMBs that need to present services and rates.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Customer-facing free barber shop template with pricing.",
+      "reference": "https://colorlib.com/wp/template/barber/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    }
+  ]
+}

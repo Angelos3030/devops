@@ -1,0 +1,41 @@
+{
+  "task_id": "salon-batch-r2-github",
+  "rejected": [
+    {
+      "name": "MwkosP/Barbershop-Website-Template",
+      "relevance": "LOW",
+      "reason": "Barbershop template but no license and very new.",
+      "reference": "https://github.com/MwkosP/Barbershop-Website-Template"
+    },
+    {
+      "name": "toxcty/barbershopmastertemplate",
+      "relevance": "LOW",
+      "reason": "Barbershop master template but no license and minimal info.",
+      "reference": "https://github.com/toxcty/barbershopmastertemplate"
+    },
+    {
+      "name": "Maher-Albeek/Barbershop-Booking-Website-Template",
+      "relevance": "REJECT",
+      "reason": "Booking-focused template, not a pure business website.",
+      "reference": "https://github.com/Maher-Albeek/Barbershop-Booking-Website-Template"
+    },
+    {
+      "name": "jssrmrzz/barbershop-website",
+      "relevance": "LOW",
+      "reason": "Barbershop website template but no license and low stars.",
+      "reference": "https://github.com/jssrmrzz/barbershop-website"
+    },
+    {
+      "name": "strong-728/cutly-web",
+      "relevance": "LOW",
+      "reason": "Barbershop website using falcon template, but no license.",
+      "reference": "https://github.com/strong-728/cutly-web"
+    },
+    {
+      "name": "RashaadSmith23/Barbershop-Template",
+      "relevance": "LOW",
+      "reason": "Barbershop template but no license and minimal info.",
+      "reference": "https://github.com/RashaadSmith23/Barbershop-Template"
+    }
+  ]
+}

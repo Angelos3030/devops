@@ -1,0 +1,226 @@
+{
+  "task_id": "salon-batch-r2-studios",
+  "objective": "Find barber shop / hair salon / beauty salon website templates from established professional template studios (Themefisher, GetHugoThemes, HTML5 UP, Cruip, Colorlib, TemplateMo, Start Bootstrap, FreeHTML5.co, BootstrapMade). For each: exact template name, studio, live demo URL, license terms as stated on the studio's own page, whether it is customer-facing (not admin/SaaS/CRUD). Do NOT include: blue-bootstrap (already ported), EleganceSalon, bro-barbershop, Spa-online-booking-website, Salon-Management-System, pronto, learning-zone/website-templates entries, go-barber, IsabelRubim/barbershop — already researched, see research/salon-batch/LICENSE-GATE.md.",
+  "findings": [
+    {
+      "name": "Paradigm Shift",
+      "purpose": "A modern, single-page HTML5 template from HTML5 UP, designed for showcasing a product or service with a clean, minimal aesthetic.",
+      "why_relevant": "While not salon-specific, it comes from a reputable template studio (HTML5 UP), is customer-facing, and its adaptable layout can be themed for a barber or beauty salon.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Generic template, not salon-specific but adaptable.",
+      "reference": "https://html5up.net/paradigm-shift",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Massively",
+      "purpose": "Editorial-style website template for showcasing content, portfolios, and creative businesses.",
+      "why_relevant": "Its bold, modern editorial design can be adapted for a salon or barbershop website with custom imagery and branding.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Editorial style, could suit a salon with customization.",
+      "reference": "https://html5up.net/massively",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Ethereal",
+      "purpose": "Elegant one-page portfolio template designed to showcase visual content in a modern, airy layout.",
+      "why_relevant": "From HTML5 UP, a reputable studio; its minimalist, high-impact design suits a high-end hair or beauty salon, though it requires customization to become salon-specific.”",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Elegant one-page layout, potential for salon.",
+      "reference": "https://html5up.net/ethereal",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Story",
+      "purpose": "Generic storytelling single-page website template",
+      "why_relevant": "Flexible storytelling template, adaptable for barber/salon services",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Flexible storytelling template, adaptable for services.",
+      "reference": "https://html5up.net/story",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Dimension",
+      "purpose": "Minimalist single-page website template suitable for personal or small business sites, including salons.",
+      "why_relevant": "From professional template studio HTML5 UP; clean, responsive design that can be adapted for a barber or beauty salon's customer-facing web presence.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Minimalist single-page, could work for a salon.",
+      "reference": "https://html5up.net/dimension",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Editorial",
+      "purpose": "A responsive blog-style HTML5 template by HTML5 UP, designed for editorial/content-heavy sites, with a clean two-column layout and sidebar.",
+      "why_relevant": "From HTML5 UP, an established professional template studio; though not specifically for barbershops or salons, its clean layout and customization potential make it a candidate for adapting into a barbershop/salon website.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Blog-style layout, not ideal but customizable.",
+      "reference": "https://html5up.net/editorial",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Forty",
+      "purpose": "Bold, full-screen landing page template suitable for a modern salon or barbershop website",
+      "why_relevant": "Offers a visually striking single-page layout with sections for services, portfolio, and contact, adaptable for a salon's customer-facing site",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Bold landing page, possible for a modern salon.",
+      "reference": "https://html5up.net/forty",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Stellar",
+      "purpose": "Clean one-pager suitable for small business.",
+      "why_relevant": "From HTML5 UP, a professional template studio; fully responsive and easily adaptable for a barber shop, hair salon, or beauty salon customer-facing website.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Clean one-pager, suitable for small business.",
+      "reference": "https://html5up.net/stellar",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Phantom",
+      "purpose": "A responsive HTML5 website template with a simple grid layout from HTML5 UP, suited for portfolio-style sites.",
+      "why_relevant": "Its clean, minimal grid design can be adapted to showcase beauty salon or barbershop services and work, though not salon-specific.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Simple grid layout, could be adapted.",
+      "reference": "https://html5up.net/phantom",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Hyperspace",
+      "purpose": "Responsive website template with a sidebar layout, suitable for content-driven sites like business pages.",
+      "why_relevant": "From HTML5 UP, a recognized studio; its sidebar layout offers flexibility to present salon services and images, though not salon-specific.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Sidebar layout, flexible for content.",
+      "reference": "https://html5up.net/hyperspace",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Solid State",
+      "purpose": "Responsive HTML5 site template with a modern, clean design suitable for small business websites.",
+      "why_relevant": "From HTML5 UP, a listed professional template studio; offers a contemporary, customer-facing layout with multiple content sections that can be customized for a beauty salon or barbershop.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "High",
+      "pass1_reason": "Modern sections, could fit a salon.",
+      "reference": "https://html5up.net/solid-state",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Spectral",
+      "purpose": "One-page portfolio/landing template with sections for services, about, and contact.",
+      "why_relevant": "Adaptable single-page layout suitable for a salon or barber website; from HTML5 UP, a professional template studio.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "One-page with sections, adaptable.",
+      "reference": "https://html5up.net/spectral",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Highlights",
+      "purpose": "A single-page website template from HTML5 UP designed to showcase features, testimonials, or photo galleries with a clean, modern layout.",
+      "why_relevant": "The feature-driven sections and responsive design could be adapted for a barber/salon website to present services, team, and gallery. It is customer-facing and from an established professional template studio.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Feature sections, could work.",
+      "reference": "https://html5up.net/highlights",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Landed",
+      "purpose": "Modern responsive landing page template for showcasing services and calls to action",
+      "why_relevant": "Its clean, modern design and landing page structure make it quickly adaptable for barber shop or salon websites, with sections for services, about, and contact.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Modern landing, possible.",
+      "reference": "https://html5up.net/landed",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Alpha",
+      "purpose": "Landing page template suitable for promoting a small business like a salon or barbershop.",
+      "why_relevant": "Adaptable single-page layout from HTML5 UP, a reputable template studio, can be customized for beauty/barber services.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Landing page, adaptable.",
+      "reference": "https://html5up.net/alpha",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Directive",
+      "purpose": "A modern, single-page responsive website template suitable for service-oriented businesses.",
+      "why_relevant": "From HTML5 UP, a reputable studio; its clean layout and prominent call-to-action sections can be adapted for a barber shop or salon website. However, it is not specifically themed for salons, so customization is required.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Simple landing, possible.",
+      "reference": "https://html5up.net/directive",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Twenty",
+      "purpose": "Multi-section website template for creative or business sites.",
+      "why_relevant": "From HTML5 UP, a known template studio. Its multi-section layout can be adapted to showcase barber/salon services, team, and contact.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "High",
+      "pass1_reason": "Multi-section, adaptable.",
+      "reference": "https://html5up.net/twenty",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Big Picture",
+      "purpose": "Full-screen image portfolio and slideshow template for showcasing photography or visual work",
+      "why_relevant": "While not salon-specific, its full-screen imagery and clean single-page layout are well-suited for a beauty or hair salon website to showcase services, styles, and ambiance. From HTML5 UP, a reputable template studio with customer-facing designs.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Full-screen images, could suit salon.",
+      "reference": "https://html5up.net/big-picture",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Helios",
+      "purpose": "Multi-purpose HTML5 website template with a strong visual hero and flexible layout.",
+      "why_relevant": "Although not salon-specific, its clean multi-purpose design can be adapted for barber or beauty salon customer-facing sites. From HTML5 UP, a reputable template studio.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Multi-purpose, possible.",
+      "reference": "https://html5up.net/helios",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Telephasic",
+      "purpose": "Responsive landing page template with a clean, modern layout suitable for showcasing services.",
+      "why_relevant": "Generic landing page from established studio HTML5 UP; easily adaptable for barber/salon websites with hero, features, and multi-section layout.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Landing page, adaptable.",
+      "reference": "https://html5up.net/telephasic",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    }
+  ]
+}

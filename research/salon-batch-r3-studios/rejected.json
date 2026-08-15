@@ -1,0 +1,29 @@
+{
+  "task_id": "salon-batch-r3-studios",
+  "rejected": [
+    {
+      "name": "Copper Bootstrap",
+      "relevance": "LOW",
+      "reason": "SaaS template, not salon-specific but could adapt.",
+      "reference": "https://themefisher.com/products/copper-bootstrap"
+    },
+    {
+      "name": "Devgent Nextjs",
+      "relevance": "REJECT",
+      "reason": "AI agent landing, not salon-relevant.",
+      "reference": "https://themefisher.com/products/devgent-nextjs"
+    },
+    {
+      "name": "Fortify Astro",
+      "relevance": "REJECT",
+      "reason": "Security SaaS theme, not salon-relevant.",
+      "reference": "https://themefisher.com/products/fortify-astro"
+    },
+    {
+      "name": "Novai Astro",
+      "relevance": "REJECT",
+      "reason": "AI agent landing, not salon-relevant.",
+      "reference": "https://themefisher.com/products/novai-astro"
+    }
+  ]
+}

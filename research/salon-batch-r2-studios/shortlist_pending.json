@@ -1,0 +1,54 @@
+{
+  "task_id": "salon-batch-r2-studios",
+  "note": "HIGH/MEDIUM in Pass 1 but not deep-analysed — over max_pass2_candidates budget, or cut short by an interrupt. Rerun with a higher --max-pass2 to analyse these too.",
+  "pending": [
+    {
+      "name": "Escape Velocity",
+      "relevance": "MEDIUM",
+      "reason": "Multi-section, adaptable.",
+      "reference": "https://html5up.net/escape-velocity"
+    },
+    {
+      "name": "Dopetrope",
+      "relevance": "MEDIUM",
+      "reason": "Multi-purpose, possible.",
+      "reference": "https://html5up.net/dopetrope"
+    },
+    {
+      "name": "Miniport",
+      "relevance": "MEDIUM",
+      "reason": "One-page, adaptable.",
+      "reference": "https://html5up.net/miniport"
+    },
+    {
+      "name": "Verti",
+      "relevance": "MEDIUM",
+      "reason": "Business layout, possible.",
+      "reference": "https://html5up.net/verti"
+    },
+    {
+      "name": "Zerofour",
+      "relevance": "MEDIUM",
+      "reason": "Multi-section, adaptable.",
+      "reference": "https://html5up.net/zerofour"
+    },
+    {
+      "name": "Arcana",
+      "relevance": "MEDIUM",
+      "reason": "Business template, possible.",
+      "reference": "https://html5up.net/arcana"
+    },
+    {
+      "name": "Halcyonic",
+      "relevance": "MEDIUM",
+      "reason": "Business layout, possible.",
+      "reference": "https://html5up.net/halcyonic"
+    },
+    {
+      "name": "Minimaxing",
+      "relevance": "MEDIUM",
+      "reason": "Simple layout, adaptable.",
+      "reference": "https://html5up.net/minimaxing"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "salon-batch-r2-authors",
+  "rejected": [
+    {
+      "name": "Dribbble tag page for barbershop website",
+      "relevance": "REJECT",
+      "reason": "Aggregator page, not a specific designer's original work.",
+      "reference": "https://dribbble.com/tags/barbershop_website"
+    }
+  ]
+}

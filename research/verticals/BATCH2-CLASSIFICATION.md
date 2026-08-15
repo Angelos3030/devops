@@ -30,6 +30,7 @@ viewport, και το `fullPage` screenshot γυρίζει στην κορυφή
 | **Property** | [Villa Agency](https://templatemo.com/tm-591-villa-agency) | ✅ **PORT_OK** · ↪️ **REDIRECT_TO_VERTICAL: property** | Είχε μπει λάθος στο hospitality: είναι **μεσιτικό**, όχι ξενοδοχείο. Κάρτες ακινήτου με τιμή/τ.μ./δωμάτια + φίλτρα → `inventoryOptions`. Το μόνο listing-driven theme |
 | **Trades** | [Clean Work](https://www.tooplate.com/view/2137-clean-work) | ✅ **PORT_OK** | Κάρτες υπηρεσίας με **τιμή + διάρκεια** — η ακριβέστερη αντιστοίχιση στο `priceFrom`/`duration` που έχει βρεθεί. Ωράριο εξυπηρέτησης, τηλέφωνο στην κορυφή |
 | **Automotive** | [Garage](https://www.tooplate.com/view/2109-garage) | ⛔ **FIT_REJECT** | **Αγορά κλασικών αυτοκινήτων**: αναζήτηση με εύρος τιμής, «Post New Car», dealers, ταξινόμηση. Δεν είναι συνεργείο· το `motor` καλύπτει ήδη το επάγγελμα |
+| **Retail** | [Moso Interior](https://www.tooplate.com/view/2135-moso-interior) | ✅ **PORT_OK** · ↪️ **REDIRECT_TO_VERTICAL: retail** | Είχε μπει στο construction. Είναι **κατάστημα προϊόντων με τιμές και κατηγορίες αλλά ΧΩΡΙΣ καλάθι** — το μοναδικό μοτίβο retail που υποστηρίζει το Vitrina. Η κάρτα «Ωράριο» πάνω από φωτογραφία είναι δομή που λείπει |
 
 ### Αφαιρέσεις που απαιτεί το συμβόλαιο αλήθειας στα PORT_OK
 
