@@ -82,6 +82,17 @@ for (const [label, w, h] of [['desktop', 1440, 1024], ['mobile', 390, 844]]) {
       h1: document.querySelectorAll('h1').length,
       smallTaps: [...document.querySelectorAll('a,button')]
         .filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && (r.height < 44 || r.width < 44) }).length,
+      // Εσωτερική υπερχείλιση: το document μπορεί να μην κυλά οριζόντια ενώ
+      // μια σειρά καρτών κόβεται μέσα στο container της. Στο Frost η σειρά
+      // γεύσεων έβγαινε κομμένη και στις δύο άκρες με overflow=0 στο document.
+      innerOverflow: [...document.querySelectorAll('div,section,ul,main')]
+        .filter((e) => {
+          if (e.scrollWidth - e.clientWidth <= 4) return false
+          const ox = getComputedStyle(e).overflowX
+          return ox !== 'auto' && ox !== 'scroll' // σκόπιμο scroll δεν είναι σφάλμα
+        })
+        .slice(0, 5)
+        .map((e) => `${e.tagName.toLowerCase()}.${(e.className || '').toString().split(' ')[0]} +${e.scrollWidth - e.clientWidth}px`),
     }))
     out[label].consoleErrors = errs.length
     out[label].errorSamples = errs.slice(0, 3)

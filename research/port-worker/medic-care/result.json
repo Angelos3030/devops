@@ -1,0 +1,155 @@
+{
+ "source_id": "medic-care",
+ "theme_key": "medic-care",
+ "started_at": "2026-08-15T11:51:39+00:00",
+ "original_render_status": "OK",
+ "model": "deepseek-v4-pro",
+ "guards": {
+  "contract": [],
+  "copy_leak": [],
+  "media": []
+ },
+ "token_usage": {
+  "input": 27712,
+  "output": 25341
+ },
+ "cost_usd": 0.0519,
+ "files_changed": [
+  "sites/lib/templates/MedicCare.jsx",
+  "sites/lib/templates/MedicCare.module.css",
+  "sites/lib/templates/MedicCare.module.css"
+ ],
+ "deviations": [
+  {
+   "what": "Αφαίρεση ενότητας μαρτυριών ασθενών (Our Patients)",
+   "why": "Δεν υπάρχουν πραγματικά δεδομένα μαρτυριών. Το SECTION_POLICY.testimonial είναι κενό."
+  },
+  {
+   "what": "Αφαίρεση φόρμας ραντεβού",
+   "why": "Δεν υπάρχει ροή κράτησης στο backend."
+  },
+  {
+   "what": "Αφαίρεση μετρητή «12 Years of Experiences»",
+   "why": "Δεν τεκμηριώνεται από τα δεδομένα εισαγωγής."
+  },
+  {
+   "what": "Το κινούμενο κείμενο του ήρωα (animated-info) αντικαταστάθηκε με στατικό «Better {d.HERO_WORD}»",
+   "why": "Μόνο ένα πεδίο HERO_WORD διαθέσιμο· για να αποφευχθεί η επινόηση επιπλέον λέξεων, επιλέχθηκε στατική απόδοση."
+  },
+  {
+   "what": "Τα εικονίδια του timeline αντικαταστάθηκαν με τον αριθμό υπηρεσίας",
+   "why": "Δεν υπάρχουν εικονίδια στα δεδομένα· η χρήση του num είναι συνεπής."
+  },
+  {
+   "what": "Οι ημερομηνίες του timeline αντικαταστάθηκαν με «Βήμα {num}»",
+   "why": "Δεν υπάρχουν ημερομηνίες στα δεδομένα· χρησιμοποιείται ο αύξων αριθμός υπηρεσίας."
+  },
+  {
+   "what": "Omitted \"Our Patients\" testimonials section",
+   "why": "Policy prohibits testimonials when no real data is available"
+  },
+  {
+   "what": "Omitted \"Book an appointment\" form section",
+   "why": "No booking flow exists in the Vitrina data contract"
+  },
+  {
+   "what": "Omitted \"12 Years of Experiences\" counter",
+   "why": "No verified statistic provided in intake"
+  },
+  {
+   "what": "Original footer had structured opening hours list; rendered d.HOURS as plain text with pre-line",
+   "why": "Data contract only provides HOURS as a single string, not an array"
+  },
+  {
+   "what": "Original mobile navigation toggle not implemented; nav links hidden on small screens",
+   "why": "Server component without state or JavaScript"
+  }
+ ],
+ "registered": true,
+ "repair_attempts": [
+  "build: templateRegistry, spine_guard, next_build",
+  "JSX: Απόπειρα αλλαγής ξένου αρχείου: sites/lib/templates/index.js",
+  "JSX: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+  "build: templateRegistry, spine_guard, next_build"
+ ],
+ "tests_run": 4,
+ "tests_passed": 1,
+ "tests_failed": 3,
+ "tests": {
+  "templateRegistry": {
+   "passed": false
+  },
+  "spine_guard": {
+   "passed": false
+  },
+  "trust_guard": {
+   "passed": true
+  },
+  "next_build": {
+   "passed": false
+  }
+ },
+ "vitrina_render_status": "FAIL",
+ "vitrina_metrics": {
+  "fail": "δεν εκτελέστηκε (build απέτυχε)"
+ },
+ "render": {
+  "desktop": {
+   "overflow": null,
+   "innerOverflow": null,
+   "broken": null,
+   "images": null,
+   "h1": null,
+   "consoleErrors": null
+  },
+  "mobile": {
+   "overflow": null,
+   "innerOverflow": null,
+   "broken": null,
+   "images": null,
+   "h1": null,
+   "consoleErrors": null
+  }
+ },
+ "render_problems": [
+  "desktop: δεν αποδόθηκε",
+  "mobile: δεν αποδόθηκε"
+ ],
+ "elapsed_seconds": 1322.8,
+ "status": "FAILED",
+ "original_metrics": {
+  "tag": "original",
+  "desktop": {
+   "height": 4919,
+   "overflow": 0,
+   "images": 13,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 12,
+   "innerOverflow": [
+    "div.col-9 +10px",
+    "div.col-9 +10px",
+    "div.col-9 +10px",
+    "div.owl-stage-outer +4288px",
+    "div.owl-nav +80px"
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
+  },
+  "mobile": {
+   "height": 6055,
+   "overflow": 0,
+   "images": 13,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 10,
+   "innerOverflow": [
+    "div.owl-stage-outer +2562px",
+    "div.booking-form +12px"
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
+  }
+ }
+}

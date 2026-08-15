@@ -1,0 +1,138 @@
+{
+ "generated_from": [
+  "sites/app/preview/[template]/page.jsx",
+  "sites/lib/demoData.js",
+  "sites/lib/templates/BlueOnepage.jsx"
+ ],
+ "prop_name": "data",
+ "signature": "{ data: d }",
+ "fields": {
+  "NAME": {
+   "type": "string"
+  },
+  "CITY": {
+   "type": "string"
+  },
+  "TRADE": {
+   "type": "string"
+  },
+  "INITIAL": {
+   "type": "string"
+  },
+  "KICKER": {
+   "type": "string"
+  },
+  "HERO_WORD": {
+   "type": "string"
+  },
+  "YEAR": {
+   "type": "string"
+  },
+  "PHONE": {
+   "type": "string"
+  },
+  "PHONE_INTL": {
+   "type": "string"
+  },
+  "AREAS": {
+   "type": "string"
+  },
+  "HOURS": {
+   "type": "string"
+  },
+  "POSTCODE": {
+   "type": "string"
+  },
+  "DOMAIN": {
+   "type": "string"
+  },
+  "TAGLINE": {
+   "type": "string"
+  },
+  "INTRO": {
+   "type": "string"
+  },
+  "STORY_TITLE": {
+   "type": "string"
+  },
+  "CTA_TITLE": {
+   "type": "string"
+  },
+  "HERO_IMAGE": {
+   "type": "string"
+  },
+  "STORY_IMAGE": {
+   "type": "string"
+  },
+  "services": {
+   "type": "array",
+   "item_keys": [
+    "desc",
+    "duration",
+    "num",
+    "price",
+    "title"
+   ]
+  },
+  "gallery": {
+   "type": "array",
+   "item_keys": [
+    "image",
+    "sub",
+    "title"
+   ]
+  },
+  "story": {
+   "type": "array",
+   "item_keys": [
+    "p"
+   ]
+  }
+ },
+ "canonical_theme": "BlueOnepage",
+ "canonical_usage": {
+  "signature": "data: d",
+  "fields_used": [
+   "ADDRESS",
+   "AREAS",
+   "CITY",
+   "CTA_TITLE",
+   "EMAIL",
+   "FACEBOOK",
+   "GALLERY_TITLE",
+   "HERO_IMAGE",
+   "HERO_TITLE",
+   "HOURS",
+   "INSTAGRAM",
+   "INTRO",
+   "NAME",
+   "PHONE",
+   "PHONE_INTL",
+   "PRIMARY_CTA",
+   "SERVICES_EYEBROW",
+   "SERVICES_TITLE",
+   "SERVICES_TOTAL",
+   "STORY_TITLE",
+   "TAGLINE",
+   "TRADE",
+   "YEAR",
+   "gallery",
+   "services",
+   "story"
+  ],
+  "shared_prop": {
+   "Brand": "data",
+   "FindUs": "data",
+   "SocialLinks": "data"
+  },
+  "excerpt": "return (\n    <div className={s.root}>\n      <nav className={s.nav} aria-label=\"Κύρια πλοήγηση\">\n        <div className={s.navIn}>\n          <a href=\"#home\" className={s.logo}><Brand data={d} className={s.brand} dark /></a>\n          <div className={s.navLinks}>\n            <a href=\"#home\">Αρχική</a>\n            <a href=\"#service\">Υπηρεσίες</a>\n            <a href=\"#portfolio\">Έργα</a>\n            <a href=\"#contact\">Επικοινωνία</a>\n          </div>\n        </div>\n      </nav>\n\n      {/* Hero slider: scroll-snap αντί για JS carousel — ίδια οπτική συμπεριφορά,\n          λειτουργεί χωρίς JavaScript και σέβεται το reduced motion. */}\n      <header id=\"home\" className={s.hero}>\n        {/* Οι διαφάνειες κρατούν ΜΟΝΟ εικόνες. Το κείμενο είναι ένα και\n            επικαλύπτει: αλλιώς κάθε slide θα κουβαλούσε δικό του h1 (μετρήθηκαν\n            τρία) και το track θα στοίβαζε ύψος αντί να κυλάει οριζόντια. */}\n        <div className={s.track}>\n          {slides.map((g, i) => (\n            <div className={s.slide} id={`slide-${i + 1}`} key={i}>\n              <img src={g.image} alt=\"\" aria-hidden=\"true\" />\n            </div>\n          ))}\n          {slides.length === 0 && <div className={s.slide} />}\n        </div>\n        <div className={s.slideVeil} />\n        <div className={s.slideCopy}>\n          <h1 className={s.heroTitle}>{d.HERO_TITLE || d.TAGLINE || d.NAME}</h1>\n          <p classN"
+ },
+ "shared_components": {
+  "Brand": "data: d, className, dark = false, prefix = null, suffix = null",
+  "FindUs": "data: d, dark = false",
+  "SocialLinks": "data: d, className = ''",
+  "CallBar": "data: d",
+  "MapEmbed": "embed, directions, title",
+  "MediaDisclosure": "data"
+ }
+}

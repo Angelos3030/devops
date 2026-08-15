@@ -1,3 +1,18 @@
+import { AreaFirst, HorizontalStory, PriceFirst, ChapterSnap, DirectoryIndex, VerticalSnap } from './CafeCollection'
+import FrostBakery from './FrostBakery'
+import EleganceSalon from './EleganceSalon'
+import GreckoTable from './GreckoTable'
+import NovenaCare from './NovenaCare'
+import BigspringAdvisory from './BigspringAdvisory'
+import ConstraBuild from './ConstraBuild'
+import PropertyAtlas from './PropertyAtlas'
+import EducenterCampus from './EducenterCampus'
+import VexCounter from './VexCounter'
+import AirspaceOffice from './AirspaceOffice'
+import FreightLane from './FreightLane'
+import BlueOnepage from './BlueOnepage'
+import BillysBarber from './BillysBarber'
+import ThomsonStylist from './ThomsonStylist'
 import Editorial from './Editorial'
 import Split from './Split'
 import Showcase from './Showcase'
@@ -35,12 +50,33 @@ import Signature from './Signature'
 import { BakeryEditorial, CounterMenu, MorningJournal, NeighborhoodMarket, MicrobakeryLab, ScandinavianCoffeeHouse, HeritageBakery } from './CafeCollection'
 
 // Structurally-distinct React archetypes.
-export const TEMPLATES = { editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch, canvas: Canvas, cinematic: Cinematic, 'type-gallery': TypeGallery, quiet: Quiet, kinetic: Kinetic, infinite: Infinite, living: Living, 'beauty-atelier': BeautyAtelier, 'clinic-triage': ClinicTriage, callout: Callout, signature: Signature, 'bakery-editorial': BakeryEditorial, 'counter-menu': CounterMenu, 'morning-journal': MorningJournal, 'neighborhood-market': NeighborhoodMarket, 'microbakery-lab': MicrobakeryLab, 'scandinavian-coffee': ScandinavianCoffeeHouse, 'heritage-bakery': HeritageBakery }
+export const TEMPLATES = { 'frost-bakery': FrostBakery, 'area-first': AreaFirst, 'horizontal-story': HorizontalStory, 'price-first': PriceFirst, 'chapter-snap': ChapterSnap, 'directory-index': DirectoryIndex, 'vertical-snap': VerticalSnap, 'elegance-salon': EleganceSalon, 'grecko-table': GreckoTable, 'novena-care': NovenaCare, 'bigspring-advisory': BigspringAdvisory, 'constra-build': ConstraBuild, 'property-atlas': PropertyAtlas, 'educenter-campus': EducenterCampus, 'vex-counter': VexCounter, 'airspace-office': AirspaceOffice, 'freight-lane': FreightLane, 'blue-onepage': BlueOnepage, 'billys-barber': BillysBarber, 'thomson-stylist': ThomsonStylist, editorial: Editorial, split: Split, showcase: Showcase, bento: Bento, longform: Longform, corporate: Corporate, poster: Poster, sidebar: Sidebar, grid: GridT, coast: Coast, magazine: Magazine, warmth: Warmth, ember: Ember, marble: Marble, runway: Runway, forge: Forge, aegean: Aegean, bloom: Bloom, pulse: Pulse, volt: Volt, motor: Motor, terra: Terra, dispatch: Dispatch, canvas: Canvas, cinematic: Cinematic, 'type-gallery': TypeGallery, quiet: Quiet, kinetic: Kinetic, infinite: Infinite, living: Living, 'beauty-atelier': BeautyAtelier, 'clinic-triage': ClinicTriage, callout: Callout, signature: Signature, 'bakery-editorial': BakeryEditorial, 'counter-menu': CounterMenu, 'morning-journal': MorningJournal, 'neighborhood-market': NeighborhoodMarket, 'microbakery-lab': MicrobakeryLab, 'scandinavian-coffee': ScandinavianCoffeeHouse, 'heritage-bakery': HeritageBakery }
 // The public collection stays intentionally curated. Legacy templates remain
 // renderable for existing clients but are not offered to new customers.
-export const TEMPLATE_KEYS = ['editorial', 'split', 'bento', 'longform', 'poster', 'sidebar', 'grid', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living', 'beauty-atelier', 'clinic-triage', 'callout', 'signature', 'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery']
+export const TEMPLATE_KEYS = ['frost-bakery', 'area-first', 'horizontal-story', 'price-first', 'chapter-snap', 'directory-index', 'vertical-snap', 'elegance-salon', 'grecko-table', 'novena-care', 'bigspring-advisory', 'constra-build', 'property-atlas', 'educenter-campus', 'vex-counter', 'airspace-office', 'freight-lane', 'blue-onepage', 'billys-barber', 'thomson-stylist', 'editorial', 'split', 'bento', 'longform', 'poster', 'sidebar', 'grid', 'magazine', 'warmth', 'ember', 'marble', 'runway', 'forge', 'aegean', 'bloom', 'volt', 'motor', 'terra', 'dispatch', 'canvas', 'cinematic', 'type-gallery', 'quiet', 'kinetic', 'infinite', 'living', 'beauty-atelier', 'clinic-triage', 'callout', 'signature', 'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery']
+export const LAUNCH_TEMPLATE_KEYS = [ 'elegance-salon', 'grecko-table', 'novena-care', 'bigspring-advisory', 'constra-build', 'property-atlas', 'beauty-atelier', 'clinic-triage', 'callout', 'signature', 'cinematic', 'bakery-editorial' ];
 export const LEGACY_TEMPLATE_KEYS = ['showcase', 'corporate', 'coast', 'pulse']
 export const TEMPLATE_META = {
+  'frost-bakery': { label: 'Frost Bakery', desc: 'Πιστό port του Frost Bakery (Templatemo): πλαϊνή πλοήγηση με ωράριο, παστέλ παλέτα, display serif, εποχιακά tabs και αριθμημένα βήματα.', category: 'food', customizable: { palette: false, fontPair: false } },
+  'area-first': { label: 'Service Radius', desc: 'Premium qualification ροή για περιοχή, υπηρεσία και άμεση διαθεσιμότητα.', category: 'capability', customizable: { palette: false, fontPair: false } },
+  'horizontal-story': { label: 'Horizontal Story', desc: 'Χωρική αφήγηση σε οριζόντια scenes με σκόπιμη κάθετη mobile εκδοχή.', category: 'spatial', customizable: { palette: false, fontPair: false } },
+  'price-first': { label: 'Price Board', desc: 'Οι υπηρεσίες, η διάρκεια και το κόστος γίνονται το κύριο περιεχόμενο.', category: 'commerce', customizable: { palette: false, fontPair: false } },
+  'chapter-snap': { label: 'Chapter Snap', desc: 'Fullscreen κεφάλαια με anchors, προαιρετικό snap και καθαρό mobile fallback.', category: 'narrative', customizable: { palette: false, fontPair: false } },
+  'directory-index': { label: 'Directory Index', desc: 'Η αρχική γίνεται διαδραστικό ευρετήριο υπηρεσιών και πληροφοριών.', category: 'information', customizable: { palette: false, fontPair: false } },
+  'vertical-snap': { label: 'Fullscreen Story', desc: 'Ένα κινηματογραφικό κεφάλαιο ανά οθόνη με ελεγχόμενη κάθετη αφήγηση.', category: 'narrative', customizable: { palette: false, fontPair: false } },
+  'elegance-salon': { label: 'Elegance Salon', desc: 'Editorial salon εμπειρία με booking-first ροή, lookbook και ήρεμη πολυτέλεια.', category: 'beauty', customizable: { palette: false, fontPair: false } },
+  'grecko-table': { label: 'Grecko Table', desc: 'Μεσογειακή φιλοξενία με δυνατή εισαγωγή, menu rhythm και κράτηση στο επίκεντρο.', category: 'food', customizable: { palette: false, fontPair: false } },
+  'novena-care': { label: 'Novena Care', desc: 'Καθαρή ιατρική εμπειρία με υπηρεσίες, εμπιστοσύνη και άμεσο ραντεβού.', category: 'health', customizable: { palette: false, fontPair: false } },
+  'bigspring-advisory': { label: 'Bigspring Advisory', desc: 'Σύγχρονο επαγγελματικό site με καθαρή ιεραρχία και consulting χαρακτήρα.', category: 'professional', customizable: { palette: false, fontPair: false } },
+  'constra-build': { label: 'Constra Build', desc: 'Ισχυρή τεχνική παρουσία με έργα, υπηρεσίες και άμεση προσφορά.', category: 'trade', customizable: { palette: false, fontPair: false } },
+  'property-atlas': { label: 'Property Atlas', desc: 'Map-led παρουσίαση ακινήτων με listings, περιοχές και καθαρή επικοινωνία.', category: 'property', customizable: { palette: false, fontPair: false } },
+  'educenter-campus': { label: 'Educenter Campus', desc: 'Ακαδημαϊκή ηρεμία με προγράμματα, πρακτικές πληροφορίες εγγραφής και τρία βήματα έναρξης.', category: 'education', customizable: { palette: false, fontPair: false } },
+  'vex-counter': { label: 'Vex Counter', desc: 'Product-first λιανικό: τεράστια τυπογραφία, πλέγμα προϊόντων και \xabπέρνα από το μαγαζί\xbb.', category: 'retail', customizable: { palette: false, fontPair: false } },
+  'airspace-office': { label: 'Airspace Office', desc: 'Επαγγελματικές υπηρεσίες με αέρα, λεπτές γραμμές και υπηρεσίες σε σειρές αντί για κάρτες.', category: 'professional', customizable: { palette: false, fontPair: false } },
+  'freight-lane': { label: 'Freight Lane', desc: 'Μεταφορές και logistics: σκούρο, high-vis, με τηλέφωνο που δεν φεύγει από την οθόνη.', category: 'logistics', customizable: { palette: false, fontPair: false } },
+  'blue-onepage': { label: 'Blue Onepage', desc: 'Πιστό port του Blue (Themefisher): σκούρο nav, hero slider, μπλε ζώνη, κεντραρισμένες ενότητες και πλέγμα έργων.', category: 'beauty', customizable: { palette: false, fontPair: false } },
+  'billys-barber': { label: 'Billy', desc: 'Πιστό port: γκρι σώμα, σερίφ κόκκινες επικεφαλίδες, κατακόρυφος τίτλος στο περιθώριο και δίστηλος κατάλογος υπηρεσιών.', category: 'beauty', customizable: { palette: false, fontPair: false } },
+  'thomson-stylist': { label: 'Thomson Stylist', desc: 'Πιστό port: αριστερή δήλωση με τεράστια τυπογραφία, πολύ λευκό, πλέγμα δουλειάς και υπηρεσίες με εικονίδια. Για ανεξάρτητο hair artist.', category: 'beauty', customizable: { palette: false, fontPair: false } },
   editorial: { label: 'Editorial', desc: 'Κλασικό stacked, μεγάλη τυπογραφία.' },
   split: { label: 'Split', desc: 'Σταθερό πλαϊνό panel + περιεχόμενο που κυλάει.' },
   showcase: { label: 'Showcase', desc: 'Full-screen, με έμφαση στις φωτογραφίες.' },

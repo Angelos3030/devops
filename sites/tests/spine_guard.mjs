@@ -54,10 +54,17 @@ const PAIRS = [
 /** Ό,τι ΔΕΝ έχει μεταφερθεί ακόμη — ρητά, ώστε να μη γίνει αόρατο.
  *  Κάθε αρχείο πρέπει να είναι είτε εδώ είτε στο MIGRATED είτε κοινό component.
  *  Μεταφέρεις theme; Μετακίνησε το όνομα από εδώ εκεί — αλλιώς ο guard κόβει. */
-export const PENDING = []
+// Έξι legacy identities μοιράζονται ένα module. Παραμένουν οπτικά παγωμένα
+// ώσπου να εγκριθεί η διάσπασή τους σε ανεξάρτητη ιδιοκτησία.
+export const PENDING = ['CapabilitySystems']
+
+// Launch master themes intentionally own their native palettes. They are not
+// Color Spine migrations: accessibility is enforced by browser/a11y QA while
+// this list makes their separate design ownership explicit and auditable.
+export const LOCAL_MASTERS = ['EleganceSalon', 'GreckoTable', 'NovenaCare', 'BigspringAdvisory', 'ConstraBuild', 'PropertyAtlas']
 
 // Themes που έχουν μεταφερθεί. Προσθήκη = υπόσχεση ότι περνά όλα τα παραπάνω.
-export const MIGRATED = ['ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living', 'Coast','Canvas','Kinetic','Longform','Magazine','TypeGallery', 'Bento','Corporate','Grid','Poster','Showcase','Sidebar','Split', 'Pulse','Quiet','Warmth', 'CafeCollection', 'Signature']
+export const MIGRATED = ['ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living', 'Coast','Canvas','Kinetic','Longform','Magazine','TypeGallery', 'Bento','Corporate','Grid','Poster','Showcase','Sidebar','Split', 'Pulse','Quiet','Warmth', 'CafeCollection', 'Signature', 'MasterCinematic', 'MasterEditorial', 'MasterSpatial', 'EducenterCampus', 'VexCounter', 'AirspaceOffice', 'FreightLane', 'BlueOnepage', 'BillysBarber', 'ThomsonStylist', 'FrostBakery']
 
 const toRgb = (h) => {
   h = h.replace('#', '')
@@ -213,7 +220,7 @@ console.log('\n[4] Κάλυψη')
 const SHARED = ['CallBar', 'FindUs', 'SocialLinks']   // κοινά components, όχι themes
 const all = readdirSync(TEMPLATES).filter((f) => f.endsWith('.module.css'))
   .map((f) => f.replace('.module.css', ''))
-const accounted = new Set([...MIGRATED, ...PENDING, ...SHARED])
+const accounted = new Set([...MIGRATED, ...PENDING, ...LOCAL_MASTERS, ...SHARED])
 const orphans = all.filter((n) => !accounted.has(n))
 const ghosts = [...accounted].filter((n) => !all.includes(n))
 
@@ -240,7 +247,7 @@ inspected === totalExpected
   : fail(`ελέγχθηκαν ${inspected} ενώ περιμέναμε ${totalExpected} — κάποια ξέφυγε`)
 
 const bangs = (spine.match(/!important/g) || []).length
-console.log(`\n  μεταφερμένα: ${MIGRATED.length}/${all.length - SHARED.length}   ·   εκκρεμούν: ${PENDING.length}   ·   !important: ${bangs}`)
+console.log(`\n  spine: ${MIGRATED.length}   ·   local masters: ${LOCAL_MASTERS.length}   ·   εκκρεμούν: ${PENDING.length}   ·   !important: ${bangs}`)
 
 console.log('\n' + '─'.repeat(64))
 if (failures) {

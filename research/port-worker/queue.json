@@ -60,6 +60,38 @@
    "entry": "index.html",
    "fidelity_notes": "—",
    "required_removals": []
+  },
+  "medic-care": {
+   "name": "Medic Care (Templatemo)",
+   "source_url": "https://templatemo.com/tm-565-medic-care",
+   "decision": "PORT_OK",
+   "status": "FAILED",
+   "license": "Templatemo — «You are allowed to download, edit and use this Medic Care HTML CSS layout for your commercial or non-commercial sites.» Credit αφαιρείται ρητά (LICENSE-MAP.md).",
+   "provenance": "Templatemo, δικό τους template.",
+   "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
+   "theme_key": "medic-care",
+   "component": "MedicCare",
+   "label": "Medic Care",
+   "desc": "Πιστό port του Medic Care (Templatemo): ήρεμο μπλε/λευκό για μονοπρόσωπο ιατρείο, εναλλασσόμενο timeline, ωράριο και διεύθυνση στο footer.",
+   "verticals": [
+    "medical"
+   ],
+   "local_path": "sites/artifacts/cand-src/medic_care/templatemo_566_medic_care",
+   "entry": "index.html",
+   "fidelity_notes": "Ήρεμη μπλε/λευκή παλέτα· hero με πορτρέτο γιατρού σε γκρι πλαίσιο και λευκή κάρτα κειμένου μετατοπισμένη δεξιά· ζεύγος φωτογραφιών πλάτους· ΕΝΑΛΛΑΣΣΟΜΕΝΟ TIMELINE με μαύρες ετικέτες τίτλου και λευκές κάρτες κειμένου εκατέρωθεν κεντρικής γραμμής — αυτή είναι η δομή που δικαιολόγησε την έγκριση· ωράριο + διεύθυνση σε τρεις στήλες στο footer.",
+   "required_removals": [
+    "«Our Patients» μαρτυρίες — SECTION_POLICY.testimonial = frozenset()",
+    "φόρμα ραντεβού — δεν υπάρχει ροή κράτησης",
+    "«12 Years of Experiences» μετρητής χωρίς τεκμήριο στο intake"
+   ],
+   "allowed_labels": [
+    "Ωράριο",
+    "Επικοινωνία",
+    "Υπηρεσίες",
+    "Πού θα μας βρεις"
+   ],
+   "updated_at": "2026-08-15T12:13:42+00:00",
+   "result": "research\\port-worker\\medic-care\\result.json"
   }
  }
 }

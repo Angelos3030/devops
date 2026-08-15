@@ -35,6 +35,8 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.research_worker import DeepSeekResearchWorker, ResearchWorkerError  # noqa: E402
+from src.vitrina_contract import as_prompt, extract  # noqa: E402
+from src.port_guards import run_all, summarize  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE = ROOT / "research" / "port-worker" / "queue.json"
@@ -50,6 +52,7 @@ CALL_TIMEOUT_S = 900
 MAX_COST_USD = 1.50
 SRC_HTML_BUDGET = 70_000
 SRC_CSS_BUDGET = 45_000
+PREVIEW_PORT = 3881
 
 # Ό,τι δεν ταιριάζει εδώ ΑΠΟΡΡΙΠΤΕΤΑΙ. Ο έλεγχος γίνεται σε resolved path,
 # ώστε ένα "../.." να μην μπορεί να βγει έξω.
@@ -178,7 +181,10 @@ Return ONLY a JSON object:
 }"""
 
 
-def _contract(rec: dict[str, Any]) -> str:
+def _contract(rec: dict[str, Any], contract: dict[str, Any]) -> str:
+    """Το data μέρος ΠΑΡΑΓΕΤΑΙ από τον κώδικα (vitrina_contract), δεν γράφεται
+    με το χέρι: αυτό ήταν η μοναδική αιτία ΟΛΩΝ των runtime σφαλμάτων στο πρώτο
+    proof. Ένα χειρόγραφο συμβόλαιο παλιώνει σιωπηλά· ένα παραγόμενο όχι."""
     return f"""VITRINA TARGET CONTRACT
 
 Framework: Next.js 14 App Router, React SERVER component (no hooks, no
@@ -187,40 +193,22 @@ useState/useEffect, no onClick, no 'use client'). CSS Modules only.
 File 1: sites/lib/templates/{rec['component']}.jsx
 File 2: sites/lib/templates/{rec['component']}.module.css
 
-JSX shape (follow exactly):
-    import s from './{rec['component']}.module.css'
-    import Brand from './Brand'
-    import FindUs from './FindUs'
-    import SocialLinks from './SocialLinks'
-    export default function {rec['component']}({{ data: d }}) {{ ... }}
-The route passes the prop named `data`; every existing theme aliases it to `d`.
+{as_prompt(contract, rec['component'])}
 
-`d` is the business data object. Available fields:
-  d.name, d.tagline, d.city, d.areas[], d.phone, d.email, d.address,
-  d.hours[] ({{day,time}}), d.services[] ({{title,desc,price,duration}}),
-  d.gallery[] ({{image,title,sub,alt,media_class}}), d.about[] ({{p}}),
-  d.social ({{facebook,instagram}}), d.mapQuery
-Render optional blocks ONLY when data exists: {{d.hours?.length > 0 && (...)}}
+MEDIA — υποχρεωτικό όταν το πρωτότυπο έχει εικόνες: κάθε θέση εικόνας δένει σε
+d.gallery[i].image με alt από d.gallery[i].title. ΠΟΤΕ αρχεία του πρωτοτύπου.
 
-Reusable components (do NOT reimplement): <Brand d={{d}} />,
-<FindUs d={{d}} /> (map + address + hours), <SocialLinks d={{d}} />.
+ΚΕΙΜΕΝΟ — κανένας ορατός τίτλος δεν μένει στα αγγλικά του πρωτοτύπου. Κάθε
+ορατό κείμενο ή δένει σε d. ή είναι ελληνικό δομικό label. Ονόματα,
+διευθύνσεις, τηλέφωνα και τιμές του πρωτοτύπου ΑΠΑΓΟΡΕΥΟΝΤΑΙ αυτούσια.
 
-CSS: every colour goes through the 11 Vitrina spine roles declared on .root:
+CSS: κάθε χρώμα περνά από τους 11 spine ρόλους στο .root:
   --vt-surface, --vt-surface-2, --vt-surface-deep, --vt-ink, --vt-ink-soft,
   --vt-on-deep, --vt-accent, --vt-on-accent, --vt-accent-ink,
   --vt-accent-on-deep, --vt-line
-Derive their VALUES from the original's palette. Never hardcode a hex outside
-.root. No !important.
-
-MANDATORY, overrides fidelity where they conflict:
-  exactly one <h1>; semantic sections; text contrast >= 4.5:1 (3:1 for large);
-  tap targets >= 44px; visible :focus-visible; no horizontal overflow at 390px;
-  @media (prefers-reduced-motion: reduce) disables transitions; alt on images.
-If the original colour fails contrast, make the MINIMUM correction and record
-it as a deviation.
-
-Images: use d.gallery[i].image with the ORIGINAL's aspect ratio and crop
-behaviour. Never reference the original's own asset files.
+Οι ΤΙΜΕΣ τους βγαίνουν από την παλέτα του πρωτοτύπου. Κανένα hex εκτός .root,
+κανένα !important. Τα CSS Modules θέλουν pure selectors: `a:focus-visible`
+σκέτο ΔΕΝ μεταγλωττίζεται — γράψε `.root a:focus-visible`.
 
 SOURCE: {rec['name']} — {rec['source_url']}
 LICENCE (already verified, do not re-litigate): {rec['license']}
@@ -271,6 +259,11 @@ def _apply(files: list[dict[str, str]]) -> list[str]:
     return written
 
 
+def _q(s: str) -> str:
+    """Τιμή για μονά εισαγωγικά σε JS literal."""
+    return s.replace("\\", "\\\\").replace("'", "\'")
+
+
 def _register(rec: dict[str, Any]) -> bool:
     """Εγγραφή στο registry — από τον WORKER, όχι από το DeepSeek.
 
@@ -288,11 +281,18 @@ def _register(rec: dict[str, Any]) -> bool:
     txt = txt.replace("export const TEMPLATE_KEYS = [", f"export const TEMPLATE_KEYS = ['{key}', ", 1)
     txt = txt.replace("export const TEMPLATE_META = {",
                       "export const TEMPLATE_META = {\n"
-                      f"  '{key}': {{ label: {json.dumps(rec['label'], ensure_ascii=False)}, "
-                      f"desc: {json.dumps(rec['desc'], ensure_ascii=False)}, "
+                      f"  '{key}': {{ label: '{_q(rec['label'])}', "
+                      f"desc: '{_q(rec['desc'])}', "
                       f"category: '{rec['verticals'][0]}', "
                       "customizable: { palette: false, fontPair: false } },", 1)
     idx.write_text(txt, encoding="utf-8")
+
+    # Το spine_guard απαιτεί κάθε component να δηλώνεται migrated ή pending.
+    sg = SITES / "tests" / "spine_guard.mjs"
+    stxt = sg.read_text(encoding="utf-8")
+    if f"'{comp}'" not in stxt:
+        stxt = re.sub(r"(export const MIGRATED = \[)", rf"'{comp}', ", stxt, count=1)
+        sg.write_text(stxt, encoding="utf-8")
 
     # Το templateRegistry.mjs απαιτεί ΓΡΑΠΤΟ λόγο για κάθε theme εκτός profiles.
     reg = SITES / "tests" / "templateRegistry.mjs"
@@ -356,7 +356,8 @@ def port_source(source_id: str) -> dict[str, Any]:
     chat = _Chat(source_id)
     chat._safety_checks()
     res["model"] = chat._pass2_model
-    user = (_contract(rec) + "\n\n=== ORIGINAL index.html ===\n" + html
+    contract = extract()
+    user = (_contract(rec, contract) + "\n\n=== ORIGINAL index.html ===\n" + html
             + "\n\n=== ORIGINAL CSS ===\n" + css)
     # ΔΥΟ κλήσεις, όχι μία. Μετρήθηκε: ένα ολόκληρο theme (JSX+CSS) σε ένα JSON
     # χτυπά το όριο εξόδου και κόβεται στη μέση — τρεις σερί αποτυχίες
@@ -389,17 +390,48 @@ def port_source(source_id: str) -> dict[str, Any]:
                 res.setdefault("repair_attempts", []).append(f"{step}: {problem}")
         return None
 
-    jsx = _one("JSX", f"Return ONLY sites/lib/templates/{rec['component']}.jsx in files[]. "
-                      "Use semantic class names via the `s` import; the stylesheet comes next.")
-    if jsx:
+    def _generate(feedback: str = "") -> None:
+        """Ένας πλήρης κύκλος JSX+CSS. Το `feedback` είναι ό,τι απέρριψαν οι
+        guards ή το build — πάει αυτούσιο πίσω στο μοντέλο."""
+        nonlocal payload, files
+        extra = (f"\n\n=== Η ΠΡΟΗΓΟΥΜΕΝΗ ΠΡΟΣΠΑΘΕΙΑ ΑΠΟΡΡΙΦΘΗΚΕ ===\n{feedback}\n"
+                 "Διόρθωσε ΑΚΡΙΒΩΣ αυτά. Μην αλλάξεις τίποτε άλλο.") if feedback else ""
+        jsx = _one("JSX", f"Return ONLY sites/lib/templates/{rec['component']}.jsx in files[]. "
+                          "Use semantic class names via the `s` import; the stylesheet comes next."
+                          + extra)
+        if not jsx:
+            return
         jsx_src = jsx["files"][0]["content"]
-        css = _one("CSS", f"Return ONLY sites/lib/templates/{rec['component']}.module.css in files[].\n"
-                          "It must style EXACTLY the class names used below and nothing else.\n"
-                          f"=== THE JSX YOU JUST WROTE ===\n{jsx_src}")
-        if css:
-            payload["files"] = jsx["files"] + css["files"]
-            payload["deviations"] = (jsx.get("deviations") or []) + (css.get("deviations") or [])
-            files = _validate(payload["files"], rec)
+        css = _one("CSS", f"Return ONLY sites/lib/templates/{rec['component']}.module.css in files[]. "
+                          "It must style EXACTLY the class names used below and nothing else."
+                          + extra
+                          + f"\n=== THE JSX YOU JUST WROTE ===\n{jsx_src}")
+        if not css:
+            return
+        payload["files"] = jsx["files"] + css["files"]
+        payload["deviations"] = (jsx.get("deviations") or []) + (css.get("deviations") or [])
+        files = _validate(payload["files"], rec)
+
+    # Guards ΠΡΙΝ γραφτεί οτιδήποτε στον δίσκο: ένα port με λάθος prop ή με
+    # μηδέν δεμένες εικόνες δεν αξίζει καν build. Ό,τι απορρίπτουν πάει
+    # αυτούσιο πίσω στο μοντέλο, μέχρι MAX_REPAIR_ATTEMPTS φορές.
+    _generate()
+    for _ in range(MAX_REPAIR_ATTEMPTS):
+        if not files:
+            break
+        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
+        if not any(guard_out.values()):
+            break
+        res.setdefault("repair_attempts", []).append("guards: " + summarize(guard_out)[:400])
+        _generate(summarize(guard_out))
+    if files:
+        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
+        res["guards"] = guard_out
+        if any(guard_out.values()):
+            _set_state(source_id, "FAILED", failure="guards")
+            res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
+            (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
+            return res
 
     tele = chat._telemetry_dict()
     res["token_usage"] = {"input": tele["input_tokens"], "output": tele["output_tokens"]}
@@ -414,21 +446,259 @@ def port_source(source_id: str) -> dict[str, Any]:
         (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
         return res
 
+    # ---- 3. build/tests, με ανατροφοδότηση σφαλμάτων στο μοντέλο
+    def _suite() -> dict[str, dict[str, Any]]:
+        out_tests: dict[str, dict[str, Any]] = {}
+        for name, cmd in (("templateRegistry", ["node", "tests/templateRegistry.mjs"]),
+                          ("spine_guard", ["node", "tests/spine_guard.mjs"]),
+                          ("trust_guard", ["node", "tests/trust_guard.mjs"])):
+            ok, log = _run(cmd, SITES, timeout=240)
+            out_tests[name] = {"passed": ok, "log": log[-900:]}
+        # Δικό μας NEXT_DIST_DIR: δύο agents δεν μοιράζονται .next (CLAUDE.md).
+        bok, blog = _run(["npx", "next", "build"], SITES, timeout=900,
+                         env=dict(os.environ, NEXT_DIST_DIR=".next-port"))
+        out_tests["next_build"] = {"passed": bok, "log": blog[-1800:]}
+        return out_tests
+
     res["files_changed"] = _apply(files)
     res["deviations"] = payload.get("deviations", [])
     res["registered"] = _register(rec)
+    tests = _suite()
 
-    # ---- 3. build/tests
-    tests = {}
-    for name, cmd in (("templateRegistry", ["node", "tests/templateRegistry.mjs"]),
-                      ("spine_guard", ["node", "tests/spine_guard.mjs"]),
-                      ("trust_guard", ["node", "tests/trust_guard.mjs"])):
-        ok, log = _run(cmd, SITES, timeout=240)
-        tests[name] = {"passed": ok, "log": log[-700:]}
-    # Δικό μας NEXT_DIST_DIR: δύο agents δεν μοιράζονται .next (CLAUDE.md).
-    bok, blog = _run(["npx", "next", "build"], SITES, timeout=900,
-                     env=dict(os.environ, NEXT_DIST_DIR=".next-port"))
-    tests["next_build"] = {"passed": bok, "log": blog[-1500:]}
+    # Ένα σφάλμα build είναι ακριβώς το είδος που το μοντέλο μπορεί να διορθώσει
+    # μόνο του — αρκεί να το δει. Στο πρώτο proof δεν του το έδειχνα ποτέ και
+    # έπρεπε να μπω εγώ για ένα «selector is not pure».
+    for _ in range(MAX_REPAIR_ATTEMPTS):
+        failed = {k: v for k, v in tests.items() if not v["passed"]}
+        if not failed:
+            break
+        report = "\n\n".join(f"--- {k} ΑΠΕΤΥΧΕ ---\n{v['log'][-900:]}" for k, v in failed.items())
+        res.setdefault("repair_attempts", []).append("build: " + ", ".join(failed))
+        _generate(report)
+        if not files:
+            break
+        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
+        res["guards"] = guard_out
+        if any(guard_out.values()):
+            _set_state(source_id, "FAILED", failure="guards μετά από build repair")
+            res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
+            (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
+            return res
+        res["files_changed"] = _apply(files)
+        tests = _suite()
+
+    res["tests_run"] = len(tests)
+    res["tests_passed"] = sum(1 for t in tests.values() if t["passed"])
+    res["tests_failed"] = res["tests_run"] - res["tests_passed"]
+    res["tests"] = {k: {"passed": v["passed"]} for k, v in tests.items()}
+    (out / "test-logs.json").write_text(json.dumps(tests, indent=1, ensure_ascii=False), encoding="utf-8")
+
+    # ---- 4. Απόδοση Vitrina — μέρος του worker, όχι χειροκίνητο βήμα.
+    # Στο πρώτο proof το έκανα με το χέρι· έτσι ο worker δήλωνε
+    # READY_FOR_REVIEW χωρίς να έχει δει ποτέ τη δική του σελίδα.
+    vit: dict[str, Any] = {"fail": "δεν εκτελέστηκε (build απέτυχε)"}
+    if tests.get("next_build", {}).get("passed"):
+        srv = subprocess.Popen(
+            [shutil.which("npx") or "npx", "next", "start", "-p", str(PREVIEW_PORT)],
+            cwd=SITES, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            env=dict(os.environ, NEXT_DIST_DIR=".next-port"),
+        )
+        try:
+            for _ in range(40):
+                time.sleep(1)
+                try:
+                    import urllib.request
+                    urllib.request.urlopen(
+                        f"http://127.0.0.1:{PREVIEW_PORT}/preview/{rec['theme_key']}", timeout=3)
+                    break
+                except Exception:  # noqa: BLE001
+                    continue
+            vit = _render(f"http://127.0.0.1:{PREVIEW_PORT}",
+                          f"preview/{rec['theme_key']}", "vitrina", out)
+        finally:
+            srv.terminate()
+            try:
+                srv.wait(timeout=15)
+            except subprocess.TimeoutExpired:
+                srv.kill()
+
+    res["vitrina_render_status"] = "FAIL" if "fail" in vit else "OK"
+    res["vitrina_metrics"] = vit
+    for label in ("desktop", "mobile"):
+        m = vit.get(label) or {}
+        res.setdefault("render", {})[label] = {
+            "overflow": m.get("overflow"), "innerOverflow": m.get("innerOverflow"),
+            "broken": m.get("broken"), "images": m.get("images"),
+            "h1": m.get("h1"), "consoleErrors": m.get("consoleErrors"),
+        }
+
+    # Fail closed στα render-time ευρήματα που δεν φαίνονται στατικά.
+    render_problems: list[str] = []
+    for label in ("desktop", "mobile"):
+        m = vit.get(label) or {}
+        if "fail" in m or not m:
+            render_problems.append(f"{label}: δεν αποδόθηκε")
+            continue
+        if m.get("overflow", 0) > 0:
+            render_problems.append(f"{label}: οριζόντια υπερχείλιση {m['overflow']}px")
+        if m.get("innerOverflow"):
+            render_problems.append(f"{label}: εσωτερική υπερχείλιση — {', '.join(m['innerOverflow'][:3])}")
+        if m.get("broken", 0) > 0:
+            render_problems.append(f"{label}: {m['broken']} σπασμένες εικόνες")
+        if m.get("consoleErrors", 0) > 0:
+            render_problems.append(f"{label}: {m['consoleErrors']} console errors")
+        if m.get("h1") != 1:
+            render_problems.append(f"{label}: {m.get('h1')} × h1 (πρέπει 1)")
+        orig_imgs = (orig.get("desktop") or {}).get("images", 0)
+        if orig_imgs >= 3 and m.get("images", 0) == 0:
+            render_problems.append(f"{label}: το πρωτότυπο έχει {orig_imgs} εικόνες, το port 0")
+    res["render_problems"] = render_problems
+
+    res["elapsed_seconds"] = round(time.time() - started, 1)
+    res["status"] = ("READY_FOR_REVIEW"
+                     if res["tests_failed"] == 0 and not render_problems
+                     else "FAILED")
+    res["original_metrics"] = orig
+    (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
+    _set_state(source_id, res["status"], result=str((out / "result.json").relative_to(ROOT)))
+    return res
+
+    # ---- 2. μηχανικό πέρασμα DeepSeek
+    html, css = _read_source(rec)
+    chat = _Chat(source_id)
+    chat._safety_checks()
+    res["model"] = chat._pass2_model
+    contract = extract()
+    user = (_contract(rec, contract) + "\n\n=== ORIGINAL index.html ===\n" + html
+            + "\n\n=== ORIGINAL CSS ===\n" + css)
+    # ΔΥΟ κλήσεις, όχι μία. Μετρήθηκε: ένα ολόκληρο theme (JSX+CSS) σε ένα JSON
+    # χτυπά το όριο εξόδου και κόβεται στη μέση — τρεις σερί αποτυχίες
+    # «Unterminated string». Χωριστά χωρά, και το CSS γράφεται γνωρίζοντας τα
+    # πραγματικά class names του JSX αντί να τα μαντεύει.
+    payload: dict[str, Any] = {"files": [], "deviations": []}
+    files: list[dict[str, str]] = []
+    problem: str | None = None
+
+    def _one(step: str, instruction: str) -> dict[str, Any] | None:
+        nonlocal problem
+        for attempt in range(1 + MAX_REPAIR_ATTEMPTS):
+            prompt = f"{user}\n\n=== ΒΗΜΑ: {step} ===\n{instruction}"
+            if problem:
+                prompt += (f"\n\n=== Η ΠΡΟΗΓΟΥΜΕΝΗ ΑΠΑΝΤΗΣΗ ΑΠΟΡΡΙΦΘΗΚΕ ===\n{problem}\n"
+                           "Διόρθωσέ το και ξαναδώσε ΟΛΟΚΛΗΡΟ το αρχείο.")
+            try:
+                raw = chat.ask(SYSTEM, prompt, max_tokens=32000)
+            except ResearchWorkerError as exc:
+                problem = str(exc)[:300]
+                return None
+            (out / f"deepseek-{step}-{attempt + 1}.json").write_text(raw, encoding="utf-8")
+            try:
+                data = json.loads(raw)
+                _validate(data.get("files", []), rec)
+                problem = None
+                return data
+            except (json.JSONDecodeError, PortWorkerError) as exc:
+                problem = str(exc)[:300]
+                res.setdefault("repair_attempts", []).append(f"{step}: {problem}")
+        return None
+
+    def _generate(feedback: str = "") -> None:
+        """Ένας πλήρης κύκλος JSX+CSS. Το `feedback` είναι ό,τι απέρριψαν οι
+        guards ή το build — πάει αυτούσιο πίσω στο μοντέλο."""
+        nonlocal payload, files
+        extra = (f"\n\n=== Η ΠΡΟΗΓΟΥΜΕΝΗ ΠΡΟΣΠΑΘΕΙΑ ΑΠΟΡΡΙΦΘΗΚΕ ===\n{feedback}\n"
+                 "Διόρθωσε ΑΚΡΙΒΩΣ αυτά. Μην αλλάξεις τίποτε άλλο.") if feedback else ""
+        jsx = _one("JSX", f"Return ONLY sites/lib/templates/{rec['component']}.jsx in files[]. "
+                          "Use semantic class names via the `s` import; the stylesheet comes next."
+                          + extra)
+        if not jsx:
+            return
+        jsx_src = jsx["files"][0]["content"]
+        css = _one("CSS", f"Return ONLY sites/lib/templates/{rec['component']}.module.css in files[]. "
+                          "It must style EXACTLY the class names used below and nothing else."
+                          + extra
+                          + f"\n=== THE JSX YOU JUST WROTE ===\n{jsx_src}")
+        if not css:
+            return
+        payload["files"] = jsx["files"] + css["files"]
+        payload["deviations"] = (jsx.get("deviations") or []) + (css.get("deviations") or [])
+        files = _validate(payload["files"], rec)
+
+    # Guards ΠΡΙΝ γραφτεί οτιδήποτε στον δίσκο: ένα port με λάθος prop ή με
+    # μηδέν δεμένες εικόνες δεν αξίζει καν build. Ό,τι απορρίπτουν πάει
+    # αυτούσιο πίσω στο μοντέλο, μέχρι MAX_REPAIR_ATTEMPTS φορές.
+    _generate()
+    for _ in range(MAX_REPAIR_ATTEMPTS):
+        if not files:
+            break
+        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
+        if not any(guard_out.values()):
+            break
+        res.setdefault("repair_attempts", []).append("guards: " + summarize(guard_out)[:400])
+        _generate(summarize(guard_out))
+    if files:
+        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
+        res["guards"] = guard_out
+        if any(guard_out.values()):
+            _set_state(source_id, "FAILED", failure="guards")
+            res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
+            (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
+            return res
+
+    tele = chat._telemetry_dict()
+    res["token_usage"] = {"input": tele["input_tokens"], "output": tele["output_tokens"]}
+    res["cost_usd"] = tele["estimated_cost_usd"]
+    if res["cost_usd"] > MAX_COST_USD:
+        _set_state(source_id, "FAILED", failure="υπέρβαση ορίου κόστους")
+        res.update(status="FAILED", reason=f"κόστος {res['cost_usd']} > {MAX_COST_USD}")
+        return res
+    if problem is not None:
+        _set_state(source_id, "FAILED", failure=problem)
+        res.update(status="FAILED", reason=problem)
+        (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
+        return res
+
+    # ---- 3. build/tests, με ανατροφοδότηση σφαλμάτων στο μοντέλο
+    def _suite() -> dict[str, dict[str, Any]]:
+        out_tests: dict[str, dict[str, Any]] = {}
+        for name, cmd in (("templateRegistry", ["node", "tests/templateRegistry.mjs"]),
+                          ("spine_guard", ["node", "tests/spine_guard.mjs"]),
+                          ("trust_guard", ["node", "tests/trust_guard.mjs"])):
+            ok, log = _run(cmd, SITES, timeout=240)
+            out_tests[name] = {"passed": ok, "log": log[-900:]}
+        # Δικό μας NEXT_DIST_DIR: δύο agents δεν μοιράζονται .next (CLAUDE.md).
+        bok, blog = _run(["npx", "next", "build"], SITES, timeout=900,
+                         env=dict(os.environ, NEXT_DIST_DIR=".next-port"))
+        out_tests["next_build"] = {"passed": bok, "log": blog[-1800:]}
+        return out_tests
+
+    res["files_changed"] = _apply(files)
+    res["deviations"] = payload.get("deviations", [])
+    res["registered"] = _register(rec)
+    tests = _suite()
+
+    # Ένα σφάλμα build είναι ακριβώς το είδος που το μοντέλο μπορεί να διορθώσει
+    # μόνο του — αρκεί να το δει. Στο πρώτο proof δεν του το έδειχνα ποτέ και
+    # έπρεπε να μπω εγώ για ένα «selector is not pure».
+    for _ in range(MAX_REPAIR_ATTEMPTS):
+        failed = {k: v for k, v in tests.items() if not v["passed"]}
+        if not failed:
+            break
+        report = "\n\n".join(f"--- {k} ΑΠΕΤΥΧΕ ---\n{v['log'][-900:]}" for k, v in failed.items())
+        res.setdefault("repair_attempts", []).append("build: " + ", ".join(failed))
+        _generate(report)
+        if not files:
+            break
+        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
+        res["guards"] = guard_out
+        if any(guard_out.values()):
+            _set_state(source_id, "FAILED", failure="guards μετά από build repair")
+            res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
+            (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
+            return res
+        res["files_changed"] = _apply(files)
+        tests = _suite()
+
     res["tests_run"] = len(tests)
     res["tests_passed"] = sum(1 for t in tests.values() if t["passed"])
     res["tests_failed"] = res["tests_run"] - res["tests_passed"]

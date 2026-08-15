@@ -1,0 +1,27 @@
+REGRESSION: οι guards πάνω στην ΑΔΙΟΡΘΩΤΗ έξοδο του πρώτου proof (Frost Bakery)
+========================================================================
+[contract] η υπογραφή δεν καταναλώνει το prop «data» που περνά το route: «d»
+[contract] άγνωστο πεδίο d.about — εννοούσες d.story;
+[contract] άγνωστο πεδίο d.hours — εννοούσες d.HOURS;
+[contract] άγνωστο πεδίο d.name — εννοούσες d.NAME;
+[contract] άγνωστο πεδίο d.tagline — εννοούσες d.TAGLINE;
+[contract] <Brand d=…> — περιμένει «data»
+[contract] <FindUs d=…> — περιμένει «data»
+[contract] <SocialLinks d=…> — περιμένει «data»
+[copy_leak] κείμενο πρωτοτύπου αυτούσιο: «Build Your Own»
+[copy_leak] κείμενο πρωτοτύπου αυτούσιο: «Pick your perfect scoop»
+[copy_leak] κείμενο πρωτοτύπου αυτούσιο: «Your sundae, your rules»
+[media] το πρωτότυπο έχει 7 <img> (+0 background) αλλά το port δεν αναφέρει καθόλου d.gallery — καμία εικόνα πελάτη δεν αποδίδεται
+========================================================================
+σύνολο παραβάσεων: 12
+
+Αντιστοίχιση με τις απαιτούμενες αποτυχίες:
+  ΠΙΑΣΤΗΚΕ       λάθος prop name
+  ΠΙΑΣΤΗΚΕ       λάθος ονόματα πεδίων
+  ΠΙΑΣΤΗΚΕ       λάθος τύπος HOURS
+  ΠΙΑΣΤΗΚΕ       αμετάφραστο κείμενο πηγής
+  ΠΙΑΣΤΗΚΕ       λείπει σύνδεση gallery
+  ΠΙΑΣΤΗΚΕ       shared components λάθος prop
+
+Η εσωτερική υπερχείλιση (σειρά καρτών) ελέγχεται σε render time:
+  sites/tests/shot-one.mjs -> metrics.innerOverflow -> res['render_problems']

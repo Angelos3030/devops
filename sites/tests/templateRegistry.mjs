@@ -21,9 +21,20 @@ const url = (p) => new URL(p, import.meta.url)
 const index = await readFile(url('../lib/templates/index.js'), 'utf8')
 
 // Κοινά components που ΔΕΝ είναι themes. Κάθε προσθήκη εδώ είναι συνειδητή.
-const SHARED = new Set(['Brand', 'CallBar', 'FindUs', 'MapEmbed', 'MediaDisclosure', 'SocialLinks'])
+const SHARED = new Set([
+  // Proof-only: renderable αλλά εκτός chooser μέχρι ανθρώπινη οπτική έγκριση.
+  'MasterCinematic', 'MasterEditorial', 'MasterSpatial', 'CapabilitySystems','Brand', 'CallBar', 'FindUs', 'MapEmbed', 'MediaDisclosure', 'SocialLinks'])
 // Themes που προσφέρονται αλλά δεν προτείνονται σε κανένα vertical, με λόγο.
 const UNPROFILED = {
+  'educenter-campus': 'Batch B — εκκρεμεί απόφαση chooser/ranking.',
+  'vex-counter': 'Batch B — εκκρεμεί απόφαση chooser/ranking.',
+  'airspace-office': 'Batch B — εκκρεμεί απόφαση chooser/ranking.',
+  'freight-lane': 'Batch B — εκκρεμεί απόφαση chooser/ranking.',
+  'blue-onepage': 'Salon batch — εκκρεμεί απόφαση chooser/ranking.',
+  'billys-barber': 'Salon batch — εκκρεμεί απόφαση chooser/ranking.',
+  'thomson-stylist': 'Salon batch — εκκρεμεί απόφαση chooser/ranking.',
+  'frost-bakery': 'Port worker proof — εκκρεμεί οπτική έγκριση πριν προταθεί σε πελάτη.',
+
   dispatch: 'Πολύ ειδικό (courier/μεταφορές). Αφήνεται ρητά εκτός profiles αντί να '
     + 'μπει «κάπου» μόνο και μόνο για να μηδενίσει έναν μετρητή.',
 }

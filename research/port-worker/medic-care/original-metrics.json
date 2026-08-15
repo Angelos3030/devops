@@ -1,0 +1,34 @@
+{
+ "tag": "original",
+ "desktop": {
+  "height": 4919,
+  "overflow": 0,
+  "images": 13,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 12,
+  "innerOverflow": [
+   "div.col-9 +10px",
+   "div.col-9 +10px",
+   "div.col-9 +10px",
+   "div.owl-stage-outer +4288px",
+   "div.owl-nav +80px"
+  ],
+  "consoleErrors": 0,
+  "errorSamples": []
+ },
+ "mobile": {
+  "height": 6055,
+  "overflow": 0,
+  "images": 13,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 10,
+  "innerOverflow": [
+   "div.owl-stage-outer +2562px",
+   "div.booking-form +12px"
+  ],
+  "consoleErrors": 0,
+  "errorSamples": []
+ }
+}
