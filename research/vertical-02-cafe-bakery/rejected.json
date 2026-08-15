@@ -1,0 +1,185 @@
+{
+  "task_id": "vertical-02-cafe-bakery",
+  "rejected": [
+    {
+      "name": "Sweet Bakery",
+      "relevance": "REJECT",
+      "reason": "No explicit license; otherwise ideal for bakery/café.",
+      "reference": "https://www.tooplate.com/view/2168-sweet-bakery"
+    },
+    {
+      "name": "Adrian Bootstrap",
+      "relevance": "REJECT",
+      "reason": "No license stated; e-commerce template not bakery-specific.",
+      "reference": "https://themefisher.com/products/adrian-bootstrap"
+    },
+    {
+      "name": "Aviato Bootstrap",
+      "relevance": "REJECT",
+      "reason": "No license stated; free e-commerce template.",
+      "reference": "https://themefisher.com/products/aviato-bootstrap"
+    },
+    {
+      "name": "Airspace Bootstrap",
+      "relevance": "REJECT",
+      "reason": "No license stated; free business template.",
+      "reference": "https://themefisher.com/products/airspace-bootstrap"
+    },
+    {
+      "name": "Bingo Bootstrap",
+      "relevance": "REJECT",
+      "reason": "No license stated; free business template.",
+      "reference": "https://themefisher.com/products/bingo-bootstrap"
+    },
+    {
+      "name": "Adrian Hugo",
+      "relevance": "REJECT",
+      "reason": "No license stated; e-commerce template.",
+      "reference": "https://gethugothemes.com/products/adrian"
+    },
+    {
+      "name": "Bigspring Light",
+      "relevance": "REJECT",
+      "reason": "No license stated; free agency template.",
+      "reference": "https://gethugothemes.com/products/bigspring-light"
+    },
+    {
+      "name": "Massively",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/massively"
+    },
+    {
+      "name": "Paradigm Shift",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/paradigm-shift"
+    },
+    {
+      "name": "Dimension",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/dimension"
+    },
+    {
+      "name": "Phantom",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/phantom"
+    },
+    {
+      "name": "Forty",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/forty"
+    },
+    {
+      "name": "Solid State",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/solid-state"
+    },
+    {
+      "name": "Escape Velocity",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/escape-velocity"
+    },
+    {
+      "name": "Halcyonic",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/halcyonic"
+    },
+    {
+      "name": "Dopetrope",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/dopetrope"
+    },
+    {
+      "name": "Miniport",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/miniport"
+    },
+    {
+      "name": "TXT",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/txt"
+    },
+    {
+      "name": "Zerofour",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/zerofour"
+    },
+    {
+      "name": "Minimaxing",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/minimaxing"
+    },
+    {
+      "name": "Big Picture",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/big-picture"
+    },
+    {
+      "name": "Tessellate",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/tessellate"
+    },
+    {
+      "name": "Stellar",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/stellar"
+    },
+    {
+      "name": "Spectral",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/spectral"
+    },
+    {
+      "name": "Photon",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/photon"
+    },
+    {
+      "name": "Highlights",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/highlights"
+    },
+    {
+      "name": "Landed",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/landed"
+    },
+    {
+      "name": "Twenty",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/twenty"
+    },
+    {
+      "name": "Alpha",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/alpha"
+    },
+    {
+      "name": "Directive",
+      "relevance": "LOW",
+      "reason": "CC BY, customer-facing, original design; generic low fit.",
+      "reference": "https://html5up.net/directive"
+    }
+  ]
+}
