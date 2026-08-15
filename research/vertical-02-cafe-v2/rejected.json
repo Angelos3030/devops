@@ -1,0 +1,29 @@
+{
+  "task_id": "vertical-02-cafe-v2",
+  "rejected": [
+    {
+      "name": "Agen Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Agency portfolio template, wrong domain; license unknown from this source.",
+      "reference": "https://themefisher.com/products/agen-bootstrap"
+    },
+    {
+      "name": "Airspace Bootstrap",
+      "relevance": "LOW",
+      "reason": "Generic clean template, low fit; license unknown from this source.",
+      "reference": "https://themefisher.com/products/airspace-bootstrap"
+    },
+    {
+      "name": "Bitbank Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Cryptocurrency template, wrong domain; license unknown from this source.",
+      "reference": "https://themefisher.com/products/bitbank-bootstrap"
+    },
+    {
+      "name": "Blue Pro Bootstrap",
+      "relevance": "REJECT",
+      "reason": "Creative agency template, not cafe; license unknown from this source.",
+      "reference": "https://themefisher.com/products/blue-pro-bootstrap"
+    }
+  ]
+}

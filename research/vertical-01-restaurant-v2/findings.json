@@ -1,0 +1,94 @@
+{
+  "task_id": "vertical-01-restaurant-v2",
+  "objective": "Templates για ταβέρνα ή εστιατόριο. Customer-facing site.",
+  "findings": [
+    {
+      "name": "Agico Bootstrap",
+      "purpose": "Multipurpose landing page template",
+      "why_relevant": "Generic landing page structure could be customized for restaurant promotion, but lacks restaurant-specific features like menus, reservations, or hours.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Multipurpose landing page could be adapted for restaurant promotion.",
+      "reference": "https://themefisher.com/products/agico-bootstrap",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Airspace Bootstrap",
+      "purpose": "A generic, clean Bootstrap template for business or agency websites with hero, about, services, portfolio, and contact sections.",
+      "why_relevant": "It provides a solid responsive layout and basic page sections that can be adapted to display restaurant information, menus, hours, map, and contact/reservation details, but lacks built-in reservation or menu-specific components.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "High",
+      "pass1_reason": "Generic clean template adaptable to a restaurant customer site.",
+      "reference": "https://themefisher.com/products/airspace-bootstrap",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Bexer Bootstrap",
+      "purpose": "A multipurpose business/startup Bootstrap template with sections for services, portfolio, team, and contact.",
+      "why_relevant": "It provides a clean, responsive foundation that can be customized with restaurant-specific sections such as menu, reservation form, hours, and map, but it is not purpose-built for restaurants.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Business template could support restaurant sections after customization.",
+      "reference": "https://themefisher.com/products/bexer-bootstrap",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Bingo Bootstrap",
+      "purpose": "A free, general-purpose business/agency Bootstrap template with sections for hero, about, services, portfolio, pricing, and contact.",
+      "why_relevant": "It offers a clean, responsive customer-facing layout that could be adapted to a restaurant site by repurposing sections for menu highlights, hours, reservation call-to-action, and contact/location. It does not include restaurant-specific features like an online booking system or interactive menu, so those would need to be added.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Free business template with potential for restaurant adaptation.",
+      "reference": "https://themefisher.com/products/bingo-bootstrap",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Bizcraft Bootstrap",
+      "purpose": "Multipurpose business template built with Bootstrap.",
+      "why_relevant": "Can be adapted for a restaurant/tavern by customizing sections for menu, booking, hours, and map, though not purpose-built for food service.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Multipurpose business template can be adapted for restaurant.",
+      "reference": "https://themefisher.com/products/bizcraft-bootstrap",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Biztrox Bootstrap",
+      "purpose": "Business template suitable after customizing for restaurant needs.",
+      "why_relevant": "General business template that can be adapted to include restaurant-specific features such as booking, menu, hours, and map.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Business template suitable after customizing for restaurant needs.",
+      "reference": "https://themefisher.com/products/biztrox-bootstrap",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Blue Bootstrap",
+      "purpose": "One-page business template suitable for a small taverna or restaurant's customer-facing site.",
+      "why_relevant": "Fits a small taverna's simple promotional needs, but lacks explicit restaurant-specific features like menu or reservation modules.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Onepage business template fits small taverna but lacks explicit restaurant features.",
+      "reference": "https://themefisher.com/products/blue-bootstrap",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "Brandi Bootstrap",
+      "purpose": "Onepage business template adaptable for restaurant with map and hours.",
+      "why_relevant": "Generic business landing page can be adapted to include taverna essentials like location, hours, and menu sections.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Onepage business template adaptable for restaurant with map and hours.",
+      "reference": "https://themefisher.com/products/brandi-bootstrap",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    }
+  ]
+}
