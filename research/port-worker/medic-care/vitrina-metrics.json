@@ -1,7 +1,7 @@
 {
  "tag": "vitrina",
  "desktop": {
-  "height": 3362,
+  "height": 3860,
   "overflow": 0,
   "images": 5,
   "broken": 0,
@@ -9,13 +9,14 @@
   "smallTaps": 7,
   "innerOverflow": [
    "div.MedicCare_timelineContent__TUglT +10px",
-   "div.MedicCare_timelineContent__TUglT +10px"
+   "div.MedicCare_timelineContent__TUglT +10px",
+   "div.FindUs_mapBox__0e9Qc +56px"
   ],
   "consoleErrors": 0,
   "errorSamples": []
  },
  "mobile": {
-  "height": 4860,
+  "height": 4699,
   "overflow": 0,
   "images": 5,
   "broken": 0,

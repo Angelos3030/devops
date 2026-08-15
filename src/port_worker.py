@@ -342,6 +342,81 @@ def _actionable(name: str, log: str) -> str:
     return f"--- {name} ΑΠΕΤΥΧΕ ---\n{body}"
 
 
+_ROLE_RE = re.compile(r"([a-z][a-z0-9-]*)/([a-z][a-z0-9-]*)\s+([\d.]+)\s*<\s*([\d.]+)")
+_LOWEST_RE = re.compile(r"αντίθεση[^:]*:\s*([\d.]+):1\s*—\s*\S+[^)]*\)\s*([a-z][a-z0-9-]*)/([a-z][a-z0-9-]*)")
+
+
+def _spine_prescription(log: str, css_text: str) -> str:
+    """Συνταγή, όχι διάγνωση.
+
+    Το `--vt-accent-ink 3.69:1` λέει ΟΤΙ κάτι φταίει, όχι ΤΙ να γίνει. Το
+    μοντέλο μάντευε το βήμα και συνέκλινε αργά (1.00 -> 3.69 σε τρεις γύρους).
+    Εδώ παράγεται ντετερμινιστικά από το ίδιο το αποτέλεσμα του guard: ρόλος,
+    μετρημένη αντίθεση, απαιτούμενο κατώφλι, οι πραγματικές τιμές των δύο
+    tokens, και η μοναδική επιτρεπτή κατεύθυνση διόρθωσης.
+    """
+    pairs: list[tuple[str, str, str, str]] = []
+    for line in log.splitlines():
+        if "✗" in line:
+            pairs += [(a, b, got, need) for a, b, got, need in _ROLE_RE.findall(line)]
+    if not pairs:
+        m = _LOWEST_RE.search(log)
+        if m:
+            pairs = [(m.group(2), m.group(3), m.group(1), "4.5")]
+    if not pairs:
+        return ""
+
+    values = dict(re.findall(r"--vt-([a-z][a-z0-9-]*)\s*:\s*([^;]+);", css_text))
+    out = ["--- ΠΑΡΑΒΑΣΗ ΑΝΤΙΘΕΣΗΣ (spine) ---"]
+    for fg, bg, got, need in dict.fromkeys(pairs):
+        out += [
+            f"FAIL: --vt-{fg} πάνω σε --vt-{bg}",
+            f"  μετρημένη αντίθεση = {got}:1",
+            f"  απαιτούμενο ελάχιστο = {need}:1",
+            f"  foreground --vt-{fg}: {values.get(fg, '(άγνωστο)').strip()}",
+            f"  background --vt-{bg}: {values.get(bg, '(άγνωστο)').strip()}",
+            f"  ΔΙΟΡΘΩΣΗ: άλλαξε ΜΟΝΟ την τιμή του --vt-{fg} στο .root, αρκετά",
+            f"  ώστε η αντίθεση με το --vt-{bg} να φτάσει >= {need}:1.",
+            "  Αν το background είναι ανοιχτό, σκούρυνε το foreground· αν σκούρο, φώτισέ το.",
+            "  ΜΗΝ αλλάξεις κανένα άλλο token, καμία απόχρωση, καμία διάταξη.",
+            "",
+        ]
+    return "\n".join(out)
+
+
+def _render_prescription(vit: dict[str, Any], orig_images: int) -> str:
+    """Μηχανικά ευρήματα απόδοσης, ένα ανά γραμμή, με μετρημένο μέγεθος.
+
+    ΟΧΙ αισθητική κρίση: μόνο μετρήσιμα σφάλματα που το μοντέλο μπορεί να
+    διορθώσει τοπικά. Η ομορφιά και η πιστότητα μένουν στον validator.
+    """
+    out: list[str] = []
+    for label, w in (("desktop", 1440), ("mobile", 390)):
+        m = vit.get(label) or {}
+        if "fail" in m or not m:
+            out.append(f"{label.upper()} {w}: η σελίδα δεν αποδόθηκε — {m.get('fail', 'άγνωστο')}")
+            continue
+        if m.get("overflow", 0) > 0:
+            out.append(f"{label.upper()} {w} FAIL: η σελίδα κυλά οριζόντια κατά "
+                       f"{m['overflow']}px. Περιόρισε το πλάτος του υπεύθυνου στοιχείου.")
+        for item in (m.get("innerOverflow") or []):
+            out.append(f"{label.upper()} {w} FAIL: {item} — το στοιχείο ξεπερνά το "
+                       "container του. Διόρθωσε ΜΟΝΟ την τοπική διάταξη αυτού του "
+                       "selector (padding/width/min-width/gap). Μην αλλάξεις τη "
+                       "συνολική σύνθεση της σελίδας.")
+        if m.get("broken", 0) > 0:
+            out.append(f"{label.upper()} {w} FAIL: {m['broken']} εικόνες δεν φορτώνουν.")
+        if m.get("consoleErrors", 0) > 0:
+            for s in (m.get("errorSamples") or [])[:3]:
+                out.append(f"{label.upper()} {w} console error: {s[:150]}")
+        if m.get("h1") != 1:
+            out.append(f"{label.upper()} {w} FAIL: {m.get('h1')} × <h1>. Πρέπει ακριβώς ένα.")
+        if orig_images >= 3 and m.get("images", 0) == 0:
+            out.append(f"{label.upper()} {w} FAIL: το πρωτότυπο έχει {orig_images} εικόνες "
+                       "και το port αποδίδει 0. Δέσε τις θέσεις εικόνας σε d.gallery.")
+    return "\n".join(dict.fromkeys(out))
+
+
 def port_source(source_id: str) -> dict[str, Any]:
     q = _load_queue()
     rec = q["sources"].get(source_id)
@@ -488,32 +563,62 @@ def port_source(source_id: str) -> dict[str, Any]:
         out_tests["next_build"] = {"passed": bok, "log": blog[-1800:]}
         return out_tests
 
+    def _render_vitrina() -> dict[str, Any]:
+        """Απόδοση Vitrina. Μέρος του ΒΡΟΧΟΥ, όχι επόμενο βήμα — αλλιώς ένα
+        +10px ξεχείλισμα δεν έφτανε ποτέ στο μοντέλο."""
+        if not tests.get("next_build", {}).get("passed"):
+            return {"fail": "δεν εκτελέστηκε (build απέτυχε)"}
+        try:
+            with PreviewServer(SITES, PREVIEW_PORT) as srv:
+                res["preview_server"] = {"pid": srv.proc.pid if srv.proc else None,
+                                         "port": PREVIEW_PORT, "reclaimed": srv.reclaimed}
+                if not srv.wait_ready(f"preview/{rec['theme_key']}"):
+                    return {"fail": "ο preview server δεν απάντησε 200 εντός ορίου"}
+                return _render(f"http://127.0.0.1:{PREVIEW_PORT}",
+                               f"preview/{rec['theme_key']}", "vitrina", out)
+        except PreviewServerError as exc:
+            return {"fail": str(exc)}
+
+    orig_imgs = (orig.get("desktop") or {}).get("images", 0)
+    css_path = SITES / "lib" / "templates" / f"{rec['component']}.module.css"
+
     res["files_changed"] = _apply(files)
     res["deviations"] = payload.get("deviations", [])
     res["registered"] = _register(rec)
     tests = _suite()
+    vit = _render_vitrina()
 
-    # Ένα σφάλμα build είναι ακριβώς το είδος που το μοντέλο μπορεί να διορθώσει
-    # μόνο του — αρκεί να το δει. Στο πρώτο proof δεν του το έδειχνα ποτέ και
-    # έπρεπε να μπω εγώ για ένα «selector is not pure».
+    # ΕΝΑΣ βρόχος για build ΚΑΙ απόδοση, μέσα στο ΥΠΑΡΧΟΝ budget. Ό,τι
+    # επιστρέφει είναι συνταγή («κάνε αυτό»), όχι διάγνωση («κάτι φταίει»).
     for _ in range(MAX_REPAIR_ATTEMPTS):
         failed = {k: v for k, v in tests.items() if not v["passed"]}
-        if not failed:
+        css_text = css_path.read_text(encoding="utf-8") if css_path.exists() else ""
+        parts: list[str] = []
+        for k, v in failed.items():
+            rx = _spine_prescription(v["log"], css_text) if k == "spine_guard" else ""
+            parts.append(rx or _actionable(k, v["log"]))
+        render_rx = _render_prescription(vit, orig_imgs)
+        if render_rx:
+            parts.append("--- ΜΗΧΑΝΙΚΑ ΕΥΡΗΜΑΤΑ ΑΠΟΔΟΣΗΣ ---\n" + render_rx)
+        if not parts:
             break
-        report = '\n\n'.join(_actionable(k, v["log"]) for k, v in failed.items())
-        res.setdefault("repair_attempts", []).append("build: " + ", ".join(failed))
-        _generate(report)
+
+        res.setdefault("repair_attempts", []).append(
+            ("build: " + ", ".join(failed) if failed else "") +
+            (" · render" if render_rx else ""))
+        _generate("\n\n".join(parts))
         if not files:
             break
         guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
         res["guards"] = guard_out
         if any(guard_out.values()):
-            _set_state(source_id, "FAILED", failure="guards μετά από build repair")
+            _set_state(source_id, "FAILED", failure="guards μετά από repair")
             res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
             (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
             return res
         res["files_changed"] = _apply(files)
         tests = _suite()
+        vit = _render_vitrina()
 
     res["tests_run"] = len(tests)
     res["tests_passed"] = sum(1 for t in tests.values() if t["passed"])
@@ -524,20 +629,6 @@ def port_source(source_id: str) -> dict[str, Any]:
     # ---- 4. Απόδοση Vitrina — μέρος του worker, όχι χειροκίνητο βήμα.
     # Στο πρώτο proof το έκανα με το χέρι· έτσι ο worker δήλωνε
     # READY_FOR_REVIEW χωρίς να έχει δει ποτέ τη δική του σελίδα.
-    vit: dict[str, Any] = {"fail": "δεν εκτελέστηκε (build απέτυχε)"}
-    if tests.get("next_build", {}).get("passed"):
-        try:
-            with PreviewServer(SITES, PREVIEW_PORT) as srv:
-                res["preview_server"] = {"pid": srv.proc.pid if srv.proc else None,
-                                         "port": PREVIEW_PORT, "reclaimed": srv.reclaimed}
-                if srv.wait_ready(f"preview/{rec['theme_key']}"):
-                    vit = _render(f"http://127.0.0.1:{PREVIEW_PORT}",
-                                  f"preview/{rec['theme_key']}", "vitrina", out)
-                else:
-                    vit = {"fail": "ο preview server δεν απάντησε 200 εντός ορίου"}
-        except PreviewServerError as exc:
-            vit = {"fail": str(exc)}
-
     res["vitrina_render_status"] = "FAIL" if "fail" in vit else "OK"
     res["vitrina_metrics"] = vit
     for label in ("desktop", "mobile"):

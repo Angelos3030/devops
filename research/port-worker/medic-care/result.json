@@ -1,7 +1,7 @@
 {
  "source_id": "medic-care",
  "theme_key": "medic-care",
- "started_at": "2026-08-15T14:27:30+00:00",
+ "started_at": "2026-08-15T15:08:16+00:00",
  "original_render_status": "OK",
  "model": "deepseek-v4-pro",
  "guards": {
@@ -10,64 +10,54 @@
   "media": []
  },
  "token_usage": {
-  "input": 28067,
-  "output": 21167
+  "input": 27934,
+  "output": 22840
  },
- "cost_usd": 0.0458,
+ "cost_usd": 0.0482,
  "files_changed": [
   "sites/lib/templates/MedicCare.jsx",
   "sites/lib/templates/MedicCare.module.css"
  ],
  "deviations": [
   {
-   "what": "Αφαιρέθηκε το section 'Our Patients' (testimonials)",
-   "why": "Η πολιτική SECTION_POLICY.testimonial είναι frozenset() και δεν υπάρχουν δεδομένα για μαρτυρίες στο intake."
+   "what": "Αφαίρεση ενότητας «Our Patients» (μαρτυρίες)",
+   "why": "Δεν υπάρχουν πραγματικά δεδομένα μαρτυριών στο intake· το SECTION_POLICY.testimonial είναι κενό."
   },
   {
-   "what": "Αφαιρέθηκε το section 'Book an appointment' (φόρμα ραντεβού)",
-   "why": "Δεν υπάρχει ροή κράτησης στο συμβόλαιο δεδομένων· η φόρμα απαιτεί backend/ροή που δεν παρέχεται."
+   "what": "Αφαίρεση φόρμας ραντεβού",
+   "why": "Δεν υπάρχει ροή κράτησης στο Vitrina data contract."
   },
   {
-   "what": "Αφαιρέθηκε ο κύκλος '12 Years of Experiences' στο about section",
-   "why": "Ο μετρητής ετών εμπειρίας δεν τεκμηριώνεται στο intake και ανήκει σε στατιστικά που απαγορεύονται."
+   "what": "Αφαίρεση μετρητή «12 Years of Experiences»",
+   "why": "Δεν υπάρχει τεκμηριωμένο στατιστικό για έτη εμπειρίας."
   },
   {
-   "what": "Το timeline section μετατράπηκε σε 'Υπηρεσίες' για να αξιοποιήσει τα δεδομένα d.services",
-   "why": "Το πρωτότυπο timeline περιείχε βήματα/υπηρεσίες· η δομή εναλλασσόμενων καρτών ταιριάζει με την παρουσίαση υπηρεσιών (title, desc, duration, price)."
+   "what": "Χρήση των εικόνων από το d.gallery αντί των αρχικών αρχείων του template",
+   "why": "Το contract επιβάλλει τη σύνδεση κάθε θέσης εικόνας σε d.gallery[i].image."
   },
   {
-   "what": "Τα εικονίδια του timeline αντικαταστάθηκαν από απλούς κύκλους με τελεία",
-   "why": "Δεν υπάρχουν διαθέσιμα εικονίδια στο data contract· χρησιμοποιήθηκε απλός οπτικός δείκτης για διατήρηση της διάταξης χωρίς εξωτερικά assets."
+   "what": "Το timeline χρησιμοποιεί τα στοιχεία από d.services αντί του d.story",
+   "why": "Το d.story περιέχει μόνο παραγράφους χωρίς τίτλους, ενώ το timeline απαιτεί τίτλο και περιγραφή. Το d.services έχει και τα δύο πεδία (title, desc)."
   },
   {
-   "what": "Το hero carousel απλοποιήθηκε σε στατική εικόνα (χρησιμοποιεί d.gallery[0])",
-   "why": "Το data contract παρέχει HERO_IMAGE ως string, αλλά ο κανόνας απαιτεί χρήση d.gallery για εικόνες· η στατική εικόνα διατηρεί την οπτική ταυτότητα χωρίς JavaScript carousel."
-  },
-  {
-   "what": "Αφαιρέθηκε η ενότητα 'Our Patients' (μαρτυρίες) επειδή το πεδίο δεδομένων testimonial είναι κενό σύμφωνα με το SECTION_POLICY.",
-   "why": "Απαγορεύεται η επινόηση μαρτυριών, ονομάτων ασθενών ή βαθμολογιών."
-  },
-  {
-   "what": "Αφαιρέθηκε η φόρμα ραντεβού (booking form).",
-   "why": "Δεν υπάρχει ροή κράτησης στο intake· η φόρμα θα ήταν μη λειτουργική παραπλανητική."
-  },
-  {
-   "what": "Αφαιρέθηκε το στατιστικό '12 Years of Experiences'.",
-   "why": "Δεν τεκμηριώνεται από τα δεδομένα εισόδου· δεν επινοούμε αριθμούς ή διαπιστευτήρια."
-  },
-  {
-   "what": "Οι slide του hero αντικαταστάθηκαν από μία εικόνα (την πρώτη του d.gallery) επειδή το d.gallery είναι μία απλή λίστα χωρίς ξεχωριστό πεδίο slider.",
-   "why": "Τα δεδομένα προέρχονται από το d.gallery και ο συμβολισμός του carousel δεν μπορεί να αναπαραχθεί χωρίς πολλαπλά πεδία εικόνων στο συμβόλαιο."
-  },
-  {
-   "what": "Το κείμενο του animated hero (health/days/lives) έγινε στατικό με μία λέξη (d.HERO_WORD).",
-   "why": "Το συμβόλαιο παρέχει μόνο ένα string πεδίο HERO_WORD, όχι πίνακα λέξεων για εναλλαγή."
+   "what": "Παράλειψη των εικονιδίων (icons) μέσα στους κύκλους του timeline",
+   "why": "Δεν επιτρέπεται η εισαγωγή εξωτερικών βιβλιοθηκών εικονιδίων· οι κύκλοι παραμένουν κενοί για να διατηρηθεί η οπτική δομή."
   }
  ],
  "registered": true,
+ "preview_server": {
+  "pid": 8648,
+  "port": 3881,
+  "reclaimed": {
+   "found": [],
+   "killed": [],
+   "skipped": []
+  }
+ },
  "repair_attempts": [
-  "build: spine_guard",
-  "build: spine_guard",
+  "build: spine_guard · render",
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+  "build: spine_guard, next_build · render",
   "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine"
  ],
  "tests_run": 4,
@@ -87,20 +77,11 @@
    "passed": true
   }
  },
- "preview_server": {
-  "pid": 1504,
-  "port": 3881,
-  "reclaimed": {
-   "found": [],
-   "killed": [],
-   "skipped": []
-  }
- },
  "vitrina_render_status": "OK",
  "vitrina_metrics": {
   "tag": "vitrina",
   "desktop": {
-   "height": 3362,
+   "height": 3860,
    "overflow": 0,
    "images": 5,
    "broken": 0,
@@ -108,13 +89,14 @@
    "smallTaps": 7,
    "innerOverflow": [
     "div.MedicCare_timelineContent__TUglT +10px",
-    "div.MedicCare_timelineContent__TUglT +10px"
+    "div.MedicCare_timelineContent__TUglT +10px",
+    "div.FindUs_mapBox__0e9Qc +56px"
    ],
    "consoleErrors": 0,
    "errorSamples": []
   },
   "mobile": {
-   "height": 4860,
+   "height": 4699,
    "overflow": 0,
    "images": 5,
    "broken": 0,
@@ -130,7 +112,8 @@
    "overflow": 0,
    "innerOverflow": [
     "div.MedicCare_timelineContent__TUglT +10px",
-    "div.MedicCare_timelineContent__TUglT +10px"
+    "div.MedicCare_timelineContent__TUglT +10px",
+    "div.FindUs_mapBox__0e9Qc +56px"
    ],
    "broken": 0,
    "images": 5,
@@ -147,9 +130,9 @@
   }
  },
  "render_problems": [
-  "desktop: εσωτερική υπερχείλιση — div.MedicCare_timelineContent__TUglT +10px, div.MedicCare_timelineContent__TUglT +10px"
+  "desktop: εσωτερική υπερχείλιση — div.MedicCare_timelineContent__TUglT +10px, div.MedicCare_timelineContent__TUglT +10px, div.FindUs_mapBox__0e9Qc +56px"
  ],
- "elapsed_seconds": 917.4,
+ "elapsed_seconds": 1099.2,
  "status": "FAILED",
  "original_metrics": {
   "tag": "original",
