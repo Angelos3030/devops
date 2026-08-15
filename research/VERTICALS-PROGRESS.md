@@ -12,16 +12,22 @@
 |---|---|---|---|---|---|
 | 1+2 | Restaurant / taverna / cafe / bakery | **2** | ✅ ταξινομήθηκε ξανά με vertical-specific πηγές | Γενική πηγή: 0/8. Νέες πηγές: **9 αποδόθηκαν → 2 PORT_OK** (Frost Bakery, Klassy Cafe), 3 QUALITY, 4 FIT· 12 ThemeWagon εν αναμονή προέλευσης | 15/8 |
 | 3 | Dentist / medical | **0** | ✅ ταξινομήθηκε | Agen/Airspace/Bingo MIT αλλά **FIT_REJECT**· 3 × repo 404 | 15/8 |
-| 4 | Pharmacy | — | ⏳ εκκρεμεί | — | — |
-| 5 | Gym / fitness | — | ⏳ εκκρεμεί | — | — |
+| 3+4 | Medical / dentist / pharmacy | **1** | ✅ ταξινομήθηκε | Medic Care PORT_OK· Health FIT_REJECT (πολυϊατρείο). Καθαρές πηγές έχουν μόνο 2 | 15/8 |
+| 5 | Gym / fitness | **1** | ✅ ταξινομήθηκε | Gymso Fitness PORT_OK — εβδομαδιαίο πρόγραμμα σε πλέγμα | 15/8 |
 | 6 | Beauty / salon | **3** | ✅ ολοκληρωμένο | 9 × blocked (βλ. `salon-batch/`) | 13–14/8 |
-| 7 | Carpenter / maker | — | ⏳ εκκρεμεί | — | — |
-| 8 | Home trade / technician | — | ⏳ εκκρεμεί | — | — |
-| 9 | Lawyer / accountant / consultant | — | ⏳ εκκρεμεί | — | — |
-| 10 | Hospitality / rooms | — | ⏳ εκκρεμεί | — | — |
-| 11 | Garage / automotive | — | ⏳ εκκρεμεί | — | — |
-| 12 | Retail / local shop | — | ⏳ εκκρεμεί | — | — |
-| 13 | Farm / producer | — | ⏳ εκκρεμεί | — | — |
+| 7 | Carpenter / maker | — | ⏳ 2 αποτυπωμένα, εκκρεμεί οπτική κρίση | moso_interior, kool_form_pack | 15/8 |
+| 8 | Home trade / technician | **1** | ✅ ταξινομήθηκε | Clean Work PORT_OK — κάρτες με τιμή+διάρκεια· electric_xtra εκκρεμεί | 15/8 |
+| 9 | Lawyer / accountant / consultant | — | ⏸️ κορεσμός | 4 themes ήδη· καμία καθαρή vertical πηγή | — |
+| 10 | Hospitality / rooms | **0** | ⚠️ καθαρές πηγές: 0 | Το μόνο εύρημα ήταν μεσιτικό → V12. Δεξαμενή στο Untree (LICENSE_REVIEW) | 15/8 |
+| 11 | Garage / automotive | **0** | ✅ ταξινομήθηκε | Garage FIT_REJECT (αγορά αυτοκινήτων, όχι συνεργείο)· `motor` καλύπτει ήδη | 15/8 |
+| 12 | Retail / local shop | — | ⏳ 6 αποτυπωμένα, εκκρεμεί οπτική κρίση | 6/7 έχουν καλάθι → πιθανό FIT_REJECT, αδήλωτο χωρίς έλεγχο | 15/8 |
+| 13 | Farm / producer | — | ⏳ εκκρεμεί | `terra` ήδη· καμία καθαρή vertical πηγή | — |
+| 14 | **Property / μεσιτικό** | **1** | ✅ νέο vertical | Villa Agency PORT_OK (redirect από hospitality) | 15/8 |
+| 15 | Events / wedding | — | ⏳ 4 αποτυπωμένα, εκκρεμεί οπτική κρίση | venue, leadership_event, wedding_lite, event_invitation | 15/8 |
+| 16 | Tourism / tours | — | ⏳ 5 αποτυπωμένα, εκκρεμεί οπτική κρίση | journey, woox_travel, adventure, flight, compass | 15/8 |
+| 17 | Education | — | ⏳ 1 αποτυπωμένο, εκκρεμεί οπτική κρίση | grad_school | 15/8 |
+| 18 | Music | — | ⏳ 1 αποτυπωμένο, εκκρεμεί οπτική κρίση | modern_musician | 15/8 |
+| 19 | **Pets / vet** | **0** | ⛔ καμία πηγή | Μηδέν υποψήφιοι στα 226 των καθαρών studios | 15/8 |
 
 **Σύνολο PORT_OK: 5** — οι 24 υποψήφιοι των V1/V2/V3 έδωσαν **0**· η επανεκκίνηση
 του V1+V2 με **vertical-specific πηγές** έδωσε **2**.
@@ -105,6 +111,41 @@ templates** — δεν περιέχει εστιατόριο, καφετέρια
 **Δεν αρκεί να διορθωθεί το φίλτρο — πρέπει να αλλάξουν οι ΠΗΓΕΣ** για τα
 επόμενα verticals.
 
+## ⛔ Ο πραγματικός περιορισμός δεν είναι η ποιότητα — είναι η άδεια
+
+Πλήρης χάρτης: [`verticals/LICENSE-MAP.md`](verticals/LICENSE-MAP.md)
+
+Το **BootstrapMade** είναι το μόνο οικοσύστημα οργανωμένο ανά επάγγελμα σε
+έκταση (**22 vertical κατηγορίες**: medical, restaurant, hotel, real-estate,
+construction, education, travel, events, photography, transportation…). Η δωρεάν
+άδειά του λέει αυτούσια:
+
+> «You cannot use the free version to create websites for clients or charge for
+> your work.»
+
+Αυτό είναι ακριβώς το μοντέλο του Vitrina → **LICENSE_BLOCKED και για τις 22**.
+Η Pro License επιτρέπει ρητά δουλειά πελάτη και αφαίρεση credit. **Είναι
+εμπορική απόφαση, όχι τεχνική** — και ξεκλειδώνει ταυτόχρονα σχεδόν κάθε
+εκκρεμές vertical.
+
+Δεύτερη δεξαμενή: **Untree.co**, 24 vertical κατηγορίες, CC BY με **$19 ανά
+site** για αφαίρεση backlink. Σε συνδρομητικό προϊόν αυτό είναι $19 × N πελάτες.
+
+## Πού πραγματικά βρισκόμαστε
+
+| | |
+|---|---|
+| Μοναδικές πηγές που ερευνήθηκαν | **255** (226 ευρετήριο studios + 29 food) |
+| PORT_OK συνολικά | **8** |
+| Ανά vertical | food 2 · beauty 3 · medical 1 · fitness 1 · property 1 · trades 1 |
+| Απορρίψεις | 5 FIT_REJECT · 3 QUALITY_REJECT · 5 PROVENANCE_BLOCKED · 5 FIT (παλαιά) |
+| Redirects | Aviato → retail · Villa Agency → property |
+| Εκκρεμής οπτική κρίση | **23** αποτυπωμένα (βλ. `BATCH2-CLASSIFICATION.md`) |
+| LICENSE_REVIEW | Untree 24 κατηγορίες · Colorlib 6 λίστες · HTML5 UP · Styleshout |
+| LICENSE_BLOCKED | BootstrapMade — 22 κατηγορίες |
+| Χωρίς καμία πηγή | **pets/vet** (0 στα 226) |
+| Κόστος DeepSeek | ~$0,091 συνολικά |
+
 ## Εκκρεμείς αποφάσεις (καταγράφονται, δεν μπλοκάρουν)
 
 | Θέμα | Επιλογές |
@@ -138,5 +179,27 @@ vars παραπάνω. Αξίζει μόνιμη διόρθωση στο `.env`.
 Κόστος μέχρι στιγμής: **~$0,132** για τρία verticals (4 εκτελέσεις, μία απέτυχε
 σε transient JSON error και επαναλήφθηκε).
 
-**Πρώτη προτεραιότητα στη συνέχεια:** ξανατρέξιμο V1/V2 με το διορθωμένο κριτήριο,
-και υλοποίηση των τριών επαληθευμένων του V3 (Agen, Airspace, Bingo).
+## ➡️ NEXT_VERTICAL / NEXT_ACTION (για τον επόμενο agent)
+
+**NEXT_ACTION:** οπτική κρίση των **23 ήδη αποτυπωμένων** υποψηφίων. Δεν
+χρειάζεται ούτε κατέβασμα ούτε νέα απόδοση — οι εικόνες υπάρχουν:
+
+```
+sites/artifacts/fidelity/cand-<name>.jpg        (desktop 1440, fullPage)
+sites/artifacts/fidelity/cand-metrics.json      (ύψος, overflow, h1, cart, errors)
+sites/artifacts/cand-src/                       (πηγαίος κώδικας, ήδη αποσυμπιεσμένος)
+```
+
+Σειρά προτεραιότητας: **retail (6)** → **events (4)** → **tourism (5)** →
+**beauty (3)** → construction (2) → education, trades, music (1 έκαστο).
+
+**NEXT_VERTICAL μετά από αυτό:** pets/vet — **δεν υπάρχει καμία καθαρή πηγή**
+στα 226. Απαιτεί είτε νέο οικοσύστημα είτε την απόφαση για Untree/BootstrapMade.
+
+**Εργαλεία έτοιμα** (δεν ξαναγράφονται):
+`scripts/studio_index.py` → ευρετήριο · `studio_enrich.py` → περιγραφή+άδεια ·
+`studio_buckets.py` → κατανομή σε 19 οικογένειες · `fetch_candidates.py` →
+κατέβασμα+entry point · `sites/artifacts/shot-batch.mjs` → απόδοση 1440/390.
+
+⚠️ Το `shot-batch.mjs` **πρέπει** να εξουδετερώνει τα animations πριν από τη
+λήψη. Χωρίς αυτό οι ενότητες βγαίνουν κενές και ο υποψήφιος μοιάζει σπασμένος.
