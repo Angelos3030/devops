@@ -1,84 +1,69 @@
 {
  "source_id": "medic-care",
  "theme_key": "medic-care",
- "started_at": "2026-08-15T11:51:39+00:00",
+ "started_at": "2026-08-15T13:57:27+00:00",
  "original_render_status": "OK",
  "model": "deepseek-v4-pro",
+ "repair_attempts": [
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+  "build: spine_guard",
+  "build: spine_guard"
+ ],
  "guards": {
   "contract": [],
   "copy_leak": [],
   "media": []
  },
  "token_usage": {
-  "input": 27712,
-  "output": 25341
+  "input": 42845,
+  "output": 23377
  },
- "cost_usd": 0.0519,
+ "cost_usd": 0.0565,
  "files_changed": [
   "sites/lib/templates/MedicCare.jsx",
-  "sites/lib/templates/MedicCare.module.css",
   "sites/lib/templates/MedicCare.module.css"
  ],
  "deviations": [
   {
-   "what": "Αφαίρεση ενότητας μαρτυριών ασθενών (Our Patients)",
-   "why": "Δεν υπάρχουν πραγματικά δεδομένα μαρτυριών. Το SECTION_POLICY.testimonial είναι κενό."
+   "what": "Παράλειψη ενότητας «Our Patients» (μαρτυρίες",
+   "why": "Δεν υπάρχουν πραγματικά δεδομένα μαρτυριών στο intake· η πολιτική SECTION_POLICY.testimonial το απαγορεύει."
   },
   {
-   "what": "Αφαίρεση φόρμας ραντεβού",
-   "why": "Δεν υπάρχει ροή κράτησης στο backend."
+   "what": "Παράλειψη φόρμας ραντεβού (booking)",
+   "why": "Δεν υπάρχει ροή κράτησης στο Vitrina data contract."
   },
   {
-   "what": "Αφαίρεση μετρητή «12 Years of Experiences»",
-   "why": "Δεν τεκμηριώνεται από τα δεδομένα εισαγωγής."
+   "what": "Αφαίρεση στατιστικού «12 Years of Experiences»",
+   "why": "Μη τεκμηριωμένο στατιστικό· δεν επιτρέπεται η επινόηση αριθμών εμπειρίας."
   },
   {
-   "what": "Το κινούμενο κείμενο του ήρωα (animated-info) αντικαταστάθηκε με στατικό «Better {d.HERO_WORD}»",
-   "why": "Μόνο ένα πεδίο HERO_WORD διαθέσιμο· για να αποφευχθεί η επινόηση επιπλέον λέξεων, επιλέχθηκε στατική απόδοση."
+   "what": "Προσαρμογή εικόνων: χρήση d.gallery για όλες τις θέσεις εικόνων (hero slider, about, gallery) αντί για HERO_IMAGE/STORY_IMAGE",
+   "why": "Το contract υποδεικνύει ότι κάθε εικόνα πρέπει να συνδέεται με d.gallery[i].image."
   },
   {
-   "what": "Τα εικονίδια του timeline αντικαταστάθηκαν με τον αριθμό υπηρεσίας",
-   "why": "Δεν υπάρχουν εικονίδια στα δεδομένα· η χρήση του num είναι συνεπής."
+   "what": "Αφαιρέθηκε η ενότητα «Our Patients» με μαρτυρίες, καθώς η διαχείριση δεν έχει πραγματικά δεδομένα μαρτυριών.",
+   "why": "Το πεδίο testimonial είναι κενό (frozenset()). Δεν επινοούμε ψευδείς κριτικές."
   },
   {
-   "what": "Οι ημερομηνίες του timeline αντικαταστάθηκαν με «Βήμα {num}»",
-   "why": "Δεν υπάρχουν ημερομηνίες στα δεδομένα· χρησιμοποιείται ο αύξων αριθμός υπηρεσίας."
+   "what": "Αφαιρέθηκε η φόρμα ραντεβού («Book an appointment»).",
+   "why": "Δεν υπάρχει ροή κράτησης στο σύστημα. Η φόρμα θα ήταν ανενεργή και παραπλανητική."
   },
   {
-   "what": "Omitted \"Our Patients\" testimonials section",
-   "why": "Policy prohibits testimonials when no real data is available"
+   "what": "Αφαιρέθηκε ο μετρητής «12 Years of Experiences».",
+   "why": "Δεν υπάρχει τεκμηριωμένο έτος εμπειρίας στο intake. Ο αριθμός δεν πρέπει να εφευρεθεί."
   },
   {
-   "what": "Omitted \"Book an appointment\" form section",
-   "why": "No booking flow exists in the Vitrina data contract"
-  },
-  {
-   "what": "Omitted \"12 Years of Experiences\" counter",
-   "why": "No verified statistic provided in intake"
-  },
-  {
-   "what": "Original footer had structured opening hours list; rendered d.HOURS as plain text with pre-line",
-   "why": "Data contract only provides HOURS as a single string, not an array"
-  },
-  {
-   "what": "Original mobile navigation toggle not implemented; nav links hidden on small screens",
-   "why": "Server component without state or JavaScript"
+   "what": "Οι εικόνες του hero (3) και του gallery (2) αντλούνται από το d.gallery, με σειρά ευρετηρίου 0-2 για hero και 3-5 για gallery/about.",
+   "why": "Το συμβόλαιο δεδομένων ορίζει μόνο d.gallery ως πηγή εικόνων. Δεν χρησιμοποιούμε αρχεία του πρωτοτύπου."
   }
  ],
  "registered": true,
- "repair_attempts": [
-  "build: templateRegistry, spine_guard, next_build",
-  "JSX: Απόπειρα αλλαγής ξένου αρχείου: sites/lib/templates/index.js",
-  "JSX: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-  "build: templateRegistry, spine_guard, next_build"
- ],
  "tests_run": 4,
- "tests_passed": 1,
- "tests_failed": 3,
+ "tests_passed": 3,
+ "tests_failed": 1,
  "tests": {
   "templateRegistry": {
-   "passed": false
+   "passed": true
   },
   "spine_guard": {
    "passed": false
@@ -87,36 +72,66 @@
    "passed": true
   },
   "next_build": {
-   "passed": false
+   "passed": true
   }
  },
- "vitrina_render_status": "FAIL",
+ "vitrina_render_status": "OK",
  "vitrina_metrics": {
-  "fail": "δεν εκτελέστηκε (build απέτυχε)"
+  "tag": "vitrina",
+  "desktop": {
+   "height": 11252,
+   "overflow": 0,
+   "images": 6,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 12,
+   "innerOverflow": [],
+   "consoleErrors": 3,
+   "errorSamples": [
+    "Refused to apply style from 'http://127.0.0.1:3881/_next/static/css/c27cb1fbdb0b4e46.css' because its MIME type ('text/html') is not a supported stylesheet MIME",
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "Refused to execute script from 'http://127.0.0.1:3881/_next/static/chunks/132-c15c5d889079d3d6.js' because its MIME type ('text/html') is not executable, and st"
+   ]
+  },
+  "mobile": {
+   "height": 4512,
+   "overflow": 0,
+   "images": 6,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 12,
+   "innerOverflow": [],
+   "consoleErrors": 3,
+   "errorSamples": [
+    "Refused to apply style from 'http://127.0.0.1:3881/_next/static/css/c27cb1fbdb0b4e46.css' because its MIME type ('text/html') is not a supported stylesheet MIME",
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "Refused to execute script from 'http://127.0.0.1:3881/_next/static/chunks/132-c15c5d889079d3d6.js' because its MIME type ('text/html') is not executable, and st"
+   ]
+  }
  },
  "render": {
   "desktop": {
-   "overflow": null,
-   "innerOverflow": null,
-   "broken": null,
-   "images": null,
-   "h1": null,
-   "consoleErrors": null
+   "overflow": 0,
+   "innerOverflow": [],
+   "broken": 0,
+   "images": 6,
+   "h1": 1,
+   "consoleErrors": 3
   },
   "mobile": {
-   "overflow": null,
-   "innerOverflow": null,
-   "broken": null,
-   "images": null,
-   "h1": null,
-   "consoleErrors": null
+   "overflow": 0,
+   "innerOverflow": [],
+   "broken": 0,
+   "images": 6,
+   "h1": 1,
+   "consoleErrors": 3
   }
  },
  "render_problems": [
-  "desktop: δεν αποδόθηκε",
-  "mobile: δεν αποδόθηκε"
+  "desktop: 3 console errors",
+  "mobile: 3 console errors"
  ],
- "elapsed_seconds": 1322.8,
+ "elapsed_seconds": 891.0,
  "status": "FAILED",
  "original_metrics": {
   "tag": "original",
