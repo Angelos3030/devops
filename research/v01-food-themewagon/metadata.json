@@ -1,0 +1,19 @@
+{
+  "provider": "deepseek",
+  "pass1_model": "deepseek-v4-flash",
+  "pass2_model": "deepseek-v4-pro",
+  "input_tokens": 17161,
+  "output_tokens": 23843,
+  "total_tokens": 41004,
+  "estimated_cost_usd": 0.0443,
+  "started_at": "2026-08-15T04:35:19.226986+00:00",
+  "finished_at": "2026-08-15T04:40:20.984926+00:00",
+  "sources_analyzed": 1,
+  "pass1_candidates": 52,
+  "pass2_candidates": 12,
+  "pass2_evidence_fetched": 0,
+  "errors": [],
+  "duration_seconds": 301.8,
+  "interrupted": false,
+  "pass2_pending_count": 40
+}

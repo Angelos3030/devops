@@ -1,0 +1,246 @@
+{
+  "task_id": "v01-food-themewagon",
+  "note": "HIGH/MEDIUM in Pass 1 but not deep-analysed — over max_pass2_candidates budget, or cut short by an interrupt. Rerun with a higher --max-pass2 to analyse these too.",
+  "pending": [
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-foodfun",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-foodfun/"
+    },
+    {
+      "name": "free-responsive-bootstrap-4-html5-restaurant-website-template-tasteit",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-responsive-bootstrap-4-html5-restaurant-website-template-tasteit/"
+    },
+    {
+      "name": "free-responsive-bootstrap-4-html5-restaurant-website-template-grandcoffee",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-responsive-bootstrap-4-html5-restaurant-website-template-grandcoffee/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-food-restaurant-website-template-chocolux",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-food-restaurant-website-template-chocolux/"
+    },
+    {
+      "name": "free-responsive-bootstrap-4-html5-restaurant-website-template-allfood",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-responsive-bootstrap-4-html5-restaurant-website-template-allfood/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-green-special",
+      "relevance": "MEDIUM",
+      "reason": "Unclear/generic food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-green-special/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-responsive-restaurant-website-template-resta",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-responsive-restaurant-website-template-resta/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-kusina",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-kusina/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-dingo",
+      "relevance": "MEDIUM",
+      "reason": "Unclear/generic food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-dingo/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-responsive-restaurant-website-template-gourmet",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-responsive-restaurant-website-template-gourmet/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-responsive-restaurant-website-template-feliciano",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-responsive-restaurant-website-template-feliciano/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-foody",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-foody/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-buri",
+      "relevance": "MEDIUM",
+      "reason": "Unclear/generic food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-buri/"
+    },
+    {
+      "name": "free-html5-bootstrap-restaurant-website-template-the-grill",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-html5-bootstrap-restaurant-website-template-the-grill/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-eatery",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-eatery/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-appetizer",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-appetizer/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-steakshop",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-steakshop/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-thevenue",
+      "relevance": "MEDIUM",
+      "reason": "Unclear/generic food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-thevenue/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-foodbar",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-foodbar/"
+    },
+    {
+      "name": "free-bootstrap-4-html5-pizza-website-template-pizza",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-pizza-website-template-pizza/"
+    },
+    {
+      "name": "free-html5-responsive-restaurant-template",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-html5-responsive-restaurant-template/"
+    },
+    {
+      "name": "free-responsive-restaurant-template-2",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-responsive-restaurant-template-2/"
+    },
+    {
+      "name": "free-responsive-restaurant-template",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-responsive-restaurant-template/"
+    },
+    {
+      "name": "free-bootstrap-restaurant-website-template-eatery",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-restaurant-website-template-eatery/"
+    },
+    {
+      "name": "free-html5-restaurant-template-diner",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-html5-restaurant-template-diner/"
+    },
+    {
+      "name": "free-html5-food-restaurant-website-template-caviar",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-html5-food-restaurant-website-template-caviar/"
+    },
+    {
+      "name": "free-bootstrap-restaurant-template-food-funday",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-restaurant-template-food-funday/"
+    },
+    {
+      "name": "downlaod-free-food-restaurant-one-page-website-template-gusto",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/downlaod-free-food-restaurant-one-page-website-template-gusto/"
+    },
+    {
+      "name": "bootstrap-free-html-restaurant-website-template-touche",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/bootstrap-free-html-restaurant-website-template-touche/"
+    },
+    {
+      "name": "free-bootstrap-4-restaurant-website-html5-template-pato",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-restaurant-website-html5-template-pato/"
+    },
+    {
+      "name": "free-html5-restaurant-website-template-one-page",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-html5-restaurant-website-template-one-page/"
+    },
+    {
+      "name": "free-responsive-restaurant-website-template-osteriax",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-responsive-restaurant-website-template-osteriax/"
+    },
+    {
+      "name": "free-bootstrap-restaurant-website-template-foodque",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-restaurant-website-template-foodque/"
+    },
+    {
+      "name": "free-bootstrap-4-restaurant-template-taste",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-restaurant-template-taste/"
+    },
+    {
+      "name": "free-bootstrap-templates-restaurant-website-design-online-ordering",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-templates-restaurant-website-design-online-ordering/"
+    },
+    {
+      "name": "free-bootstrap-templates-food-restaurant-cafe-websites-design",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-templates-food-restaurant-cafe-websites-design/"
+    },
+    {
+      "name": "restaurant",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/restaurant/"
+    },
+    {
+      "name": "high-quality-food-restaurant-website-design-bootstrap-template-free-download",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/high-quality-food-restaurant-website-design-bootstrap-template-free-download/"
+    },
+    {
+      "name": "mammas-kitchen-free-responsive-html5-bootstrap-restaurant-template",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/mammas-kitchen-free-responsive-html5-bootstrap-restaurant-template/"
+    },
+    {
+      "name": "bootstrap-food-restaurant-website-template-free-download-2017",
+      "relevance": "HIGH",
+      "reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/bootstrap-food-restaurant-website-template-free-download-2017/"
+    }
+  ]
+}

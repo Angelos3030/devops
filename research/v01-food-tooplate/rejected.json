@@ -1,0 +1,95 @@
+{
+  "task_id": "v01-food-tooplate",
+  "rejected": [
+    {
+      "name": "Orbital 3D Carousel",
+      "relevance": "REJECT",
+      "reason": "3D interactive gallery template, wrong domain.",
+      "reference": "https://www.tooplate.com/view/2167-orbital"
+    },
+    {
+      "name": "Ivory Flow",
+      "relevance": "REJECT",
+      "reason": "Boutique e-commerce template, not food service.",
+      "reference": "https://www.tooplate.com/view/2166-ivory-flow"
+    },
+    {
+      "name": "Neon Carbon",
+      "relevance": "REJECT",
+      "reason": "Dashboard for tech startups, wrong domain.",
+      "reference": "https://www.tooplate.com/view/2165-neon-carbon"
+    },
+    {
+      "name": "Compass Travel",
+      "relevance": "REJECT",
+      "reason": "Travel and editorial template, wrong domain.",
+      "reference": "https://www.tooplate.com/view/2164-compass"
+    },
+    {
+      "name": "Spectrum",
+      "relevance": "REJECT",
+      "reason": "Fashion and concept store template, wrong domain.",
+      "reference": "https://www.tooplate.com/view/2163-spectrum"
+    },
+    {
+      "name": "Stackcraft",
+      "relevance": "REJECT",
+      "reason": "Developer portfolio template, wrong domain.",
+      "reference": "https://www.tooplate.com/view/2162-stackcraft"
+    },
+    {
+      "name": "Vora Bold Black",
+      "relevance": "REJECT",
+      "reason": "Design studio and agency template, wrong domain.",
+      "reference": "https://www.tooplate.com/view/2161-vora-bold"
+    },
+    {
+      "name": "Character",
+      "relevance": "REJECT",
+      "reason": "Generic one-page template, not restaurant-specific.",
+      "reference": "https://www.tooplate.com/view/2110-character"
+    },
+    {
+      "name": "Admin Dashboard",
+      "relevance": "REJECT",
+      "reason": "Admin backend template, not customer-facing food site.",
+      "reference": "https://www.tooplate.com/view/2108-dashboard"
+    },
+    {
+      "name": "New Spot One-page",
+      "relevance": "REJECT",
+      "reason": "Generic one-page layout, not restaurant-specific.",
+      "reference": "https://www.tooplate.com/view/2107-new-spot"
+    },
+    {
+      "name": "Soft Landing Page",
+      "relevance": "REJECT",
+      "reason": "Generic landing page, not food-service specific.",
+      "reference": "https://www.tooplate.com/view/2106-soft-landing"
+    },
+    {
+      "name": "Central Bootstrap 4",
+      "relevance": "REJECT",
+      "reason": "Generic multipurpose one-page, not restaurant-specific.",
+      "reference": "https://www.tooplate.com/view/2103-central"
+    },
+    {
+      "name": "Artist Minimal Page",
+      "relevance": "REJECT",
+      "reason": "Artist portfolio template, wrong domain.",
+      "reference": "https://www.tooplate.com/view/2100-artist"
+    },
+    {
+      "name": "Health Center",
+      "relevance": "REJECT",
+      "reason": "Health and medical template, wrong domain.",
+      "reference": "https://www.tooplate.com/view/2098-health"
+    },
+    {
+      "name": "Individual",
+      "relevance": "REJECT",
+      "reason": "Generic parallax template, not food-service specific.",
+      "reference": "https://www.tooplate.com/view/2096-individual"
+    }
+  ]
+}

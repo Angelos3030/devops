@@ -1,0 +1,138 @@
+{
+  "task_id": "v01-food-themewagon",
+  "objective": "Ξεχώρισε templates ΕΙΔΙΚΑ για εστιατόριο, καφετέρια, φούρνο ή food business. Δώσε ακριβές URL και όνομα.",
+  "findings": [
+    {
+      "name": "sarab",
+      "purpose": "Unclear/generic food business template; may not be specifically for restaurants, cafés, or bakeries.",
+      "why_relevant": "Candidate is flagged as MEDIUM relevance because it appears food-related but is not confirmed as a dedicated restaurant/café/bakery template. License is unknown from this source.",
+      "recommended_treatment": "STUDY ONLY",
+      "confidence": "Low",
+      "pass1_reason": "Unclear/generic food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/sarab/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "spicehaven",
+      "purpose": "Restaurant/food business template with sections for menu, hours, map, and booking.",
+      "why_relevant": "Specifically designed for food businesses and covers the core features required by Vitrina.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/spicehaven/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "restaurant-tailwind",
+      "purpose": "Restaurant/food business website template built with Tailwind CSS.",
+      "why_relevant": "Specifically targets restaurant, cafe, or food business niche.",
+      "recommended_treatment": "STUDY ONLY",
+      "confidence": "Medium",
+      "pass1_reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/restaurant-tailwind/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "lounge",
+      "purpose": "A template named 'lounge' from ThemeWagon, likely intended for a bar, restaurant, or lounge-type food business, but the exact niche is unclear from the name alone.",
+      "why_relevant": "The candidate is listed with MEDIUM relevance and described as an 'Unclear/generic food template'. It may be suitable for a restaurant or cafe with adaptation, but its specificity to food businesses is not clearly confirmed. Exact URL: https://themewagon.com/themes/lounge/",
+      "recommended_treatment": "REJECT",
+      "confidence": "Medium",
+      "pass1_reason": "Unclear/generic food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/lounge/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "yummy-red",
+      "purpose": "Restaurant/food business website template",
+      "why_relevant": "Specifically designed for restaurants and food businesses; includes sections for menu, gallery, and reservation/contact that align with Vitrina's required features (menu, hours, map, booking).",
+      "recommended_treatment": "ADAPT",
+      "confidence": "High",
+      "pass1_reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/yummy-red/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "coffo",
+      "purpose": "Restaurant/café template from ThemeWagon (URL: https://themewagon.com/themes/coffo/)",
+      "why_relevant": "Specifically designed for food/coffee business, matching the objective for restaurant/café templates.",
+      "recommended_treatment": "STUDY ONLY",
+      "confidence": "Medium",
+      "pass1_reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/coffo/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "restoran-free-responsive-bootstrap-5-restaurant-website-template",
+      "purpose": "Free responsive Bootstrap 5 template for restaurant and food business websites.",
+      "why_relevant": "Directly matches restaurant/food business domain and likely includes essential sections like menu, hours, and contact/map; can be adapted to include booking functionality.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "Medium",
+      "pass1_reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/restoran-free-responsive-bootstrap-5-restaurant-website-template/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "delfood-free-responsive-bootstrap-4-restaurant-website-template",
+      "purpose": "Free responsive Bootstrap 4 restaurant website template",
+      "why_relevant": "Specifically designed for restaurants/food businesses; includes typical sections like menu, gallery, and reservation.",
+      "recommended_treatment": "STUDY ONLY",
+      "confidence": "Medium",
+      "pass1_reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/delfood-free-responsive-bootstrap-4-restaurant-website-template/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-website-template-feane",
+      "purpose": "Bootstrap 4 HTML5 restaurant website template suitable for restaurants, cafes, and food businesses.",
+      "why_relevant": "Template is specifically designed for restaurant and food business websites, matching the objective's category.",
+      "recommended_treatment": "STUDY ONLY",
+      "confidence": "Medium",
+      "pass1_reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-feane/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "free-bootstrap-5-html5-restaurant-food-website-template-foodwagon",
+      "purpose": "Bootstrap 5 website template designed for restaurant and food businesses.",
+      "why_relevant": "Specifically targets restaurants/food businesses, aligning with the required category.",
+      "recommended_treatment": "ADAPT",
+      "confidence": "High",
+      "pass1_reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-5-html5-restaurant-food-website-template-foodwagon/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "free-bootstrap-4-html-5-restaurant-website-template-restaurantly",
+      "purpose": "Restaurant website template built with Bootstrap 4 and HTML5.",
+      "why_relevant": "Specifically designed for restaurant/food businesses, matching the requested category.",
+      "recommended_treatment": "STUDY ONLY",
+      "confidence": "Medium",
+      "pass1_reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html-5-restaurant-website-template-restaurantly/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    },
+    {
+      "name": "free-bootstrap-4-html5-restaurant-template-klassy-cafe",
+      "purpose": "Bootstrap 4 HTML5 template for restaurant/cafe websites.",
+      "why_relevant": "Specifically designed for food businesses, including sections for menu, opening hours, map, and booking.",
+      "recommended_treatment": "STUDY ONLY",
+      "confidence": "Medium",
+      "pass1_reason": "Restaurant/food template; license unknown from this source.",
+      "reference": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-template-klassy-cafe/",
+      "license": "LICENSE_UNVERIFIED",
+      "license_source": "No GitHub reference to verify against"
+    }
+  ]
+}

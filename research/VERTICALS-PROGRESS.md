@@ -10,8 +10,7 @@
 
 | # | Vertical | PORT_OK | Κατάσταση | Εξαιρέσεις | Ημ/νία |
 |---|---|---|---|---|---|
-| 1 | Restaurant / taverna | **0** | ✅ ταξινομήθηκε | 8 υποψήφιοι → 5 FIT_REJECT, 3 PROVENANCE_BLOCKED | 15/8 |
-| 2 | Cafe / bakery | **0** | ✅ ταξινομήθηκε | 9 υποψήφιοι → 5 FIT_REJECT, 4 PROVENANCE_BLOCKED· Aviato → V12 | 15/8 |
+| 1+2 | Restaurant / taverna / cafe / bakery | **2** | ✅ ταξινομήθηκε ξανά με vertical-specific πηγές | Γενική πηγή: 0/8. Νέες πηγές: **9 αποδόθηκαν → 2 PORT_OK** (Frost Bakery, Klassy Cafe), 3 QUALITY, 4 FIT· 12 ThemeWagon εν αναμονή προέλευσης | 15/8 |
 | 3 | Dentist / medical | **0** | ✅ ταξινομήθηκε | Agen/Airspace/Bingo MIT αλλά **FIT_REJECT**· 3 × repo 404 | 15/8 |
 | 4 | Pharmacy | — | ⏳ εκκρεμεί | — | — |
 | 5 | Gym / fitness | — | ⏳ εκκρεμεί | — | — |
@@ -24,7 +23,25 @@
 | 12 | Retail / local shop | — | ⏳ εκκρεμεί | — | — |
 | 13 | Farm / producer | — | ⏳ εκκρεμεί | — | — |
 
-**Σύνολο PORT_OK: 3** — και οι 24 υποψήφιοι των V1/V2/V3 ταξινομήθηκαν με **0 νέα PORT_OK**.
+**Σύνολο PORT_OK: 5** — οι 24 υποψήφιοι των V1/V2/V3 έδωσαν **0**· η επανεκκίνηση
+του V1+V2 με **vertical-specific πηγές** έδωσε **2**.
+
+## Ο κανόνας πηγών, μετρημένος
+
+| Πηγή για το ίδιο vertical | Υποψήφιοι | PORT_OK |
+|---|---|---|
+| Themefisher Bootstrap (γενικός κατάλογος) | 8 | **0** |
+| Templatemo + Tooplate (vertical-specific) | 9 | **2** |
+
+Η αλλαγή πηγής —όχι του φίλτρου— είναι που έδωσε αποτέλεσμα.
+Πλήρες: [`verticals/v01-restaurant-cafe-DISCOVERY.md`](verticals/v01-restaurant-cafe-DISCOVERY.md)
+
+## 🔑 Η άδεια «credit» έπαψε να είναι εμπόδιο εκεί
+
+**Tooplate:** «You may remove any credit link and you do not need to provide a
+link back to our website.» · **Templatemo:** «Yes, you can remove all credit
+links.» Και τα δύο επιτρέπουν ρητά εμπορική χρήση, ανά template. Καλύτερη θέση
+από κάθε CC BY studio — η εκκρεμής απόφαση παρακάτω **δεν αφορά αυτές τις πηγές**.
 
 **Σύνολο υλοποιημένων: 3** (`blue-onepage`, `billys-barber`,
 `thomson-stylist` — όλα στο vertical 6).
