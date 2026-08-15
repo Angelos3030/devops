@@ -13,22 +13,23 @@
 | 1+2 | Restaurant / taverna / cafe / bakery | **2** | ✅ ταξινομήθηκε ξανά με vertical-specific πηγές | Γενική πηγή: 0/8. Νέες πηγές: **9 αποδόθηκαν → 2 PORT_OK** (Frost Bakery, Klassy Cafe), 3 QUALITY, 4 FIT· 12 ThemeWagon εν αναμονή προέλευσης | 15/8 |
 | 3+4 | Medical / dentist / pharmacy | **1** | ✅ ταξινομήθηκε | Medic Care PORT_OK· Health FIT_REJECT (πολυϊατρείο). Καθαρές πηγές έχουν μόνο 2 | 15/8 |
 | 5 | Gym / fitness | **1** | ✅ ταξινομήθηκε | Gymso Fitness PORT_OK — εβδομαδιαίο πρόγραμμα σε πλέγμα | 15/8 |
-| 6 | Beauty / salon | **3** | ✅ ολοκληρωμένο | 9 × blocked (βλ. `salon-batch/`) | 13–14/8 |
-| 7 | Carpenter / maker | — | ⏳ 1 αποτυπωμένο | kool_form_pack (το moso_interior πήγε στο retail) | 15/8 |
-| 8 | Home trade / technician | **1** | ✅ ταξινομήθηκε | Clean Work PORT_OK — κάρτες με τιμή+διάρκεια· electric_xtra εκκρεμεί | 15/8 |
+| 6 | Beauty / salon | **4** | ✅ ολοκληρωμένο | +Barber Shop (τιμοκατάλογος με διάστικτες γραμμές)· 9 × blocked | 15/8 |
+| 7 | Carpenter / maker | **0** | ⚠️ **SOURCE_GAP** | kool_form_pack = σελίδα «under construction» → NOT_A_WEBSITE | 15/8 |
+| 8 | Home trade / technician | **1** | ✅ ταξινομήθηκε | Clean Work· electric_xtra = tech/SaaS παρά το όνομα → FIT_REJECT | 15/8 |
 | 9 | Lawyer / accountant / consultant | — | ⏸️ κορεσμός | 4 themes ήδη· καμία καθαρή vertical πηγή | — |
 | 10 | Hospitality / rooms | **0** | ⚠️ καθαρές πηγές: 0 | Το μόνο εύρημα ήταν μεσιτικό → V12. Δεξαμενή στο Untree (LICENSE_REVIEW) | 15/8 |
 | 11 | Garage / automotive | **0** | ✅ ταξινομήθηκε | Garage FIT_REJECT (αγορά αυτοκινήτων, όχι συνεργείο)· `motor` καλύπτει ήδη | 15/8 |
-| 12 | Retail / local shop | **1** | ⏳ 6 ακόμη εκκρεμούν | **Moso Interior PORT_OK** (redirect από construction): προϊόντα με τιμές, χωρίς καλάθι. Τα υπόλοιπα 6 έχουν καλάθι | 15/8 |
+| 12 | Retail / local shop | **1** | ✅ ταξινομήθηκε | Moso Interior· τα άλλα 5 = καλάθι/πλεονασμός, 1 αδήλωτο (video_catalog) | 15/8 |
 | 13 | Farm / producer | — | ⏳ εκκρεμεί | `terra` ήδη· καμία καθαρή vertical πηγή | — |
 | 14 | **Property / μεσιτικό** | **1** | ✅ νέο vertical | Villa Agency PORT_OK (redirect από hospitality) | 15/8 |
-| 15 | Events / wedding | — | ⏳ 4 αποτυπωμένα, εκκρεμεί οπτική κρίση | venue, leadership_event, wedding_lite, event_invitation | 15/8 |
-| 16 | Tourism / tours | — | ⏳ 5 αποτυπωμένα, εκκρεμεί οπτική κρίση | journey, woox_travel, adventure, flight, compass | 15/8 |
-| 17 | Education | — | ⏳ 1 αποτυπωμένο, εκκρεμεί οπτική κρίση | grad_school | 15/8 |
-| 18 | Music | — | ⏳ 1 αποτυπωμένο, εκκρεμεί οπτική κρίση | modern_musician | 15/8 |
-| 19 | **Pets / vet** | **0** | ⛔ καμία πηγή | Μηδέν υποψήφιοι στα 226 των καθαρών studios | 15/8 |
+| 15 | Events / wedding | **0** | ⚠️ **SOURCE_GAP** | Συνέδριο με εισιτήρια, πρόσκληση ζευγαριού, ευρετήριο, πρόσκληση εκδήλωσης | 15/8 |
+| 16 | Tourism / tours | **0** | ⚠️ **SOURCE_GAP** | Journey=μηχανή κρατήσεων, Adventure=agency, Flight=overflow 407px· Compass→content | 15/8 |
+| 17 | Education | **0** | ⚠️ **SOURCE_GAP** | Grad School = πλατφόρμα online μαθημάτων με countdown προσφοράς | 15/8 |
+| 18 | Music | — | ⏳ 1 αδήλωτο | modern_musician | 15/8 |
+| 19 | **Pets / vet** | **0** | ⚠️ **SOURCE_GAP** | Μηδέν υποψήφιοι στα 226 των καθαρών studios | 15/8 |
+| 20 | **Content / editorial** | **1** | ✅ νέο vertical | Compass (redirect από tourism) — απαιτεί πλούσιο intake | 15/8 |
 
-**Σύνολο PORT_OK: 9** σε 7 verticals. Οι 24 υποψήφιοι των V1/V2/V3 από **γενική**
+**Σύνολο PORT_OK: 12** σε 8 verticals. Οι 24 υποψήφιοι των V1/V2/V3 από **γενική**
 πηγή έδωσαν **0**· οι vertical-specific πηγές έδωσαν **6** σε δύο παρτίδες.
 
 ## Ο κανόνας πηγών, μετρημένος
@@ -135,11 +136,11 @@ site** για αφαίρεση backlink. Σε συνδρομητικό προϊ�
 | | |
 |---|---|
 | Μοναδικές πηγές που ερευνήθηκαν | **255** (226 ευρετήριο studios + 29 food) |
-| PORT_OK συνολικά | **9** |
-| Ανά vertical | food 2 · beauty 3 · medical 1 · fitness 1 · property 1 · trades 1 · retail 1 |
+| PORT_OK συνολικά | **12** (εκ των οποίων 3 ήδη υλοποιημένα) |
+| Ανά vertical | beauty 4 · food 2 · medical 1 · fitness 1 · property 1 · trades 1 · retail 1 · content 1 |
 | Απορρίψεις | 5 FIT_REJECT · 3 QUALITY_REJECT · 5 PROVENANCE_BLOCKED · 5 FIT (παλαιά) |
-| Redirects | Aviato → retail · Villa Agency → property · Moso Interior → retail |
-| Εκκρεμής οπτική κρίση | **22** αποτυπωμένα (βλ. `BATCH2-CLASSIFICATION.md`) |
+| Redirects | Aviato → retail · Villa Agency → property · Moso Interior → retail · Compass → content |
+| Εκκρεμής οπτική κρίση | **4** (woox_travel, beauty, modern_musician, video_catalog) |
 | LICENSE_REVIEW | Untree 24 κατηγορίες · Colorlib 6 λίστες · HTML5 UP · Styleshout |
 | LICENSE_BLOCKED | BootstrapMade — 22 κατηγορίες |
 | Χωρίς καμία πηγή | **pets/vet** (0 στα 226) |

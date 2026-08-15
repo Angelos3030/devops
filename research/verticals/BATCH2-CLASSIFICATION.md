@@ -71,3 +71,79 @@ viewport, και το `fullPage` screenshot γυρίζει στην κορυφή
 – Web Agency». Το studio το διαθέτει ως δικό του. Δεν επηρέασε την ταξινόμηση
 (απορρίφθηκε στην καταλληλότητα), αλλά αν κάποιο άλλο Tooplate template δείξει
 ξένη υπογραφή, χρειάζεται έλεγχος προέλευσης πριν από port.
+
+---
+
+# Οι 22 εκκρεμείς — ταξινομήθηκαν
+
+**Ημερομηνία:** 2026-08-15 · συνέχεια από το NEXT_ACTION.
+
+Έξι κρίθηκαν με **οπτικό έλεγχο**. Δώδεκα κρίθηκαν από το **αποδοσμένο
+περιεχόμενο και τις μετρικές** — όχι από αισθητική εκτίμηση: όταν η ίδια η
+σελίδα γράφει «our website is under construction» ή «Buy Tickets», η
+καταλληλότητα κρίνεται χωρίς να χρειάζεται γούστο. Τέσσερα παραμένουν αδήλωτα.
+
+## ✅ PORT_OK (2)
+
+| Υποψήφιος | Vertical | Γιατί |
+|---|---|---|
+| [Barber Shop](https://templatemo.com/tm-586-barber-shop) | beauty | Σταθερή πλαϊνή πλοήγηση, υπηρεσίες ως κάρτες εικόνας με τιμή, **τιμοκατάλογος με διάστικτες γραμμές** (δομή που λείπει), κάρτα «OPEN DAILY», υποκαταστήματα. Αφαιρούνται: «Get 32% Discount / Promo Code», «Hurry Up!», φόρμα κράτησης, οι δύο κουρείς |
+| [Compass](https://templatemo.com/tm-609-compass) | ↪️ **content/editorial** | Το καλύτερα σχεδιασμένο του batch: full-bleed hero με αριθμό τεύχους, drop caps, pull quotes σε πλάγια serif, αριθμημένα κεφάλαια με γεωγραφικά metadata, masonry «Field Notes». **Δεν** είναι tourism — δεν έχει εκδρομές, τιμές ή κρατήσεις |
+
+> ⚠️ **Προϋπόθεση για το Compass:** η ταυτότητά του **είναι** το μακρύ κείμενο.
+> Με φτωχό intake καταρρέει. Πρέπει να προτείνεται μόνο όταν υπάρχει πραγματικό
+> αφηγηματικό υλικό (οινοποιείο, αγροτουρισμός, boutique κατάλυμα, φωτογράφος).
+> Αυτό είναι περιορισμός αντιστοίχισης, όχι αναδιάταξη αρχιτεκτονικής.
+
+## ⛔ FIT_REJECT (12)
+
+| Υποψήφιος | Γιατί |
+|---|---|
+| **Grad School** | Πλατφόρμα online μαθημάτων: εγγραφή λογαριασμού και **αντίστροφη μέτρηση «win $326»** — ίδιο μοτίβο κατασκευασμένης πίεσης με το Sweet Bakery. `h1`=0 |
+| **Adventure** | Γενικό agency με όνομα «adventure»: «Social Media / Web Marketing», «Our Team», showcase με **γραφεία και laptops**. Ίδιο μοτίβο με Airspace/Bingo. `h1`=9 |
+| **Journey** | Το hero είναι **μηχανή διαθεσιμότητας** (προορισμός/δωμάτια/ενήλικες/παιδιά/check-in). Το Vitrina δεν έχει κρατήσεις· χωρίς αυτήν μένει διάταξη χρωματικών μπλοκ του 2016 |
+| **Electric Xtra** | Παρά το όνομα: «FUTURE IS NOW — next dimension of digital innovation». Tech/SaaS, όχι ηλεκτρολόγος. Μπήκε λάθος από τη λέξη «electric» |
+| **Venue** | «Popular / Most Visited / Blog Entries / Best Finder For You» — **κατάλογος-ευρετήριο**, όχι site επιχείρησης |
+| **Leadership Event** | Συνέδριο 2022 με ομιλητές, πρόγραμμα, τιμολόγηση και **Buy Tickets**. Δεν είναι ελληνική μικρή επιχείρηση |
+| **Wedding Lite** | «Bratt Jolie — We're getting married — RSVP». Πρόσκληση **του ζευγαριού**, όχι site wedding planner ή κτήματος |
+| **Glossy Touch** | Επίδειξη glass morphism, συνολικό ύψος **1569px** — μία οθόνη χωρίς δομή επιχείρησης |
+| **Sixteen Clothing** | «FLASH DEALS / LAST MINUTE DEALS» — e-commerce προσφορών με κατασκευασμένη πίεση. `h1`=0 |
+| **Zay Shop** | Αυτοπεριγράφεται «Zay eCommerce — Tiny and Perfect eCommerce Template». Καλάθι |
+| **Hexashop** | «Men's / Women's / Kid's … Purchase Now!» — πλήρες e-shop |
+| **Catalog-Z** | Γκαλερί φωτογραφιών με **«9.906 views»** ανά άλμπουμ — επινοημένες μετρήσεις· και δεν είναι retail |
+
+## ⛔ QUALITY_REJECT (2)
+
+| Υποψήφιος | Γιατί |
+|---|---|
+| **Little Fashion** | Επαγγελματικό αλλά **πλεονάζει με το Moso Interior** στο ίδιο vertical και δεν φέρνει δομή που λείπει. Ίδιο σκεπτικό με το 459 Pizza |
+| **Flight** | **Οριζόντια υπερχείλιση 407px στα 390** — σφάλμα στο υποχρεωτικό viewport, όχι θέμα γούστου. Επιπλέον `h1`=0 |
+
+## ⛔ NOT_A_WEBSITE (2)
+
+| Υποψήφιος | Γιατί |
+|---|---|
+| **Kool Form Pack** | «Notify me — our website is **under construction**» με αντίστροφη μέτρηση. Σελίδα αναμονής |
+| **Event Invitation** | «You're Invited — join us for an exceptional gathering». Πρόσκληση μίας εκδήλωσης |
+
+## ⏳ Αδήλωτα (4)
+
+**Δεν τα είδα, άρα δεν τα ταξινομώ.** Είναι αποτυπωμένα και τεχνικά καθαρά·
+μένει μόνο η οπτική κρίση:
+
+`woox_travel` (tourism) · `beauty` (beauty) · `modern_musician` (music) ·
+`video_catalog` (→ πιθανό redirect σε creative)
+
+## Αποτέλεσμα ανά vertical
+
+| Vertical | PORT_OK | Κατάσταση |
+|---|---|---|
+| Beauty | +1 (Barber Shop) | σύνολο **4** |
+| Content / editorial | +1 (Compass, redirect) | **νέο vertical** |
+| Education | 0 | ⚠️ **SOURCE_GAP** — ο μόνος υποψήφιος ήταν πλατφόρμα μαθημάτων |
+| Tourism | 0 | ⚠️ **SOURCE_GAP** — 4/5 απορρίφθηκαν, 1 αδήλωτο |
+| Events | 0 | ⚠️ **SOURCE_GAP** — και τα 4 ήταν συνέδριο, πρόσκληση ή ευρετήριο |
+| Retail | 0 νέα | Το Moso Interior παραμένει το μόνο· 6/6 τα υπόλοιπα με καλάθι ή πλεονασμό |
+| Trades | 0 νέα | Το Clean Work παραμένει το μόνο |
+| Carpenter | 0 | ⚠️ **SOURCE_GAP** — ο μόνος υποψήφιος ήταν σελίδα «under construction» |
+| Music | — | 1 αδήλωτο |
