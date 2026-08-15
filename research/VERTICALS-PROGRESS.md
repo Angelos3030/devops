@@ -11,7 +11,6 @@
 | # | Vertical | PORT_OK | Κατάσταση | Εξαιρέσεις | Ημ/νία |
 |---|---|---|---|---|---|
 | 1+2 | Restaurant / taverna / cafe / bakery | **2** | ✅ ταξινομήθηκε ξανά με vertical-specific πηγές | Γενική πηγή: 0/8. Νέες πηγές: **9 αποδόθηκαν → 2 PORT_OK** (Frost Bakery, Klassy Cafe), 3 QUALITY, 4 FIT· 12 ThemeWagon εν αναμονή προέλευσης | 15/8 |
-| 3 | Dentist / medical | **0** | ✅ ταξινομήθηκε | Agen/Airspace/Bingo MIT αλλά **FIT_REJECT**· 3 × repo 404 | 15/8 |
 | 3+4 | Medical / dentist / pharmacy | **1** | ✅ ταξινομήθηκε | Medic Care PORT_OK· Health FIT_REJECT (πολυϊατρείο). Καθαρές πηγές έχουν μόνο 2 | 15/8 |
 | 5 | Gym / fitness | **1** | ✅ ταξινομήθηκε | Gymso Fitness PORT_OK — εβδομαδιαίο πρόγραμμα σε πλέγμα | 15/8 |
 | 6 | Beauty / salon | **3** | ✅ ολοκληρωμένο | 9 × blocked (βλ. `salon-batch/`) | 13–14/8 |
@@ -29,8 +28,8 @@
 | 18 | Music | — | ⏳ 1 αποτυπωμένο, εκκρεμεί οπτική κρίση | modern_musician | 15/8 |
 | 19 | **Pets / vet** | **0** | ⛔ καμία πηγή | Μηδέν υποψήφιοι στα 226 των καθαρών studios | 15/8 |
 
-**Σύνολο PORT_OK: 5** — οι 24 υποψήφιοι των V1/V2/V3 έδωσαν **0**· η επανεκκίνηση
-του V1+V2 με **vertical-specific πηγές** έδωσε **2**.
+**Σύνολο PORT_OK: 9** σε 7 verticals. Οι 24 υποψήφιοι των V1/V2/V3 από **γενική**
+πηγή έδωσαν **0**· οι vertical-specific πηγές έδωσαν **6** σε δύο παρτίδες.
 
 ## Ο κανόνας πηγών, μετρημένος
 
@@ -49,8 +48,8 @@ link back to our website.» · **Templatemo:** «Yes, you can remove all credit
 links.» Και τα δύο επιτρέπουν ρητά εμπορική χρήση, ανά template. Καλύτερη θέση
 από κάθε CC BY studio — η εκκρεμής απόφαση παρακάτω **δεν αφορά αυτές τις πηγές**.
 
-**Σύνολο υλοποιημένων: 3** (`blue-onepage`, `billys-barber`,
-`thomson-stylist` — όλα στο vertical 6).
+**Σύνολο υλοποιημένων: 3** (`blue-onepage`, `billys-barber`, `thomson-stylist`).
+Τα 6 νέα PORT_OK **δεν** έχουν υλοποιηθεί — είναι έρευνα, όχι κώδικας.
 
 ---
 
