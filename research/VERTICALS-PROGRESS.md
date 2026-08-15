@@ -23,13 +23,13 @@
 | 13 | Farm / producer | — | ⏳ εκκρεμεί | `terra` ήδη· καμία καθαρή vertical πηγή | — |
 | 14 | **Property / μεσιτικό** | **1** | ✅ νέο vertical | Villa Agency PORT_OK (redirect από hospitality) | 15/8 |
 | 15 | Events / wedding | **0** | ⚠️ **SOURCE_GAP** | Συνέδριο με εισιτήρια, πρόσκληση ζευγαριού, ευρετήριο, πρόσκληση εκδήλωσης | 15/8 |
-| 16 | Tourism / tours | **0** | ⚠️ **SOURCE_GAP** | Journey=μηχανή κρατήσεων, Adventure=agency, Flight=overflow 407px· Compass→content | 15/8 |
+| 16 | Tourism / tours | **0** | ⚠️ **SOURCE_GAP** (κλειστό) | Journey=κρατήσεις, Adventure=agency, Flight=overflow 407px, WoOx=κατάλογος χωρών· Compass→content | 15/8 |
 | 17 | Education | **0** | ⚠️ **SOURCE_GAP** | Grad School = πλατφόρμα online μαθημάτων με countdown προσφοράς | 15/8 |
-| 18 | Music | — | ⏳ 1 αδήλωτο | modern_musician | 15/8 |
+| 18 | Music / creative solo | **1** | ✅ ταξινομήθηκε | **Modern Musician PORT_OK** — ενσωματωμένο audio player, δομή ανύπαρκτη στη συλλογή | 15/8 |
 | 19 | **Pets / vet** | **0** | ⚠️ **SOURCE_GAP** | Μηδέν υποψήφιοι στα 226 των καθαρών studios | 15/8 |
 | 20 | **Content / editorial** | **1** | ✅ νέο vertical | Compass (redirect από tourism) — απαιτεί πλούσιο intake | 15/8 |
 
-**Σύνολο PORT_OK: 12** σε 8 verticals. Οι 24 υποψήφιοι των V1/V2/V3 από **γενική**
+**Σύνολο PORT_OK: 13** σε 9 verticals. Οι 24 υποψήφιοι των V1/V2/V3 από **γενική**
 πηγή έδωσαν **0**· οι vertical-specific πηγές έδωσαν **6** σε δύο παρτίδες.
 
 ## Ο κανόνας πηγών, μετρημένος
@@ -136,11 +136,11 @@ site** για αφαίρεση backlink. Σε συνδρομητικό προϊ�
 | | |
 |---|---|
 | Μοναδικές πηγές που ερευνήθηκαν | **255** (226 ευρετήριο studios + 29 food) |
-| PORT_OK συνολικά | **12** (εκ των οποίων 3 ήδη υλοποιημένα) |
-| Ανά vertical | beauty 4 · food 2 · medical 1 · fitness 1 · property 1 · trades 1 · retail 1 · content 1 |
+| PORT_OK συνολικά | **13** (εκ των οποίων 3 ήδη υλοποιημένα) |
+| Ανά vertical | beauty 4 · food 2 · medical 1 · fitness 1 · property 1 · trades 1 · retail 1 · content 1 · music 1 |
 | Απορρίψεις | 5 FIT_REJECT · 3 QUALITY_REJECT · 5 PROVENANCE_BLOCKED · 5 FIT (παλαιά) |
 | Redirects | Aviato → retail · Villa Agency → property · Moso Interior → retail · Compass → content |
-| Εκκρεμής οπτική κρίση | **4** (woox_travel, beauty, modern_musician, video_catalog) |
+| Εκκρεμής οπτική κρίση | **2** (`beauty`, `video_catalog` — χαμηλής αξίας) |
 | LICENSE_REVIEW | Untree 24 κατηγορίες · Colorlib 6 λίστες · HTML5 UP · Styleshout |
 | LICENSE_BLOCKED | BootstrapMade — 22 κατηγορίες |
 | Χωρίς καμία πηγή | **pets/vet** (0 στα 226) |
@@ -198,8 +198,8 @@ BootstrapMade (22 κατηγορίες) και Untree (24 κατηγορίες) 
 **NEXT_ACTION:** ⛔ **ΔΕΝ είναι νέα έρευνα.** Οι καθαρές πηγές εξαντλήθηκαν.
 Το επόμενο βήμα είναι **απόφαση άδειας** (βλ. SOURCE-GAP-REGISTER). Μέχρι να
 ληφθεί, η μόνη υπολειπόμενη εργασία έρευνας είναι 4 αδήλωτοι υποψήφιοι:
-`woox_travel`, `beauty`, `modern_musician`, `video_catalog` — αποτυπωμένοι,
-απλώς δεν τους είδα.
+`beauty` και `video_catalog` — αποτυπωμένοι, χαμηλής αξίας (το beauty έχει ήδη 4
+PORT_OK, το video_catalog είναι πιθανό redirect σε creative).
 
 **ΟΥΡΑ ΜΕΤΑ ΤΗΝ ΑΠΟΦΑΣΗ** (με τη σειρά αξίας για ελληνικές ΜμΕ):
 1. pets/vet · 2. δικηγόρος/λογιστής · 3. ξενοδοχείο/δωμάτια · 4. συνεργείο ·

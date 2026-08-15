@@ -147,3 +147,12 @@ viewport, και το `fullPage` screenshot γυρίζει στην κορυφή
 | Trades | 0 νέα | Το Clean Work παραμένει το μόνο |
 | Carpenter | 0 | ⚠️ **SOURCE_GAP** — ο μόνος υποψήφιος ήταν σελίδα «under construction» |
 | Music | — | 1 αδήλωτο |
+
+## Συμπλήρωμα — τα δύο τελευταία κρίσιμα
+
+| Υποψήφιος | Ταξινόμηση | Γιατί |
+|---|---|---|
+| [Modern Musician](https://www.tooplate.com/view/2160-modern-musician) | ✅ **PORT_OK** (music / creative solo) | **Ενσωματωμένο audio player με κάρτα «Now Playing»** — καμία από τις 56 δεν έχει ήχο. Serif τυπογραφία, «How I can help» σε τρεις κάρτες, «Featured work» με ετικέτες τύπου. Αφαιρούνται: μαρτυρίες, newsletter, «over a decade of experience» |
+| [WoOx Travel](https://templatemo.com/tm-570-woox-travel) | ⛔ **FIT_REJECT** | Κατάλογος **χωρών** με στατιστικά πληθυσμού/έκτασης/μέσης τιμής και ροή κράτησης. Ένα ελληνικό γραφείο εκδρομών πουλάει εμπειρίες, όχι προορισμούς με δημογραφικά |
+
+**Απομένουν αδήλωτα 2:** `beauty`, `video_catalog` — χαμηλής αξίας.
