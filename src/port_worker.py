@@ -37,6 +37,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.research_worker import DeepSeekResearchWorker, ResearchWorkerError  # noqa: E402
 from src.vitrina_contract import as_prompt, extract  # noqa: E402
 from src.port_guards import run_all, summarize  # noqa: E402
+from src.preview_server import PreviewServer, PreviewServerError  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE = ROOT / "research" / "port-worker" / "queue.json"
@@ -322,6 +323,25 @@ def _run(cmd: list[str], cwd: Path, timeout: int = 600,
 
 
 # ------------------------------------------------------------------ ροή
+def _actionable(name: str, log: str) -> str:
+    """Μόνο οι γραμμές που λένε ΤΙ να διορθωθεί.
+
+    Το spine_guard τυπώνει ~250 γραμμές, από τις οποίες μία είναι η παράβαση.
+    Στο 4ο proof το μοντέλο πήρε 900 χαρακτήρες ουράς — δηλαδή τα ✓ του τέλους —
+    και δεν είδε ποτέ το `✗ MedicCare: accent-ink/surface 1.00<4.5`. Τρεις
+    επιδιορθώσεις χάθηκαν σε θόρυβο, όχι σε δυσκολία.
+    """
+    lines = log.splitlines()
+    hits = [l.strip() for l in lines
+            if "✗" in l or "Syntax error" in l or "Module not found" in l
+            or "AssertionError" in l or "Failed to compile" in l
+            or "αντίθεση" in l or "παραβάσ" in l]
+    if not hits:
+        hits = [l.strip() for l in lines if l.strip()][-12:]
+    body = "\n".join(dict.fromkeys(hits))[:1200]
+    return f"--- {name} ΑΠΕΤΥΧΕ ---\n{body}"
+
+
 def port_source(source_id: str) -> dict[str, Any]:
     q = _load_queue()
     rec = q["sources"].get(source_id)
@@ -461,7 +481,7 @@ def port_source(source_id: str) -> dict[str, Any]:
                           ("spine_guard", ["node", "tests/spine_guard.mjs"]),
                           ("trust_guard", ["node", "tests/trust_guard.mjs"])):
             ok, log = _run(cmd, SITES, timeout=240)
-            out_tests[name] = {"passed": ok, "log": log[-900:]}
+            out_tests[name] = {"passed": ok, "log": log}
         # Δικό μας NEXT_DIST_DIR: δύο agents δεν μοιράζονται .next (CLAUDE.md).
         bok, blog = _run(["npx", "next", "build"], SITES, timeout=900,
                          env=dict(os.environ, NEXT_DIST_DIR=".next-port"))
@@ -480,7 +500,7 @@ def port_source(source_id: str) -> dict[str, Any]:
         failed = {k: v for k, v in tests.items() if not v["passed"]}
         if not failed:
             break
-        report = "\n\n".join(f"--- {k} ΑΠΕΤΥΧΕ ---\n{v['log'][-900:]}" for k, v in failed.items())
+        report = '\n\n'.join(_actionable(k, v["log"]) for k, v in failed.items())
         res.setdefault("repair_attempts", []).append("build: " + ", ".join(failed))
         _generate(report)
         if not files:
@@ -506,29 +526,17 @@ def port_source(source_id: str) -> dict[str, Any]:
     # READY_FOR_REVIEW χωρίς να έχει δει ποτέ τη δική του σελίδα.
     vit: dict[str, Any] = {"fail": "δεν εκτελέστηκε (build απέτυχε)"}
     if tests.get("next_build", {}).get("passed"):
-        srv = subprocess.Popen(
-            [shutil.which("npx") or "npx", "next", "start", "-p", str(PREVIEW_PORT)],
-            cwd=SITES, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-            env=dict(os.environ, NEXT_DIST_DIR=".next-port"),
-        )
         try:
-            for _ in range(40):
-                time.sleep(1)
-                try:
-                    import urllib.request
-                    urllib.request.urlopen(
-                        f"http://127.0.0.1:{PREVIEW_PORT}/preview/{rec['theme_key']}", timeout=3)
-                    break
-                except Exception:  # noqa: BLE001
-                    continue
-            vit = _render(f"http://127.0.0.1:{PREVIEW_PORT}",
-                          f"preview/{rec['theme_key']}", "vitrina", out)
-        finally:
-            srv.terminate()
-            try:
-                srv.wait(timeout=15)
-            except subprocess.TimeoutExpired:
-                srv.kill()
+            with PreviewServer(SITES, PREVIEW_PORT) as srv:
+                res["preview_server"] = {"pid": srv.proc.pid if srv.proc else None,
+                                         "port": PREVIEW_PORT, "reclaimed": srv.reclaimed}
+                if srv.wait_ready(f"preview/{rec['theme_key']}"):
+                    vit = _render(f"http://127.0.0.1:{PREVIEW_PORT}",
+                                  f"preview/{rec['theme_key']}", "vitrina", out)
+                else:
+                    vit = {"fail": "ο preview server δεν απάντησε 200 εντός ορίου"}
+        except PreviewServerError as exc:
+            vit = {"fail": str(exc)}
 
     res["vitrina_render_status"] = "FAIL" if "fail" in vit else "OK"
     res["vitrina_metrics"] = vit

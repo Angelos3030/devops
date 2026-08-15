@@ -1,33 +1,28 @@
 {
  "tag": "vitrina",
  "desktop": {
-  "height": 11252,
+  "height": 3362,
   "overflow": 0,
-  "images": 6,
+  "images": 5,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 12,
-  "innerOverflow": [],
-  "consoleErrors": 3,
-  "errorSamples": [
-   "Refused to apply style from 'http://127.0.0.1:3881/_next/static/css/c27cb1fbdb0b4e46.css' because its MIME type ('text/html') is not a supported stylesheet MIME",
-   "Failed to load resource: the server responded with a status of 400 (Bad Request)",
-   "Refused to execute script from 'http://127.0.0.1:3881/_next/static/chunks/132-c15c5d889079d3d6.js' because its MIME type ('text/html') is not executable, and st"
-  ]
+  "smallTaps": 7,
+  "innerOverflow": [
+   "div.MedicCare_timelineContent__TUglT +10px",
+   "div.MedicCare_timelineContent__TUglT +10px"
+  ],
+  "consoleErrors": 0,
+  "errorSamples": []
  },
  "mobile": {
-  "height": 4512,
+  "height": 4860,
   "overflow": 0,
-  "images": 6,
+  "images": 5,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 12,
+  "smallTaps": 7,
   "innerOverflow": [],
-  "consoleErrors": 3,
-  "errorSamples": [
-   "Refused to apply style from 'http://127.0.0.1:3881/_next/static/css/c27cb1fbdb0b4e46.css' because its MIME type ('text/html') is not a supported stylesheet MIME",
-   "Failed to load resource: the server responded with a status of 400 (Bad Request)",
-   "Refused to execute script from 'http://127.0.0.1:3881/_next/static/chunks/132-c15c5d889079d3d6.js' because its MIME type ('text/html') is not executable, and st"
-  ]
+  "consoleErrors": 0,
+  "errorSamples": []
  }
 }

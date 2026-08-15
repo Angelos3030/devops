@@ -1,63 +1,75 @@
 {
  "source_id": "medic-care",
  "theme_key": "medic-care",
- "started_at": "2026-08-15T13:57:27+00:00",
+ "started_at": "2026-08-15T14:27:30+00:00",
  "original_render_status": "OK",
  "model": "deepseek-v4-pro",
- "repair_attempts": [
-  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-  "build: spine_guard",
-  "build: spine_guard"
- ],
  "guards": {
   "contract": [],
   "copy_leak": [],
   "media": []
  },
  "token_usage": {
-  "input": 42845,
-  "output": 23377
+  "input": 28067,
+  "output": 21167
  },
- "cost_usd": 0.0565,
+ "cost_usd": 0.0458,
  "files_changed": [
   "sites/lib/templates/MedicCare.jsx",
   "sites/lib/templates/MedicCare.module.css"
  ],
  "deviations": [
   {
-   "what": "Παράλειψη ενότητας «Our Patients» (μαρτυρίες",
-   "why": "Δεν υπάρχουν πραγματικά δεδομένα μαρτυριών στο intake· η πολιτική SECTION_POLICY.testimonial το απαγορεύει."
+   "what": "Αφαιρέθηκε το section 'Our Patients' (testimonials)",
+   "why": "Η πολιτική SECTION_POLICY.testimonial είναι frozenset() και δεν υπάρχουν δεδομένα για μαρτυρίες στο intake."
   },
   {
-   "what": "Παράλειψη φόρμας ραντεβού (booking)",
-   "why": "Δεν υπάρχει ροή κράτησης στο Vitrina data contract."
+   "what": "Αφαιρέθηκε το section 'Book an appointment' (φόρμα ραντεβού)",
+   "why": "Δεν υπάρχει ροή κράτησης στο συμβόλαιο δεδομένων· η φόρμα απαιτεί backend/ροή που δεν παρέχεται."
   },
   {
-   "what": "Αφαίρεση στατιστικού «12 Years of Experiences»",
-   "why": "Μη τεκμηριωμένο στατιστικό· δεν επιτρέπεται η επινόηση αριθμών εμπειρίας."
+   "what": "Αφαιρέθηκε ο κύκλος '12 Years of Experiences' στο about section",
+   "why": "Ο μετρητής ετών εμπειρίας δεν τεκμηριώνεται στο intake και ανήκει σε στατιστικά που απαγορεύονται."
   },
   {
-   "what": "Προσαρμογή εικόνων: χρήση d.gallery για όλες τις θέσεις εικόνων (hero slider, about, gallery) αντί για HERO_IMAGE/STORY_IMAGE",
-   "why": "Το contract υποδεικνύει ότι κάθε εικόνα πρέπει να συνδέεται με d.gallery[i].image."
+   "what": "Το timeline section μετατράπηκε σε 'Υπηρεσίες' για να αξιοποιήσει τα δεδομένα d.services",
+   "why": "Το πρωτότυπο timeline περιείχε βήματα/υπηρεσίες· η δομή εναλλασσόμενων καρτών ταιριάζει με την παρουσίαση υπηρεσιών (title, desc, duration, price)."
   },
   {
-   "what": "Αφαιρέθηκε η ενότητα «Our Patients» με μαρτυρίες, καθώς η διαχείριση δεν έχει πραγματικά δεδομένα μαρτυριών.",
-   "why": "Το πεδίο testimonial είναι κενό (frozenset()). Δεν επινοούμε ψευδείς κριτικές."
+   "what": "Τα εικονίδια του timeline αντικαταστάθηκαν από απλούς κύκλους με τελεία",
+   "why": "Δεν υπάρχουν διαθέσιμα εικονίδια στο data contract· χρησιμοποιήθηκε απλός οπτικός δείκτης για διατήρηση της διάταξης χωρίς εξωτερικά assets."
   },
   {
-   "what": "Αφαιρέθηκε η φόρμα ραντεβού («Book an appointment»).",
-   "why": "Δεν υπάρχει ροή κράτησης στο σύστημα. Η φόρμα θα ήταν ανενεργή και παραπλανητική."
+   "what": "Το hero carousel απλοποιήθηκε σε στατική εικόνα (χρησιμοποιεί d.gallery[0])",
+   "why": "Το data contract παρέχει HERO_IMAGE ως string, αλλά ο κανόνας απαιτεί χρήση d.gallery για εικόνες· η στατική εικόνα διατηρεί την οπτική ταυτότητα χωρίς JavaScript carousel."
   },
   {
-   "what": "Αφαιρέθηκε ο μετρητής «12 Years of Experiences».",
-   "why": "Δεν υπάρχει τεκμηριωμένο έτος εμπειρίας στο intake. Ο αριθμός δεν πρέπει να εφευρεθεί."
+   "what": "Αφαιρέθηκε η ενότητα 'Our Patients' (μαρτυρίες) επειδή το πεδίο δεδομένων testimonial είναι κενό σύμφωνα με το SECTION_POLICY.",
+   "why": "Απαγορεύεται η επινόηση μαρτυριών, ονομάτων ασθενών ή βαθμολογιών."
   },
   {
-   "what": "Οι εικόνες του hero (3) και του gallery (2) αντλούνται από το d.gallery, με σειρά ευρετηρίου 0-2 για hero και 3-5 για gallery/about.",
-   "why": "Το συμβόλαιο δεδομένων ορίζει μόνο d.gallery ως πηγή εικόνων. Δεν χρησιμοποιούμε αρχεία του πρωτοτύπου."
+   "what": "Αφαιρέθηκε η φόρμα ραντεβού (booking form).",
+   "why": "Δεν υπάρχει ροή κράτησης στο intake· η φόρμα θα ήταν μη λειτουργική παραπλανητική."
+  },
+  {
+   "what": "Αφαιρέθηκε το στατιστικό '12 Years of Experiences'.",
+   "why": "Δεν τεκμηριώνεται από τα δεδομένα εισόδου· δεν επινοούμε αριθμούς ή διαπιστευτήρια."
+  },
+  {
+   "what": "Οι slide του hero αντικαταστάθηκαν από μία εικόνα (την πρώτη του d.gallery) επειδή το d.gallery είναι μία απλή λίστα χωρίς ξεχωριστό πεδίο slider.",
+   "why": "Τα δεδομένα προέρχονται από το d.gallery και ο συμβολισμός του carousel δεν μπορεί να αναπαραχθεί χωρίς πολλαπλά πεδία εικόνων στο συμβόλαιο."
+  },
+  {
+   "what": "Το κείμενο του animated hero (health/days/lives) έγινε στατικό με μία λέξη (d.HERO_WORD).",
+   "why": "Το συμβόλαιο παρέχει μόνο ένα string πεδίο HERO_WORD, όχι πίνακα λέξεων για εναλλαγή."
   }
  ],
  "registered": true,
+ "repair_attempts": [
+  "build: spine_guard",
+  "build: spine_guard",
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine"
+ ],
  "tests_run": 4,
  "tests_passed": 3,
  "tests_failed": 1,
@@ -75,63 +87,69 @@
    "passed": true
   }
  },
+ "preview_server": {
+  "pid": 1504,
+  "port": 3881,
+  "reclaimed": {
+   "found": [],
+   "killed": [],
+   "skipped": []
+  }
+ },
  "vitrina_render_status": "OK",
  "vitrina_metrics": {
   "tag": "vitrina",
   "desktop": {
-   "height": 11252,
+   "height": 3362,
    "overflow": 0,
-   "images": 6,
+   "images": 5,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 12,
-   "innerOverflow": [],
-   "consoleErrors": 3,
-   "errorSamples": [
-    "Refused to apply style from 'http://127.0.0.1:3881/_next/static/css/c27cb1fbdb0b4e46.css' because its MIME type ('text/html') is not a supported stylesheet MIME",
-    "Failed to load resource: the server responded with a status of 400 (Bad Request)",
-    "Refused to execute script from 'http://127.0.0.1:3881/_next/static/chunks/132-c15c5d889079d3d6.js' because its MIME type ('text/html') is not executable, and st"
-   ]
+   "smallTaps": 7,
+   "innerOverflow": [
+    "div.MedicCare_timelineContent__TUglT +10px",
+    "div.MedicCare_timelineContent__TUglT +10px"
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
   },
   "mobile": {
-   "height": 4512,
+   "height": 4860,
    "overflow": 0,
-   "images": 6,
+   "images": 5,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 12,
+   "smallTaps": 7,
    "innerOverflow": [],
-   "consoleErrors": 3,
-   "errorSamples": [
-    "Refused to apply style from 'http://127.0.0.1:3881/_next/static/css/c27cb1fbdb0b4e46.css' because its MIME type ('text/html') is not a supported stylesheet MIME",
-    "Failed to load resource: the server responded with a status of 400 (Bad Request)",
-    "Refused to execute script from 'http://127.0.0.1:3881/_next/static/chunks/132-c15c5d889079d3d6.js' because its MIME type ('text/html') is not executable, and st"
-   ]
+   "consoleErrors": 0,
+   "errorSamples": []
   }
  },
  "render": {
   "desktop": {
    "overflow": 0,
-   "innerOverflow": [],
+   "innerOverflow": [
+    "div.MedicCare_timelineContent__TUglT +10px",
+    "div.MedicCare_timelineContent__TUglT +10px"
+   ],
    "broken": 0,
-   "images": 6,
+   "images": 5,
    "h1": 1,
-   "consoleErrors": 3
+   "consoleErrors": 0
   },
   "mobile": {
    "overflow": 0,
    "innerOverflow": [],
    "broken": 0,
-   "images": 6,
+   "images": 5,
    "h1": 1,
-   "consoleErrors": 3
+   "consoleErrors": 0
   }
  },
  "render_problems": [
-  "desktop: 3 console errors",
-  "mobile: 3 console errors"
+  "desktop: εσωτερική υπερχείλιση — div.MedicCare_timelineContent__TUglT +10px, div.MedicCare_timelineContent__TUglT +10px"
  ],
- "elapsed_seconds": 891.0,
+ "elapsed_seconds": 917.4,
  "status": "FAILED",
  "original_metrics": {
   "tag": "original",
