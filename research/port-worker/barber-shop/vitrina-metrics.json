@@ -1,0 +1,33 @@
+{
+ "tag": "vitrina",
+ "desktop": {
+  "height": 5158,
+  "overflow": 0,
+  "images": 6,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 4,
+  "duplicateHeadings": [],
+  "innerOverflow": [
+   "section.BarberSidebar_hero__xio0_ +60px",
+   "div.BarberSidebar_priceListImageWrap___5FFB +13px"
+  ],
+  "consoleErrors": 0,
+  "errorSamples": []
+ },
+ "mobile": {
+  "height": 5693,
+  "overflow": 0,
+  "images": 6,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 4,
+  "duplicateHeadings": [],
+  "innerOverflow": [
+   "div.BarberSidebar_priceListImageWrap___5FFB +14px",
+   "div.BarberSidebar_contactBlockWrap__fR4Jk +10px"
+  ],
+  "consoleErrors": 0,
+  "errorSamples": []
+ }
+}

@@ -1,0 +1,472 @@
+{
+ "source_id": "barber-shop",
+ "theme_key": "barber-shop",
+ "started_at": "2026-08-16T18:08:33+00:00",
+ "original_render_status": "OK",
+ "model": "deepseek-v4-pro",
+ "generation_steps": [
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  }
+ ],
+ "guards": {
+  "contract": [],
+  "copy_leak": [],
+  "media": []
+ },
+ "token_usage": {
+  "input": 25153,
+  "output": 24362
+ },
+ "cost_usd": 0.0491,
+ "demo_business": "salon",
+ "files_changed": [
+  "sites/lib/templates/BarberSidebar.jsx",
+  "sites/lib/templates/BarberSidebar.module.css"
+ ],
+ "deviations": [
+  {
+   "what": "Αφαίρεση ενότητας 'Get 32% Discount' + promo code",
+   "why": "Δεν υπάρχει μοντέλο προσφορών στο Vitrina – η επινόηση εκπτώσεων απαγορεύεται."
+  },
+  {
+   "what": "Αφαίρεση φόρμας κράτησης (booking form)",
+   "why": "Δεν υπάρχει ροή κράτησης – το προϊόν δεν υποστηρίζει φόρμες."
+  },
+  {
+   "what": "Αφαίρεση των δύο κουρέων (team members)",
+   "why": "Το team δέχεται μόνο REAL_OWNER_PERSON – δεν υπάρχουν αληθινά δεδομένα για τους κουρείς."
+  },
+  {
+   "what": "Προσαρμογή υποκαταστημάτων σε περιοχές εξυπηρέτησης",
+   "why": "Δεν υπάρχουν πολλαπλά σημεία – το d.AREAS περιέχει λίστα περιοχών ως συμβολοσειρά."
+  },
+  {
+   "what": "Hero circular card: αφαίρεση κουμπιού κράτησης, αντικατάσταση με σύνδεσμο επικοινωνίας",
+   "why": "Χωρίς φόρμα κράτησης, οδηγούμε τον χρήστη στην ενότητα επικοινωνίας."
+  },
+  {
+   "what": "Αφαιρέθηκαν οι ενότητες: «Meet Babers» (δύο κουρείς), «Get 32% Discount» με promo code, φόρμα κράτησης και υποκαταστήματα.",
+   "why": "Δεν υπάρχουν αντίστοιχα δεδομένα στο Vitrina contract και η δημιουργία εικονικών δεδομένων απαγορεύεται ρητά. Η φόρμα κράτησης δεν υποστηρίζεται από το προϊόν."
+  },
+  {
+   "what": "Η ενότητα υποκαταστημάτων μετατράπηκε σε περιοχές εξυπηρέτησης (d.AREAS) με fallback σε πόλη/ταχυδρομικό κώδικα.",
+   "why": "Το Vitrina περιέχει μόνο AREAS string, όχι πολλαπλά σημεία."
+  },
+  {
+   "what": "Η hero background image δεν μπορεί να οριστεί δυναμικά μέσω CSS Modules χωρίς inline style, οπότε χρησιμοποιείται gradient overlay σε σκούρο φόντο.",
+   "why": "Περιορισμός του React Server Component χωρίς hooks/inline style."
+  }
+ ],
+ "registered": true,
+ "preview_server": {
+  "pid": 8864,
+  "port": 3881,
+  "reclaimed": {
+   "found": [],
+   "killed": [],
+   "skipped": []
+  }
+ },
+ "repair_attempts": [
+  "build: spine_guard · render",
+  " · render",
+  " · render",
+  " · render"
+ ],
+ "contrast_repair": [
+  {
+   "token": "ink-soft",
+   "from": "#717275",
+   "was": 4.48,
+   "required": 4.5,
+   "method": "deterministic-hsl",
+   "model_tokens": 0,
+   "to": "#707174",
+   "now": 4.55,
+   "hue_before": 225,
+   "hue_after": 225,
+   "outcome": "APPLIED",
+   "error": ""
+  }
+ ],
+ "repair_ledger": [
+  {
+   "ATTEMPT": 1,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 2,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 2,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 2,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 2,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": ""
+  },
+  {
+   "ATTEMPT": 2,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 2,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 2,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 1,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 3,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [
+    "MOBILE: inner 2 -> 3",
+    "GUARD spine_guard: πέρναγε -> αποτυγχάνει"
+   ],
+   "DECISION": "REJECTED",
+   "ROLLBACK_SUCCESS": true,
+   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
+  },
+  {
+   "ATTEMPT": 3,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 2,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 2,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [
+    "GUARD spine_guard: πέρναγε -> αποτυγχάνει"
+   ],
+   "DECISION": "REJECTED",
+   "ROLLBACK_SUCCESS": true,
+   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
+  },
+  {
+   "ATTEMPT": 4,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 2,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 2,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 1,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [
+    "GUARD spine_guard: πέρναγε -> αποτυγχάνει"
+   ],
+   "DECISION": "REJECTED",
+   "ROLLBACK_SUCCESS": true,
+   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
+  }
+ ],
+ "tests_run": 4,
+ "tests_passed": 4,
+ "tests_failed": 0,
+ "tests": {
+  "templateRegistry": {
+   "passed": true
+  },
+  "spine_guard": {
+   "passed": true
+  },
+  "trust_guard": {
+   "passed": true
+  },
+  "next_build": {
+   "passed": true
+  }
+ },
+ "rollback_final": true,
+ "vitrina_render_status": "OK",
+ "vitrina_metrics": {
+  "tag": "vitrina",
+  "desktop": {
+   "height": 5158,
+   "overflow": 0,
+   "images": 6,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 4,
+   "duplicateHeadings": [],
+   "innerOverflow": [
+    "section.BarberSidebar_hero__xio0_ +60px",
+    "div.BarberSidebar_priceListImageWrap___5FFB +13px"
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
+  },
+  "mobile": {
+   "height": 5693,
+   "overflow": 0,
+   "images": 6,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 4,
+   "duplicateHeadings": [],
+   "innerOverflow": [
+    "div.BarberSidebar_priceListImageWrap___5FFB +14px",
+    "div.BarberSidebar_contactBlockWrap__fR4Jk +10px"
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
+  }
+ },
+ "render": {
+  "desktop": {
+   "overflow": 0,
+   "innerOverflow": [
+    "section.BarberSidebar_hero__xio0_ +60px",
+    "div.BarberSidebar_priceListImageWrap___5FFB +13px"
+   ],
+   "broken": 0,
+   "images": 6,
+   "h1": 1,
+   "consoleErrors": 0
+  },
+  "mobile": {
+   "overflow": 0,
+   "innerOverflow": [
+    "div.BarberSidebar_priceListImageWrap___5FFB +14px",
+    "div.BarberSidebar_contactBlockWrap__fR4Jk +10px"
+   ],
+   "broken": 0,
+   "images": 6,
+   "h1": 1,
+   "consoleErrors": 0
+  }
+ },
+ "render_problems": [
+  "desktop: εσωτερική υπερχείλιση — section.BarberSidebar_hero__xio0_ +60px, div.BarberSidebar_priceListImageWrap___5FFB +13px",
+  "mobile: εσωτερική υπερχείλιση — div.BarberSidebar_priceListImageWrap___5FFB +14px, div.BarberSidebar_contactBlockWrap__fR4Jk +10px"
+ ],
+ "elapsed_seconds": 1454.5,
+ "status": "FAILED",
+ "original_metrics": {
+  "tag": "original",
+  "desktop": {
+   "height": 5885,
+   "overflow": 0,
+   "images": 9,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 14,
+   "duplicateHeadings": [],
+   "innerOverflow": [
+    "section.hero-section +60px",
+    "div.booking-form-body +12px",
+    "div.container +19px",
+    "div.row +19px",
+    "div.col-lg-4 +18px"
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
+  },
+  "mobile": {
+   "height": 6619,
+   "overflow": 0,
+   "images": 9,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 16,
+   "duplicateHeadings": [],
+   "innerOverflow": [
+    "div.booking-form-body +12px",
+    "div.container +14px",
+    "div.row +14px",
+    "div.col-lg-4 +14px",
+    "div.container +11px"
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
+  }
+ }
+}

@@ -245,7 +245,7 @@
    "name": "Barber Shop (Templatemo)",
    "source_url": "https://templatemo.com/tm-586-barber-shop",
    "decision": "PORT_OK",
-   "status": "PENDING",
+   "status": "FAILED",
    "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (research/verticals/LICENSE-MAP.md).",
    "provenance": "Studio, δικό του template.",
    "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
@@ -287,7 +287,9 @@
     "φόρμα κράτησης — δεν υπάρχει ροή",
     "«32% Discount» + promo code — δεν υπάρχει μοντέλο προσφορών",
     "οι δύο κουρείς — team μόνο με REAL_OWNER_PERSON"
-   ]
+   ],
+   "updated_at": "2026-08-16T18:32:47+00:00",
+   "result": "research\\port-worker\\barber-shop\\result.json"
   }
  },
  "_fidelity_model": "Η πηγή είναι ΕΜΠΝΕΥΣΗ, όχι προδιαγραφή αντιγραφής. REQUIRED_DESIGN: πρέπει να επιβιώσει, αλλιώς χάνεται η ταυτότητα. ADAPTABLE: μεταφράζεται σε άλλη αληθινή δομή του Vitrina. UNSUPPORTED_BY_PRODUCT: το Vitrina δεν το μοντελοποιεί — η απουσία του ΔΕΝ εμποδίζει READY_FOR_REVIEW και ΑΠΑΓΟΡΕΥΕΤΑΙ να καλυφθεί με επινοημένα δεδομένα."
