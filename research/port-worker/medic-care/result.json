@@ -1,7 +1,7 @@
 {
  "source_id": "medic-care",
  "theme_key": "medic-care",
- "started_at": "2026-08-15T19:27:48+00:00",
+ "started_at": "2026-08-16T02:20:37+00:00",
  "original_render_status": "OK",
  "model": "deepseek-v4-pro",
  "generation_steps": [
@@ -60,6 +60,38 @@
    "reason": "",
    "patch_produced": true,
    "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
   }
  ],
  "guards": {
@@ -68,10 +100,10 @@
   "media": []
  },
  "token_usage": {
-  "input": 28207,
-  "output": 17036
+  "input": 28345,
+  "output": 21200
  },
- "cost_usd": 0.0397,
+ "cost_usd": 0.046,
  "demo_business": "physician",
  "files_changed": [
   "sites/lib/templates/MedicCare.jsx",
@@ -79,41 +111,45 @@
  ],
  "deviations": [
   {
-   "what": "Αφαίρεση της ενότητας «Our Patients» (μαρτυρίες ασθενών)",
-   "why": "Η πολιτική SECTION_POLICY.testimonial = frozenset() απαγορεύει την κατασκευή μαρτυριών."
+   "what": "Removed testimonials section (\"Our Patients\")",
+   "why": "No testimonial data in intake and policy forbids inventing ratings or patient quotes."
   },
   {
-   "what": "Αφαίρεση της φόρμας ραντεβού («Book an appointment»)",
-   "why": "Δεν υπάρχει ροή κράτησης στο intake· δεν επιτρέπεται η επινόηση στοιχείων."
+   "what": "Removed appointment booking form",
+   "why": "No booking flow exists in the data contract."
   },
   {
-   "what": "Αφαίρεση του κύκλου «12 Years of Experiences» από το about section",
-   "why": "Δεν υπάρχει τεκμηριωμένο νούμερο ετών εμπειρίας στο intake."
+   "what": "Removed \"12 Years of Experiences\" counter",
+   "why": "No verifiable experience data provided; using a counter would fabricate a claim."
   },
   {
-   "what": "Το εναλλασσόμενο κείμενο (animated item) του hero χρησιμοποιεί μόνο ένα στοιχείο (d.KICKER) αντί τριών",
-   "why": "Τα πεδία δεδομένων δεν περιλαμβάνουν πολλαπλά animated words (όπως health/days/lives)."
+   "what": "Replaced template credit \"Design: TemplateMo\" with business name",
+   "why": "License allows removal; business data only."
   },
   {
-   "what": "Η δομή του timeline χρησιμοποιεί τα στοιχεία d.services για τίτλο και περιγραφή, χωρίς ημερομηνίες",
-   "why": "Δεν υπάρχουν δεδομένα ημερομηνιών/τίτλων για το timeline. Τα services είναι το πλησιέστερο διαθέσιμο περιεχόμενο που διατηρεί την εναλλασσόμενη οπτική δομή."
+   "what": "Timeline icons use numeric values from service.num instead of Bootstrap icon fonts",
+   "why": "No icon mapping available in data; numbers preserve visual distinction without inventing icons."
   },
   {
-   "what": "Αφαιρέθηκε η ενότητα 'Our Patients' (μαρτυρίες ασθενών)",
-   "why": "Το συμβόλαιο αλήθειας απαγορεύει την προσθήκη μαρτυριών χωρίς πραγματικά δεδομένα (SECTION_POLICY.testimonial = frozenset())."
+   "what": "Hero animated word simplified to static d.HERO_WORD",
+   "why": "Contract provides only a single HERO_WORD string, not three animated items."
   },
   {
-   "what": "Αφαιρέθηκε η φόρμα ραντεβού (booking form)",
-   "why": "Δεν υπάρχει ροή κράτησης ραντεβού στα πραγματικά δεδομένα."
+   "what": "Removed 'Our Patients' testimonials section",
+   "why": "No real testimonial data available in intake; policy forbids inventing."
   },
   {
-   "what": "Αφαιρέθηκε ο μετρητής '12 Years of Experiences'",
-   "why": "Δεν υπάρχει τεκμηριωμένο στοιχείο ετών εμπειρίας στο intake."
+   "what": "Removed booking/appointment form",
+   "why": "No booking flow exists; not part of data contract."
+  },
+  {
+   "what": "Removed '12 Years of Experiences' counter",
+   "why": "No evidence in intake for that specific number; replaced with d.INITIAL/d.TRADE from data contract."
   }
  ],
  "registered": true,
  "preview_server": {
-  "pid": 3888,
+  "pid": 12308,
   "port": 3881,
   "reclaimed": {
    "found": [],
@@ -124,17 +160,19 @@
  "repair_attempts": [
   "build: spine_guard · render",
   "build: spine_guard · render",
-  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine"
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+  "build: spine_guard · render",
+  "build: spine_guard · render"
  ],
  "tests_run": 4,
- "tests_passed": 3,
- "tests_failed": 1,
+ "tests_passed": 4,
+ "tests_failed": 0,
  "tests": {
   "templateRegistry": {
    "passed": true
   },
   "spine_guard": {
-   "passed": false
+   "passed": true
   },
   "trust_guard": {
    "passed": true
@@ -147,33 +185,32 @@
  "vitrina_metrics": {
   "tag": "vitrina",
   "desktop": {
-   "height": 3437,
+   "height": 4052,
    "overflow": 0,
    "images": 6,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 7,
+   "smallTaps": 9,
    "innerOverflow": [
-    "div.MedicCare_timeline__RyrRB +10px",
-    "div.MedicCare_timelineNode__0toBD +10px",
     "div.MedicCare_timelineContent__TUglT +10px",
-    "div.MedicCare_timelineNode__0toBD +10px",
     "div.MedicCare_timelineContent__TUglT +10px"
    ],
    "consoleErrors": 0,
    "errorSamples": []
   },
   "mobile": {
-   "height": 5466,
+   "height": 5654,
    "overflow": 0,
    "images": 6,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 6,
+   "smallTaps": 9,
    "innerOverflow": [
-    "div.MedicCare_root__AaiDG +115px",
-    "div.MedicCare_navIn__c0nqY +115px",
-    "div.MedicCare_heroText__gwAxG +34px"
+    "div.MedicCare_root__AaiDG +65px",
+    "section.MedicCare_sectionPadding__CkydK +65px",
+    "div.MedicCare_container__p0vFz +65px",
+    "div.MedicCare_timeline__RyrRB +80px",
+    "div.MedicCare_timelineNode__0toBD +80px"
    ],
    "consoleErrors": 0,
    "errorSamples": []
@@ -183,10 +220,7 @@
   "desktop": {
    "overflow": 0,
    "innerOverflow": [
-    "div.MedicCare_timeline__RyrRB +10px",
-    "div.MedicCare_timelineNode__0toBD +10px",
     "div.MedicCare_timelineContent__TUglT +10px",
-    "div.MedicCare_timelineNode__0toBD +10px",
     "div.MedicCare_timelineContent__TUglT +10px"
    ],
    "broken": 0,
@@ -197,9 +231,11 @@
   "mobile": {
    "overflow": 0,
    "innerOverflow": [
-    "div.MedicCare_root__AaiDG +115px",
-    "div.MedicCare_navIn__c0nqY +115px",
-    "div.MedicCare_heroText__gwAxG +34px"
+    "div.MedicCare_root__AaiDG +65px",
+    "section.MedicCare_sectionPadding__CkydK +65px",
+    "div.MedicCare_container__p0vFz +65px",
+    "div.MedicCare_timeline__RyrRB +80px",
+    "div.MedicCare_timelineNode__0toBD +80px"
    ],
    "broken": 0,
    "images": 6,
@@ -208,10 +244,10 @@
   }
  },
  "render_problems": [
-  "desktop: εσωτερική υπερχείλιση — div.MedicCare_timeline__RyrRB +10px, div.MedicCare_timelineNode__0toBD +10px, div.MedicCare_timelineContent__TUglT +10px",
-  "mobile: εσωτερική υπερχείλιση — div.MedicCare_root__AaiDG +115px, div.MedicCare_navIn__c0nqY +115px, div.MedicCare_heroText__gwAxG +34px"
+  "desktop: εσωτερική υπερχείλιση — div.MedicCare_timelineContent__TUglT +10px, div.MedicCare_timelineContent__TUglT +10px",
+  "mobile: εσωτερική υπερχείλιση — div.MedicCare_root__AaiDG +65px, section.MedicCare_sectionPadding__CkydK +65px, div.MedicCare_container__p0vFz +65px"
  ],
- "elapsed_seconds": 786.8,
+ "elapsed_seconds": 1393.9,
  "status": "FAILED",
  "original_metrics": {
   "tag": "original",
