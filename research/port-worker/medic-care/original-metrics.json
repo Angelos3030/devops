@@ -12,10 +12,8 @@
    "div.owl-nav +80px",
    "div.booking-form +12px"
   ],
-  "consoleErrors": 1,
-  "errorSamples": [
-   "Failed to load resource: the server responded with a status of 404 ()"
-  ]
+  "consoleErrors": 0,
+  "errorSamples": []
  },
  "mobile": {
   "height": 6055,
