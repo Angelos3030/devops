@@ -767,9 +767,12 @@ def port_source(source_id: str) -> dict[str, Any]:
             res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
             (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
             return res
+        # ΔΡΟΜΟΛΟΓΗΣΗ: η διόρθωση αντίθεσης δεν εξαρτάται από ευρήματα διάταξης.
+        # Η προηγούμενη συνθήκη απαιτούσε τελείως καθαρή απόδοση, που δεν συνέβη
+        # ποτέ — οπότε η στενή διαδρομή δεν ενεργοποιήθηκε καμία φορά. Τα
+        # ευρήματα απόδοσης έχουν τη δική τους διαδρομή· δεν μπλοκάρουν αυτή.
         narrow = False
-        if (set(k for k, v in tests.items() if not v["passed"]) == {"spine_guard"}
-                and not _render_prescription(vit, orig_imgs)):
+        if not tests.get("spine_guard", {}).get("passed", True):
             narrow = _contrast_only_fix(chat, theme_paths[1],
                                         tests["spine_guard"]["log"], res)
         if not narrow:

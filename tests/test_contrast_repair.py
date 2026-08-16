@@ -100,5 +100,57 @@ class ContrastRepair(unittest.TestCase):
         self.assertIsNone(parse_failure("✗ κάτι άλλο έσπασε", CSS))
 
 
+
+class ContrastRouting(unittest.TestCase):
+    """Η δρομολόγηση: πότε ΠΡΕΠΕΙ και πότε ΔΕΝ ΠΡΕΠΕΙ να τρέξει η στενή διαδρομή.
+
+    Το σφάλμα που κλείνει: η συνθήκη απαιτούσε τελείως καθαρή απόδοση, οπότε ένα
+    άσχετο `FindUs_mapBox +56px` εμπόδιζε επ' άπειρον τη διόρθωση αντίθεσης.
+    """
+
+    def setUp(self) -> None:
+        src = (Path(__file__).resolve().parents[1] / "src" / "port_worker.py"
+               ).read_text(encoding="utf-8")
+        i = src.index("narrow = False")
+        self.route = src[i:i + 420]
+
+    # 1 + 4 --------------------------------------------------------------
+    def test_render_findings_do_not_block_contrast_repair(self) -> None:
+        self.assertNotIn("_render_prescription", self.route,
+                         "η δρομολόγηση εξαρτάται ξανά από ευρήματα απόδοσης")
+        self.assertIn('tests.get("spine_guard", {}).get("passed", True)', self.route)
+
+    def test_layout_findings_still_reach_the_render_path(self) -> None:
+        src = (Path(__file__).resolve().parents[1] / "src" / "port_worker.py"
+               ).read_text(encoding="utf-8")
+        self.assertIn("_render_prescription(vit, orig_imgs)", src,
+                      "η διαδρομή ευρημάτων απόδοσης χάθηκε")
+
+    # 2 ------------------------------------------------------------------
+    def test_non_contrast_spine_failure_yields_no_repair_data(self) -> None:
+        log = "  ✗ MedicCare: χρώμα εκτός ταυτότητας — #ff0000\n❌ 1 παραβάσεις"
+        self.assertIsNone(parse_failure(log, CSS),
+                          "μη-contrast αποτυχία δεν πρέπει να δίνει δεδομένα διόρθωσης")
+
+    # 3 ------------------------------------------------------------------
+    def test_contrast_failure_without_deterministic_data_writes_nothing(self) -> None:
+        # Το token υπάρχει στο log αλλά όχι στο φύλλο στυλ -> καμία εγγραφή
+        log = "  ✗ X: ghost-token/surface 2.10<4.5"
+        self.assertIsNone(parse_failure(log, CSS))
+        # και μια μη-hex τιμή (π.χ. rgba) δεν δίνει ποτέ δεδομένα
+        css_rgba = CSS.replace("--vt-accent-ink: #247cff;",
+                               "--vt-accent-ink: rgba(36,124,255,0.9);")
+        self.assertIsNone(parse_failure(LOG, css_rgba))
+
+    # 5 ------------------------------------------------------------------
+    def test_repair_leaves_layout_and_typography_untouched(self) -> None:
+        before = CSS
+        after = apply_token(CSS, "accent-ink", "#0b3fa8")
+        for needle in ("display: grid", "gap: 24px", "padding: 40px 0",
+                       "max-width: 495px", "font-size: 48px", "letter-spacing: -0.02em"):
+            self.assertIn(needle, after, f"χάθηκε δήλωση: {needle}")
+        self.assertEqual(before.count("{"), after.count("{"))
+        self.assertEqual(before.count(";"), after.count(";"))
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
