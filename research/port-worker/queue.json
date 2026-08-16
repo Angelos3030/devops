@@ -97,7 +97,7 @@
    "name": "Gymso Fitness (Tooplate)",
    "source_url": "https://www.tooplate.com/view/2121-gymso-fitness",
    "decision": "PORT_OK",
-   "status": "PENDING",
+   "status": "READY_FOR_REVIEW",
    "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (research/verticals/LICENSE-MAP.md).",
    "provenance": "Studio, δικό του template.",
    "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
@@ -123,7 +123,9 @@
     "Τιμοκατάλογος",
     "Πρόγραμμα"
    ],
-   "batch": "migration-1"
+   "batch": "migration-1",
+   "updated_at": "2026-08-16T11:40:26+00:00",
+   "result": "research\\port-worker\\gymso-fitness\\result.json"
   },
   "villa-agency": {
    "name": "Villa Agency (Templatemo)",
