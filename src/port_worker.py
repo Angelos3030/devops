@@ -451,6 +451,47 @@ def demo_for(rec: dict[str, Any]) -> str:
         "ποτέ γενικό ή προηγούμενο demo ως εφεδρεία.")
 
 
+def _qa_snapshot(vit: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Μηχανική κατάσταση ανά viewport, για σύγκριση πριν/μετά."""
+    snap: dict[str, dict[str, Any]] = {}
+    for label in ("desktop", "mobile"):
+        m = vit.get(label) or {}
+        snap[label] = {"overflow": m.get("overflow", 0) or 0,
+                       "inner": len(m.get("innerOverflow") or []),
+                       "broken": m.get("broken", 0) or 0,
+                       "console": m.get("consoleErrors", 0) or 0,
+                       "h1": m.get("h1")}
+    return snap
+
+
+def _regressions(before: dict[str, dict[str, Any]], after: dict[str, dict[str, Any]]) -> list[str]:
+    """Τι ΧΕΙΡΟΤΕΡΕΨΕ. Επιδιόρθωση που φτιάχνει το desktop και σπάει το mobile
+    δεν είναι επιδιόρθωση — μετρήθηκε ακριβώς αυτό: mobile 0px -> +65px ενώ το
+    μοντέλο κυνηγούσε ανύπαρκτο σφάλμα στο desktop."""
+    out: list[str] = []
+    for vp in ("desktop", "mobile"):
+        b, a = before.get(vp, {}), after.get(vp, {})
+        for key, label in (("overflow", "οριζόντια υπερχείλιση"),
+                           ("inner", "εσωτερικές υπερχειλίσεις"),
+                           ("broken", "σπασμένες εικόνες"),
+                           ("console", "console errors")):
+            if (a.get(key) or 0) > (b.get(key) or 0):
+                out.append(f"{vp.upper()}: {label} {b.get(key)} -> {a.get(key)}")
+        if b.get("h1") == 1 and a.get("h1") != 1:
+            out.append(f"{vp.upper()}: h1 από 1 -> {a.get('h1')}")
+    return out
+
+
+def _regression_note(regressed: list[str]) -> str:
+    if not regressed:
+        return ""
+    nl = chr(10)
+    return (nl + "--- Η ΠΡΟΗΓΟΥΜΕΝΗ ΕΠΙΔΙΟΡΘΩΣΗ ΕΦΕΡΕ ΟΠΙΣΘΟΔΡΟΜΗΣΗ ---" + nl
+            + nl.join(regressed) + nl
+            + "Διόρθωσε το αρχικό πρόβλημα ΧΩΡΙΣ να αλλάξεις τη διάταξη που ήδη "
+              "δούλευε στο άλλο viewport.")
+
+
 def port_source(source_id: str) -> dict[str, Any]:
     q = _load_queue()
     rec = q["sources"].get(source_id)
@@ -665,6 +706,7 @@ def port_source(source_id: str) -> dict[str, Any]:
 
     # ΕΝΑΣ βρόχος για build ΚΑΙ απόδοση, μέσα στο ΥΠΑΡΧΟΝ budget. Ό,τι
     # επιστρέφει είναι συνταγή («κάνε αυτό»), όχι διάγνωση («κάτι φταίει»).
+    regression_note = ""
     for _ in range(MAX_REPAIR_ATTEMPTS):
         failed = {k: v for k, v in tests.items() if not v["passed"]}
         css_text = css_path.read_text(encoding="utf-8") if css_path.exists() else ""
@@ -691,9 +733,14 @@ def port_source(source_id: str) -> dict[str, Any]:
             res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
             (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
             return res
+        prev_snap = _qa_snapshot(vit)
         res["files_changed"] = _apply(files)
         tests = _suite()
         vit = _render_vitrina()
+        regressed = _regressions(prev_snap, _qa_snapshot(vit))
+        if regressed:
+            res.setdefault("regressions", []).append(regressed)
+        regression_note = _regression_note(regressed)
 
     res["tests_run"] = len(tests)
     res["tests_passed"] = sum(1 for t in tests.values() if t["passed"])

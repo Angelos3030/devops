@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>overflow fixture</title>
+<style>
+  body{margin:0;font:16px system-ui}
+  .box{width:300px;margin:40px;background:#eee;position:relative}
+  /* (1) ΣΧΕΔΙΟ: βελάκι που προεξέχει σκόπιμα — δεν είναι σφάλμα */
+  .decorative h3{position:relative;background:#111;color:#fff;margin:0;padding:8px}
+  .decorative h3::after{content:"";position:absolute;right:-10px;top:0;width:0;height:0;
+    border-width:10px 0 10px 10px;border-style:solid;border-color:transparent transparent transparent #111}
+  /* (2) ΣΦΑΛΜΑ: πραγματικό παιδί ξεχειλίζει */
+  .broken .wide{width:380px;background:#c33;color:#fff;padding:8px}
+</style>
+<div class="box decorative"><h3>Τίτλος με βελάκι</h3><p>κείμενο</p></div>
+<div class="box broken"><div class="wide">πραγματική υπερχείλιση</div></div>

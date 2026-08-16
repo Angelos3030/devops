@@ -89,7 +89,19 @@ for (const [label, w, h] of [['desktop', 1440, 1024], ['mobile', 390, 844]]) {
         .filter((e) => {
           if (e.scrollWidth - e.clientWidth <= 4) return false
           const ox = getComputedStyle(e).overflowX
-          return ox !== 'auto' && ox !== 'scroll' // σκόπιμο scroll δεν είναι σφάλμα
+          if (ox === 'auto' || ox === 'scroll') return false // σκόπιμο scroll
+          // ΔΙΑΚΟΣΜΗΤΙΚΗ ΠΡΟΕΞΟΧΗ ≠ ΣΠΑΣΜΕΝΗ ΔΙΑΤΑΞΗ.
+          // Μετρήθηκε στο Medic Care: το h3::after είναι CSS τρίγωνο
+          // (right:-10px, border-width:10px 0 10px 10px) — το βελάκι της
+          // ετικέτας του πρωτοτύπου. Έδινε +10px «υπερχείλιση» σε κάθε γύρο,
+          // το μοντέλο το κυνηγούσε επί τέσσερα τρεξίματα και χάλαγε το mobile.
+          // Αν ΚΑΝΕΝΑΣ πραγματικός απόγονος δεν ξεπερνά το πλαίσιο, η
+          // υπερχείλιση προέρχεται από ::before/::after και είναι σχέδιο.
+          const box = e.getBoundingClientRect()
+          const limit = box.left + e.clientWidth + 2
+          const spills = [...e.querySelectorAll('*')]
+            .some((c) => c.getBoundingClientRect().right > limit)
+          return spills
         })
         .slice(0, 5)
         .map((e) => `${e.tagName.toLowerCase()}.${(e.className || '').toString().split(' ')[0]} +${e.scrollWidth - e.clientWidth}px`),
