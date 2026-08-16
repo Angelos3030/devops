@@ -92,6 +92,138 @@
    ],
    "updated_at": "2026-08-16T11:09:16+00:00",
    "result": "research\\port-worker\\medic-care\\result.json"
+  },
+  "gymso-fitness": {
+   "name": "Gymso Fitness (Tooplate)",
+   "source_url": "https://www.tooplate.com/view/2121-gymso-fitness",
+   "decision": "PORT_OK",
+   "status": "PENDING",
+   "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (research/verticals/LICENSE-MAP.md).",
+   "provenance": "Studio, δικό του template.",
+   "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
+   "theme_key": "gymso-fitness",
+   "component": "GymsoFitness",
+   "label": "Gymso Fitness",
+   "desc": "Πιστό port του Gymso (Tooplate): σκούρο hero, μαθήματα με τιμή και εβδομαδιαίο πρόγραμμα σε πλέγμα.",
+   "verticals": [
+    "fitness"
+   ],
+   "local_path": "sites/artifacts/cand-src/gymso_fitness/2119_gymso_fitness",
+   "entry": "index.html",
+   "fidelity_notes": "Σκούρο full-bleed hero με κεντραρισμένο βαρύ τίτλο· ζώνη συνδρομής/ωραρίου σε δύο στήλες πάνω σε μαύρο· «Hello, we are» με δύο κάρτες προσώπων· μαθήματα ως κάρτες εικόνας με στρογγυλό badge τιμής· ΕΒΔΟΜΑΔΙΑΙΟ ΠΡΟΓΡΑΜΜΑ ΣΕ ΠΛΕΓΜΑ με κόκκινη κεφαλίδα ημερών και ώρες στην αριστερή στήλη — αυτή είναι η δομή που δικαιολόγησε την έγκριση· φόρμα επικοινωνίας δίπλα σε «πού θα μας βρεις».",
+   "required_removals": [
+    "οι δύο γυμναστές — team δέχεται μόνο REAL_OWNER_PERSON",
+    "«2 months FREE» προσφορά χωρίς τεκμήριο"
+   ],
+   "allowed_labels": [
+    "Ωράριο",
+    "Επικοινωνία",
+    "Υπηρεσίες",
+    "Πού θα μας βρεις",
+    "Τιμοκατάλογος",
+    "Πρόγραμμα"
+   ],
+   "batch": "migration-1"
+  },
+  "villa-agency": {
+   "name": "Villa Agency (Templatemo)",
+   "source_url": "https://templatemo.com/tm-591-villa-agency",
+   "decision": "PORT_OK",
+   "status": "PENDING",
+   "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (research/verticals/LICENSE-MAP.md).",
+   "provenance": "Studio, δικό του template.",
+   "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
+   "theme_key": "villa-agency",
+   "component": "VillaAgency",
+   "label": "Villa Agency",
+   "desc": "Πιστό port του Villa Agency (Templatemo): κάρτες ακινήτων με τιμή και προδιαγραφές, φίλτρα κατηγορίας.",
+   "verticals": [
+    "property"
+   ],
+   "local_path": "sites/artifacts/cand-src/villa_agency/templatemo_591_villa_agency",
+   "entry": "index.html",
+   "fidelity_notes": "Slider hero με πλακίδιο τοποθεσίας· ενότητα «featured» με εικόνα αριστερά, κείμενο κέντρο και τέσσερις γραμμές χαρακτηριστικών με εικονίδια δεξιά· ζώνη video με μετατοπισμένες μικρογραφίες· φίλτρα κατηγορίας σε pills πάνω από πίνακα προδιαγραφών· ΠΛΕΓΜΑ 3×2 ΚΑΡΤΩΝ ΑΚΙΝΗΤΟΥ με badge κατηγορίας, τιμή σε accent, και γραμμή δωμάτια/μπάνια/τ.μ.· σκούρα ζώνη επικοινωνίας με φόρμα σε λευκή κάρτα.",
+   "required_removals": [
+    "μετρητές «34 κτίρια / 12 χρόνια / 24 βραβεία» χωρίς τεκμήριο",
+    "«HURRY!» επείγον χωρίς δεδομένα",
+    "φόρμα κράτησης επίσκεψης — δεν υπάρχει ροή"
+   ],
+   "allowed_labels": [
+    "Ωράριο",
+    "Επικοινωνία",
+    "Υπηρεσίες",
+    "Πού θα μας βρεις",
+    "Τιμοκατάλογος",
+    "Πρόγραμμα"
+   ],
+   "batch": "migration-1"
+  },
+  "compass": {
+   "name": "Compass (Templatemo)",
+   "source_url": "https://templatemo.com/tm-609-compass",
+   "decision": "PORT_OK",
+   "status": "PENDING",
+   "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (research/verticals/LICENSE-MAP.md).",
+   "provenance": "Studio, δικό του template.",
+   "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
+   "theme_key": "compass",
+   "component": "CompassJournal",
+   "label": "Compass Journal",
+   "desc": "Πιστό port του Compass (Templatemo): εκδοτικό long-form με drop caps, αριθμημένα κεφάλαια και masonry.",
+   "verticals": [
+    "content"
+   ],
+   "local_path": "sites/artifacts/cand-src/compass/2164_compass",
+   "entry": "index.html",
+   "fidelity_notes": "Full-bleed hero φωτογραφία με αριθμό τεύχους σε eyebrow και δίγραμμο τίτλο όπου η δεύτερη γραμμή είναι πλάγια serif· prologue με DROP CAP και pull quote σε πλάγια serif με λεπτές γραμμές· ΑΡΙΘΜΗΜΕΝΑ ΚΕΦΑΛΑΙΑ (01/02/03) με μεγάλο ανοιχτόχρωμο αριθμό, τοποθεσία σε eyebrow και full-bleed εικόνα εναλλάξ· «Field Notes» σε MASONRY πλέγμα· σκούρο footer με αρχείο τευχών.",
+   "required_removals": [
+    "«8 photographers» credit χωρίς τεκμήριο",
+    "newsletter — δεν υπάρχει λίστα"
+   ],
+   "allowed_labels": [
+    "Ωράριο",
+    "Επικοινωνία",
+    "Υπηρεσίες",
+    "Πού θα μας βρεις",
+    "Τιμοκατάλογος",
+    "Πρόγραμμα"
+   ],
+   "batch": "migration-1",
+   "precondition": "ΠΡΟΫΠΟΘΕΣΗ: απαιτεί πλούσιο αφηγηματικό intake· με φτωχά δεδομένα καταρρέει."
+  },
+  "barber-shop": {
+   "name": "Barber Shop (Templatemo)",
+   "source_url": "https://templatemo.com/tm-586-barber-shop",
+   "decision": "PORT_OK",
+   "status": "PENDING",
+   "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (research/verticals/LICENSE-MAP.md).",
+   "provenance": "Studio, δικό του template.",
+   "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
+   "theme_key": "barber-shop",
+   "component": "BarberSidebar",
+   "label": "Barber Sidebar",
+   "desc": "Πιστό port του Barber Shop (Templatemo): σταθερή πλαϊνή πλοήγηση, υπηρεσίες-κάρτες με τιμή, τιμοκατάλογος.",
+   "verticals": [
+    "beauty"
+   ],
+   "local_path": "sites/artifacts/cand-src/barber_shop/templatemo_585_barber_shop",
+   "entry": "index.html",
+   "fidelity_notes": "ΣΤΑΘΕΡΗ ΠΛΑΪΝΗ ΠΛΟΗΓΗΣΗ αριστερά σε μουσταρδί με λογότυπο πάνω και σύνδεσμους κάθετα· hero με gradient πάνω από φωτογραφία και στρογγυλή κάρτα προσφοράς δεξιά· υπηρεσίες ως ΚΑΡΤΕΣ ΕΙΚΟΝΑΣ με τίτλο και τιμή σε pill πάνω στην εικόνα· ΤΙΜΟΚΑΤΑΛΟΓΟΣ ΜΕ ΔΙΑΣΤΙΚΤΕΣ ΓΡΑΜΜΕΣ που ενώνουν όνομα και τιμή — δομή που λείπει από τα 57· κάρτα «OPEN DAILY» σε accent· υποκαταστήματα σε τρεις στήλες.",
+   "required_removals": [
+    "«Get 32% Discount» + promo code χωρίς τεκμήριο",
+    "«Hurry Up!» επείγον",
+    "φόρμα κράτησης — δεν υπάρχει ροή",
+    "οι δύο κουρείς — team δέχεται μόνο REAL_OWNER_PERSON"
+   ],
+   "allowed_labels": [
+    "Ωράριο",
+    "Επικοινωνία",
+    "Υπηρεσίες",
+    "Πού θα μας βρεις",
+    "Τιμοκατάλογος",
+    "Πρόγραμμα"
+   ],
+   "batch": "migration-1"
   }
  }
 }
