@@ -26,6 +26,7 @@ const SHARED = new Set([
   'MasterCinematic', 'MasterEditorial', 'MasterSpatial', 'CapabilitySystems','Brand', 'CallBar', 'FindUs', 'MapEmbed', 'MediaDisclosure', 'SocialLinks'])
 // Themes που προσφέρονται αλλά δεν προτείνονται σε κανένα vertical, με λόγο.
 const UNPROFILED = {
+  'medic-care': 'Port worker proof — εκκρεμεί οπτική έγκριση πριν προταθεί σε πελάτη.',
   'educenter-campus': 'Batch B — εκκρεμεί απόφαση chooser/ranking.',
   'vex-counter': 'Batch B — εκκρεμεί απόφαση chooser/ranking.',
   'airspace-office': 'Batch B — εκκρεμεί απόφαση chooser/ranking.',
