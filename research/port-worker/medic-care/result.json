@@ -1,7 +1,7 @@
 {
  "source_id": "medic-care",
  "theme_key": "medic-care",
- "started_at": "2026-08-16T05:42:11+00:00",
+ "started_at": "2026-08-16T06:08:54+00:00",
  "original_render_status": "OK",
  "model": "deepseek-v4-pro",
  "generation_steps": [
@@ -48,6 +48,14 @@
   {
    "step": "CSS",
    "attempt": 1,
+   "outcome": "VALIDATION_FAILED",
+   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 2,
    "outcome": "SUCCESS",
    "reason": "",
    "patch_produced": true,
@@ -92,10 +100,10 @@
   "media": []
  },
  "token_usage": {
-  "input": 28288,
-  "output": 23346
+  "input": 28196,
+  "output": 18478
  },
- "cost_usd": 0.0492,
+ "cost_usd": 0.0418,
  "demo_business": "physician",
  "files_changed": [
   "sites/lib/templates/MedicCare.jsx",
@@ -103,49 +111,25 @@
  ],
  "deviations": [
   {
-   "what": "Removed 'Our Patients' testimonials section",
-   "why": "No testimonial data available in Vitrina contract; policy forbids inventing testimonials."
+   "what": "Testimonials section",
+   "why": "No real testimonial data provided; original section contained fabricated quotes and patient names."
   },
   {
-   "what": "Removed 'Book an appointment' form",
-   "why": "No booking flow provided in intake; form would require server-side handling not supported."
+   "what": "Booking/appointment form",
+   "why": "No booking flow exists in data contract; original form required user input but no backend integration."
   },
   {
-   "what": "Removed '12 Years of Experiences' counter",
-   "why": "No evidence for this statistic in intake; policy forbids invented credentials."
+   "what": "Featured circle with '12 Years of Experiences' counter",
+   "why": "Years of experience not verified in intake; pretending would be faking."
   },
   {
-   "what": "Replaced animated three-word slider in hero with single HERO_WORD animation",
-   "why": "Data contract provides only one HERO_WORD string; cannot invent additional words."
-  },
-  {
-   "what": "Mapped original testimonials to timeline section using services data",
-   "why": "Preserved alternating timeline structure while using real business services."
-  },
-  {
-   "what": "Replaced footer social icons with shared SocialLinks component",
-   "why": "Social data is handled by shared component; no direct social URLs in contract."
-  },
-  {
-   "what": "Used STORY_IMAGE for about section visual instead of experience circle",
-   "why": "No numeric experience data; image provided in contract maintains two-column layout."
-  },
-  {
-   "what": "Our Patients testimonials section",
-   "why": "No real testimonial data available; SECTION_POLICY.testimonial = frozenset()"
-  },
-  {
-   "what": "Booking appointment form",
-   "why": "No booking flow exists in the data contract"
-  },
-  {
-   "what": "12 Years of Experiences counter",
-   "why": "Years of experience not provided in intake, cannot fabricate credentials"
+   "what": "Αφαιρέθηκε η ενότητα μαρτυριών (Our Patients) και η φόρμα ραντεβού (Booking).",
+   "why": "Δεν υπάρχουν πραγματικά δεδομένα μαρτυριών ή ροή κράτησης στο intake. Το τμήμα «12 Years of Experiences» επίσης παραλείφθηκε λόγω έλλειψης τεκμηρίωσης."
   }
  ],
  "registered": true,
  "preview_server": {
-  "pid": 19080,
+  "pid": 19144,
   "port": 3881,
   "reclaimed": {
    "found": [],
@@ -156,6 +140,7 @@
  "repair_attempts": [
   "build: spine_guard · render",
   "build: spine_guard · render",
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
   "build: spine_guard",
   "build: spine_guard"
  ],
@@ -165,7 +150,21 @@
    "from": "#247cff",
    "was": 3.69,
    "required": 4.5,
-   "max_tokens": 1500,
+   "max_tokens": 300,
+   "model_requested": "deepseek-v4-flash",
+   "raw_length": 0,
+   "content_non_empty": false,
+   "outcome": "NO_WRITE",
+   "error": "άδειο ή κενό σώμα απάντησης"
+  },
+  {
+   "token": "accent-ink",
+   "from": "#247cff",
+   "was": 3.69,
+   "required": 4.5,
+   "max_tokens": 300,
+   "model_requested": "deepseek-v4-flash",
+   "raw_length": 0,
    "content_non_empty": false,
    "outcome": "NO_WRITE",
    "error": "άδειο ή κενό σώμα απάντησης"
@@ -175,27 +174,21 @@
    "from": "#FFFFFF",
    "was": 3.89,
    "required": 4.5,
-   "max_tokens": 1500,
+   "max_tokens": 300,
+   "model_requested": "deepseek-v4-flash",
+   "raw_length": 0,
    "content_non_empty": false,
    "outcome": "NO_WRITE",
    "error": "άδειο ή κενό σώμα απάντησης"
   },
   {
-   "token": "accent-ink",
-   "from": "#247cff",
-   "was": 3.69,
+   "token": "on-accent",
+   "from": "#FFFFFF",
+   "was": 3.89,
    "required": 4.5,
-   "max_tokens": 1500,
-   "content_non_empty": false,
-   "outcome": "NO_WRITE",
-   "error": "άδειο ή κενό σώμα απάντησης"
-  },
-  {
-   "token": "accent-ink",
-   "from": "#247cff",
-   "was": 3.69,
-   "required": 4.5,
-   "max_tokens": 1500,
+   "max_tokens": 300,
+   "model_requested": "deepseek-v4-flash",
+   "raw_length": 0,
    "content_non_empty": false,
    "outcome": "NO_WRITE",
    "error": "άδειο ή κενό σώμα απάντησης"
@@ -208,7 +201,7 @@
     "desktop": {
      "renderable": true,
      "overflow": 0,
-     "inner": 3,
+     "inner": 1,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -226,7 +219,7 @@
     "desktop": {
      "renderable": true,
      "overflow": 0,
-     "inner": 3,
+     "inner": 2,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -234,16 +227,18 @@
     "mobile": {
      "renderable": true,
      "overflow": 0,
-     "inner": 1,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
     }
    },
-   "REGRESSIONS": [],
-   "DECISION": "ACCEPTED",
-   "ROLLBACK_SUCCESS": null,
-   "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
+   "REGRESSIONS": [
+    "DESKTOP: inner 1 -> 2"
+   ],
+   "DECISION": "REJECTED",
+   "ROLLBACK_SUCCESS": true,
+   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
   },
   {
    "ATTEMPT": 2,
@@ -357,7 +352,7 @@
     "desktop": {
      "renderable": true,
      "overflow": 0,
-     "inner": 0,
+     "inner": 1,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -365,14 +360,14 @@
     "mobile": {
      "renderable": true,
      "overflow": 0,
-     "inner": 1,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
     }
    },
    "REGRESSIONS": [
-    "MOBILE: inner 0 -> 1"
+    "DESKTOP: inner 0 -> 1"
    ],
    "DECISION": "REJECTED",
    "ROLLBACK_SUCCESS": true,
@@ -401,23 +396,23 @@
  "vitrina_metrics": {
   "tag": "vitrina",
   "desktop": {
-   "height": 3278,
+   "height": 2804,
    "overflow": 0,
-   "images": 6,
+   "images": 4,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 6,
+   "smallTaps": 7,
    "innerOverflow": [],
    "consoleErrors": 0,
    "errorSamples": []
   },
   "mobile": {
-   "height": 4231,
+   "height": 3526,
    "overflow": 0,
-   "images": 6,
+   "images": 4,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 6,
+   "smallTaps": 7,
    "innerOverflow": [],
    "consoleErrors": 0,
    "errorSamples": []
@@ -428,7 +423,7 @@
    "overflow": 0,
    "innerOverflow": [],
    "broken": 0,
-   "images": 6,
+   "images": 4,
    "h1": 1,
    "consoleErrors": 0
   },
@@ -436,13 +431,13 @@
    "overflow": 0,
    "innerOverflow": [],
    "broken": 0,
-   "images": 6,
+   "images": 4,
    "h1": 1,
    "consoleErrors": 0
   }
  },
  "render_problems": [],
- "elapsed_seconds": 1414.9,
+ "elapsed_seconds": 1372.4,
  "status": "FAILED",
  "original_metrics": {
   "tag": "original",

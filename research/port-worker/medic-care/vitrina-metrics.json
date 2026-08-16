@@ -1,23 +1,23 @@
 {
  "tag": "vitrina",
  "desktop": {
-  "height": 3278,
+  "height": 2804,
   "overflow": 0,
-  "images": 6,
+  "images": 4,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 6,
+  "smallTaps": 7,
   "innerOverflow": [],
   "consoleErrors": 0,
   "errorSamples": []
  },
  "mobile": {
-  "height": 4231,
+  "height": 3526,
   "overflow": 0,
-  "images": 6,
+  "images": 4,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 6,
+  "smallTaps": 7,
   "innerOverflow": [],
   "consoleErrors": 0,
   "errorSamples": []

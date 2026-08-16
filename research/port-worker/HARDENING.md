@@ -613,3 +613,39 @@ Ledger: `#1 ACCEPTED · #2 ACCEPTED · #3 REJECTED (desktop 0→1) ·
 ## ENABLE_AUTONOMOUS_BATCH = ΟΧΙ
 
 Μοναδικό ανοιχτό: `spine_guard`, που περιμένει τιμή που το μοντέλο δεν παράγει.
+
+---
+
+# 15ο τρέξιμο — το φθηνό μοντέλο επιστρέφει ΚΙ ΑΥΤΟ κενό
+
+```json
+{"token":"accent-ink","max_tokens":300,"model_requested":"deepseek-v4-flash",
+ "raw_length":0,"content_non_empty":false,
+ "outcome":"NO_WRITE","error":"άδειο ή κενό σώμα απάντησης"}
+```
+
+**`raw_length: 0` και με το `deepseek-v4-flash`.** Αυτό αναιρεί την υπόθεση
+«φταίει το reasoning μοντέλο» — τη δεύτερη υπόθεσή μου στη σειρά που πέφτει.
+
+Μετρημένο πλέγμα: v4-pro/400 → κενό · v4-pro/1500 → κενό · v4-flash/300 → κενό.
+Δύο μοντέλα, τρία budgets, ίδιο αποτέλεσμα. Η αιτία **δεν είναι** ούτε το
+μοντέλο ούτε το budget· είναι κάτι στην ίδια την κλήση.
+
+**Δεν μαντεύω τρίτη φορά.** Το επόμενο βήμα είναι μέτρηση, όχι υπόθεση:
+καταγραφή ολόκληρου του σώματος απάντησης του API (status, `finish_reason`,
+`usage`, τυχόν `error`) για **μία** κλήση. Το `raw_length` δείχνει ότι το
+`content` είναι κενό — δεν δείχνει *γιατί* το API το επέστρεψε έτσι.
+
+Υποψίες προς έλεγχο, με αυτή τη σειρά: `finish_reason` (content filter;
+length;), `response_format: json_object` σε συνδυασμό με πολύ μικρό
+`max_tokens`, ή το ίδιο το prompt (τα `{{ }}` μετά το `.format`).
+
+## Όλα τα υπόλοιπα καθαρά, ξανά
+
+desktop: overflow 0 · inner **0** · broken 0 · console 0 · h1 1 · 4 εικόνες
+mobile:  overflow 0 · inner **0** · broken 0 · console 0 · h1 1 · 4 εικόνες
+
+Ledger: `#1 REJECTED (desktop 1→2) · #2 ACCEPTED · #3 REJECTED (0→1) ·
+#4 REJECTED (0→1)`. Κόστος 0,042 $ — το φθηνότερο τρέξιμο.
+
+## ENABLE_AUTONOMOUS_BATCH = ΟΧΙ
