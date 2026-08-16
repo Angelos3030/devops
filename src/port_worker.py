@@ -38,6 +38,7 @@ from src.research_worker import DeepSeekResearchWorker, ResearchWorkerError  # n
 from src.vitrina_contract import as_prompt, extract  # noqa: E402
 from src.port_guards import run_all, summarize  # noqa: E402
 from src.preview_server import PreviewServer, PreviewServerError  # noqa: E402
+from src.repair_txn import Ledger  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE = ROOT / "research" / "port-worker" / "queue.json"
@@ -706,8 +707,12 @@ def port_source(source_id: str) -> dict[str, Any]:
 
     # ΕΝΑΣ βρόχος για build ΚΑΙ απόδοση, μέσα στο ΥΠΑΡΧΟΝ budget. Ό,τι
     # επιστρέφει είναι συνταγή («κάνε αυτό»), όχι διάγνωση («κάτι φταίει»).
+    theme_paths = [SITES / "lib" / "templates" / f"{rec['component']}.jsx",
+                   SITES / "lib" / "templates" / f"{rec['component']}.module.css"]
+    ledger = Ledger(theme_paths)
+    ledger.seed(vit, {k: v["passed"] for k, v in tests.items()})
     regression_note = ""
-    for _ in range(MAX_REPAIR_ATTEMPTS):
+    for attempt_no in range(1, MAX_REPAIR_ATTEMPTS + 1):
         failed = {k: v for k, v in tests.items() if not v["passed"]}
         css_text = css_path.read_text(encoding="utf-8") if css_path.exists() else ""
         parts: list[str] = []
@@ -733,14 +738,20 @@ def port_source(source_id: str) -> dict[str, Any]:
             res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
             (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
             return res
-        prev_snap = _qa_snapshot(vit)
         res["files_changed"] = _apply(files)
         tests = _suite()
         vit = _render_vitrina()
-        regressed = _regressions(prev_snap, _qa_snapshot(vit))
-        if regressed:
-            res.setdefault("regressions", []).append(regressed)
-        regression_note = _regression_note(regressed)
+        gates_ok = all(v["passed"] for v in tests.values())
+        verdict = ledger.judge(attempt_no, vit,
+                               {k: v["passed"] for k, v in tests.items()}, gates_ok)
+        res["repair_ledger"] = ledger.report()
+        if verdict.decision == "REJECTED":
+            # ΣΥΝΑΛΛΑΚΤΙΚΟ ΟΡΙΟ: ο απορριφθείς υποψήφιος ΔΕΝ γίνεται είσοδος για
+            # την επόμενη απόπειρα. Τα αρχεία επανήλθαν· ξαναμετράμε από το
+            # αποδεκτό ώστε ο επόμενος γύρος να κρίνεται σε πραγματική βάση.
+            tests = _suite()
+            vit = _render_vitrina()
+        regression_note = _regression_note(verdict.regressions)
 
     res["tests_run"] = len(tests)
     res["tests_passed"] = sum(1 for t in tests.values() if t["passed"])
@@ -751,6 +762,10 @@ def port_source(source_id: str) -> dict[str, Any]:
     # ---- 4. Απόδοση Vitrina — μέρος του worker, όχι χειροκίνητο βήμα.
     # Στο πρώτο proof το έκανα με το χέρι· έτσι ο worker δήλωνε
     # READY_FOR_REVIEW χωρίς να έχει δει ποτέ τη δική του σελίδα.
+    if any(a.decision == "REJECTED" for a in ledger.attempts) and             ledger.attempts[-1].decision == "REJECTED":
+        res["rollback_final"] = ledger.rollback_to_accepted()
+        tests = _suite()
+        vit = _render_vitrina()
     res["vitrina_render_status"] = "FAIL" if "fail" in vit else "OK"
     res["vitrina_metrics"] = vit
     for label in ("desktop", "mobile"):
