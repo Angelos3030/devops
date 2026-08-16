@@ -1,0 +1,29 @@
+{
+ "tag": "original",
+ "desktop": {
+  "height": 7712,
+  "overflow": 0,
+  "images": 12,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 22,
+  "duplicateHeadings": [],
+  "innerOverflow": [],
+  "consoleErrors": 1,
+  "errorSamples": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ]
+ },
+ "mobile": {
+  "height": 6717,
+  "overflow": 0,
+  "images": 12,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 24,
+  "duplicateHeadings": [],
+  "innerOverflow": [],
+  "consoleErrors": 0,
+  "errorSamples": []
+ }
+}

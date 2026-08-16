@@ -1,0 +1,173 @@
+{
+ "source_id": "compass",
+ "theme_key": "compass",
+ "started_at": "2026-08-16T14:59:33+00:00",
+ "original_render_status": "OK",
+ "model": "deepseek-v4-pro",
+ "generation_steps": [
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  }
+ ],
+ "guards": {
+  "contract": [],
+  "copy_leak": [
+   "κείμενο πρωτοτύπου αυτούσιο: «Scroll to explore»"
+  ],
+  "media": []
+ },
+ "token_usage": {
+  "input": 25369,
+  "output": 16293
+ },
+ "cost_usd": 0.0371,
+ "demo_business": "farm",
+ "files_changed": [
+  "sites/lib/templates/CompassJournal.jsx",
+  "sites/lib/templates/CompassJournal.module.css"
+ ],
+ "deviations": [
+  {
+   "what": "Αφαιρέθηκε το newsletter σημάδι στο footer",
+   "why": "Δεν υπάρχει λίστα εγγραφής στα δεδομένα του Vitrina (truth contract)"
+  },
+  {
+   "what": "Αφαιρέθηκε το αρχείο τευχών (Issues) από το footer",
+   "why": "Δεν υπάρχει μοντέλο τευχών στο Vitrina"
+  },
+  {
+   "what": "Αφαιρέθηκε το credit φωτογράφων",
+   "why": "Απαγορεύεται η εμφάνιση πιστώσεων χωρίς τεκμήριο"
+  },
+  {
+   "what": "Newsletter subscription and issue archive from original footer",
+   "why": "Not supported by Vitrina data model; no list or archive fields available."
+  },
+  {
+   "what": "Photographer credits and testimonials/ratings",
+   "why": "No data fields for such content; omitted to avoid fabrication."
+  }
+ ],
+ "registered": true,
+ "preview_server": {
+  "pid": 18748,
+  "port": 3881,
+  "reclaimed": {
+   "found": [],
+   "killed": [],
+   "skipped": []
+  }
+ },
+ "repair_attempts": [
+  "build: templateRegistry, spine_guard · render",
+  "build: templateRegistry, spine_guard · render"
+ ],
+ "contrast_repair": [
+  {
+   "token": "accent-on-deep",
+   "from": "#0047AB",
+   "was": 2.12,
+   "required": 4.5,
+   "method": "deterministic-hsl",
+   "model_tokens": 0,
+   "to": "#1e7cff",
+   "now": 4.58,
+   "hue_before": 215,
+   "hue_after": 215,
+   "outcome": "APPLIED",
+   "error": ""
+  }
+ ],
+ "repair_ledger": [
+  {
+   "ATTEMPT": 1,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 1,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 1,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
+  }
+ ],
+ "status": "FAILED",
+ "reason": "guards: [copy_leak] κείμενο πρωτοτύπου αυτούσιο: «Scroll to explore»"
+}

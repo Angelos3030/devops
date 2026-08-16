@@ -443,6 +443,10 @@ VERTICAL_DEMO = {
     "fitness": "gym", "property": "realestate", "hospitality": "rooms",
     "trades": "plumber", "automotive": "garage", "construction": "carpenter",
     "professional": "lawyer", "farm": "farm", "wellness": "massage",
+    # Εκδοτικά/αφηγηματικά themes: ο παραγωγός είναι το demo με το πλουσιότερο
+    # story στο demoData — ακριβώς ό,τι χρειάζεται ένα long-form theme για να
+    # κριθεί δίκαια. Χωρίς αυτό το compass έμενε BLOCKED (fail-closed, σωστά).
+    "content": "farm", "music": "salon",
 }
 
 

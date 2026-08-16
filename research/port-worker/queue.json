@@ -195,7 +195,7 @@
    "name": "Compass (Templatemo)",
    "source_url": "https://templatemo.com/tm-609-compass",
    "decision": "PORT_OK",
-   "status": "PENDING",
+   "status": "FAILED",
    "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (research/verticals/LICENSE-MAP.md).",
    "provenance": "Studio, δικό του template.",
    "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
@@ -237,7 +237,9 @@
     "αρχείο τευχών στο footer — δεν υπάρχει μοντέλο τευχών",
     "newsletter — δεν υπάρχει λίστα",
     "credit φωτογράφων — απαγορεύεται χωρίς τεκμήριο"
-   ]
+   ],
+   "updated_at": "2026-08-16T15:13:45+00:00",
+   "failure": "guards μετά από repair"
   },
   "barber-shop": {
    "name": "Barber Shop (Templatemo)",
