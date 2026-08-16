@@ -290,6 +290,200 @@
    ],
    "updated_at": "2026-08-16T18:32:47+00:00",
    "result": "research\\port-worker\\barber-shop\\result.json"
+  },
+  "klassy-cafe": {
+   "name": "Klassy Cafe (Templatemo)",
+   "source_url": "https://templatemo.com/tm-558-klassy-cafe",
+   "decision": "PORT_OK",
+   "status": "PENDING",
+   "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (LICENSE-MAP.md).",
+   "provenance": "Studio, δικό του template.",
+   "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
+   "theme_key": "klassy-cafe",
+   "component": "KlassyTable",
+   "label": "Klassy Table",
+   "desc": "Πιστό port του Klassy Cafe: split hero με χρωματικό πλακίδιο, μενού-carousel με τιμές, εβδομαδιαίες προσφορές.",
+   "verticals": [
+    "food"
+   ],
+   "local_path": "sites/artifacts/food-src/558_klassy_cafe/templatemo_558_klassy_cafe",
+   "entry": "index.html",
+   "fidelity_notes": "SPLIT HERO: χρωματικό πλακίδιο αριστερά με λογότυπο/CTA, φωτογραφία δεξιά · μενού ως οριζόντια σειρά καρτών εικόνας με ΕΤΙΚΕΤΑ ΤΙΜΗΣ σε accent γωνία · about με μετατοπισμένες μικρογραφίες δίπλα σε μεγάλη εικόνα · σκούρα ζώνη επικοινωνίας με λευκή κάρτα φόρμας",
+   "required_design": [
+    "SPLIT HERO: χρωματικό πλακίδιο αριστερά με λογότυπο/CTA, φωτογραφία δεξιά",
+    "μενού ως οριζόντια σειρά καρτών εικόνας με ΕΤΙΚΕΤΑ ΤΙΜΗΣ σε accent γωνία",
+    "about με μετατοπισμένες μικρογραφίες δίπλα σε μεγάλη εικόνα",
+    "σκούρα ζώνη επικοινωνίας με λευκή κάρτα φόρμας"
+   ],
+   "adaptable": [
+    "εβδομαδιαίες προσφορές σε δύο στήλες με tabs → λίστα υπηρεσιών με τιμές"
+   ],
+   "unsupported_by_product": [
+    "φόρμα κράτησης τραπεζιού — δεν υπάρχει ροή",
+    "«Our Chefs» — team μόνο με REAL_OWNER_PERSON",
+    "video modal"
+   ],
+   "required_removals": [
+    "φόρμα κράτησης τραπεζιού — δεν υπάρχει ροή",
+    "«Our Chefs» — team μόνο με REAL_OWNER_PERSON",
+    "video modal"
+   ],
+   "allowed_labels": [
+    "Ωράριο",
+    "Επικοινωνία",
+    "Υπηρεσίες",
+    "Πού θα μας βρεις",
+    "Τιμοκατάλογος",
+    "Μενού",
+    "Προϊόντα"
+   ],
+   "batch": "migration-2"
+  },
+  "clean-work": {
+   "name": "Clean Work (Tooplate)",
+   "source_url": "https://www.tooplate.com/view/2137-clean-work",
+   "decision": "PORT_OK",
+   "status": "PENDING",
+   "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (LICENSE-MAP.md).",
+   "provenance": "Studio, δικό του template.",
+   "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
+   "theme_key": "clean-work",
+   "component": "CleanService",
+   "label": "Clean Service",
+   "desc": "Πιστό port του Clean Work: κάρτες υπηρεσίας με τιμή και διάρκεια, wave divider, ωράριο εξυπηρέτησης.",
+   "verticals": [
+    "trades"
+   ],
+   "local_path": "sites/artifacts/cand-src/clean_work/2132_clean_work",
+   "entry": "index.html",
+   "fidelity_notes": "top bar με ωράριο και τηλέφωνο πάνω από το nav · hero με φωτογραφία και WAVE DIVIDER που κόβει καμπύλα προς την επόμενη ενότητα · ΚΑΡΤΕΣ ΥΠΗΡΕΣΙΑΣ με μικρογραφία αριστερά, τιμή ΚΑΙ διάρκεια σε chips · μπλε παλέτα με λευκές κάρτες και απαλές σκιές",
+   "required_design": [
+    "top bar με ωράριο και τηλέφωνο πάνω από το nav",
+    "hero με φωτογραφία και WAVE DIVIDER που κόβει καμπύλα προς την επόμενη ενότητα",
+    "ΚΑΡΤΕΣ ΥΠΗΡΕΣΙΑΣ με μικρογραφία αριστερά, τιμή ΚΑΙ διάρκεια σε chips",
+    "μπλε παλέτα με λευκές κάρτες και απαλές σκιές"
+   ],
+   "adaptable": [
+    "«Need Help? Call us» πλωτή κάρτα → σταθερό CTA τηλεφώνου"
+   ],
+   "unsupported_by_product": [
+    "αστέρια αξιολόγησης — επινοημένες κριτικές",
+    "«Happy Customers» μαρτυρίες",
+    "«Trusted by companies» λογότυπα τρίτων"
+   ],
+   "required_removals": [
+    "αστέρια αξιολόγησης — επινοημένες κριτικές",
+    "«Happy Customers» μαρτυρίες",
+    "«Trusted by companies» λογότυπα τρίτων"
+   ],
+   "allowed_labels": [
+    "Ωράριο",
+    "Επικοινωνία",
+    "Υπηρεσίες",
+    "Πού θα μας βρεις",
+    "Τιμοκατάλογος",
+    "Μενού",
+    "Προϊόντα"
+   ],
+   "batch": "migration-2"
+  },
+  "moso-interior": {
+   "name": "Moso Interior (Tooplate)",
+   "source_url": "https://www.tooplate.com/view/2135-moso-interior",
+   "decision": "PORT_OK",
+   "status": "PENDING",
+   "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (LICENSE-MAP.md).",
+   "provenance": "Studio, δικό του template.",
+   "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
+   "theme_key": "moso-interior",
+   "component": "MosoShowroom",
+   "label": "Moso Showroom",
+   "desc": "Πιστό port του Moso Interior: προϊόντα με τιμές ανά κατηγορία, κάρτα ωραρίου πάνω σε φωτογραφία.",
+   "verticals": [
+    "retail"
+   ],
+   "local_path": "sites/artifacts/cand-src/moso_interior/2133_moso_interior",
+   "entry": "index.html",
+   "fidelity_notes": "hero με φωτογραφία και λευκή μπάρα αναζήτησης/φίλτρου από κάτω · ΚΑΡΤΑ ΩΡΑΡΙΟΥ που επικάθεται πάνω σε φωτογραφία — δομή που λείπει · ΠΛΕΓΜΑ ΠΡΟΪΟΝΤΩΝ με ετικέτα τιμής και κατηγορία ανά είδος · θερμή παλέτα με coral accent και wavy footer",
+   "required_design": [
+    "hero με φωτογραφία και λευκή μπάρα αναζήτησης/φίλτρου από κάτω",
+    "ΚΑΡΤΑ ΩΡΑΡΙΟΥ που επικάθεται πάνω σε φωτογραφία — δομή που λείπει",
+    "ΠΛΕΓΜΑ ΠΡΟΪΟΝΤΩΝ με ετικέτα τιμής και κατηγορία ανά είδος",
+    "θερμή παλέτα με coral accent και wavy footer"
+   ],
+   "adaptable": [
+    "μπάρα αναζήτησης προϊόντος → κατηγορίες ως ετικέτες, χωρίς αναζήτηση"
+   ],
+   "unsupported_by_product": [
+    "καλάθι/wishlist — δεν υπάρχει ταμείο",
+    "«Reviews» carousel — μαρτυρίες",
+    "«Since 1986» χωρίς τεκμήριο"
+   ],
+   "required_removals": [
+    "καλάθι/wishlist — δεν υπάρχει ταμείο",
+    "«Reviews» carousel — μαρτυρίες",
+    "«Since 1986» χωρίς τεκμήριο"
+   ],
+   "allowed_labels": [
+    "Ωράριο",
+    "Επικοινωνία",
+    "Υπηρεσίες",
+    "Πού θα μας βρεις",
+    "Τιμοκατάλογος",
+    "Μενού",
+    "Προϊόντα"
+   ],
+   "batch": "migration-2"
+  },
+  "modern-musician": {
+   "name": "Modern Musician (Tooplate)",
+   "source_url": "https://www.tooplate.com/view/2160-modern-musician",
+   "decision": "PORT_OK",
+   "status": "PENDING",
+   "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (LICENSE-MAP.md).",
+   "provenance": "Studio, δικό του template.",
+   "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
+   "theme_key": "modern-musician",
+   "component": "StudioSignature",
+   "label": "Studio Signature",
+   "desc": "Πιστό port του Modern Musician: serif τυπογραφία, κάρτες έργων με ετικέτα τύπου, ήρεμη παλέτα.",
+   "verticals": [
+    "music"
+   ],
+   "local_path": "sites/artifacts/cand-src/modern_musician/2155_modern_musician",
+   "entry": "index.html",
+   "fidelity_notes": "serif επικεφαλίδες με πολύ λευκό γύρω τους · hero δύο στηλών: κείμενο αριστερά, κάρτα media δεξιά · «How I can help» σε τρεις κάρτες με εικονίδιο · «Featured work» κάρτες με ΕΤΙΚΕΤΑ ΤΥΠΟΥ (ALBUM/COURSE) πάνω από τον τίτλο",
+   "required_design": [
+    "serif επικεφαλίδες με πολύ λευκό γύρω τους",
+    "hero δύο στηλών: κείμενο αριστερά, κάρτα media δεξιά",
+    "«How I can help» σε τρεις κάρτες με εικονίδιο",
+    "«Featured work» κάρτες με ΕΤΙΚΕΤΑ ΤΥΠΟΥ (ALBUM/COURSE) πάνω από τον τίτλο"
+   ],
+   "adaptable": [
+    "inline audio player → κάρτα media με εικόνα (δεν υπάρχει μοντέλο ήχου)"
+   ],
+   "unsupported_by_product": [
+    "ενσωματωμένος audio player — δεν υπάρχει πεδίο ήχου",
+    "«What people say» μαρτυρίες",
+    "newsletter",
+    "«over a decade» χωρίς τεκμήριο"
+   ],
+   "required_removals": [
+    "ενσωματωμένος audio player — δεν υπάρχει πεδίο ήχου",
+    "«What people say» μαρτυρίες",
+    "newsletter",
+    "«over a decade» χωρίς τεκμήριο"
+   ],
+   "allowed_labels": [
+    "Ωράριο",
+    "Επικοινωνία",
+    "Υπηρεσίες",
+    "Πού θα μας βρεις",
+    "Τιμοκατάλογος",
+    "Μενού",
+    "Προϊόντα"
+   ],
+   "batch": "migration-2"
   }
  },
  "_fidelity_model": "Η πηγή είναι ΕΜΠΝΕΥΣΗ, όχι προδιαγραφή αντιγραφής. REQUIRED_DESIGN: πρέπει να επιβιώσει, αλλιώς χάνεται η ταυτότητα. ADAPTABLE: μεταφράζεται σε άλλη αληθινή δομή του Vitrina. UNSUPPORTED_BY_PRODUCT: το Vitrina δεν το μοντελοποιεί — η απουσία του ΔΕΝ εμποδίζει READY_FOR_REVIEW και ΑΠΑΓΟΡΕΥΕΤΑΙ να καλυφθεί με επινοημένα δεδομένα."
