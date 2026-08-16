@@ -1,0 +1,85 @@
+{
+ "label": "failing-contrast-call",
+ "captured_at": "2026-08-16T06:53:00+00:00",
+ "request": {
+  "endpoint": "https://api.deepseek.com/chat/completions",
+  "headers": {
+   "Authorization": "<redacted>",
+   "Content-Type": "application/json"
+  },
+  "model": "deepseek-v4-flash",
+  "max_tokens": 300,
+  "temperature": 0.2,
+  "response_format": {
+   "type": "json_object"
+  },
+  "system_prompt": "Return JSON only. No prose, no markdown.",
+  "user_prompt_final": "You are adjusting ONE colour token to satisfy a contrast requirement.\n\nFAILING PAIR\n  foreground  --vt-accent-ink = #247cff\n  background  --vt-surface-2 = #F9F9F9\n  measured contrast = 3.69:1\n  required minimum  = 4.5:1\n\nReturn a replacement value for --vt-accent-ink ONLY.\n\nConstraints:\n  * keep the SAME hue family and visual intent — this is the theme's identity;\n    adjust lightness/saturation, do not change the colour to a different hue\n  * the new value must reach at least 4.5:1 against #F9F9F9\n  * a 6-digit hex, nothing else\n  * you are NOT rewriting the stylesheet: layout, typography, selectors and every\n    other token stay exactly as they are\n\nRespond with JSON only, no prose and no markdown:\n{\"token\": \"--vt-accent-ink\", \"value\": \"#rrggbb\"}",
+  "user_prompt_length": 758
+ },
+ "response": {
+  "http_status": 200,
+  "model_returned": "deepseek-v4-flash",
+  "id": "b28cb4a4-a6fd-4a10-adbd-8fafb7509e3e",
+  "created": 1786863176,
+  "choices_count": 1,
+  "finish_reason": "length",
+  "message": {
+   "role": "assistant",
+   "content": "",
+   "reasoning_content": "We need to adjust the color #247cff to a darker shade to increase contrast against #F9F9F9. Keep hue family (blue). Need contrast >= 4.5. Let's compute luminance of background #F9F9F9: sRGB 249,249,249. Linearize: sRGB component / 255 = 0.97647. For sRGB, linear = ((c+0.055)/1.055)^2.4 if c>0.03928, else c/12.92. 0.97647 > threshold, so linear = ((0.97647+0.055)/1.055)^2.4 = (1.03147/1.055)^2.4 = 0.9777. Wait compute accurately: (0.97647+0.055)=1.03147 /1.055=0.9777, ^2.4. Let's do later. Actually luminance Y = 0.2126*R_lin + 0.7152*G_lin + 0.0722*B_lin. For white 255, linear=1, Y=1. For 249, likely ~0.949? Let's compute.\n\nBetter approach: Need contrast ratio (L1+0.05)/(L2+0.05) where L1 is lighter? Background is light, foreground dark? Currently #247c"
+  },
+  "content": "",
+  "content_length": 0,
+  "reasoning_content": "We need to adjust the color #247cff to a darker shade to increase contrast against #F9F9F9. Keep hue family (blue). Need contrast >= 4.5. Let's compute luminance of background #F9F9F9: sRGB 249,249,249. Linearize: sRGB component / 255 = 0.97647. For sRGB, linear = ((c+0.055)/1.055)^2.4 if c>0.03928, else c/12.92. 0.97647 > threshold, so linear = ((0.97647+0.055)/1.055)^2.4 = (1.03147/1.055)^2.4 = 0.9777. Wait compute accurately: (0.97647+0.055)=1.03147 /1.055=0.9777, ^2.4. Let's do later. Actually luminance Y = 0.2126*R_lin + 0.7152*G_lin + 0.0722*B_lin. For white 255, linear=1, Y=1. For 249, likely ~0.949? Let's compute.\n\nBetter approach: Need contrast ratio (L1+0.05)/(L2+0.05) where L1 is lighter? Background is light, foreground dark? Currently #247c",
+  "reasoning_content_length": 762,
+  "refusal": null,
+  "tool_calls": null,
+  "usage": {
+   "prompt_tokens": 330,
+   "completion_tokens": 300,
+   "total_tokens": 630,
+   "prompt_tokens_details": {
+    "cached_tokens": 256
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 300
+   },
+   "prompt_cache_hit_tokens": 256,
+   "prompt_cache_miss_tokens": 74
+  },
+  "error": null,
+  "raw_body": {
+   "id": "b28cb4a4-a6fd-4a10-adbd-8fafb7509e3e",
+   "object": "chat.completion",
+   "created": 1786863176,
+   "model": "deepseek-v4-flash",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "",
+      "reasoning_content": "We need to adjust the color #247cff to a darker shade to increase contrast against #F9F9F9. Keep hue family (blue). Need contrast >= 4.5. Let's compute luminance of background #F9F9F9: sRGB 249,249,249. Linearize: sRGB component / 255 = 0.97647. For sRGB, linear = ((c+0.055)/1.055)^2.4 if c>0.03928, else c/12.92. 0.97647 > threshold, so linear = ((0.97647+0.055)/1.055)^2.4 = (1.03147/1.055)^2.4 = 0.9777. Wait compute accurately: (0.97647+0.055)=1.03147 /1.055=0.9777, ^2.4. Let's do later. Actually luminance Y = 0.2126*R_lin + 0.7152*G_lin + 0.0722*B_lin. For white 255, linear=1, Y=1. For 249, likely ~0.949? Let's compute.\n\nBetter approach: Need contrast ratio (L1+0.05)/(L2+0.05) where L1 is lighter? Background is light, foreground dark? Currently #247c"
+     },
+     "logprobs": null,
+     "finish_reason": "length"
+    }
+   ],
+   "usage": {
+    "prompt_tokens": 330,
+    "completion_tokens": 300,
+    "total_tokens": 630,
+    "prompt_tokens_details": {
+     "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 300
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 74
+   },
+   "system_fingerprint": "a26a7955944dc5c60445bff77fac9c8e"
+  }
+ }
+}

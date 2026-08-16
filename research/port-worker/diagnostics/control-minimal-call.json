@@ -1,0 +1,85 @@
+{
+ "label": "control-minimal-call",
+ "captured_at": "2026-08-16T06:53:01+00:00",
+ "request": {
+  "endpoint": "https://api.deepseek.com/chat/completions",
+  "headers": {
+   "Authorization": "<redacted>",
+   "Content-Type": "application/json"
+  },
+  "model": "deepseek-v4-flash",
+  "max_tokens": 300,
+  "temperature": 0.2,
+  "response_format": {
+   "type": "json_object"
+  },
+  "system_prompt": "Return JSON only.",
+  "user_prompt_final": "Return exactly this JSON object:\n{\"token\":\"--vt-accent-ink\",\"value\":\"#000000\"}",
+  "user_prompt_length": 78
+ },
+ "response": {
+  "http_status": 200,
+  "model_returned": "deepseek-v4-flash",
+  "id": "dc0d487d-9dbb-42eb-bd58-172308467be1",
+  "created": 1786863180,
+  "choices_count": 1,
+  "finish_reason": "stop",
+  "message": {
+   "role": "assistant",
+   "content": "{\"token\":\"--vt-accent-ink\",\"value\":\"#000000\"}",
+   "reasoning_content": "We are asked to return exactly a JSON object. The instruction says \"Return exactly this JSON object: {\"token\":\"--vt-accent-ink\",\"value\":\"#000000\"}\". So we should output that exact JSON. The system prompt says \"Reply with JSON object ONLY.\" So we output the JSON object as is."
+  },
+  "content": "{\"token\":\"--vt-accent-ink\",\"value\":\"#000000\"}",
+  "content_length": 45,
+  "reasoning_content": "We are asked to return exactly a JSON object. The instruction says \"Return exactly this JSON object: {\"token\":\"--vt-accent-ink\",\"value\":\"#000000\"}\". So we should output that exact JSON. The system prompt says \"Reply with JSON object ONLY.\" So we output the JSON object as is.",
+  "reasoning_content_length": 275,
+  "refusal": null,
+  "tool_calls": null,
+  "usage": {
+   "prompt_tokens": 129,
+   "completion_tokens": 82,
+   "total_tokens": 211,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 65
+   },
+   "prompt_cache_hit_tokens": 0,
+   "prompt_cache_miss_tokens": 129
+  },
+  "error": null,
+  "raw_body": {
+   "id": "dc0d487d-9dbb-42eb-bd58-172308467be1",
+   "object": "chat.completion",
+   "created": 1786863180,
+   "model": "deepseek-v4-flash",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\"token\":\"--vt-accent-ink\",\"value\":\"#000000\"}",
+      "reasoning_content": "We are asked to return exactly a JSON object. The instruction says \"Return exactly this JSON object: {\"token\":\"--vt-accent-ink\",\"value\":\"#000000\"}\". So we should output that exact JSON. The system prompt says \"Reply with JSON object ONLY.\" So we output the JSON object as is."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "prompt_tokens": 129,
+    "completion_tokens": 82,
+    "total_tokens": 211,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 65
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 129
+   },
+   "system_fingerprint": "a26a7955944dc5c60445bff77fac9c8e"
+  }
+ }
+}
