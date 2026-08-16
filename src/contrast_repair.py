@@ -76,26 +76,13 @@ def apply_token(css: str, token: str, value: str) -> str:
     return pattern.sub(lambda m: m.group(1) + value.strip() + m.group(3), css, count=1)
 
 
-PROMPT = """You are adjusting ONE colour token to satisfy a contrast requirement.
+PROMPT = """Contrast fix. Return one replacement hex for the foreground token.
 
-FAILING PAIR
-  foreground  --vt-{fg_token} = {fg_value}
-  background  --vt-{bg_token} = {bg_value}
-  measured contrast = {measured}:1
-  required minimum  = {required}:1
+--vt-{fg_token} = {fg_value}  on  --vt-{bg_token} = {bg_value}
+measured {measured}:1, need >= {required}:1
 
-Return a replacement value for --vt-{fg_token} ONLY.
-
-Constraints:
-  * keep the SAME hue family and visual intent — this is the theme's identity;
-    adjust lightness/saturation, do not change the colour to a different hue
-  * the new value must reach at least {required}:1 against {bg_value}
-  * a 6-digit hex, nothing else
-  * you are NOT rewriting the stylesheet: layout, typography, selectors and every
-    other token stay exactly as they are
-
-Respond with JSON only, no prose and no markdown:
-{{"token": "--vt-{fg_token}", "value": "#rrggbb"}}"""
+Keep the same hue family; adjust lightness only.
+JSON only: {{"token":"--vt-{fg_token}","value":"#RRGGBB"}}"""
 
 
 def verify(candidate: str, bg_value: str, required: float) -> tuple[bool, float]:
