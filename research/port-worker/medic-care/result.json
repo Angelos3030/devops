@@ -1,7 +1,7 @@
 {
  "source_id": "medic-care",
  "theme_key": "medic-care",
- "started_at": "2026-08-16T05:04:13+00:00",
+ "started_at": "2026-08-16T05:42:11+00:00",
  "original_render_status": "OK",
  "model": "deepseek-v4-pro",
  "generation_steps": [
@@ -48,14 +48,6 @@
   {
    "step": "CSS",
    "attempt": 1,
-   "outcome": "VALIDATION_FAILED",
-   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-   "patch_produced": true,
-   "applied": false
-  },
-  {
-   "step": "CSS",
-   "attempt": 2,
    "outcome": "SUCCESS",
    "reason": "",
    "patch_produced": true,
@@ -88,22 +80,6 @@
   {
    "step": "CSS",
    "attempt": 1,
-   "outcome": "VALIDATION_FAILED",
-   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-   "patch_produced": true,
-   "applied": false
-  },
-  {
-   "step": "CSS",
-   "attempt": 2,
-   "outcome": "VALIDATION_FAILED",
-   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-   "patch_produced": true,
-   "applied": false
-  },
-  {
-   "step": "CSS",
-   "attempt": 3,
    "outcome": "SUCCESS",
    "reason": "",
    "patch_produced": true,
@@ -116,10 +92,10 @@
   "media": []
  },
  "token_usage": {
-  "input": 28330,
-  "output": 24162
+  "input": 28288,
+  "output": 23346
  },
- "cost_usd": 0.0504,
+ "cost_usd": 0.0492,
  "demo_business": "physician",
  "files_changed": [
   "sites/lib/templates/MedicCare.jsx",
@@ -127,37 +103,49 @@
  ],
  "deviations": [
   {
-   "what": "Αφαίρεση τμήματος 'Our Patients' (μαρτυρίες)",
-   "why": "Η πολιτική SECTION_POLICY.testimonial είναι κενή (frozenset), άρα δεν επιτρέπονται μαρτυρίες."
+   "what": "Removed 'Our Patients' testimonials section",
+   "why": "No testimonial data available in Vitrina contract; policy forbids inventing testimonials."
   },
   {
-   "what": "Αφαίρεση φόρμας ραντεβού (booking)",
-   "why": "Δεν υπάρχει ροή κράτησης στο data contract. Η ενότητα παραλείπεται για να μην παραπλανά τον χρήστη."
+   "what": "Removed 'Book an appointment' form",
+   "why": "No booking flow provided in intake; form would require server-side handling not supported."
   },
   {
-   "what": "Αφαίρεση του κύκλου '12 Years of Experiences'",
-   "why": "Δεν υπάρχει τεκμηρίωση για τα χρόνια εμπειρίας στο intake. Αντικαθίσταται με την εικόνα d.STORY_IMAGE σε κυκλικό πλαίσιο για διατήρηση της οπτικής ισορροπίας."
+   "what": "Removed '12 Years of Experiences' counter",
+   "why": "No evidence for this statistic in intake; policy forbids invented credentials."
   },
   {
-   "what": "Testimonials section (\"Our Patients\") omitted",
-   "why": "No real testimonial data in intake; invention would violate truth contract"
+   "what": "Replaced animated three-word slider in hero with single HERO_WORD animation",
+   "why": "Data contract provides only one HERO_WORD string; cannot invent additional words."
   },
   {
-   "what": "Booking form section omitted",
-   "why": "No booking flow exists in the business data"
+   "what": "Mapped original testimonials to timeline section using services data",
+   "why": "Preserved alternating timeline structure while using real business services."
   },
   {
-   "what": "\"12 Years of Experiences\" counter replaced with story image",
-   "why": "Counter lacks verifiable evidence in intake, replaced with real STORY_IMAGE from data contract"
+   "what": "Replaced footer social icons with shared SocialLinks component",
+   "why": "Social data is handled by shared component; no direct social URLs in contract."
   },
   {
-   "what": "Original JavaScript carousel replaced with CSS scroll-snap",
-   "why": "To ensure functionality without client-side JavaScript and respect reduced motion"
+   "what": "Used STORY_IMAGE for about section visual instead of experience circle",
+   "why": "No numeric experience data; image provided in contract maintains two-column layout."
+  },
+  {
+   "what": "Our Patients testimonials section",
+   "why": "No real testimonial data available; SECTION_POLICY.testimonial = frozenset()"
+  },
+  {
+   "what": "Booking appointment form",
+   "why": "No booking flow exists in the data contract"
+  },
+  {
+   "what": "12 Years of Experiences counter",
+   "why": "Years of experience not provided in intake, cannot fabricate credentials"
   }
  ],
  "registered": true,
  "preview_server": {
-  "pid": 21276,
+  "pid": 19080,
   "port": 3881,
   "reclaimed": {
    "found": [],
@@ -168,24 +156,49 @@
  "repair_attempts": [
   "build: spine_guard · render",
   "build: spine_guard · render",
-  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-  "build: spine_guard · render",
-  "build: spine_guard · render",
-  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine"
+  "build: spine_guard",
+  "build: spine_guard"
  ],
  "contrast_repair": [
   {
-   "error": "Expecting value: line 1 column 1 (char 0)"
+   "token": "accent-ink",
+   "from": "#247cff",
+   "was": 3.69,
+   "required": 4.5,
+   "max_tokens": 1500,
+   "content_non_empty": false,
+   "outcome": "NO_WRITE",
+   "error": "άδειο ή κενό σώμα απάντησης"
   },
   {
-   "error": "Expecting value: line 1 column 1 (char 0)"
+   "token": "on-accent",
+   "from": "#FFFFFF",
+   "was": 3.89,
+   "required": 4.5,
+   "max_tokens": 1500,
+   "content_non_empty": false,
+   "outcome": "NO_WRITE",
+   "error": "άδειο ή κενό σώμα απάντησης"
   },
   {
-   "error": "Expecting value: line 1 column 1 (char 0)"
+   "token": "accent-ink",
+   "from": "#247cff",
+   "was": 3.69,
+   "required": 4.5,
+   "max_tokens": 1500,
+   "content_non_empty": false,
+   "outcome": "NO_WRITE",
+   "error": "άδειο ή κενό σώμα απάντησης"
   },
   {
-   "error": "Expecting value: line 1 column 1 (char 0)"
+   "token": "accent-ink",
+   "from": "#247cff",
+   "was": 3.69,
+   "required": 4.5,
+   "max_tokens": 1500,
+   "content_non_empty": false,
+   "outcome": "NO_WRITE",
+   "error": "άδειο ή κενό σώμα απάντησης"
   }
  ],
  "repair_ledger": [
@@ -203,7 +216,7 @@
     "mobile": {
      "renderable": true,
      "overflow": 0,
-     "inner": 0,
+     "inner": 1,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -214,6 +227,49 @@
      "renderable": true,
      "overflow": 0,
      "inner": 3,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 1,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
+  },
+  {
+   "ATTEMPT": 2,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -233,57 +289,12 @@
    "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
   },
   {
-   "ATTEMPT": 2,
-   "BASELINE_STATE": {
-    "desktop": {
-     "renderable": true,
-     "overflow": 0,
-     "inner": 3,
-     "broken": 0,
-     "console": 0,
-     "h1": 1
-    },
-    "mobile": {
-     "renderable": true,
-     "overflow": 0,
-     "inner": 0,
-     "broken": 0,
-     "console": 0,
-     "h1": 1
-    }
-   },
-   "CANDIDATE_STATE": {
-    "desktop": {
-     "renderable": true,
-     "overflow": 0,
-     "inner": 3,
-     "broken": 0,
-     "console": 0,
-     "h1": 1
-    },
-    "mobile": {
-     "renderable": true,
-     "overflow": 0,
-     "inner": 2,
-     "broken": 0,
-     "console": 0,
-     "h1": 1
-    }
-   },
-   "REGRESSIONS": [
-    "MOBILE: inner 0 -> 2"
-   ],
-   "DECISION": "REJECTED",
-   "ROLLBACK_SUCCESS": true,
-   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
-  },
-  {
    "ATTEMPT": 3,
    "BASELINE_STATE": {
     "desktop": {
      "renderable": true,
      "overflow": 0,
-     "inner": 3,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -299,25 +310,24 @@
    },
    "CANDIDATE_STATE": {
     "desktop": {
-     "renderable": true,
-     "overflow": 0,
-     "inner": 4,
-     "broken": 0,
-     "console": 0,
-     "h1": 1
-    },
-    "mobile": {
      "renderable": true,
      "overflow": 0,
      "inner": 1,
      "broken": 0,
      "console": 0,
      "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
     }
    },
    "REGRESSIONS": [
-    "DESKTOP: inner 3 -> 4",
-    "MOBILE: inner 0 -> 1"
+    "DESKTOP: inner 0 -> 1"
    ],
    "DECISION": "REJECTED",
    "ROLLBACK_SUCCESS": true,
@@ -355,16 +365,18 @@
     "mobile": {
      "renderable": true,
      "overflow": 0,
-     "inner": 0,
+     "inner": 1,
      "broken": 0,
      "console": 0,
      "h1": 1
     }
    },
-   "REGRESSIONS": [],
-   "DECISION": "ACCEPTED",
-   "ROLLBACK_SUCCESS": null,
-   "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
+   "REGRESSIONS": [
+    "MOBILE: inner 0 -> 1"
+   ],
+   "DECISION": "REJECTED",
+   "ROLLBACK_SUCCESS": true,
+   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
   }
  ],
  "tests_run": 4,
@@ -384,27 +396,28 @@
    "passed": true
   }
  },
+ "rollback_final": true,
  "vitrina_render_status": "OK",
  "vitrina_metrics": {
   "tag": "vitrina",
   "desktop": {
-   "height": 3532,
+   "height": 3278,
    "overflow": 0,
-   "images": 4,
+   "images": 6,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 4,
+   "smallTaps": 6,
    "innerOverflow": [],
    "consoleErrors": 0,
    "errorSamples": []
   },
   "mobile": {
-   "height": 5296,
+   "height": 4231,
    "overflow": 0,
-   "images": 4,
+   "images": 6,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 4,
+   "smallTaps": 6,
    "innerOverflow": [],
    "consoleErrors": 0,
    "errorSamples": []
@@ -415,7 +428,7 @@
    "overflow": 0,
    "innerOverflow": [],
    "broken": 0,
-   "images": 4,
+   "images": 6,
    "h1": 1,
    "consoleErrors": 0
   },
@@ -423,13 +436,13 @@
    "overflow": 0,
    "innerOverflow": [],
    "broken": 0,
-   "images": 4,
+   "images": 6,
    "h1": 1,
    "consoleErrors": 0
   }
  },
  "render_problems": [],
- "elapsed_seconds": 1713.1,
+ "elapsed_seconds": 1414.9,
  "status": "FAILED",
  "original_metrics": {
   "tag": "original",
