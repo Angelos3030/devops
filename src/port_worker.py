@@ -213,6 +213,20 @@ CSS: κάθε χρώμα περνά από τους 11 spine ρόλους στο
 κανένα !important. Τα CSS Modules θέλουν pure selectors: `a:focus-visible`
 σκέτο ΔΕΝ μεταγλωττίζεται — γράψε `.root a:focus-visible`.
 
+ΤΑΥΤΟΤΗΤΑ ΣΧΕΔΙΟΥ — ΠΡΕΠΕΙ να επιβιώσει (χωρίς αυτά το port χάνει το νόημά του):
+{chr(10).join('  • ' + x for x in rec.get('required_design', []))}
+
+ΠΡΟΣΑΡΜΟΣΙΜΑ — κράτα την ιδέα, μετάφρασέ την σε αληθινή δομή του Vitrina:
+{chr(10).join('  • ' + x for x in rec.get('adaptable', []))}
+
+ΔΕΝ ΥΠΟΣΤΗΡΙΖΟΝΤΑΙ ΑΠΟ ΤΟ ΠΡΟΪΟΝ — ΠΑΡΕΛΕΙΨΕ τα. Η απουσία τους είναι ΣΩΣΤΗ.
+ΑΠΑΓΟΡΕΥΕΤΑΙ να τα καλύψεις με επινοημένα δεδομένα:
+{chr(10).join('  • ' + x for x in rec.get('unsupported_by_product', []))}
+
+Η πηγή είναι ΕΜΠΝΕΥΣΗ, όχι προδιαγραφή αντιγραφής. Στόχος: ένα διακριτό,
+επαγγελματικό theme του Vitrina που κρατά το DNA της πηγής — όχι πιστό
+αντίγραφο κάθε ενότητας.
+
 SOURCE: {rec['name']} — {rec['source_url']}
 LICENCE (already verified, do not re-litigate): {rec['license']}
 TARGET VERTICALS: {', '.join(rec['verticals'])}

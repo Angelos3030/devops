@@ -82,6 +82,20 @@ for (const [label, w, h] of [['desktop', 1440, 1024], ['mobile', 390, 844]]) {
       h1: document.querySelectorAll('h1').length,
       smallTaps: [...document.querySelectorAll('a,button')]
         .filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && (r.height < 44 || r.width < 44) }).length,
+      // Διπλή ΠΡΟΒΕΒΛΗΜΕΝΗ επικεφαλίδα σε ΓΕΙΤΟΝΙΚΕΣ ενότητες. Συντηρητικό:
+      // μόνο ορατά h2/h3, μόνο διαδοχικές εμφανίσεις, χωρίς nav/CTA/aria.
+      // Μετρήθηκε στο Gymso: «Εδώ δεν είσαι συνδρομή» δύο φορές στη σειρά.
+      duplicateHeadings: (() => {
+        const seen = [...document.querySelectorAll('h2,h3')]
+          .filter((e) => e.offsetParent !== null && !e.closest('nav,header,footer'))
+          .map((e) => e.textContent.trim().replace(/\s+/g, ' '))
+          .filter((x) => x.split(' ').length >= 3)
+        const dup = []
+        for (let i = 1; i < seen.length; i++) {
+          if (seen[i] && seen[i] === seen[i - 1]) dup.push(seen[i].slice(0, 60))
+        }
+        return [...new Set(dup)]
+      })(),
       // Εσωτερική υπερχείλιση: το document μπορεί να μην κυλά οριζόντια ενώ
       // μια σειρά καρτών κόβεται μέσα στο container της. Στο Frost η σειρά
       // γεύσεων έβγαινε κομμένη και στις δύο άκρες με overflow=0 στο document.
