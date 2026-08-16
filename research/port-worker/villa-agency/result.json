@@ -1,0 +1,417 @@
+{
+ "source_id": "villa-agency",
+ "theme_key": "villa-agency",
+ "started_at": "2026-08-16T14:34:02+00:00",
+ "original_render_status": "OK",
+ "model": "deepseek-v4-pro",
+ "generation_steps": [
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  }
+ ],
+ "guards": {
+  "contract": [],
+  "copy_leak": [],
+  "media": []
+ },
+ "token_usage": {
+  "input": 51037,
+  "output": 27964
+ },
+ "cost_usd": 0.0675,
+ "demo_business": "realestate",
+ "files_changed": [
+  "sites/lib/templates/VillaAgency.jsx",
+  "sites/lib/templates/VillaAgency.module.css"
+ ],
+ "deviations": [
+  {
+   "what": "Fun facts / counters section (34 buildings, 12 years, 24 awards) omitted",
+   "why": "No real data for counters; prohibited by truth contract."
+  },
+  {
+   "what": "Interactive accordion in featured section replaced with static text block",
+   "why": "Server component cannot handle client state; story paragraphs used as static content."
+  },
+  {
+   "what": "Interactive tabs in 'Best Deal' replaced with a single static featured service",
+   "why": "No client-side tab functionality in server component."
+  },
+  {
+   "what": "Property card specification line (bedrooms/bathrooms/area) omitted",
+   "why": "Data contract lacks numeric property specs; services repurposed as property listings but no specification data."
+  },
+  {
+   "what": "Booking/schedule a visit form replaced with generic contact form",
+   "why": "No booking flow; prohibited by product requirements."
+  },
+  {
+   "what": "Interactive category filtering pills replaced with static category labels on property cards",
+   "why": "Server component without client state cannot support interactive filtering"
+  },
+  {
+   "what": "Schedule a visit form removed from property cards, replaced with a single contact form section",
+   "why": "No booking flow exists in the system; the contact form is the available alternative"
+  },
+  {
+   "what": "Video section play button points to '#'",
+   "why": "No actual video URL provided in the data contract"
+  },
+  {
+   "what": "Counters (34 buildings, 12 years, 24 awards) omitted entirely",
+   "why": "Truth contract forbids inventing such statistics without real data"
+  }
+ ],
+ "registered": true,
+ "preview_server": {
+  "pid": 17716,
+  "port": 3881,
+  "reclaimed": {
+   "found": [],
+   "killed": [],
+   "skipped": []
+  }
+ },
+ "repair_attempts": [
+  "build: spine_guard · render",
+  "build: spine_guard · render",
+  "build: spine_guard"
+ ],
+ "contrast_repair": [
+  {
+   "token": "on-accent",
+   "from": "#ffffff",
+   "was": 3.42,
+   "required": 4.5,
+   "method": "deterministic-hsl",
+   "model_tokens": 0,
+   "outcome": "NO_WRITE",
+   "error": "αδύνατο: ούτε το άκρο L=1.0 δεν φτάνει 4.55:1 με φόντο #f35525"
+  },
+  {
+   "token": "on-accent",
+   "from": "#ffffff",
+   "was": 3.42,
+   "required": 4.5,
+   "method": "deterministic-hsl",
+   "model_tokens": 0,
+   "outcome": "NO_WRITE",
+   "error": "αδύνατο: ούτε το άκρο L=1.0 δεν φτάνει 4.55:1 με φόντο #f35525"
+  },
+  {
+   "token": "accent-ink",
+   "from": "#d94c1a",
+   "was": 3.92,
+   "required": 4.5,
+   "method": "deterministic-hsl",
+   "model_tokens": 0,
+   "to": "#c64618",
+   "now": 4.57,
+   "hue_before": 16,
+   "hue_after": 16,
+   "outcome": "APPLIED",
+   "error": ""
+  }
+ ],
+ "repair_ledger": [
+  {
+   "ATTEMPT": 1,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 0
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 0
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [
+    "GUARD trust_guard: πέρναγε -> αποτυγχάνει"
+   ],
+   "DECISION": "REJECTED",
+   "ROLLBACK_SUCCESS": true,
+   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
+  },
+  {
+   "ATTEMPT": 2,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
+  },
+  {
+   "ATTEMPT": 3,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": ""
+  }
+ ],
+ "tests_run": 4,
+ "tests_passed": 4,
+ "tests_failed": 0,
+ "tests": {
+  "templateRegistry": {
+   "passed": true
+  },
+  "spine_guard": {
+   "passed": true
+  },
+  "trust_guard": {
+   "passed": true
+  },
+  "next_build": {
+   "passed": true
+  }
+ },
+ "vitrina_render_status": "OK",
+ "vitrina_metrics": {
+  "tag": "vitrina",
+  "desktop": {
+   "height": 4295,
+   "overflow": 0,
+   "images": 8,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 6,
+   "duplicateHeadings": [
+    "Πες μας τι αναζητάς."
+   ],
+   "innerOverflow": [],
+   "consoleErrors": 0,
+   "errorSamples": []
+  },
+  "mobile": {
+   "height": 6178,
+   "overflow": 0,
+   "images": 8,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 6,
+   "duplicateHeadings": [
+    "Πες μας τι αναζητάς."
+   ],
+   "innerOverflow": [],
+   "consoleErrors": 0,
+   "errorSamples": []
+  }
+ },
+ "render": {
+  "desktop": {
+   "overflow": 0,
+   "innerOverflow": [],
+   "broken": 0,
+   "images": 8,
+   "h1": 1,
+   "consoleErrors": 0
+  },
+  "mobile": {
+   "overflow": 0,
+   "innerOverflow": [],
+   "broken": 0,
+   "images": 8,
+   "h1": 1,
+   "consoleErrors": 0
+  }
+ },
+ "render_problems": [],
+ "elapsed_seconds": 1095.3,
+ "status": "READY_FOR_REVIEW",
+ "original_metrics": {
+  "tag": "original",
+  "desktop": {
+   "height": 6835,
+   "overflow": 0,
+   "images": 18,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 32,
+   "duplicateHeadings": [],
+   "innerOverflow": [
+    "div.owl-stage-outer +8850px",
+    "div.wrapper +12px",
+    "div.tabs-content +12px",
+    "div.tab-pane +12px"
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
+  },
+  "mobile": {
+   "height": 12321,
+   "overflow": 0,
+   "images": 18,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 22,
+   "duplicateHeadings": [],
+   "innerOverflow": [
+    "div.owl-stage-outer +2550px",
+    "div.wrapper +12px",
+    "div.tabs-content +12px",
+    "div.tab-pane +12px"
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
+  }
+ }
+}

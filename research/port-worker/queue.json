@@ -145,7 +145,7 @@
    "name": "Villa Agency (Templatemo)",
    "source_url": "https://templatemo.com/tm-591-villa-agency",
    "decision": "PORT_OK",
-   "status": "PENDING",
+   "status": "READY_FOR_REVIEW",
    "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (research/verticals/LICENSE-MAP.md).",
    "provenance": "Studio, δικό του template.",
    "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
@@ -187,7 +187,9 @@
     "ΔΙΑΔΡΑΣΤΙΚΟ ΦΙΛΤΡΑΡΙΣΜΑ — server component χωρίς client state",
     "φόρμα κράτησης επίσκεψης — δεν υπάρχει ροή",
     "μετρητές κτιρίων/ετών/βραβείων — απαγορεύονται χωρίς τεκμήριο"
-   ]
+   ],
+   "updated_at": "2026-08-16T14:52:17+00:00",
+   "result": "research\\port-worker\\villa-agency\\result.json"
   },
   "compass": {
    "name": "Compass (Templatemo)",
