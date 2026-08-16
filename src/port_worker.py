@@ -505,17 +505,31 @@ def _contrast_only_fix(chat: Any, css_path: Path, spine_log: str,
     fail = cr.parse_failure(spine_log, css)
     if not fail:
         return False
+    # Budget: η απάντηση είναι ~40 tokens, αλλά το v4-pro παράγει reasoning
+    # tokens ΠΡΙΝ από αυτήν. Στα 400 το σώμα έβγαινε άδειο σε 4/4 κλήσεις.
+    # 1500 αφήνει άνετο περιθώριο για τον συλλογισμό μιας προσαρμογής χρώματος
+    # χωρίς να είναι αυθαίρετα μεγάλο.
+    record: dict[str, Any] = {"token": fail["fg_token"], "from": fail["fg_value"],
+                              "was": fail["measured"], "required": fail["required"],
+                              "max_tokens": 1500}
     try:
-        raw = chat.ask("Return JSON only.", cr.PROMPT.format(**fail), max_tokens=400)
-        value = (json.loads(raw).get("value") or "").strip()
+        raw = chat.ask("Return JSON only. No prose.", cr.PROMPT.format(**fail),
+                       max_tokens=1500)
     except Exception as exc:  # noqa: BLE001
-        res.setdefault("contrast_repair", []).append({"error": str(exc)[:160]})
+        record.update(outcome=cr.NO_WRITE, error=f"η κλήση απέτυχε: {str(exc)[:120]}")
+        res.setdefault("contrast_repair", []).append(record)
+        return False
+    record["content_non_empty"] = bool(raw and raw.strip())
+    value, err = cr.parse_response(raw)
+    if value is None:
+        record.update(outcome=cr.NO_WRITE, error=err)
+        res.setdefault("contrast_repair", []).append(record)
         return False
     ok, ratio = cr.verify(value, fail["bg_value"], fail["required"])
-    res.setdefault("contrast_repair", []).append(
-        {"token": fail["fg_token"], "from": fail["fg_value"], "to": value,
-         "was": fail["measured"], "now": ratio, "required": fail["required"],
-         "applied": ok})
+    record.update(to=value, now=ratio,
+                  outcome="APPLIED" if ok else cr.NO_WRITE,
+                  error="" if ok else f"η τιμή δίνει {ratio}:1 < {fail['required']}:1")
+    res.setdefault("contrast_repair", []).append(record)
     if not ok:
         return False
     css_path.write_text(cr.apply_token(css, fail["fg_token"], value), encoding="utf-8")

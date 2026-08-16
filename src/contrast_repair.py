@@ -12,6 +12,7 @@
 """
 from __future__ import annotations
 
+import json
 import re
 from typing import Any
 
@@ -102,3 +103,34 @@ def verify(candidate: str, bg_value: str, required: float) -> tuple[bool, float]
     except Exception:  # noqa: BLE001
         return False, 0.0
     return ratio >= required, ratio
+
+
+# Κατηγορίες αποτυχίας. ΚΑΜΙΑ δεν γράφει στον δίσκο.
+NO_WRITE = "NO_WRITE"
+
+
+def parse_response(raw: str | None) -> tuple[str | None, str]:
+    """Επιστρέφει (τιμή, σφάλμα). Τιμή μόνο αν είναι αληθινό hex χρώμα.
+
+    Καθαρή συνάρτηση ώστε κάθε μορφή σκουπιδιού που μπορεί να γυρίσει ένα
+    μοντέλο να δοκιμάζεται χωρίς μοντέλο. Το μετρημένο περιστατικό ήταν
+    `json.loads("")` — άδειο σώμα επειδή τα reasoning tokens κατανάλωσαν όλο
+    το budget των 400. Το fail-closed δούλεψε· έλειπε μόνο η διάγνωση.
+    """
+    if raw is None or not raw.strip():
+        return None, "άδειο ή κενό σώμα απάντησης"
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        return None, f"μη έγκυρο JSON: {str(exc)[:80]}"
+    if not isinstance(data, dict):
+        return None, f"η απάντηση δεν είναι αντικείμενο αλλά {type(data).__name__}"
+    if "value" not in data:
+        return None, "λείπει το υποχρεωτικό πεδίο 'value'"
+    value = data.get("value")
+    if not isinstance(value, str):
+        return None, f"το 'value' δεν είναι συμβολοσειρά αλλά {type(value).__name__}"
+    value = value.strip()
+    if not _HEX.match(value):
+        return None, f"το 'value' δεν είναι hex χρώμα: {value[:24]!r}"
+    return value, ""
