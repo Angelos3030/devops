@@ -39,6 +39,7 @@ from src.vitrina_contract import as_prompt, extract  # noqa: E402
 from src.port_guards import run_all, summarize  # noqa: E402
 from src.preview_server import PreviewServer, PreviewServerError  # noqa: E402
 from src.repair_txn import Ledger  # noqa: E402
+from src import contrast_repair as cr  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE = ROOT / "research" / "port-worker" / "queue.json"
@@ -493,6 +494,34 @@ def _regression_note(regressed: list[str]) -> str:
               "δούλευε στο άλλο viewport.")
 
 
+def _contrast_only_fix(chat: Any, css_path: Path, spine_log: str,
+                       res: dict[str, Any]) -> bool:
+    """Στενή διόρθωση: ΜΙΑ τιμή token, καμία άλλη αλλαγή.
+
+    Δεν ζητάμε ολόκληρο το φύλλο στυλ για έξι χαρακτήρες — αυτό μετακινούσε
+    padding και πλάτη και έφερνε νέες υπερχειλίσεις σε κάθε γύρο.
+    """
+    css = css_path.read_text(encoding="utf-8")
+    fail = cr.parse_failure(spine_log, css)
+    if not fail:
+        return False
+    try:
+        raw = chat.ask("Return JSON only.", cr.PROMPT.format(**fail), max_tokens=400)
+        value = (json.loads(raw).get("value") or "").strip()
+    except Exception as exc:  # noqa: BLE001
+        res.setdefault("contrast_repair", []).append({"error": str(exc)[:160]})
+        return False
+    ok, ratio = cr.verify(value, fail["bg_value"], fail["required"])
+    res.setdefault("contrast_repair", []).append(
+        {"token": fail["fg_token"], "from": fail["fg_value"], "to": value,
+         "was": fail["measured"], "now": ratio, "required": fail["required"],
+         "applied": ok})
+    if not ok:
+        return False
+    css_path.write_text(cr.apply_token(css, fail["fg_token"], value), encoding="utf-8")
+    return True
+
+
 def port_source(source_id: str) -> dict[str, Any]:
     q = _load_queue()
     rec = q["sources"].get(source_id)
@@ -738,7 +767,13 @@ def port_source(source_id: str) -> dict[str, Any]:
             res.update(status="FAILED", reason="guards: " + summarize(guard_out)[:400])
             (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
             return res
-        res["files_changed"] = _apply(files)
+        narrow = False
+        if (set(k for k, v in tests.items() if not v["passed"]) == {"spine_guard"}
+                and not _render_prescription(vit, orig_imgs)):
+            narrow = _contrast_only_fix(chat, theme_paths[1],
+                                        tests["spine_guard"]["log"], res)
+        if not narrow:
+            res["files_changed"] = _apply(files)
         tests = _suite()
         vit = _render_vitrina()
         gates_ok = all(v["passed"] for v in tests.values())
