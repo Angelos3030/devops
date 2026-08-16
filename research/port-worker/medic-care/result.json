@@ -1,7 +1,7 @@
 {
  "source_id": "medic-care",
  "theme_key": "medic-care",
- "started_at": "2026-08-16T04:32:44+00:00",
+ "started_at": "2026-08-16T05:04:13+00:00",
  "original_render_status": "OK",
  "model": "deepseek-v4-pro",
  "generation_steps": [
@@ -32,6 +32,30 @@
   {
    "step": "CSS",
    "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "VALIDATION_FAILED",
+   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 2,
    "outcome": "SUCCESS",
    "reason": "",
    "patch_produced": true,
@@ -84,30 +108,6 @@
    "reason": "",
    "patch_produced": true,
    "applied": false
-  },
-  {
-   "step": "JSX",
-   "attempt": 1,
-   "outcome": "SUCCESS",
-   "reason": "",
-   "patch_produced": true,
-   "applied": false
-  },
-  {
-   "step": "CSS",
-   "attempt": 1,
-   "outcome": "VALIDATION_FAILED",
-   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-   "patch_produced": true,
-   "applied": false
-  },
-  {
-   "step": "CSS",
-   "attempt": 2,
-   "outcome": "SUCCESS",
-   "reason": "",
-   "patch_produced": true,
-   "applied": false
   }
  ],
  "guards": {
@@ -116,10 +116,10 @@
   "media": []
  },
  "token_usage": {
-  "input": 28362,
-  "output": 23525
+  "input": 28330,
+  "output": 24162
  },
- "cost_usd": 0.0495,
+ "cost_usd": 0.0504,
  "demo_business": "physician",
  "files_changed": [
   "sites/lib/templates/MedicCare.jsx",
@@ -127,21 +127,37 @@
  ],
  "deviations": [
   {
-   "what": "Testimonials section (Our Patients)",
-   "why": "No real testimonial data in intake; policy forbids fake testimonials."
+   "what": "Αφαίρεση τμήματος 'Our Patients' (μαρτυρίες)",
+   "why": "Η πολιτική SECTION_POLICY.testimonial είναι κενή (frozenset), άρα δεν επιτρέπονται μαρτυρίες."
   },
   {
-   "what": "Booking/appointment form",
-   "why": "No booking flow or appointment data exists; form would be non-functional."
+   "what": "Αφαίρεση φόρμας ραντεβού (booking)",
+   "why": "Δεν υπάρχει ροή κράτησης στο data contract. Η ενότητα παραλείπεται για να μην παραπλανά τον χρήστη."
   },
   {
-   "what": "Featured circle with '12 Years of Experiences'",
-   "why": "Statistic lacks verifiable source in intake; omitted to avoid false claims."
+   "what": "Αφαίρεση του κύκλου '12 Years of Experiences'",
+   "why": "Δεν υπάρχει τεκμηρίωση για τα χρόνια εμπειρίας στο intake. Αντικαθίσταται με την εικόνα d.STORY_IMAGE σε κυκλικό πλαίσιο για διατήρηση της οπτικής ισορροπίας."
+  },
+  {
+   "what": "Testimonials section (\"Our Patients\") omitted",
+   "why": "No real testimonial data in intake; invention would violate truth contract"
+  },
+  {
+   "what": "Booking form section omitted",
+   "why": "No booking flow exists in the business data"
+  },
+  {
+   "what": "\"12 Years of Experiences\" counter replaced with story image",
+   "why": "Counter lacks verifiable evidence in intake, replaced with real STORY_IMAGE from data contract"
+  },
+  {
+   "what": "Original JavaScript carousel replaced with CSS scroll-snap",
+   "why": "To ensure functionality without client-side JavaScript and respect reduced motion"
   }
  ],
  "registered": true,
  "preview_server": {
-  "pid": 15820,
+  "pid": 21276,
   "port": 3881,
   "reclaimed": {
    "found": [],
@@ -152,11 +168,25 @@
  "repair_attempts": [
   "build: spine_guard · render",
   "build: spine_guard · render",
-  "build: spine_guard · render",
-  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
   "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
   "build: spine_guard · render",
+  "build: spine_guard · render",
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
   "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine"
+ ],
+ "contrast_repair": [
+  {
+   "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "error": "Expecting value: line 1 column 1 (char 0)"
+  }
  ],
  "repair_ledger": [
   {
@@ -165,7 +195,7 @@
     "desktop": {
      "renderable": true,
      "overflow": 0,
-     "inner": 1,
+     "inner": 3,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -173,7 +203,7 @@
     "mobile": {
      "renderable": true,
      "overflow": 0,
-     "inner": 1,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -191,19 +221,16 @@
     "mobile": {
      "renderable": true,
      "overflow": 0,
-     "inner": 5,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
     }
    },
-   "REGRESSIONS": [
-    "DESKTOP: inner 1 -> 3",
-    "MOBILE: inner 1 -> 5"
-   ],
-   "DECISION": "REJECTED",
-   "ROLLBACK_SUCCESS": true,
-   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
   },
   {
    "ATTEMPT": 2,
@@ -211,7 +238,7 @@
     "desktop": {
      "renderable": true,
      "overflow": 0,
-     "inner": 1,
+     "inner": 3,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -219,7 +246,7 @@
     "mobile": {
      "renderable": true,
      "overflow": 0,
-     "inner": 1,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -227,26 +254,24 @@
    },
    "CANDIDATE_STATE": {
     "desktop": {
-     "renderable": false,
+     "renderable": true,
      "overflow": 0,
-     "inner": 0,
+     "inner": 3,
      "broken": 0,
      "console": 0,
-     "h1": null
+     "h1": 1
     },
     "mobile": {
-     "renderable": false,
+     "renderable": true,
      "overflow": 0,
-     "inner": 0,
+     "inner": 2,
      "broken": 0,
      "console": 0,
-     "h1": null
+     "h1": 1
     }
    },
    "REGRESSIONS": [
-    "DESKTOP: το viewport έπαψε να αποδίδεται",
-    "MOBILE: το viewport έπαψε να αποδίδεται",
-    "GUARD next_build: πέρναγε -> αποτυγχάνει"
+    "MOBILE: inner 0 -> 2"
    ],
    "DECISION": "REJECTED",
    "ROLLBACK_SUCCESS": true,
@@ -258,7 +283,7 @@
     "desktop": {
      "renderable": true,
      "overflow": 0,
-     "inner": 1,
+     "inner": 3,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -266,7 +291,7 @@
     "mobile": {
      "renderable": true,
      "overflow": 0,
-     "inner": 1,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -276,24 +301,23 @@
     "desktop": {
      "renderable": true,
      "overflow": 0,
-     "inner": 3,
+     "inner": 4,
      "broken": 0,
      "console": 0,
      "h1": 1
     },
     "mobile": {
      "renderable": true,
-     "overflow": 5,
-     "inner": 2,
+     "overflow": 0,
+     "inner": 1,
      "broken": 0,
      "console": 0,
      "h1": 1
     }
    },
    "REGRESSIONS": [
-    "DESKTOP: inner 1 -> 3",
-    "MOBILE: overflow 0 -> 5",
-    "MOBILE: inner 1 -> 2"
+    "DESKTOP: inner 3 -> 4",
+    "MOBILE: inner 0 -> 1"
    ],
    "DECISION": "REJECTED",
    "ROLLBACK_SUCCESS": true,
@@ -305,7 +329,7 @@
     "desktop": {
      "renderable": true,
      "overflow": 0,
-     "inner": 1,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -313,7 +337,7 @@
     "mobile": {
      "renderable": true,
      "overflow": 0,
-     "inner": 1,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -331,18 +355,16 @@
     "mobile": {
      "renderable": true,
      "overflow": 0,
-     "inner": 2,
+     "inner": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
     }
    },
-   "REGRESSIONS": [
-    "MOBILE: inner 1 -> 2"
-   ],
-   "DECISION": "REJECTED",
-   "ROLLBACK_SUCCESS": true,
-   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
   }
  ],
  "tests_run": 4,
@@ -362,33 +384,28 @@
    "passed": true
   }
  },
- "rollback_final": true,
  "vitrina_render_status": "OK",
  "vitrina_metrics": {
   "tag": "vitrina",
   "desktop": {
-   "height": 3415,
+   "height": 3532,
    "overflow": 0,
-   "images": 5,
+   "images": 4,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 7,
-   "innerOverflow": [
-    "div.FindUs_mapBox__0e9Qc +56px"
-   ],
+   "smallTaps": 4,
+   "innerOverflow": [],
    "consoleErrors": 0,
    "errorSamples": []
   },
   "mobile": {
-   "height": 4485,
+   "height": 5296,
    "overflow": 0,
-   "images": 5,
+   "images": 4,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 6,
-   "innerOverflow": [
-    "div.MedicCare_navIn__c0nqY +77px"
-   ],
+   "smallTaps": 4,
+   "innerOverflow": [],
    "consoleErrors": 0,
    "errorSamples": []
   }
@@ -396,30 +413,23 @@
  "render": {
   "desktop": {
    "overflow": 0,
-   "innerOverflow": [
-    "div.FindUs_mapBox__0e9Qc +56px"
-   ],
+   "innerOverflow": [],
    "broken": 0,
-   "images": 5,
+   "images": 4,
    "h1": 1,
    "consoleErrors": 0
   },
   "mobile": {
    "overflow": 0,
-   "innerOverflow": [
-    "div.MedicCare_navIn__c0nqY +77px"
-   ],
+   "innerOverflow": [],
    "broken": 0,
-   "images": 5,
+   "images": 4,
    "h1": 1,
    "consoleErrors": 0
   }
  },
- "render_problems": [
-  "desktop: εσωτερική υπερχείλιση — div.FindUs_mapBox__0e9Qc +56px",
-  "mobile: εσωτερική υπερχείλιση — div.MedicCare_navIn__c0nqY +77px"
- ],
- "elapsed_seconds": 1574.7,
+ "render_problems": [],
+ "elapsed_seconds": 1713.1,
  "status": "FAILED",
  "original_metrics": {
   "tag": "original",
