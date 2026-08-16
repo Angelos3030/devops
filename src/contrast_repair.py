@@ -94,7 +94,8 @@ Constraints:
   * you are NOT rewriting the stylesheet: layout, typography, selectors and every
     other token stay exactly as they are
 
-Respond with JSON only: {{"value": "#rrggbb", "why": "one short sentence"}}"""
+Respond with JSON only, no prose and no markdown:
+{{"token": "--vt-{fg_token}", "value": "#rrggbb"}}"""
 
 
 def verify(candidate: str, bg_value: str, required: float) -> tuple[bool, float]:
@@ -109,7 +110,7 @@ def verify(candidate: str, bg_value: str, required: float) -> tuple[bool, float]
 NO_WRITE = "NO_WRITE"
 
 
-def parse_response(raw: str | None) -> tuple[str | None, str]:
+def parse_response(raw: str | None, expect_token: str | None = None) -> tuple[str | None, str]:
     """Επιστρέφει (τιμή, σφάλμα). Τιμή μόνο αν είναι αληθινό hex χρώμα.
 
     Καθαρή συνάρτηση ώστε κάθε μορφή σκουπιδιού που μπορεί να γυρίσει ένα
@@ -133,4 +134,8 @@ def parse_response(raw: str | None) -> tuple[str | None, str]:
     value = value.strip()
     if not _HEX.match(value):
         return None, f"το 'value' δεν είναι hex χρώμα: {value[:24]!r}"
+    if expect_token is not None:
+        got = str(data.get("token", "")).strip().lstrip("-").removeprefix("vt-")
+        if got and got != expect_token:
+            return None, f"λάθος token: ζητήθηκε {expect_token!r}, ήρθε {got!r}"
     return value, ""

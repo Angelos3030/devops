@@ -155,6 +155,16 @@ class _Chat(DeepSeekResearchWorker):
     def ask(self, system: str, user: str, max_tokens: int = 16000) -> str:
         return self._call(self._pass2_model, system, user, json_mode=True, max_tokens=max_tokens)
 
+    def ask_cheap(self, system: str, user: str, max_tokens: int = 300) -> str:
+        """Το ΦΘΗΝΟ, μη-reasoning μοντέλο. Για στενές, ντετερμινιστικές εργασίες.
+
+        Μετρήθηκε: το reasoning μοντέλο επέστρεφε κενό `content` και στα 400 και
+        στα 1500 tokens για μια απλή προσαρμογή χρώματος — ο συλλογισμός έτρωγε
+        το budget. Η εργασία δεν χρειάζεται συλλογισμό: δεδομένα fg/bg/ratio,
+        ζητούμενο ένα hex.
+        """
+        return self._call(self._pass1_model, system, user, json_mode=True, max_tokens=max_tokens)
+
 
 SYSTEM = """You are a senior front-end engineer performing a FAITHFUL PORT.
 
@@ -511,16 +521,18 @@ def _contrast_only_fix(chat: Any, css_path: Path, spine_log: str,
     # χωρίς να είναι αυθαίρετα μεγάλο.
     record: dict[str, Any] = {"token": fail["fg_token"], "from": fail["fg_value"],
                               "was": fail["measured"], "required": fail["required"],
-                              "max_tokens": 1500}
+                              "max_tokens": 300,
+                              "model_requested": chat._pass1_model}
     try:
-        raw = chat.ask("Return JSON only. No prose.", cr.PROMPT.format(**fail),
-                       max_tokens=1500)
+        raw = chat.ask_cheap("Return JSON only. No prose, no markdown.",
+                             cr.PROMPT.format(**fail), max_tokens=300)
     except Exception as exc:  # noqa: BLE001
         record.update(outcome=cr.NO_WRITE, error=f"η κλήση απέτυχε: {str(exc)[:120]}")
         res.setdefault("contrast_repair", []).append(record)
         return False
+    record["raw_length"] = len(raw or "")
     record["content_non_empty"] = bool(raw and raw.strip())
-    value, err = cr.parse_response(raw)
+    value, err = cr.parse_response(raw, expect_token=fail["fg_token"])
     if value is None:
         record.update(outcome=cr.NO_WRITE, error=err)
         res.setdefault("contrast_repair", []).append(record)
