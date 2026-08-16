@@ -295,7 +295,7 @@
    "name": "Klassy Cafe (Templatemo)",
    "source_url": "https://templatemo.com/tm-558-klassy-cafe",
    "decision": "PORT_OK",
-   "status": "PENDING",
+   "status": "READY_FOR_REVIEW",
    "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (LICENSE-MAP.md).",
    "provenance": "Studio, δικό του template.",
    "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
@@ -337,7 +337,9 @@
     "Μενού",
     "Προϊόντα"
    ],
-   "batch": "migration-2"
+   "batch": "migration-2",
+   "updated_at": "2026-08-16T19:33:26+00:00",
+   "result": "research\\port-worker\\klassy-cafe\\result.json"
   },
   "clean-work": {
    "name": "Clean Work (Tooplate)",

@@ -1,0 +1,407 @@
+{
+ "source_id": "klassy-cafe",
+ "theme_key": "klassy-cafe",
+ "started_at": "2026-08-16T19:18:20+00:00",
+ "original_render_status": "OK",
+ "model": "deepseek-v4-pro",
+ "generation_steps": [
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  }
+ ],
+ "guards": {
+  "contract": [],
+  "copy_leak": [],
+  "media": []
+ },
+ "token_usage": {
+  "input": 50678,
+  "output": 15950
+ },
+ "cost_usd": 0.0493,
+ "demo_business": "taverna",
+ "files_changed": [
+  "sites/lib/templates/KlassyTable.jsx",
+  "sites/lib/templates/KlassyTable.module.css"
+ ],
+ "deviations": [
+  {
+   "what": "Παραλείφθηκε η φόρμα κράτησης τραπεζιού",
+   "why": "Δεν υπάρχει ροή για φόρμες στο Vitrina· η ενότητα επικοινωνίας διατηρεί πληροφορίες τηλεφώνου, ωραρίου και περιοχών."
+  },
+  {
+   "what": "Παραλείφθηκε η ενότητα 'Our Chefs'",
+   "why": "Δεν υπάρχουν δεδομένα προσωπικού (REAL_OWNER_PERSON) στον πάροχο δεδομένων· απαγορεύεται η επινόηση ονομάτων ή ρόλων."
+  },
+  {
+   "what": "Παραλείφθηκε το video modal στην ενότητα about",
+   "why": "Το video modal απαιτεί JavaScript και δεν υποστηρίζεται από το συμβόλαιο πιστότητας."
+  },
+  {
+   "what": "Η ενότητα εβδομαδιαίων προσφορών με tabs αντικαταστάθηκε από λίστα υπηρεσιών/μενού",
+   "why": "Το tabs σύστημα βασίζεται σε jQuery/JS· χρησιμοποιήθηκε η δομή d.services για την παρουσίαση πιάτων με τιμές, διατηρώντας την οπτική γλώσσα."
+  },
+  {
+   "what": "Omitted 'Our Chefs' section",
+   "why": "Team data (REAL_OWNER_PERSON) not available in Vitrina contract; inventing chefs would be a contract violation."
+  },
+  {
+   "what": "Replaced reservation form with static contact details and FindUs component",
+   "why": "No reservation flow exists in Vitrina; using real contact fields (PHONE, HOURS, AREAS) and shared components preserves the contact section without fake form functionality."
+  },
+  {
+   "what": "Omitted video modal / play button",
+   "why": "Video modal is not supported; about section uses static images from d.gallery instead."
+  },
+  {
+   "what": "Adapted weekly offers tabs into a services list with price tags",
+   "why": "The tabbed offer section required JS interactions and specific tab data; d.services array and d.gallery images are used to present menu items in a grid, preserving the visual idea of price-labelled cards."
+  }
+ ],
+ "registered": true,
+ "preview_server": {
+  "pid": 18340,
+  "port": 3881,
+  "reclaimed": {
+   "found": [],
+   "killed": [],
+   "skipped": []
+  }
+ },
+ "repair_attempts": [
+  "build: spine_guard · render",
+  "build: spine_guard",
+  "build: spine_guard"
+ ],
+ "contrast_repair": [
+  {
+   "token": "on-accent",
+   "from": "#ffffff",
+   "was": 3.18,
+   "required": 4.5,
+   "method": "deterministic-hsl",
+   "model_tokens": 0,
+   "outcome": "NO_WRITE",
+   "error": "αδύνατο: ούτε το άκρο L=1.0 δεν φτάνει 4.55:1 με φόντο #fb5849"
+  },
+  {
+   "token": "accent-ink",
+   "from": "#fb5849",
+   "was": 3.08,
+   "required": 4.5,
+   "method": "deterministic-hsl",
+   "model_tokens": 0,
+   "to": "#e51805",
+   "now": 4.55,
+   "hue_before": 5,
+   "hue_after": 5,
+   "outcome": "APPLIED",
+   "error": ""
+  }
+ ],
+ "repair_ledger": [
+  {
+   "ATTEMPT": 1,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
+  },
+  {
+   "ATTEMPT": 2,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
+  },
+  {
+   "ATTEMPT": 3,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": ""
+  }
+ ],
+ "tests_run": 4,
+ "tests_passed": 4,
+ "tests_failed": 0,
+ "tests": {
+  "templateRegistry": {
+   "passed": true
+  },
+  "spine_guard": {
+   "passed": true
+  },
+  "trust_guard": {
+   "passed": true
+  },
+  "next_build": {
+   "passed": true
+  }
+ },
+ "vitrina_render_status": "OK",
+ "vitrina_metrics": {
+  "tag": "vitrina",
+  "desktop": {
+   "height": 4507,
+   "overflow": 0,
+   "images": 5,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 6,
+   "duplicateHeadings": [],
+   "innerOverflow": [],
+   "consoleErrors": 0,
+   "errorSamples": []
+  },
+  "mobile": {
+   "height": 7418,
+   "overflow": 0,
+   "images": 5,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 6,
+   "duplicateHeadings": [],
+   "innerOverflow": [],
+   "consoleErrors": 0,
+   "errorSamples": []
+  }
+ },
+ "render": {
+  "desktop": {
+   "overflow": 0,
+   "innerOverflow": [],
+   "broken": 0,
+   "images": 5,
+   "h1": 1,
+   "consoleErrors": 0
+  },
+  "mobile": {
+   "overflow": 0,
+   "innerOverflow": [],
+   "broken": 0,
+   "images": 5,
+   "h1": 1,
+   "consoleErrors": 0
+  }
+ },
+ "render_problems": [],
+ "elapsed_seconds": 906.0,
+ "status": "READY_FOR_REVIEW",
+ "original_metrics": {
+  "tag": "original",
+  "desktop": {
+   "height": 5150,
+   "overflow": 0,
+   "images": 36,
+   "broken": 0,
+   "h1": 16,
+   "smallTaps": 45,
+   "duplicateHeadings": [],
+   "innerOverflow": [
+    "div.slick-list +3840px",
+    "div.img-fill +540px",
+    "div.img-fill +540px",
+    "div.img-fill +540px",
+    "div.img-fill +540px"
+   ],
+   "consoleErrors": 8,
+   "errorSamples": [
+    "Error: Syntax error, unrecognized expression: javascript:;",
+    "Error: Syntax error, unrecognized expression: javascript:;",
+    "Error: Syntax error, unrecognized expression: javascript:;"
+   ]
+  },
+  "mobile": {
+   "height": 8694,
+   "overflow": 0,
+   "images": 36,
+   "broken": 0,
+   "h1": 12,
+   "smallTaps": 31,
+   "duplicateHeadings": [],
+   "innerOverflow": [
+    "div.container +15px",
+    "div.slick-list +1560px",
+    "div.img-fill +1110px",
+    "div.img-fill +1110px",
+    "div.img-fill +1110px"
+   ],
+   "consoleErrors": 15,
+   "errorSamples": [
+    "Error: Syntax error, unrecognized expression: javascript:;",
+    "Error: Syntax error, unrecognized expression: javascript:;",
+    "Error: Syntax error, unrecognized expression: javascript:;"
+   ]
+  }
+ }
+}

@@ -1,0 +1,47 @@
+{
+ "tag": "original",
+ "desktop": {
+  "height": 5150,
+  "overflow": 0,
+  "images": 36,
+  "broken": 0,
+  "h1": 16,
+  "smallTaps": 45,
+  "duplicateHeadings": [],
+  "innerOverflow": [
+   "div.slick-list +3840px",
+   "div.img-fill +540px",
+   "div.img-fill +540px",
+   "div.img-fill +540px",
+   "div.img-fill +540px"
+  ],
+  "consoleErrors": 8,
+  "errorSamples": [
+   "Error: Syntax error, unrecognized expression: javascript:;",
+   "Error: Syntax error, unrecognized expression: javascript:;",
+   "Error: Syntax error, unrecognized expression: javascript:;"
+  ]
+ },
+ "mobile": {
+  "height": 8694,
+  "overflow": 0,
+  "images": 36,
+  "broken": 0,
+  "h1": 12,
+  "smallTaps": 31,
+  "duplicateHeadings": [],
+  "innerOverflow": [
+   "div.container +15px",
+   "div.slick-list +1560px",
+   "div.img-fill +1110px",
+   "div.img-fill +1110px",
+   "div.img-fill +1110px"
+  ],
+  "consoleErrors": 15,
+  "errorSamples": [
+   "Error: Syntax error, unrecognized expression: javascript:;",
+   "Error: Syntax error, unrecognized expression: javascript:;",
+   "Error: Syntax error, unrecognized expression: javascript:;"
+  ]
+ }
+}
