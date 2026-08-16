@@ -1,29 +1,23 @@
 {
  "tag": "vitrina",
  "desktop": {
-  "height": 3190,
+  "height": 3934,
   "overflow": 0,
-  "images": 5,
+  "images": 6,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 3,
-  "innerOverflow": [
-   "div.MedicCare_container__p0vFz +113px",
-   "div.MedicCare_timeline__RyrRB +128px",
-   "div.MedicCare_timelineNode__0toBD +128px",
-   "div.MedicCare_timelineNode__0toBD +128px",
-   "div.FindUs_mapBox__0e9Qc +56px"
-  ],
+  "smallTaps": 2,
+  "innerOverflow": [],
   "consoleErrors": 0,
   "errorSamples": []
  },
  "mobile": {
-  "height": 3827,
+  "height": 4096,
   "overflow": 0,
-  "images": 5,
+  "images": 6,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 6,
+  "smallTaps": 2,
   "innerOverflow": [],
   "consoleErrors": 0,
   "errorSamples": []

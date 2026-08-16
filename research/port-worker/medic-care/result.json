@@ -1,7 +1,7 @@
 {
  "source_id": "medic-care",
  "theme_key": "medic-care",
- "started_at": "2026-08-16T03:10:39+00:00",
+ "started_at": "2026-08-16T03:50:55+00:00",
  "original_render_status": "OK",
  "model": "deepseek-v4-pro",
  "generation_steps": [
@@ -24,6 +24,14 @@
   {
    "step": "CSS",
    "attempt": 2,
+   "outcome": "VALIDATION_FAILED",
+   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 3,
    "outcome": "SUCCESS",
    "reason": "",
    "patch_produced": true,
@@ -64,6 +72,14 @@
   {
    "step": "CSS",
    "attempt": 2,
+   "outcome": "VALIDATION_FAILED",
+   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 3,
    "outcome": "SUCCESS",
    "reason": "",
    "patch_produced": true,
@@ -80,6 +96,14 @@
   {
    "step": "CSS",
    "attempt": 1,
+   "outcome": "VALIDATION_FAILED",
+   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 2,
    "outcome": "SUCCESS",
    "reason": "",
    "patch_produced": true,
@@ -96,6 +120,14 @@
   {
    "step": "CSS",
    "attempt": 1,
+   "outcome": "VALIDATION_FAILED",
+   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 2,
    "outcome": "SUCCESS",
    "reason": "",
    "patch_produced": true,
@@ -104,11 +136,15 @@
  ],
  "repair_attempts": [
   "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-  "build: spine_guard · render",
-  "build: spine_guard · render",
   "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-  "build: spine_guard · render",
-  "build: spine_guard, next_build · render"
+  "build: spine_guard",
+  "build: spine_guard",
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+  "build: spine_guard",
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+  "build: spine_guard",
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine"
  ],
  "guards": {
   "contract": [],
@@ -116,10 +152,10 @@
   "media": []
  },
  "token_usage": {
-  "input": 43153,
-  "output": 42894
+  "input": 58115,
+  "output": 41499
  },
- "cost_usd": 0.0859,
+ "cost_usd": 0.0913,
  "demo_business": "physician",
  "files_changed": [
   "sites/lib/templates/MedicCare.jsx",
@@ -127,57 +163,21 @@
  ],
  "deviations": [
   {
-   "what": "Removed 'Our Patients' testimonials section",
-   "why": "No real testimonial data provided in the data contract"
+   "what": "Testimonials section (\"Our Patients\")",
+   "why": "Truth policy forbids invented testimonials/ratings; no real data available in intake."
   },
   {
-   "what": "Removed booking/appointment form section",
-   "why": "No booking flow data available"
+   "what": "Booking form section",
+   "why": "No booking flow exists in the platform; form would be non‑functional and create false expectation."
   },
   {
-   "what": "Removed '12 Years of Experiences' counter",
-   "why": "No statistical data to support the claim"
-  },
-  {
-   "what": "Replaced original JS carousel with CSS scroll-snap slider",
-   "why": "No JavaScript allowed in React Server Component"
-  },
-  {
-   "what": "Removed TemplateMo credit from footer",
-   "why": "License explicitly permits removal of credit"
-  },
-  {
-   "what": "Replaced Bootstrap grid system with custom flex grid",
-   "why": "CSS Modules only requirement, cannot rely on Bootstrap"
-  },
-  {
-   "what": "Παραλείφθηκε η ενότητα «Our Patients» (μαρτυρίες)",
-   "why": "Δεν υπάρχουν πραγματικά δεδομένα μαρτυριών στο intake· η πολιτική απαγορεύει κατασκευασμένες κριτικές."
-  },
-  {
-   "what": "Παραλείφθηκε η φόρμα ραντεβού",
-   "why": "Δεν υπάρχει ροή κράτησης· η φόρμα θα ήταν ψευδής."
-  },
-  {
-   "what": "Παραλείφθηκε ο μετρητής «12 Years of Experiences»",
-   "why": "Ο αριθμός δεν τεκμηριώνεται από τα δεδομένα· συμπερίληψη θα ήταν κατασκευή."
-  },
-  {
-   "what": "Αντικαταστάθηκε το hero carousel (JS-based) με CSS scroll-snap carousel",
-   "why": "Χωρίς JavaScript, το scroll-snap παρέχει παρόμοια λειτουργικότητα με κύλιση, σεβόμενο το reduced motion."
-  },
-  {
-   "what": "Απλοποιήθηκε η πλοήγηση",
-   "why": "Αφαιρέθηκαν σύνδεσμοι για μαρτυρίες και κράτηση λόγω παράλειψης των αντίστοιχων ενοτήτων."
-  },
-  {
-   "what": "Η δομή του footer αντικαταστάθηκε με δυναμικά δεδομένα",
-   "why": "Το ωράριο, η διεύθυνση και τα social αντλούνται από τα shared components FindUs και SocialLinks αντί για στατικά στοιχεία."
+   "what": "Experience counter (\"12 Years of Experiences\")",
+   "why": "No verified years-of-experience data in intake; replaced with factual YEAR field displayed in the circle."
   }
  ],
  "registered": true,
  "preview_server": {
-  "pid": 8156,
+  "pid": 15592,
   "port": 3881,
   "reclaimed": {
    "found": [],
@@ -185,20 +185,187 @@
    "skipped": []
   }
  },
- "regressions": [
-  [
-   "DESKTOP: εσωτερικές υπερχειλίσεις 1 -> 4"
-  ],
-  [
-   "MOBILE: εσωτερικές υπερχειλίσεις 0 -> 1"
-  ],
-  [
-   "DESKTOP: h1 από 1 -> None",
-   "MOBILE: h1 από 1 -> None"
-  ],
-  [
-   "DESKTOP: εσωτερικές υπερχειλίσεις 0 -> 5"
-  ]
+ "repair_ledger": [
+  {
+   "ATTEMPT": 1,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 1,
+     "broken": 2,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 2,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [
+    "DESKTOP: inner 0 -> 1",
+    "DESKTOP: broken 0 -> 2",
+    "MOBILE: broken 0 -> 2"
+   ],
+   "DECISION": "REJECTED",
+   "ROLLBACK_SUCCESS": true,
+   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
+  },
+  {
+   "ATTEMPT": 2,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 1,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [
+    "DESKTOP: inner 0 -> 1"
+   ],
+   "DECISION": "REJECTED",
+   "ROLLBACK_SUCCESS": true,
+   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
+  },
+  {
+   "ATTEMPT": 3,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": "καμία οπισθοδρόμηση, αλλά μένουν gates"
+  },
+  {
+   "ATTEMPT": 4,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 1,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [
+    "DESKTOP: inner 0 -> 1"
+   ],
+   "DECISION": "REJECTED",
+   "ROLLBACK_SUCCESS": true,
+   "RETRY_REASON": "οπισθοδρόμηση — η επόμενη απόπειρα ξεκινά από το LAST_ACCEPTED_STATE"
+  }
  ],
  "tests_run": 4,
  "tests_passed": 3,
@@ -217,33 +384,28 @@
    "passed": true
   }
  },
+ "rollback_final": true,
  "vitrina_render_status": "OK",
  "vitrina_metrics": {
   "tag": "vitrina",
   "desktop": {
-   "height": 3190,
+   "height": 3934,
    "overflow": 0,
-   "images": 5,
+   "images": 6,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 3,
-   "innerOverflow": [
-    "div.MedicCare_container__p0vFz +113px",
-    "div.MedicCare_timeline__RyrRB +128px",
-    "div.MedicCare_timelineNode__0toBD +128px",
-    "div.MedicCare_timelineNode__0toBD +128px",
-    "div.FindUs_mapBox__0e9Qc +56px"
-   ],
+   "smallTaps": 2,
+   "innerOverflow": [],
    "consoleErrors": 0,
    "errorSamples": []
   },
   "mobile": {
-   "height": 3827,
+   "height": 4096,
    "overflow": 0,
-   "images": 5,
+   "images": 6,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 6,
+   "smallTaps": 2,
    "innerOverflow": [],
    "consoleErrors": 0,
    "errorSamples": []
@@ -252,15 +414,9 @@
  "render": {
   "desktop": {
    "overflow": 0,
-   "innerOverflow": [
-    "div.MedicCare_container__p0vFz +113px",
-    "div.MedicCare_timeline__RyrRB +128px",
-    "div.MedicCare_timelineNode__0toBD +128px",
-    "div.MedicCare_timelineNode__0toBD +128px",
-    "div.FindUs_mapBox__0e9Qc +56px"
-   ],
+   "innerOverflow": [],
    "broken": 0,
-   "images": 5,
+   "images": 6,
    "h1": 1,
    "consoleErrors": 0
   },
@@ -268,15 +424,13 @@
    "overflow": 0,
    "innerOverflow": [],
    "broken": 0,
-   "images": 5,
+   "images": 6,
    "h1": 1,
    "consoleErrors": 0
   }
  },
- "render_problems": [
-  "desktop: εσωτερική υπερχείλιση — div.MedicCare_container__p0vFz +113px, div.MedicCare_timeline__RyrRB +128px, div.MedicCare_timelineNode__0toBD +128px"
- ],
- "elapsed_seconds": 1580.4,
+ "render_problems": [],
+ "elapsed_seconds": 2073.6,
  "status": "FAILED",
  "original_metrics": {
   "tag": "original",
@@ -292,8 +446,10 @@
     "div.owl-nav +80px",
     "div.booking-form +12px"
    ],
-   "consoleErrors": 0,
-   "errorSamples": []
+   "consoleErrors": 1,
+   "errorSamples": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+   ]
   },
   "mobile": {
    "height": 6055,
