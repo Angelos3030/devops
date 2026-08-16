@@ -1,33 +1,30 @@
 {
  "tag": "vitrina",
  "desktop": {
-  "height": 4052,
+  "height": 3190,
   "overflow": 0,
-  "images": 6,
+  "images": 5,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 9,
+  "smallTaps": 3,
   "innerOverflow": [
-   "div.MedicCare_timelineContent__TUglT +10px",
-   "div.MedicCare_timelineContent__TUglT +10px"
+   "div.MedicCare_container__p0vFz +113px",
+   "div.MedicCare_timeline__RyrRB +128px",
+   "div.MedicCare_timelineNode__0toBD +128px",
+   "div.MedicCare_timelineNode__0toBD +128px",
+   "div.FindUs_mapBox__0e9Qc +56px"
   ],
   "consoleErrors": 0,
   "errorSamples": []
  },
  "mobile": {
-  "height": 5654,
+  "height": 3827,
   "overflow": 0,
-  "images": 6,
+  "images": 5,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 9,
-  "innerOverflow": [
-   "div.MedicCare_root__AaiDG +65px",
-   "section.MedicCare_sectionPadding__CkydK +65px",
-   "div.MedicCare_container__p0vFz +65px",
-   "div.MedicCare_timeline__RyrRB +80px",
-   "div.MedicCare_timelineNode__0toBD +80px"
-  ],
+  "smallTaps": 6,
+  "innerOverflow": [],
   "consoleErrors": 0,
   "errorSamples": []
  }

@@ -8,11 +8,9 @@
   "h1": 1,
   "smallTaps": 12,
   "innerOverflow": [
-   "div.col-9 +10px",
-   "div.col-9 +10px",
-   "div.col-9 +10px",
    "div.owl-stage-outer +4288px",
-   "div.owl-nav +80px"
+   "div.owl-nav +80px",
+   "div.booking-form +12px"
   ],
   "consoleErrors": 0,
   "errorSamples": []

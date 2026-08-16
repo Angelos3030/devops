@@ -1,7 +1,7 @@
 {
  "source_id": "medic-care",
  "theme_key": "medic-care",
- "started_at": "2026-08-16T02:20:37+00:00",
+ "started_at": "2026-08-16T03:10:39+00:00",
  "original_render_status": "OK",
  "model": "deepseek-v4-pro",
  "generation_steps": [
@@ -16,6 +16,14 @@
   {
    "step": "CSS",
    "attempt": 1,
+   "outcome": "VALIDATION_FAILED",
+   "reason": "sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 2,
    "outcome": "SUCCESS",
    "reason": "",
    "patch_produced": true,
@@ -94,16 +102,24 @@
    "applied": false
   }
  ],
+ "repair_attempts": [
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+  "build: spine_guard · render",
+  "build: spine_guard · render",
+  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
+  "build: spine_guard · render",
+  "build: spine_guard, next_build · render"
+ ],
  "guards": {
   "contract": [],
   "copy_leak": [],
   "media": []
  },
  "token_usage": {
-  "input": 28345,
-  "output": 21200
+  "input": 43153,
+  "output": 42894
  },
- "cost_usd": 0.046,
+ "cost_usd": 0.0859,
  "demo_business": "physician",
  "files_changed": [
   "sites/lib/templates/MedicCare.jsx",
@@ -111,45 +127,57 @@
  ],
  "deviations": [
   {
-   "what": "Removed testimonials section (\"Our Patients\")",
-   "why": "No testimonial data in intake and policy forbids inventing ratings or patient quotes."
-  },
-  {
-   "what": "Removed appointment booking form",
-   "why": "No booking flow exists in the data contract."
-  },
-  {
-   "what": "Removed \"12 Years of Experiences\" counter",
-   "why": "No verifiable experience data provided; using a counter would fabricate a claim."
-  },
-  {
-   "what": "Replaced template credit \"Design: TemplateMo\" with business name",
-   "why": "License allows removal; business data only."
-  },
-  {
-   "what": "Timeline icons use numeric values from service.num instead of Bootstrap icon fonts",
-   "why": "No icon mapping available in data; numbers preserve visual distinction without inventing icons."
-  },
-  {
-   "what": "Hero animated word simplified to static d.HERO_WORD",
-   "why": "Contract provides only a single HERO_WORD string, not three animated items."
-  },
-  {
    "what": "Removed 'Our Patients' testimonials section",
-   "why": "No real testimonial data available in intake; policy forbids inventing."
+   "why": "No real testimonial data provided in the data contract"
   },
   {
-   "what": "Removed booking/appointment form",
-   "why": "No booking flow exists; not part of data contract."
+   "what": "Removed booking/appointment form section",
+   "why": "No booking flow data available"
   },
   {
    "what": "Removed '12 Years of Experiences' counter",
-   "why": "No evidence in intake for that specific number; replaced with d.INITIAL/d.TRADE from data contract."
+   "why": "No statistical data to support the claim"
+  },
+  {
+   "what": "Replaced original JS carousel with CSS scroll-snap slider",
+   "why": "No JavaScript allowed in React Server Component"
+  },
+  {
+   "what": "Removed TemplateMo credit from footer",
+   "why": "License explicitly permits removal of credit"
+  },
+  {
+   "what": "Replaced Bootstrap grid system with custom flex grid",
+   "why": "CSS Modules only requirement, cannot rely on Bootstrap"
+  },
+  {
+   "what": "Παραλείφθηκε η ενότητα «Our Patients» (μαρτυρίες)",
+   "why": "Δεν υπάρχουν πραγματικά δεδομένα μαρτυριών στο intake· η πολιτική απαγορεύει κατασκευασμένες κριτικές."
+  },
+  {
+   "what": "Παραλείφθηκε η φόρμα ραντεβού",
+   "why": "Δεν υπάρχει ροή κράτησης· η φόρμα θα ήταν ψευδής."
+  },
+  {
+   "what": "Παραλείφθηκε ο μετρητής «12 Years of Experiences»",
+   "why": "Ο αριθμός δεν τεκμηριώνεται από τα δεδομένα· συμπερίληψη θα ήταν κατασκευή."
+  },
+  {
+   "what": "Αντικαταστάθηκε το hero carousel (JS-based) με CSS scroll-snap carousel",
+   "why": "Χωρίς JavaScript, το scroll-snap παρέχει παρόμοια λειτουργικότητα με κύλιση, σεβόμενο το reduced motion."
+  },
+  {
+   "what": "Απλοποιήθηκε η πλοήγηση",
+   "why": "Αφαιρέθηκαν σύνδεσμοι για μαρτυρίες και κράτηση λόγω παράλειψης των αντίστοιχων ενοτήτων."
+  },
+  {
+   "what": "Η δομή του footer αντικαταστάθηκε με δυναμικά δεδομένα",
+   "why": "Το ωράριο, η διεύθυνση και τα social αντλούνται από τα shared components FindUs και SocialLinks αντί για στατικά στοιχεία."
   }
  ],
  "registered": true,
  "preview_server": {
-  "pid": 12308,
+  "pid": 8156,
   "port": 3881,
   "reclaimed": {
    "found": [],
@@ -157,22 +185,30 @@
    "skipped": []
   }
  },
- "repair_attempts": [
-  "build: spine_guard · render",
-  "build: spine_guard · render",
-  "CSS: sites/lib/templates/MedicCare.module.css: !important σπάει το colour spine",
-  "build: spine_guard · render",
-  "build: spine_guard · render"
+ "regressions": [
+  [
+   "DESKTOP: εσωτερικές υπερχειλίσεις 1 -> 4"
+  ],
+  [
+   "MOBILE: εσωτερικές υπερχειλίσεις 0 -> 1"
+  ],
+  [
+   "DESKTOP: h1 από 1 -> None",
+   "MOBILE: h1 από 1 -> None"
+  ],
+  [
+   "DESKTOP: εσωτερικές υπερχειλίσεις 0 -> 5"
+  ]
  ],
  "tests_run": 4,
- "tests_passed": 4,
- "tests_failed": 0,
+ "tests_passed": 3,
+ "tests_failed": 1,
  "tests": {
   "templateRegistry": {
    "passed": true
   },
   "spine_guard": {
-   "passed": true
+   "passed": false
   },
   "trust_guard": {
    "passed": true
@@ -185,33 +221,30 @@
  "vitrina_metrics": {
   "tag": "vitrina",
   "desktop": {
-   "height": 4052,
+   "height": 3190,
    "overflow": 0,
-   "images": 6,
+   "images": 5,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 9,
+   "smallTaps": 3,
    "innerOverflow": [
-    "div.MedicCare_timelineContent__TUglT +10px",
-    "div.MedicCare_timelineContent__TUglT +10px"
+    "div.MedicCare_container__p0vFz +113px",
+    "div.MedicCare_timeline__RyrRB +128px",
+    "div.MedicCare_timelineNode__0toBD +128px",
+    "div.MedicCare_timelineNode__0toBD +128px",
+    "div.FindUs_mapBox__0e9Qc +56px"
    ],
    "consoleErrors": 0,
    "errorSamples": []
   },
   "mobile": {
-   "height": 5654,
+   "height": 3827,
    "overflow": 0,
-   "images": 6,
+   "images": 5,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 9,
-   "innerOverflow": [
-    "div.MedicCare_root__AaiDG +65px",
-    "section.MedicCare_sectionPadding__CkydK +65px",
-    "div.MedicCare_container__p0vFz +65px",
-    "div.MedicCare_timeline__RyrRB +80px",
-    "div.MedicCare_timelineNode__0toBD +80px"
-   ],
+   "smallTaps": 6,
+   "innerOverflow": [],
    "consoleErrors": 0,
    "errorSamples": []
   }
@@ -220,34 +253,30 @@
   "desktop": {
    "overflow": 0,
    "innerOverflow": [
-    "div.MedicCare_timelineContent__TUglT +10px",
-    "div.MedicCare_timelineContent__TUglT +10px"
+    "div.MedicCare_container__p0vFz +113px",
+    "div.MedicCare_timeline__RyrRB +128px",
+    "div.MedicCare_timelineNode__0toBD +128px",
+    "div.MedicCare_timelineNode__0toBD +128px",
+    "div.FindUs_mapBox__0e9Qc +56px"
    ],
    "broken": 0,
-   "images": 6,
+   "images": 5,
    "h1": 1,
    "consoleErrors": 0
   },
   "mobile": {
    "overflow": 0,
-   "innerOverflow": [
-    "div.MedicCare_root__AaiDG +65px",
-    "section.MedicCare_sectionPadding__CkydK +65px",
-    "div.MedicCare_container__p0vFz +65px",
-    "div.MedicCare_timeline__RyrRB +80px",
-    "div.MedicCare_timelineNode__0toBD +80px"
-   ],
+   "innerOverflow": [],
    "broken": 0,
-   "images": 6,
+   "images": 5,
    "h1": 1,
    "consoleErrors": 0
   }
  },
  "render_problems": [
-  "desktop: εσωτερική υπερχείλιση — div.MedicCare_timelineContent__TUglT +10px, div.MedicCare_timelineContent__TUglT +10px",
-  "mobile: εσωτερική υπερχείλιση — div.MedicCare_root__AaiDG +65px, section.MedicCare_sectionPadding__CkydK +65px, div.MedicCare_container__p0vFz +65px"
+  "desktop: εσωτερική υπερχείλιση — div.MedicCare_container__p0vFz +113px, div.MedicCare_timeline__RyrRB +128px, div.MedicCare_timelineNode__0toBD +128px"
  ],
- "elapsed_seconds": 1393.9,
+ "elapsed_seconds": 1580.4,
  "status": "FAILED",
  "original_metrics": {
   "tag": "original",
@@ -259,11 +288,9 @@
    "h1": 1,
    "smallTaps": 12,
    "innerOverflow": [
-    "div.col-9 +10px",
-    "div.col-9 +10px",
-    "div.col-9 +10px",
     "div.owl-stage-outer +4288px",
-    "div.owl-nav +80px"
+    "div.owl-nav +80px",
+    "div.booking-form +12px"
    ],
    "consoleErrors": 0,
    "errorSamples": []
