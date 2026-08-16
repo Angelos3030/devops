@@ -20,66 +20,88 @@
     })()
   </script>
   <style>
-    :root { --p:#1d6fe0; --a:#ff7a00; --bg:#f6f8fb; --tx:#23303a; }
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;}
-    .wrap{max-width:560px;margin:0 auto;padding:40px 20px;}
-    .hero{text-align:center;margin-bottom:32px;}
-    .hero h1{font-size:2rem;color:var(--p);}
-    .hero p{opacity:.8;margin-top:8px;}
-    .card{background:#fff;border-radius:14px;padding:28px;box-shadow:0 2px 14px rgba(0,0,0,.06);margin-bottom:20px;}
-    label{display:block;font-weight:600;margin:14px 0 4px;}
-    input,select{width:100%;padding:12px;border:1px solid #d6e0ea;border-radius:8px;font-size:1rem;}
-    .btn{display:block;width:100%;margin-top:20px;padding:14px;border:0;border-radius:10px;
-         font-size:1.05rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;}
-    .btn-primary{background:var(--p);color:#fff;}
-    .btn-fb{background:#1877F2;color:#fff;margin-top:12px;}
-    .btn-skip{background:none;color:var(--p);border:1.5px solid var(--p);margin-top:8px;font-size:.9rem;font-weight:600;}
-    .step{font-size:.85rem;color:var(--a);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
-    .price{text-align:center;margin-top:8px;font-size:.95rem;opacity:.8;}
-
+    :root {
+      --gv-canvas: #FAFAFA;
+      --gv-surface: #FFFFFF;
+      --gv-subtle: #F3F4F6;
+      --gv-ink: #0C0D11;
+      --gv-ink-secondary: #4E5564;
+      --gv-ink-muted: #88909F;
+      --gv-accent: #E84D1C;
+      --gv-accent-hover: #D03E0F;
+      --gv-line: rgba(12, 13, 17, 0.08);
+      --gv-font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --gv-font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --gv-font-mono: 'JetBrains Mono', monospace;
+      --gv-r: 12px;
+      --gv-r-sm: 8px;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--gv-font-body); background: var(--gv-canvas); color: var(--gv-ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: 600px; margin: 0 auto; padding: 44px 20px 80px; }
+    .hero { text-align: center; margin-bottom: 32px; }
+    .hero .logo { display: inline-flex; align-items: center; gap: 8px; font-family: var(--gv-font-display); font-weight: 800; font-size: 1.45rem; color: var(--gv-ink); text-decoration: none; margin-bottom: 12px; }
+    .hero h1 { font-family: var(--gv-font-display); font-size: 1.75rem; font-weight: 750; letter-spacing: -0.025em; color: var(--gv-ink); }
+    .hero p { color: var(--gv-ink-secondary); font-size: 1rem; margin-top: 6px; }
+    .price-strip { display: inline-block; font-size: 0.88rem; font-weight: 600; color: var(--gv-ink-secondary); background: var(--gv-subtle); padding: 4px 12px; border-radius: var(--gv-r-sm); margin-top: 10px; border: 1px solid var(--gv-line); }
+    .card { background: var(--gv-surface); border: 1px solid var(--gv-line); border-radius: var(--gv-r); padding: 32px; box-shadow: 0 16px 40px rgba(12,13,17,0.04); margin-bottom: 20px; }
+    label { display: block; font-weight: 600; font-size: 0.92rem; margin: 16px 0 6px; color: var(--gv-ink); }
+    input, select, textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--gv-line); border-radius: var(--gv-r-sm); font-size: 0.98rem; font-family: inherit; color: var(--gv-ink); background: #fff; transition: border-color 0.15s; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gv-accent); }
+    .btn { display: inline-flex; justify-content: center; align-items: center; width: 100%; min-height: 48px; border: 0; border-radius: var(--gv-r-sm); font-size: 1rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: background 0.15s; }
+    .btn-primary { background: var(--gv-accent); color: #fff; margin-top: 24px; }
+    .btn-primary:hover { background: var(--gv-accent-hover); }
+    .btn-fb { background: #1877F2; color: #fff; margin-top: 12px; }
+    .btn-skip { background: transparent; color: var(--gv-ink-secondary); border: 1px solid var(--gv-line); margin-top: 10px; font-size: 0.88rem; font-weight: 600; }
+    .btn-skip:hover { background: var(--gv-subtle); }
+    .step { font-family: var(--gv-font-mono); font-size: 0.78rem; color: var(--gv-accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+    
     /* Domain cards */
-    .domain-grid{display:flex;flex-direction:column;gap:10px;margin:16px 0;}
-    .domain-card{display:flex;align-items:center;justify-content:space-between;
-                 padding:12px 16px;border:2px solid #e0e8f4;border-radius:10px;
-                 cursor:pointer;transition:border-color .15s,background .15s;}
-    .domain-card:hover{border-color:var(--p);background:#f0f6ff;}
-    .domain-card.taken{opacity:.45;cursor:not-allowed;}
-    .domain-card.selected{border-color:var(--p);background:#e8f0ff;}
-    .domain-name{font-weight:700;font-size:1rem;color:var(--tx);}
-    .domain-price{font-size:.88rem;color:var(--a);font-weight:700;}
-    .domain-badge{font-size:.75rem;padding:2px 8px;border-radius:20px;font-weight:700;}
-    .badge-free{background:#e6f9ef;color:#1a8a4a;}
-    .badge-taken{background:#fdeaea;color:#c0392b;}
-    .domain-loading{text-align:center;padding:20px;opacity:.6;font-style:italic;}
+    .domain-grid { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+    .domain-card { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border: 1.5px solid var(--gv-line); border-radius: var(--gv-r-sm); cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+    .domain-card:hover { border-color: var(--gv-accent); background: var(--gv-subtle); }
+    .domain-card.taken { opacity: 0.45; cursor: not-allowed; }
+    .domain-card.selected { border-color: var(--gv-accent); background: #FFF5F2; }
+    .domain-name { font-weight: 700; font-size: 0.98rem; color: var(--gv-ink); }
+    .domain-price { font-size: 0.88rem; color: var(--gv-accent); font-weight: 700; }
+    .domain-badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 20px; font-weight: 700; }
+    .badge-free { background: #E6F9EF; color: #1A8A4A; }
+    .badge-taken { background: #FDEAEE; color: #C0392B; }
+    .domain-loading { text-align: center; padding: 20px; color: var(--gv-ink-muted); font-size: 0.92rem; }
 
     /* Upload zones */
-    .upload-zone{border:2px dashed #c8d8ea;border-radius:10px;padding:16px;text-align:center;
-                 cursor:pointer;transition:border-color .15s;color:var(--p);font-size:.92rem;
-                 min-height:60px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;}
-    .upload-zone:hover{border-color:var(--p);background:#f4f8ff;}
-    .upload-thumb{width:64px;height:64px;object-fit:cover;border-radius:6px;border:2px solid #e0e8f4;}
+    .upload-zone { border: 1.5px dashed var(--gv-line); border-radius: var(--gv-r-sm); padding: 18px; text-align: center; cursor: pointer; transition: border-color 0.15s, background 0.15s; color: var(--gv-ink-secondary); font-size: 0.92rem; min-height: 68px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; background: var(--gv-subtle); }
+    .upload-zone:hover { border-color: var(--gv-accent); background: #FFF9F7; color: var(--gv-accent); }
+    .upload-zone svg { width: 20px; height: 20px; flex-none; }
+    .upload-thumb { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; border: 1.5px solid var(--gv-line); }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="hero">
-      <h1>Vitrina</h1>
-      <p>Επιβεβαίωσε λίγες λεπτομέρειες και μετά θα δεις τα σχέδιά σου.</p>
-      <p class="price"><strong>€14.99/μήνα</strong> · 1ος μήνας δωρεάν · Ακύρωση όποτε θες</p>
+      <a class="logo" href="/">
+        <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true">
+          <rect x="6" y="14" width="20" height="14" rx="2" fill="#0a0a0b"/>
+          <rect x="13" y="20" width="6" height="8" rx="1" fill="#fff"/>
+          <path d="M3 14 L6 7 H26 L29 14 Z" fill="#E84D1C"/>
+        </svg>
+        Vitrina
+      </a>
+      <h1>Στοιχεία επιχείρησης</h1>
+      <p>Επιβεβαίωσε λίγες λεπτομέρειες για να διαμορφώσουμε τα σχέδιά σου.</p>
+      <div class="price-strip"><strong>€14.99/μήνα</strong> · 1ος μήνας δωρεάν · Ακύρωση όποτε θες</div>
     </div>
 
     <!-- Βήμα 2: Στοιχεία πριν από designs/login -->
     <div class="card">
-      <span class="step">Βήμα 2 — Συμπλήρωσε τα στοιχεία του μαγαζιού</span>
+      <span class="step">Βήμα 1 — Συμπλήρωσε τα στοιχεία του μαγαζιού</span>
       <form id="onboard">
-        <div id="echo" style="display:none;background:#eef5ff;border:1px solid #d6e0ea;border-radius:10px;padding:12px 14px;margin:6px 0 4px;font-size:.95rem;">
+        <div id="echo" style="display:none;background:var(--gv-subtle);border:1px solid var(--gv-line);border-radius:8px;padding:12px 14px;margin:8px 0 12px;font-size:0.92rem;">
           <strong>Αυτό μας έγραψες:</strong> <span id="echo-text"></span>
         </div>
 
         <label>Τι θέλεις (περιγραφή)</label>
         <textarea name="description" id="description" rows="3"
-          style="width:100%;padding:12px;border:1px solid #d6e0ea;border-radius:8px;font-size:1rem;font-family:inherit;resize:vertical;"
           placeholder="π.χ. Έχω ταβέρνα στη Θεσσαλονίκη, παραδοσιακή, με σπιτικό φαγητό…"></textarea>
 
         <label>Όνομα μαγαζιού</label>
@@ -123,37 +145,43 @@
         <label>Ύφος που θέλεις</label>
         <input name="style" placeholder="π.χ. παραδοσιακό / μοντέρνο / φιλικό">
 
-        <label style="margin-top:16px;">Έχεις ήδη site; <span style="font-weight:400;opacity:.6;">(προαιρετικό — το διαβάζουμε για τις υπηρεσίες σου)</span></label>
+        <label style="margin-top:16px;">Έχεις ήδη site; <span style="font-weight:400;color:var(--gv-ink-muted);">(προαιρετικό — το διαβάζουμε για τις υπηρεσίες σου)</span></label>
         <input name="website" type="url" inputmode="url" placeholder="π.χ. https://tositosou.gr">
 
         <!-- Logo upload -->
-        <label style="margin-top:20px;">Λογότυπο <span style="font-weight:400;opacity:.6;">(προαιρετικό)</span></label>
-        <p style="font-size:.82rem;opacity:.7;margin:2px 0 6px;">Δεν έχεις; <strong>Σου φτιάχνουμε καινούργιο</strong> με το όνομά σου.</p>
+        <label style="margin-top:20px;">Λογότυπο <span style="font-weight:400;color:var(--gv-ink-muted);">(προαιρετικό)</span></label>
+        <p style="font-size:0.82rem;color:var(--gv-ink-secondary);margin:2px 0 6px;">Δεν έχεις; <strong>Σου φτιάχνουμε καινούργιο</strong> με το όνομά σου.</p>
         <div class="upload-zone" id="logo-zone" onclick="document.getElementById('logo-input').click()">
-          <div id="logo-placeholder">📷 Κλικ ή σύρε το λογότυπό σου</div>
-          <img id="logo-preview" style="display:none;max-height:80px;border-radius:6px;" />
+          <div id="logo-placeholder" style="display:flex;align-items:center;gap:8px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            <span>Κλικ ή σύρε το λογότυπό σου</span>
+          </div>
+          <img id="logo-preview" style="display:none;max-height:80px;border-radius:6px;" alt="Logo preview" />
         </div>
         <input type="file" id="logo-input" accept="image/*" style="display:none"
                onchange="previewFile(this,'logo-preview','logo-placeholder',512)">
 
         <!-- Photos upload -->
-        <label style="margin-top:16px;">Φωτογραφίες μαγαζιού <span style="font-weight:400;opacity:.6;">(έως 12, προαιρετικό)</span></label>
-        <p style="font-size:.82rem;opacity:.7;margin:2px 0 6px;">Όσο περισσότερες, τόσο πιο δικό σου δείχνει. Δεν έχεις; <strong>Βάζουμε εμείς κατάλληλες</strong> και τις αλλάζεις όποτε θες.</p>
+        <label style="margin-top:16px;">Φωτογραφίες μαγαζιού <span style="font-weight:400;color:var(--gv-ink-muted);">(έως 12, προαιρετικό)</span></label>
+        <p style="font-size:0.82rem;color:var(--gv-ink-secondary);margin:2px 0 6px;">Όσο περισσότερες, τόσο πιο δικό σου δείχνει. Δεν έχεις; <strong>Βάζουμε εμείς κατάλληλες</strong> και τις αλλάζεις όποτε θες.</p>
         <div class="upload-zone" id="photos-zone" onclick="document.getElementById('photos-input').click()">
-          <div id="photos-placeholder">📸 Κλικ ή σύρε φωτογραφίες</div>
+          <div id="photos-placeholder" style="display:flex;align-items:center;gap:8px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            <span>Κλικ ή σύρε φωτογραφίες</span>
+          </div>
           <div id="photos-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;"></div>
         </div>
         <input type="file" id="photos-input" accept="image/*" multiple style="display:none"
                onchange="previewPhotos(this)">
-        <p style="font-size:.78rem;opacity:.55;margin-top:4px;">
+        <p style="font-size:0.78rem;color:var(--gv-ink-muted);margin-top:4px;">
           Τις συμπιέζουμε αυτόματα πριν τις ανεβάσουμε. Διατηρείς τα πνευματικά δικαιώματα.
         </p>
 
-        <label style="display:flex;align-items:flex-start;gap:10px;font-weight:500;font-size:.88rem;">
+        <label style="display:flex;align-items:flex-start;gap:10px;font-weight:500;font-size:0.88rem;margin-top:16px;">
           <input name="legal_acceptance" type="checkbox" required style="width:18px;height:18px;margin-top:3px;flex:0 0 auto;">
           <span>Έχω δικαίωμα χρήσης των στοιχείων και αρχείων που ανεβάζω και αποδέχομαι τους
-            <a href="terms.html" target="_blank" rel="noopener">Όρους</a> και την
-            <a href="privacy.html" target="_blank" rel="noopener">Πολιτική Απορρήτου</a>.</span>
+            <a href="terms.html" target="_blank" rel="noopener" style="color:var(--gv-accent);font-weight:600;">Όρους</a> και την
+            <a href="privacy.html" target="_blank" rel="noopener" style="color:var(--gv-accent);font-weight:600;">Πολιτική Απορρήτου</a>.</span>
         </label>
 
         <button class="btn btn-primary" type="submit">Δείξε μου τα σχέδια →</button>
@@ -182,10 +210,10 @@
       <p style="margin:10px 0;">Για να ποστάρουμε για σένα, σύνδεσε τη Σελίδα Facebook
          και τον λογαριασμό Instagram Business σου. Δίνεις άδεια — μπορείς να την
          ανακαλέσεις όποτε θες.</p>
-      <p style="font-size:.88rem;opacity:.72;margin:0 0 12px;">
+      <p style="font-size:0.88rem;color:var(--gv-ink-muted);margin:0 0 12px;">
         Χρησιμοποιούμε τη σύνδεση Meta μόνο για τις Σελίδες/λογαριασμούς που επιλέγεις.
-        <a href="privacy.html" style="color:var(--p);font-weight:700;">Απόρρητο</a> ·
-        <a href="data-deletion.html" style="color:var(--p);font-weight:700;">Διαγραφή δεδομένων</a>
+        <a href="privacy.html" style="color:var(--gv-accent);font-weight:600;">Απόρρητο</a> ·
+        <a href="data-deletion.html" style="color:var(--gv-accent);font-weight:600;">Διαγραφή δεδομένων</a>
       </p>
       <a class="btn btn-fb" id="fb-connect" href="#">Σύνδεση με Facebook</a>
     </div>
@@ -202,11 +230,11 @@
     <!-- Βήμα 4: Πληρωμή -->
     <div class="card" id="payment" style="display:none;">
       <span class="step">Βήμα 4 — Ξεκίνα το πλάνο σου</span>
-      <p style="margin:10px 0 16px;">✅ Η σελίδα Facebook συνδέθηκε επιτυχώς!</p>
-      <div style="background:#f6f8fb;border-radius:10px;padding:16px;margin-bottom:16px;">
-        <div style="font-weight:700;font-size:1.1rem;margin-bottom:4px;">Site — €14.99/μήνα</div>
-        <div style="opacity:.8;font-size:.95rem;">Το site σου, φιλοξενία, απεριόριστες αλλαγές ·
-          1ος μήνας <span style="color:var(--a);font-weight:700;">ΔΩΡΕΑΝ</span><br>
+      <p style="margin:10px 0 16px;color:var(--gv-ok);font-weight:600;">Η σελίδα Facebook συνδέθηκε επιτυχώς.</p>
+      <div style="background:var(--gv-subtle);border-radius:8px;padding:16px;margin-bottom:16px;border:1px solid var(--gv-line);">
+        <div style="font-weight:700;font-size:1.1rem;margin-bottom:4px;color:var(--gv-ink);">Site — €14.99/μήνα</div>
+        <div style="color:var(--gv-ink-secondary);font-size:0.92rem;">Το site σου, φιλοξενία, απεριόριστες αλλαγές ·
+          1ος μήνας <span style="color:var(--gv-accent);font-weight:700;">ΔΩΡΕΑΝ</span><br>
 </div>
       </div>
       <button class="btn btn-primary" id="pay-btn" onclick="startCheckout()">
@@ -371,7 +399,7 @@
       } else if (step === "domain_success" && cid) {
         currentClientId = cid;
         const domain = params.get("domain") || "το domain σου";
-        showDomainReturnMessage(`✅ Πληρώθηκε το ${domain}. Ξεκινά η αγορά/σύνδεση και συνεχίζεις με social.`);
+        showDomainReturnMessage(`Πληρώθηκε το ${domain}. Ξεκινά η αγορά/σύνδεση και συνεχίζεις με social.`);
         showPaymentStep();
       } else if (step === "domain_cancel" && cid) {
         currentClientId = cid;
@@ -544,7 +572,7 @@
              onclick="selectPage(this.dataset.pageId, this)">
           <div>
             <div class="domain-name">${p.name}</div>
-            <div style="font-size:.82rem;opacity:.65;">${p.has_instagram ? '✅ Instagram Business' : '⚠️ Χωρίς Instagram Business'}</div>
+            <div style="font-size:.82rem;color:var(--gv-ink-muted);">${p.has_instagram ? 'Instagram Business' : 'Χωρίς Instagram Business'}</div>
           </div>
           <span class="domain-badge badge-free">Επέλεξε →</span>
         </div>
