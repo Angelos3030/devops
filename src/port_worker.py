@@ -155,52 +155,6 @@ class _Chat(DeepSeekResearchWorker):
     def ask(self, system: str, user: str, max_tokens: int = 16000) -> str:
         return self._call(self._pass2_model, system, user, json_mode=True, max_tokens=max_tokens)
 
-    def ask_cheap_verbose(self, system: str, user: str,
-                          max_tokens: int) -> tuple[str, dict[str, Any]]:
-        """Ίδιο transport, αλλά επιστρέφει και τον φάκελο της απάντησης.
-
-        Το `_call` δίνει μόνο το content· χρειαζόμαστε `finish_reason` και
-        `reasoning_tokens` γιατί εκεί κρύφτηκε η αιτία: το max_tokens καλύπτει
-        reasoning + content μαζί, και ο συλλογισμός τα έτρωγε όλα.
-        """
-        import requests
-        r = requests.post(
-            f"{self._base_url}/chat/completions",
-            headers={"Authorization": f"Bearer {self._api_key}",
-                     "Content-Type": "application/json"},
-            json={"model": self._pass1_model, "temperature": 0.2,
-                  "max_tokens": max_tokens,
-                  "response_format": {"type": "json_object"},
-                  "messages": [{"role": "system", "content": system},
-                               {"role": "user", "content": user}]},
-            timeout=120)
-        body = r.json() if r.ok else {}
-        choice = (body.get("choices") or [{}])[0]
-        msg = choice.get("message") or {}
-        usage = body.get("usage") or {}
-        content = msg.get("content") or ""
-        self.telemetry.input_tokens += usage.get("prompt_tokens", 0)
-        self.telemetry.output_tokens += usage.get("completion_tokens", 0)
-        self._pass1_in += usage.get("prompt_tokens", 0)
-        self._pass1_out += usage.get("completion_tokens", 0)
-        return content, {
-            "http_status": r.status_code,
-            "finish_reason": choice.get("finish_reason"),
-            "completion_tokens": usage.get("completion_tokens"),
-            "reasoning_tokens": (usage.get("completion_tokens_details") or {}).get("reasoning_tokens"),
-            "raw_content_length": len(content),
-        }
-
-    def ask_cheap(self, system: str, user: str, max_tokens: int = 300) -> str:
-        """Το ΦΘΗΝΟ, μη-reasoning μοντέλο. Για στενές, ντετερμινιστικές εργασίες.
-
-        Μετρήθηκε: το reasoning μοντέλο επέστρεφε κενό `content` και στα 400 και
-        στα 1500 tokens για μια απλή προσαρμογή χρώματος — ο συλλογισμός έτρωγε
-        το budget. Η εργασία δεν χρειάζεται συλλογισμό: δεδομένα fg/bg/ratio,
-        ζητούμενο ένα hex.
-        """
-        return self._call(self._pass1_model, system, user, json_mode=True, max_tokens=max_tokens)
-
 
 SYSTEM = """You are a senior front-end engineer performing a FAITHFUL PORT.
 
@@ -555,26 +509,22 @@ def _contrast_only_fix(chat: Any, css_path: Path, spine_log: str,
     # tokens ΠΡΙΝ από αυτήν. Στα 400 το σώμα έβγαινε άδειο σε 4/4 κλήσεις.
     # 1500 αφήνει άνετο περιθώριο για τον συλλογισμό μιας προσαρμογής χρώματος
     # χωρίς να είναι αυθαίρετα μεγάλο.
+    # ΝΤΕΤΕΡΜΙΝΙΣΤΙΚΑ, χωρίς μοντέλο. Μετρήθηκε σε τέσσερα τρεξίματα ότι το
+    # μοντέλο γέμιζε κάθε budget με reasoning και επέστρεφε κενό content. Η
+    # εργασία είναι αριθμητική: η απόχρωση διατηρείται εξ ορισμού, αλλάζει
+    # μόνο η φωτεινότητα, με δυαδική αναζήτηση για την ΜΙΚΡΟΤΕΡΗ αλλαγή.
     record: dict[str, Any] = {"token": fail["fg_token"], "from": fail["fg_value"],
                               "was": fail["measured"], "required": fail["required"],
-                              "max_tokens": 1000,
-                              "model_requested": chat._pass1_model}
-    try:
-        raw, meta = chat.ask_cheap_verbose("Return JSON only.",
-                                           cr.PROMPT.format(**fail), max_tokens=1000)
-        record.update(meta)
-    except Exception as exc:  # noqa: BLE001
-        record.update(outcome=cr.NO_WRITE, error=f"η κλήση απέτυχε: {str(exc)[:120]}")
-        res.setdefault("contrast_repair", []).append(record)
-        return False
-    record["content_non_empty"] = bool(raw and raw.strip())
-    value, err = cr.parse_response(raw, expect_token=fail["fg_token"])
+                              "method": "deterministic-hsl", "model_tokens": 0}
+    value, err = cr.solve(fail["fg_value"], fail["bg_value"], fail["required"])
     if value is None:
         record.update(outcome=cr.NO_WRITE, error=err)
         res.setdefault("contrast_repair", []).append(record)
         return False
     ok, ratio = cr.verify(value, fail["bg_value"], fail["required"])
     record.update(to=value, now=ratio,
+                  hue_before=round(cr.to_hsl(fail["fg_value"])[0]),
+                  hue_after=round(cr.to_hsl(value)[0]),
                   outcome="APPLIED" if ok else cr.NO_WRITE,
                   error="" if ok else f"η τιμή δίνει {ratio}:1 < {fail['required']}:1")
     res.setdefault("contrast_repair", []).append(record)

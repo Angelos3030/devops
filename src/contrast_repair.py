@@ -126,3 +126,84 @@ def parse_response(raw: str | None, expect_token: str | None = None) -> tuple[st
         if got and got != expect_token:
             return None, f"λάθος token: ζητήθηκε {expect_token!r}, ήρθε {got!r}"
     return value, ""
+
+
+# ---------------------------------------------------------------- ντετερμινιστική λύση
+#
+# Γιατί έφυγε το μοντέλο από εδώ: μετρήθηκε σε τέσσερα τρεξίματα ότι το
+# `finish_reason` έβγαινε πάντα `length` και το `content` κενό — ο συλλογισμός
+# γέμιζε ΟΠΟΙΟΔΗΠΟΤΕ budget (300→300 reasoning tokens, 1000→1000). Η εργασία
+# όμως είναι κλειστού τύπου: «σκούρυνε αυτό το χρώμα μέχρι η αντίθεση να φτάσει
+# 4,5:1». Δεν χρειάζεται κρίση — χρειάζεται αριθμητική.
+
+def _rgb(hex_colour: str) -> tuple[float, float, float]:
+    h = hex_colour.strip().lstrip("#")
+    if len(h) == 3:
+        h = "".join(ch * 2 for ch in h)
+    return tuple(int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))  # type: ignore[return-value]
+
+
+def _hex(r: float, g: float, b: float) -> str:
+    return "#" + "".join(f"{max(0, min(255, round(c * 255))):02x}" for c in (r, g, b))
+
+
+def to_hsl(hex_colour: str) -> tuple[float, float, float]:
+    r, g, b = _rgb(hex_colour)
+    hi, lo = max(r, g, b), min(r, g, b)
+    light = (hi + lo) / 2
+    if hi == lo:
+        return 0.0, 0.0, light
+    d = hi - lo
+    sat = d / (2 - hi - lo) if light > 0.5 else d / (hi + lo)
+    if hi == r:
+        hue = ((g - b) / d) % 6
+    elif hi == g:
+        hue = (b - r) / d + 2
+    else:
+        hue = (r - g) / d + 4
+    return hue * 60, sat, light
+
+
+def from_hsl(hue: float, sat: float, light: float) -> str:
+    c = (1 - abs(2 * light - 1)) * sat
+    x = c * (1 - abs((hue / 60) % 2 - 1))
+    m = light - c / 2
+    seg = int(hue // 60) % 6
+    r, g, b = [(c, x, 0), (x, c, 0), (0, c, x), (0, x, c), (x, 0, c), (c, 0, x)][seg]
+    return _hex(r + m, g + m, b + m)
+
+
+def solve(fg_value: str, bg_value: str, required: float,
+          steps: int = 24) -> tuple[str | None, str]:
+    """Η ΜΙΚΡΟΤΕΡΗ αλλαγή φωτεινότητας που φτάνει το κατώφλι.
+
+    Η απόχρωση και ο κορεσμός διατηρούνται **εξ ορισμού** — μεταβάλλεται μόνο
+    το L του HSL. Δυαδική αναζήτηση, όχι αυθαίρετα βήματα: βρίσκουμε το L που
+    είναι πλησιέστερα στο αρχικό και ήδη περνά.
+
+    Επιστρέφει (τιμή, σφάλμα). Fail closed: αν καμία τιμή του χώρου δεν φτάνει
+    το κατώφλι, επιστρέφει (None, αιτία) και δεν γράφεται τίποτα.
+    """
+    if not (_HEX.match(fg_value.strip()) and _HEX.match(bg_value.strip())):
+        return None, "μη έγκυρο hex στην είσοδο"
+    if contrast(fg_value, bg_value) >= required:
+        return None, "NO_CHANGE — το ζεύγος ήδη περνά"
+
+    # Μικρό περιθώριο: ο guard στρογγυλοποιεί στα 2 δεκαδικά και μια λύση
+    # ακριβώς στο 4.50 μπορεί να διαβαστεί ως 4.49. Στοχεύουμε λίγο πιο μέσα.
+    required = required + 0.05
+    hue, sat, light = to_hsl(fg_value)
+    # Κατεύθυνση: ανοιχτό φόντο -> σκουραίνουμε· σκούρο φόντο -> φωτίζουμε.
+    target = 0.0 if luminance(bg_value) > luminance(fg_value) else 1.0
+    if contrast(from_hsl(hue, sat, target), bg_value) < required:
+        return None, (f"αδύνατο: ούτε το άκρο L={target} δεν φτάνει {required}:1 "
+                      f"με φόντο {bg_value}")
+
+    lo, hi = light, target          # lo δεν περνά, hi περνά
+    for _ in range(steps):
+        mid = (lo + hi) / 2
+        if contrast(from_hsl(hue, sat, mid), bg_value) >= required:
+            hi = mid
+        else:
+            lo = mid
+    return from_hsl(hue, sat, hi), ""

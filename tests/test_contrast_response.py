@@ -77,10 +77,9 @@ class ContrastResponse(unittest.TestCase):
         self.assertIn("cr.NO_WRITE", src)
         # Η στενή κλήση χρησιμοποιεί το ΦΘΗΝΟ, μη-reasoning μοντέλο με μικρό
         # budget: το reasoning μοντέλο επέστρεφε κενό content και στα 1500.
-        self.assertIn("ask_cheap_verbose(", src)
-        self.assertIn("self._pass1_model", src)
-        self.assertIn("max_tokens=1000", src)
-        self.assertNotIn("max_tokens=1500", src)
+        # Η διαδρομή έγινε ντετερμινιστική: κανένα μοντέλο, κανένα token.
+        self.assertIn("cr.solve(", src)
+        self.assertNotIn("ask_cheap", src)
 
 
 if __name__ == "__main__":
