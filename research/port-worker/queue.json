@@ -40,7 +40,11 @@
    "failure": "Unterminated string starting at: line 11 column 18 (char 10521)",
    "result": "research\\port-worker\\frost-bakery\\result.json",
    "validator_verdict": "ΜΕΡΙΚΗ ΠΙΣΤΟΤΗΤΑ — δομή/παλέτα/τυπογραφία ναι· αγγλικά κείμενα, μηδέν εικόνες, ξεχείλισμα σειράς καρτών. Βλ. PROOF-frost-bakery.md",
-   "intervention_level": "HIGH"
+   "intervention_level": "HIGH",
+   "appearance_2026_08_19": {
+    "demo": "taverna",
+    "finding": "αόρατο κείμενο ×3 (h3 «Εκδηλώσεις» 1.00) + γραμματοσειρά Lora"
+   }
   },
   "garage": {
    "name": "Garage (Tooplate)",
@@ -91,7 +95,11 @@
     "Πού θα μας βρεις"
    ],
    "updated_at": "2026-08-16T11:09:16+00:00",
-   "result": "research\\port-worker\\medic-care\\result.json"
+   "result": "research\\port-worker\\medic-care\\result.json",
+   "appearance_2026_08_19": {
+    "demo": "physician",
+    "finding": "καθαρό"
+   }
   },
   "gymso-fitness": {
    "name": "Gymso Fitness (Tooplate)",
@@ -139,7 +147,11 @@
    "unsupported_by_product": [
     "ΕΒΔΟΜΑΔΙΑΙΟ ΠΡΟΓΡΑΜΜΑ ΜΑΘΗΜΑΤΩΝ — το Vitrina δεν μοντελοποιεί ώρες/ημέρες/αίθουσες. Η απουσία του ΔΕΝ εμποδίζει READY_FOR_REVIEW· απαγορεύεται να επινοηθούν μαθήματα ή ώρες.",
     "«2 months FREE» προσφορά — δεν υπάρχει μοντέλο προσφορών"
-   ]
+   ],
+   "appearance_2026_08_19": {
+    "demo": "gym",
+    "finding": "γραμματοσειρά εκτός self-hosted: Helvetica Neue"
+   }
   },
   "villa-agency": {
    "name": "Villa Agency (Templatemo)",
@@ -189,7 +201,11 @@
     "μετρητές κτιρίων/ετών/βραβείων — απαγορεύονται χωρίς τεκμήριο"
    ],
    "updated_at": "2026-08-16T14:52:17+00:00",
-   "result": "research\\port-worker\\villa-agency\\result.json"
+   "result": "research\\port-worker\\villa-agency\\result.json",
+   "appearance_2026_08_19": {
+    "demo": "realestate",
+    "finding": "αόρατο κείμενο ×4 (αντίθεση 1.01) — «Πού θα μας βρεις», το ΤΗΛΕΦΩΝΟ «24210 55660», «Δες τον χάρτη»"
+   }
   },
   "compass": {
    "name": "Compass (Templatemo)",
@@ -295,7 +311,7 @@
    "name": "Klassy Cafe (Templatemo)",
    "source_url": "https://templatemo.com/tm-558-klassy-cafe",
    "decision": "PORT_OK",
-   "status": "READY_FOR_REVIEW",
+   "status": "BLOCKED",
    "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (LICENSE-MAP.md).",
    "provenance": "Studio, δικό του template.",
    "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
@@ -338,8 +354,10 @@
     "Προϊόντα"
    ],
    "batch": "migration-2",
-   "updated_at": "2026-08-16T19:33:26+00:00",
-   "result": "research\\port-worker\\klassy-cafe\\result.json"
+   "updated_at": "2026-08-19T18:31:04+00:00",
+   "result": "research\\port-worker\\klassy-cafe\\result.json",
+   "blocked_reason": "Το data-binding διορθώθηκε πλήρως (καμία τιμή, κανένα κενό κέλυφος, μηδέν ορφανά €). Απομένει ΕΝΑ οπτικό ελάττωμα: desktop 1440, div.FindUs_mapBox 144x90 ενώ το περιεχόμενο ζητά 134px — 46px κομμένα. Το mobile αποδίδει σωστά. Ο νέος έλεγχος `clipped` το πιάνει πλέον· χρειάζεται ένας γύρος αναπαραγωγής.",
+   "validator": "Claude 2026-08-19"
   },
   "clean-work": {
    "name": "Clean Work (Tooplate)",

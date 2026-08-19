@@ -119,6 +119,22 @@ for (const [label, w, h] of [['desktop', 1440, 1024], ['mobile', 390, 844]]) {
         })
         .slice(0, 5)
         .map((e) => `${e.tagName.toLowerCase()}.${(e.className || '').toString().split(' ')[0]} +${e.scrollWidth - e.clientWidth}px`),
+      // ΑΠΟΚΟΜΜΕΝΟ ΠΕΡΙΕΧΟΜΕΝΟ ≠ ΥΠΕΡΧΕΙΛΙΣΗ. Το innerOverflow βλέπει ό,τι
+      // ΞΕΦΕΥΓΕΙ από το πλαίσιο· δεν βλέπει ό,τι το πλαίσιο ΚΟΒΕΙ. Μετρήθηκε
+      // στο klassy-cafe: η κάρτα χάρτη ήταν 144x90 ενώ το περιεχόμενό της
+      // ζητούσε 134px — «Φορτώνει από την Google. Η...» κοβόταν στη μέση, με
+      // overflow=0, innerOverflow=[] και όλες τις πύλες πράσινες.
+      clipped: [...document.querySelectorAll('div,section,a,button,p,li')]
+        .filter((e) => {
+          const cut = e.scrollHeight - e.clientHeight
+          if (cut <= 12 || !e.clientHeight) return false
+          const cs = getComputedStyle(e)
+          if (cs.overflowY !== 'hidden' && cs.overflow !== 'hidden') return false
+          if (cs.webkitLineClamp && cs.webkitLineClamp !== 'none') return false // σκόπιμο
+          return (e.innerText || '').trim().length > 0
+        })
+        .slice(0, 5)
+        .map((e) => `${e.tagName.toLowerCase()}.${(e.className || '').toString().split(' ')[0]} κομμένα ${e.scrollHeight - e.clientHeight}px`),
     }))
     out[label].consoleErrors = errs.length
     out[label].errorSamples = errs.slice(0, 3)

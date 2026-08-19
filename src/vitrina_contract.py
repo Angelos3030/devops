@@ -139,6 +139,17 @@ def _shared_signatures() -> dict[str, str]:
     return out
 
 
+def _fonts() -> list[str]:
+    """Ποιες οικογένειες υπάρχουν ΠΡΑΓΜΑΤΙΚΑ ως self-hosted @font-face.
+
+    Το μοντέλο ζήτησε `Poppins`, που δεν κατεβάσαμε ποτέ: ο browser σέρβιρε
+    Arial και το theme έχανε την ταυτότητά του σιωπηλά — ούτε build ούτε guard
+    το έβλεπε. Η λίστα παράγεται από το fonts.css, δεν γράφεται με το χέρι.
+    """
+    css = (SITES / "app" / "fonts.css").read_text(encoding="utf-8")
+    return sorted({m.group(1) for m in re.finditer(r"font-family:\s*'([^']+)'", css)})
+
+
 def extract() -> dict[str, Any]:
     prop = _prop_name()
     fields = _demo_fields()
@@ -153,6 +164,7 @@ def extract() -> dict[str, Any]:
         "canonical_theme": CANONICAL_THEME,
         "canonical_usage": canonical,
         "shared_components": _shared_signatures(),
+        "fonts": _fonts(),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(contract, indent=1, ensure_ascii=False), encoding="utf-8")
@@ -172,6 +184,15 @@ Signature — ΑΚΡΙΒΩΣ αυτή:
     export default function {component}({{ {contract['prop_name']}: d }}) {{ ... }}
 
 The route passes the prop named `{contract['prop_name']}`. Any other name renders undefined.
+
+ΓΡΑΜΜΑΤΟΣΕΙΡΕΣ — ΜΟΝΟ αυτές είναι self-hosted· καμία άλλη δεν υπάρχει και ο
+browser θα σερβίρει σιωπηλά Arial:
+  {', '.join(contract.get('fonts', []))}
+
+ΕΙΔΙΚΟΤΗΤΑ CSS — μετρημένο σφάλμα: `.root a {{ color: inherit }}` (0,2,0)
+υπερισχύει του `.heroButton` (0,1,0), οπότε το κουμπί κληρονόμησε λευκό πάνω σε
+λευκό και έγινε αόρατο. Κάθε reset για `a`/`button`/`h1`-`h6` γράφεται με
+μηδενική ειδικότητα: `.root :where(a) {{ color: inherit }}`.
 
 STRING fields (χρήση ως {{d.FIELD}}, ΠΟΤΕ .map()):
   {', '.join(strings)}
@@ -276,15 +297,24 @@ def availability(biz: str) -> dict[str, Any]:
     return out
 
 
-def availability_prompt(av: dict[str, Any]) -> str:
+def availability_prompt(av: dict[str, Any],
+                        schema_arrays: dict[str, list[str]] | None = None) -> str:
     """Η διαθεσιμότητα σε μορφή που δεσμεύει το μοντέλο."""
     lines = [f"=== ΤΙ ΕΧΕΙ ΠΡΑΓΜΑΤΙΚΑ ΤΙΜΗ ΣΤΟ demo «{av['business']}» ===", ""]
     empty_scalars = [k for k, v in av["scalars"].items() if not v]
     if empty_scalars:
         lines.append(f"ΚΕΝΑ πεδία (μην τα αποδώσεις): {', '.join(sorted(empty_scalars))}")
         lines.append("")
+    schema_arrays = schema_arrays or {}
     for arr, meta in av["arrays"].items():
         lines.append(f"d.{arr} — {meta['count']} στοιχεία:")
+        # ΡΗΤΗ απαγόρευση για πεδία που ΥΠΑΡΧΟΥΝ στο σχήμα αλλά ΛΕΙΠΟΥΝ εδώ.
+        # Χωρίς αυτό το μοντέλο έβλεπε το `price` στη λίστα του σχήματος, δεν
+        # έβλεπε τίποτα να το απαγορεύει, και το έδενε — τέσσερις γύροι
+        # επιδιόρθωσης και 0,25 $ σε ένα πεδίο που απλώς δεν υπάρχει.
+        for missing in sorted(set(schema_arrays.get(arr, [])) - set(meta["fields"])):
+            lines.append(f"   {missing}: 0/{meta['count']} (ΔΕΝ ΥΠΑΡΧΕΙ)"
+                         "  ⛔ ΑΠΑΓΟΡΕΥΕΤΑΙ — μη γράψεις καν το binding")
         for f, c in sorted(meta["fields"].items()):
             state = ("ΟΛΑ" if c["populated"] == c["total"]
                      else "ΚΑΝΕΝΑ" if c["populated"] == 0 else "ΜΕΡΙΚΑ")

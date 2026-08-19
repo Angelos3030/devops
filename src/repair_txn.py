@@ -22,7 +22,7 @@ from typing import Any
 # Μετρικές που δεν επιτρέπεται να χειροτερέψουν. Το κλειδί είναι ο τρόπος
 # σύγκρισης, όχι απλώς η ύπαρξη: «λιγότερο είναι καλύτερα» για μετρητές,
 # «ήταν 1, πρέπει να μείνει 1» για δομικά στοιχεία.
-COUNTERS = ("overflow", "inner", "broken", "console")
+COUNTERS = ("overflow", "inner", "clipped", "broken", "console")
 VIEWPORTS = ("desktop", "mobile")
 
 
@@ -52,6 +52,7 @@ def qa_metrics(vit: dict[str, Any]) -> dict[str, dict[str, Any]]:
             "renderable": not failed,
             "overflow": 0 if failed else (m.get("overflow") or 0),
             "inner": 0 if failed else len(m.get("innerOverflow") or []),
+            "clipped": 0 if failed else len(m.get("clipped") or []),
             "broken": 0 if failed else (m.get("broken") or 0),
             "console": 0 if failed else (m.get("consoleErrors") or 0),
             "h1": None if failed else m.get("h1"),

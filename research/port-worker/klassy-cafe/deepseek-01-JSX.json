@@ -1,0 +1,7 @@
+{
+  "theme_key": "klassy-table",
+  "component": "KlassyTable",
+  "files": [
+    {
+      "path": "sites/lib/templates/KlassyTable.jsx",
+      "content": "import s from './KlassyTable.module.css'\nimport Brand from './Brand'\nimport FindUs from './FindUs'\nimport SocialLinks from './SocialLinks'\n\nexport default function KlassyTable({ data: d }) {\n  return (\n    <div className={s.root}>\n      <nav className={s.nav} aria-label='Κύρια πλοήγηση'>\n        <div className={s.navIn}>\n          <a href='#home' className={s.logo}>\n            <Brand data={d} className={s.brand} dark />\n          </a>\n          <div className={s.navLinks}>\n            <a href='#home'>Αρχική</a>\n            <a href='#about'>Ιστορία</a>\n            <a href='#menu'>Μενού</a>\n            <a href='#gallery'>Συλλογή</a>\n            <a href='#contact'>Επικοινωνία</a>\n          </div>\n        </div>\n      </nav>\n\n      <header id='home' className={s.hero}>\n        <div className={s.heroText}>\n          <div className={s.heroInner}>\n            <p className={s.kicker}>{d.KICKER}</p>\n            <h1 className={s.heroTitle}>{d.HERO_WORD || d.NAME}</h1>\n            <p className={s.heroTagline}>{d

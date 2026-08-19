@@ -135,5 +135,25 @@
   "CallBar": "data: d",
   "MapEmbed": "embed, directions, title",
   "MediaDisclosure": "data"
- }
+ },
+ "fonts": [
+  "Alegreya",
+  "Anton",
+  "Comfortaa",
+  "EB Garamond",
+  "Fira Sans",
+  "Fira Sans Condensed",
+  "Fraunces",
+  "Inter",
+  "JetBrains Mono",
+  "Literata",
+  "Manrope",
+  "Noto Sans Display",
+  "Noto Serif Display",
+  "Nunito Sans",
+  "Open Sans",
+  "Roboto Condensed",
+  "Roboto Slab",
+  "Syne"
+ ]
 }

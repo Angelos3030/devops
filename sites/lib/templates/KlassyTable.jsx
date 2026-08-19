@@ -6,106 +6,117 @@ import SocialLinks from './SocialLinks'
 export default function KlassyTable({ data: d }) {
   return (
     <div className={s.root}>
-      <nav className={s.nav} aria-label="Κύρια πλοήγηση">
+      <nav className={s.nav} aria-label='Κύρια πλοήγηση'>
         <div className={s.navIn}>
-          <a href="#home" className={s.logo}><Brand data={d} className={s.brand} dark /></a>
+          <a href='#home' className={s.logo}><Brand data={d} className={s.brand} dark /></a>
           <div className={s.navLinks}>
-            <a href="#home">Αρχική</a>
-            <a href="#about">Σχετικά</a>
-            <a href="#menu">Μενού</a>
-            <a href="#contact">Επικοινωνία</a>
+            <a href='#home'>Αρχική</a>
+            <a href='#story'>Σχετικά</a>
+            <a href='#menu'>Μενού</a>
+            <a href='#gallery'>Έργα</a>
+            <a href='#contact'>Επικοινωνία</a>
           </div>
         </div>
       </nav>
 
-      <header id="home" className={s.hero}>
-        <div className={s.heroLeft}>
-          <Brand data={d} className={s.heroBrand} />
-          <h1 className={s.heroKicker}>{d.KICKER}</h1>
-          <p className={s.heroWord}>{d.HERO_WORD}</p>
-          <a href="#contact" className={s.heroCta}>{d.CTA_TITLE}</a>
+      <header id='home' className={s.hero}>
+        <div className={s.heroPanel}>
+          <div className={s.heroInner}>
+            <Brand data={d} className={s.heroBrand} />
+            <h1 className={s.heroTitle}>{d.NAME}</h1>
+            <p className={s.heroKicker}>{d.TAGLINE || d.KICKER}</p>
+            <a className={s.heroButton} href='#contact'>{d.CTA_TITLE || 'Επικοινωνήστε μαζί μας'}</a>
+          </div>
         </div>
-        <div className={s.heroRight}>
-          <img src={d.HERO_IMAGE} alt={d.NAME || d.TRADE} className={s.heroImage} />
+        <div className={s.heroSlides}>
+          {d.gallery.slice(0, 3).map((item) => (
+            <div key={item.title} className={s.heroSlide}>
+              <img src={item.image} alt={item.title} />
+            </div>
+          ))}
         </div>
       </header>
 
-      <section id="about" className={s.about}>
-        <div className={s.aboutInner}>
+      <section id='story' className={s.about}>
+        <div className={s.aboutGrid}>
           <div className={s.aboutText}>
-            <h6 className={s.sectionLabel}>Σχετικά με εμάς</h6>
-            <h2 className={s.sectionTitle}>{d.STORY_TITLE}</h2>
-            <p className={s.aboutIntro}>{d.INTRO}</p>
-            {d.story && d.story.map((item, i) => <p key={i}>{item.p}</p>)}
+            <p className={s.eyebrow}>Σχετικά</p>
+            <h2 className={s.title}>{d.STORY_TITLE}</h2>
+            {d.story.map((block) => (
+              <p key={block.p.slice(0, 24)} className={s.paragraph}>{block.p}</p>
+            ))}
+          </div>
+          <div className={s.aboutVisual}>
+            <div className={s.aboutMain}>
+              <img src={d.STORY_IMAGE} alt={d.STORY_TITLE} />
+            </div>
             <div className={s.aboutThumbs}>
-              {d.gallery && d.gallery.slice(0, 3).map((img, i) => (
-                <img key={i} src={img.image} alt={img.title} className={s.aboutThumb} />
+              {d.gallery.slice(0, 3).map((item) => (
+                <img key={item.title} src={item.image} alt={item.title} />
               ))}
             </div>
           </div>
-          <div className={s.aboutImageWrap}>
-            <img src={d.STORY_IMAGE} alt={d.STORY_TITLE} className={s.aboutImage} />
-          </div>
         </div>
       </section>
 
-      <section id="menu" className={s.menu}>
-        <div className={s.menuHeader}>
-          <h6 className={s.sectionLabel}>Το Μενού μας</h6>
-          <h2 className={s.sectionTitle}>{d.TRADE} επιλογές</h2>
+      <section id='menu' className={s.menu}>
+        <div className={s.sectionHead}>
+          <p className={s.eyebrow}>Μενού</p>
+          <h2 className={s.title}>Επιλογές που ξεχωρίζουν</h2>
         </div>
-        <div className={s.menuGrid}>
-          {d.services && d.services.map((service, i) => (
-            <div key={i} className={s.menuCard}>
-              <div className={s.priceBadge}>€{service.price}</div>
-              <div className={s.menuInfo}>
-                <h3 className={s.menuItemTitle}>{service.title}</h3>
-                <p className={s.menuItemDesc}>{service.desc}</p>
-              </div>
-            </div>
+        <div className={s.menuRow}>
+          {d.services.map((item, i) => {
+            const img = d.gallery[i];
+            return (
+              <article key={item.title} className={s.menuCard}>
+                {img ? <img className={s.menuImage} src={img.image} alt={img.title} /> : null}
+                <span className={s.menuNum}>{item.num}</span>
+                <div className={s.menuBody}>
+                  <h3 className={s.menuTitle}>{item.title}</h3>
+                  <p className={s.menuDesc}>{item.desc}</p>
+                  <a className={s.menuLink} href='#contact'>Μάθετε περισσότερα</a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id='gallery' className={s.gallery}>
+        <div className={s.sectionHead}>
+          <p className={s.eyebrow}>Έργα</p>
+          <h2 className={s.title}>Ο χώρος μας</h2>
+        </div>
+        <div className={s.galleryGrid}>
+          {d.gallery.map((item) => (
+            <figure key={item.title} className={s.galleryItem}>
+              <img src={item.image} alt={item.title} />
+              <figcaption>{item.title}</figcaption>
+            </figure>
           ))}
         </div>
       </section>
 
-      <section id="offers" className={s.offers}>
-        <div className={s.offersHeader}>
-          <h6 className={s.sectionLabel}>Εβδομαδιαίες Προσφορές</h6>
-          <h2 className={s.sectionTitle}>Ειδικές τιμές</h2>
-        </div>
-        <div className={s.offersList}>
-          {d.services && d.services.map((service, i) => (
-            <div key={i} className={s.offerItem}>
-              <div className={s.offerText}>
-                <h4>{service.title}</h4>
-                <p>{service.desc}</p>
-              </div>
-              <div className={s.offerPrice}>€{service.price}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="contact" className={s.contact}>
+      <section id='contact' className={s.contact}>
         <div className={s.contactInner}>
           <div className={s.contactInfo}>
-            <h6 className={s.sectionLabelDark}>Επικοινωνία</h6>
-            <h2 className={s.sectionTitleDark}>{d.TAGLINE}</h2>
+            <p className={s.eyebrow}>Επικοινωνία</p>
+            <h2 className={s.title}>{d.CTA_TITLE}</h2>
             <FindUs data={d} dark />
-            <SocialLinks data={d} className={s.socialLinks} />
           </div>
           <div className={s.contactCard}>
-            <h4>Στοιχεία Επικοινωνίας</h4>
-            <p>{d.PHONE}</p>
-            <p>{d.CITY}, {d.POSTCODE}</p>
-            <p>{d.HOURS}</p>
+            <h3 className={s.contactCardTitle}>Επισκεφθείτε μας</h3>
+            <p className={s.contactCardText}>{d.INTRO}</p>
+            <SocialLinks data={d} />
           </div>
         </div>
       </section>
 
       <footer className={s.footer}>
-        <div className={s.footerInner}>
-          <SocialLinks data={d} className={s.footerSocial} />
-          <p>© {d.YEAR} {d.NAME}. All rights reserved.</p>
+        <div className={s.footerIn}>
+          <Brand data={d} className={s.footerBrand} />
+          <p className={s.footerText}>© {d.YEAR} {d.NAME}. Με επιφύλαξη παντός δικαιώματος.</p>
+          <SocialLinks data={d} />
         </div>
       </footer>
     </div>

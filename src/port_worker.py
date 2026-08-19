@@ -123,6 +123,36 @@ def _render(root: str, entry: str, tag: str, out_dir: Path) -> dict[str, Any]:
 
 
 # ----------------------------------------------------------- πηγαίο υλικό
+def sticky_lines(existing: list[str], text: str) -> list[str]:
+    """Συσσώρευση περιορισμών χωρίς διπλότυπα, με σταθερή σειρά.
+
+    Ξεχωριστή συνάρτηση επειδή είναι ο πυρήνας μιας μετρημένης παλινδρόμησης:
+    ο guard έκοψε το `d.services[].price`, το μοντέλο το αφαίρεσε, και ο επόμενος
+    γύρος — που αφορούσε μόνο χρώματα — το ξαναέφερε. Ό,τι απορρίφθηκε μία φορά
+    πρέπει να ταξιδεύει με κάθε επόμενο prompt.
+    """
+    out = list(existing)
+    for line in filter(None, (ln.strip() for ln in text.splitlines())):
+        if line not in out:
+            out.append(line)
+    return out
+
+
+def _appearance(theme_key: str, biz: str, port: int) -> dict[str, Any]:
+    """Αόρατο κείμενο, γραμματοσειρές που δεν κατεβάσαμε, σπασμένες εικόνες.
+
+    Μετρήθηκε: ένα CTA με αντίθεση 1.00 (λευκό σε λευκό) πέρασε ΟΛΕΣ τις πύλες
+    του worker — build, spine_guard, trust_guard, μηδενική υπερχείλιση — γιατί
+    καμία τους δεν κοιτάζει pixel. Το design_guard.mjs υπήρχε ήδη γι' αυτό
+    ακριβώς· απλώς ο worker δεν το έτρεχε ποτέ.
+    """
+    ok, log = _run(["node", "tests/design_guard.mjs", "--base", f"http://127.0.0.1:{port}",
+                    "--only", theme_key, "--biz", biz], SITES, timeout=300)
+    problems = [ln.strip() for ln in log.splitlines()
+                if ln.strip().startswith(("└", "•")) or "αόρατο κείμενο" in ln]
+    return {"passed": ok, "problems": problems[:8], "log": log[-1200:]}
+
+
 def _read_source(rec: dict[str, Any]) -> tuple[str, str]:
     """Διαβάζει το index.html και το κύριο CSS του πρωτοτύπου, με budget."""
     src_dir = ROOT / rec["local_path"]
@@ -198,7 +228,7 @@ File 2: sites/lib/templates/{rec['component']}.module.css
 
 {as_prompt(contract, rec['component'])}
 
-{availability_prompt(availability(biz)) if biz else ''}
+{availability_prompt(availability(biz), {k: v.get('item_keys', []) for k, v in contract['fields'].items() if v['type'] == 'array'}) if biz else ''}
 
 MEDIA — υποχρεωτικό όταν το πρωτότυπο έχει εικόνες: κάθε θέση εικόνας δένει σε
 d.gallery[i].image με alt από d.gallery[i].title. ΠΟΤΕ αρχεία του πρωτοτύπου.
@@ -417,6 +447,10 @@ def _render_prescription(vit: dict[str, Any], orig_images: int) -> str:
         if m.get("overflow", 0) > 0:
             out.append(f"{label.upper()} {w} FAIL: η σελίδα κυλά οριζόντια κατά "
                        f"{m['overflow']}px. Περιόρισε το πλάτος του υπεύθυνου στοιχείου.")
+        for item in (m.get("clipped") or []):
+            out.append(f"{label.upper()} {w} FAIL: {item} — το πλαίσιο ΚΟΒΕΙ το "
+                       "περιεχόμενό του. Δώσε του αρκετό ύψος/πλάτος ή άφησέ το να "
+                       "μεγαλώσει· μη μικρύνεις το κείμενο για να χωρέσει.")
         for item in (m.get("innerOverflow") or []):
             out.append(f"{label.upper()} {w} FAIL: {item} — το στοιχείο ξεπερνά το "
                        "container του. Διόρθωσε ΜΟΝΟ την τοπική διάταξη αυτού του "
@@ -480,6 +514,7 @@ def _qa_snapshot(vit: dict[str, Any]) -> dict[str, dict[str, Any]]:
         m = vit.get(label) or {}
         snap[label] = {"overflow": m.get("overflow", 0) or 0,
                        "inner": len(m.get("innerOverflow") or []),
+                       "clipped": len(m.get("clipped") or []),
                        "broken": m.get("broken", 0) or 0,
                        "console": m.get("consoleErrors", 0) or 0,
                        "h1": m.get("h1")}
@@ -566,8 +601,18 @@ def port_source(source_id: str) -> dict[str, Any]:
             f"{source_id}: decision={rec.get('decision')!r} — μόνο PORT_OK επιτρέπεται")
     if rec.get("status") in ("DONE", "READY_FOR_REVIEW", "IN_REVIEW"):
         return {"source_id": source_id, "status": rec["status"], "skipped": "ήδη επεξεργασμένο"}
-    if (SITES / "lib" / "templates" / f"{rec['component']}.jsx").exists():
-        return {"source_id": source_id, "status": "SKIPPED", "skipped": "το theme υπάρχει ήδη"}
+    tpl = SITES / "lib" / "templates" / f"{rec['component']}.jsx"
+    if tpl.exists():
+        # Ένα run που κόπηκε στα guards αφήνει αρχεία στον δίσκο. Αυτά ΔΕΝ είναι
+        # theme — είναι απορρίμματα απορριφθείσας υποψηφιότητας. Αν τα δεχτούμε
+        # ως «υπάρχον theme», κάθε επόμενη προσπάθεια γίνεται σιωπηλό SKIPPED και
+        # το ελάττωμα μένει στον δίσκο για πάντα. Καθαρίζουμε και ξαναχτίζουμε.
+        if rec.get("status") in ("PENDING", "FAILED"):
+            for leftover in tpl.parent.glob(f"{rec['component']}.*"):
+                leftover.unlink()
+        else:
+            return {"source_id": source_id, "status": "SKIPPED",
+                    "skipped": "το theme υπάρχει ήδη"}
 
     out = OUT_ROOT / source_id
     out.mkdir(parents=True, exist_ok=True)
@@ -608,10 +653,25 @@ def port_source(source_id: str) -> dict[str, Any]:
 
     _step_log: list[dict[str, Any]] = res.setdefault("generation_steps", [])
 
+    # Κάθε γύρος ξαναγράφει ΟΛΟΚΛΗΡΟ το αρχείο, οπότε μια διόρθωση που κερδήθηκε
+    # σε προηγούμενο γύρο χάνεται αν δεν επαναληφθεί. Μετρήθηκε: ο guard έκοψε το
+    # `d.services[].price`, το μοντέλο το αφαίρεσε — και ο ΕΠΟΜΕΝΟΣ γύρος (μόνο
+    # για χρώματα) το ξαναέφερε, γιατί κανείς δεν του το ξαναείπε. Οι περιορισμοί
+    # συσσωρεύονται και ταξιδεύουν με ΚΑΘΕ prompt.
+    _payload_seq = [0]
+    _sticky: list[str] = []
+
+    def _remember(text: str) -> None:
+        _sticky[:] = sticky_lines(_sticky, text)
+
     def _one(step: str, instruction: str, keep: str) -> dict[str, Any] | None:
         nonlocal problem
         for attempt in range(1 + MAX_REPAIR_ATTEMPTS):
             prompt = f"{user}\n\n=== ΒΗΜΑ: {step} ===\n{instruction}"
+            if _sticky:
+                prompt += ("\n\n=== ΜΟΝΙΜΟΙ ΠΕΡΙΟΡΙΣΜΟΙ (ισχύουν σε ΚΑΘΕ γύρο) ===\n"
+                           + "\n".join(f"- {c}" for c in _sticky)
+                           + "\nΑυτοί οι περιορισμοί έχουν ήδη απορρίψει προηγούμενη απάντηση. Μην τους παραβιάσεις ξανά, ούτε κατά λάθος.")
             if problem:
                 prompt += (f"\n\n=== Η ΠΡΟΗΓΟΥΜΕΝΗ ΑΠΑΝΤΗΣΗ ΑΠΟΡΡΙΦΘΗΚΕ ===\n{problem}\n"
                            "Διόρθωσέ το και ξαναδώσε ΟΛΟΚΛΗΡΟ το αρχείο.")
@@ -624,7 +684,8 @@ def port_source(source_id: str) -> dict[str, Any]:
                                   "reason": problem, "patch_produced": False,
                                   "applied": False})
                 return None
-            (out / f"deepseek-{step}-{attempt + 1}.json").write_text(raw, encoding="utf-8")
+            _payload_seq[0] += 1
+            (out / f"deepseek-{_payload_seq[0]:02d}-{step}.json").write_text(raw, encoding="utf-8")
             try:
                 data = json.loads(raw)
                 # Κρατάμε ΜΟΝΟ το αρχείο που ζητά αυτό το βήμα.
@@ -654,11 +715,29 @@ def port_source(source_id: str) -> dict[str, Any]:
         """Ένας πλήρης κύκλος JSX+CSS. Το `feedback` είναι ό,τι απέρριψαν οι
         guards ή το build — πάει αυτούσιο πίσω στο μοντέλο."""
         nonlocal payload, files
+        # ΒΑΣΗ ΕΠΙΔΙΟΡΘΩΣΗΣ: το τρέχον αρχείο, όχι το πρωτότυπο.
+        # Μετρήθηκε τρεις φορές: ο guard έκοβε το `d.services[].price`, ο επόμενος
+        # γύρος το αφαιρούσε, κι ο μεθεπόμενος το ξανάφερνε. Ο λόγος δεν ήταν
+        # απειθαρχία — το μοντέλο δεν είχε ΠΟΤΕ αντίγραφο του αρχείου. Κάθε γύρος
+        # το ξαναέγραφε από το πρωτότυπο HTML, που ΕΧΕΙ τιμές. Η εντολή «μην
+        # αλλάξεις τίποτε άλλο» ήταν κυριολεκτικά ανεκτέλεστη.
+        base = {f["path"].rsplit(".", 1)[-1]: f["content"] for f in (files or [])}
+
+        def _base(ext: str) -> str:
+            src = base.get(ext, "")
+            if not src:
+                return ""
+            nl = chr(10)
+            return (nl + nl + "=== ΤΟ ΤΡΕΧΟΝ ΑΡΧΕΙΟ — ΞΕΚΙΝΑ ΑΠΟ ΑΥΤΟ ===" + nl + src + nl
+                    + "=== ΤΕΛΟΣ ΤΡΕΧΟΝΤΟΣ ΑΡΧΕΙΟΥ ===" + nl
+                    + "Επίστρεψέ το ΞΑΝΑ ΟΛΟΚΛΗΡΟ με ΜΟΝΟ τις ζητούμενες αλλαγές. "
+                      "Κάθε άλλη διαφορά από το παραπάνω είναι σφάλμα.")
+
         extra = (f"\n\n=== Η ΠΡΟΗΓΟΥΜΕΝΗ ΠΡΟΣΠΑΘΕΙΑ ΑΠΟΡΡΙΦΘΗΚΕ ===\n{feedback}\n"
                  "Διόρθωσε ΑΚΡΙΒΩΣ αυτά. Μην αλλάξεις τίποτε άλλο.") if feedback else ""
         jsx = _one("JSX", f"Return ONLY sites/lib/templates/{rec['component']}.jsx in files[]. "
                           "Use semantic class names via the `s` import; the stylesheet comes next."
-                          + extra, keep=".jsx")
+                          + extra + (_base("jsx") if feedback else ""), keep=".jsx")
         if not jsx:
             res["generation_blocked"] = "JSX: το βήμα δεν παρήγαγε έγκυρο αρχείο"
             return False
@@ -672,7 +751,7 @@ def port_source(source_id: str) -> dict[str, Any]:
                           "  3. Κάθε χρώμα από τους 11 --vt-* ρόλους στο .root. Κανένα hex αλλού.\n"
                           "  4. Την αντίθεση τη διορθώνεις αλλάζοντας την ΤΙΜΗ του ρόλου στο "
                           "     .root — ποτέ παρακάμπτοντας ή διπλασιάζοντας κανόνα αλλού.\n"
-                          + extra
+                          + extra + (_base("css") if feedback else "")
                           + f"\n=== THE JSX YOU JUST WROTE ===\n{jsx_src}", keep=".css")
         if not css:
             # ΚΡΙΣΙΜΟ: χωρίς αυτό ο βρόχος συνέχιζε πάνω σε ΠΑΛΙΟ css και έκαιγε
@@ -699,6 +778,7 @@ def port_source(source_id: str) -> dict[str, Any]:
         if not any(guard_out.values()):
             break
         res.setdefault("repair_attempts", []).append("guards: " + summarize(guard_out)[:400])
+        _remember(summarize(guard_out))
         _generate(summarize(guard_out))
     if files:
         guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])),
@@ -758,8 +838,12 @@ def port_source(source_id: str) -> dict[str, Any]:
                                          "port": PREVIEW_PORT, "reclaimed": srv.reclaimed}
                 if not srv.wait_ready(preview_path):
                     return {"fail": "ο preview server δεν απάντησε 200 εντός ορίου"}
-                return _render(f"http://127.0.0.1:{PREVIEW_PORT}",
-                               preview_path, "vitrina", out)
+                metrics = _render(f"http://127.0.0.1:{PREVIEW_PORT}",
+                                  preview_path, "vitrina", out)
+                # Ίδιος server, ίδια στιγμή: ο έλεγχος εμφάνισης χρειάζεται
+                # ζωντανή σελίδα και δεν αξίζει δεύτερο σήκωμα.
+                metrics["appearance"] = _appearance(rec["theme_key"], biz, PREVIEW_PORT)
+                return metrics
         except PreviewServerError as exc:
             return {"fail": str(exc)}
 
@@ -787,6 +871,9 @@ def port_source(source_id: str) -> dict[str, Any]:
             rx = _spine_prescription(v["log"], css_text) if k == "spine_guard" else ""
             parts.append(rx or _actionable(k, v["log"]))
         render_rx = _render_prescription(vit, orig_imgs)
+        app = vit.get("appearance") or {}
+        if app and not app.get("passed", True):
+            parts.append("--- ΕΜΦΑΝΙΣΗ ΣΕ ΠΡΑΓΜΑΤΙΚΟ BROWSER ---\n" + "\n".join(app.get("problems") or []) + "\nΑΟΡΑΤΟ ΚΕΙΜΕΝΟ: δώσε χρώμα που διαβάζεται πάνω στο ΠΡΑΓΜΑΤΙΚΟ φόντο του στοιχείου· πρόσεξε την ΕΙΔΙΚΟΤΗΤΑ — `.root a` (0,2,0) υπερισχύει του `.heroButton` (0,1,0), γι' αυτό τα resets γράφονται `.root :where(a)`.\nΓΡΑΜΜΑΤΟΣΕΙΡΑ: μόνο όσες δηλώνει το συμβόλαιο ως self-hosted.")
         if render_rx:
             parts.append("--- ΜΗΧΑΝΙΚΑ ΕΥΡΗΜΑΤΑ ΑΠΟΔΟΣΗΣ ---\n" + render_rx)
         if not parts:
@@ -818,7 +905,8 @@ def port_source(source_id: str) -> dict[str, Any]:
             res["files_changed"] = _apply(files)
         tests = _suite()
         vit = _render_vitrina()
-        gates_ok = all(v["passed"] for v in tests.values())
+        app_ok = (vit.get("appearance") or {}).get("passed", False)
+        gates_ok = all(v["passed"] for v in tests.values()) and app_ok
         verdict = ledger.judge(attempt_no, vit,
                                {k: v["passed"] for k, v in tests.items()}, gates_ok)
         res["repair_ledger"] = ledger.report()
@@ -855,6 +943,11 @@ def port_source(source_id: str) -> dict[str, Any]:
 
     # Fail closed στα render-time ευρήματα που δεν φαίνονται στατικά.
     render_problems: list[str] = []
+    _app = vit.get("appearance") or {}
+    res["appearance"] = {k: _app.get(k) for k in ("passed", "problems")}
+    if not _app.get("passed", False):
+        render_problems.append("εμφάνιση: " + ("; ".join(_app.get("problems") or [])
+                                               or "ο έλεγχος δεν ολοκληρώθηκε"))
     for label in ("desktop", "mobile"):
         m = vit.get(label) or {}
         if "fail" in m or not m:
@@ -864,6 +957,8 @@ def port_source(source_id: str) -> dict[str, Any]:
             render_problems.append(f"{label}: οριζόντια υπερχείλιση {m['overflow']}px")
         if m.get("innerOverflow"):
             render_problems.append(f"{label}: εσωτερική υπερχείλιση — {', '.join(m['innerOverflow'][:3])}")
+        if m.get("clipped"):
+            render_problems.append(f"{label}: αποκομμένο περιεχόμενο — {', '.join(m['clipped'][:3])}")
         if m.get("broken", 0) > 0:
             render_problems.append(f"{label}: {m['broken']} σπασμένες εικόνες")
         if m.get("consoleErrors", 0) > 0:

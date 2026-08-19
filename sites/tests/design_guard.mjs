@@ -21,13 +21,26 @@ import { readFileSync } from 'node:fs'
 const registry = readFileSync(new URL('../lib/templates/index.js', import.meta.url), 'utf8')
 const keysLine = registry.match(/export const TEMPLATE_KEYS = \[([^\]]+)\]/)
 if (!keysLine) throw new Error('Δεν βρέθηκε το TEMPLATE_KEYS στο lib/templates/index.js')
-const TEMPLATES = [...keysLine[1].matchAll(/'([^']+)'/g)].map((m) => m[1])
+const ALL_KEYS = [...keysLine[1].matchAll(/'([^']+)'/g)].map((m) => m[1])
 
-const argIdx = process.argv.indexOf('--base')
-const BASE = argIdx > -1 ? process.argv[argIdx + 1] : 'https://sites-production-da56.up.railway.app'
+const arg = (name, fallback) => {
+  const i = process.argv.indexOf(name)
+  return i > -1 ? process.argv[i + 1] : fallback
+}
+const BASE = arg('--base', 'https://sites-production-da56.up.railway.app')
+// `--only` + `--biz`: ο port worker ελέγχει ΕΝΑ theme με το demo του δικού του
+// vertical. Χωρίς αυτό ο έλεγχος ήταν όλα-ή-τίποτα (62 templates, λεπτά) και ο
+// worker δεν τον έτρεχε ποτέ — γι' αυτό ένα αόρατο CTA πέρασε όλες τις πύλες.
+const ONLY = arg('--only', '')
+const BIZ = arg('--biz', 'taverna')
 const TRACKERS = ['googleapis.com', 'gstatic.com', 'google-analytics.com',
   'googletagmanager.com', 'facebook.net', 'doubleclick.net']
 const VH = 900
+const TEMPLATES = ONLY ? ALL_KEYS.filter((k) => k === ONLY) : ALL_KEYS
+if (ONLY && !TEMPLATES.length) {
+  console.error(`Άγνωστο template: ${ONLY}`)
+  process.exit(2)
+}
 
 /**
  * Τρέχει ΜΕΣΑ στη σελίδα, για ό,τι φαίνεται εκείνη τη στιγμή στην οθόνη.
@@ -158,7 +171,7 @@ const run = async () => {
     })
 
     try {
-      await page.goto(`${BASE}/preview/${t}?biz=taverna`, { waitUntil: 'networkidle', timeout: 45000 })
+      await page.goto(`${BASE}/preview/${t}?biz=${BIZ}`, { waitUntil: 'networkidle', timeout: 45000 })
       await page.waitForTimeout(400)
 
       const height = await page.evaluate(() => document.body.scrollHeight)

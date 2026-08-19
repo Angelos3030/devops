@@ -62,7 +62,7 @@ export const TEMPLATE_KEYS = ['klassy-cafe', 'barber-shop', 'villa-agency', 'gym
 export const LAUNCH_TEMPLATE_KEYS = [ 'elegance-salon', 'grecko-table', 'novena-care', 'bigspring-advisory', 'constra-build', 'property-atlas', 'beauty-atelier', 'clinic-triage', 'callout', 'signature', 'cinematic', 'bakery-editorial' ];
 export const LEGACY_TEMPLATE_KEYS = ['showcase', 'corporate', 'coast', 'pulse']
 export const TEMPLATE_META = {
-  'klassy-cafe': { label: 'Klassy Table', desc: 'Πιστό port του Klassy Cafe: split hero με χρωματικό πλακίδιο, μενού-carousel με τιμές, εβδομαδιαίες προσφορές.', category: 'food', customizable: { palette: false, fontPair: false } },
+  'klassy-cafe': { label: 'Klassy Table', desc: 'Split hero με χρωματικό πλακίδιο, κάρτες μενού με αρίθμηση και gallery-πλέγμα. Οι τιμές αποδίδονται μόνο όταν το επάγγελμα τις έχει.', category: 'food', customizable: { palette: false, fontPair: false } },
   'barber-shop': { label: 'Barber Sidebar', desc: 'Πιστό port του Barber Shop (Templatemo): σταθερή πλαϊνή πλοήγηση, υπηρεσίες-κάρτες με τιμή, τιμοκατάλογος.', category: 'beauty', customizable: { palette: false, fontPair: false } },
   'villa-agency': { label: 'Villa Agency', desc: 'Πιστό port του Villa Agency (Templatemo): κάρτες ακινήτων με τιμή και προδιαγραφές, φίλτρα κατηγορίας.', category: 'property', customizable: { palette: false, fontPair: false } },
   'gymso-fitness': { label: 'Gymso Fitness', desc: 'Πιστό port του Gymso (Tooplate): σκούρο hero, μαθήματα με τιμή και εβδομαδιαίο πρόγραμμα σε πλέγμα.', category: 'fitness', customizable: { palette: false, fontPair: false } },
