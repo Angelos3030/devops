@@ -190,16 +190,33 @@ def check_data_binding(files: list[dict[str, str]], avail: dict[str, Any]) -> li
     problems: list[str] = []
     arrays = avail.get("arrays", {})
 
-    for arr, var in re.findall(r"d\.([a-z]+)[^)]{0,40}?\.map\(\s*\(?\s*([A-Za-z_]\w*)", jsx):
+    for m in re.finditer(r"d\.([a-z]+)[^)]{0,40}?\.map\(\s*\(?\s*([A-Za-z_]\w*)", jsx):
+        arr, var = m.group(1), m.group(2)
         meta = arrays.get(arr)
         if not meta:
             continue
-        for fld in sorted(set(re.findall(rf"\b{var}\.([a-z][A-Za-z0-9_]*)", jsx))):
+        # ΜΟΝΟ το σώμα ΑΥΤΟΥ του callback. Χωρίς οριοθέτηση, δύο .map() με το
+        # ίδιο όνομα μεταβλητής μπέρδευαν τα πεδία τους και ο guard κατηγορούσε
+        # το `services` για πεδία του `story`/`gallery` — ψευδώς θετικά.
+        # Αφετηρία είναι η παρένθεση του ΙΔΙΟΥ του .map(, όχι το τέλος του
+        # regex — αλλιώς η πρώτη «)» της παραμέτρου έκλεινε αμέσως το σώμα.
+        open_idx = jsx.index(".map(", m.start()) + len(".map")
+        depth, k = 0, open_idx
+        while k < len(jsx):
+            if jsx[k] in "([{":
+                depth += 1
+            elif jsx[k] in ")]}":
+                depth -= 1
+                if depth == 0:
+                    break
+            k += 1
+        body = jsx[open_idx:k]
+        for fld in sorted(set(re.findall(rf"\b{var}\.([a-z][A-Za-z0-9_]*)", body))):
             info = meta["fields"].get(fld)
             populated = info["populated"] if info else 0
             total = meta["count"]
             # Υπάρχει έλεγχος συνθήκης για το πεδίο;
-            guarded = re.search(rf"{var}\.{fld}\s*(?:&&|\?)", jsx) is not None
+            guarded = re.search(rf"{var}\.{fld}\s*(?:&&|\?)", body) is not None
             if populated == 0:
                 problems.append(
                     f"d.{arr}[].{fld}: το demo «{avail['business']}» έχει 0/{total} τιμές — "
