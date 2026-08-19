@@ -207,3 +207,104 @@ if __name__ == "__main__":
         if v["type"] == "array":
             print(f"  {k}: [{', '.join(v.get('item_keys', []))}]")
     print(f"shared: {c['canonical_usage']['shared_prop']}")
+
+
+# ------------------------------------------------ instance-aware availability
+#
+# Το σχήμα λέει τι ΜΠΟΡΕΙ να υπάρχει· δεν λέει τι ΥΠΑΡΧΕΙ για το συγκεκριμένο
+# demo. Μετρήθηκε σε τρία themes: `d.services[].price` δεσμεύτηκε ενώ το demo
+# είχε 0/4 τιμές, και το αποτέλεσμα ήταν κενά κελύφη με σκέτο «€» — τέσσερα
+# μαύρα κουτιά στη θέση του μενού μιας ταβέρνας.
+
+def _business_block(src: str, biz: str) -> str:
+    i = src.index(f"\n  {biz}: {{")
+    j = src.index("{", i)
+    depth, k = 0, j
+    while k < len(src):
+        depth += (src[k] == "{") - (src[k] == "}")
+        if depth == 0:
+            break
+        k += 1
+    return src[j:k + 1]
+
+
+def _array_items(block: str, arr: str) -> list[str]:
+    m = re.search(rf"\b{arr}\s*:\s*\[", block)
+    if not m:
+        return []
+    depth, k = 1, m.end()
+    while k < len(block) and depth:
+        depth += (block[k] == "[") - (block[k] == "]")
+        k += 1
+    return re.findall(r"\{([^{}]*)\}", block[m.end():k])
+
+
+def availability(biz: str) -> dict[str, Any]:
+    """Τι έχει ΠΡΑΓΜΑΤΙΚΑ τιμή στο επιλεγμένο demo business.
+
+    Παράγεται από το ίδιο το αντικείμενο δεδομένων — δεν συντηρείται με το χέρι
+    και δεν έχει hard-coded επάγγελμα.
+    """
+    src = (SITES / "lib" / "demoData.js").read_text(encoding="utf-8")
+    block = _business_block(src, biz)
+    out: dict[str, Any] = {"business": biz, "scalars": {}, "arrays": {}}
+
+    depth = 0
+    for m in re.finditer(r"([A-Za-z_][A-Za-z0-9_]*)\s*:\s*|[\[\]{}]", block):
+        tok = m.group(0)
+        if tok in "[{":
+            depth += 1
+            continue
+        if tok in "]}":
+            depth -= 1
+            continue
+        if depth != 1:
+            continue
+        name = m.group(1)
+        rest = block[m.end():m.end() + 40].lstrip()
+        if rest.startswith("["):
+            items = _array_items(block, name)
+            fields: dict[str, dict[str, int]] = {}
+            for it in items:
+                for f in re.findall(r"([A-Za-z_][A-Za-z0-9_]*)\s*:", it):
+                    fields.setdefault(f, {"populated": 0, "total": len(items)})
+                    fields[f]["populated"] += 1
+            out["arrays"][name] = {"count": len(items), "fields": fields}
+        elif not rest.startswith("{"):
+            val = rest.split(",")[0].strip().strip("'\"")
+            out["scalars"][name] = bool(val) and val not in ("''", '""', "null", "undefined")
+    return out
+
+
+def availability_prompt(av: dict[str, Any]) -> str:
+    """Η διαθεσιμότητα σε μορφή που δεσμεύει το μοντέλο."""
+    lines = [f"=== ΤΙ ΕΧΕΙ ΠΡΑΓΜΑΤΙΚΑ ΤΙΜΗ ΣΤΟ demo «{av['business']}» ===", ""]
+    empty_scalars = [k for k, v in av["scalars"].items() if not v]
+    if empty_scalars:
+        lines.append(f"ΚΕΝΑ πεδία (μην τα αποδώσεις): {', '.join(sorted(empty_scalars))}")
+        lines.append("")
+    for arr, meta in av["arrays"].items():
+        lines.append(f"d.{arr} — {meta['count']} στοιχεία:")
+        for f, c in sorted(meta["fields"].items()):
+            state = ("ΟΛΑ" if c["populated"] == c["total"]
+                     else "ΚΑΝΕΝΑ" if c["populated"] == 0 else "ΜΕΡΙΚΑ")
+            flag = "  ⛔ ΜΗΝ ΤΟ ΑΠΟΔΩΣΕΙΣ" if c["populated"] == 0 else (
+                "  ⚠️ ΜΟΝΟ ΥΠΟ ΣΥΝΘΗΚΗ" if c["populated"] < c["total"] else "")
+            lines.append(f"   {f}: {c['populated']}/{c['total']} ({state}){flag}")
+        lines.append("")
+    lines += [
+        "ΚΑΝΟΝΑΣ ΔΕΔΟΜΕΝΟΕΞΑΡΤΩΜΕΝΟΥ UI — δεσμευτικός:",
+        "  • ΚΑΝΕΝΑ: μη δημιουργήσεις καθόλου το στοιχείο. Ούτε badge, ούτε «€»,",
+        "    ούτε παύλα, ούτε κενό κουτί. Η ενότητα σχεδιάζεται ΧΩΡΙΣ αυτό.",
+        "  • ΜΕΡΙΚΑ: απόδωσέ το ΜΟΝΟ υπό συνθήκη ανά στοιχείο,",
+        "    π.χ. {item.price ? <span…>{item.price}</span> : null}",
+        "  • ΟΛΑ: απόδωσέ το κανονικά.",
+        "",
+        "ΑΠΑΓΟΡΕΥΕΤΑΙ Η ΣΗΜΑΣΙΟΛΟΓΙΚΗ ΥΠΟΚΑΤΑΣΤΑΣΗ: ένα πεδίο δεν καλύπτει τη θέση",
+        "άλλου. Το `num: '01'` ΔΕΝ είναι τιμή, τετραγωνικά, δωμάτια, αξιολόγηση ή",
+        "έτη. Αν λείπει το σωστό πεδίο, το στοιχείο ΦΕΥΓΕΙ — δεν αντικαθίσταται.",
+        "",
+        "Η παράλειψη πρέπει να ΚΛΕΙΝΕΙ ΚΑΘΑΡΑ: χωρίς ορφανούς διαχωριστές, κενές",
+        "κάρτες, τρύπες στο πλέγμα ή χαλασμένη στοίχιση.",
+    ]
+    return "\n".join(lines)

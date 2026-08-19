@@ -35,7 +35,7 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.research_worker import DeepSeekResearchWorker, ResearchWorkerError  # noqa: E402
-from src.vitrina_contract import as_prompt, extract  # noqa: E402
+from src.vitrina_contract import as_prompt, availability, availability_prompt, extract  # noqa: E402
 from src.port_guards import run_all, summarize  # noqa: E402
 from src.preview_server import PreviewServer, PreviewServerError  # noqa: E402
 from src.repair_txn import Ledger  # noqa: E402
@@ -184,7 +184,7 @@ Return ONLY a JSON object:
 }"""
 
 
-def _contract(rec: dict[str, Any], contract: dict[str, Any]) -> str:
+def _contract(rec: dict[str, Any], contract: dict[str, Any], biz: str = "") -> str:
     """Το data μέρος ΠΑΡΑΓΕΤΑΙ από τον κώδικα (vitrina_contract), δεν γράφεται
     με το χέρι: αυτό ήταν η μοναδική αιτία ΟΛΩΝ των runtime σφαλμάτων στο πρώτο
     proof. Ένα χειρόγραφο συμβόλαιο παλιώνει σιωπηλά· ένα παραγόμενο όχι."""
@@ -197,6 +197,8 @@ File 1: sites/lib/templates/{rec['component']}.jsx
 File 2: sites/lib/templates/{rec['component']}.module.css
 
 {as_prompt(contract, rec['component'])}
+
+{availability_prompt(availability(biz)) if biz else ''}
 
 MEDIA — υποχρεωτικό όταν το πρωτότυπο έχει εικόνες: κάθε θέση εικόνας δένει σε
 d.gallery[i].image με alt από d.gallery[i].title. ΠΟΤΕ αρχεία του πρωτοτύπου.
@@ -590,7 +592,11 @@ def port_source(source_id: str) -> dict[str, Any]:
     chat._safety_checks()
     res["model"] = chat._pass2_model
     contract = extract()
-    user = (_contract(rec, contract) + "\n\n=== ORIGINAL index.html ===\n" + html
+    try:
+        _biz = demo_for(rec)
+    except DemoMappingMissing:
+        _biz = ""
+    user = (_contract(rec, contract, _biz) + "\n\n=== ORIGINAL index.html ===\n" + html
             + "\n\n=== ORIGINAL CSS ===\n" + css)
     # ΔΥΟ κλήσεις, όχι μία. Μετρήθηκε: ένα ολόκληρο theme (JSX+CSS) σε ένα JSON
     # χτυπά το όριο εξόδου και κόβεται στη μέση — τρεις σερί αποτυχίες
@@ -688,13 +694,15 @@ def port_source(source_id: str) -> dict[str, Any]:
     for _ in range(MAX_REPAIR_ATTEMPTS):
         if not files:
             break
-        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
+        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])),
+                              availability(_biz) if _biz else None)
         if not any(guard_out.values()):
             break
         res.setdefault("repair_attempts", []).append("guards: " + summarize(guard_out)[:400])
         _generate(summarize(guard_out))
     if files:
-        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
+        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])),
+                              availability(_biz) if _biz else None)
         res["guards"] = guard_out
         if any(guard_out.values()):
             _set_state(source_id, "FAILED", failure="guards")
@@ -790,7 +798,8 @@ def port_source(source_id: str) -> dict[str, Any]:
         _generate("\n\n".join(parts))
         if not files:
             break
-        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])))
+        guard_out = run_all(files, contract, html, tuple(rec.get("allowed_labels", [])),
+                              availability(_biz) if _biz else None)
         res["guards"] = guard_out
         if any(guard_out.values()):
             _set_state(source_id, "FAILED", failure="guards μετά από repair")

@@ -145,11 +145,15 @@ def check_media(files: list[dict[str, str]], source_html: str) -> list[str]:
 
 # ------------------------------------------------------------------ συνολικά
 def run_all(files: list[dict[str, str]], contract: dict[str, Any],
-            source_html: str, allowed_labels: tuple[str, ...] = ()) -> dict[str, list[str]]:
+            source_html: str, allowed_labels: tuple[str, ...] = (),
+            avail: dict[str, Any] | None = None) -> dict[str, list[str]]:
+    """Όλοι οι guards. Το `avail` είναι η ΠΡΑΓΜΑΤΙΚΗ διαθεσιμότητα δεδομένων του
+    επιλεγμένου demo — χωρίς αυτό ο έλεγχος δέσμευσης δεν μπορεί να τρέξει."""
     return {
         "contract": check_contract(files, contract),
         "copy_leak": check_copy_leak(files, source_html, allowed_labels),
         "media": check_media(files, source_html),
+        "data_binding": check_data_binding(files, avail or {}),
     }
 
 
@@ -159,3 +163,60 @@ def summarize(results: dict[str, list[str]]) -> str:
         for p in probs:
             lines.append(f"[{name}] {p}")
     return "\n".join(lines)
+
+
+# ------------------------------------------------- 4. data binding validity
+#
+# Μετρήθηκε σε τρία themes: το συμβόλαιο έλεγε ποια πεδία ΥΠΑΡΧΟΥΝ στο σχήμα,
+# όχι ποια είναι ΓΕΜΑΤΑ για το επιλεγμένο demo. Το μοντέλο έδεσε
+# `d.services[].price` ενώ το demo είχε 0/4 τιμές, και το μενού μιας ταβέρνας
+# αποδόθηκε ως τέσσερα κενά μαύρα κουτιά με σκέτο «€».
+#
+# Ο έλεγχος γίνεται στα BINDINGS, όχι στην εμφάνιση: «κενός κύκλος = σφάλμα»
+# ήταν ακριβώς η ευρετική που παρήγαγε ψευδώς θετικά στο Gymso.
+
+# Πεδία που δεν επιτρέπεται να καλύψουν τη θέση άλλων. Ένα `num: '01'` δεν
+# είναι τιμή, τετραγωνικά, δωμάτια, αξιολόγηση ή έτη.
+ORDINAL_FIELDS = ("num", "index", "order", "id")
+SEMANTIC_SLOTS = ("price", "cost", "amount", "sqm", "area", "bedrooms",
+                  "bathrooms", "rating", "years", "duration")
+
+
+def check_data_binding(files: list[dict[str, str]], avail: dict[str, Any]) -> list[str]:
+    """Κανένα content-bearing στοιχείο χωρίς πραγματικά δεδομένα."""
+    jsx, _ = _jsx_of(files)
+    if not jsx or not avail:
+        return []
+    problems: list[str] = []
+    arrays = avail.get("arrays", {})
+
+    for arr, var in re.findall(r"d\.([a-z]+)[^)]{0,40}?\.map\(\s*\(?\s*([A-Za-z_]\w*)", jsx):
+        meta = arrays.get(arr)
+        if not meta:
+            continue
+        for fld in sorted(set(re.findall(rf"\b{var}\.([a-z][A-Za-z0-9_]*)", jsx))):
+            info = meta["fields"].get(fld)
+            populated = info["populated"] if info else 0
+            total = meta["count"]
+            # Υπάρχει έλεγχος συνθήκης για το πεδίο;
+            guarded = re.search(rf"{var}\.{fld}\s*(?:&&|\?)", jsx) is not None
+            if populated == 0:
+                problems.append(
+                    f"d.{arr}[].{fld}: το demo «{avail['business']}» έχει 0/{total} τιμές — "
+                    "το στοιχείο πρέπει να ΜΗΝ αποδίδεται καθόλου")
+            elif populated < total and not guarded:
+                problems.append(
+                    f"d.{arr}[].{fld}: {populated}/{total} γεμάτα και αποδίδεται χωρίς "
+                    "συνθήκη — χρειάζεται έλεγχος ανά στοιχείο")
+
+    # Σημασιολογική υποκατάσταση: ordinal σε θέση μετρήσιμου μεγέθους.
+    for ordinal in ORDINAL_FIELDS:
+        for m in re.finditer(rf"\.{ordinal}\b", jsx):
+            window = jsx[max(0, m.start() - 160):m.start() + 60].lower()
+            for slot in SEMANTIC_SLOTS:
+                if slot in window and f".{slot}" not in window:
+                    problems.append(
+                        f"σημασιολογική υποκατάσταση: το `.{ordinal}` αποδίδεται σε θέση "
+                        f"«{slot}» — ένα πεδίο δεν καλύπτει τη θέση άλλου")
+                    break
+    return sorted(set(problems))[:12]
