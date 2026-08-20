@@ -150,7 +150,8 @@
    ],
    "appearance_2026_08_19": {
     "demo": "gym",
-    "finding": "γραμματοσειρά εκτός self-hosted: Helvetica Neue"
+    "finding": "γραμματοσειρά εκτός self-hosted: Helvetica Neue",
+    "clipping_2026_08_20": "clipping: .FindUs_mapBox 77px κρυμμένα (desktop) — στόχος .GymsoFitness_contactGrid"
    }
   },
   "villa-agency": {
@@ -204,7 +205,8 @@
    "result": "research\\port-worker\\villa-agency\\result.json",
    "appearance_2026_08_19": {
     "demo": "realestate",
-    "finding": "αόρατο κείμενο ×4 (αντίθεση 1.01) — «Πού θα μας βρεις», το ΤΗΛΕΦΩΝΟ «24210 55660», «Δες τον χάρτη»"
+    "finding": "αόρατο κείμενο ×4 (αντίθεση 1.01) — «Πού θα μας βρεις», το ΤΗΛΕΦΩΝΟ «24210 55660», «Δες τον χάρτη»",
+    "clipping_2026_08_20": "clipping: .FindUs_mapBox 59px κρυμμένα (desktop) — στόχος .VillaAgency_contactInfo"
    }
   },
   "compass": {
@@ -311,7 +313,7 @@
    "name": "Klassy Cafe (Templatemo)",
    "source_url": "https://templatemo.com/tm-558-klassy-cafe",
    "decision": "PORT_OK",
-   "status": "BLOCKED",
+   "status": "DONE",
    "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (LICENSE-MAP.md).",
    "provenance": "Studio, δικό του template.",
    "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
@@ -354,10 +356,10 @@
     "Προϊόντα"
    ],
    "batch": "migration-2",
-   "updated_at": "2026-08-19T18:31:04+00:00",
+   "updated_at": "2026-08-20T14:53:22+00:00",
    "result": "research\\port-worker\\klassy-cafe\\result.json",
-   "blocked_reason": "Το data-binding διορθώθηκε πλήρως (καμία τιμή, κανένα κενό κέλυφος, μηδέν ορφανά €). Απομένει ΕΝΑ οπτικό ελάττωμα: desktop 1440, div.FindUs_mapBox 144x90 ενώ το περιεχόμενο ζητά 134px — 46px κομμένα. Το mobile αποδίδει σωστά. Ο νέος έλεγχος `clipped` το πιάνει πλέον· χρειάζεται ένας γύρος αναπαραγωγής.",
-   "validator": "Claude 2026-08-19"
+   "validator": "Claude 2026-08-20",
+   "validated": "Guards καθαροί · 4/4 tests · design_guard PASS · clipped=[] σε desktop+mobile · μηδέν ορφανά € · χάρτης πλήρως ορατός (658x411, clientH==scrollH) · η διόρθωση ήταν layout (.contactInner 568px+568px → 1fr), όχι απόκρυψη"
   },
   "clean-work": {
    "name": "Clean Work (Tooplate)",

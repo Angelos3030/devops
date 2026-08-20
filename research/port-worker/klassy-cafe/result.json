@@ -1,21 +1,13 @@
 {
  "source_id": "klassy-cafe",
  "theme_key": "klassy-cafe",
- "started_at": "2026-08-19T18:12:58+00:00",
+ "started_at": "2026-08-20T14:39:56+00:00",
  "original_render_status": "OK",
  "model": "deepseek-reasoner",
  "generation_steps": [
   {
    "step": "JSX",
    "attempt": 1,
-   "outcome": "VALIDATION_FAILED",
-   "reason": "Unterminated string starting at: line 7 column 18 (char 152)",
-   "patch_produced": true,
-   "applied": false
-  },
-  {
-   "step": "JSX",
-   "attempt": 2,
    "outcome": "SUCCESS",
    "reason": "",
    "patch_produced": true,
@@ -61,11 +53,6 @@
    "patch_produced": true,
    "applied": false
   }
- ],
- "repair_attempts": [
-  "JSX: Unterminated string starting at: line 7 column 18 (char 152)",
-  "build: spine_guard",
-  "build: spine_guard"
  ],
  "guards": {
   "contract": [],
@@ -74,10 +61,10 @@
   "data_binding": []
  },
  "token_usage": {
-  "input": 77847,
-  "output": 78738
+  "input": 52616,
+  "output": 38818
  },
- "cost_usd": 0.2153,
+ "cost_usd": 0.114,
  "demo_business": "taverna",
  "files_changed": [
   "sites/lib/templates/KlassyTable.jsx",
@@ -85,49 +72,53 @@
  ],
  "deviations": [
   {
-   "what": "Ο τίτλος «Our Chefs» παραλείπεται",
-   "why": "Ομάδα μόνο με REAL_OWNER_PERSON — δεν υπάρχουν δεδομένα team."
+   "what": "Οι ενότητες «Table Reservation» και η φόρμα κράτησης αφαιρέθηκαν",
+   "why": "Το προϊόν δεν υποστηρίζει ροή κρατήσεων· αντικαταστάθηκαν από λευκή κάρτα με FindUs και στοιχεία επικοινωνίας."
   },
   {
-   "what": "Η φόρμα κράτησης τραπεζιού παραλείπεται",
-   "why": "Δεν υπάρχει ροή υποβολής φόρμας στο Vitrina."
+   "what": "Η ενότητα «Our Chefs» αφαιρέθηκε",
+   "why": "Ομαδικά προφίλ επιτρέπονται μόνο με REAL_OWNER_PERSON, το οποίο δεν υπάρχει."
   },
   {
-   "what": "Το video modal παραλείπεται",
-   "why": "Δεν υποστηρίζεται από το προϊόν."
+   "what": "Το video modal και το κουμπί play στην ενότητα about αφαιρέθηκαν",
+   "why": "Το video modal δεν υποστηρίζεται από το προϊόν."
   },
   {
-   "what": "Οι εβδομαδιαίες προσφορές με tabs παραλείπονται",
-   "why": "Τα services δεν έχουν price/duration στο demo data, οπότε η λίστα με τιμές δεν μπορεί να αποδοθεί."
+   "what": "Το «Klassy Week» με tabs προσφορών αναπαραστάθηκε ως οριζόντια λίστα υπηρεσιών",
+   "why": "Το μοντέλο δεδομένων διαθέτει μόνο d.services, όχι ξεχωριστή δομή εβδομαδιαίων προσφορών."
   },
   {
-   "what": "Οι κάρτες μενού δεν εμφανίζουν τιμή",
-   "why": "Το d.services.price λείπει 0/4 στο demo «taverna»."
+   "what": "Οι ετικέτες τιμών στα card του μενού παραλείπονται",
+   "why": "Το d.services στο τρέχον demo δεν περιέχει price· ο κανόνας δεδομενοεξαρτώμενου UI απαιτεί παράλειψη. Εμφανίζεται μόνο το num ως αριθμητική ένδειξη."
   },
   {
-   "what": "Η φόρμα κράτησης τραπεζιού δεν υλοποιήθηκε",
-   "why": "Δεν υπάρχει ροή υποβολής κράτησης στο Vitrina"
+   "what": "Table reservation form omitted",
+   "why": "No booking flow exists in the Vitrina product; the white form card is repurposed to embed FindUs instead."
   },
   {
-   "what": "Η ενότητα «Our Chefs» παραλείφθηκε",
-   "why": "Η ομάδα εμφανίζεται μόνο με REAL_OWNER_PERSON, που δεν υπάρχει στα δεδομένα"
+   "what": "Our Chefs section omitted",
+   "why": "Team members require real owner/person data; none is available in the data contract."
   },
   {
-   "what": "Το video modal και το εικονίδιο play στο about παραλείφθηκαν",
-   "why": "Το video modal δεν υποστηρίζεται από το προϊόν"
+   "what": "Video modal omitted",
+   "why": "Video playback is not supported by the Vitrina stack."
   },
   {
-   "what": "Οι εβδομαδιαίες προσφορές με tabs παραλείφθηκαν",
-   "why": "Δεν υποστηρίζεται αλληλεπίδραση tabs χωρίς JavaScript· οι υπηρεσίες αποδόθηκαν ως μενού"
+   "what": "Weekly special tabs replaced with services list",
+   "why": "The data contract provides services (title/desc/num) instead of tabbed offer meals; the original pricing badges become the service num badge."
   },
   {
-   "what": "Οι τιμές και οι διάρκειες δεν αποδόθηκαν",
-   "why": "Το demo dataset δεν περιέχει price ή duration στα services"
+   "what": "Hero carousel replaced by scroll-snap slider",
+   "why": "Server component cannot use JS carousel; scroll-snap preserves the visual slider behavior without client JavaScript."
+  },
+  {
+   "what": "Original Poppins/Dancing Script fonts approximated",
+   "why": "Only the self-hosted font list is available; Manrope and Fraunces were chosen to preserve the geometric sans + display serif feel."
   }
  ],
  "registered": false,
  "preview_server": {
-  "pid": 4692,
+  "pid": 9756,
   "port": 3881,
   "reclaimed": {
    "found": [],
@@ -135,6 +126,10 @@
    "skipped": []
   }
  },
+ "repair_attempts": [
+  "build: spine_guard · render",
+  "build: spine_guard · render"
+ ],
  "contrast_repair": [
   {
    "token": "accent-ink",
@@ -169,14 +164,16 @@
      "renderable": true,
      "overflow": 0,
      "inner": 0,
+     "clipped": 1,
      "broken": 0,
      "console": 0,
      "h1": 1
     },
     "mobile": {
      "renderable": true,
-     "overflow": 0,
-     "inner": 0,
+     "overflow": 18,
+     "inner": 3,
+     "clipped": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -187,14 +184,16 @@
      "renderable": true,
      "overflow": 0,
      "inner": 0,
+     "clipped": 1,
      "broken": 0,
      "console": 0,
      "h1": 1
     },
     "mobile": {
      "renderable": true,
-     "overflow": 0,
-     "inner": 0,
+     "overflow": 18,
+     "inner": 3,
+     "clipped": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -212,6 +211,7 @@
      "renderable": true,
      "overflow": 0,
      "inner": 0,
+     "clipped": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -220,6 +220,7 @@
      "renderable": true,
      "overflow": 0,
      "inner": 0,
+     "clipped": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -230,6 +231,7 @@
      "renderable": true,
      "overflow": 0,
      "inner": 0,
+     "clipped": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -238,6 +240,7 @@
      "renderable": true,
      "overflow": 0,
      "inner": 0,
+     "clipped": 0,
      "broken": 0,
      "console": 0,
      "h1": 1
@@ -270,26 +273,28 @@
  "vitrina_metrics": {
   "tag": "vitrina",
   "desktop": {
-   "height": 4604,
+   "height": 5103,
    "overflow": 0,
-   "images": 17,
+   "images": 20,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 11,
+   "smallTaps": 6,
    "duplicateHeadings": [],
    "innerOverflow": [],
+   "clipped": [],
    "consoleErrors": 0,
    "errorSamples": []
   },
   "mobile": {
-   "height": 7137,
+   "height": 7423,
    "overflow": 0,
-   "images": 17,
+   "images": 20,
    "broken": 0,
    "h1": 1,
-   "smallTaps": 11,
+   "smallTaps": 2,
    "duplicateHeadings": [],
    "innerOverflow": [],
+   "clipped": [],
    "consoleErrors": 0,
    "errorSamples": []
   },
@@ -304,7 +309,7 @@
    "overflow": 0,
    "innerOverflow": [],
    "broken": 0,
-   "images": 17,
+   "images": 20,
    "h1": 1,
    "consoleErrors": 0
   },
@@ -312,7 +317,7 @@
    "overflow": 0,
    "innerOverflow": [],
    "broken": 0,
-   "images": 17,
+   "images": 20,
    "h1": 1,
    "consoleErrors": 0
   }
@@ -322,7 +327,7 @@
   "problems": []
  },
  "render_problems": [],
- "elapsed_seconds": 1085.9,
+ "elapsed_seconds": 805.9,
  "status": "READY_FOR_REVIEW",
  "original_metrics": {
   "tag": "original",
@@ -340,6 +345,117 @@
     "div.img-fill +540px",
     "div.img-fill +540px",
     "div.img-fill +540px"
+   ],
+   "clipped": [
+    {
+     "sel": "owl-stage-outer",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 400,
+     "scrollH": 411,
+     "hidden": 3198,
+     "axis": "πλάτος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Klassy Cup Cake",
+       "by": 1726
+      },
+      {
+       "text": "Lorem ipsum dolor sit amet, consec",
+       "by": 1726
+      },
+      {
+       "text": "$8.50",
+       "by": 1541
+      }
+     ]
+    },
+    {
+     "sel": "card",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 398,
+     "scrollH": 620,
+     "hidden": 222,
+     "axis": "ύψος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Lorem ipsum dolor sit amet, consec",
+       "by": 146
+      },
+      {
+       "text": "Klassy Pancake",
+       "by": 46
+      }
+     ]
+    },
+    {
+     "sel": "card",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 398,
+     "scrollH": 620,
+     "hidden": 222,
+     "axis": "ύψος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Lorem ipsum dolor sit amet, consec",
+       "by": 146
+      },
+      {
+       "text": "Tall Klassy Bread",
+       "by": 46
+      }
+     ]
+    },
+    {
+     "sel": "card",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 398,
+     "scrollH": 668,
+     "hidden": 270,
+     "axis": "ύψος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Lorem ipsum dolor sit amet, consec",
+       "by": 194
+      },
+      {
+       "text": "Blueberry CheeseCake",
+       "by": 94
+      }
+     ]
+    },
+    {
+     "sel": "card",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 398,
+     "scrollH": 620,
+     "hidden": 222,
+     "axis": "ύψος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Lorem ipsum dolor sit amet, consec",
+       "by": 146
+      },
+      {
+       "text": "Klassy Cup Cake",
+       "by": 46
+      }
+     ]
+    }
    ],
    "consoleErrors": 8,
    "errorSamples": [
@@ -362,6 +478,101 @@
     "div.img-fill +1110px",
     "div.img-fill +1110px",
     "div.img-fill +1110px"
+   ],
+   "clipped": [
+    {
+     "sel": "owl-stage-outer",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 400,
+     "scrollH": 411,
+     "hidden": 4320,
+     "axis": "πλάτος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Tall Klassy Bread",
+       "by": 3118
+      },
+      {
+       "text": "Lorem ipsum dolor sit amet, consec",
+       "by": 3118
+      },
+      {
+       "text": "$18",
+       "by": 2831
+      }
+     ]
+    },
+    {
+     "sel": "card",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 398,
+     "scrollH": 520,
+     "hidden": 122,
+     "axis": "ύψος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Lorem ipsum dolor sit amet, consec",
+       "by": 46
+      }
+     ]
+    },
+    {
+     "sel": "card",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 398,
+     "scrollH": 520,
+     "hidden": 122,
+     "axis": "ύψος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Lorem ipsum dolor sit amet, consec",
+       "by": 46
+      }
+     ]
+    },
+    {
+     "sel": "card",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 398,
+     "scrollH": 520,
+     "hidden": 122,
+     "axis": "ύψος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Lorem ipsum dolor sit amet, consec",
+       "by": 46
+      }
+     ]
+    },
+    {
+     "sel": "card",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 398,
+     "scrollH": 520,
+     "hidden": 122,
+     "axis": "ύψος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Lorem ipsum dolor sit amet, consec",
+       "by": 46
+      }
+     ]
+    }
    ],
    "consoleErrors": 15,
    "errorSamples": [

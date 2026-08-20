@@ -123,7 +123,10 @@ class ContrastRouting(unittest.TestCase):
     def test_layout_findings_still_reach_the_render_path(self) -> None:
         src = (Path(__file__).resolve().parents[1] / "src" / "port_worker.py"
                ).read_text(encoding="utf-8")
-        self.assertIn("_render_prescription(vit, orig_imgs)", src,
+        # Η υπογραφή δέχεται πλέον και το component: η συνταγή για αποκομμένο
+        # περιεχόμενο πρέπει να ξέρει ποιο αρχείο ΑΝΗΚΕΙ στο μοντέλο, αλλιώς
+        # στέλνει το DeepSeek να διορθώσει κοινό component που δεν του ανήκει.
+        self.assertIn("_render_prescription(vit, orig_imgs, rec[\"component\"])", src,
                       "η διαδρομή ευρημάτων απόδοσης χάθηκε")
 
     # 2 ------------------------------------------------------------------

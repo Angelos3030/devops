@@ -121,20 +121,67 @@ for (const [label, w, h] of [['desktop', 1440, 1024], ['mobile', 390, 844]]) {
         .map((e) => `${e.tagName.toLowerCase()}.${(e.className || '').toString().split(' ')[0]} +${e.scrollWidth - e.clientWidth}px`),
       // ΑΠΟΚΟΜΜΕΝΟ ΠΕΡΙΕΧΟΜΕΝΟ ≠ ΥΠΕΡΧΕΙΛΙΣΗ. Το innerOverflow βλέπει ό,τι
       // ΞΕΦΕΥΓΕΙ από το πλαίσιο· δεν βλέπει ό,τι το πλαίσιο ΚΟΒΕΙ. Μετρήθηκε
-      // στο klassy-cafe: η κάρτα χάρτη ήταν 144x90 ενώ το περιεχόμενό της
-      // ζητούσε 134px — «Φορτώνει από την Google. Η...» κοβόταν στη μέση, με
-      // overflow=0, innerOverflow=[] και όλες τις πύλες πράσινες.
-      clipped: [...document.querySelectorAll('div,section,a,button,p,li')]
-        .filter((e) => {
-          const cut = e.scrollHeight - e.clientHeight
-          if (cut <= 12 || !e.clientHeight) return false
-          const cs = getComputedStyle(e)
-          if (cs.overflowY !== 'hidden' && cs.overflow !== 'hidden') return false
-          if (cs.webkitLineClamp && cs.webkitLineClamp !== 'none') return false // σκόπιμο
-          return (e.innerText || '').trim().length > 0
-        })
-        .slice(0, 5)
-        .map((e) => `${e.tagName.toLowerCase()}.${(e.className || '').toString().split(' ')[0]} κομμένα ${e.scrollHeight - e.clientHeight}px`),
+      // στο klassy-cafe: κάρτα χάρτη 144x90 με περιεχόμενο 134px — το κείμενο
+      // «Φορτώνει από την Google…» και ο σύνδεσμος «κατευθείαν οδηγίες» ήταν
+      // κρυμμένα, με overflow=0, innerOverflow=[] και όλες τις πύλες πράσινες.
+      //
+      // ΔΕΝ αρκεί scrollHeight > clientHeight. Αυτό το πληρούν και σκιές,
+      // transforms και ::after. Απαιτούμε ΠΡΑΓΜΑΤΙΚΟ απόγονο ΜΕ ΚΕΙΜΕΝΟ που
+      // κόβεται — το ίδιο μάθημα με το CSS τρίγωνο του Medic Care.
+      clipped: (() => {
+        const themeRoot = document.querySelector('[class*="_root__"]')
+        const themePrefix = themeRoot
+          ? (themeRoot.className.toString().match(/([A-Za-z]+)_root__/) || [])[1] || ''
+          : ''
+        const prefixOf = (el) => {
+          const c = (el.className || '').toString().split(' ')[0]
+          const m = c.match(/^([A-Za-z]+)_/)
+          return m ? m[1] : ''
+        }
+        const out = []
+        for (const el of document.querySelectorAll('div,section,a,button,p,li,figure')) {
+          const cs = getComputedStyle(el)
+          const hidesY = cs.overflowY === 'hidden' || cs.overflowY === 'clip'
+          const hidesX = cs.overflowX === 'hidden' || cs.overflowX === 'clip'
+          if (!hidesY && !hidesX) continue
+          if (cs.webkitLineClamp && cs.webkitLineClamp !== 'none') continue  // σκόπιμη περικοπή
+          if (cs.visibility === 'hidden' || cs.display === 'none') continue
+          const cutY = hidesY ? el.scrollHeight - el.clientHeight : 0
+          const cutX = hidesX ? el.scrollWidth - el.clientWidth : 0
+          if (cutY <= 8 && cutX <= 8) continue
+          const box = el.getBoundingClientRect()
+          // Ποιο ΠΡΑΓΜΑΤΙΚΟ κείμενο χάνεται· χωρίς αυτό δεν υπάρχει εύρημα.
+          const cut = []
+          for (const c of el.querySelectorAll('*')) {
+            const txt = (c.textContent || '').trim()
+            if (!txt || c.children.length) continue          // μόνο φύλλα με κείμενο
+            if (c.closest('[aria-hidden="true"]')) continue   // διακοσμητικό
+            const r = c.getBoundingClientRect()
+            if (!r.width || !r.height) continue
+            const by = Math.round(Math.max(r.bottom - box.bottom, box.top - r.top,
+                                           r.right - box.right, box.left - r.left))
+            if (by > 2) cut.push({ text: txt.slice(0, 34), by })
+          }
+          if (!cut.length) continue                           // σκιά/transform/::after
+          let target = ''
+          for (let n = el; n; n = n.parentElement) {
+            if (themePrefix && prefixOf(n) === themePrefix) {
+              target = (n.className || '').toString().split(' ')[0].replace(/__.*$/, '')
+              break
+            }
+          }
+          out.push({
+            sel: (el.className || '').toString().split(' ')[0].replace(/__.*$/, ''),
+            owner: prefixOf(el), themeOwner: themePrefix, target,
+            clientH: el.clientHeight, scrollH: el.scrollHeight,
+            hidden: Math.max(cutY, cutX), axis: cutY > cutX ? 'ύψος' : 'πλάτος',
+            overflow: `${cs.overflowX}/${cs.overflowY}`,
+            cut: cut.sort((a, b) => b.by - a.by).slice(0, 3),
+          })
+          if (out.length >= 5) break
+        }
+        return out
+      })(),
     }))
     out[label].consoleErrors = errs.length
     out[label].errorSamples = errs.slice(0, 3)

@@ -15,6 +15,117 @@
    "div.img-fill +540px",
    "div.img-fill +540px"
   ],
+  "clipped": [
+   {
+    "sel": "owl-stage-outer",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 400,
+    "scrollH": 411,
+    "hidden": 3198,
+    "axis": "πλάτος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Klassy Cup Cake",
+      "by": 1726
+     },
+     {
+      "text": "Lorem ipsum dolor sit amet, consec",
+      "by": 1726
+     },
+     {
+      "text": "$8.50",
+      "by": 1541
+     }
+    ]
+   },
+   {
+    "sel": "card",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 398,
+    "scrollH": 620,
+    "hidden": 222,
+    "axis": "ύψος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Lorem ipsum dolor sit amet, consec",
+      "by": 146
+     },
+     {
+      "text": "Klassy Pancake",
+      "by": 46
+     }
+    ]
+   },
+   {
+    "sel": "card",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 398,
+    "scrollH": 620,
+    "hidden": 222,
+    "axis": "ύψος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Lorem ipsum dolor sit amet, consec",
+      "by": 146
+     },
+     {
+      "text": "Tall Klassy Bread",
+      "by": 46
+     }
+    ]
+   },
+   {
+    "sel": "card",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 398,
+    "scrollH": 668,
+    "hidden": 270,
+    "axis": "ύψος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Lorem ipsum dolor sit amet, consec",
+      "by": 194
+     },
+     {
+      "text": "Blueberry CheeseCake",
+      "by": 94
+     }
+    ]
+   },
+   {
+    "sel": "card",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 398,
+    "scrollH": 620,
+    "hidden": 222,
+    "axis": "ύψος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Lorem ipsum dolor sit amet, consec",
+      "by": 146
+     },
+     {
+      "text": "Klassy Cup Cake",
+      "by": 46
+     }
+    ]
+   }
+  ],
   "consoleErrors": 8,
   "errorSamples": [
    "Error: Syntax error, unrecognized expression: javascript:;",
@@ -36,6 +147,101 @@
    "div.img-fill +1110px",
    "div.img-fill +1110px",
    "div.img-fill +1110px"
+  ],
+  "clipped": [
+   {
+    "sel": "owl-stage-outer",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 400,
+    "scrollH": 411,
+    "hidden": 4320,
+    "axis": "πλάτος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Tall Klassy Bread",
+      "by": 3118
+     },
+     {
+      "text": "Lorem ipsum dolor sit amet, consec",
+      "by": 3118
+     },
+     {
+      "text": "$18",
+      "by": 2831
+     }
+    ]
+   },
+   {
+    "sel": "card",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 398,
+    "scrollH": 520,
+    "hidden": 122,
+    "axis": "ύψος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Lorem ipsum dolor sit amet, consec",
+      "by": 46
+     }
+    ]
+   },
+   {
+    "sel": "card",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 398,
+    "scrollH": 520,
+    "hidden": 122,
+    "axis": "ύψος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Lorem ipsum dolor sit amet, consec",
+      "by": 46
+     }
+    ]
+   },
+   {
+    "sel": "card",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 398,
+    "scrollH": 520,
+    "hidden": 122,
+    "axis": "ύψος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Lorem ipsum dolor sit amet, consec",
+      "by": 46
+     }
+    ]
+   },
+   {
+    "sel": "card",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 398,
+    "scrollH": 520,
+    "hidden": 122,
+    "axis": "ύψος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Lorem ipsum dolor sit amet, consec",
+      "by": 46
+     }
+    ]
+   }
   ],
   "consoleErrors": 15,
   "errorSamples": [

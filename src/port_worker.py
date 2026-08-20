@@ -138,6 +138,55 @@ def sticky_lines(existing: list[str], text: str) -> list[str]:
     return out
 
 
+def clip_finding(item: dict[str, Any], viewport: str, width: int,
+                 component: str) -> tuple[str, str]:
+    """Ταξινόμηση ιδιοκτησίας + ντετερμινιστική συνταγή για ΕΝΑ αποκομμένο πλαίσιο.
+
+    Επιστρέφει (ΤΑΞΙΝΟΜΗΣΗ, κείμενο). Το «ποιος φταίει» δεν είναι το ίδιο με το
+    «ποιος μπορεί να το λύσει»: το `FindUs_mapBox` ανήκει σε κοινό component που
+    το `_validate` σωστά απαγορεύει να πειραχτεί — 60+ themes το μοιράζονται. Το
+    μοντέλο πρέπει να σταλεί στον ΠΛΗΣΙΕΣΤΕΡΟ γονέα που του ανήκει, αλλιώς η
+    συνταγή είναι ανεκτέλεστη και καίει ολόκληρο το budget επιδιόρθωσης.
+    """
+    nl = chr(10)
+    sel, owner = item.get("sel", "?"), item.get("owner", "")
+    target = item.get("target", "")
+    cut = " · ".join(f"«{c['text']}» κρυμμένο κατά {c['by']}px"
+                     for c in item.get("cut", []))
+    head = nl.join([
+        f"{viewport.upper()} {width} FAIL: πραγματικό αποκομμένο περιεχόμενο",
+        f"  selector: .{sel}",
+        f"  clientHeight: {item.get('clientH')}px · περιεχόμενο: {item.get('scrollH')}px"
+        f" · κρυμμένα: {item.get('hidden')}px ({item.get('axis')})",
+        f"  overflow: {item.get('overflow')}",
+        f"  χάνεται: {cut}",
+    ])
+    forbid = nl.join([
+        "  ΑΠΑΓΟΡΕΥΕΤΑΙ λύση με απόκρυψη: όχι overflow:hidden, όχι μικρότερη",
+        "  γραμματοσειρά για να χωρέσει, όχι αφαίρεση του χάρτη ή περιεχομένου.",
+        "  Το κείμενο πρέπει να μείνει ορατό και χρησιμοποιήσιμο.",
+    ])
+
+    if owner and owner != component:
+        if not target:
+            return ("BLOCKED_SHARED_COMPONENT", nl.join([
+                head,
+                f"  Το .{sel} ανήκει στο κοινό component «{owner}» και ΔΕΝ υπάρχει",
+                "  γονέας του theme που να μπορεί να το λύσει.",
+            ]))
+        return ("SHARED_COMPONENT", nl.join([
+            head,
+            f"  ΙΔΙΟΚΤΗΣΙΑ: το .{sel} ανήκει στο κοινό «{owner}» — ΜΗΝ το πειράξεις.",
+            f"  ΕΠΙΤΡΕΠΤΟΣ ΣΤΟΧΟΣ: .{target} (δικό σου). Δώσε στο κοινό component",
+            "  αρκετό πλάτος/ύψος — π.χ. ολόκληρη τη γραμμή αντί για στενή στήλη —",
+            "  ώστε να χωρά το περιεχόμενό του.",
+            forbid,
+        ]))
+    return ("THEME_OWNED", nl.join([
+        head, f"  ΕΠΙΤΡΕΠΤΟΣ ΣΤΟΧΟΣ: .{sel} (δικό σου).", forbid,
+    ]))
+
+
 def _appearance(theme_key: str, biz: str, port: int) -> dict[str, Any]:
     """Αόρατο κείμενο, γραμματοσειρές που δεν κατεβάσαμε, σπασμένες εικόνες.
 
@@ -432,7 +481,8 @@ def _spine_prescription(log: str, css_text: str) -> str:
     return "\n".join(out)
 
 
-def _render_prescription(vit: dict[str, Any], orig_images: int) -> str:
+def _render_prescription(vit: dict[str, Any], orig_images: int,
+                         component: str = "") -> str:
     """Μηχανικά ευρήματα απόδοσης, ένα ανά γραμμή, με μετρημένο μέγεθος.
 
     ΟΧΙ αισθητική κρίση: μόνο μετρήσιμα σφάλματα που το μοντέλο μπορεί να
@@ -448,9 +498,7 @@ def _render_prescription(vit: dict[str, Any], orig_images: int) -> str:
             out.append(f"{label.upper()} {w} FAIL: η σελίδα κυλά οριζόντια κατά "
                        f"{m['overflow']}px. Περιόρισε το πλάτος του υπεύθυνου στοιχείου.")
         for item in (m.get("clipped") or []):
-            out.append(f"{label.upper()} {w} FAIL: {item} — το πλαίσιο ΚΟΒΕΙ το "
-                       "περιεχόμενό του. Δώσε του αρκετό ύψος/πλάτος ή άφησέ το να "
-                       "μεγαλώσει· μη μικρύνεις το κείμενο για να χωρέσει.")
+            out.append(clip_finding(item, label, w, component)[1])
         for item in (m.get("innerOverflow") or []):
             out.append(f"{label.upper()} {w} FAIL: {item} — το στοιχείο ξεπερνά το "
                        "container του. Διόρθωσε ΜΟΝΟ την τοπική διάταξη αυτού του "
@@ -870,7 +918,7 @@ def port_source(source_id: str) -> dict[str, Any]:
         for k, v in failed.items():
             rx = _spine_prescription(v["log"], css_text) if k == "spine_guard" else ""
             parts.append(rx or _actionable(k, v["log"]))
-        render_rx = _render_prescription(vit, orig_imgs)
+        render_rx = _render_prescription(vit, orig_imgs, rec["component"])
         app = vit.get("appearance") or {}
         if app and not app.get("passed", True):
             parts.append("--- ΕΜΦΑΝΙΣΗ ΣΕ ΠΡΑΓΜΑΤΙΚΟ BROWSER ---\n" + "\n".join(app.get("problems") or []) + "\nΑΟΡΑΤΟ ΚΕΙΜΕΝΟ: δώσε χρώμα που διαβάζεται πάνω στο ΠΡΑΓΜΑΤΙΚΟ φόντο του στοιχείου· πρόσεξε την ΕΙΔΙΚΟΤΗΤΑ — `.root a` (0,2,0) υπερισχύει του `.heroButton` (0,1,0), γι' αυτό τα resets γράφονται `.root :where(a)`.\nΓΡΑΜΜΑΤΟΣΕΙΡΑ: μόνο όσες δηλώνει το συμβόλαιο ως self-hosted.")
@@ -957,8 +1005,17 @@ def port_source(source_id: str) -> dict[str, Any]:
             render_problems.append(f"{label}: οριζόντια υπερχείλιση {m['overflow']}px")
         if m.get("innerOverflow"):
             render_problems.append(f"{label}: εσωτερική υπερχείλιση — {', '.join(m['innerOverflow'][:3])}")
-        if m.get("clipped"):
-            render_problems.append(f"{label}: αποκομμένο περιεχόμενο — {', '.join(m['clipped'][:3])}")
+        for item in (m.get("clipped") or [])[:3]:
+            kind, _ = clip_finding(item, label, 1440 if label == "desktop" else 390,
+                                   rec["component"])
+            lost = " · ".join(c["text"] for c in item.get("cut", []))
+            render_problems.append(
+                f"{label}: αποκομμένο περιεχόμενο [{kind}] .{item.get('sel')} — "
+                f"{item.get('hidden')}px κρυμμένα ({lost})")
+            if kind == "BLOCKED_SHARED_COMPONENT":
+                res.setdefault("shared_component_blockers", []).append(
+                    {"viewport": label, "selector": item.get("sel"),
+                     "owner": item.get("owner")})
         if m.get("broken", 0) > 0:
             render_problems.append(f"{label}: {m['broken']} σπασμένες εικόνες")
         if m.get("consoleErrors", 0) > 0:
