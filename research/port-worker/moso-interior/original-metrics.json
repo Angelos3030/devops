@@ -1,0 +1,87 @@
+{
+ "tag": "original",
+ "desktop": {
+  "height": 5779,
+  "overflow": 0,
+  "images": 19,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 21,
+  "duplicateHeadings": [],
+  "innerOverflow": [
+   "div.backstretch +128px",
+   "div.owl-stage-outer +3566px"
+  ],
+  "clipped": [
+   {
+    "sel": "owl-stage-outer",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 293,
+    "scrollH": 300,
+    "hidden": 3566,
+    "axis": "πλάτος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Please recommend Tooplate website ",
+      "by": 2170
+     },
+     {
+      "text": "Client",
+      "by": 1997
+     },
+     {
+      "text": "Helen",
+      "by": 1949
+     }
+    ]
+   }
+  ],
+  "consoleErrors": 0,
+  "errorSamples": []
+ },
+ "mobile": {
+  "height": 6578,
+  "overflow": 0,
+  "images": 19,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 29,
+  "duplicateHeadings": [],
+  "innerOverflow": [
+   "div.backstretch +504px",
+   "div.owl-stage-outer +3990px"
+  ],
+  "clipped": [
+   {
+    "sel": "owl-stage-outer",
+    "owner": "",
+    "themeOwner": "",
+    "target": "",
+    "clientH": 235,
+    "scrollH": 242,
+    "hidden": 3990,
+    "axis": "πλάτος",
+    "overflow": "hidden/hidden",
+    "cut": [
+     {
+      "text": "Please recommend Tooplate website ",
+      "by": 2742
+     },
+     {
+      "text": "Client",
+      "by": 2605
+     },
+     {
+      "text": "Helen",
+      "by": 2557
+     }
+    ]
+   }
+  ],
+  "consoleErrors": 0,
+  "errorSamples": []
+ }
+}

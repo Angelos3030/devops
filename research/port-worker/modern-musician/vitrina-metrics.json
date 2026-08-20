@@ -1,0 +1,29 @@
+{
+ "tag": "vitrina",
+ "desktop": {
+  "height": 3713,
+  "overflow": 0,
+  "images": 8,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 7,
+  "duplicateHeadings": [],
+  "innerOverflow": [],
+  "clipped": [],
+  "consoleErrors": 0,
+  "errorSamples": []
+ },
+ "mobile": {
+  "height": 6396,
+  "overflow": 0,
+  "images": 8,
+  "broken": 0,
+  "h1": 1,
+  "smallTaps": 7,
+  "duplicateHeadings": [],
+  "innerOverflow": [],
+  "clipped": [],
+  "consoleErrors": 0,
+  "errorSamples": []
+ }
+}

@@ -1,0 +1,375 @@
+{
+ "source_id": "moso-interior",
+ "theme_key": "moso-interior",
+ "started_at": "2026-08-20T20:47:51+00:00",
+ "original_render_status": "OK",
+ "model": "deepseek-reasoner",
+ "generation_steps": [
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "JSX",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  },
+  {
+   "step": "CSS",
+   "attempt": 1,
+   "outcome": "SUCCESS",
+   "reason": "",
+   "patch_produced": true,
+   "applied": false
+  }
+ ],
+ "guards": {
+  "contract": [],
+  "copy_leak": [],
+  "media": [],
+  "data_binding": []
+ },
+ "token_usage": {
+  "input": 36263,
+  "output": 47414
+ },
+ "cost_usd": 0.1238,
+ "demo_business": "retail",
+ "files_changed": [
+  "sites/lib/templates/MosoShowroom.jsx",
+  "sites/lib/templates/MosoShowroom.module.css"
+ ],
+ "deviations": [
+  {
+   "what": "Removed Reviews/testimonials carousel",
+   "why": "No genuine testimonial data exists in the data contract; faking would violate the truth contract."
+  },
+  {
+   "what": "Removed 'Since 1986' claim",
+   "why": "Unsubstantiated and not traceable in the data contract."
+  },
+  {
+   "what": "Removed wishlist/cart icon overlays",
+   "why": "No checkout flow or wishlist feature is supported in Vitrina."
+  },
+  {
+   "what": "Replaced hero search/filter form with category tag row",
+   "why": "Search is not supported in a static server component; tags preserve the white filter bar visual."
+  },
+  {
+   "what": "Omitted product price badges",
+   "why": "Demo data does not include a price field for gallery items."
+  },
+  {
+   "what": "Omitted contact form",
+   "why": "No backend or form action exists in the static server component; contact info comes from FindUs and SocialLinks."
+  },
+  {
+   "what": "Added services section from d.services",
+   "why": "Uses available data and gives the template a complete Vitrina structure while retaining the source rhythm."
+  },
+  {
+   "what": "About section uses one large and one small circular image",
+   "why": "Only two image string fields are guaranteed (HERO_IMAGE, STORY_IMAGE); small image is derived from gallery[0] when available."
+  },
+  {
+   "what": "Reviews/testimonials section omitted",
+   "why": "No real customer data exists; inventing testimonials violates the truth contract."
+  },
+  {
+   "what": "Cart/wishlist heart & bookmark icons omitted",
+   "why": "No checkout or account flow exists in the static server-rendered product; adding them would be fake functionality."
+  },
+  {
+   "what": "«Since 1986» claim omitted",
+   "why": "There is no factual business data supporting this claim in the demo data."
+  },
+  {
+   "what": "Product price badges omitted",
+   "why": "The retail demo data has no price field; omitting is required over semantic substitution."
+  },
+  {
+   "what": "Search/price form replaced with category filter tags",
+   "why": "No search backend exists in a server-only React component; categories from the gallery preserve the visual filter-bar concept."
+  },
+  {
+   "what": "Pagination omitted",
+   "why": "The demo has only four gallery items; page numbers would be invented."
+  },
+  {
+   "what": "League Spartan font replaced with Fira Sans Condensed",
+   "why": "League Spartan is not in the self-hosted font allowlist; Fira Sans Condensed is the closest available geometric sans."
+  }
+ ],
+ "registered": true,
+ "preview_server": {
+  "pid": 1472,
+  "port": 3881,
+  "reclaimed": {
+   "found": [],
+   "killed": [],
+   "skipped": []
+  }
+ },
+ "repair_attempts": [
+  "build: spine_guard"
+ ],
+ "contrast_repair": [
+  {
+   "token": "accent-ink",
+   "from": "#f65129",
+   "was": 3.26,
+   "required": 4.5,
+   "method": "deterministic-hsl",
+   "model_tokens": 0,
+   "to": "#d83209",
+   "now": 4.55,
+   "hue_before": 12,
+   "hue_after": 12,
+   "outcome": "APPLIED",
+   "error": ""
+  },
+  {
+   "token": "on-accent",
+   "from": "#ffffff",
+   "was": 3.43,
+   "required": 4.5,
+   "method": "deterministic-hsl",
+   "model_tokens": 0,
+   "to": "#232323",
+   "now": 4.59,
+   "hue_before": 0,
+   "hue_after": 0,
+   "outcome": "APPLIED",
+   "error": ""
+  }
+ ],
+ "repair_ledger": [
+  {
+   "ATTEMPT": 1,
+   "BASELINE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "clipped": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "clipped": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "CANDIDATE_STATE": {
+    "desktop": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "clipped": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    },
+    "mobile": {
+     "renderable": true,
+     "overflow": 0,
+     "inner": 0,
+     "clipped": 0,
+     "broken": 0,
+     "console": 0,
+     "h1": 1
+    }
+   },
+   "REGRESSIONS": [],
+   "DECISION": "ACCEPTED",
+   "ROLLBACK_SUCCESS": null,
+   "RETRY_REASON": ""
+  }
+ ],
+ "tests_run": 4,
+ "tests_passed": 4,
+ "tests_failed": 0,
+ "tests": {
+  "templateRegistry": {
+   "passed": true
+  },
+  "spine_guard": {
+   "passed": true
+  },
+  "trust_guard": {
+   "passed": true
+  },
+  "next_build": {
+   "passed": true
+  }
+ },
+ "vitrina_render_status": "OK",
+ "vitrina_metrics": {
+  "tag": "vitrina",
+  "desktop": {
+   "height": 4723,
+   "overflow": 0,
+   "images": 6,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 10,
+   "duplicateHeadings": [],
+   "innerOverflow": [],
+   "clipped": [],
+   "consoleErrors": 0,
+   "errorSamples": []
+  },
+  "mobile": {
+   "height": 5955,
+   "overflow": 0,
+   "images": 6,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 10,
+   "duplicateHeadings": [],
+   "innerOverflow": [],
+   "clipped": [],
+   "consoleErrors": 0,
+   "errorSamples": []
+  },
+  "appearance": {
+   "passed": true,
+   "problems": [],
+   "log": "================================================================\nVITRINA — έλεγχος εμφάνισης, 1 templates\nhttp://127.0.0.1:3881\n================================================================\n\n  ✓ moso-interior καθαρό\n\n================================================================\n✅ Όλα διαβάζονται, όλα τα fonts υπάρχουν, τίποτα δεν φεύγει προς τα έξω.\n"
+  }
+ },
+ "render": {
+  "desktop": {
+   "overflow": 0,
+   "innerOverflow": [],
+   "broken": 0,
+   "images": 6,
+   "h1": 1,
+   "consoleErrors": 0
+  },
+  "mobile": {
+   "overflow": 0,
+   "innerOverflow": [],
+   "broken": 0,
+   "images": 6,
+   "h1": 1,
+   "consoleErrors": 0
+  }
+ },
+ "appearance": {
+  "passed": true,
+  "problems": []
+ },
+ "render_problems": [],
+ "elapsed_seconds": 529.2,
+ "status": "READY_FOR_REVIEW",
+ "original_metrics": {
+  "tag": "original",
+  "desktop": {
+   "height": 5779,
+   "overflow": 0,
+   "images": 19,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 21,
+   "duplicateHeadings": [],
+   "innerOverflow": [
+    "div.backstretch +128px",
+    "div.owl-stage-outer +3566px"
+   ],
+   "clipped": [
+    {
+     "sel": "owl-stage-outer",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 293,
+     "scrollH": 300,
+     "hidden": 3566,
+     "axis": "πλάτος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Please recommend Tooplate website ",
+       "by": 2170
+      },
+      {
+       "text": "Client",
+       "by": 1997
+      },
+      {
+       "text": "Helen",
+       "by": 1949
+      }
+     ]
+    }
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
+  },
+  "mobile": {
+   "height": 6578,
+   "overflow": 0,
+   "images": 19,
+   "broken": 0,
+   "h1": 1,
+   "smallTaps": 29,
+   "duplicateHeadings": [],
+   "innerOverflow": [
+    "div.backstretch +504px",
+    "div.owl-stage-outer +3990px"
+   ],
+   "clipped": [
+    {
+     "sel": "owl-stage-outer",
+     "owner": "",
+     "themeOwner": "",
+     "target": "",
+     "clientH": 235,
+     "scrollH": 242,
+     "hidden": 3990,
+     "axis": "πλάτος",
+     "overflow": "hidden/hidden",
+     "cut": [
+      {
+       "text": "Please recommend Tooplate website ",
+       "by": 2742
+      },
+      {
+       "text": "Client",
+       "by": 2605
+      },
+      {
+       "text": "Helen",
+       "by": 2557
+      }
+     ]
+    }
+   ],
+   "consoleErrors": 0,
+   "errorSamples": []
+  }
+ }
+}
