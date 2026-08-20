@@ -64,7 +64,7 @@ export const PENDING = ['CapabilitySystems']
 export const LOCAL_MASTERS = ['EleganceSalon', 'GreckoTable', 'NovenaCare', 'BigspringAdvisory', 'ConstraBuild', 'PropertyAtlas']
 
 // Themes που έχουν μεταφερθεί. Προσθήκη = υπόσχεση ότι περνά όλα τα παραπάνω.
-export const MIGRATED = ['CleanService', 'KlassyTable', 'BarberSidebar', 'VillaAgency', 'GymsoFitness', 'MedicCare', 'ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living', 'Coast','Canvas','Kinetic','Longform','Magazine','TypeGallery', 'Bento','Corporate','Grid','Poster','Showcase','Sidebar','Split', 'Pulse','Quiet','Warmth', 'CafeCollection', 'Signature', 'MasterCinematic', 'MasterEditorial', 'MasterSpatial', 'EducenterCampus', 'VexCounter', 'AirspaceOffice', 'FreightLane', 'BlueOnepage', 'BillysBarber', 'ThomsonStylist', 'FrostBakery']
+export const MIGRATED = ['StudioSignature', 'MosoShowroom', 'CleanService', 'KlassyTable', 'BarberSidebar', 'VillaAgency', 'GymsoFitness', 'MedicCare', 'ClinicTriage','Callout','Ember','Motor','Terra','Forge','Volt','Aegean','Bloom','Marble','Runway','Dispatch','BeautyAtelier','Cinematic','Editorial','Infinite','Living', 'Coast','Canvas','Kinetic','Longform','Magazine','TypeGallery', 'Bento','Corporate','Grid','Poster','Showcase','Sidebar','Split', 'Pulse','Quiet','Warmth', 'CafeCollection', 'Signature', 'MasterCinematic', 'MasterEditorial', 'MasterSpatial', 'EducenterCampus', 'VexCounter', 'AirspaceOffice', 'FreightLane', 'BlueOnepage', 'BillysBarber', 'ThomsonStylist', 'FrostBakery']
 
 const toRgb = (h) => {
   h = h.replace('#', '')
