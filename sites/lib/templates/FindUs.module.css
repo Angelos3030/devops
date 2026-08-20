@@ -6,7 +6,13 @@
   --fu-bg: transparent;
   --fu-accent: currentColor;
 
-  display: grid; grid-template-columns: minmax(280px, 1fr) 1.25fr;
+  /* Flex ΜΕ ΑΝΑΔΙΠΛΩΣΗ, όχι grid. Το grid στοιβάζεται μόνο με media query —
+     δηλαδή όταν στενεύει το VIEWPORT. Μετρήθηκε ότι το πρόβλημα είναι το
+     ΔΟΧΕΙΟ: σε πλάτος οθόνης 1440 το gymso έδινε στο FindUs 531px και το
+     villa 555px, οπότε η πρώτη στήλη καρφωνόταν στα 280px και του χάρτη
+     έμεναν 107px — ύψος 67px για περιεχόμενο 142px. Με flex-wrap το component
+     στοιβάζεται μόνο του όταν δεν χωρά, ό,τι κι αν κάνει το theme από πάνω. */
+  display: flex; flex-wrap: wrap;
   gap: clamp(1.4rem, 4vw, 3rem);
   align-items: center;
   padding: clamp(2.6rem, 6vw, 5rem) clamp(1.1rem, 4vw, 3rem);
@@ -23,7 +29,7 @@
 .wrap :where(h2, p) { margin: 0; }
 .wrap :where(a) { text-decoration: none; }
 
-.info { display: flex; flex-direction: column; gap: .7rem; }
+.info { flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: .7rem; }
 .eyebrow {
   font-family: 'JetBrains Mono', monospace; font-size: .72rem;
   letter-spacing: .22em; text-transform: uppercase; opacity: .75;
@@ -63,6 +69,13 @@
 .gbp:hover { color: var(--fu-ink); }
 
 .mapBox {
+  flex: 1.25 1 320px; min-width: 0;
+  /* Δεύτερη, ανεξάρτητη άμυνα: το aspect-ratio βγάζει ύψος ΑΠΟ το πλάτος, οπότε
+     στενή στήλη σημαίνει κοντό κουτί. Το περιεχόμενο του mapHolder θέλει ~142px·
+     κάτω από αυτό κόβονται ο σύνδεσμος οδηγιών και η σημείωση. Κανένα από τα
+     σημερινά themes δεν πέφτει κάτω από 180px, άρα δεν αλλάζει τίποτα οπτικά —
+     αλλά κανένα μελλοντικό δεν μπορεί πια να κρύψει το περιεχόμενο. */
+  min-height: 170px;
   border-radius: 14px; overflow: hidden; border: 1px solid var(--fu-line);
   box-shadow: 0 22px 50px -26px rgba(0, 0, 0, .45);
   aspect-ratio: 16 / 10; background: rgba(128, 128, 128, .08);
@@ -85,8 +98,9 @@
 .mapNote { font-size: .78rem; color: var(--fu-soft); max-width: 30ch; line-height: 1.5; }
 .wrap .mapNote a { color: var(--fu-ink); border-bottom: 1px solid var(--fu-line); }
 
+/* Η αναδίπλωση γίνεται πλέον από το ίδιο το flex όταν δεν χωρούν δίπλα-δίπλα.
+   Το breakpoint κρατά μόνο την αλλαγή αναλογίας για στενές οθόνες. */
 @media (max-width: 860px) {
-  .wrap { grid-template-columns: 1fr; }
   .mapBox { aspect-ratio: 4 / 3; }
 }
 
