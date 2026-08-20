@@ -51,6 +51,7 @@ MAX_FILES = 4                  # JSX + CSS + το πολύ δύο ακόμη
 MAX_FILE_BYTES = 60_000
 MAX_TOTAL_BYTES = 140_000
 MAX_REPAIR_ATTEMPTS = 4
+CONTRAST_PASSES = 5   # ντετερμινιστικές σαρώσεις χρώματος ανά γύρο· μηδέν tokens
 CALL_TIMEOUT_S = 900
 MAX_COST_USD = 1.50
 SRC_HTML_BUDGET = 70_000
@@ -599,42 +600,75 @@ def _regression_note(regressed: list[str]) -> str:
 
 def _contrast_only_fix(chat: Any, css_path: Path, spine_log: str,
                        res: dict[str, Any]) -> bool:
-    """Στενή διόρθωση: ΜΙΑ τιμή token, καμία άλλη αλλαγή.
+    """Στενή διόρθωση: ΜΟΝΟ τιμές token, καμία άλλη αλλαγή.
 
     Δεν ζητάμε ολόκληρο το φύλλο στυλ για έξι χαρακτήρες — αυτό μετακινούσε
     padding και πλάτη και έφερνε νέες υπερχειλίσεις σε κάθε γύρο.
+
+    ΝΤΕΤΕΡΜΙΝΙΣΤΙΚΑ, χωρίς μοντέλο: μετρήθηκε σε τέσσερα τρεξίματα ότι το
+    μοντέλο γέμιζε κάθε budget με reasoning και επέστρεφε κενό content. Η
+    εργασία είναι αριθμητική — η απόχρωση διατηρείται εξ ορισμού, αλλάζει μόνο
+    η φωτεινότητα.
+
+    ΟΛΕΣ οι παραβάσεις σε έναν γύρο. Με μία ανά γύρο, το clean-work έκαψε και
+    τους τέσσερις γύρους (27 λεπτά) και σταμάτησε στο 4.48 έναντι 4.5 — αστοχία
+    δύο εκατοστών, επειδή δεν είχε απομείνει γύρος. Ο solver δεν κοστίζει
+    tokens, οπότε το «ένα τη φορά» ήταν καθαρή σπατάλη.
     """
+    applied = False
+    log = spine_log
+    # ΣΥΓΚΛΙΣΗ ΕΠΙ ΤΟΠΟΥ. Κάθε διόρθωση αλλάζει την τιμή ενός ρόλου, που μπορεί
+    # να χαλάσει ΑΛΛΟ ζεύγος: στο clean-work, αφού πέρασαν τα τέσσερα ζεύγη
+    # κειμένου, εμφανίστηκε `line/surface 1.19 < 1.2` — μία εκατοστή κάτω από το
+    # όριο. Με μία επανάληψη ανά γύρο του μοντέλου, κάθε τέτοιο κύμα κόστιζε ένα
+    # ολόκληρο ξαναγράψιμο JSX+CSS. Ο solver είναι αριθμητικός και δωρεάν, οπότε
+    # τρέχει μέχρι να μη μένει τίποτα λυμένο — με φράγμα, ώστε μια ταλάντωση να
+    # μη γίνει ατέρμονη.
+    for _ in range(CONTRAST_PASSES):
+        css = css_path.read_text(encoding="utf-8")
+        failures = cr.parse_failures(log, css)
+        if not failures:
+            break
+        if not _contrast_pass(failures, css_path, res):
+            break
+        applied = True
+        ok, log = _run(["node", "tests/spine_guard.mjs"], SITES, timeout=240)
+        if ok:
+            break
+    return applied
+
+
+def _contrast_pass(failures: list[dict[str, Any]], css_path: Path,
+                   res: dict[str, Any]) -> bool:
+    """Μία σάρωση: λύνει ΟΛΑ τα ζεύγη που μπορεί και γράφει μία φορά."""
     css = css_path.read_text(encoding="utf-8")
-    fail = cr.parse_failure(spine_log, css)
-    if not fail:
-        return False
-    # Budget: η απάντηση είναι ~40 tokens, αλλά το v4-pro παράγει reasoning
-    # tokens ΠΡΙΝ από αυτήν. Στα 400 το σώμα έβγαινε άδειο σε 4/4 κλήσεις.
-    # 1500 αφήνει άνετο περιθώριο για τον συλλογισμό μιας προσαρμογής χρώματος
-    # χωρίς να είναι αυθαίρετα μεγάλο.
-    # ΝΤΕΤΕΡΜΙΝΙΣΤΙΚΑ, χωρίς μοντέλο. Μετρήθηκε σε τέσσερα τρεξίματα ότι το
-    # μοντέλο γέμιζε κάθε budget με reasoning και επέστρεφε κενό content. Η
-    # εργασία είναι αριθμητική: η απόχρωση διατηρείται εξ ορισμού, αλλάζει
-    # μόνο η φωτεινότητα, με δυαδική αναζήτηση για την ΜΙΚΡΟΤΕΡΗ αλλαγή.
-    record: dict[str, Any] = {"token": fail["fg_token"], "from": fail["fg_value"],
-                              "was": fail["measured"], "required": fail["required"],
-                              "method": "deterministic-hsl", "model_tokens": 0}
-    value, err = cr.solve(fail["fg_value"], fail["bg_value"], fail["required"])
-    if value is None:
-        record.update(outcome=cr.NO_WRITE, error=err)
+    applied = False
+    for fail in failures:
+        # Οι τιμές ξαναδιαβάζονται από το ΤΡΕΧΟΝ css: μια προηγούμενη διόρθωση
+        # μπορεί να έχει αλλάξει token που εδώ παίζει ρόλο φόντου.
+        fg_val = cr.token_value(css, fail["fg_token"]) or fail["fg_value"]
+        bg_val = cr.token_value(css, fail["bg_token"]) or fail["bg_value"]
+        record: dict[str, Any] = {"token": fail["fg_token"], "from": fg_val,
+                                  "was": fail["measured"], "required": fail["required"],
+                                  "method": "deterministic-hsl", "model_tokens": 0}
+        value, err = cr.solve(fg_val, bg_val, fail["required"])
+        if value is None:
+            record.update(outcome=cr.NO_WRITE, error=err)
+            res.setdefault("contrast_repair", []).append(record)
+            continue
+        ok, ratio = cr.verify(value, bg_val, fail["required"])
+        record.update(to=value, now=ratio,
+                      hue_before=round(cr.to_hsl(fg_val)[0]),
+                      hue_after=round(cr.to_hsl(value)[0]),
+                      outcome="APPLIED" if ok else cr.NO_WRITE,
+                      error="" if ok else f"η τιμή δίνει {ratio}:1 < {fail['required']}:1")
         res.setdefault("contrast_repair", []).append(record)
-        return False
-    ok, ratio = cr.verify(value, fail["bg_value"], fail["required"])
-    record.update(to=value, now=ratio,
-                  hue_before=round(cr.to_hsl(fail["fg_value"])[0]),
-                  hue_after=round(cr.to_hsl(value)[0]),
-                  outcome="APPLIED" if ok else cr.NO_WRITE,
-                  error="" if ok else f"η τιμή δίνει {ratio}:1 < {fail['required']}:1")
-    res.setdefault("contrast_repair", []).append(record)
-    if not ok:
-        return False
-    css_path.write_text(cr.apply_token(css, fail["fg_token"], value), encoding="utf-8")
-    return True
+        if ok:
+            css = cr.apply_token(css, fail["fg_token"], value)
+            applied = True
+    if applied:
+        css_path.write_text(css, encoding="utf-8")
+    return applied
 
 
 def port_source(source_id: str) -> dict[str, Any]:

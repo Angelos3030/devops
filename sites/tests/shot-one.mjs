@@ -115,7 +115,20 @@ for (const [label, w, h] of [['desktop', 1440, 1024], ['mobile', 390, 844]]) {
           const limit = box.left + e.clientWidth + 2
           const spills = [...e.querySelectorAll('*')]
             .some((c) => c.getBoundingClientRect().right > limit)
-          return spills
+          if (!spills) return false
+          // ΠΡΟΕΞΟΧΗ ≠ ΑΠΩΛΕΙΑ. Αν ΚΑΝΕΝΑΣ πρόγονος δεν κόβει αυτόν τον άξονα
+          // και η σελίδα δεν κυλά οριζόντια, το περιεχόμενο είναι ΟΡΑΤΟ — άρα
+          // σχέδιο, όχι σφάλμα. Μετρήθηκε στο clean-work: μπλε κάρτα τηλεφώνου
+          // ακουμπισμένη σκόπιμα 20px έξω από τη γωνία της φωτογραφίας, όπως
+          // στο πρωτότυπο. Ο έλεγχος υπάρχει για περιεχόμενο που ΧΑΝΕΤΑΙ (στο
+          // Frost η σειρά γεύσεων κοβόταν μέσα σε container με overflow:hidden),
+          // όχι για κάθε στοιχείο που ξεπερνά το πλαίσιο του γονέα του.
+          for (let n = e; n; n = n.parentElement) {
+            const c = getComputedStyle(n).overflowX
+            if (c === 'hidden' || c === 'clip' || c === 'auto' || c === 'scroll') return true
+          }
+          return document.documentElement.scrollWidth >
+                 document.documentElement.clientWidth
         })
         .slice(0, 5)
         .map((e) => `${e.tagName.toLowerCase()}.${(e.className || '').toString().split(' ')[0]} +${e.scrollWidth - e.clientWidth}px`),

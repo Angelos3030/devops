@@ -93,3 +93,27 @@ class Transaction(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class ProtrusionIsNotLoss(unittest.TestCase):
+    """Προεξοχή ≠ απώλεια περιεχομένου.
+
+    Μετρήθηκε στο clean-work: μπλε κάρτα τηλεφώνου («Χρειάζεστε βοήθεια;»)
+    ακουμπισμένη σκόπιμα 20px έξω από τη γωνία της φωτογραφίας — ακριβώς όπως
+    στο πρωτότυπο. Ο γονέας είχε `overflow: visible`, η σελίδα δεν κυλούσε
+    οριζόντια, τίποτα δεν κρυβόταν· κι όμως ο έλεγχος την κατέγραφε ως
+    υπερχείλιση και έκαιγε γύρους επιδιόρθωσης πάνω σε σχέδιο.
+
+    Ίδιο μάθημα με το CSS τρίγωνο του Medic Care: ο έλεγχος πρέπει να μετρά
+    ΑΠΡΟΣΙΤΟ περιεχόμενο, όχι γεωμετρία.
+    """
+
+    src = (ROOT / "sites" / "tests" / "shot-one.mjs").read_text(encoding="utf-8")
+
+    def test_requires_a_clipping_ancestor_or_page_scroll(self) -> None:
+        self.assertIn("for (let n = e; n; n = n.parentElement)", self.src)
+        self.assertIn("document.documentElement.scrollWidth >", self.src)
+
+    def test_real_clipping_still_reported(self) -> None:
+        """Ο έλεγχος γεννήθηκε για το Frost, όπου ο γονέας ΟΝΤΩΣ έκοβε."""
+        self.assertIn("'hidden' || c === 'clip'", self.src)

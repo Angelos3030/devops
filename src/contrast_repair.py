@@ -66,6 +66,35 @@ def parse_failure(log: str, css: str) -> dict[str, Any] | None:
             "measured": float(got), "required": float(need)}
 
 
+def parse_failures(log: str, css: str) -> list[dict[str, Any]]:
+    """ΟΛΑ τα ζεύγη που κόβει ο guard, όχι μόνο το πρώτο.
+
+    Ο solver είναι αριθμητικός και κοστίζει μηδέν tokens, οπότε δεν υπάρχει
+    λόγος να διορθώνεται ένα token ανά γύρο. Μετρήθηκε στο clean-work: τέσσερις
+    γύροι — 27 λεπτά και όλο το budget — για τέσσερις παραβάσεις, και η
+    τελευταία έμεινε στο 4.48 έναντι 4.5. Αστοχία 0,02 μονάδων.
+    """
+    out: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    pairs: list[tuple[str, str, str, str]] = []
+    for line in log.splitlines():
+        if "✗" in line:
+            pairs += _FAIL.findall(line)
+    m = _LOWEST.search(log)
+    if m:
+        pairs.append((m.group(2), m.group(3), m.group(1), "4.5"))
+    for fg, bg, got, need in pairs:
+        if fg in seen:
+            continue
+        fg_val, bg_val = token_value(css, fg), token_value(css, bg)
+        if not (fg_val and bg_val and _HEX.match(fg_val) and _HEX.match(bg_val)):
+            continue
+        seen.add(fg)
+        out.append({"fg_token": fg, "bg_token": bg, "fg_value": fg_val,
+                    "bg_value": bg_val, "measured": float(got), "required": float(need)})
+    return out
+
+
 def apply_token(css: str, token: str, value: str) -> str:
     """Αντικαθιστά ΜΟΝΟ τη δήλωση αυτού του token. Καμία άλλη αλλαγή."""
     if not _HEX.match(value.strip()):
@@ -193,17 +222,26 @@ def solve(fg_value: str, bg_value: str, required: float,
     # ακριβώς στο 4.50 μπορεί να διαβαστεί ως 4.49. Στοχεύουμε λίγο πιο μέσα.
     required = required + 0.05
     hue, sat, light = to_hsl(fg_value)
-    # Κατεύθυνση: ανοιχτό φόντο -> σκουραίνουμε· σκούρο φόντο -> φωτίζουμε.
-    target = 0.0 if luminance(bg_value) > luminance(fg_value) else 1.0
-    if contrast(from_hsl(hue, sat, target), bg_value) < required:
-        return None, (f"αδύνατο: ούτε το άκρο L={target} δεν φτάνει {required}:1 "
+    # ΚΑΙ ΤΙΣ ΔΥΟ κατευθύνσεις. Η παλιά ευρετική («φόντο πιο ανοιχτό από το
+    # κείμενο; σκούρυνε — αλλιώς φώτισε») έστελνε το λευκό κείμενο να γίνει πιο
+    # λευκό: μετρήθηκε στο clean-work, όπου λευκό πάνω σε ανοιχτό γαλάζιο
+    # #7cb8eb κηρύχθηκε «αδύνατο» ενώ σκούρο κείμενο στο ίδιο φόντο δίνει ~10:1.
+    # Τρία από τα τέσσερα ζεύγη του theme ήταν άλυτα για τον ίδιο λόγο.
+    solutions: list[float] = []
+    for target in (0.0, 1.0):
+        if contrast(from_hsl(hue, sat, target), bg_value) < required:
+            continue
+        lo, hi = light, target      # lo δεν περνά, hi περνά
+        for _ in range(steps):
+            mid = (lo + hi) / 2
+            if contrast(from_hsl(hue, sat, mid), bg_value) >= required:
+                hi = mid
+            else:
+                lo = mid
+        solutions.append(hi)
+    if not solutions:
+        return None, (f"αδύνατο: ούτε το L=0.0 ούτε το L=1.0 φτάνουν {required}:1 "
                       f"με φόντο {bg_value}")
-
-    lo, hi = light, target          # lo δεν περνά, hi περνά
-    for _ in range(steps):
-        mid = (lo + hi) / 2
-        if contrast(from_hsl(hue, sat, mid), bg_value) >= required:
-            hi = mid
-        else:
-            lo = mid
-    return from_hsl(hue, sat, hi), ""
+    # Η μικρότερη δυνατή μετακίνηση από την αρχική φωτεινότητα.
+    best = min(solutions, key=lambda l: abs(l - light))
+    return from_hsl(hue, sat, best), ""

@@ -365,7 +365,7 @@
    "name": "Clean Work (Tooplate)",
    "source_url": "https://www.tooplate.com/view/2137-clean-work",
    "decision": "PORT_OK",
-   "status": "PENDING",
+   "status": "DONE",
    "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (LICENSE-MAP.md).",
    "provenance": "Studio, δικό του template.",
    "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
@@ -407,7 +407,16 @@
     "Μενού",
     "Προϊόντα"
    ],
-   "batch": "migration-2"
+   "batch": "migration-2",
+   "updated_at": "2026-08-20T20:45:34+00:00",
+   "result": "research\\port-worker\\clean-work\\result.json",
+   "validator": "Claude 2026-08-20",
+   "validated": "Guards καθαροί · 4/4 tests · design_guard PASS · clipped=[] · innerOverflow=[] σε desktop+mobile · καμία τιμή/διάρκεια για τον υδραυλικό · το «18 χρόνια» προέρχεται από demoData.js:380, δεν επινοήθηκε",
+   "customer_facing_quality": "LOW",
+   "polish_notes": [
+    "δύο badge τηλεφώνου στην ίδια φωτογραφία (pill + κάρτα) — περιττή επανάληψη",
+    "στήλη επικοινωνίας desktop αραιή σε σχέση με την κάρτα FindUs δίπλα"
+   ]
   },
   "moso-interior": {
    "name": "Moso Interior (Tooplate)",
