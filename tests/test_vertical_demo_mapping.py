@@ -22,8 +22,11 @@ from src.port_worker import VERTICAL_DEMO, DemoMappingMissing, demo_for  # noqa:
 
 class VerticalDemoMapping(unittest.TestCase):
     def test_required_mappings(self) -> None:
+        # ΠΡΟΣΟΧΗ: τα `content` και `music` ΔΕΝ είναι πλέον έγκυρα. Είχαν
+        # αντιστοιχιστεί με κριτήριο τον πλούτο των δεδομένων και παρήγαγαν
+        # εικονίδια μουσικής πάνω από «Κούρεμα & styling». Βλ.
+        # tests/test_demo_semantics.py.
         for vertical, expected in (("medical", "physician"), ("food", "taverna"),
-                                   ("content", "farm"), ("music", "salon"),
                                    ("beauty", "salon"), ("fitness", "gym"),
                                    ("property", "realestate"), ("trades", "plumber")):
             with self.subTest(vertical=vertical):
@@ -48,7 +51,8 @@ class VerticalDemoMapping(unittest.TestCase):
         """Καμία διαδρομή δεν επιστρέφει carpenter/generic για άγνωστο vertical."""
         # ΠΡΟΣΟΧΗ: τα `content` και `music` ΕΧΟΥΝ πλέον αντιστοίχιση
         # (content->farm, music->salon). Άγνωστο σημαίνει πραγματικά άγνωστο.
-        for bogus in (["unknown"], ["blockchain"], ["", None], ["Content"]):
+        for bogus in (["unknown"], ["blockchain"], ["", None], ["Content"],
+                      ["music"], ["content"]):
             with self.subTest(v=bogus), self.assertRaises(DemoMappingMissing):
                 demo_for({"verticals": bogus})
 

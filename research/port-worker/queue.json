@@ -479,7 +479,7 @@
    "name": "Modern Musician (Tooplate)",
    "source_url": "https://www.tooplate.com/view/2160-modern-musician",
    "decision": "PORT_OK",
-   "status": "FAILED",
+   "status": "BLOCKED",
    "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (LICENSE-MAP.md).",
    "provenance": "Studio, δικό του template.",
    "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
@@ -526,10 +526,12 @@
    "batch": "migration-2",
    "updated_at": "2026-08-20T21:39:01+00:00",
    "result": "research\\port-worker\\modern-musician\\result.json",
-   "failure_class": "FAILED_THEME_SPECIFIC",
+   "failure_class": "DEMO_SEMANTICALLY_UNSUPPORTED",
    "validator": "Claude 2026-08-20",
    "validated": "Οι πύλες δούλεψαν: build/spine/trust/registry PASS, data guards καθαροί, ledger 1 ACCEPTED + 3 REJECTED με επαναφορά. Το theme κόπηκε από το design_guard με 34 αόρατα κείμενα (1.05–2.13) — γκρι κάρτες με γκρι κείμενο σε υπηρεσίες, λεζάντες και ολόκληρη την επικοινωνία. Επιπλέον: εικονίδια μουσικής (νότα, κάμερα) πάνω από «Κούρεμα & styling» — η αντιστοίχιση music→salon δίνει σημασιολογικά λάθος εικονογραφία.",
-   "customer_facing_quality": "HIGH"
+   "customer_facing_quality": "HIGH",
+   "blocked_reason": "Το vertical «music» δεν έχει συμβατή οικογένεια demo business. Είχε αντιστοιχιστεί στο «salon» επειδή το κομμωτήριο έχει τα πλουσιότερα πεδία — κριτήριο πλούτου, όχι νοήματος. Ο worker πήρε σημασιολογικά λάθος δεδομένα, οπότε η οπτική αποτυχία ΔΕΝ προσμετράται στην ποιότητα αυτόνομης παραγωγής theme.",
+   "previous_classification": "FAILED_THEME_SPECIFIC (ανακλήθηκε 2026-08-21)"
   }
  },
  "_fidelity_model": "Η πηγή είναι ΕΜΠΝΕΥΣΗ, όχι προδιαγραφή αντιγραφής. REQUIRED_DESIGN: πρέπει να επιβιώσει, αλλιώς χάνεται η ταυτότητα. ADAPTABLE: μεταφράζεται σε άλλη αληθινή δομή του Vitrina. UNSUPPORTED_BY_PRODUCT: το Vitrina δεν το μοντελοποιεί — η απουσία του ΔΕΝ εμποδίζει READY_FOR_REVIEW και ΑΠΑΓΟΡΕΥΕΤΑΙ να καλυφθεί με επινοημένα δεδομένα."

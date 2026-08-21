@@ -528,15 +528,54 @@ VERTICAL_DEMO = {
     "fitness": "gym", "property": "realestate", "hospitality": "rooms",
     "trades": "plumber", "automotive": "garage", "construction": "carpenter",
     "professional": "lawyer", "farm": "farm", "wellness": "massage",
-    # Εκδοτικά/αφηγηματικά themes: ο παραγωγός είναι το demo με το πλουσιότερο
-    # story στο demoData — ακριβώς ό,τι χρειάζεται ένα long-form theme για να
-    # κριθεί δίκαια. Χωρίς αυτό το compass έμενε BLOCKED (fail-closed, σωστά).
+    # ΑΠΟΡΡΙΠΤΟΝΤΑΙ από τον έλεγχο οικογένειας — μένουν εδώ ώστε το σφάλμα να
+    # λέει ΤΙ επιλέχθηκε κάποτε και γιατί ήταν λάθος, αντί για «καμία
+    # αντιστοίχιση». Και τα δύο είχαν επιλεγεί με κριτήριο τον πλούτο των
+    # δεδομένων: το salon έχει τα περισσότερα πεδία, ο παραγωγός το μεγαλύτερο
+    # story. Κανένα από τα δύο δεν είναι λόγος.
     "content": "farm", "music": "salon",
+}
+
+# ΟΙΚΟΓΕΝΕΙΑ ανά demo business. Δύο επιχειρήσεις είναι της ίδιας οικογένειας
+# όταν ένα site φτιαγμένο για τη μία στέκει νοηματικά και για την άλλη.
+DEMO_FAMILY = {
+    "physician": "health", "dentist": "health", "pharmacy": "health",
+    "massage": "wellness", "aesthetics": "wellness",
+    "salon": "beauty", "nails": "beauty",
+    "taverna": "food", "cafe": "food",
+    "retail": "retail", "realestate": "property", "rooms": "hospitality",
+    "plumber": "trades", "carpenter": "trades",
+    "garage": "automotive", "lawyer": "professional",
+    "gym": "fitness", "farm": "farm",
+}
+
+# ΟΙΚΟΓΕΝΕΙΑ ανά vertical πηγής. Ό,τι λείπει από εδώ ΔΕΝ έχει συμβατό demo.
+VERTICAL_FAMILY = {
+    "medical": "health", "dentist": "health", "pharmacy": "health",
+    "wellness": "wellness", "beauty": "beauty",
+    "food": "food", "cafe": "food",
+    "retail": "retail", "property": "property", "hospitality": "hospitality",
+    "trades": "trades", "construction": "trades",
+    "automotive": "automotive", "professional": "professional",
+    "fitness": "fitness", "farm": "farm",
 }
 
 
 class DemoMappingMissing(PortWorkerError):
     """Το vertical δεν έχει ρητή αντιστοίχιση σε demo business."""
+
+
+class DemoSemanticallyUnsupported(DemoMappingMissing):
+    """Υπάρχει demo με πλούσια δεδομένα — αλλά ανήκει σε ΑΛΛΗ οικογένεια.
+
+    Μετρήθηκε στο modern-musician: το vertical `music` αντιστοιχίστηκε στο
+    `salon` επειδή το κομμωτήριο έχει τα πλουσιότερα πεδία. Το αποτέλεσμα ήταν
+    εικονίδια μουσικής (νότα, βιντεοκάμερα) πάνω από «Κούρεμα & styling». Ο
+    έλεγχος ήταν συντακτικά έγκυρος και σημασιολογικά παράλογος.
+
+    Πλούσια αλλά άσχετα δεδομένα είναι ΧΕΙΡΟΤΕΡΑ από φτωχά αλλά σωστά: κρύβουν
+    τα πραγματικά ελαττώματα του theme πίσω από τον θόρυβο της αναντιστοιχίας.
+    """
 
 
 def demo_for(rec: dict[str, Any]) -> str:
@@ -548,8 +587,21 @@ def demo_for(rec: dict[str, Any]) -> str:
     γιατί το QA βγαίνει πράσινο πάνω σε λάθος σενάριο.
     """
     for v in rec.get("verticals", []):
-        if v in VERTICAL_DEMO:
-            return VERTICAL_DEMO[v]
+        if v not in VERTICAL_DEMO:
+            continue
+        demo = VERTICAL_DEMO[v]
+        # ΣΕΙΡΑ: πρώτα «ταιριάζει νοηματικά;», μετά «έχει αρκετά δεδομένα;».
+        # Ποτέ το αντίστροφο — αυτό γέννησε το music→salon.
+        want = VERTICAL_FAMILY.get(v)
+        got = DEMO_FAMILY.get(demo)
+        if want is None or got is None or want != got:
+            raise DemoSemanticallyUnsupported(
+                f"DEMO_SEMANTICALLY_UNSUPPORTED: το vertical «{v}» "
+                f"({want or 'χωρίς οικογένεια'}) δεν έχει συμβατό demo business· "
+                f"το «{demo}» ανήκει στην οικογένεια «{got or 'άγνωστη'}». "
+                "Καμία εφεδρεία: ούτε salon, ούτε farm, ούτε carpenter, και "
+                "ποτέ το demo με τα περισσότερα πεδία.")
+        return demo
     raise DemoMappingMissing(
         f"DEMO_MAPPING_MISSING: τα verticals {rec.get('verticals')} δεν έχουν "
         f"αντιστοίχιση στο VERTICAL_DEMO. Πρόσθεσέ την εκεί — δεν χρησιμοποιείται "
