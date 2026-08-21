@@ -90,6 +90,17 @@ function auditVisible() {
     .map((i) => i.currentSrc || i.src).slice(0, 4)
 
   const invisible = [], missingFont = new Set()
+  // Ποιο CSS module «κατέχει» ένα στοιχείο. Τα modules ονομάζουν τις κλάσεις
+  // `Component_name__hash`, οπότε το πρόθεμα είναι η ταυτότητα του ιδιοκτήτη.
+  // Χρειάζεται για να ξέρει ο port worker ΤΙ επιτρέπεται να αλλάξει: κείμενο
+  // μέσα σε κοινό component δεν διορθώνεται με CSS του theme.
+  const ownerOf = (el) => {
+    for (let n = el; n; n = n.parentElement) {
+      const c = (n.className || '').toString().split(' ').find((x) => /^[A-Za-z]+_/.test(x))
+      if (c) return c.split('_')[0]
+    }
+    return ''
+  }
 
   for (const el of document.querySelectorAll('a, button, h1, h2, h3, p, span, li')) {
     const box = el.getBoundingClientRect()
@@ -139,7 +150,7 @@ function auditVisible() {
     if (!fg) continue
     const text = el.textContent.trim().slice(0, 40)
     if (fg.a < 0.12) {
-      invisible.push({ tag: el.tagName, text, ratio: 'διάφανο' })
+      invisible.push({ tag: el.tagName, text, ratio: 'διάφανο', owner: ownerOf(el) })
       continue
     }
     // Κάτω από 3:1 δεν διαβάζεται ούτε σε μεγάλα γράμματα — δεν είναι θέμα
@@ -147,7 +158,10 @@ function auditVisible() {
     // σε σκόπιμα απαλά διακοσμητικά.)
     const L1 = lum(fg.rgb), L2 = lum(bg)
     const ratio = (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)
-    if (ratio < 3) invisible.push({ tag: el.tagName, text, ratio: ratio.toFixed(2) })
+    if (ratio < 3) {
+      invisible.push({ tag: el.tagName, text, ratio: ratio.toFixed(2), owner: ownerOf(el),
+                       bg: `rgb(${bg.join(',')})`, fg: st.color })
+    }
   }
   return { invisible, missingFont: [...missingFont], broken }
 }
@@ -196,7 +210,8 @@ const run = async () => {
 
       console.log(`  ${bad.length ? '✗' : '✓'} ${t.padEnd(11)} ${bad.join(' | ') || 'καθαρό'}`)
       invisible.slice(0, 6).forEach((v) =>
-        console.log(`      └ <${v.tag.toLowerCase()}> «${v.text}» αντίθεση ${v.ratio}`))
+        console.log(`      └ <${v.tag.toLowerCase()}> «${v.text}» αντίθεση ${v.ratio}`
+                    + (v.owner ? ` [owner:${v.owner}]` : '')))
       if (bad.length) problems.push(`${t}: ${bad.join(' | ')}`)
     } catch (e) {
       console.log(`  ✗ ${t.padEnd(11)} ${e.message.split('\n')[0]}`)

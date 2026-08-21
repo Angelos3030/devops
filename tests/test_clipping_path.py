@@ -36,7 +36,7 @@ class Ownership(unittest.TestCase):
 
     def test_shared_without_theme_parent_is_blocked(self) -> None:
         kind, _ = clip_finding({**SHARED, "target": ""}, "desktop", 1440, "KlassyTable")
-        self.assertEqual(kind, "BLOCKED_SHARED_COMPONENT")
+        self.assertEqual(kind, "BLOCKED_SHARED_COMPONENT_OWNERSHIP")
 
     def test_theme_owned_repairs_itself(self) -> None:
         own = {**SHARED, "sel": "KlassyTable_mapBox", "owner": "KlassyTable"}

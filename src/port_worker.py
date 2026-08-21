@@ -139,6 +139,99 @@ def sticky_lines(existing: list[str], text: str) -> list[str]:
     return out
 
 
+# Ποιο prop ελέγχει την παλέτα κάθε κοινού component. Μόνο αυτά έχουν μοχλό·
+# για τα υπόλοιπα ένα χρωματικό εύρημα δεν έχει theme-owned λύση.
+SHARED_PALETTE_PROP = {"FindUs": "dark", "Brand": "dark"}
+
+THEME_OWNED = "THEME_OWNED"
+SHARED_WITH_LEVER = "SHARED_COMPONENT"
+BLOCKED_OWNERSHIP = "BLOCKED_SHARED_COMPONENT_OWNERSHIP"
+
+
+def ownership_lever(owner: str, component: str, kind: str,
+                    target: str = "") -> tuple[str, str]:
+    """Ποιος κατέχει την αποτυχία και ΤΙ επιτρέπεται πραγματικά να αλλάξει.
+
+    Το `_validate` απαγορεύει σωστά στο μοντέλο να πειράξει κοινό component —
+    60+ themes το μοιράζονται. Άρα μια συνταγή που ζητά αλλαγή εκεί είναι
+    ανεκτέλεστη και καίει ολόκληρο το budget επιδιόρθωσης.
+
+    Μετρήθηκε δύο φορές, στους δύο άξονες:
+      · γεωμετρία — `.FindUs_mapBox` έκοβε τον σύνδεσμο οδηγιών· λύση ήταν ο
+        theme-owned γονέας που του έδινε στενή στήλη.
+      · παλέτα — το barber-shop έγραψε `<FindUs data={d} dark />` πάνω σε
+        φωτεινή επιφάνεια (#f0f8ff): 1.06:1. Χωρίς το prop, 15.40:1. Ο μοχλός
+        ήταν ΜΙΑ λέξη, και το μοντέλο απέτυχε τρεις φορές επειδή η συνταγή του
+        μιλούσε για χρώματα που δεν του ανήκαν.
+
+    Επιστρέφει (ΤΑΞΙΝΟΜΗΣΗ, περιγραφή μοχλού).
+    """
+    nl = chr(10)
+    if not owner or owner == component:
+        return THEME_OWNED, ""
+    if kind == "palette":
+        prop = SHARED_PALETTE_PROP.get(owner)
+        if not prop:
+            return BLOCKED_OWNERSHIP, (
+                f"Το «{owner}» δεν εκθέτει prop παλέτας· το theme δεν έχει τρόπο "
+                "να αλλάξει τα χρώματά του.")
+        return SHARED_WITH_LEVER, nl.join([
+            f"  ΙΔΙΟΚΤΗΣΙΑ: το κείμενο ανήκει στο κοινό «{owner}» — ΜΗΝ πειράξεις "
+            f"το {owner}.module.css, δεν σου ανήκει.",
+            f"  ΕΚΤΕΛΕΣΙΜΟΣ ΜΟΧΛΟΣ: το prop «{prop}» στην κλήση "
+            f"<{owner} data={{d}} ... />.",
+            f"  Το «{prop}» επιλέγει σκούρα παλέτα. Πρέπει να ΤΑΙΡΙΑΖΕΙ με την "
+            "επιφάνεια όπου το τοποθετείς: σκούρα ενότητα → με το prop, φωτεινή "
+            "ενότητα → χωρίς αυτό. Άλλαξε το prop, όχι τα χρώματα.",
+        ])
+    if kind == "geometry":
+        if not target:
+            return BLOCKED_OWNERSHIP, (
+                f"Το «{owner}» είναι κοινό και δεν υπάρχει γονέας του theme που "
+                "να μπορεί να το λύσει.")
+        return SHARED_WITH_LEVER, nl.join([
+            f"  ΙΔΙΟΚΤΗΣΙΑ: το στοιχείο ανήκει στο κοινό «{owner}» — ΜΗΝ το πειράξεις.",
+            f"  ΕΚΤΕΛΕΣΙΜΟΣ ΜΟΧΛΟΣ: .{target} (δικό σου) — δώσε στο κοινό "
+            "component αρκετό χώρο.",
+        ])
+    return BLOCKED_OWNERSHIP, f"Άγνωστο είδος ευρήματος «{kind}» για το «{owner}»."
+
+
+def appearance_prescription(app: dict[str, Any], component: str) -> tuple[str, bool]:
+    """Συνταγή για ευρήματα εμφάνισης — και ΑΝ υπάρχει κάτι εκτελέσιμο.
+
+    Δεύτερη τιμή: False όταν κάθε εύρημα ανήκει σε κοινό component χωρίς
+    theme-owned μοχλό. Τότε δεν έχει νόημα άλλη απόπειρα: το barber-shop έκαψε
+    τρεις γύρους ζητώντας από το μοντέλο να αλλάξει χρώματα που δεν του ανήκαν.
+    """
+    nl = chr(10)
+    lines, actionable, blocked = [], False, []
+    for problem in app.get("problems") or []:
+        owner = ""
+        m = re.search(r"\[owner:([A-Za-z]+)\]", problem)
+        if m:
+            owner = m.group(1)
+        lines.append(problem)
+        if not owner or owner == component:
+            actionable = True          # δικό του CSS — κανονική διόρθωση
+            continue
+        kind, lever = ownership_lever(owner, component, "palette")
+        if kind == SHARED_WITH_LEVER:
+            actionable = True
+            lines.append(lever)
+        else:
+            blocked.append(f"{owner}: {lever}")
+    if blocked and not actionable:
+        return (nl.join(["--- ΕΜΦΑΝΙΣΗ: ΑΔΥΝΑΤΗ ΔΙΟΡΘΩΣΗ ---", *lines, *blocked]), False)
+    tail = [
+        "ΑΟΡΑΤΟ ΚΕΙΜΕΝΟ: δώσε χρώμα που διαβάζεται πάνω στο ΠΡΑΓΜΑΤΙΚΟ φόντο του",
+        "στοιχείου· πρόσεξε την ΕΙΔΙΚΟΤΗΤΑ — `.root a` (0,2,0) υπερισχύει του",
+        "`.heroButton` (0,1,0), γι' αυτό τα resets γράφονται `.root :where(a)`.",
+        "ΓΡΑΜΜΑΤΟΣΕΙΡΑ: μόνο όσες δηλώνει το συμβόλαιο ως self-hosted.",
+    ]
+    return (nl.join(["--- ΕΜΦΑΝΙΣΗ ΣΕ ΠΡΑΓΜΑΤΙΚΟ BROWSER ---", *lines, *tail]), True)
+
+
 def clip_finding(item: dict[str, Any], viewport: str, width: int,
                  component: str) -> tuple[str, str]:
     """Ταξινόμηση ιδιοκτησίας + ντετερμινιστική συνταγή για ΕΝΑ αποκομμένο πλαίσιο.
@@ -168,24 +261,15 @@ def clip_finding(item: dict[str, Any], viewport: str, width: int,
         "  Το κείμενο πρέπει να μείνει ορατό και χρησιμοποιήσιμο.",
     ])
 
-    if owner and owner != component:
-        if not target:
-            return ("BLOCKED_SHARED_COMPONENT", nl.join([
-                head,
-                f"  Το .{sel} ανήκει στο κοινό component «{owner}» και ΔΕΝ υπάρχει",
-                "  γονέας του theme που να μπορεί να το λύσει.",
-            ]))
-        return ("SHARED_COMPONENT", nl.join([
-            head,
-            f"  ΙΔΙΟΚΤΗΣΙΑ: το .{sel} ανήκει στο κοινό «{owner}» — ΜΗΝ το πειράξεις.",
-            f"  ΕΠΙΤΡΕΠΤΟΣ ΣΤΟΧΟΣ: .{target} (δικό σου). Δώσε στο κοινό component",
-            "  αρκετό πλάτος/ύψος — π.χ. ολόκληρη τη γραμμή αντί για στενή στήλη —",
-            "  ώστε να χωρά το περιεχόμενό του.",
-            forbid,
-        ]))
-    return ("THEME_OWNED", nl.join([
+    kind, lever = ownership_lever(owner, component, "geometry", target)
+    if kind == BLOCKED_OWNERSHIP:
+        return kind, nl.join([head, "  " + lever])
+    if kind == SHARED_WITH_LEVER:
+        return kind, nl.join([head, lever, forbid])
+    return THEME_OWNED, nl.join([
         head, f"  ΕΠΙΤΡΕΠΤΟΣ ΣΤΟΧΟΣ: .{sel} (δικό σου).", forbid,
-    ]))
+    ])
+
 
 
 def _appearance(theme_key: str, biz: str, port: int) -> dict[str, Any]:
@@ -1018,11 +1102,21 @@ def port_source(source_id: str) -> dict[str, Any]:
             parts.append(rx or _actionable(k, v["log"]))
         render_rx = _render_prescription(vit, orig_imgs, rec["component"])
         app = vit.get("appearance") or {}
+        app_blocked = False
         if app and not app.get("passed", True):
-            parts.append("--- ΕΜΦΑΝΙΣΗ ΣΕ ΠΡΑΓΜΑΤΙΚΟ BROWSER ---\n" + "\n".join(app.get("problems") or []) + "\nΑΟΡΑΤΟ ΚΕΙΜΕΝΟ: δώσε χρώμα που διαβάζεται πάνω στο ΠΡΑΓΜΑΤΙΚΟ φόντο του στοιχείου· πρόσεξε την ΕΙΔΙΚΟΤΗΤΑ — `.root a` (0,2,0) υπερισχύει του `.heroButton` (0,1,0), γι' αυτό τα resets γράφονται `.root :where(a)`.\nΓΡΑΜΜΑΤΟΣΕΙΡΑ: μόνο όσες δηλώνει το συμβόλαιο ως self-hosted.")
+            text, actionable = appearance_prescription(app, rec["component"])
+            parts.append(text)
+            app_blocked = not actionable
+            if app_blocked:
+                res.setdefault("shared_component_blockers", []).append(
+                    {"kind": "palette", "detail": text[:300]})
         if render_rx:
             parts.append("--- ΜΗΧΑΝΙΚΑ ΕΥΡΗΜΑΤΑ ΑΠΟΔΟΣΗΣ ---\n" + render_rx)
         if not parts:
+            break
+        if app_blocked and not failed and not render_rx:
+            # Κάθε εύρημα ανήκει σε κοινό component χωρίς theme-owned μοχλό.
+            # Άλλη απόπειρα θα ζητούσε ξανά το αδύνατο.
             break
 
         res.setdefault("repair_attempts", []).append(
@@ -1110,7 +1204,7 @@ def port_source(source_id: str) -> dict[str, Any]:
             render_problems.append(
                 f"{label}: αποκομμένο περιεχόμενο [{kind}] .{item.get('sel')} — "
                 f"{item.get('hidden')}px κρυμμένα ({lost})")
-            if kind == "BLOCKED_SHARED_COMPONENT":
+            if kind == BLOCKED_OWNERSHIP:
                 res.setdefault("shared_component_blockers", []).append(
                     {"viewport": label, "selector": item.get("sel"),
                      "owner": item.get("owner")})
