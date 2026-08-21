@@ -1,0 +1,125 @@
+{
+  "task_id": "stabilization-3",
+  "rejected": [
+    {
+      "name": "Sweet Bakery",
+      "relevance": "REJECT",
+      "reason": "Duplicate - already used by Vitrina",
+      "reference": "https://www.tooplate.com/view/2168-sweet-bakery"
+    },
+    {
+      "name": "Orbital 3D Carousel",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - 3D gallery, not local business",
+      "reference": "https://www.tooplate.com/view/2167-orbital"
+    },
+    {
+      "name": "Ivory Flow",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - luxury e-commerce boutique",
+      "reference": "https://www.tooplate.com/view/2166-ivory-flow"
+    },
+    {
+      "name": "Neon Carbon",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - SaaS dashboard template",
+      "reference": "https://www.tooplate.com/view/2165-neon-carbon"
+    },
+    {
+      "name": "Compass Travel",
+      "relevance": "LOW",
+      "reason": "Travel template, not hotel/rooms specifically",
+      "reference": "https://www.tooplate.com/view/2164-compass"
+    },
+    {
+      "name": "Spectrum",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - fashion label template",
+      "reference": "https://www.tooplate.com/view/2163-spectrum"
+    },
+    {
+      "name": "Stackcraft",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - developer portfolio template",
+      "reference": "https://www.tooplate.com/view/2162-stackcraft"
+    },
+    {
+      "name": "Vora Bold Black",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - design studio/agency template",
+      "reference": "https://www.tooplate.com/view/2161-vora-bold"
+    },
+    {
+      "name": "Character",
+      "relevance": "LOW",
+      "reason": "Generic one-page, not specific to target categories",
+      "reference": "https://www.tooplate.com/view/2110-character"
+    },
+    {
+      "name": "Admin Dashboard",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - admin dashboard template",
+      "reference": "https://www.tooplate.com/view/2108-dashboard"
+    },
+    {
+      "name": "New Spot One-page",
+      "relevance": "LOW",
+      "reason": "Generic one-page, not specific to target categories",
+      "reference": "https://www.tooplate.com/view/2107-new-spot"
+    },
+    {
+      "name": "Soft Landing Page",
+      "relevance": "LOW",
+      "reason": "Generic landing page, not specific to target categories",
+      "reference": "https://www.tooplate.com/view/2106-soft-landing"
+    },
+    {
+      "name": "Central Bootstrap 4",
+      "relevance": "LOW",
+      "reason": "Generic one-page, not specific to target categories",
+      "reference": "https://www.tooplate.com/view/2103-central"
+    },
+    {
+      "name": "Artist Minimal Page",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - artist portfolio template",
+      "reference": "https://www.tooplate.com/view/2100-artist"
+    },
+    {
+      "name": "Individual",
+      "relevance": "LOW",
+      "reason": "Generic parallax template, not specific to target categories",
+      "reference": "https://www.tooplate.com/view/2096-individual"
+    },
+    {
+      "name": "Invent",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - IT solutions template",
+      "reference": "https://untree.co/free-templates/invent-free-bootstrap-template-for-it-solutions/"
+    },
+    {
+      "name": "MinimalFolio",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - portfolio template",
+      "reference": "https://untree.co/free-templates/minimal-free-bootstrap-portfolio-template/"
+    },
+    {
+      "name": "iLanding",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - landing page template",
+      "reference": "https://untree.co/free-templates/landing-free-bootstrap-4-template-for-landing-pages/"
+    },
+    {
+      "name": "TheProperty",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - real estate template",
+      "reference": "https://untree.co/free-templates/property-free-bootstrap-real-estate-template/"
+    },
+    {
+      "name": "Blogy",
+      "relevance": "REJECT",
+      "reason": "Wrong domain - blog template",
+      "reference": "https://untree.co/free-templates/blogy-free-bootstrap-blog-template/"
+    }
+  ]
+}
