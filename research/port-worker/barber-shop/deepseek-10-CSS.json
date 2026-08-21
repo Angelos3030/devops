@@ -1,0 +1,7 @@
+{
+  "theme_key": "barber-sidebar",
+  "component": "BarberSidebar",
+  "files": [
+    {
+      "path": "sites/lib/templates/BarberSidebar.module.css",
+      "content": ".root {\n  --vt-surface: #ffffff;\n  --vt-surface-2: #f0f8ff;\

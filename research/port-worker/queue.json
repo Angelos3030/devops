@@ -265,7 +265,7 @@
    "name": "Barber Shop (Templatemo)",
    "source_url": "https://templatemo.com/tm-586-barber-shop",
    "decision": "PORT_OK",
-   "status": "PENDING",
+   "status": "FAILED",
    "license": "Templatemo/Tooplate — εμπορική χρήση, credit αφαιρείται ρητά (research/verticals/LICENSE-MAP.md).",
    "provenance": "Studio, δικό του template.",
    "asset_restrictions": "Οι φωτογραφίες του πρωτοτύπου ΔΕΝ μεταφέρονται — μόνο d.gallery.",
@@ -308,9 +308,13 @@
     "«32% Discount» + promo code — δεν υπάρχει μοντέλο προσφορών",
     "οι δύο κουρείς — team μόνο με REAL_OWNER_PERSON"
    ],
-   "updated_at": "2026-08-21T00:45:00+00:00",
+   "updated_at": "2026-08-21T02:00:26+00:00",
    "result": "research\\port-worker\\barber-shop\\result.json",
-   "last_run_note": "2026-08-21: το run ΤΕΡΜΑΤΙΣΤΗΚΕ ΑΠΟ ΤΟΝ VALIDATOR στα 758s, όχι από τον worker. Ο worker προχωρούσε κανονικά — payloads 00:47:06, 00:50:23, 00:53:02, 00:56:54, σταθερός ρυθμός ~3 λεπτών. Η διακοπή στηρίχθηκε σε ελαττωματικό σήμα προόδου (μέτρηση artifacts + ηλικία socket). ΔΕΝ αποτελεί αποτυχία του theme ούτε του worker."
+   "last_run_note": "2026-08-21: το run ΤΕΡΜΑΤΙΣΤΗΚΕ ΑΠΟ ΤΟΝ VALIDATOR στα 758s, όχι από τον worker. Ο worker προχωρούσε κανονικά — payloads 00:47:06, 00:50:23, 00:53:02, 00:56:54, σταθερός ρυθμός ~3 λεπτών. Η διακοπή στηρίχθηκε σε ελαττωματικό σήμα προόδου (μέτρηση artifacts + ηλικία socket). ΔΕΝ αποτελεί αποτυχία του theme ούτε του worker.",
+   "failure_class": "SYSTEMIC_WORKER_FAILURE",
+   "validator": "Claude 2026-08-21",
+   "validated": "6 αόρατα κείμενα (1.06–1.07), ΟΛΑ μέσα στο κοινό FindUs. Αιτία: το theme περνά <FindUs data={d} dark /> ενώ το .contact έχει background var(--vt-surface-2) — φωτεινή επιφάνεια. Το dark ορίζει --fu-ink #f2f0ea, άρα λευκό σε λευκό. Ο μόνος μοχλός του μοντέλου ήταν η αφαίρεση της λέξης «dark»· η συνταγή για αόρατο κείμενο μιλά μόνο για χρώμα και ειδικότητα και ποτέ για ιδιοκτησία παλέτας κοινού component. Ίδια κατηγορία με το κενό ιδιοκτησίας που έκλεισε για το clipping — ο χρωματικός του δίδυμος.",
+   "detection_note": "Οι πύλες δούλεψαν άψογα: εντοπισμός, 3 REJECTED, 3 rollbacks, μηδέν χειροκίνητη διάσωση."
   },
   "klassy-cafe": {
    "name": "Klassy Cafe (Templatemo)",
