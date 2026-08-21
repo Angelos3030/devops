@@ -1,4 +1,4 @@
-import { AreaFirst, HorizontalStory, PriceFirst, ChapterSnap, DirectoryIndex, VerticalSnap } from './CafeCollection'
+import { AreaFirst, HorizontalStory, PriceFirst, ChapterSnap, DirectoryIndex, VerticalSnap } from './CapabilitySystems'
 import MosoShowroom from './MosoShowroom'
 import CleanService from './CleanService'
 import KlassyTable from './KlassyTable'
