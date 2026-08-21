@@ -1,12 +1,12 @@
 {
  "tag": "vitrina",
  "desktop": {
-  "height": 4695,
+  "height": 4978,
   "overflow": 0,
-  "images": 6,
+  "images": 12,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 7,
+  "smallTaps": 9,
   "duplicateHeadings": [],
   "innerOverflow": [],
   "clipped": [],
@@ -14,20 +14,14 @@
   "errorSamples": []
  },
  "mobile": {
-  "height": 5892,
-  "overflow": 25,
-  "images": 6,
+  "height": 6651,
+  "overflow": 0,
+  "images": 12,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 8,
+  "smallTaps": 9,
   "duplicateHeadings": [],
-  "innerOverflow": [
-   "div.theme_scope__JUmd6 +25px",
-   "div.BarberSidebar_root__NNZ9v +25px",
-   "main.BarberSidebar_main__QPYCK +25px",
-   "section.BarberSidebar_section__AXt6R +25px",
-   "div.BarberSidebar_container__B1_T_ +49px"
-  ],
+  "innerOverflow": [],
   "clipped": [],
   "consoleErrors": 0,
   "errorSamples": []
