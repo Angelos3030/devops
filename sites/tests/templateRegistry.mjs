@@ -26,8 +26,6 @@ const SHARED = new Set([
   'MasterCinematic', 'MasterEditorial', 'MasterSpatial', 'CapabilitySystems','Brand', 'CallBar', 'FindUs', 'MapEmbed', 'MediaDisclosure', 'SocialLinks'])
 // Themes που προσφέρονται αλλά δεν προτείνονται σε κανένα vertical, με λόγο.
 const UNPROFILED = {
-  'aegis-dental': 'Port worker proof — εκκρεμεί οπτική έγκριση πριν προταθεί σε πελάτη.',
-  'modern-musician': 'ΚΟΠΗΚΕ στο design_guard: 34 αόρατα κείμενα (γκρι σε γκρι). Δεν προτείνεται σε πελάτη — παραμένει μόνο ως τεκμήριο του port worker.',
   'moso-interior': 'Port worker proof — εκκρεμεί οπτική έγκριση πριν προταθεί σε πελάτη.',
   'clean-work': 'Port worker proof — εκκρεμεί οπτική έγκριση πριν προταθεί σε πελάτη.',
   'klassy-cafe': 'Port worker proof — εκκρεμεί οπτική έγκριση πριν προταθεί σε πελάτη.',

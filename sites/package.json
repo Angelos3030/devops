@@ -13,10 +13,9 @@
     "qa:journey": "node tests/journey.mjs",
     "qa:visual": "node tests/visualJourney.mjs",
     "qa:release": "npm run qa:spine && npm run qa:trust && npm run qa:registry && npm run qa:profiles && npm run qa:verticals && npm run qa:editor && npm run build",
-    "qa:spine": "node tests/spine_guard.mjs",
     "qa:registry": "node tests/templateRegistry.mjs",
-    "qa:trust": "node tests/trust_guard.mjs"
-    ,"qa:capabilities": "node tests/capabilitySystems.mjs"
+    "qa:trust": "node tests/trust_guard.mjs",
+    "qa:capabilities": "node tests/capabilitySystems.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",
