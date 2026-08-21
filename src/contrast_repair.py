@@ -35,10 +35,23 @@ def luminance(hex_colour: str) -> float:
     return 0.2126 * _srgb(r) + 0.7152 * _srgb(g) + 0.0722 * _srgb(b)
 
 
-def contrast(fg: str, bg: str) -> float:
+def raw_ratio(fg: str, bg: str) -> float:
+    """Η αναλογία ΧΩΡΙΣ στρογγυλοποίηση — αυτή που κρίνει, όχι αυτή που δείχνει.
+
+    Μετρήθηκε στο AegisDental: το ζεύγος `line/surface` είχε πραγματική τιμή
+    1.1996. Ο guard σε JavaScript το έκοβε (< 1.2), ενώ η `contrast()` εδώ το
+    στρογγυλοποιούσε σε 1.2 και ο solver απαντούσε «περνά ήδη». Αποτέλεσμα:
+    παράβαση που ο guard αναφέρει και ο διορθωτής αρνείται να αγγίξει —
+    αδιέξοδο σε κάθε οριακή περίπτωση.
+    """
     a, b = luminance(fg), luminance(bg)
     hi, lo = max(a, b), min(a, b)
-    return round((hi + 0.05) / (lo + 0.05), 2)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+def contrast(fg: str, bg: str) -> float:
+    """Στρογγυλοποιημένη τιμή ΓΙΑ ΑΝΑΦΟΡΑ. Οι αποφάσεις παίρνονται με raw_ratio."""
+    return round(raw_ratio(fg, bg), 2)
 
 
 def token_value(css: str, token: str) -> str | None:
@@ -116,10 +129,11 @@ JSON only: {{"token":"--vt-{fg_token}","value":"#RRGGBB"}}"""
 
 def verify(candidate: str, bg_value: str, required: float) -> tuple[bool, float]:
     try:
-        ratio = contrast(candidate, bg_value)
+        raw = raw_ratio(candidate, bg_value)
     except Exception:  # noqa: BLE001
         return False, 0.0
-    return ratio >= required, ratio
+    # Κρίνει το αστρογγυλοποίητο, αναφέρει το στρογγυλοποιημένο.
+    return raw >= required, round(raw, 2)
 
 
 # Κατηγορίες αποτυχίας. ΚΑΜΙΑ δεν γράφει στον δίσκο.
@@ -215,7 +229,7 @@ def solve(fg_value: str, bg_value: str, required: float,
     """
     if not (_HEX.match(fg_value.strip()) and _HEX.match(bg_value.strip())):
         return None, "μη έγκυρο hex στην είσοδο"
-    if contrast(fg_value, bg_value) >= required:
+    if raw_ratio(fg_value, bg_value) >= required:
         return None, "NO_CHANGE — το ζεύγος ήδη περνά"
 
     # Μικρό περιθώριο: ο guard στρογγυλοποιεί στα 2 δεκαδικά και μια λύση
@@ -229,12 +243,12 @@ def solve(fg_value: str, bg_value: str, required: float,
     # Τρία από τα τέσσερα ζεύγη του theme ήταν άλυτα για τον ίδιο λόγο.
     solutions: list[float] = []
     for target in (0.0, 1.0):
-        if contrast(from_hsl(hue, sat, target), bg_value) < required:
+        if raw_ratio(from_hsl(hue, sat, target), bg_value) < required:
             continue
         lo, hi = light, target      # lo δεν περνά, hi περνά
         for _ in range(steps):
             mid = (lo + hi) / 2
-            if contrast(from_hsl(hue, sat, mid), bg_value) >= required:
+            if raw_ratio(from_hsl(hue, sat, mid), bg_value) >= required:
                 hi = mid
             else:
                 lo = mid

@@ -61,7 +61,18 @@ for (const [label, w, h] of [['desktop', 1440, 1024], ['mobile', 390, 844]]) {
     await pg.addStyleTag({
       content: `[data-aos],.wow,.animate-box,.fadeIn,.fadeInUp,.fadeInLeft,.fadeInRight,
         .animated,.reveal,[class*="animate__"]{opacity:1!important;visibility:visible!important;
-        transform:none!important;animation:none!important;transition:none!important}`,
+        transform:none!important;animation:none!important;transition:none!important}
+        /* Τα παραπάνω είναι ονόματα κλάσεων των wow.js/AOS. Τα ΣΥΓΧΡΟΝΑ
+           scroll-driven animations (animation-timeline: view()) μπαίνουν σε
+           οποιαδήποτε κλάση CSS module, οπότε καμία λίστα ονομάτων δεν τα
+           πιάνει. Μετρήθηκε στο AegisDental: οι τέσσερις κάρτες υπηρεσιών
+           υπήρχαν με σωστό κείμενο και μέγεθος 604x165, αλλά φωτογραφήθηκαν με
+           opacity 0 — γιατί το scroll loop γυρίζει στην κορυφή πριν τη λήψη και
+           το view() ξαναμηδενίζεται. Η σελίδα έβγαινε ΚΕΝΗ και καθαρή σε κάθε
+           μετρική. Καθολικός μηδενισμός: κάθε στοιχείο αποτυπώνεται στην
+           κατάσταση ηρεμίας του, που είναι και η κατάσταση που βλέπει όποιος
+           έχει prefers-reduced-motion. */
+        *,*::before,*::after{animation:none!important;transition:none!important}`,
     })
     await pg.evaluate(async () => {
       for (let y = 0; y < document.body.scrollHeight; y += 600) {
@@ -125,7 +136,14 @@ for (const [label, w, h] of [['desktop', 1440, 1024], ['mobile', 390, 844]]) {
           // όχι για κάθε στοιχείο που ξεπερνά το πλαίσιο του γονέα του.
           for (let n = e; n; n = n.parentElement) {
             const c = getComputedStyle(n).overflowX
-            if (c === 'hidden' || c === 'clip' || c === 'auto' || c === 'scroll') return true
+            // ΚΥΛΙΟΜΕΝΟΣ πρόγονος ≠ πρόγονος που ΚΟΒΕΙ. Το `auto`/`scroll`
+            // σημαίνει ότι ο χρήστης ΦΤΑΝΕΙ το περιεχόμενο — carousel με
+            // scroll-snap, ακριβώς το μοτίβο που ζητά το brief αλληλεπίδρασης.
+            // Μετρήθηκε στο AegisDental: το εσωτερικό .sliderTrack αναφερόταν
+            // ως υπερχείλιση 4482px επειδή ο κυλιόμενος γονέας μετρούσε σαν
+            // να έκρυβε. Κάθε theme με slider θα χτυπούσε.
+            if (c === 'auto' || c === 'scroll') return false
+            if (c === 'hidden' || c === 'clip') return true
           }
           return document.documentElement.scrollWidth >
                  document.documentElement.clientWidth
