@@ -30,8 +30,8 @@ OUT_DIR = os.path.join(ROOT, "sites", "public", "fonts")
 OUT_CSS = os.path.join(ROOT, "sites", "app", "fonts.css")
 
 # Η πηγή της αλήθειας για το ποια fonts υπάρχουν. Αν προσθέσεις font σε template,
-# πρόσθεσέ το ΚΑΙ εδώ και ξανατρέξε — αλλιώς το template πέφτει σιωπηλά σε Arial.
-# Το sites/tests/design_guard.mjs το πιάνει αν ξεχαστεί.
+# πρόσθεσέ το ΚΑΙ εδώ και ξανατρέξε — αλλιώς το template πέφτει σιωπηλά σε Arial
+# και κανένας αυτόματος έλεγχος δεν το πιάνει πλέον.
 FAMILIES = [
     "Anton",
     "Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400",

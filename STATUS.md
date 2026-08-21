@@ -3,6 +3,40 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+
+## 🟢 ΤΡΕΧΟΥΣΑ ΚΑΤΑΣΤΑΣΗ (2026-08-21) — απλοποίηση: το υποσύστημα theme αφαιρέθηκε
+
+Σκόπιμη απλοποίηση από τον owner. Διαγράφηκαν **530 αρχεία**: όλη η μηχανή που
+υπήρχε μόνο για να παράγει, να μεταφέρει, να επικυρώνει και να επιδιορθώνει
+themes.
+
+**Δεν υπάρχουν πλέον:** port worker και theme porting · αυτόνομη παραγωγή theme ·
+`spine_guard`, `design_guard`, clipping/contrast guards · συναλλακτικοί βρόχοι
+επιδιόρθωσης με rollback · pipeline ανακάλυψης templates · benchmark και
+πειράματα Kimi · τα research artifacts που τα υποστήριζαν.
+
+**Τι έμεινε και δουλεύει:**
+
+| | |
+|---|---|
+| Themes | **64**, δηλωμένα και ελεγμένα από το `templateRegistry.mjs` |
+| Demo δεδομένα | `sites/lib/demoData.js` — 18 verticals, preview με `?biz=<key>` |
+| Έλεγχοι προϊόντος | `templateRegistry`, `trust_guard`, `production_qa`, editor/journey/vertical QA |
+| Backend | FastAPI, Supabase, auth, deployment, domains, analytics, routing |
+| Έρευνα | `scripts/research.py` + `src/research_worker.py` (γενικής χρήσης) |
+
+**Κατάσταση μετά τη διαγραφή:** `next build` περνά · `templateRegistry` και
+`trust_guard` πράσινα · 125 python tests με 24 αποτυχίες, όλες οι προϋπάρχουσες
+του `test_vertical_routing` — καμία από τη διαγραφή.
+
+**Το κενό που δημιουργήθηκε, ρητά:** δεν υπάρχει αυτόματος έλεγχος αντίθεσης
+χρωμάτων ή αόρατου κειμένου για τα 64 ζωντανά themes. Πριν τη διαγραφή, αυτοί
+οι έλεγχοι είχαν εντοπίσει αόρατο τηλέφωνο στο villa-agency και κείμενο σε
+αναλογία 1.00 στο frost-bakery. Η ίδια κατηγορία σφάλματος μπορεί πλέον να
+φτάσει σε σελίδα πελάτη χωρίς να την πιάσει κανείς.
+
+**Επόμενο:** redesign της δημόσιας αρχικής του Vitrina. Δεν έχει ξεκινήσει.
+
 ## ADR-0005: production-pilot plan γραμμένο, production ΠΑΡΑΜΕΝΕΙ ανενεργό (2026-08-13)
 
 - Και τα 4 pre-production controls που ζητήθηκαν είναι έτοιμα:
@@ -1291,8 +1325,9 @@ scripts/clone-skills.sh → κατεβάζει curated external skills
 - Κανένας agent δεν προσθέτει Pixel/Analytics/third-party embed στα customer sites.
 - Αν προστεθεί προαιρετικό tracking μόνο στη Vitrina, απαιτεί ξεχωριστό consent
   gate πριν φορτωθεί το script, ισότιμη απόρριψη και ενημέρωση της privacy policy.
-- Το `sites/tests/design_guard.mjs` παραμένει το τεχνικό quality gate: μηδενικά
-  cookies και μηδενικά αιτήματα προς Google/Meta στα sites πελατών.
+- Ο κανόνας μένει: μηδενικά cookies και μηδενικά αιτήματα προς Google/Meta στα
+  sites πελατών. Ο αυτόματος έλεγχος που τον επέβαλλε (`design_guard.mjs`)
+  διαγράφηκε στις 2026-08-21 — η τήρηση είναι πλέον ευθύνη του review.
 - Πλήρες pre-launch compliance gate: `docs/19-COMPLIANCE-LAUNCH.md`.
 - Προστέθηκαν drafts DPA, subprocessor register και incident runbook στο `legal/`.
 - Προστέθηκε δημόσια πολιτική ακυρώσεων/επιστροφών και ρητή αποδοχή recurring

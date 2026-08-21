@@ -28,15 +28,6 @@
 5. `skills/greek-website/SKILL.md`
 6. `skills/local-seo-gr/SKILL.md`
 7. `skills/brand-builder-gr/SKILL.md` και `skills/vitrina-logo-system/SKILL.md` όταν χρειάζεται brand/logo.
-8. `skills/vitrina-theme-builder/SKILL.md` **υποχρεωτικά** όταν δημιουργείται νέο theme/template.
-
-### Νέα themes: μόνο μέσω reference
-
-Trigger: `New theme | Vertical: dentist | Reference: https://…` → ακολούθησε
-`skills/vitrina-theme-builder/SKILL.md`. Μηχανική συλλογή πρώτα, compact ανάλυση
-(Keep/Adapt/Discard/Sections/Tokens/Customizable/Locked/Risks), **ρητή έγκριση**, μετά κώδικας.
-Απαγορεύεται theme «από έμπνευση» ή implementation πριν την έγκριση. Ποτέ proprietary κώδικας,
-λογότυπα, κείμενα ή φωτογραφίες — μόνο σχεδιαστική λογική.
 
 ## End-to-End Workflow
 
@@ -132,7 +123,7 @@ Trigger: `New theme | Vertical: dentist | Reference: https://…` → ακολο
 3. browser screenshots desktop και mobile,
 4. έλεγχος console errors και broken network assets,
 5. δοκιμή navigation, CTA, phone link και form flow,
-6. σύγκριση με το εγκεκριμένο concept/reference,
+6. σύγκριση με το εγκεκριμένο concept,
 7. καταγραφή QA με τελικό αποτέλεσμα `passed` πριν δοθεί link.
 
 Για τις **δικές μας** σελίδες (`web/`), μετά από κάθε deploy τρέχει υποχρεωτικά
@@ -147,20 +138,17 @@ Trigger: `New theme | Vertical: dentist | Reference: https://…` → ακολο
 Ένα theme δεν κρίνεται ποτέ με τα προεπιλεγμένα demo δεδομένα. Κρίνεται με το
 demo business του **δικού του** vertical.
 
-Μετρήθηκε: ο port worker απέδιδε ιατρικό theme (`medic-care`) με τις φωτογραφίες
-του **ξυλουργού** — κουζίνες μέσα σε ιατρείο, «Η Κλινική μας» πάνω από ντουλάπες.
-Κάθε μέτρηση εικόνων, ύψους, υπερχείλισης και κάθε οπτική κρίση γινόταν σε λάθος
-περιεχόμενο, και τα πραγματικά σφάλματα του theme κρύβονταν πίσω από τον θόρυβο
-της αναντιστοιχίας.
+Μετρήθηκε: ιατρικό theme αποδόθηκε με τις φωτογραφίες του **ξυλουργού** —
+κουζίνες μέσα σε ιατρείο, «Η Κλινική μας» πάνω από ντουλάπες. Κάθε μέτρηση
+εικόνων, ύψους και υπερχείλισης γινόταν σε λάθος περιεχόμενο, και τα πραγματικά
+σφάλματα κρύβονταν πίσω από τον θόρυβο της αναντιστοιχίας.
 
 Το preview route δέχεται `?biz=<key>`. Διαθέσιμα:
 `carpenter · taverna · salon · nails · dentist · physician · pharmacy ·
 aesthetics · massage · cafe · retail · realestate · lawyer · plumber · rooms ·
-gym · garage · farm`.
+gym · garage · farm`. Ορίζονται στο `sites/lib/demoData.js`.
 
-Ο κανόνας ισχύει παντού: screenshots, design QA, fidelity σύγκριση, browser
-έλεγχος. Η αντιστοίχιση vertical→demo ζει στο `VERTICAL_DEMO` του
-`src/port_worker.py` και επεκτείνεται εκεί όταν προστίθεται vertical.
+Ο κανόνας ισχύει παντού: screenshots, οπτικός έλεγχος, σύγκριση, browser QA.
 
 ### 8. Έγκριση, αποθήκευση και live
 
@@ -229,13 +217,13 @@ site — γιατί η διαδρομή χτίζεται με `Path` segments κ
 
 ## Μαζική έρευνα → DeepSeek worker
 
-Μεγάλες, read-only εργασίες ανακάλυψης (GitHub repos, theme references, ανταγωνιστές,
+Μεγάλες, read-only εργασίες ανακάλυψης (GitHub repos, ανταγωνιστές,
 αρχιτεκτονικά patterns, license research) περνάνε πρώτα από τον DeepSeek worker
 (`scripts/research.py`, υλοποίηση στο `src/research_worker.py`) — όχι απευθείας από
 το Claude. Το Claude διαβάζει το `research/<task-id>/summary.md`, επικυρώνει τα
 σημαντικά συμπεράσματα και αποφασίζει/υλοποιεί· δεν ξαναρχίζει την ίδια έρευνα από
 την αρχή. Production αλλαγές, migrations, security review και ενεργά refactors
-(π.χ. το τρέχον Spine migration) μένουν πάντα στο Claude.
+μένουν πάντα στο Claude.
 
 ## Συντονισμός agents
 

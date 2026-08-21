@@ -175,8 +175,7 @@ export const TEMPLATE_META = {
     category: 'trade', style: 'urgent-utility',
     /* Το palette ήταν `false` επειδή το theme όντως έσπαγε: το amber δούλευε ως
        φόντο κουμπιού και ήταν αδιάβαστο ως κείμενο. Μετά τη μετάβαση στο spine
-       οι δύο δουλειές είναι δύο ρόλοι και το `tests/spine_guard.mjs` επαληθεύει
-       την αντίθεση σε κάθε παλέτα — οπότε είναι πλέον αληθινά `true`.
+       οι δύο δουλειές είναι δύο ρόλοι — οπότε είναι πλέον αληθινά `true`.
        Το fontPair μένει `false`: η συμπυκνωμένη γραφή ΕΙΝΑΙ η ταυτότητα. */
     customizable: { palette: true, fontPair: false },
     variants: {},
