@@ -9,10 +9,9 @@
   "smallTaps": 22,
   "duplicateHeadings": [],
   "innerOverflow": [],
-  "consoleErrors": 1,
-  "errorSamples": [
-   "Failed to load resource: the server responded with a status of 404 ()"
-  ]
+  "clipped": [],
+  "consoleErrors": 0,
+  "errorSamples": []
  },
  "mobile": {
   "height": 6717,
@@ -23,6 +22,7 @@
   "smallTaps": 24,
   "duplicateHeadings": [],
   "innerOverflow": [],
+  "clipped": [],
   "consoleErrors": 0,
   "errorSamples": []
  }

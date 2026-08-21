@@ -733,6 +733,21 @@ def port_source(source_id: str) -> dict[str, Any]:
     if rec.get("decision") != "PORT_OK":
         raise PortWorkerError(
             f"{source_id}: decision={rec.get('decision')!r} — μόνο PORT_OK επιτρέπεται")
+    # Η ΣΗΜΑΣΙΟΛΟΓΙΚΗ συμβατότητα ελέγχεται ΠΡΙΝ από κάθε δαπάνη. Ο έλεγχος
+    # υπήρχε, αλλά έτρεχε μετά την παραγωγή και το σφάλμα καταπινόταν
+    # (`except DemoMappingMissing: _biz = ""`), οπότε ένα source με άσχετα
+    # δεδομένα έμπαινε κανονικά σε παραγωγή και μπλοκαριζόταν αφού είχαν ήδη
+    # ξοδευτεί οι κλήσεις. Ένα source δεν επιτρέπεται να μπει σε παραγωγή με
+    # περιεχόμενο άλλου επαγγέλματος.
+    try:
+        demo_for(rec)
+    except DemoMappingMissing as exc:
+        _set_state(source_id, "BLOCKED", blocked_reason=str(exc),
+                   failure_class=("DEMO_SEMANTICALLY_UNSUPPORTED"
+                                  if isinstance(exc, DemoSemanticallyUnsupported)
+                                  else "DEMO_MAPPING_MISSING"))
+        return {"source_id": source_id, "status": "BLOCKED", "reason": str(exc),
+                "spent_usd": 0.0}
     if rec.get("status") in ("DONE", "READY_FOR_REVIEW", "IN_REVIEW"):
         return {"source_id": source_id, "status": rec["status"], "skipped": "ήδη επεξεργασμένο"}
     tpl = SITES / "lib" / "templates" / f"{rec['component']}.jsx"
@@ -771,10 +786,7 @@ def port_source(source_id: str) -> dict[str, Any]:
     chat._safety_checks()
     res["model"] = chat._pass2_model
     contract = extract()
-    try:
-        _biz = demo_for(rec)
-    except DemoMappingMissing:
-        _biz = ""
+    _biz = demo_for(rec)   # ήδη επικυρωμένο στην αρχή· εδώ δεν μπορεί να αποτύχει
     user = (_contract(rec, contract, _biz) + "\n\n=== ORIGINAL index.html ===\n" + html
             + "\n\n=== ORIGINAL CSS ===\n" + css)
     # ΔΥΟ κλήσεις, όχι μία. Μετρήθηκε: ένα ολόκληρο theme (JSX+CSS) σε ένα JSON

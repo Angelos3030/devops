@@ -1,32 +1,28 @@
 {
  "tag": "vitrina",
  "desktop": {
-  "height": 5158,
+  "height": 4565,
   "overflow": 0,
-  "images": 6,
+  "images": 7,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 4,
+  "smallTaps": 8,
   "duplicateHeadings": [],
-  "innerOverflow": [
-   "section.BarberSidebar_hero__xio0_ +60px",
-   "div.BarberSidebar_priceListImageWrap___5FFB +13px"
-  ],
+  "innerOverflow": [],
+  "clipped": [],
   "consoleErrors": 0,
   "errorSamples": []
  },
  "mobile": {
-  "height": 5693,
+  "height": 4732,
   "overflow": 0,
-  "images": 6,
+  "images": 7,
   "broken": 0,
   "h1": 1,
-  "smallTaps": 4,
+  "smallTaps": 7,
   "duplicateHeadings": [],
-  "innerOverflow": [
-   "div.BarberSidebar_priceListImageWrap___5FFB +14px",
-   "div.BarberSidebar_contactBlockWrap__fR4Jk +10px"
-  ],
+  "innerOverflow": [],
+  "clipped": [],
   "consoleErrors": 0,
   "errorSamples": []
  }

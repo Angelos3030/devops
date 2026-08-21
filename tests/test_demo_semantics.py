@@ -91,3 +91,27 @@ class FailClosed(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class CheckedBeforeSpending(unittest.TestCase):
+    """Ένα source δεν επιτρέπεται να ΜΠΕΙ σε παραγωγή με άσχετα δεδομένα.
+
+    Ο έλεγχος υπήρχε αλλά έτρεχε μετά την παραγωγή, και το σφάλμα καταπινόταν
+    (`except DemoMappingMissing: _biz = ""`). Μετρήθηκε: το compass ξεκίνησε
+    κανονικά και έκανε κλήσεις DeepSeek για επτά λεπτά πριν μπλοκαριστεί —
+    ενώ ήταν σημασιολογικά άκυρο από την πρώτη γραμμή. Τώρα κόβεται σε μισό
+    δευτερόλεπτο, με μηδέν δαπάνη.
+    """
+
+    src = (ROOT / "src" / "port_worker.py").read_text(encoding="utf-8")
+
+    def test_mapping_is_validated_before_the_model_is_constructed(self) -> None:
+        check = self.src.index("        demo_for(rec)")
+        chat = self.src.index("chat = _Chat(source_id)")
+        self.assertLess(check, chat, "ο έλεγχος demo τρέχει μετά τη δαπάνη")
+
+    def test_the_swallowing_except_is_gone(self) -> None:
+        self.assertNotIn('except DemoMappingMissing:\n        _biz = ""', self.src)
+
+    def test_blocked_result_reports_zero_spend(self) -> None:
+        self.assertIn('"spent_usd": 0.0', self.src)

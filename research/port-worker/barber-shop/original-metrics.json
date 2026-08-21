@@ -9,12 +9,9 @@
   "smallTaps": 14,
   "duplicateHeadings": [],
   "innerOverflow": [
-   "section.hero-section +60px",
-   "div.booking-form-body +12px",
-   "div.container +19px",
-   "div.row +19px",
-   "div.col-lg-4 +18px"
+   "section.hero-section +60px"
   ],
+  "clipped": [],
   "consoleErrors": 0,
   "errorSamples": []
  },
@@ -26,13 +23,8 @@
   "h1": 1,
   "smallTaps": 16,
   "duplicateHeadings": [],
-  "innerOverflow": [
-   "div.booking-form-body +12px",
-   "div.container +14px",
-   "div.row +14px",
-   "div.col-lg-4 +14px",
-   "div.container +11px"
-  ],
+  "innerOverflow": [],
+  "clipped": [],
   "consoleErrors": 0,
   "errorSamples": []
  }
