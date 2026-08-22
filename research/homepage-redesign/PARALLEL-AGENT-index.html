@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vitrina — Το site της επιχείρησής σου, όπως του αξίζει</title>
+  <meta name="description" content="Επαγγελματική ιστοσελίδα για ελληνικές επιχειρήσεις: επιλεγμένα σχέδια ανά επάγγελμα, φιλοξενία, local SEO και απεριόριστες αλλαγές. €14.99/μήνα. Προαιρετικό .gr domain €24/έτος.">
+  <link rel="canonical" href="https://getvitrina.gr/">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="el_GR">
+  <meta property="og:url" content="https://getvitrina.gr/">
+  <meta property="og:site_name" content="Vitrina">
+  <meta property="og:title" content="Vitrina — Το site της επιχείρησής σου, όπως του αξίζει">
+  <meta property="og:description" content="Managed ιστοσελίδα για ελληνικές μικρές επιχειρήσεις: φιλοξενία, local SEO, απεριόριστες αλλαγές €14.99/μήνα. Προαιρετικό .gr domain €24/έτος.">
+  <meta property="og:image" content="https://getvitrina.gr/icon-1024.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vitrina — Το site της επιχείρησής σου, όπως του αξίζει">
+  <meta name="twitter:description" content="Managed ιστοσελίδα για μικρές επιχειρήσεις — €14.99/μήνα, όλα μέσα.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://getvitrina.gr/#org",
+        "name": "Vitrina",
+        "url": "https://getvitrina.gr/",
+        "logo": "https://getvitrina.gr/icon-1024.png",
+        "email": "hello@getvitrina.gr",
+        "areaServed": "GR"
+      },
+      {
+        "@type": "Product",
+        "name": "Vitrina Website",
+        "description": "Managed επαγγελματικό site για μικρές επιχειρήσεις: επιλεγμένα designs ανά επάγγελμα, domain .gr, φιλοξενία, local SEO, απεριόριστες αλλαγές.",
+        "brand": {"@id": "https://getvitrina.gr/#org"},
+        "offers": {
+          "@type": "Offer",
+          "price": "14.99",
+          "priceCurrency": "EUR",
+          "url": "https://getvitrina.gr/connect.html",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+    :root {
+      --gv-canvas:   #FAF9F5;
+      --gv-surface:  #FFFFFF;
+      --gv-ink:      #151412;
+      --gv-ink-2:    #4A4741;
+      --gv-ink-3:    #8A8580;
+      --gv-dark:     #0D0C0B;
+      --gv-dark-2:   #181614;
+      --gv-accent:   #E84D1C;
+      --gv-accent-h: #C93D0E;
+      --gv-line:     rgba(21,20,18,0.09);
+      --gv-line-d:   rgba(255,255,255,0.08);
+      /* Noto Serif Display (already in template assets) for display */
+      --f-display: 'Noto Serif Display', 'Georgia', serif;
+      /* Plus Jakarta Sans (self-hosted in project) for body/UI */
+      --f-body:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      color: var(--gv-ink);
+      background: var(--gv-canvas);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: 0; }
+    img { display: block; }
+
+    /* ─── NAV ────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 4vw, 48px);
+      height: 56px;
+      background: transparent;
+      transition: background 0.3s, backdrop-filter 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(250,249,245,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gv-line);
+    }
+    .nav-logo {
+      font-family: var(--f-display);
+      font-weight: 600;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s;
+    }
+    nav.scrolled .nav-logo { color: var(--gv-ink); }
+    nav.scrolled .nav-logo svg path { fill: var(--gv-ink); }
+    nav.scrolled .nav-logo svg rect.r1 { fill: var(--gv-accent); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .lang-switch {
+      display: flex;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px;
+      overflow: hidden;
+      font-size: 0.75rem;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled .lang-switch { border-color: var(--gv-line); }
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      padding: 4px 9px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 600;
+      font-family: var(--f-body);
+      font-size: 0.75rem;
+      transition: background 0.15s, color 0.15s;
+    }
+    nav.scrolled .lang-switch button { color: var(--gv-ink-2); background: var(--gv-surface); }
+    .lang-switch button.active {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    nav.scrolled .lang-switch button.active {
+      background: var(--gv-ink);
+      color: #fff;
+    }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 16px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      font-weight: 650;
+      font-size: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .nav-cta:hover { background: rgba(255,255,255,0.25); }
+    nav.scrolled .nav-cta {
+      background: var(--gv-accent);
+      color: #fff;
+      border-color: transparent;
+    }
+    nav.scrolled .nav-cta:hover { background: var(--gv-accent-h); }
+
+    /* ─── HERO — TRIPTYCH ─────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      display: grid;
+      grid-template-columns: 3fr 2fr 2fr;
+      overflow: hidden;
+    }
+    .hero-panel {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .hero-panel:hover img { transform: scale(1.03); }
+    .hero-panel .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hero-panel-left .overlay {
+      background: linear-gradient(
+        165deg,
+        rgba(13,12,11,0.18) 0%,
+        rgba(13,12,11,0.52) 60%,
+        rgba(13,12,11,0.76) 100%
+      );
+    }
+    .hero-panel:not(.hero-panel-left) .overlay {
+      background: rgba(13,12,11,0.28);
+    }
+    /* Thin separator between panels */
+    .hero-panel:not(.hero-panel-left) {
+      border-left: 1px solid rgba(255,255,255,0.18);
+    }
+
+    /* Content — lives in bottom-left of the dominant left panel */
+    .hero-content {
+      position: absolute;
+      bottom: clamp(40px, 6vh, 72px);
+      left: clamp(28px, 5vw, 64px);
+      max-width: 520px;
+      z-index: 2;
+      color: #fff;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-family: var(--f-body);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gv-accent);
+      margin-bottom: 16px;
+    }
+    .hero-content h1 {
+      font-family: var(--f-display);
+      font-size: clamp(2.6rem, 4.4vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: clamp(0.92rem, 1.4vw, 1.08rem);
+      color: rgba(255,255,255,0.72);
+      line-height: 1.55;
+      margin-bottom: 28px;
+      max-width: 420px;
+    }
+
+    /* Prompt bar — inline with hero content */
+    .hero-prompt {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 10px;
+      padding: 14px 16px 10px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .hero-prompt:focus-within {
+      border-color: var(--gv-accent);
+      box-shadow: 0 0 0 3px rgba(232,77,28,0.18);
+    }
+    .hero-prompt textarea#prompt {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      resize: none;
+      font-family: var(--f-body);
+      font-size: 0.98rem;
+      color: #fff;
+      min-height: 48px;
+      outline: none;
+      line-height: 1.45;
+    }
+    .hero-prompt textarea#prompt::placeholder { color: rgba(255,255,255,0.45); }
+    .hero-prompt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      gap: 10px;
+    }
+    .hero-hint {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.42);
+    }
+    .build {
+      background: var(--gv-accent);
+      color: #fff;
+      border: 0;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.15s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .build:hover { background: var(--gv-accent-h); transform: translateY(-1px); }
+
+    /* Chips row below prompt */
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 14px;
+    }
+    .chip {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.72);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .chip:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.5);
+      color: #fff;
+    }
+
+    /* Panel caption labels (lower-left of each panel) */
+    .panel-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 16px;
+      z-index: 2;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* ─── GALLERY ────────────────────────────────────────────────── */
+    .gallery-sec {
+      background: var(--gv-canvas);
+      padding: 0 0 80px;
+    }
+
+    /* Row 1: café — desktop left-weighted + mobile overlay */
+    .g-row {
+      display: flex;
+      position: relative;
+      overflow: hidden;
+    }
+    .g-row-1 {
+      padding: clamp(40px,6vw,80px) clamp(20px,4vw,60px) 0;
+      align-items: flex-start;
+      gap: 0;
+    }
+    .g-desk {
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(13,12,11,0.12);
+      flex-shrink: 0;
+    }
+    .g-desk img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+    .g-mob {
+      position: absolute;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 20px 48px rgba(13,12,11,0.25);
+      border: 3px solid var(--gv-canvas);
+      flex-shrink: 0;
+    }
+    .g-mob img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .g-caption {
+      position: absolute;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gv-ink-3);
+    }
+
+    /* Row 1 — café (left-heavy) */
+    .g-row-1 .g-desk {
+      width: 62%;
+      height: clamp(360px, 46vw, 600px);
+    }
+    .g-row-1 .g-mob {
+      width: clamp(110px, 14vw, 180px);
+      height: auto;
+      aspect-ratio: 215/429;
+      right: clamp(20px, 4vw, 60px);
+      top: clamp(20px, 4vw, 40px);
+    }
+    .g-row-1 .g-caption { bottom: -28px; left: 0; }
+
+    /* Row 2 — dentist (right-heavy, reversed) */
+    .g-row-2 {
+      padding: clamp(60px,8vw,100px) clamp(20px,4vw,60px) 0;
+      justify-content: flex-end;
+      align-items: flex-start;
+    }
+    .g-row-2 .g-desk {
+      width: 58%;
+      height: clamp(320px, 40vw, 520px);
+    }
+    .g-row-2 .g-mob {
+      width: clamp(100px, 12vw, 160px);
+      height: auto;
+      aspect-ratio: 215/429;
+      left: clamp(20px, 4vw, 60px);
+      top: clamp(20px, 4vw, 60px);
+    }
+    .g-row-2 .g-caption { bottom: -28px; right: 0; text-align: right; }
+
+    /* Row 3 — plumber (full-width cinematic crop) */
+    .g-row-3 {
+      padding: clamp(60px,8vw,100px) 0 0;
+      justify-content: center;
+    }
+    .g-row-3 .g-desk {
+      width: 88%;
+      height: clamp(240px, 26vw, 380px);
+    }
+    .g-row-3 .g-mob {
+      width: clamp(80px, 9vw, 130px);
+      height: auto;
+      aspect-ratio: 215/429;
+      right: 5%;
+      top: -clamp(20px, 3vw, 40px);
+    }
+    .g-row-3 .g-caption { bottom: -28px; left: 6%; }
+
+    /* Gallery break — editorial sentence */
+    .gallery-break {
+      text-align: center;
+      padding: clamp(72px, 10vw, 120px) clamp(20px, 6vw, 80px) 0;
+    }
+    .gallery-break h2 {
+      font-family: var(--f-display);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+      color: var(--gv-ink);
+    }
+    .gallery-break p {
+      margin-top: 18px;
+      font-size: clamp(1rem, 1.4vw, 1.12rem);
+      color: var(--gv-ink-2);
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* ─── SHOW-GRID (QA-critical — preserved exactly) ───────────── */
+    /*
+      The production_qa.mjs tests these selectors:
+        .show-grid → scrollIntoView
+        .show-card → hover/focus
+        .show-card .show-desk → transform.m42
+        .show-card:hover .show-desk → translateY(calc(250px - 100%))
+        prefers-reduced-motion → transform must be 0
+    */
+    .show-grid-wrap {
+      background: var(--gv-dark);
+      padding: clamp(60px,8vw,96px) clamp(20px,4vw,48px);
+    }
+    .show-grid-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 40px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .show-grid-head h3 {
+      font-family: var(--f-display);
+      font-weight: 400;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.02em;
+      color: #fff;
+      max-width: 560px;
+    }
+    .show-grid-head p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.45);
+      max-width: 320px;
+      text-align: right;
+    }
+    .show-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .show-card {
+      display: block;
+      background: #1a1815;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.22s cubic-bezier(0.16,1,0.3,1), box-shadow 0.22s, border-color 0.22s;
+      text-decoration: none;
+    }
+    .show-card:hover, .show-card:focus-visible {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 54px rgba(0,0,0,0.45);
+      border-color: rgba(232,77,28,0.35);
+    }
+    .show-card:focus-visible {
+      outline: 2px solid var(--gv-accent);
+      outline-offset: 3px;
+    }
+    .show-bar {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 9px 12px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .show-bar i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.18); display: block; }
+    .show-bar span {
+      margin-left: 8px;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: rgba(255,255,255,0.3);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .show-view {
+      position: relative;
+      height: 250px;
+      overflow: hidden;
+      background: #111;
+    }
+    .show-desk {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 2.8s cubic-bezier(0.25,1,0.5,1);
+    }
+    .show-card:hover .show-desk,
+    .show-card:focus-visible .show-desk {
+      transform: translateY(calc(250px - 100%));
+    }
+    .show-mob {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      width: 72px;
+      height: auto;
+      border-radius: 7px;
+      border: 2px solid #232218;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.55);
+      transition: transform 0.25s;
+    }
+    .show-card:hover .show-mob { transform: translateY(-4px); }
+    .show-meta {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 3px 10px;
+      padding: 14px 16px 16px;
+    }
+    .show-meta b {
+      grid-column: 1; grid-row: 1;
+      font-size: 1rem; font-weight: 700; color: #fff;
+    }
+    .show-go {
+      grid-column: 2; grid-row: 1;
+      font-size: 0.82rem; font-weight: 700;
+      color: var(--gv-accent); white-space: nowrap;
+    }
+    .show-meta em {
+      grid-column: 1/-1; grid-row: 2;
+      font-style: normal;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.38);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .show-card:hover .show-desk,
+      .show-card:focus-visible .show-desk { transform: none; }
+      .show-card:hover { transform: none; }
+      .hero-panel img { transition: none; }
+      .g-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
+    /* ─── STORY + PROCESS ────────────────────────────────────────── */
+    .story-sec {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 720px;
+    }
+    .story-visual {
+      position: sticky;
+      top: 56px;
+      height: calc(100svh - 56px);
+      overflow: hidden;
+    }
+    .story-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .story-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(13,12,11,0.22) 0%, transparent 60%);
+    }
+    .story-scroll {
+      padding: clamp(60px, 8vw, 100px) clamp(40px, 6vw, 80px);
+      background: var(--gv-canvas);
+    }
+    .story-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gv-ink-3);
+      margin-bottom: 40px;
+    }
+    .story-biz {
+      margin-bottom: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--gv-line);
+    }
+    .story-biz-name {
+      font-family: var(--f-display);
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--gv-ink);
+      margin-bottom: 12px;
+    }
+    .story-biz-desc {
+      font-size: 1rem;
+      color: var(--gv-ink-2);
+      line-height: 1.65;
+      max-width: 420px;
+    }
+    /* Process steps */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--gv-line);
+    }
+    .step:last-child { border-bottom: 0; }
+    .step-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--gv-accent);
+      padding-top: 4px;
+    }
+    .step-body h4 {
+      font-family: var(--f-body);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--gv-ink);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .step-body p {
+      font-size: 0.92rem;
+      color: var(--gv-ink-2);
+      line-height: 1.6;
+    }
+
+    /* ─── CANVAS TRANSITION ───────────────────────────────────────── */
+    .canvas-transition {
+      height: 120px;
+      background: linear-gradient(to bottom, var(--gv-canvas), var(--gv-dark));
+    }
+
+    /* ─── PRICING ────────────────────────────────────────────────── */
+    .pricing-sec {
+      background: var(--gv-dark);
+      padding: clamp(80px, 10vw, 130px) clamp(20px, 6vw, 80px);
+      text-align: center;
+    }
+    .pricing-eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gv-accent);
+      margin-bottom: 28px;
+    }
+    .pricing-amount {
+      font-family: var(--f-display);
+      font-weight: 400;
+      font-size: clamp(4rem, 9vw, 7.5rem);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .pricing-amount sup {
+      font-size: 0.38em;
+      vertical-align: super;
+      letter-spacing: 0;
+      color: rgba(255,255,255,0.7);
+    }
+    .pricing-per {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 32px;
+    }
+    .pricing-details {
+      max-width: 520px;
+      margin: 0 auto 20px;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+    }
+    .pricing-fine {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.32);
+      margin-bottom: 44px;
+    }
+    .pricing-cta {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 56px;
+      padding: 0 40px;
+      background: var(--gv-accent);
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      transition: background 0.15s, transform 0.15s;
+      text-decoration: none;
+    }
+    .pricing-cta:hover { background: var(--gv-accent-h); transform: translateY(-2px); }
+    .pricing-features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 28px;
+      margin-top: 48px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pricing-features span {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.42);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .pricing-features span::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gv-accent);
+      flex-shrink: 0;
+    }
+
+    /* ─── FAQ ────────────────────────────────────────────────────── */
+    .faq-sec {
+      background: var(--gv-dark-2);
+      padding: clamp(60px, 8vw, 96px) clamp(20px, 6vw, 80px);
+    }
+    .faq-inner { max-width: 720px; margin: 0 auto; }
+    .faq-title {
+      font-family: var(--f-display);
+      font-weight: 400;
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 40px;
+    }
+    details {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    details:first-of-type { border-top: 1px solid rgba(255,255,255,0.08); }
+    summary {
+      font-weight: 650;
+      font-size: 0.97rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      color: rgba(255,255,255,0.8);
+      gap: 12px;
+    }
+    summary::-webkit-details-marker { display: none; }
+    .sum-toggle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    details[open] .sum-toggle { border-color: var(--gv-accent); color: var(--gv-accent); }
+    details p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.45);
+      padding: 0 0 20px;
+      line-height: 1.65;
+    }
+
+    /* ─── FINAL CTA ──────────────────────────────────────────────── */
+    .final-cta {
+      background: var(--gv-dark-2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: clamp(80px, 10vw, 130px) clamp(20px, 6vw, 80px);
+      text-align: center;
+    }
+    .final-cta h2 {
+      font-family: var(--f-display);
+      font-weight: 400;
+      font-size: clamp(2rem, 4.2vw, 3.8rem);
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      color: rgba(255,255,255,0.85);
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+    .final-cta-prompt {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 16px 18px 12px;
+      transition: border-color 0.2s;
+    }
+    .final-cta-prompt:focus-within {
+      border-color: var(--gv-accent);
+    }
+    .final-cta-prompt textarea {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      resize: none;
+      font-family: var(--f-body);
+      font-size: 0.98rem;
+      color: #fff;
+      min-height: 44px;
+      outline: none;
+      line-height: 1.45;
+    }
+    .final-cta-prompt textarea::placeholder { color: rgba(255,255,255,0.32); }
+    .final-cta-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+    .final-sub {
+      margin-top: 24px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.28);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────── */
+    footer {
+      background: var(--gv-dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 32px clamp(20px, 4vw, 48px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: var(--f-display);
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: -0.01em;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.32);
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.65); }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.22);
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────────────── */
+    .g-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .g-reveal.in { opacity: 1; transform: none; }
+    .g-reveal-d1 { transition-delay: 0.1s; }
+    .g-reveal-d2 { transition-delay: 0.2s; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr 1fr; height: 80svh; }
+      /* Hide 3rd panel on tablet — keep triptych readable */
+      .hero-panel-right { display: none; }
+      .hero-panel-left { grid-column: 1; }
+      .hero-panel-mid { border-left: 1px solid rgba(255,255,255,0.15); }
+      .show-grid { grid-template-columns: repeat(2, 1fr); }
+      .story-sec { grid-template-columns: 1fr; }
+      .story-visual { position: relative; top: auto; height: 55vw; min-height: 280px; }
+      .g-row-1 .g-mob, .g-row-2 .g-mob, .g-row-3 .g-mob {
+        width: clamp(80px, 12vw, 140px);
+      }
+    }
+    @media (max-width: 640px) {
+      /* Hero collapses to single panel + ink panel */
+      .hero {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: 100svh;
+      }
+      .hero-panel-left {
+        flex: 0 0 66svh;
+        min-height: 380px;
+      }
+      .hero-panel-mid,
+      .hero-panel-right { display: none; }
+      .hero-ink-mobile {
+        flex: 1;
+        background: var(--gv-dark);
+        padding: 28px 24px 32px;
+      }
+      .hero-content {
+        position: static;
+        max-width: 100%;
+        color: #fff;
+      }
+      .hero-content h1 { font-size: clamp(2rem, 7.5vw, 2.8rem); }
+      .hero-eyebrow { margin-bottom: 12px; }
+      .hero-sub { margin-bottom: 22px; font-size: 0.95rem; }
+      .hero-chips { display: none; }
+
+      /* Gallery mobile stack */
+      .g-row { flex-direction: column; align-items: center; }
+      .g-row-1, .g-row-2, .g-row-3 { padding: 36px 18px 0; }
+      .g-row-1 .g-desk, .g-row-2 .g-desk { width: 100%; height: 55vw; }
+      .g-row-3 .g-desk { width: 100%; height: 44vw; }
+      .g-row-1 .g-mob, .g-row-2 .g-mob, .g-row-3 .g-mob {
+        position: absolute;
+        width: clamp(60px, 18vw, 90px);
+        right: 18px;
+        top: auto;
+        bottom: 12px;
+      }
+      .gallery-break { padding: 60px 24px 0; }
+
+      .show-grid { grid-template-columns: 1fr; }
+      .show-grid-head p { display: none; }
+
+      footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer-links { gap: 12px; }
+
+      .build { font-size: 0.85rem; padding: 10px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav" aria-label="Κύρια πλοήγηση">
+    <a href="/" class="nav-logo" aria-label="Vitrina Home">
+      <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+        <rect class="r1" x="6" y="14" width="20" height="14" rx="2" fill="#fff"/>
+        <rect x="13" y="20" width="6" height="8" rx="1" fill="#0a0a0b"/>
+        <path d="M3 14 L6 7 H26 L29 14 Z" fill="#E84D1C"/>
+      </svg>
+      Vitrina
+    </a>
+    <div class="nav-right">
+      <div class="lang-switch">
+        <button id="btn-el" class="active" onclick="setLang('el')">ΕΛ</button>
+        <button id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+      <a class="nav-cta" href="#final-prompt" onclick="focusPromptFinal(event)"
+         data-gr="Ξεκίνα" data-en="Start">Ξεκίνα</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO — Three-panel triptych
+  ═══════════════════════════════════════════════════════════════ -->
+  <header class="hero" id="top">
+
+    <!-- LEFT panel (dominant, 3fr) — contains all hero content -->
+    <div class="hero-panel hero-panel-left">
+      <img src="showcase/taverna.jpg" width="1440" height="1800" loading="eager" decoding="async"
+           alt="Ολοκληρωμένο site για ταβέρνα — Vitrina">
+      <div class="overlay"></div>
+      <!-- Hero text & CTA live here -->
+      <div class="hero-content">
+        <span class="hero-eyebrow" data-gr="Επαγγελματικές ιστοσελίδες για ελληνικές επιχειρήσεις"
+              data-en="Professional websites for Greek businesses">
+          Επαγγελματικές ιστοσελίδες για ελληνικές επιχειρήσεις
+        </span>
+        <h1 data-gr="Η επιχείρησή σου. Σχεδιασμένη."
+            data-en="Your business. Designed.">
+          Η επιχείρησή σου.<br>Σχεδιασμένη.
+        </h1>
+        <p class="hero-sub"
+           data-gr="Επιλέξτε σχέδιο προσαρμοσμένο στον κλάδο σας και δείτε πώς φαίνεται η δουλειά σας ως επαγγελματική ιστοσελίδα."
+           data-en="Pick a design built for your trade and see how your business looks as a professional website.">
+          Επιλέξτε σχέδιο προσαρμοσμένο στον κλάδο σας και δείτε πώς φαίνεται η δουλειά σας ως επαγγελματική ιστοσελίδα.
+        </p>
+
+        <!-- PROMPT INTAKE (QA-critical: #prompt + .build) -->
+        <div class="hero-prompt" id="top-prompt">
+          <textarea id="prompt" rows="2"
+            placeholder="π.χ. Έχω καφετέρια στον Γέρακα, με specialty καφέ και brunch…"></textarea>
+          <div class="hero-prompt-row">
+            <span class="hero-hint"
+              data-gr="Γράψε με απλά λόγια τι επιχείρηση έχεις"
+              data-en="Describe your business in simple words">
+              Γράψε με απλά λόγια τι επιχείρηση έχεις
+            </span>
+            <button class="build" onclick="go()"
+              data-gr="Δες τα σχέδιά σου →"
+              data-en="See your designs →">Δες τα σχέδιά σου →</button>
+          </div>
+        </div>
+
+        <!-- CHIPS -->
+        <div class="hero-chips">
+          <span class="chip" onclick="pick('Έχω ταβέρνα')">Ταβέρνα / Εστιατόριο</span>
+          <span class="chip" onclick="pick('Έχω καφετέρια')">Καφέ / Bakery</span>
+          <span class="chip" onclick="pick('Έχω κομμωτήριο')">Κομμωτήριο / Salon</span>
+          <span class="chip" onclick="pick('Έχω οδοντιατρείο')">Ιατρείο</span>
+          <span class="chip" onclick="pick('Είμαι υδραυλικός')">Τεχνίτης</span>
+          <span class="chip" onclick="pick('Έχω δωμάτια')">Διαμονή</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTRE panel (salon, 2fr) -->
+    <div class="hero-panel hero-panel-mid" aria-hidden="true">
+      <img src="showcase/salon.jpg" width="960" height="1800" loading="eager" decoding="async"
+           alt="">
+      <div class="overlay"></div>
+      <span class="panel-caption" data-gr="Κομμωτήριο" data-en="Hair salon">Κομμωτήριο</span>
+    </div>
+
+    <!-- RIGHT panel (rooms, 2fr) -->
+    <div class="hero-panel hero-panel-right" aria-hidden="true">
+      <img src="showcase/rooms.jpg" width="960" height="1800" loading="eager" decoding="async"
+           alt="">
+      <div class="overlay"></div>
+      <span class="panel-caption" data-gr="Ξενοδοχείο" data-en="Rooms">Ξενοδοχείο</span>
+    </div>
+
+    <!-- Mobile-only ink panel (inserted via flex-direction:column) -->
+    <div class="hero-ink-mobile" aria-hidden="true"></div>
+  </header>
+
+  <main id="main">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         GALLERY — continues from hero
+    ═══════════════════════════════════════════════════════════════ -->
+    <section class="gallery-sec" aria-label="Παραδείγματα σχεδίων">
+
+      <!-- Row 1: café (desktop left + mobile overlay right) -->
+      <div class="g-row g-row-1">
+        <div class="g-desk g-reveal">
+          <img src="showcase/cafe.jpg" width="768" height="1200" loading="lazy" decoding="async"
+               alt="Site για καφετέρια — Vitrina">
+        </div>
+        <div class="g-mob g-reveal g-reveal-d1">
+          <img src="showcase/cafe-m.jpg" width="215" height="429" loading="lazy" decoding="async"
+               alt="Mobile έκδοση — καφετέρια">
+        </div>
+        <span class="g-caption" data-gr="Καφετέρια / Cafe" data-en="Coffee shop">Καφετέρια / Cafe</span>
+      </div>
+
+      <!-- Row 2: dentist (desktop right + mobile overlay left) -->
+      <div class="g-row g-row-2">
+        <div class="g-mob g-reveal">
+          <img src="showcase/dentist-m.jpg" width="215" height="429" loading="lazy" decoding="async"
+               alt="Mobile έκδοση — ιατρείο">
+        </div>
+        <div class="g-desk g-reveal g-reveal-d1">
+          <img src="showcase/dentist.jpg" width="768" height="1200" loading="lazy" decoding="async"
+               alt="Site για οδοντιατρείο — Vitrina">
+        </div>
+        <span class="g-caption" data-gr="Ιατρείο / Οδοντίατρος" data-en="Medical / Dental">Ιατρείο / Οδοντίατρος</span>
+      </div>
+
+      <!-- Row 3: plumber (full-width cinematic) -->
+      <div class="g-row g-row-3">
+        <div class="g-desk g-reveal">
+          <img src="showcase/plumber.jpg" width="768" height="1200" loading="lazy" decoding="async"
+               alt="Site για τεχνίτη — Vitrina" style="object-position: center 20%;">
+        </div>
+        <div class="g-mob g-reveal g-reveal-d1">
+          <img src="showcase/plumber-m.jpg" width="215" height="429" loading="lazy" decoding="async"
+               alt="Mobile έκδοση — τεχνίτης">
+        </div>
+        <span class="g-caption" data-gr="Τεχνίτης / Επισκευές" data-en="Tradesperson">Τεχνίτης / Επισκευές</span>
+      </div>
+
+      <!-- Gallery break — editorial sentence -->
+      <div class="gallery-break g-reveal">
+        <h2 data-gr="Για κάθε επαγγελματία." data-en="For every trade.">Για κάθε επαγγελματία.</h2>
+        <p data-gr="Ξυλουργοί, καφετέριες, ιατρεία, ξενοδοχεία, κομμωτήρια — κάθε σχέδιο φτιάχνεται για τον χώρο σας."
+           data-en="Carpenters, cafés, clinics, hotels, salons — every design is built for your world.">
+          Ξυλουργοί, καφετέριες, ιατρεία, ξενοδοχεία, κομμωτήρια — κάθε σχέδιο φτιάχνεται για τον χώρο σας.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SHOW-GRID — QA-critical showcase (class names preserved)
+    ═══════════════════════════════════════════════════════════════ -->
+    <section class="show-grid-wrap" id="showcase" aria-label="Σχέδια Vitrina">
+      <div class="show-grid-head g-reveal">
+        <h3 data-gr="Πραγματικά sites για αληθινές ελληνικές επιχειρήσεις."
+            data-en="Real sites for genuine Greek businesses.">
+          Πραγματικά sites για αληθινές ελληνικές επιχειρήσεις.
+        </h3>
+        <p data-gr="Κάντε hover για να δείτε ολόκληρη τη σελίδα."
+           data-en="Hover to scroll the full page.">
+          Κάντε hover για να δείτε ολόκληρη τη σελίδα.
+        </p>
+      </div>
+
+      <div class="show-grid">
+        <a class="show-card"
+           href="https://sites-production-da56.up.railway.app/preview/warmth?biz=taverna"
+           target="_blank" rel="noopener"
+           aria-label="Δες ολόκληρο το demo site: Ταβέρνα">
+          <div class="show-bar"><i></i><i></i><i></i><span>getvitrina.gr/taverna</span></div>
+          <div class="show-view">
+            <img class="show-desk" src="showcase/taverna.jpg" width="768" height="1200"
+                 loading="lazy" decoding="async" alt="Site για Ταβέρνα φτιαγμένο με το Vitrina — desktop">
+            <img class="show-mob" src="showcase/taverna-m.jpg" width="215" height="429"
+                 loading="lazy" decoding="async" alt="Το ίδιο site στο κινητό">
+          </div>
+          <div class="show-meta">
+            <b data-gr="Ταβέρνα" data-en="Restaurant">Ταβέρνα</b>
+            <em data-gr="Μενού · Κρατήσεις · Χάρτης" data-en="Menu · Bookings · Map">Μενού · Κρατήσεις · Χάρτης</em>
+            <span class="show-go" data-gr="Δες το →" data-en="Open →">Δες το →</span>
+          </div>
+        </a>
+
+        <a class="show-card"
+           href="https://sites-production-da56.up.railway.app/preview/bakery-editorial?biz=cafe"
+           target="_blank" rel="noopener"
+           aria-label="Δες ολόκληρο το demo site: Καφετέρια">
+          <div class="show-bar"><i></i><i></i><i></i><span>getvitrina.gr/cafe</span></div>
+          <div class="show-view">
+            <img class="show-desk" src="showcase/cafe.jpg" width="768" height="1200"
+                 loading="lazy" decoding="async" alt="Site για Καφετέρια φτιαγμένο με το Vitrina — desktop">
+            <img class="show-mob" src="showcase/cafe-m.jpg" width="215" height="429"
+                 loading="lazy" decoding="async" alt="Το ίδιο site στο κινητό">
+          </div>
+          <div class="show-meta">
+            <b data-gr="Καφετέρια" data-en="Coffee shop">Καφετέρια</b>
+            <em data-gr="Κατάλογος · Ωράριο · Φωτογραφίες" data-en="Menu · Hours · Photos">Κατάλογος · Ωράριο · Φωτογραφίες</em>
+            <span class="show-go" data-gr="Δες το →" data-en="Open →">Δες το →</span>
+          </div>
+        </a>
+
+        <a class="show-card"
+           href="https://sites-production-da56.up.railway.app/preview/beauty-atelier?biz=salon"
+           target="_blank" rel="noopener"
+           aria-label="Δες ολόκληρο το demo site: Κομμωτήριο">
+          <div class="show-bar"><i></i><i></i><i></i><span>getvitrina.gr/salon</span></div>
+          <div class="show-view">
+            <img class="show-desk" src="showcase/salon.jpg" width="768" height="1200"
+                 loading="lazy" decoding="async" alt="Site για Κομμωτήριο φτιαγμένο με το Vitrina — desktop">
+            <img class="show-mob" src="showcase/salon-m.jpg" width="215" height="429"
+                 loading="lazy" decoding="async" alt="Το ίδιο site στο κινητό">
+          </div>
+          <div class="show-meta">
+            <b data-gr="Κομμωτήριο" data-en="Hair salon">Κομμωτήριο</b>
+            <em data-gr="Υπηρεσίες · Τιμές · Έργα" data-en="Services · Prices · Work">Υπηρεσίες · Τιμές · Έργα</em>
+            <span class="show-go" data-gr="Δες το →" data-en="Open →">Δες το →</span>
+          </div>
+        </a>
+
+        <a class="show-card"
+           href="https://sites-production-da56.up.railway.app/preview/clinic-triage?biz=dentist"
+           target="_blank" rel="noopener"
+           aria-label="Δες ολόκληρο το demo site: Οδοντιατρείο">
+          <div class="show-bar"><i></i><i></i><i></i><span>getvitrina.gr/dentist</span></div>
+          <div class="show-view">
+            <img class="show-desk" src="showcase/dentist.jpg" width="768" height="1200"
+                 loading="lazy" decoding="async" alt="Site για Οδοντιατρείο φτιαγμένο με το Vitrina — desktop">
+            <img class="show-mob" src="showcase/dentist-m.jpg" width="215" height="429"
+                 loading="lazy" decoding="async" alt="Το ίδιο site στο κινητό">
+          </div>
+          <div class="show-meta">
+            <b data-gr="Οδοντιατρείο" data-en="Dental clinic">Οδοντιατρείο</b>
+            <em data-gr="Ραντεβού · Υπηρεσίες · Χάρτης" data-en="Appointments · Services · Map">Ραντεβού · Υπηρεσίες · Χάρτης</em>
+            <span class="show-go" data-gr="Δες το →" data-en="Open →">Δες το →</span>
+          </div>
+        </a>
+
+        <a class="show-card"
+           href="https://sites-production-da56.up.railway.app/preview/callout?biz=plumber"
+           target="_blank" rel="noopener"
+           aria-label="Δες ολόκληρο το demo site: Υδραυλικός">
+          <div class="show-bar"><i></i><i></i><i></i><span>getvitrina.gr/ydravlikos</span></div>
+          <div class="show-view">
+            <img class="show-desk" src="showcase/plumber.jpg" width="768" height="1200"
+                 loading="lazy" decoding="async" alt="Site για Υδραυλικό φτιαγμένο με το Vitrina — desktop">
+            <img class="show-mob" src="showcase/plumber-m.jpg" width="215" height="429"
+                 loading="lazy" decoding="async" alt="Το ίδιο site στο κινητό">
+          </div>
+          <div class="show-meta">
+            <b data-gr="Υδραυλικός" data-en="Plumber">Υδραυλικός</b>
+            <em data-gr="Επείγουσα κλήση · Περιοχές · Προσφορά" data-en="Emergency call · Areas · Quote">Επείγουσα κλήση · Περιοχές · Προσφορά</em>
+            <span class="show-go" data-gr="Δες το →" data-en="Open →">Δες το →</span>
+          </div>
+        </a>
+
+        <a class="show-card"
+           href="https://sites-production-da56.up.railway.app/preview/aegean?biz=rooms"
+           target="_blank" rel="noopener"
+           aria-label="Δες ολόκληρο το demo site: Ξενοδοχείο">
+          <div class="show-bar"><i></i><i></i><i></i><span>getvitrina.gr/rooms</span></div>
+          <div class="show-view">
+            <img class="show-desk" src="showcase/rooms.jpg" width="768" height="1200"
+                 loading="lazy" decoding="async" alt="Site για Ξενοδοχείο φτιαγμένο με το Vitrina — desktop">
+            <img class="show-mob" src="showcase/rooms-m.jpg" width="215" height="429"
+                 loading="lazy" decoding="async" alt="Το ίδιο site στο κινητό">
+          </div>
+          <div class="show-meta">
+            <b data-gr="Ξενοδοχείο" data-en="Rooms">Ξενοδοχείο</b>
+            <em data-gr="Δωμάτια · Τοποθεσία · Κράτηση" data-en="Rooms · Location · Booking">Δωμάτια · Τοποθεσία · Κράτηση</em>
+            <span class="show-go" data-gr="Δες το →" data-en="Open →">Δες το →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         STORY + PROCESS — sticky visual, scrollable steps
+    ═══════════════════════════════════════════════════════════════ -->
+    <section class="story-sec" id="transformation" aria-label="Πώς λειτουργεί">
+      <!-- Left: sticky visual -->
+      <div class="story-visual">
+        <img src="showcase/koutrakis.jpg" width="960" height="1440" loading="lazy" decoding="async"
+             alt="Ολοκληρωμένο site ξυλουργού — Koutrakis Κουζίνες">
+        <div class="story-visual-overlay"></div>
+      </div>
+      <!-- Right: scrollable narrative -->
+      <div class="story-scroll">
+        <span class="story-label"
+              data-gr="Πώς λειτουργεί" data-en="How it works">Πώς λειτουργεί</span>
+
+        <div class="story-biz">
+          <div class="story-biz-name">Κουτράκης Κουζίνες</div>
+          <p class="story-biz-desc"
+             data-gr="Ξυλουργικό εργαστήριο στον Γέρακα Αττικής. Κουζίνες, ντουλάπες, ειδικές κατασκευές. Η Vitrina έφτιαξε το site από τα στοιχεία που έστειλε ο ίδιος ο ιδιοκτήτης."
+             data-en="A woodworking workshop in Gerakas, Attica. Kitchens, wardrobes, custom builds. Vitrina built their website from information the owner sent directly.">
+            Ξυλουργικό εργαστήριο στον Γέρακα Αττικής. Κουζίνες, ντουλάπες, ειδικές κατασκευές. Η Vitrina έφτιαξε το site από τα στοιχεία που έστειλε ο ίδιος ο ιδιοκτήτης.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step g-reveal">
+            <span class="step-num">01</span>
+            <div class="step-body">
+              <h4 data-gr="Συλλογή στοιχείων" data-en="Gathering information">Συλλογή στοιχείων</h4>
+              <p data-gr="Στέλνετε τα βασικά στοιχεία του μαγαζιού σας — επωνυμία, υπηρεσίες, τηλέφωνο, φωτογραφίες αν έχετε."
+                 data-en="You send us the basics — name, services, phone, photos if you have them.">
+                Στέλνετε τα βασικά στοιχεία του μαγαζιού σας — επωνυμία, υπηρεσίες, τηλέφωνο, φωτογραφίες αν έχετε.
+              </p>
+            </div>
+          </div>
+          <div class="step g-reveal g-reveal-d1">
+            <span class="step-num">02</span>
+            <div class="step-body">
+              <h4 data-gr="Επιλογή σχεδίου" data-en="Choosing a design">Επιλογή σχεδίου</h4>
+              <p data-gr="Βλέπετε σχέδια διαμορφωμένα για τον κλάδο σας και επιλέγετε αυτό που ταιριάζει καλύτερα."
+                 data-en="You see designs built for your trade and pick the one that fits best.">
+                Βλέπετε σχέδια διαμορφωμένα για τον κλάδο σας και επιλέγετε αυτό που ταιριάζει καλύτερα.
+              </p>
+            </div>
+          </div>
+          <div class="step g-reveal g-reveal-d2">
+            <span class="step-num">03</span>
+            <div class="step-body">
+              <h4 data-gr="Παραγωγή" data-en="Production">Παραγωγή</h4>
+              <p data-gr="Η ομάδα Vitrina φτιάχνει το site, το ελέγχει σε όλες τις συσκευές και το παραδίδει στο domain σας."
+                 data-en="The Vitrina team builds the site, tests it on all devices, and delivers it to your domain.">
+                Η ομάδα Vitrina φτιάχνει το site, το ελέγχει σε όλες τις συσκευές και το παραδίδει στο domain σας.
+              </p>
+            </div>
+          </div>
+          <div class="step g-reveal">
+            <span class="step-num">04</span>
+            <div class="step-body">
+              <h4 data-gr="Απεριόριστες αλλαγές" data-en="Unlimited updates">Απεριόριστες αλλαγές</h4>
+              <p data-gr="Όποτε θέλετε να αλλάξετε κάτι — τιμές, ωράριο, φωτογραφίες — στέλνετε μήνυμα και το κάνουμε εμείς."
+                 data-en="Whenever you need a change — prices, hours, photos — you message us and we do it.">
+                Όποτε θέλετε να αλλάξετε κάτι — τιμές, ωράριο, φωτογραφίες — στέλνετε μήνυμα και το κάνουμε εμείς.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         CANVAS TRANSITION
+    ═══════════════════════════════════════════════════════════════ -->
+    <div class="canvas-transition" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PRICING — typographic reveal on dark canvas
+    ═══════════════════════════════════════════════════════════════ -->
+    <section class="pricing-sec" id="pricing" aria-label="Τιμολόγηση">
+      <span class="pricing-eyebrow"
+            data-gr="Καθαρή τιμολόγηση" data-en="Transparent pricing">Καθαρή τιμολόγηση</span>
+
+      <div class="pricing-amount g-reveal">
+        <sup>€</sup>14.99
+      </div>
+      <div class="pricing-per"
+           data-gr="ανά μήνα" data-en="per month">ανά μήνα</div>
+
+      <p class="pricing-details g-reveal"
+         data-gr="Ο πρώτος μήνας δωρεάν. Ακύρωση όποτε θέλετε, χωρίς δέσμευση."
+         data-en="First month free. Cancel anytime, no commitment.">
+        Ο πρώτος μήνας δωρεάν. Ακύρωση όποτε θέλετε, χωρίς δέσμευση.
+      </p>
+      <p class="pricing-fine"
+         data-gr="Προαιρετικό .gr domain: €24/έτος (αγορά &amp; πλήρης τεχνική ρύθμιση)."
+         data-en="Optional .gr domain: €24/year (purchase &amp; full technical setup).">
+        Προαιρετικό .gr domain: €24/έτος (αγορά &amp; πλήρης τεχνική ρύθμιση).
+      </p>
+
+      <a class="pricing-cta g-reveal" href="#final-prompt" onclick="focusPromptFinal(event)"
+         data-gr="Ξεκινήστε — είναι δωρεάν →" data-en="Get started — it's free →">
+        Ξεκινήστε — είναι δωρεάν →
+      </a>
+
+      <div class="pricing-features g-reveal">
+        <span data-gr="Επαγγελματική ιστοσελίδα" data-en="Professional website">Επαγγελματική ιστοσελίδα</span>
+        <span data-gr="Φιλοξενία περιλαμβάνεται" data-en="Hosting included">Φιλοξενία περιλαμβάνεται</span>
+        <span data-gr="Απεριόριστες αλλαγές" data-en="Unlimited updates">Απεριόριστες αλλαγές</span>
+        <span data-gr="Local SEO &amp; Google δομή" data-en="Local SEO &amp; Google structure">Local SEO &amp; Google δομή</span>
+        <span data-gr="Δημιουργία λογοτύπου" data-en="Logo design">Δημιουργία λογοτύπου</span>
+        <span data-gr="Πλήρης λειτουργία σε κινητά" data-en="Fully responsive">Πλήρης λειτουργία σε κινητά</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FAQ
+    ═══════════════════════════════════════════════════════════════ -->
+    <section class="faq-sec" id="faq" aria-label="Συχνές ερωτήσεις">
+      <div class="faq-inner">
+        <h2 class="faq-title g-reveal"
+            data-gr="Ό,τι θέλετε να γνωρίζετε." data-en="Everything you need to know.">
+          Ό,τι θέλετε να γνωρίζετε.
+        </h2>
+
+        <details>
+          <summary data-gr="Πώς γίνονται οι αλλαγές στο site μου;"
+                   data-en="How do updates work?">
+            Πώς γίνονται οι αλλαγές στο site μου;
+            <span class="sum-toggle">+</span>
+          </summary>
+          <p data-gr="Μας στέλνετε μήνυμα με τις αλλαγές που θέλετε (νέες τιμές, ωράριο, φωτογραφίες ή υπηρεσίες) και τις περνάμε εμείς. Δεν χρειάζεται να ανοίξετε ποτέ editor ή να έχετε τεχνικές γνώσεις."
+             data-en="You send us a message with your updates (hours, pricing, photos) and we apply them. No technical skills required.">
+            Μας στέλνετε μήνυμα με τις αλλαγές που θέλετε (νέες τιμές, ωράριο, φωτογραφίες ή υπηρεσίες) και τις περνάμε εμείς. Δεν χρειάζεται να ανοίξετε ποτέ editor ή να έχετε τεχνικές γνώσεις.
+          </p>
+        </details>
+
+        <details>
+          <summary data-gr="Τι γίνεται αν δεν έχω επαγγελματικές φωτογραφίες;"
+                   data-en="What if I don't have good photos?">
+            Τι γίνεται αν δεν έχω επαγγελματικές φωτογραφίες;
+            <span class="sum-toggle">+</span>
+          </summary>
+          <p data-gr="Κανένα πρόβλημα. Δημιουργούμε το site σας με κατάλληλα, αδειοδοτημένα visuals του κλάδου σας και έμφαση στην τυπογραφία. Όποτε βγάλετε δικές σας φωτογραφίες, τις προσθέτουμε αμέσως."
+             data-en="No problem. We build the site using licensed trade visuals and strong typography. Whenever you have your own photos, we add them.">
+            Κανένα πρόβλημα. Δημιουργούμε το site σας με κατάλληλα, αδειοδοτημένα visuals του κλάδου σας και έμφαση στην τυπογραφία. Όποτε βγάλετε δικές σας φωτογραφίες, τις προσθέτουμε αμέσως.
+          </p>
+        </details>
+
+        <details>
+          <summary data-gr="Έχω ήδη σελίδα στο Facebook / Instagram. Χρειάζομαι site;"
+                   data-en="I already have Facebook / Instagram. Do I need a site?">
+            Έχω ήδη σελίδα στο Facebook / Instagram. Χρειάζομαι site;
+            <span class="sum-toggle">+</span>
+          </summary>
+          <p data-gr="Ναι. Οι πελάτες που ψάχνουν στο Google για γιατρό, ταβέρνα ή υδραυλικό στην περιοχή τους θέλουν να δουν άμεσα το τηλέφωνο, το ωράριο και τις υπηρεσίες σε ένα καθαρό site χωρίς να χρειάζεται να συνδεθούν σε social media."
+             data-en="Yes. Local customers searching on Google want direct access to phone, hours, and services without logging into social apps.">
+            Ναι. Οι πελάτες που ψάχνουν στο Google για γιατρό, ταβέρνα ή υδραυλικό στην περιοχή τους θέλουν να δουν άμεσα το τηλέφωνο, το ωράριο και τις υπηρεσίες σε ένα καθαρό site χωρίς να χρειάζεται να συνδεθούν σε social media.
+          </p>
+        </details>
+
+        <details>
+          <summary data-gr="Πώς λειτουργεί το .gr domain;"
+                   data-en="How does the .gr domain work?">
+            Πώς λειτουργεί το .gr domain;
+            <span class="sum-toggle">+</span>
+          </summary>
+          <p data-gr="Αν θέλετε δικό σας domain (π.χ. toonomatosou.gr), το ελέγχουμε, το κατοχυρώνουμε και αναλαμβάνουμε όλες τις τεχνικές ρυθμίσεις (DNS, SSL, Cloudflare). Το domain κοστίζει €24/έτος ξεχωριστά."
+             data-en="If you want your own .gr domain, we register and configure it with full SSL and DNS setup for €24/year.">
+            Αν θέλετε δικό σας domain (π.χ. toonomatosou.gr), το ελέγχουμε, το κατοχυρώνουμε και αναλαμβάνουμε όλες τις τεχνικές ρυθμίσεις (DNS, SSL, Cloudflare). Το domain κοστίζει €24/έτος ξεχωριστά.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FINAL CTA
+    ═══════════════════════════════════════════════════════════════ -->
+    <section class="final-cta" id="cta" aria-label="Ξεκινήστε">
+      <h2 data-gr="Δείτε τι μπορούμε να φτιάξουμε για σας."
+          data-en="See what we can build for you.">
+        Δείτε τι μπορούμε<br>να φτιάξουμε για σας.
+      </h2>
+
+      <div class="final-cta-prompt" id="final-prompt">
+        <textarea id="prompt-final" rows="2"
+          placeholder="π.χ. Έχω καφετέρια στον Γέρακα, με specialty καφέ και brunch…"></textarea>
+        <div class="final-cta-row">
+          <button class="build" onclick="goFinal()"
+            data-gr="Ξεκινήστε — είναι δωρεάν →"
+            data-en="Get started — free →">Ξεκινήστε — είναι δωρεάν →</button>
+        </div>
+      </div>
+      <p class="final-sub"
+         data-gr="Ακύρωση όποτε θέλετε · 1ος μήνας δωρεάν"
+         data-en="Cancel anytime · 1st month free">
+        Ακύρωση όποτε θέλετε · 1ος μήνας δωρεάν
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════════════ -->
+  <footer>
+    <span class="footer-logo">Vitrina</span>
+    <div class="footer-links">
+      <a href="privacy.html" data-gr="Απόρρητο" data-en="Privacy">Απόρρητο</a>
+      <a href="terms.html" data-gr="Όροι" data-en="Terms">Όροι</a>
+      <a href="refunds.html" data-gr="Ακυρώσεις" data-en="Refunds">Ακυρώσεις</a>
+      <a href="data-deletion.html" data-gr="Διαγραφή δεδομένων" data-en="Data deletion">Διαγραφή δεδομένων</a>
+      <a href="mailto:hello@getvitrina.gr" data-gr="Επικοινωνία" data-en="Contact">Επικοινωνία</a>
+    </div>
+    <span class="footer-copy">© <span id="yr"></span> Vitrina · getvitrina.gr</span>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // ── NAV scroll tint ──────────────────────────────────────────
+    const navEl = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      navEl.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ── Chip fill ────────────────────────────────────────────────
+    function pick(t) {
+      const el = document.getElementById('prompt');
+      el.value = t + ' ';
+      el.focus();
+    }
+
+    // ── Prompt focus helpers ─────────────────────────────────────
+    function focusPrompt(e) {
+      e.preventDefault();
+      const el = document.getElementById('prompt');
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.focus();
+    }
+    function focusPromptFinal(e) {
+      e.preventDefault();
+      const el = document.getElementById('prompt-final');
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.focus();
+    }
+
+    // ── Navigation: hero prompt (QA-critical: #prompt + .build) ─
+    function go() {
+      const v = document.getElementById('prompt').value.trim();
+      if (!v) { document.getElementById('prompt').focus(); return; }
+      window.location.href = 'start.html?text=' + encodeURIComponent(v);
+    }
+    // Final CTA prompt — uses same routing pattern
+    function goFinal() {
+      const vf = document.getElementById('prompt-final').value.trim();
+      const vh = document.getElementById('prompt').value.trim();
+      const v = vf || vh;
+      if (!v) { document.getElementById('prompt-final').focus(); return; }
+      window.location.href = 'start.html?text=' + encodeURIComponent(v);
+    }
+
+    // ── Language switch ──────────────────────────────────────────
+    function setLang(l) {
+      document.documentElement.lang = l;
+      document.querySelectorAll('[data-' + l + ']').forEach(el => {
+        el.innerHTML = el.getAttribute('data-' + l);
+      });
+      document.getElementById('btn-el').classList.toggle('active', l === 'el');
+      document.getElementById('btn-en').classList.toggle('active', l === 'en');
+      const ph = {
+        el: 'π.χ. Έχω καφετέρια στον Γέρακα, με specialty καφέ και brunch…',
+        en: 'e.g. I run a coffee shop in Gerakas with specialty coffee…'
+      };
+      document.getElementById('prompt').placeholder = ph[l];
+      document.getElementById('prompt-final').placeholder = ph[l];
+      try { localStorage.setItem('lang', l); } catch (e) {}
+    }
+    (function() {
+      let l = 'el';
+      try { l = localStorage.getItem('lang') || 'el'; } catch (e) {}
+      if (l === 'en') setLang('en');
+    })();
+
+    // ── Scroll reveal ────────────────────────────────────────────
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('in');
+    }), { threshold: 0.08 });
+    document.querySelectorAll('.g-reveal').forEach(el => io.observe(el));
+
+    // ── FAQ toggle symbol ─────────────────────────────────────────
+    document.querySelectorAll('details').forEach(d => {
+      d.addEventListener('toggle', () => {
+        const tog = d.querySelector('.sum-toggle');
+        if (tog) tog.textContent = d.open ? '−' : '+';
+      });
+    });
+  </script>
+</body>
+</html>
