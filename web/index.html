@@ -345,50 +345,73 @@
      των λεζαντών ευθυγραμμίζονται πλέον όλες, γι' αυτό το ✓ παίρνει
      margin 14px — 14+38+14 = 66, όσο και η ζώνη εικόνων. */
   .hd-flow{
-    --axis:37px;   /* κέντρο της ζώνης εικόνων: 74/2 */
-    --link:36px;   /* ίδιο με το gap — η γραμμή γεφυρώνει ακριβώς το κενό */
-    display:flex; align-items:flex-start; gap:var(--link); flex-wrap:wrap;
+    --axis:41px;   /* κέντρο της ζώνης εικόνων: 82/2 */
+    /* Το τελευταίο βήμα κολλά τέρμα δεξιά και τα κενά μοιράζονται μόνα
+       τους ό,τι περισσεύει. Δεν ορίζεται σταθερό gap: τα πλάτη των βημάτων
+       2 και 4 τα γράφει το κείμενο, οπότε κάθε σταθερός αριθμός θα άφηνε
+       είτε κενό δεξιά είτε θα προκαλούσε αναδίπλωση. */
+    display:flex; align-items:flex-start; justify-content:space-between;
+    flex-wrap:wrap; gap:16px;
+    position:relative;
+    /* Δύο φρένα, και τα δύο από μέτρηση σε πολλά πλάτη:
+
+       gap:16 και όχι 24 — στα 1280 η στήλη της ροής είναι 844px και τα
+       τέσσερα βήματα πιάνουν 788.8. Με ελάχιστο κενό 24 χρειάζονταν 860.8
+       και το τελευταίο βήμα ΕΠΕΦΤΕ ΣΕ ΔΕΥΤΕΡΗ ΣΕΙΡΑ, αφήνοντας τη γραμμή
+       να δείχνει στο πουθενά. Με 16 χωρά σε μία σειρά.
+
+       max-width — χωρίς αυτό το space-between μοιράζει ό,τι περισσεύει:
+       μετρήθηκαν κενά 232px στα 1920 και 445px στα 2560. Η διαδρομή
+       έπαυε να διαβάζεται ως διαδρομή. */
+    max-width:1180px;
+  }
+  /* Ο άξονας τραβιέται ΜΙΑ φορά, πάνω στον περιέκτη.
+     Πριν τον σχεδίαζε κάθε βήμα ξεχωριστά, γεφυρώνοντας ένα ΓΝΩΣΤΟ κενό
+     (right:-36px). Με space-between το κενό υπολογίζεται στο runtime και
+     κανένα βήμα δεν το ξέρει — τα κομμάτια θα έμεναν κρεμασμένα στο κενό.
+     Μία γραμμή στον περιέκτη είναι συνεχής εξ ορισμού, όσο κι αν ανοίξουν
+     τα κενά. Το δεξί άκρο σταματά 149px πριν το τέλος: 178px το πλάτος
+     του τελευταίου βήματος (το ορίζει το «Εμείς αναλαμβάνουμε») μείον 29
+     η ακτίνα του ✓ — δηλαδή ακριβώς στο κέντρο του κύκλου. */
+  .hd-flow::before{
+    content:""; position:absolute; z-index:0;
+    left:0; right:149px; top:var(--axis);
+    height:1.75px; background:var(--accent); opacity:.40;
   }
   .fl{ position:relative; display:flex; flex-direction:column; gap:12px; }
-  .fl::before{
-    content:""; position:absolute; z-index:0;
-    left:0; right:calc(var(--link) * -1); top:var(--axis);
-    height:1.5px; background:var(--accent); opacity:.42;
-  }
-  .fl-end::before{ content:none; }          /* το ✓ είναι το τέρμα */
   .fl-art, .fl-t{ position:relative; z-index:1; }
-  .fl-art{ display:flex; align-items:flex-end; height:74px; }
+  .fl-art{ display:flex; align-items:flex-end; height:82px; }
   .fl-t{ font-size:14px; font-weight:500; color:var(--secondary); line-height:1.35; }
 
-  .fl-pick{ position:relative; width:140px; }
+  .fl-pick{ position:relative; width:156px; }
   .fl-pick img{
-    position:absolute; bottom:0; width:52px; height:68px;
+    position:absolute; bottom:0; width:58px; height:76px;
     object-fit:cover; object-position:top;
     border:1px solid var(--line); border-radius:5px; background:#fff;
   }
   .fl-pick img:nth-child(1){ left:0;    bottom:0; }
-  .fl-pick img:nth-child(2){ left:44px; bottom:4px; z-index:2;
+  .fl-pick img:nth-child(2){ left:49px; bottom:4px; z-index:2;
     border:2px solid var(--accent); box-shadow:0 4px 12px rgba(23,23,20,.10); }
-  .fl-pick img:nth-child(3){ left:88px; bottom:0; }
+  .fl-pick img:nth-child(3){ left:98px; bottom:0; }
 
-  .fl-up{ position:relative; width:96px; }
+  .fl-up{ position:relative; width:107px; }
   .fl-up i{
-    position:absolute; bottom:0; width:47px; height:47px;
-    border:1px solid var(--line); border-radius:7px; background:#fff;
+    position:absolute; bottom:0; width:53px; height:53px;
+    border:1px solid var(--line); border-radius:8px; background:#fff;
   }
-  .fl-up i:nth-child(1){ left:0;    bottom:12px; }
-  .fl-up i:nth-child(2){ left:17px; bottom:6px; }
-  .fl-up i:nth-child(3){ left:34px; bottom:0; z-index:2;
+  .fl-up i:nth-child(1){ left:0;    bottom:13px; }
+  .fl-up i:nth-child(2){ left:19px; bottom:7px; }
+  .fl-up i:nth-child(3){ left:38px; bottom:0; z-index:2;
     background:var(--warm); border-color:var(--accent); }
   .fl-up i:nth-child(3)::after{
     content:"+"; position:absolute; inset:0; display:grid; place-items:center;
-    color:var(--accent); font-size:20px; font-weight:600; line-height:1;
+    color:var(--accent); font-size:22px; font-weight:600; line-height:1;
   }
   /* Το πίσω πλακίδιο δηλώνεται ως λογότυπο — μικρό τετράγωνο σήμα, ώστε το
      βήμα να διαβάζεται «λογότυπο ΚΑΙ φωτογραφίες» χωρίς δεύτερο εικονίδιο. */
   .fl-up i.lg{ background:var(--warm); border-color:var(--line); z-index:3; }
   .fl-up i.lg::after{
-    content:""; position:absolute; left:13px; top:13px; width:17px; height:17px;
+    content:""; position:absolute; left:15px; top:15px; width:19px; height:19px;
     border:2px solid var(--secondary); border-radius:4px;
   }
   .fl-alt{
@@ -401,9 +424,9 @@
        ΜΙΑ γραμμή, και το σύννεφο — που παίρνει το ύψος της ζώνης εικόνων —
        έμενε μισοάδειο και έχανε τον χαρακτήρα του μηνύματος. Στα 205
        ξαναγίνεται δίγραμμο και γεμίζει: 196x66 -> 205x74, +17% σε επιφάνεια. */
-    max-width:205px; align-items:center;
+    max-width:218px; align-items:center;
     background:#fff; border:1px solid var(--line);
-    border-radius:16px 16px 16px 4px; padding:11px 15px;
+    border-radius:17px 17px 17px 4px; padding:12px 16px;
     font-size:13px; line-height:1.35; color:var(--text);
   }
 
@@ -416,20 +439,53 @@
   .fl-end{ margin-left:0; padding-left:0; border-left:0; }
   .fl-end::after{
     content:""; position:absolute; z-index:1;
-    left:-14px; top:calc(var(--axis) - 4.5px);
-    width:9px; height:9px;
-    border-top:1.75px solid var(--accent); border-right:1.75px solid var(--accent);
+    left:-17px; top:calc(var(--axis) - 5px);
+    width:10px; height:10px;
+    border-top:2px solid var(--accent); border-right:2px solid var(--accent);
     transform:rotate(45deg);
   }
   .fl-ok{
     flex:none;
-    width:50px; height:50px; margin:12px 0; border-radius:50%;
+    width:58px; height:58px; margin:12px 0; border-radius:50%;
     background:var(--accent); color:var(--bg);
     display:grid !important; place-items:center;
-    font-size:23px; line-height:1;
+    font-size:26px; line-height:1;
   }
   .fl-end .fl-t{ font-size:17px; font-weight:600; color:var(--text); }
-  .hd-flow-note{ margin:22px 0 0 !important; font-size:13px; color:var(--secondary); }
+  .hd-flow-note{ margin:16px 0 0 !important; font-size:13px; color:var(--secondary); }
+
+  /* ── Optical sizing 1280-1365 ─────────────────────────────────────────
+     Στα 1280 η στήλη της ροής είναι 844px. Με τα κανονικά μεγέθη τα
+     τέσσερα βήματα πιάνουν 788.8 και στα τρία κενά μένουν 18px — δουλεύει,
+     αλλά το πρώτο και το δεύτερο βήμα σχεδόν ακουμπάνε.
+
+     Τα τέσσερα αντικείμενα μικραίνουν ~9%. Δεν αλλάζει τίποτα άλλο: ούτε
+     τυπογραφία, ούτε σειρά, ούτε ο άξονας, ούτε το max-width. Τα βήματα
+     πέφτουν στα 756.8 και τα κενά ανεβαίνουν στα 29px.
+
+     Το κάτω όριο είναι 900px ώστε να μην πατήσει το mobile block. */
+  @media (min-width:900px) and (max-width:1365px){
+    .hd-flow{ --axis:37.5px; }                    /* 75/2 */
+    .hd-flow::before{ right:151.5px; }            /* 178 πλάτος - 26.5 ακτίνα */
+    .fl-art{ height:75px; }
+
+    .fl-pick{ width:143px; }
+    .fl-pick img{ width:53px; height:69px; }
+    .fl-pick img:nth-child(2){ left:45px; }
+    .fl-pick img:nth-child(3){ left:90px; }
+
+    .fl-up{ width:97px; }
+    .fl-up i{ width:48px; height:48px; }
+    .fl-up i:nth-child(2){ left:17px; }
+    .fl-up i:nth-child(3){ left:34px; }
+    .fl-up i:nth-child(3)::after{ font-size:20px; }
+    .fl-up i.lg::after{ left:14px; top:14px; width:17px; height:17px; }
+
+    .fl-msg{ max-width:199px; padding:11px 15px; }
+
+    .fl-ok{ width:53px; height:53px; margin:11px 0; font-size:24px; }
+    .fl-end::after{ left:-15px; width:9px; height:9px; }
+  }
 
   .hd-pair{
     display:grid; grid-template-columns:1fr 1fr; gap:56px;
@@ -604,13 +660,20 @@
        στο κέντρο του. Το τελευταίο βήμα δεν υποχωρεί: ο κύκλος πατά πάνω
        στη ράγα και σπάει σκόπιμα τη στοίχιση, όπως αρμόζει σε τέρμα. */
     .hd-flow{ flex-direction:column; align-items:flex-start; gap:14px; }
+    .hd-flow::before{ content:none; }   /* ο οριζόντιος άξονας είναι desktop-only */
     .fl{ padding-left:40px; }
+    /* Πλήρης δήλωση, όχι override: στο desktop τη γραμμή τη σχεδιάζει
+       πλέον ο περιέκτης, οπότε τα βήματα δεν έχουν τίποτα να κληρονομήσουν. */
     .fl::before{
+      content:""; position:absolute; z-index:0;
       left:21px; right:auto; top:0; bottom:-14px;
-      width:1px; height:auto;
+      width:1px; height:auto; background:var(--accent); opacity:.45;
     }
-    .fl-end::before{ content:""; bottom:auto; height:37px; }  /* 16 padding + 21 ως το κέντρο */
-    .fl-end::after{ left:17.5px; top:4px; transform:rotate(135deg); }  /* ίδιο άκρο, κάτω */
+    .fl-end::before{ bottom:auto; height:37px; }  /* 16 padding + 21 ως το κέντρο */
+    .fl-end::after{                               /* ίδιο άκρο, στραμμένο κάτω */
+      left:17px; top:4px; width:9px; height:9px;
+      border-width:1.5px; transform:rotate(135deg);
+    }
     .fl{ gap:9px; }
     .fl-art{ height:54px; }
     .fl-t{ font-size:13px; }
@@ -637,7 +700,7 @@
       flex-direction:row; align-items:center; gap:12px; width:100%;
     }
     /* ειδικότερο από το .fl-art{height:54px} παραπάνω — αλλιώς το ✓ γίνεται οβάλ */
-    .fl-end .fl-ok{ width:42px; height:42px; margin:0; }
+    .fl-end .fl-ok{ width:42px; height:42px; margin:0; font-size:23px; }
     .hd-flow-note{ margin-top:14px !important; }
     .hd-pair{ grid-template-columns:1fr; gap:28px; padding:24px 0; }
     .hd-edit{ padding-top:24px; }
