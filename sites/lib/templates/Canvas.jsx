@@ -1,5 +1,6 @@
 import s from './Canvas.module.css'
 import FindUs from './FindUs'
+import Brand from './Brand'
 
 // ── Canvas (οικογένεια `project-canvas`) ────────────────────────────────────
 // Για μάστορα που η δουλειά του ΦΑΙΝΕΤΑΙ: ξυλουργό, κουζίνες, ανακαινίσεις.
@@ -19,7 +20,7 @@ export default function Canvas({ data: d }) {
   return (
     <div className={s.root}>
       <nav className={s.nav}>
-        <span className={s.mark}>{d.NAME}</span>
+        <Brand data={d} className={s.mark} />
         <span className={s.navMeta}>{d.KICKER}</span>
         <a href={tel} className={s.navCall}>{d.PHONE}</a>
       </nav>

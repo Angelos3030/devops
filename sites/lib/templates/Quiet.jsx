@@ -1,4 +1,5 @@
 import s from './Quiet.module.css'
+import Brand from './Brand'
 
 // Quiet Precision: restrained, information-first system for professional services,
 // architects and technical practices. Its identity comes from rhythm and detail,
@@ -11,7 +12,7 @@ export default function Quiet({ data: d }) {
     <div className={s.root}>
       <header id="top" className={s.header}>
         <nav className={s.nav} aria-label="Κύρια πλοήγηση">
-          <a href="#top" className={s.brand}>{d.NAME}</a>
+          <a href="#top" className={s.brand}><Brand data={d} /></a>
           <div className={s.links}><a href="#practice">Γραφείο</a><a href="#services">Υπηρεσίες</a><a href="#contact">Επικοινωνία</a></div>
           <a href={tel} className={s.call}>{d.PHONE}</a>
         </nav>

@@ -1,4 +1,5 @@
 import s from './Dispatch.module.css'
+import Brand from './Brand'
 
 // ── Dispatch ────────────────────────────────────────────────────────────────
 // ΜΙΑ ΟΘΟΝΗ. ΜΗΔΕΝ ΣΚΡΟΛ.
@@ -32,6 +33,7 @@ export default function Dispatch({ data: d }) {
 
       <div className={s.panel}>
         <header className={s.head}>
+          {d.LOGO && <Brand data={d} className={s.logoSlot} dark />}
           <span className={s.trade}>{d.TRADE}</span>
           <h1 className={s.name}>{d.NAME}</h1>
         </header>

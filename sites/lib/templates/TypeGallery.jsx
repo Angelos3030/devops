@@ -1,4 +1,5 @@
 import s from './TypeGallery.module.css'
+import Brand from './Brand'
 
 // Type Gallery: a typography-led cultural poster. Suitable for studios,
 // restaurants, fashion and creative practices; it stays expressive without photos.
@@ -9,7 +10,7 @@ export default function TypeGallery({ data: d }) {
   return (
     <div className={s.root}>
       <nav className={s.nav} aria-label="Κύρια πλοήγηση">
-        <a href="#top" className={s.wordmark}>{d.NAME}</a>
+        <a href="#top" className={s.wordmark}><Brand data={d} /></a>
         <span>{d.CITY}</span>
         <a href={tel} className={s.navCall}>{d.PHONE}</a>
       </nav>

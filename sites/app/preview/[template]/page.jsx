@@ -10,9 +10,12 @@ import theme from '../../site/[client]/theme.module.css'
 export default function PreviewTemplate({ params, searchParams }) {
   const Tpl = TEMPLATES[params.template] || TEMPLATES.editorial
   const selected = demoBusinesses[searchParams?.biz] || demoData
-  const input = searchParams?.photos === 'none'
+  // ?logo=<url> — έλεγχος του brand slot και στις τρεις καταστάσεις
+  // (ανεβασμένο / παραγόμενο / χωρίς). Ίδιο μοτίβο με το ?photos=none.
+  let input = searchParams?.photos === 'none'
     ? { ...selected, HERO_IMAGE: '', STORY_IMAGE: '', gallery: [], MEDIA_POLICY: 'real-only' }
     : selected
+  if (searchParams?.logo) input = { ...input, LOGO: searchParams.logo }
   const controls = themeControls(params.template)
   const data = artDirect(withMediaFallback(input), params.template)
   // Ίδιο scope με το ζωντανό site: χωρίς αυτό το preview δεν μπορούσε να δείξει

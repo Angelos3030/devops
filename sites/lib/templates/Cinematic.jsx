@@ -1,4 +1,5 @@
 import s from './Cinematic.module.css'
+import Brand from './Brand'
 
 // Cinematic Residence: editorial architecture portfolio for interiors, homes and
 // premium craft. Images lead, while every image-dependent block has a text-first
@@ -13,7 +14,7 @@ export default function Cinematic({ data: d }) {
         {d.HERO_IMAGE && <img className={s.heroImage} src={d.HERO_IMAGE} alt="" aria-hidden="true" />}
         <div className={s.shade} aria-hidden="true" />
         <nav className={s.nav} aria-label="Κύρια πλοήγηση">
-          <a className={s.brand} href="#top" aria-label={`${d.NAME} — αρχική`}>{d.NAME}</a>
+          <a className={s.brand} href="#top" aria-label={`${d.NAME} — αρχική`}><Brand data={d} dark /></a>
           <div className={s.navLinks}>
             <a href="#projects">Έργα</a>
             <a href="#services">Υπηρεσίες</a>
