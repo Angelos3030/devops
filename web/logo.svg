@@ -1,10 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 28" role="img" aria-label="Vitrina">
-  <title>Vitrina</title>
-  <!-- Σήμα βιτρίνας: τετράγωνο τζάμι με κάθετο μοντάζ. Η γεωμετρία (2px
-       περίγραμμα, 2px μοντάζ σε 20px τετράγωνο) είναι αυτή που επιβίωσε
-       στη δοκιμή απόδοσης 1x· λεπτότερο μοντάζ γίνεται γκρι μουτζούρα. -->
-  <rect x="1" y="4" width="20" height="20" rx="4.5" fill="none" stroke="currentColor" stroke-width="2.4"/>
-  <rect x="9.8" y="4" width="2.4" height="20" fill="currentColor"/>
-  <text x="30" y="21" font-family="Manrope, system-ui, sans-serif" font-size="20"
-        font-weight="600" letter-spacing="-0.4" fill="currentColor">vitrina</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="64" height="64" role="img" aria-label="Vitrina"><title>Vitrina</title><rect x="2" y="2" width="22" height="22" rx="4.4" fill="none" stroke="#171714" stroke-width="2.6"/><path d="M13 13H22.7v6.5a3.1 3.1 0 0 1-3.1 3.1H13z" fill="#E85D3F"/></svg>

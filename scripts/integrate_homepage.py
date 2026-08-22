@@ -45,16 +45,13 @@ HEAD = f'''<meta charset="utf-8">
 # Το λογότυπο: σήμα βιτρίνας + wordmark. Η γεωμετρία (2.4 περίγραμμα / 2.4
 # μοντάζ σε 20 τετράγωνο) είναι αυτή που επιβίωσε στη δοκιμή απόδοσης 1x.
 LOGO = '''<span class="logo" aria-label="Vitrina">
-      <svg class="logo-mark" viewBox="0 0 22 28" width="17" height="22" aria-hidden="true" focusable="false">
-        <rect x="1.2" y="4" width="19.6" height="20" rx="4.5" fill="none" stroke="currentColor" stroke-width="2.4"/>
-        <rect x="9.8" y="4" width="2.4" height="20" fill="currentColor"/>
-      </svg>vitrina</span>'''
+      <svg class="logo-mark" viewBox="0 0 26 26" width="17" height="17" aria-hidden="true" focusable="false"><rect x="2" y="2" width="22" height="22" rx="4.4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 13H22.7v6.5a3.1 3.1 0 0 1-3.1 3.1H13z" fill="#E85D3F"/></svg>vitrina</span>'''
 
 LOGO_CSS = '''
   /* ── λογότυπο ── */
   .logo{ display:inline-flex; align-items:center; gap:8px; }
   .logo-mark{ flex:none; display:block; }
-  @media (max-width:899px){ .logo-mark{ width:15px; height:19px; } }
+  @media (max-width:899px){ .logo-mark{ width:15px; height:15px; } }
 '''
 
 # Το input οδηγεί στο πραγματικό onboarding. Ίδιο συμβόλαιο με τη σελίδα που
