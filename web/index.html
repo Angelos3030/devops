@@ -360,6 +360,17 @@
     content:"+"; position:absolute; inset:0; display:grid; place-items:center;
     color:var(--accent); font-size:17px; font-weight:600; line-height:1;
   }
+  /* Το πίσω πλακίδιο δηλώνεται ως λογότυπο — μικρό τετράγωνο σήμα, ώστε το
+     βήμα να διαβάζεται «λογότυπο ΚΑΙ φωτογραφίες» χωρίς δεύτερο εικονίδιο. */
+  .fl-up i.lg{ background:var(--warm); border-color:var(--line); z-index:3; }
+  .fl-up i.lg::after{
+    content:""; position:absolute; left:11px; top:11px; width:14px; height:14px;
+    border:2px solid var(--secondary); border-radius:3px;
+  }
+  .fl-alt{
+    display:block; margin-top:5px; font-style:normal;
+    font-size:12.5px; font-weight:400; color:var(--accent);
+  }
 
   .fl-msg{
     max-width:196px; align-items:center;
@@ -544,6 +555,7 @@
     .fl{ gap:9px; }
     .fl-art{ height:54px; }
     .fl-t{ font-size:13px; }
+    .fl-alt{ font-size:12px; }
     .fl-pick{ width:104px; }
     .fl-pick img{ width:38px; height:50px; }
     .fl-pick img:nth-child(2){ left:33px; }
@@ -784,8 +796,8 @@
       <div class="hd-said">
         <span class="hd-name">Κατασκευή site</span>
         <p class="hd-head">10 λεπτά από εσένα.<br>Τα υπόλοιπα από εμάς.</p>
-        <p class="hd-sub">Διαλέγεις το σχέδιο που σου αρέσει, ανεβάζεις τις φωτογραφίες σου
-        και μας γράφεις τις αλλαγές που θέλεις. Εμείς αναλαμβάνουμε τα υπόλοιπα.</p>
+        <p class="hd-sub">Διαλέγεις το σχέδιο που σου αρέσει, ανεβάζεις λογότυπο και
+        φωτογραφίες, και μας γράφεις τις αλλαγές που θέλεις. Εμείς αναλαμβάνουμε τα υπόλοιπα.</p>
       </div>
 
       <div class="hd-flowwrap">
@@ -802,8 +814,9 @@
           <i class="fl-ar" aria-hidden="true">→</i>
 
           <div class="fl">
-            <span class="fl-art fl-up" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="fl-t">Ανεβάζεις φωτογραφίες</span>
+            <span class="fl-art fl-up" aria-hidden="true"><i class="lg"></i><i></i><i></i></span>
+            <span class="fl-t">Ανεβάζεις λογότυπο<br>και φωτογραφίες
+              <em class="fl-alt">Δεν έχεις λογότυπο; Σου φτιάχνουμε ένα.</em></span>
           </div>
 
           <i class="fl-ar" aria-hidden="true">→</i>
@@ -818,7 +831,7 @@
             <span class="fl-t">Εμείς αναλαμβάνουμε</span>
           </div>
         </div>
-        <p class="hd-flow-note">Διαλέγεις · στέλνεις υλικό · ζητάς αλλαγές. Δεν ανοίγεις ποτέ editor.</p>
+        <p class="hd-flow-note">Τις φωτογραφίες τις προσαρμόζουμε και τις τοποθετούμε εμείς. Δεν ανοίγεις ποτέ editor και δεν χρειάζεται να ξέρεις από κατασκευή site.</p>
       </div>
     </div>
 
