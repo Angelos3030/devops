@@ -66,7 +66,7 @@ export function ChapterSnap({ data:d }) {
     <BrandNav d={d} mode="floating" />
     <aside className={s.chapterDots}>{chapters.map(x=><a key={x.n} href={`#chapter-${x.n}`}>{x.n}</a>)}</aside>
     {chapters.map((x,i)=><section id={`chapter-${x.n}`} className={s.chapter} key={x.n}>
-      <div className={s.chapterColor}><span>{x.n} / {i===0 ? d.TRADE : 'Κεφάλαιο'}</span><h1>{x.title}</h1><p>{x.copy}</p><a href={i===chapters.length-1?phoneHref(d):`#chapter-${chapters[Math.min(i+1,chapters.length-1)].n}`}>{i===chapters.length-1 ? (d.PHONE || 'Επικοινωνία') : 'Επόμενο'} ↘</a></div>
+      <div className={s.chapterColor}><span>{x.n} / {i===0 ? d.TRADE : 'Κεφάλαιο'}</span>{i===0 ? <h1>{x.title}</h1> : <h2>{x.title}</h2>}<p>{x.copy}</p><a href={i===chapters.length-1?phoneHref(d):`#chapter-${chapters[Math.min(i+1,chapters.length-1)].n}`}>{i===chapters.length-1 ? (d.PHONE || 'Επικοινωνία') : 'Επόμενο'} ↘</a></div>
       <div className={s.chapterVisual}>{x.image ? <img src={x.image} alt=""/> : <b>{x.n}</b>}</div>
     </section>)}
   </main>
@@ -92,7 +92,7 @@ export function HorizontalStory({ data: d }) {
       {scenes.map((x,i)=><section className={s.filmScene} key={x.k}>
         <div className={s.filmMeta}><span>{x.k}</span><span>{i===0?d.TRADE:'Υπηρεσία'}</span></div>
         <div className={s.filmImage}>{x.image ? <img src={x.image} alt=""/> : <span>{x.k}</span>}</div>
-        <h1>{x.title}</h1><p>{x.copy}</p>{i===scenes.length-1&&<a href={phoneHref(d)}>Κάλεσε τώρα ↗</a>}
+        {i===0 ? <h1>{x.title}</h1> : <h2>{x.title}</h2>}<p>{x.copy}</p>{i===scenes.length-1&&<a href={phoneHref(d)}>Κάλεσε τώρα ↗</a>}
       </section>)}
     </div>
     <div className={s.filmHint}>Σύρε οριζόντια <span>→</span></div>
@@ -105,7 +105,7 @@ export function VerticalSnap({ data:d }) {
   return <main id="top" className={`${s.root} ${s.snap}`}>
     <header className={s.snapFrame}><Brand data={d}/><span>{d.TRADE} · {d.CITY}</span><a href={phoneHref(d)}>{d.PHONE || 'Επικοινωνία'}</a></header>
     <nav className={s.snapNav}>{slides.map((x,i)=><a key={x.title} href={`#snap-${i}`}>{String(i+1).padStart(2,'0')} <span>{x.title}</span></a>)}</nav>
-    <div className={s.snapSlides}>{slides.map((x,i)=><section id={`snap-${i}`} key={x.title} style={x.image?{backgroundImage:`linear-gradient(90deg,rgba(9,12,18,.35),rgba(9,12,18,.05)),url(${x.image})`}:undefined}><div><span>0{i+1}</span><h1>{x.title}</h1><p>{x.copy}</p>{i===0&&<a href="#snap-1">Ανακάλυψε ↓</a>}</div></section>)}</div>
+    <div className={s.snapSlides}>{slides.map((x,i)=><section id={`snap-${i}`} key={x.title} style={x.image?{backgroundImage:`linear-gradient(90deg,rgba(9,12,18,.35),rgba(9,12,18,.05)),url(${x.image})`}:undefined}><div><span>0{i+1}</span>{i===0 ? <h1>{x.title}</h1> : <h2>{x.title}</h2>}<p>{x.copy}</p>{i===0&&<a href="#snap-1">Ανακάλυψε ↓</a>}</div></section>)}</div>
     <span className={s.snapHint}>Scroll / Drag ↓</span>
   </main>
 }
