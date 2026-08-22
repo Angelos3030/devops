@@ -769,8 +769,14 @@ def list_designs(client_id: str):
     except Exception as e:  # noqa: BLE001 — ποτέ να μη μπλοκάρει το choose
         print(f"[designs] smart-match skipped: {e}")
         templates = []
+    vertical, vertical_label = "", ""
+    try:
+        vertical, vertical_label = pg.vertical_of(_intake_from_db(client_id))
+    except Exception as e:  # noqa: BLE001 — ποτέ να μη μπλοκάρει το choose
+        print(f"[designs] vertical skipped: {e}")
     return {"variants": variants, "templates": templates,
-            "selected": selected, "deployed_url": deployed_url}
+            "selected": selected, "deployed_url": deployed_url,
+            "vertical": vertical, "vertical_label": vertical_label}
 
 
 @app.get("/clients/{client_id}/preview/{layout}", response_class=HTMLResponse)

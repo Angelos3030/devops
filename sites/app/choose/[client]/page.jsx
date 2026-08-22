@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { TEMPLATE_META, THEME_LIBRARY, THEME_CATEGORIES } from '../../../lib/templates'
+import { TEMPLATE_META, THEME_LIBRARY, THEME_CATEGORIES, categoryForVertical } from '../../../lib/templates'
 import s from './choose.module.css'
 
 const API = (process.env.NEXT_PUBLIC_API_BASE || '').replace(/\/$/, '')
@@ -38,6 +38,10 @@ export default function Choose({ params }) {
   // βιβλιοθήκη. Χωρίς αυτό ο πελάτης δεν έβλεπε ποτέ τα 58 σχέδια που έχουμε.
   const [view, setView] = useState('rec')
   const [cat, setCat] = useState('')
+  // Το επάγγελμα έρχεται από το backend· χωρίς αυτό ο πελάτης έβλεπε 58
+  // σχέδια χωρίς σειρά και τα άσχετα φαίνονταν πρώτα.
+  const [vertical, setVertical] = useState('')
+  const [vertLabel, setVertLabel] = useState('')
 
   // The fragment is not sent to Railway logs or referrers. Keep it only in this
   // tab until the authenticated dashboard consumes it and owns the site.
@@ -60,6 +64,8 @@ export default function Choose({ params }) {
       try {
         const r = await fetch(`${API}/clients/${client}/designs`)
         const d = await r.json()
+        if (d.vertical) setVertical(d.vertical)
+        if (d.vertical_label) setVertLabel(d.vertical_label)
         // Smart-match: το backend προτείνει premium templates για το επάγγελμά του.
         if (d.templates?.length) {
           const list = d.templates.map((layout, i) => ({ layout, recommended: i === 0 }))
@@ -80,9 +86,18 @@ export default function Choose({ params }) {
     load()
   }, [client, isDemo])
 
+  // Τα σχετικά πρώτα: ό,τι δηλώνει το επάγγελμά του, μετά τα ευέλικτα,
+  // μετά τα υπόλοιπα. Χωρίς αυτό, το «Δες όλα» έβγαζε καφετέριες σε κομμωτήριο.
+  const relevance = (t) => (t.verticals?.includes(vertical) ? 0 : t.generic ? 1 : 2)
   const libraryCards = (cat ? THEME_LIBRARY.filter((t) => t.category === cat) : THEME_LIBRARY)
+    .slice()
+    .sort((a, b) => relevance(a) - relevance(b))
     .map((t) => ({ layout: t.id, recommended: false }))
   const shown = view === 'all' ? libraryCards : (variants || [])
+
+  useEffect(() => {
+    if (vertical && !cat) setCat(categoryForVertical(vertical) || '')
+  }, [vertical])   // eslint-disable-line react-hooks/exhaustive-deps
 
   const siteHref = (layout) => isDemo
     ? `/preview/${layout}?biz=carpenter`
@@ -172,9 +187,9 @@ export default function Choose({ params }) {
 
       <div className={s.tabs} role="tablist" aria-label="Ποια σχέδια βλέπεις">
         <button role="tab" aria-selected={view === 'rec'} className={view === 'rec' ? s.tabOn : s.tab}
-          onClick={() => setView('rec')}>Προτεινόμενα για σένα ({variants.length})</button>
+          onClick={() => setView('rec')}>Προτεινόμενα{vertLabel ? ` για ${vertLabel}` : ' για σένα'} ({variants.length})</button>
         <button role="tab" aria-selected={view === 'all'} className={view === 'all' ? s.tabOn : s.tab}
-          onClick={() => setView('all')}>Δες όλα τα σχέδια ({THEME_LIBRARY.length})</button>
+          onClick={() => setView('all')}>Όλα τα σχέδια ({THEME_LIBRARY.length})</button>
       </div>
 
       {view === 'all' && (

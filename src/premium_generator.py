@@ -367,6 +367,10 @@ def recommend_layout(intake: dict[str, Any]) -> str:
 # Όλα τα διαθέσιμα React archetypes (πρέπει να ταιριάζουν με TEMPLATE_KEYS στο index.js).
 # Κάθε id που μπορεί να επιλεγεί. Αν λείπει, το /select-design
 # απαντά HTTP 400 ακόμη κι αν το theme αποδίδεται κανονικά.
+# Κάθε id που μπορεί να επιλεγεί. Αν λείπει, το /select-design
+# απαντά HTTP 400 ακόμη κι αν το theme αποδίδεται κανονικά.
+# Κάθε id που μπορεί να επιλεγεί. Αν λείπει, το /select-design
+# απαντά HTTP 400 ακόμη κι αν το theme αποδίδεται κανονικά.
 REACT_TEMPLATES = (
     "aegean",
     "airspace-office",
@@ -435,6 +439,10 @@ REACT_TEMPLATES = (
     "volt",
     "warmth",
 )
+# Ο κατάλογος που βλέπει ο πελάτης: κάθε εμπορικό theme που πέρασε QA.
+# ΔΕΝ περιλαμβάνει τα αρχέτυπα συμβατότητας του MAP.
+# Ο κατάλογος που βλέπει ο πελάτης: κάθε εμπορικό theme που πέρασε QA.
+# ΔΕΝ περιλαμβάνει τα αρχέτυπα συμβατότητας του MAP.
 # Ο κατάλογος που βλέπει ο πελάτης: κάθε εμπορικό theme που πέρασε QA.
 # ΔΕΝ περιλαμβάνει τα αρχέτυπα συμβατότητας του MAP.
 LAUNCH_REACT_TEMPLATES = (
@@ -743,6 +751,21 @@ def recommend_templates(intake: dict[str, Any], limit: int = 12) -> list[str]:
             and _is_solo_practitioner(intake)):
         keys.insert(0, keys.pop(keys.index("signature")))
     keys = _capability_rank(keys, intake, vertical)
+
+    # Themes που δεν υπήρχαν σε κανένα vertical του backend δεν μπορούσαν ΠΟΤΕ
+    # να προταθούν — 18 από τα 58. Μπαίνουν στη δεξαμενή για το δικό τους
+    # επάγγελμα, αφού πρώτα έχουν περάσει QA με τα δεδομένα του.
+    from . import theme_compat as _tc
+    compat = _tc.build(_TEMPLATES_BY_VERTICAL)
+    extra = [k for k, e in compat.items()
+             if k not in keys and e["primary"] == vertical and k in LAUNCH_REACT_TEMPLATES]
+    keys = keys + sorted(extra)
+
+    # Κατάταξη Α ακριβές → Β ελεγμένο συγγενικό → Γ γενικού σκοπού.
+    # Ό,τι είναι χτισμένο για άλλο επάγγελμα και ΔΕΝ είναι γενικό, κόβεται:
+    # ένα theme καφέ δεν προτείνεται σε κομμωτήριο.
+    keys = _tc.rank(keys, compat, vertical)
+
     launch = [k for k in keys if k in LAUNCH_REACT_TEMPLATES]
     return launch[:limit]
 
@@ -1077,3 +1100,21 @@ document.querySelectorAll('[data-layout]').forEach(b=>b.addEventListener('click'
 </script>
 </body></html>
 """
+
+
+# Ελληνικό όνομα επαγγέλματος για την «Επιλογή θέματος».
+VERTICAL_LABEL_EL = {
+    "beauty": "κομμωτήριο", "aesthetics": "ινστιτούτο αισθητικής",
+    "massage": "μασάζ & ευεξία", "food": "εστιατόριο", "cafe": "καφετέρια",
+    "bakery": "φούρνο", "dentist": "οδοντιατρείο", "doctor": "ιατρείο",
+    "pharmacy": "φαρμακείο", "trade": "τεχνικό επάγγελμα", "wood": "ξυλουργείο",
+    "garage": "συνεργείο", "rooms": "καταλύματα", "realestate": "ακίνητα",
+    "retail": "κατάστημα", "gym": "γυμναστήριο", "farm": "αγροτική επιχείρηση",
+    "pet": "κατάστημα ζώων", "professional": "επαγγελματικές υπηρεσίες",
+}
+
+
+def vertical_of(intake: dict[str, Any]) -> tuple[str, str]:
+    """Επάγγελμα + ελληνικό όνομά του, για το UI."""
+    v = _vertical(intake)
+    return v, VERTICAL_LABEL_EL.get(v, "την επιχείρησή σου")

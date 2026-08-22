@@ -25,6 +25,9 @@ ROOT = Path(__file__).resolve().parents[1]
 LIB = ROOT / "research" / "theme-library"
 sys.path.insert(0, str(LIB))
 from catalog import CATALOG, ARCHETYPE_META  # noqa: E402
+sys.path.insert(0, str(ROOT))
+from src import premium_generator as _pg      # noqa: E402
+from src import theme_compat as _tc           # noqa: E402
 
 IDX = ROOT / "sites" / "lib" / "templates" / "index.js"
 PG = ROOT / "src" / "premium_generator.py"
@@ -70,6 +73,8 @@ def main() -> None:
     approved = [i for i in commercial if qa.get(i, {}).get("pass") and i in CATALOG]
     blocked = [i for i in commercial if i not in approved]
 
+    COMPAT = _tc.build(_pg._TEMPLATES_BY_VERTICAL)
+
     src = IDX.read_text(encoding="utf-8")
     old = parse_meta(src)
 
@@ -82,12 +87,22 @@ def main() -> None:
         label, desc, cat = ALL[tid]
         cust = old.get(tid, {}).get("customizable", "{ palette: true, fontPair: true }")
         internal = " internal: true," if tid in ARCHETYPES else ""
+        ce = COMPAT.get(tid)
+        extra = ""
+        if ce:
+            # Ένα theme που στέκει σε 5+ επαγγέλματα δεν είναι «Εστίαση»· η
+            # μονή κατηγορία το έκανε να μοιάζει άσχετο σε κάθε άλλο επάγγελμα.
+            if ce["generic"] and tid not in ARCHETYPES:
+                cat = "Ευέλικτο"
+            extra = (" primary: '%s', verticals: %s, generic: %s,"
+                     % (ce["primary"], json.dumps(ce["compatible"]),
+                        "true" if ce["generic"] else "false"))
         # Το templateRegistry test ψάχνει `key:` για ids χωρίς παύλα και
         # `'key':` για όσα την έχουν. Κρατάμε το υπάρχον στιλ.
         k = f"'{tid}'" if "-" in tid else tid
         lines.append(
             f"  {k}: {{ label: '{js(label)}', desc: '{js(desc)}', "
-            f"category: '{js(cat)}',{internal} customizable: {cust} }},")
+            f"category: '{js(cat)}',{extra}{internal} customizable: {cust} }},")
     meta_block = ("export const TEMPLATE_META = {\n"
                   "  /* Ονόματα και περιγραφές ΠΡΟΣ ΤΟΝ ΠΕΛΑΤΗ. Καμία αναφορά σε\n"
                   "     εσωτερικό id, port ή πηγή template. Παράγεται από\n"
@@ -123,7 +138,16 @@ export const THEME_LIBRARY = COMMERCIAL_THEMES.map((id) => ({{
   label: TEMPLATE_META[id].label,
   desc: TEMPLATE_META[id].desc,
   category: TEMPLATE_META[id].category,
+  primary: TEMPLATE_META[id].primary,
+  verticals: TEMPLATE_META[id].verticals || [],
+  generic: !!TEMPLATE_META[id].generic,
 }}))
+
+/** Η κατηγορία που ταιριάζει στο επάγγελμα του πελάτη — για προεπιλογή φίλτρου. */
+export function categoryForVertical(vertical) {{
+  const hit = THEME_LIBRARY.find((t) => t.primary === vertical && !t.generic)
+  return hit ? hit.category : ''
+}}
 
 export const THEME_CATEGORIES = [...new Set(THEME_LIBRARY.map((t) => t.category))].sort()
 
