@@ -1,0 +1,940 @@
+{
+ "aegean": {
+  "id": "aegean",
+  "class": "commercial",
+  "label": "Αιγαίο",
+  "desc": "Κυκλαδίτικο φως, μεγάλη θαλασσινή φωτογραφία και ήρεμη τυπογραφία.",
+  "vertical": "rooms",
+  "category": "Τουρισμός & διαμονή",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/aegean?biz=rooms",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "airspace-office": {
+  "id": "airspace-office",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/airspace-office?biz=plumber",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "area-first": {
+  "id": "area-first",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/area-first?biz=plumber",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "bakery-editorial": {
+  "id": "bakery-editorial",
+  "class": "commercial",
+  "label": "Bakery Editorial",
+  "desc": "Μεγάλη φωτογραφία, refined τυπογραφία και premium αφήγηση προϊόντος.",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/bakery-editorial?biz=taverna",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "barber-shop": {
+  "id": "barber-shop",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "beauty",
+  "category": "Ομορφιά",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/barber-shop?biz=salon",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "beauty-atelier": {
+  "id": "beauty-atelier",
+  "class": "commercial",
+  "label": "Beauty Atelier",
+  "desc": "Premium editorial εμπειρία για νύχια, κομμωτήριο και αισθητική, με υπηρεσίες, έργα και booking-first ροή.",
+  "vertical": "aesthetics",
+  "category": "Ομορφιά",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/beauty-atelier?biz=aesthetics",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "bento": {
+  "id": "bento",
+  "class": "archetype",
+  "label": "",
+  "desc": "",
+  "vertical": "pharmacy",
+  "category": "Υγεία",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/bento?biz=pharmacy",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "bigspring-advisory": {
+  "id": "bigspring-advisory",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "dentist",
+  "category": "Υγεία",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/bigspring-advisory?biz=dentist",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "billys-barber": {
+  "id": "billys-barber",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "beauty",
+  "category": "Ομορφιά",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/billys-barber?biz=salon",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "bloom": {
+  "id": "bloom",
+  "class": "commercial",
+  "label": "Άνθιση",
+  "desc": "Καθαρό λευκό με στρογγυλή φωτογραφία-ήρωα και ζεστό πράσινο κουμπί.",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/bloom?biz=taverna",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "blue-onepage": {
+  "id": "blue-onepage",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "professional",
+  "category": "Επαγγελματικές υπηρεσίες",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/blue-onepage?biz=lawyer",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "callout": {
+  "id": "callout",
+  "class": "commercial",
+  "label": "Επείγουσα Κλήση",
+  "desc": "Σκούρο, με το τηλέφωνο βλάβης σε πρώτο πλάνο. Για 24/7 εξυπηρέτηση.",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/callout?biz=plumber",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "canvas": {
+  "id": "canvas",
+  "class": "commercial",
+  "label": "Καμβάς",
+  "desc": "Ήσυχο editorial με μεγάλη εικόνα και serif αφήγηση.",
+  "vertical": "rooms",
+  "category": "Τουρισμός & διαμονή",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/canvas?biz=rooms",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "chapter-snap": {
+  "id": "chapter-snap",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "rooms",
+  "category": "Τουρισμός & διαμονή",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/chapter-snap?biz=rooms",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "cinematic": {
+  "id": "cinematic",
+  "class": "commercial",
+  "label": "Κινηματογραφικό",
+  "desc": "Σκούρο, γεμάτο φωτογραφία, με μεγάλη χειρόγραφη τυπογραφία.",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/cinematic?biz=taverna",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "clean-work": {
+  "id": "clean-work",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/clean-work?biz=plumber",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "clinic-triage": {
+  "id": "clinic-triage",
+  "class": "commercial",
+  "label": "Ιατρείο",
+  "desc": "Ήρεμο ιατρικό — τρεις κάρτες «τι θέλεις να κάνεις», εναλλασσόμενα panels και σκούρα ζώνη τηλεφώνου.",
+  "vertical": "dentist",
+  "category": "Υγεία",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/clinic-triage?biz=dentist",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "coast": {
+  "id": "coast",
+  "class": "commercial",
+  "label": "Ακτή",
+  "desc": "Ανοιχτό και θαλασσινό, με ευρύχωρο hero και γαλάζιο τόνο.",
+  "vertical": "rooms",
+  "category": "Τουρισμός & διαμονή",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/coast?biz=rooms",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "constra-build": {
+  "id": "constra-build",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/constra-build?biz=plumber",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "corporate": {
+  "id": "corporate",
+  "class": "archetype",
+  "label": "",
+  "desc": "",
+  "vertical": "professional",
+  "category": "Επαγγελματικές υπηρεσίες",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/corporate?biz=lawyer",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "counter-menu": {
+  "id": "counter-menu",
+  "class": "commercial",
+  "label": "Counter Menu",
+  "desc": "Conversion-first πάγκος με menu board, ωράριο και άμεση επικοινωνία.",
+  "vertical": "cafe",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/counter-menu?biz=cafe",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "directory-index": {
+  "id": "directory-index",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "dentist",
+  "category": "Υγεία",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/directory-index?biz=dentist",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "dispatch": {
+  "id": "dispatch",
+  "class": "commercial",
+  "label": "Βάρδια",
+  "desc": "Σκούρο τεχνικό, με τηλέφωνο και λίστα υπηρεσιών σε κάρτα.",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/dispatch?biz=plumber",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "editorial": {
+  "id": "editorial",
+  "class": "archetype",
+  "label": "",
+  "desc": "",
+  "vertical": "dentist",
+  "category": "Υγεία",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/editorial?biz=dentist",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "educenter-campus": {
+  "id": "educenter-campus",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/educenter-campus?biz=plumber",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "elegance-salon": {
+  "id": "elegance-salon",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "beauty",
+  "category": "Ομορφιά",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/elegance-salon?biz=salon",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "ember": {
+  "id": "ember",
+  "class": "commercial",
+  "label": "Χόβολη",
+  "desc": "Πολύ σκούρο με πορτοκαλί λάμψη. Δραματικό για βραδινή εστίαση.",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/ember?biz=taverna",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "forge": {
+  "id": "forge",
+  "class": "commercial",
+  "label": "Σφυρήλατο",
+  "desc": "Βιομηχανικό, με κίτρινη ταινία και τούβλο. Για τεχνικά επαγγέλματα.",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/forge?biz=plumber",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "freight-lane": {
+  "id": "freight-lane",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/freight-lane?biz=plumber",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "frost-bakery": {
+  "id": "frost-bakery",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "bakery",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/frost-bakery?biz=cafe",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "grecko-table": {
+  "id": "grecko-table",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/grecko-table?biz=taverna",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "grid": {
+  "id": "grid",
+  "class": "archetype",
+  "label": "",
+  "desc": "",
+  "vertical": "rooms",
+  "category": "Τουρισμός & διαμονή",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/grid?biz=rooms",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "gymso-fitness": {
+  "id": "gymso-fitness",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "gym",
+  "category": "Γυμναστήριο & ευεξία",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/gymso-fitness?biz=gym",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "heritage-bakery": {
+  "id": "heritage-bakery",
+  "class": "commercial",
+  "label": "Heritage Bakery",
+  "desc": "Οικογενειακή ιστορία, πλούσια προϊόντα και σύγχρονη ελληνική παράδοση.",
+  "vertical": "bakery",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/heritage-bakery?biz=cafe",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "horizontal-story": {
+  "id": "horizontal-story",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "wood",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/horizontal-story?biz=carpenter",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "infinite": {
+  "id": "infinite",
+  "class": "commercial",
+  "label": "Συνεχές",
+  "desc": "Αδιάκοπη ροή φωτογραφιών, χωρίς ορατές τομές ενοτήτων.",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/infinite?biz=taverna",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "kinetic": {
+  "id": "kinetic",
+  "class": "commercial",
+  "label": "Κινητικό",
+  "desc": "Έντονο lime και μεγάλα γράμματα. Νεανικό και θορυβώδες.",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/kinetic?biz=taverna",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "klassy-cafe": {
+  "id": "klassy-cafe",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "cafe",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/klassy-cafe?biz=cafe",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "living": {
+  "id": "living",
+  "class": "commercial",
+  "label": "Καθημερινό",
+  "desc": "Ζεστό και οικείο, με τη φωτογραφία του προϊόντος μπροστά.",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/living?biz=taverna",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "longform": {
+  "id": "longform",
+  "class": "archetype",
+  "label": "",
+  "desc": "",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/longform?biz=plumber",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "magazine": {
+  "id": "magazine",
+  "class": "archetype",
+  "label": "",
+  "desc": "",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/magazine?biz=taverna",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "marble": {
+  "id": "marble",
+  "class": "commercial",
+  "label": "Μάρμαρο",
+  "desc": "Λευκό και λιτό, με μία εικόνα και πολύ αέρα γύρω της.",
+  "vertical": "rooms",
+  "category": "Τουρισμός & διαμονή",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/marble?biz=rooms",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "medic-care": {
+  "id": "medic-care",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "doctor",
+  "category": "Υγεία",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/medic-care?biz=physician",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "microbakery-lab": {
+  "id": "microbakery-lab",
+  "class": "commercial",
+  "label": "Microbakery Lab",
+  "desc": "Πειραματικό monochrome grid, process-first αφήγηση και έντονη τυπογραφία.",
+  "vertical": "bakery",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/microbakery-lab?biz=cafe",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "morning-journal": {
+  "id": "morning-journal",
+  "class": "commercial",
+  "label": "Morning Journal",
+  "desc": "Editorial εφημερίδα γειτονιάς με ιστορία, προϊόν και καθαρή πληροφορία.",
+  "vertical": "bakery",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/morning-journal?biz=cafe",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "moso-interior": {
+  "id": "moso-interior",
+  "class": "commercial",
+  "label": "Moso Showroom",
+  "desc": "Πιστό port του Moso Interior: προϊόντα με τιμές ανά κατηγορία, κάρτα ωραρίου πάνω σε φωτογραφία.",
+  "vertical": "wood",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/moso-interior?biz=carpenter",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "motor": {
+  "id": "motor",
+  "class": "commercial",
+  "label": "Μοτέρ",
+  "desc": "Σκούρο γκαράζ με κόκκινο τόνο και δελτίο εργασιών.",
+  "vertical": "garage",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/motor?biz=garage",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "neighborhood-market": {
+  "id": "neighborhood-market",
+  "class": "commercial",
+  "label": "Neighborhood Market",
+  "desc": "Χρώμα, modular tiles και ζωντανή local ταυτότητα για σύγχρονο καφέ ή φούρνο.",
+  "vertical": "cafe",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/neighborhood-market?biz=cafe",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "novena-care": {
+  "id": "novena-care",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "dentist",
+  "category": "Υγεία",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/novena-care?biz=dentist",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "poster": {
+  "id": "poster",
+  "class": "archetype",
+  "label": "",
+  "desc": "",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/poster?biz=taverna",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "price-first": {
+  "id": "price-first",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "beauty",
+  "category": "Ομορφιά",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/price-first?biz=salon",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "property-atlas": {
+  "id": "property-atlas",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "professional",
+  "category": "Επαγγελματικές υπηρεσίες",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/property-atlas?biz=lawyer",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "pulse": {
+  "id": "pulse",
+  "class": "commercial",
+  "label": "Παλμός",
+  "desc": "Καθαρό και αθλητικό, με εξοπλισμό σε πρώτο πλάνο.",
+  "vertical": "gym",
+  "category": "Γυμναστήριο & ευεξία",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/pulse?biz=gym",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "quiet": {
+  "id": "quiet",
+  "class": "commercial",
+  "label": "Ησυχία",
+  "desc": "Σχεδόν μόνο τυπογραφία. Ο μέγιστος δυνατός αέρας.",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/quiet?biz=taverna",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "runway": {
+  "id": "runway",
+  "class": "commercial",
+  "label": "Πασαρέλα",
+  "desc": "Ασπρόμαυρη φωτογραφία με χειρόγραφο ροζ accent.",
+  "vertical": "aesthetics",
+  "category": "Ομορφιά",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/runway?biz=aesthetics",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "scandinavian-coffee": {
+  "id": "scandinavian-coffee",
+  "class": "commercial",
+  "label": "Scandinavian Coffee House",
+  "desc": "Φως, αρχιτεκτονική φωτογραφία και ήρεμη specialty coffee εμπειρία.",
+  "vertical": "cafe",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/scandinavian-coffee?biz=cafe",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "showcase": {
+  "id": "showcase",
+  "class": "archetype",
+  "label": "",
+  "desc": "",
+  "vertical": "retail",
+  "category": "Λιανική",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/showcase?biz=retail",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "sidebar": {
+  "id": "sidebar",
+  "class": "archetype",
+  "label": "",
+  "desc": "",
+  "vertical": "pharmacy",
+  "category": "Υγεία",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/sidebar?biz=pharmacy",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "signature": {
+  "id": "signature",
+  "class": "commercial",
+  "label": "Υπογραφή",
+  "desc": "Προσωπικό ύφος, με serif όνομα και μία τονισμένη λέξη.",
+  "vertical": "dentist",
+  "category": "Υγεία",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/signature?biz=dentist",
+  "backend_known": true,
+  "offered_before": true
+ },
+ "split": {
+  "id": "split",
+  "class": "archetype",
+  "label": "",
+  "desc": "",
+  "vertical": "doctor",
+  "category": "Υγεία",
+  "qa": "fail",
+  "qa_fail": [
+   "h1 ×0"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/split?biz=physician",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "terra": {
+  "id": "terra",
+  "class": "commercial",
+  "label": "Γη",
+  "desc": "Γήινοι τόνοι και χαλαρός ρυθμός. Για ευεξία και φροντίδα.",
+  "vertical": "massage",
+  "category": "Υγεία",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/terra?biz=massage",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "thomson-stylist": {
+  "id": "thomson-stylist",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "beauty",
+  "category": "Ομορφιά",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/thomson-stylist?biz=salon",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "type-gallery": {
+  "id": "type-gallery",
+  "class": "commercial",
+  "label": "Type Gallery",
+  "desc": "Εκφραστική τυπογραφία, poster ρυθμός και τολμηρή παρουσίαση έργων.",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/type-gallery?biz=taverna",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "vertical-snap": {
+  "id": "vertical-snap",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "rooms",
+  "category": "Τουρισμός & διαμονή",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/vertical-snap?biz=rooms",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "vex-counter": {
+  "id": "vex-counter",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "trade",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/vex-counter?biz=plumber",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "villa-agency": {
+  "id": "villa-agency",
+  "class": "blocked",
+  "label": "",
+  "desc": "",
+  "vertical": "realestate",
+  "category": "Ακίνητα",
+  "qa": "pass",
+  "qa_fail": [
+   "λείπει ελληνικό όνομα"
+  ],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/villa-agency?biz=realestate",
+  "backend_known": false,
+  "offered_before": false
+ },
+ "volt": {
+  "id": "volt",
+  "class": "commercial",
+  "label": "Βολτ",
+  "desc": "Σκούρο και τεχνολογικό, με πράσινο τόνο.",
+  "vertical": "garage",
+  "category": "Τεχνικά επαγγέλματα",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/volt?biz=garage",
+  "backend_known": true,
+  "offered_before": false
+ },
+ "warmth": {
+  "id": "warmth",
+  "class": "commercial",
+  "label": "Ζεστασιά",
+  "desc": "Ζεστή φωτογραφία φαγητού και κρεμ ενότητες.",
+  "vertical": "food",
+  "category": "Εστίαση",
+  "qa": "pass",
+  "qa_fail": [],
+  "preview_url": "https://sites-production-da56.up.railway.app/preview/warmth?biz=taverna",
+  "backend_known": true,
+  "offered_before": false
+ }
+}

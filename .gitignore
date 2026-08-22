@@ -21,3 +21,14 @@ Thumbs.db
 
 # Κατεβασμένος πηγαίος κώδικας ξένων templates (research), όχι δικός μας
 vitrina-src/
+
+# Στιγμιότυπα έρευνας — αναπαράγονται από τα scripts, δεν μπαίνουν στο repo
+research/theme-library/shots/
+research/theme-library/*.jpg
+research/theme-library/*.png
+research/homepage-redesign/shots/
+research/homepage-redesign/*.jpg
+research/homepage-redesign/*.png
+research/homepage-redesign/*.html
+research/homepage-redesign/embed.json
+research/homepage-redesign/tiles-b64.json

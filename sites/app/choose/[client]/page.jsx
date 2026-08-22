@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { TEMPLATE_META } from '../../../lib/templates'
+import { TEMPLATE_META, THEME_LIBRARY, THEME_CATEGORIES } from '../../../lib/templates'
 import s from './choose.module.css'
 
 const API = (process.env.NEXT_PUBLIC_API_BASE || '').replace(/\/$/, '')
@@ -34,6 +34,10 @@ export default function Choose({ params }) {
   const [uploading, setUploading] = useState('')
   // Τι δείχνουν οι φωτογραφίες που ανεβάζει — το λέει ΑΥΤΟΣ, δεν το μαντεύουμε.
   const [mediaClass, setMediaClass] = useState('REAL_WORK')
+  // «Προτεινόμενα» = smart-match του backend · «Όλα» = η πλήρης εγκεκριμένη
+  // βιβλιοθήκη. Χωρίς αυτό ο πελάτης δεν έβλεπε ποτέ τα 58 σχέδια που έχουμε.
+  const [view, setView] = useState('rec')
+  const [cat, setCat] = useState('')
 
   // The fragment is not sent to Railway logs or referrers. Keep it only in this
   // tab until the authenticated dashboard consumes it and owns the site.
@@ -75,6 +79,10 @@ export default function Choose({ params }) {
     }
     load()
   }, [client, isDemo])
+
+  const libraryCards = (cat ? THEME_LIBRARY.filter((t) => t.category === cat) : THEME_LIBRARY)
+    .map((t) => ({ layout: t.id, recommended: false }))
+  const shown = view === 'all' ? libraryCards : (variants || [])
 
   const siteHref = (layout) => isDemo
     ? `/preview/${layout}?biz=carpenter`
@@ -162,8 +170,26 @@ export default function Choose({ params }) {
         </p>
       </header>
 
+      <div className={s.tabs} role="tablist" aria-label="Ποια σχέδια βλέπεις">
+        <button role="tab" aria-selected={view === 'rec'} className={view === 'rec' ? s.tabOn : s.tab}
+          onClick={() => setView('rec')}>Προτεινόμενα για σένα ({variants.length})</button>
+        <button role="tab" aria-selected={view === 'all'} className={view === 'all' ? s.tabOn : s.tab}
+          onClick={() => setView('all')}>Δες όλα τα σχέδια ({THEME_LIBRARY.length})</button>
+      </div>
+
+      {view === 'all' && (
+        <div className={s.cats} role="group" aria-label="Κατηγορία επιχείρησης">
+          <button className={cat === '' ? s.catOn : s.cat} onClick={() => setCat('')}>Όλες</button>
+          {THEME_CATEGORIES.map((c) => (
+            <button key={c} className={cat === c ? s.catOn : s.cat} onClick={() => setCat(c)}>
+              {c} ({THEME_LIBRARY.filter((t) => t.category === c).length})
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className={s.grid}>
-        {variants.map((v) => (
+        {shown.map((v) => (
           <button key={v.layout} className={`${s.card} ${selected === v.layout ? s.on : ''}`} onClick={() => setSelected(v.layout)}>
             <div className={s.shot}>
               {v.recommended && <span className={s.rec}>Προτεινόμενο</span>}
@@ -172,6 +198,9 @@ export default function Choose({ params }) {
             </div>
             <div className={s.label}>
               {labelOf(v.layout)}
+              {TEMPLATE_META[v.layout]?.category && (
+                <span className={s.cchip}>{TEMPLATE_META[v.layout].category}</span>
+              )}
               {descOf(v.layout) && <span className={s.labelDesc}>{descOf(v.layout)}</span>}
             </div>
           </button>

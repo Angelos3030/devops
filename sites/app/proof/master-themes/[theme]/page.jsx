@@ -12,7 +12,9 @@ const THEMES = {
 
 export default function MasterThemeProof({ params, searchParams }) {
   const Theme = THEMES[params.theme] || MasterCinematic
-  const base = demoBusinesses.rooms
+  // Το route έδινε ΠΑΝΤΑ δεδομένα rooms, οπότε τα τρία Master themes δεν είχαν
+  // ελεγχθεί ποτέ με το vertical τους (CLAUDE.md §7β). Δέχεται πλέον ?biz=.
+  const base = demoBusinesses[searchParams?.biz] || demoBusinesses.rooms
   const input = searchParams?.photos === 'none'
     ? { ...base, HERO_IMAGE: '', STORY_IMAGE: '', gallery: [], MEDIA_POLICY: 'real-only' }
     : base
