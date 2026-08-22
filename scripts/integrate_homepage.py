@@ -110,6 +110,26 @@ def main() -> None:
     # 5. σύνδεση με onboarding
     out = re.sub(r"</body>", "<script>\n" + FORM_JS + "\n</script>\n</body>", out, count=1)
 
+    # 5β. Το email του footer να μη γίνεται [email protected]
+    #
+    # Το zone getvitrina.gr έχει ενεργό Cloudflare Email Obfuscation. ΜΕΤΡΗΘΗΚΕ
+    # στην παραγωγή: το `hello@getvitrina.gr` σερβίρεται ως
+    # `<span class="__cf_email__" data-cfemail="…">[email protected]</span>` με
+    # href `/cdn-cgi/l/email-protection#…`, και επανέρχεται σε πραγματικό email
+    # μόνο αφού τρέξει το `/cdn-cgi/scripts/…/email-decode.min.js`.
+    # Με JavaScript κλειστό — και για κάθε crawler που δεν εκτελεί JS — ο
+    # πελάτης βλέπει «[email protected]» αντί για τη διεύθυνσή μας.
+    #
+    # Το `<!--email_off-->` είναι το τεκμηριωμένο per-element opt-out της
+    # Cloudflare: εξαιρεί μόνο ό,τι περικλείει, χωρίς να αγγίζει τη ρύθμιση
+    # zone και χωρίς καμία οπτική διαφορά. Μπαίνει εδώ και όχι στην πηγή,
+    # γιατί είναι θέμα υποδομής παραγωγής — η εγκεκριμένη αρχική μένει
+    # κλειδωμένη. Φυλάσσεται από το sites/artifacts/verify-email.mjs.
+    out, n = re.subn(
+        r'(<a class="ft-mail" href="mailto:[^"]+">[^<]+</a>)',
+        r"<!--email_off-->\1<!--email_on-->", out, count=1)
+    assert n == 1, f"δεν βρέθηκε ο σύνδεσμος email του footer ({n})"
+
     # 6. εγγυήσεις: τίποτα δεν άλλαξε στο κλειδωμένο hero
     for frag in ("Φτιάχνουμε το site.", "Εσύ ασχολείσαι με", "Πες μας με δυο λόγια τι κάνεις",
                  "κομμωτήριο στη Γλυφάδα", "Δείξε μου", "Πραγματικά site που φτιάξαμε",
