@@ -330,11 +330,35 @@
   /* Μία συνεχής ακολουθία: τρεις είσοδοι του πελάτη, μετά η ανάληψη.
      ΧΩΡΙΣ αρίθμηση — το «Πώς γίνεται» πιο κάτω έχει ήδη αριθμημένα βήματα. */
   .hd-flowwrap{ align-self:center; }
-  .hd-flow{ display:flex; align-items:flex-end; gap:16px; flex-wrap:wrap; }
-  .fl{ display:flex; flex-direction:column; gap:12px; }
+
+  /* ── Ο άξονας της ροής ────────────────────────────────────────────────
+     Μία συνεχής γραμμή περνά πίσω από τα τέσσερα βήματα και τερματίζει
+     μέσα στο κοραλί ✓. Για να είναι αληθινή, ΠΡΕΠΕΙ να περνά από τα
+     πραγματικά κέντρα των εικόνων — όχι από ένα αυθαίρετο ύψος.
+
+     Με `align-items:flex-end` τα κέντρα μετρήθηκαν σε τέσσερα διαφορετικά
+     ύψη (cy 73.8 / 33 / 73.8 / 83.7): ευθυγραμμίζονταν τα ΚΑΤΩ άκρα, και
+     το βήμα 2 έχει ψηλότερο κείμενο. Με `flex-start` ευθυγραμμίζεται η
+     ζώνη εικόνων και τα τέσσερα κέντρα πέφτουν στο ίδιο --axis.
+
+     Το ύψος δεν αλλάζει: ψηλότερο παιδί παραμένει το βήμα 2. Οι κορυφές
+     των λεζαντών ευθυγραμμίζονται πλέον όλες, γι' αυτό το ✓ παίρνει
+     margin 14px — 14+38+14 = 66, όσο και η ζώνη εικόνων. */
+  .hd-flow{
+    --axis:33px;   /* κέντρο της ζώνης εικόνων: 66/2 */
+    --link:16px;   /* ίδιο με το gap — η γραμμή γεφυρώνει ακριβώς το κενό */
+    display:flex; align-items:flex-start; gap:var(--link); flex-wrap:wrap;
+  }
+  .fl{ position:relative; display:flex; flex-direction:column; gap:12px; }
+  .fl::before{
+    content:""; position:absolute; z-index:0;
+    left:0; right:calc(var(--link) * -1); top:var(--axis);
+    height:1px; background:var(--accent); opacity:.45;
+  }
+  .fl-end::before{ content:none; }          /* το ✓ είναι το τέρμα */
+  .fl-art, .fl-t{ position:relative; z-index:1; }
   .fl-art{ display:flex; align-items:flex-end; height:66px; }
   .fl-t{ font-size:14px; font-weight:500; color:var(--secondary); line-height:1.35; }
-  .fl-ar{ font-style:normal; color:var(--accent); font-size:15px; padding-bottom:26px; }
 
   .fl-pick{ position:relative; width:118px; }
   .fl-pick img{
@@ -379,14 +403,26 @@
     font-size:13px; line-height:1.35; color:var(--text);
   }
 
-  /* το τελευταίο βήμα έχει σκόπιμα μεγαλύτερο βάρος — είναι η υπόσχεση */
-  .fl-end{ margin-left:10px; padding-left:26px; border-left:1px solid var(--line); }
+  /* Το τελευταίο βήμα είναι η υπόσχεση — σκόπιμα βαρύτερο. Το παλιό
+     κάθετο border έκοβε τη ροή στα δύο· τώρα που υπάρχει συνεχής άξονας,
+     ο διαχωρισμός αντιφάσκει με το «ένα ταξίδι». Στη θέση του μπαίνει ένα
+     αιχμηρό άκρο πάνω στη γραμμή: αυτό δίνει τη φορά, όχι τρία σκόρπια
+     βελάκια. Το ✓ μεγαλώνει 38 -> 42px — αποφασιστικό, χωρίς να γίνει
+     κάρτα ή κουμπί. */
+  .fl-end{ margin-left:0; padding-left:0; border-left:0; }
+  .fl-end::after{
+    content:""; position:absolute; z-index:1;
+    left:-11px; top:calc(var(--axis) - 3.5px);
+    width:7px; height:7px;
+    border-top:1.5px solid var(--accent); border-right:1.5px solid var(--accent);
+    transform:rotate(45deg);
+  }
   .fl-ok{
     flex:none;
-    width:38px; height:38px; border-radius:50%;
+    width:42px; height:42px; margin:12px 0; border-radius:50%;
     background:var(--accent); color:var(--bg);
     display:grid !important; place-items:center;
-    font-size:19px; line-height:1;
+    font-size:20px; line-height:1;
   }
   .fl-end .fl-t{ font-size:17px; font-weight:600; color:var(--text); }
   .hd-flow-note{ margin:22px 0 0 !important; font-size:13px; color:var(--secondary); }
@@ -550,8 +586,27 @@
     .hd-build{ padding-bottom:22px; }
     .hd-head{ font-size:18px; }
     .hd-sub{ font-size:15px; }
-    .hd-flow{ gap:12px 20px; align-items:flex-end; }
-    .fl-ar{ display:none; }
+    /* Στα 390 η ροή στοιβάζεται και ο άξονας γυρίζει κατακόρυφος. Καμία
+       οριζόντια γραμμή δεν επιβάλλεται· η φορά διαβάζεται πάνω-κάτω.
+
+       Πρώτη δοκιμή πέρασε τη ράγα στο x=20, μέσα από τα βήματα όπως στο
+       desktop. ΦΑΙΝΕΤΑΙ ΚΑΚΟ: εκεί που στο desktop η γραμμή κρύβεται πίσω
+       από αδιαφανή πλακίδια, στο mobile πέφτει πάνω στις λεζάντες — «και
+       φωτογραφίες», «Δεν έχεις λογότυπο», «Γράφεις τις αλλαγές σου»
+       διαβάζονταν διαγραμμένα, γιατί τα γράμματα δεν έχουν φόντο.
+
+       Η ράγα παίρνει δικό της κανάλι: τα τρία βήματα υποχωρούν 40px και η
+       γραμμή τρέχει στο x=21 — ακριβώς η ακτίνα του ✓, ώστε να τερματίζει
+       στο κέντρο του. Το τελευταίο βήμα δεν υποχωρεί: ο κύκλος πατά πάνω
+       στη ράγα και σπάει σκόπιμα τη στοίχιση, όπως αρμόζει σε τέρμα. */
+    .hd-flow{ flex-direction:column; align-items:flex-start; gap:14px; }
+    .fl{ padding-left:40px; }
+    .fl::before{
+      left:21px; right:auto; top:0; bottom:-14px;
+      width:1px; height:auto;
+    }
+    .fl-end::before{ content:""; bottom:auto; height:37px; }  /* 16 padding + 21 ως το κέντρο */
+    .fl-end::after{ left:17.5px; top:4px; transform:rotate(135deg); }  /* ίδιο άκρο, κάτω */
     .fl{ gap:9px; }
     .fl-art{ height:54px; }
     .fl-t{ font-size:13px; }
@@ -562,11 +617,11 @@
     .fl-pick img:nth-child(3){ left:66px; }
     .fl-msg{ max-width:290px; padding:8px 12px; }
     .fl-end{
-      margin:2px 0 0; padding:14px 0 0;
-      border-left:0; border-top:1px solid var(--line);
+      margin:0; padding:16px 0 0 0; border:0;
       flex-direction:row; align-items:center; gap:12px; width:100%;
     }
-    .fl-end .fl-ok{ height:38px; }   /* ειδικότερο από το .fl-art παραπάνω */
+    /* ειδικότερο από το .fl-art{height:54px} παραπάνω — αλλιώς το ✓ γίνεται οβάλ */
+    .fl-end .fl-ok{ width:42px; height:42px; margin:0; }
     .hd-flow-note{ margin-top:14px !important; }
     .hd-pair{ grid-template-columns:1fr; gap:28px; padding:24px 0; }
     .hd-edit{ padding-top:24px; }
@@ -811,15 +866,11 @@
             <span class="fl-t">Διαλέγεις σχέδιο</span>
           </div>
 
-          <i class="fl-ar" aria-hidden="true">→</i>
-
           <div class="fl">
             <span class="fl-art fl-up" aria-hidden="true"><i class="lg"></i><i></i><i></i></span>
             <span class="fl-t">Ανεβάζεις λογότυπο<br>και φωτογραφίες
               <em class="fl-alt">Δεν έχεις λογότυπο; Σου φτιάχνουμε ένα.</em></span>
           </div>
-
-          <i class="fl-ar" aria-hidden="true">→</i>
 
           <div class="fl">
             <span class="fl-art fl-msg">Θέλω αυτή τη φωτογραφία εδώ</span>
