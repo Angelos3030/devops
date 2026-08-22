@@ -288,51 +288,51 @@ CSS = '''
      των λεζαντών ευθυγραμμίζονται πλέον όλες, γι' αυτό το ✓ παίρνει
      margin 14px — 14+38+14 = 66, όσο και η ζώνη εικόνων. */
   .hd-flow{
-    --axis:33px;   /* κέντρο της ζώνης εικόνων: 66/2 */
-    --link:16px;   /* ίδιο με το gap — η γραμμή γεφυρώνει ακριβώς το κενό */
+    --axis:37px;   /* κέντρο της ζώνης εικόνων: 74/2 */
+    --link:36px;   /* ίδιο με το gap — η γραμμή γεφυρώνει ακριβώς το κενό */
     display:flex; align-items:flex-start; gap:var(--link); flex-wrap:wrap;
   }
   .fl{ position:relative; display:flex; flex-direction:column; gap:12px; }
   .fl::before{
     content:""; position:absolute; z-index:0;
     left:0; right:calc(var(--link) * -1); top:var(--axis);
-    height:1px; background:var(--accent); opacity:.45;
+    height:1.5px; background:var(--accent); opacity:.42;
   }
   .fl-end::before{ content:none; }          /* το ✓ είναι το τέρμα */
   .fl-art, .fl-t{ position:relative; z-index:1; }
-  .fl-art{ display:flex; align-items:flex-end; height:66px; }
+  .fl-art{ display:flex; align-items:flex-end; height:74px; }
   .fl-t{ font-size:14px; font-weight:500; color:var(--secondary); line-height:1.35; }
 
-  .fl-pick{ position:relative; width:118px; }
+  .fl-pick{ position:relative; width:140px; }
   .fl-pick img{
-    position:absolute; bottom:0; width:44px; height:58px;
+    position:absolute; bottom:0; width:52px; height:68px;
     object-fit:cover; object-position:top;
     border:1px solid var(--line); border-radius:5px; background:#fff;
   }
   .fl-pick img:nth-child(1){ left:0;    bottom:0; }
-  .fl-pick img:nth-child(2){ left:37px; bottom:4px; z-index:2;
+  .fl-pick img:nth-child(2){ left:44px; bottom:4px; z-index:2;
     border:2px solid var(--accent); box-shadow:0 4px 12px rgba(23,23,20,.10); }
-  .fl-pick img:nth-child(3){ left:74px; bottom:0; }
+  .fl-pick img:nth-child(3){ left:88px; bottom:0; }
 
-  .fl-up{ position:relative; width:82px; }
+  .fl-up{ position:relative; width:96px; }
   .fl-up i{
-    position:absolute; bottom:0; width:40px; height:40px;
-    border:1px solid var(--line); border-radius:6px; background:#fff;
+    position:absolute; bottom:0; width:47px; height:47px;
+    border:1px solid var(--line); border-radius:7px; background:#fff;
   }
-  .fl-up i:nth-child(1){ left:0;    bottom:10px; }
-  .fl-up i:nth-child(2){ left:14px; bottom:5px; }
-  .fl-up i:nth-child(3){ left:28px; bottom:0; z-index:2;
+  .fl-up i:nth-child(1){ left:0;    bottom:12px; }
+  .fl-up i:nth-child(2){ left:17px; bottom:6px; }
+  .fl-up i:nth-child(3){ left:34px; bottom:0; z-index:2;
     background:var(--warm); border-color:var(--accent); }
   .fl-up i:nth-child(3)::after{
     content:"+"; position:absolute; inset:0; display:grid; place-items:center;
-    color:var(--accent); font-size:17px; font-weight:600; line-height:1;
+    color:var(--accent); font-size:20px; font-weight:600; line-height:1;
   }
   /* Το πίσω πλακίδιο δηλώνεται ως λογότυπο — μικρό τετράγωνο σήμα, ώστε το
      βήμα να διαβάζεται «λογότυπο ΚΑΙ φωτογραφίες» χωρίς δεύτερο εικονίδιο. */
   .fl-up i.lg{ background:var(--warm); border-color:var(--line); z-index:3; }
   .fl-up i.lg::after{
-    content:""; position:absolute; left:11px; top:11px; width:14px; height:14px;
-    border:2px solid var(--secondary); border-radius:3px;
+    content:""; position:absolute; left:13px; top:13px; width:17px; height:17px;
+    border:2px solid var(--secondary); border-radius:4px;
   }
   .fl-alt{
     display:block; margin-top:5px; font-style:normal;
@@ -340,9 +340,13 @@ CSS = '''
   }
 
   .fl-msg{
-    max-width:196px; align-items:center;
+    /* 205 και όχι 230: στα 230 το «Θέλω αυτή τη φωτογραφία εδώ» χωρούσε σε
+       ΜΙΑ γραμμή, και το σύννεφο — που παίρνει το ύψος της ζώνης εικόνων —
+       έμενε μισοάδειο και έχανε τον χαρακτήρα του μηνύματος. Στα 205
+       ξαναγίνεται δίγραμμο και γεμίζει: 196x66 -> 205x74, +17% σε επιφάνεια. */
+    max-width:205px; align-items:center;
     background:#fff; border:1px solid var(--line);
-    border-radius:14px 14px 14px 4px; padding:9px 13px;
+    border-radius:16px 16px 16px 4px; padding:11px 15px;
     font-size:13px; line-height:1.35; color:var(--text);
   }
 
@@ -355,17 +359,17 @@ CSS = '''
   .fl-end{ margin-left:0; padding-left:0; border-left:0; }
   .fl-end::after{
     content:""; position:absolute; z-index:1;
-    left:-11px; top:calc(var(--axis) - 3.5px);
-    width:7px; height:7px;
-    border-top:1.5px solid var(--accent); border-right:1.5px solid var(--accent);
+    left:-14px; top:calc(var(--axis) - 4.5px);
+    width:9px; height:9px;
+    border-top:1.75px solid var(--accent); border-right:1.75px solid var(--accent);
     transform:rotate(45deg);
   }
   .fl-ok{
     flex:none;
-    width:42px; height:42px; margin:12px 0; border-radius:50%;
+    width:50px; height:50px; margin:12px 0; border-radius:50%;
     background:var(--accent); color:var(--bg);
     display:grid !important; place-items:center;
-    font-size:20px; line-height:1;
+    font-size:23px; line-height:1;
   }
   .fl-end .fl-t{ font-size:17px; font-weight:600; color:var(--text); }
   .hd-flow-note{ margin:22px 0 0 !important; font-size:13px; color:var(--secondary); }
@@ -554,10 +558,22 @@ CSS = '''
     .fl-art{ height:54px; }
     .fl-t{ font-size:13px; }
     .fl-alt{ font-size:12px; }
+    /* Το mobile μένει στην εγκεκριμένη του κλίμακα. Η μεγέθυνση αφορά
+       ΜΟΝΟ το desktop, όπου περίσσευε οριζόντιος χώρος — στα 390 δεν
+       περισσεύει. Χωρίς αυτά τα φρένα, τα νέα μεγέθη κατεβαίνουν με
+       κληρονομιά: τα πλακίδια των 47px ξεπερνούν τη ζώνη εικόνων των
+       54px και προεξέχουν. */
     .fl-pick{ width:104px; }
     .fl-pick img{ width:38px; height:50px; }
     .fl-pick img:nth-child(2){ left:33px; }
     .fl-pick img:nth-child(3){ left:66px; }
+    .fl-up{ width:82px; }
+    .fl-up i{ width:40px; height:40px; border-radius:6px; }
+    .fl-up i:nth-child(1){ bottom:10px; }
+    .fl-up i:nth-child(2){ left:14px; bottom:5px; }
+    .fl-up i:nth-child(3){ left:28px; }
+    .fl-up i:nth-child(3)::after{ font-size:17px; }
+    .fl-up i.lg::after{ left:11px; top:11px; width:14px; height:14px; border-radius:3px; }
     .fl-msg{ max-width:290px; padding:8px 12px; }
     .fl-end{
       margin:0; padding:16px 0 0 0; border:0;
