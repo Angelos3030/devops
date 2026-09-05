@@ -31,6 +31,19 @@ ANTHROPIC_BASE_URL = os.environ.get("ANTHROPIC_BASE_URL", "").rstrip("/")
 #   Anthropic    άφησέ τα κενά και βάλε ANTHROPIC_API_KEY=sk-ant-…
 AI_API_KEY = os.environ.get("AI_API_KEY", "") or ANTHROPIC_API_KEY
 AI_BASE_URL = os.environ.get("AI_BASE_URL", "").rstrip("/") or ANTHROPIC_BASE_URL
+
+# Κλειδί ανά πάροχο, για καταναλωτές που ΔΕΝ μιλάνε το πρωτόκολλο Anthropic.
+#
+# Το `AI_API_KEY` εξυπηρετεί το `src/ai.py`, που τιμά το `AI_PROVIDER` και
+# στέλνει στο api.anthropic.com. Ο chat editor όμως (`ai_editor/model.py`)
+# μιλάει ΜΟΝΟ πρωτόκολλο OpenAI και πέφτει στο DeepSeek — εκεί ένα κλειδί
+# Anthropic είναι λάθος κλειδί, όχι απλώς άλλο.
+#
+# Μετρήθηκε: κάθε μήνυμα πελάτη στον βοηθό γύριζε 502, με 401 από το DeepSeek.
+# Πρώτη μου διόρθωση άλλαζε το ίδιο το AI_API_KEY εδώ — και ΕΣΠΑΣΕ το
+# `src/ai.py`, που δούλευε μια χαρά. Το κλειδί δεν είναι ένα: είναι ένα ΑΝΑ
+# ΠΑΡΟΧΟ, και ο κάθε καταναλωτής διαλέγει αυτό που ταιριάζει στο endpoint του.
+DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
 AI_MODEL = os.environ.get("AI_MODEL", "")
 # "anthropic" | "openai" | "" = αυτόματη ανίχνευση από τη μορφή του κλειδιού
 AI_PROVIDER = os.environ.get("AI_PROVIDER", "").lower()

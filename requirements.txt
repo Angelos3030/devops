@@ -1,6 +1,6 @@
 anthropic>=0.92.0
 supabase>=2.0.0
-stripe>=8.0.0
+stripe==15.2.0          # verified by signed-webhook and Stripe TEST integration
 requests>=2.31.0
 python-dotenv>=1.0.0
 fastapi>=0.115.0

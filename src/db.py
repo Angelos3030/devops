@@ -2,12 +2,27 @@
 Πρόσβαση στη βάση (Supabase). Λεπτό wrapper — κράτα το απλό.
 """
 
+import atexit
 import json
 from datetime import datetime, timedelta, timezone
-from supabase import create_client
+import httpx
+from supabase import ClientOptions, create_client
 from . import config as cfg
 
-_sb = create_client(cfg.SUPABASE_URL, cfg.SUPABASE_KEY) if cfg.SUPABASE_URL else None
+_http = httpx.Client(http2=False, timeout=120.0) if cfg.SUPABASE_URL else None
+_sb = create_client(
+    cfg.SUPABASE_URL,
+    cfg.SUPABASE_KEY,
+    options=ClientOptions(httpx_client=_http),
+) if cfg.SUPABASE_URL else None
+
+
+def _close_transport() -> None:
+    if _http and not _http.is_closed:
+        _http.close()
+
+
+atexit.register(_close_transport)
 
 
 def _client():
@@ -325,6 +340,57 @@ def get_site_content(client_id: str) -> dict:
     return (res.data[0].get("content") or {}) if res.data else {}
 
 
+def site_content_rev(client_id: str) -> str:
+    """Ο δείκτης έκδοσης του περιεχομένου — το `updated_at` της εγγραφής.
+
+    Κενό όταν δεν έχει αποθηκευτεί ποτέ τίποτα: τότε κάθε πρώτη εγγραφή είναι
+    έγκυρη και δεν υπάρχει τίποτα να χαθεί.
+    """
+    res = (_client().table("site_content").select("updated_at")
+           .eq("client_id", client_id).limit(1).execute())
+    return (res.data[0].get("updated_at") or "") if res.data else ""
+
+
+def editor_version(client_id: str) -> int:
+    """Monotonic version for atomic conversational draft edits."""
+    res = (_client().table("site_content").select("editor_version")
+           .eq("client_id", client_id).limit(1).execute())
+    return int((res.data[0].get("editor_version") or 0) if res.data else 0)
+
+
+def editor_idempotent_result(client_id: str, key: str) -> dict | None:
+    res = (_client().table("site_revisions")
+           .select("id,version_after,after_state")
+           .eq("client_id", client_id).eq("idempotency_key", key).limit(1).execute())
+    if not res.data:
+        return None
+    row = res.data[0]
+    return {"success": True, "duplicate": True, "revision_id": row["id"],
+            "version": row["version_after"], "content": row["after_state"]}
+
+
+def editor_commit(client_id: str, payload: dict) -> dict:
+    result = _client().rpc("editor_commit", {
+        "p_client_id": client_id,
+        "p_expected_version": payload["expected_version"],
+        "p_idempotency_key": payload["idempotency_key"],
+        "p_message": payload["message"],
+        "p_operations": payload["operations"],
+        "p_before_state": payload["before_state"],
+        "p_after_state": payload["after_state"],
+    }).execute()
+    return result.data or {}
+
+
+def editor_undo(client_id: str, expected_version: int, idempotency_key: str) -> dict:
+    result = _client().rpc("editor_undo", {
+        "p_client_id": client_id,
+        "p_expected_version": expected_version,
+        "p_idempotency_key": idempotency_key,
+    }).execute()
+    return result.data or {}
+
+
 def save_site_content(client_id: str, content: dict) -> None:
     """Αποθηκεύει (upsert) τις αλλαγές του πελάτη."""
     from datetime import datetime, timezone
@@ -414,6 +480,42 @@ def get_client_assets(client_id: str, usage: str | None = None) -> list[dict]:
     return res.data or []
 
 
+# Ελληνικό -> λατινικό, για κλειδιά αποθήκευσης. Το Supabase Storage δέχεται
+# μόνο ASCII: «βιτρίνα.png» γύριζε 400 InvalidKey. Για προϊόν ελληνικών
+# επιχειρήσεων αυτό σημαίνει ότι ο πελάτης που φωτογραφίζει το μαγαζί του από
+# ελληνικό κινητό δεν μπορούσε να ανεβάσει τίποτα — και το μήνυμα που έβλεπε
+# ήταν εσωτερικό σφάλμα 502.
+_GREEK = {
+    "α": "a", "β": "v", "γ": "g", "δ": "d", "ε": "e", "ζ": "z", "η": "i",
+    "θ": "th", "ι": "i", "κ": "k", "λ": "l", "μ": "m", "ν": "n", "ξ": "x",
+    "ο": "o", "π": "p", "ρ": "r", "σ": "s", "ς": "s", "τ": "t", "υ": "y",
+    "φ": "f", "χ": "ch", "ψ": "ps", "ω": "o",
+    "ά": "a", "έ": "e", "ή": "i", "ί": "i", "ό": "o", "ύ": "y", "ώ": "o",
+    "ϊ": "i", "ϋ": "y", "ΐ": "i", "ΰ": "y",
+}
+
+
+def _storage_key(filename: str) -> str:
+    """Όνομα ασφαλές για το bucket: χωρίς διαδρομές, χωρίς μη-ASCII.
+
+    Ο τίτλος που ΒΛΕΠΕΙ ο πελάτης κρατά το αρχικό όνομα — εδώ αλλάζει μόνο το
+    κλειδί αποθήκευσης.
+    """
+    import os
+    import re
+
+    # Ποτέ διαδρομή: «../../evil.png» πρέπει να γίνει «evil.png».
+    base = os.path.basename(str(filename or "").replace("\\", "/"))
+    base = base.replace("\x00", "")
+    stem, dot, ext = base.rpartition(".")
+    if not dot:
+        stem, ext = base, ""
+    low = "".join(_GREEK.get(ch, _GREEK.get(ch.lower(), ch)) for ch in stem)
+    low = re.sub(r"[^A-Za-z0-9._-]+", "-", low).strip("-.") or "arxeio"
+    ext = re.sub(r"[^A-Za-z0-9]+", "", ext).lower()[:8] or "bin"
+    return f"{low[:80]}.{ext}"
+
+
 def upload_to_storage(client_id: str, filename: str,
                       data: bytes, content_type: str) -> str:
     """
@@ -422,7 +524,7 @@ def upload_to_storage(client_id: str, filename: str,
     Πρώτα: Supabase Dashboard → Storage → New bucket → 'client-assets' (public).
     """
     import mimetypes
-    path = f"{client_id}/{filename}"
+    path = f"{client_id}/{_storage_key(filename)}"
     _client().storage.from_("client-assets").upload(
         path, data, {"content-type": content_type, "upsert": "true"}
     )
@@ -481,13 +583,81 @@ def update_domain_order_status(stripe_session_id: str, status: str,
     ).execute()
 
 
+def create_domain_request(client_id: str, domain: str, availability: dict) -> dict:
+    """Αίτημα domain για ΧΕΙΡΟΚΙΝΗΤΗ εκτέλεση. ΔΕΝ αγοράζει τίποτα.
+
+    Αποθηκεύει ΚΑΙ το αποτέλεσμα διαθεσιμότητας ΚΑΙ τη στιγμή του: ανάμεσα σε
+    αυτό και την αγορά μεσολαβεί άνθρωπος, οπότε ο operator πρέπει να βλέπει
+    πόσο παλιά είναι η πληροφορία που είδε ο πελάτης — και να την ελέγξει ΞΑΝΑ.
+
+    Επανάληψη του ίδιου αιτήματος επιστρέφει το ΥΠΑΡΧΟΝ (idempotent): το
+    μοναδικό index `domain_orders_one_open_request` δεν επιτρέπει δεύτερο
+    ανοιχτό αίτημα για το ίδιο (πελάτη, domain).
+    """
+    now = datetime.now(timezone.utc).isoformat()
+    open_states = ("pending", "checkout_created", "paid", "pending_fulfillment")
+    existing = (_client().table("domain_orders").select("*")
+                .eq("client_id", client_id).eq("domain", domain)
+                .in_("status", list(open_states)).limit(1).execute()).data
+    if existing:
+        return existing[0]
+    res = _client().table("domain_orders").insert({
+        "client_id": client_id,
+        "domain": domain,
+        "amount_cents": 0,          # δεν χρεώνεται τίποτα σε αυτό το βήμα
+        "currency": "eur",
+        "status": "pending_fulfillment",
+        "availability": availability.get("status"),
+        "availability_source": availability.get("source"),
+        "availability_checked_at": availability.get("checked_at"),
+        "requested_at": now,
+    }).execute()
+    return res.data[0]
+
+
+def record_fulfillment_check(order_id: str, availability: dict) -> dict:
+    """Ο ΔΕΥΤΕΡΟΣ έλεγχος, από τον operator, αμέσως πριν την αγορά.
+
+    Γράφεται σε ΧΩΡΙΣΤΑ πεδία: το τι είδε ο πελάτης δεν επιτρέπεται να
+    ξαναγραφτεί — είναι απόδειξη του τι του δείχτηκε.
+
+    Αν το domain πιάστηκε στο μεταξύ, η παραγγελία περνά σε
+    `unavailable_at_fulfillment`, που είναι ΚΑΘΑΡΗ κατάσταση: ούτε «failed»
+    (δεν φταίει τεχνικό σφάλμα) ούτε «active» (δεν αποκτήθηκε).
+    """
+    status = availability.get("status")
+    patch = {
+        "fulfillment_availability": status,
+        "fulfillment_checked_at": availability.get("checked_at"),
+    }
+    if status == "unavailable":
+        patch["status"] = "unavailable_at_fulfillment"
+        patch["error"] = "Το domain κατοχυρώθηκε από τρίτον πριν την εκτέλεση."
+    res = (_client().table("domain_orders").update(patch)
+           .eq("id", order_id).execute())
+    return res.data[0] if res.data else {}
+
+
 def list_domain_orders(status: str | None = None, limit: int = 50) -> list[dict]:
-    """Παραγγελίες domain. Χωρίς `status` επιστρέφει τις πιο πρόσφατες όλων."""
-    q = (_client().table("domain_orders")
-         .select("id,client_id,domain,status,amount_cents,error,created_at")
-         .order("created_at", desc=True).limit(limit))
-    if status:
-        q = q.eq("status", status)
+    """Παραγγελίες domain. Χωρίς `status` επιστρέφει τις πιο πρόσφατες όλων.
+
+    Η λίστα των στηλών περιλαμβάνει τη διαθεσιμότητα ΚΑΙ τον χρόνο της: αυτή
+    είναι η οθόνη πάνω στην οποία δουλεύει ο operator, και χωρίς το «πότε
+    ελέγχθηκε» δεν ξέρει αν κοιτάζει φρέσκια ή δίμηνη πληροφορία.
+
+    Η ουρά εκτέλεσης ταξινομείται με `requested_at` (παλαιότερο πρώτο) —
+    ουρά, όχι στοίβα· ταιριάζει και με το index του migration 0006.
+    """
+    cols = ("id,client_id,domain,status,amount_cents,error,created_at,"
+            "availability,availability_source,availability_checked_at,"
+            "requested_at,fulfillment_availability,fulfillment_checked_at")
+    q = _client().table("domain_orders").select(cols).limit(limit)
+    if status == "pending_fulfillment":
+        q = q.eq("status", status).order("requested_at", desc=False)
+    elif status:
+        q = q.eq("status", status).order("created_at", desc=True)
+    else:
+        q = q.order("created_at", desc=True)
     return q.execute().data or []
 
 
@@ -507,9 +677,39 @@ def get_client_by_stripe(customer_id: str) -> dict | None:
 def get_subscription(client_id: str) -> dict | None:
     """Η συνδρομή ενός πελάτη (για dashboard: κατάσταση + Stripe portal)."""
     res = (_client().table("subscriptions")
-           .select("stripe_customer_id,stripe_sub_id,plan,status")
+           .select("stripe_customer_id,stripe_sub_id,stripe_price_id,plan,status,"
+                   "trial_start,trial_end,current_period_start,current_period_end,"
+                   "cancel_at_period_end,canceled_at,ended_at,latest_invoice_id,"
+                   "first_payment_failed_at")
            .eq("client_id", client_id).limit(1).execute())
     return (res.data[0] if res.data else None)
+
+
+def process_stripe_billing_event(payload: dict) -> dict:
+    """One service-role RPC: ledger claim + transition + completion."""
+    params = {
+        "p_event_id": payload["event_id"],
+        "p_event_type": payload["event_type"],
+        "p_event_created": payload["event_created"],
+        "p_client_id": payload.get("client_id"),
+        "p_customer_id": payload.get("customer_id"),
+        "p_subscription_id": payload.get("subscription_id"),
+        "p_price_id": payload.get("price_id"),
+        "p_subscription_status": payload.get("status"),
+        "p_trial_start": payload.get("trial_start"),
+        "p_trial_end": payload.get("trial_end"),
+        "p_period_start": payload.get("current_period_start"),
+        "p_period_end": payload.get("current_period_end"),
+        "p_cancel_at_period_end": payload.get("cancel_at_period_end"),
+        "p_canceled_at": payload.get("canceled_at"),
+        "p_ended_at": payload.get("ended_at"),
+        "p_latest_invoice_id": payload.get("latest_invoice_id"),
+        "p_customer_email": payload.get("customer_email"),
+        "p_disposition": payload.get("disposition"),
+        "p_error_message": payload.get("error_message"),
+    }
+    result = _client().rpc("process_stripe_billing_event", params).execute()
+    return result.data or {}
 
 
 def upsert_subscription(client_id: str, stripe_customer_id: str,
