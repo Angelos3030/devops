@@ -2,7 +2,7 @@
   /* Ταυτότητα στους ρόλους του spine */
   --vt-surface:#fbf3e4;--vt-surface-2:#fffdf8;--vt-surface-deep:#2f2015;--vt-ink:#2f2015;--vt-ink-soft:#766a5d;--vt-on-deep:#ffffff;--vt-accent:#bc5732;--vt-on-accent:#ffffff;--vt-accent-ink:#af512f;--vt-accent-on-deep:#cc7454;--vt-line:#dad1c3;--terra-deep:color-mix(in srgb, var(--vt-accent) 82%, #000);
   /* πιο βαθύ κρεμ — παράγωγο, ακολουθεί την παλέτα */
-  --cream-2:color-mix(in srgb, var(--vt-surface) 88%, var(--vt-ink));--serif:'Fraunces',Georgia,serif;--sans:'Nunito Sans','Inter',system-ui,sans-serif;
+  --cream-2:color-mix(in srgb, var(--vt-surface) 88%, var(--vt-ink));--serif: var(--vt-display, 'Fraunces',Georgia,serif);--sans: var(--vt-body, 'Nunito Sans','Inter',system-ui,sans-serif);
   background:var(--vt-surface);color:var(--vt-ink);font-family:var(--sans);line-height:1.7}
 .root h1,.root h2,.root h3{margin:0;font-family:var(--serif);font-weight:600;line-height:1.08}
 .eyebrow{font-family:var(--sans);font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-deep)}
@@ -49,3 +49,17 @@
 .cta .btn{background:#fff;color:var(--terra-deep)}
 .footer{text-align:center;color:var(--vt-ink-soft);font-size:.82rem;padding:2rem}
 @media(max-width:820px){.links{display:none}.story{grid-template-columns:1fr}.storyImg{aspect-ratio:16/10}.row h3{white-space:normal}}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* B · 40px ύψος · 1 theme(s) · «Κράτηση» */
+  .navBtn:not(:empty) { position: relative; }
+  .navBtn:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+}

@@ -10,7 +10,7 @@
     background: rgba(14, 15, 18, .82);
     backdrop-filter: blur(18px) saturate(1.1);
     border-top: 1px solid rgba(255, 255, 255, .09);
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: var(--vt-body, 'Inter', system-ui, sans-serif);
   }
 
   .call, .dir {

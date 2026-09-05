@@ -1,7 +1,7 @@
 .root{
   /* Ταυτότητα στους ρόλους του spine */
   --vt-surface:#0d0d0f;--vt-surface-2:#161619;--vt-surface-deep:#070708;--vt-ink:#f4f2ee;--vt-ink-soft:#a6a5a3;--vt-on-deep:#ffffff;--vt-accent:#d98a4e;--vt-on-accent:#111111;--vt-accent-ink:#d98a4e;--vt-accent-on-deep:#d98a4e;--vt-line:#323233;--accent-soft:color-mix(in srgb, var(--vt-accent) 72%, #fff);
-  --serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+  --serif: var(--vt-display, 'Fraunces',Georgia,serif);--sans: var(--vt-body, 'Inter',system-ui,sans-serif);
   background:var(--vt-surface);color:var(--vt-ink);font-family:var(--sans);line-height:1.6}
 .root h1,.root h2,.root h3{font-family:var(--serif);font-weight:500;line-height:1.03;margin:0}
 .kicker{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent-soft);font-weight:600}

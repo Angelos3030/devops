@@ -1,4 +1,5 @@
 import { TEMPLATES, themeControls } from '../../../lib/templates'
+import { themeMode } from '../../../lib/templates/themeMode'
 import { demoBusinesses, demoData } from '../../../lib/demoData'
 import CallBar from '../../../lib/templates/CallBar'
 import { withMediaFallback } from '../../../lib/mediaFallback'
@@ -22,9 +23,12 @@ export default function PreviewTemplate({ params, searchParams }) {
   // παλέτα, άρα ούτε να επαληθευτεί ότι ένα theme ακολουθεί το συμβόλαιο.
   return (
     <>
+      {/* Το mode δίνει τη ΦΩΤΕΙΝΟΤΗΤΑ, η παλέτα την ΑΠΟΧΡΩΣΗ. Χωρίς αυτό,
+          μια ανοιχτή παλέτα αντέστρεφε τα εννέα σκούρα themes. */}
       <div className={theme.scope}
+        data-mode={themeMode(params.template)}
         data-palette={controls.palette ? (searchParams?.palette || 'original') : undefined}
-        data-font={controls.fontPair ? (searchParams?.font || 'editorial') : undefined}>
+        data-font={controls.fontPair ? (searchParams?.font || undefined) : undefined}>
         <Tpl data={data} />
       </div>
       <MediaDisclosure data={data} />

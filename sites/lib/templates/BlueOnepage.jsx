@@ -49,7 +49,7 @@ export default function BlueOnepage({ data: d }) {
   const slides = gallery.length ? gallery.slice(0, 3) : (d.HERO_IMAGE ? [{ image: d.HERO_IMAGE }] : [])
 
   return (
-    <div className={s.root}>
+    <main className={s.root}>
       <nav className={s.nav} aria-label="Κύρια πλοήγηση">
         <div className={s.navIn}>
           <a href="#home" className={s.logo}><Brand data={d} className={s.brand} dark /></a>
@@ -83,9 +83,9 @@ export default function BlueOnepage({ data: d }) {
           {tel && <a href={tel} className={s.pill}>{d.PRIMARY_CTA || 'Κλείσε ραντεβού'}</a>}
         </div>
         {slides.length > 1 && (
-          <div className={s.arrows} aria-hidden="true">
-            <a href={`#slide-${slides.length}`} className={s.arrow}>‹</a>
-            <a href="#slide-2" className={s.arrow}>›</a>
+          <div className={s.arrows} aria-label="Επιλογή εικόνας">
+            <a href={`#slide-${slides.length}`} className={s.arrow} aria-label="Προηγούμενη εικόνα">‹</a>
+            <a href="#slide-2" className={s.arrow} aria-label="Επόμενη εικόνα">›</a>
           </div>
         )}
       </header>
@@ -180,6 +180,6 @@ export default function BlueOnepage({ data: d }) {
       <footer className={s.footer}>
         © {d.YEAR} {[d.NAME, d.CITY].filter(Boolean).join(' · ')} · Site από Vitrina
       </footer>
-    </div>
+    </main>
   )
 }

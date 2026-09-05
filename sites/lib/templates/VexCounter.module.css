@@ -21,8 +21,8 @@
   --container: 1240px;
   --pad: clamp(1.1rem, 5vw, 3.5rem);
   --section: clamp(3.4rem, 7.5vw, 6rem);
-  --display: 'Inter', system-ui, sans-serif;
-  --body: 'Inter', system-ui, sans-serif;
+  --display: var(--vt-display, 'Inter', system-ui, sans-serif);
+  --body: var(--vt-body, 'Inter', system-ui, sans-serif);
 
   background: var(--vt-surface);
   color: var(--vt-ink);

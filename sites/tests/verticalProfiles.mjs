@@ -7,7 +7,7 @@ const { DESIGN_SYSTEM_IDS, VERTICAL_PROFILES, getVerticalProfile, isDesignCompat
 
 const demoVerticals = [
   'carpenter', 'taverna', 'salon', 'dentist', 'physician', 'pharmacy', 'aesthetics', 'massage', 'cafe', 'retail', 'realestate', 'lawyer',
-  'plumber', 'rooms', 'gym', 'garage', 'farm',
+  'plumber', 'rooms', 'gym', 'garage', 'education', 'logistics', 'farm',
 ]
 const allowedMotion = new Set(['restrained', 'moderate', 'expressive'])
 
@@ -51,6 +51,8 @@ assert.equal(getVerticalProfile('Κατάστημα ρούχων').id, 'retail')
 assert.equal(getVerticalProfile('Ανθοπωλείο').id, 'retail')
 assert.equal(getVerticalProfile('Βουλκανιζατέρ').id, 'garage')
 assert.equal(getVerticalProfile('Οινοποιείο').id, 'farm')
+assert.equal(getVerticalProfile('Φροντιστήριο ξένων γλωσσών').id, 'education')
+assert.equal(getVerticalProfile('Μεταφορική και μετακομίσεις').id, 'logistics')
 assert.equal(getVerticalProfile('Ξενώνας').id, 'rooms')
 assert.equal(getVerticalProfile('unknown future vertical').id, 'generic')
 assert.equal(isDesignCompatible('υδραυλικός', 'dispatch'), false)

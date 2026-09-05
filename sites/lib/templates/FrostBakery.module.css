@@ -23,7 +23,7 @@
   --fb-honey-deep: #E6C68A;
 
 
-  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  font-family: var(--vt-body, 'Manrope', 'Segoe UI', sans-serif);
   color: var(--vt-ink);
   background-color: var(--vt-surface);
   line-height: 1.7;
@@ -45,7 +45,7 @@
 .root h4,
 .root h5,
 .root h6 {
-  font-family: 'Lora', Georgia, serif;
+  font-family: var(--vt-display, 'Lora', Georgia, serif);
   font-weight: 600;
   line-height: 1.2;
 }
@@ -65,7 +65,7 @@
 }
 
 .root button {
-  font-family: inherit;
+  font-family: var(--vt-body, inherit);
   cursor: pointer;
   border: none;
   background: none;

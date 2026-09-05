@@ -17,6 +17,17 @@ const LABELS = {
 const labelOf = (k) => TEMPLATE_META[k]?.label || LABELS[k] || k
 const descOf = (k) => TEMPLATE_META[k]?.desc || ''
 
+// Τα endpoints των σχεδίων δέχονται ΕΙΤΕ συνδεδεμένο ιδιοκτήτη ΕΙΤΕ το μυστικό
+// της ανώνυμης συνεδρίας. Μέχρι τώρα δεν στελνόταν τίποτα από τα δύο, και ένα
+// `POST /clients/<ξένο id>/select-design` άλλαζε το theme άλλου πελάτη.
+function claimHeaders(client) {
+  if (typeof window === 'undefined') return {}
+  try {
+    const t = window.sessionStorage.getItem(`vitrina-claim:${client}`)
+    return t ? { 'X-Vitrina-Claim': t } : {}
+  } catch { return {} }
+}
+
 export default function Choose({ params }) {
   const client = params.client
   const searchParams = useSearchParams()
@@ -62,7 +73,7 @@ export default function Choose({ params }) {
     let tries = 0
     const load = async () => {
       try {
-        const r = await fetch(`${API}/clients/${client}/designs`)
+        const r = await fetch(`${API}/clients/${client}/designs`, { headers: claimHeaders(client) })
         const d = await r.json()
         if (d.vertical) setVertical(d.vertical)
         if (d.vertical_label) setVertLabel(d.vertical_label)
@@ -134,20 +145,15 @@ export default function Choose({ params }) {
     setBusy(true); setErr('')
     try {
       await fetch(`${API}/clients/${client}/select-design`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json', ...claimHeaders(client) },
         body: JSON.stringify({ layout: selected }),
       })
       if (isPilot) {
         window.location.href = `/dashboard?client=${encodeURIComponent(client)}`
         return
       }
-      const r = await fetch(`${API}/create-checkout`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ client_id: client, plan: 'site' }),
-      })
-      const d = await r.json()
-      if (d.checkout_url) window.location.href = d.checkout_url
-      else throw new Error(d.detail || 'checkout')
+      window.sessionStorage.setItem('vitrina-active-client', client)
+      window.location.href = `/dashboard?client=${encodeURIComponent(client)}&subscribe=1`
     } catch (e) {
       setErr('Κάτι πήγε στραβά με την πληρωμή. Δοκίμασε ξανά ή γράψε μας στο hello@getvitrina.gr')
       setBusy(false)
@@ -160,7 +166,7 @@ export default function Choose({ params }) {
     try {
       window.sessionStorage.setItem('vitrina-active-client', client)
       const r = await fetch(`${API}/clients/${client}/select-design`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json', ...claimHeaders(client) },
         body: JSON.stringify({ layout: selected }),
       })
       if (!r.ok) throw new Error('select-design')
@@ -265,7 +271,7 @@ export default function Choose({ params }) {
         <button className={s.cta} onClick={checkout} disabled={busy || isDemo}>
           {isDemo ? 'Demo επιλογής πελάτη' : busy
             ? (isPilot ? 'Ετοιμάζουμε το preview…' : 'Σε πάμε στην πληρωμή…')
-            : (isPilot ? 'Δημιούργησε δωρεάν preview' : 'Συνέχεια — €14.99/μήνα · 1ος μήνας δωρεάν')}
+            : (isPilot ? 'Δημιούργησε δωρεάν preview' : 'Συνέχεια — 30 ημέρες δωρεάν')}
         </button>
       </div>
       {err && <p className={s.errline}>{err}</p>}

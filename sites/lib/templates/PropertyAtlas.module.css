@@ -1,12 +1,12 @@
-.root {
-  --forest: #173d35;
-  --mint: #c8edda;
-  --paper: #f7f4ec;
-  --orange: #e96135;
-  --ink: #16211e;
+.root {/* spine */--vt-surface:#f7f4ec;--vt-surface-2:#c8edda;--vt-surface-deep:#173d35;--vt-ink:#16211e;--vt-ink-soft:var(--vt-ink-soft);--vt-on-deep:#f7f4ec;--vt-accent:#e96135;--vt-on-accent:#ffffff;--vt-accent-ink:#173d35;--vt-accent-on-deep:#c8edda;--vt-line:var(--vt-line);
+  --forest: var(--vt-surface-deep);
+  --mint: var(--vt-surface-2);
+  --paper: var(--vt-surface);
+  --orange: var(--vt-accent);
+  --ink: var(--vt-ink);
   background: var(--paper);
   color: var(--ink);
-  font-family: "Manrope", Arial, sans-serif;
+  font-family: var(--vt-body, "Manrope", Arial, sans-serif);
   width: 100%;
   overflow-x: clip;
 }
@@ -60,7 +60,7 @@
   font-weight: 800;
 }
 .copy h1 {
-  font-family: "Noto Serif Display", Georgia, serif;
+  font-family: var(--vt-display, "Noto Serif Display", Georgia, serif);
   font-size: clamp(4rem, 7vw, 8rem);
   font-weight: 400;
   line-height: 0.9;
@@ -134,7 +134,7 @@
 }
 .listings h2,
 .services h2 {
-  font-family: "Noto Serif Display", Georgia, serif;
+  font-family: var(--vt-display, "Noto Serif Display", Georgia, serif);
   font-size: clamp(3rem, 6vw, 6rem);
   font-weight: 400;
   line-height: 0.95;
@@ -175,7 +175,7 @@
 }
 .listings footer b {
   font-size: 0.78rem;
-  color: #6c756f;
+  color: var(--vt-ink-soft);
 }
 .listings footer a {
   grid-column: 2;
@@ -213,7 +213,7 @@
 }
 .services li p {
   grid-column: 2;
-  color: #c7d2ce;
+  color: var(--vt-line);
   line-height: 1.6;
 }
 .cta {
@@ -314,5 +314,19 @@
 @media (prefers-reduced-motion: reduce) {
   .listings article {
     transform: none !important;
+  }
+}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* C · 22px ύψος · 1 theme(s) · «Ακίνητα Δουκάκης» */
+  .nav > a:not(:empty) { position: relative; }
+  .nav > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
   }
 }

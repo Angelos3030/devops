@@ -13,7 +13,7 @@
   position: relative;
   background: var(--vt-surface-deep);
   color: var(--vt-on-deep);
-  font-family: "Manrope", Arial, sans-serif;
+  font-family: var(--vt-body, "Manrope", Arial, sans-serif);
   letter-spacing: 0;
 }
 .frame {
@@ -146,7 +146,7 @@
 .copy h2 {
   max-width: 900px;
   margin: 0;
-  font-family: "Noto Serif Display", "Times New Roman", serif;
+  font-family: var(--vt-display, "Noto Serif Display", "Times New Roman", serif);
   font-size: clamp(64px, 8.2vw, 132px);
   font-weight: 300;
   line-height: 0.88;

@@ -3,7 +3,7 @@
   --vt-surface:#f7f4ee;--vt-surface-2:#ece8df;--vt-surface-deep:#1a1712;--vt-ink:#1a1712;--vt-ink-soft:#64605a;--vt-on-deep:#ffffff;--vt-accent:#8a2b20;--vt-on-accent:#ffffff;--vt-accent-ink:#8a2b20;--vt-accent-on-deep:#b2736c;--vt-line:#d4d1cb;
   /* Ταυτότητα στους ρόλους του spine — βλ. app/site/[client]/theme.module.css */
   --line-soft:color-mix(in srgb, var(--vt-ink) 20%, transparent);
-  --serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+  --serif: var(--vt-display, 'Fraunces',Georgia,serif);--sans: var(--vt-body, 'Inter',system-ui,sans-serif);
   background:var(--vt-surface);color:var(--vt-ink);font-family:var(--serif);line-height:1.6}
 .root h1,.root h2,.root h3{margin:0;font-weight:500;line-height:1.08}
 .label{font-family:var(--sans);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vt-accent-ink);font-weight:700}

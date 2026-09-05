@@ -24,9 +24,9 @@
   --status-open: var(--status-open);
 
   /* Ελληνική τυπογραφική ταυτότητα: βαριά condensed «ταμπέλα» + ζεστή Alegreya */
-  --display: 'Fira Sans Condensed', 'Anton', 'Arial Narrow', sans-serif;
-  --serif: 'Alegreya', 'Fraunces', Georgia, serif;
-  --body: 'Fira Sans', 'Nunito Sans', system-ui, sans-serif;
+  --display: var(--vt-display, 'Fira Sans Condensed', 'Anton', 'Arial Narrow', sans-serif);
+  --serif: var(--vt-display, 'Alegreya', 'Fraunces', Georgia, serif);
+  --body: var(--vt-body, 'Fira Sans', 'Nunito Sans', system-ui, sans-serif);
   --mono: 'JetBrains Mono', monospace;
 
   background: var(--vt-surface);
@@ -198,4 +198,18 @@
   .leader { display: none; }
   .rowDesc { grid-column: 1 / -1; text-align: left; padding-left: 2rem; margin-top: 0.2rem; }
   .navMeta { display: none; }
+}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* B · 36px ύψος · 1 theme(s) · «2310 000000» */
+  .navCall:not(:empty) { position: relative; }
+  .navCall:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
 }

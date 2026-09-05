@@ -34,8 +34,8 @@
   --section: clamp(3.5rem, 7vw, 5.6rem);
 
   /* Ουδέτερη, υψηλής ευκρίνειας ιατρική τυπογραφία — ελληνικό subset, self-hosted */
-  --display: 'Noto Sans Display', system-ui, sans-serif;
-  --body: 'Open Sans', system-ui, sans-serif;
+  --display: var(--vt-display, 'Noto Sans Display', system-ui, sans-serif);
+  --body: var(--vt-body, 'Open Sans', system-ui, sans-serif);
 
   background: var(--vt-surface);
   color: var(--vt-ink-soft);
@@ -298,4 +298,18 @@
 @media (max-width: 860px) {
   .indexRow { grid-template-columns: 2.4rem 1fr; }
   .indexRow p, .indexLink { grid-column: 2; }
+}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* B · 32px ύψος · 1 theme(s) · «210 6000000» */
+  .ribbonPhone:not(:empty) { position: relative; }
+  .ribbonPhone:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
 }

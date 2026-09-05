@@ -30,8 +30,8 @@
 
   /* Συμπυκνωμένη βαριά γραφή: διαβάζεται από μακριά, «εργαλείο» όχι «boutique».
      Και τα δύο self-hosted με ελληνικό subset. */
-  --display: 'Fira Sans Condensed', 'Arial Narrow', system-ui, sans-serif;
-  --body: 'Open Sans', system-ui, sans-serif;
+  --display: var(--vt-display, 'Fira Sans Condensed', 'Arial Narrow', system-ui, sans-serif);
+  --body: var(--vt-body, 'Open Sans', system-ui, sans-serif);
 
   background: var(--vt-surface);
   color: var(--vt-ink-soft);

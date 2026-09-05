@@ -1,7 +1,7 @@
 .root{
   /* Ταυτότητα στους ρόλους του spine */
   --vt-surface:#f5f7fa;--vt-surface-2:#eaf1f8;--vt-surface-deep:#111a26;--vt-ink:#111a26;--vt-ink-soft:#5d6570;--vt-on-deep:#ffffff;--vt-accent:#1f5f9e;--vt-on-accent:#ffffff;--vt-accent-ink:#1f5f9e;--vt-accent-on-deep:#5989b7;--vt-line:#d1d4d8;--surface-card:#fff;--brand-deep:color-mix(in srgb, var(--vt-accent) 78%, #000);
-  --sans:'Inter',system-ui,sans-serif;
+  --sans: var(--vt-body, 'Inter',system-ui,sans-serif);
   background:var(--vt-surface);color:var(--vt-ink);font-family:var(--sans);line-height:1.6}
 .root h1,.root h2,.root h3{font-weight:700;letter-spacing:-.025em;line-height:1.1;margin:0}
 .eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--vt-accent-ink);font-weight:700}

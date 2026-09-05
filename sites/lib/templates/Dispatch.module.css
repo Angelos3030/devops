@@ -21,7 +21,7 @@
   --status-open: var(--status-open);
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   --cond: 'Fira Sans Condensed', 'Inter', system-ui, sans-serif;
-  --sans: 'Inter', system-ui, sans-serif;
+  --sans: var(--vt-body, 'Inter', system-ui, sans-serif);
 
   position: relative;
   min-height: 100dvh;

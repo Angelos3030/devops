@@ -13,6 +13,7 @@ const DESIGN_SYSTEM_IDS = Object.freeze([
   'bakery-editorial', 'counter-menu', 'morning-journal', 'neighborhood-market', 'microbakery-lab', 'scandinavian-coffee', 'heritage-bakery',
   'area-first', 'horizontal-story', 'price-first', 'chapter-snap', 'directory-index', 'vertical-snap',
   'elegance-salon', 'grecko-table', 'novena-care', 'bigspring-advisory', 'constra-build', 'property-atlas',
+  'educenter-campus', 'freight-lane', 'blue-onepage',
 ])
 
 const REQUIRED_BASE_SECTIONS = Object.freeze(['hero', 'services', 'contact', 'find-us'])
@@ -216,7 +217,7 @@ export const VERTICAL_PROFILES = Object.freeze({
     },
     // Το `longform` (στενή στήλη, drop-cap, magazine ανάγνωση) ταιριάζει σε
     // επάγγελμα που πρέπει να ΕΞΗΓΗΣΕΙ: νομικά κείμενα, διαδικασίες, όροι.
-    compatibleDesignSystemIds: ['bigspring-advisory', 'property-atlas', 'directory-index', 'marble', 'signature', 'quiet', 'longform', 'grid', 'canvas', 'type-gallery', 'editorial', 'chapter-snap'],
+    compatibleDesignSystemIds: ['bigspring-advisory', 'property-atlas', 'directory-index', 'marble', 'signature', 'blue-onepage', 'longform', 'grid', 'canvas', 'type-gallery', 'editorial', 'chapter-snap'],
   }),
   plumber: profile({
     id: 'plumber', label: 'Υδραυλικός',
@@ -279,6 +280,34 @@ export const VERTICAL_PROFILES = Object.freeze({
       fallbackStrategy: 'diagnostic-ui-and-service-led-layout',
     },
     compatibleDesignSystemIds: ['motor', 'kinetic', 'grid', 'infinite', 'type-gallery', 'cinematic', 'quiet', 'living', 'canvas', 'volt', 'forge', 'poster'],
+  }),
+  education: profile({
+    id: 'education', label: 'Εκπαίδευση',
+    aliases: ['education', 'school', 'εκπαίδευση', 'εκπαιδευτικό κέντρο', 'φροντιστήριο', 'κέντρο ξένων γλωσσών', 'σχολή', 'σεμινάρια', 'μαθήματα'],
+    conversionGoal: { primary: 'enrollment-enquiry', secondary: 'phone-call' },
+    requiredSections: ['hero', 'programs', 'teachers', 'enrollment', 'contact', 'find-us'],
+    motionIntensity: 'moderate', schemaType: 'EducationalOrganization',
+    media: {
+      minimumPreferredImages: 2,
+      requiredSubjects: Object.freeze(['learning-space', 'class-or-teacher']),
+      avoid: Object.freeze(['unverified-accreditation', 'unconsented-student-images', 'guaranteed-results']),
+      fallbackStrategy: 'program-led-layout-with-typographic-campus-details',
+    },
+    compatibleDesignSystemIds: ['educenter-campus', 'chapter-snap', 'bigspring-advisory', 'directory-index', 'quiet', 'grid', 'canvas', 'type-gallery', 'living', 'cinematic', 'infinite', 'marble'],
+  }),
+  logistics: profile({
+    id: 'logistics', label: 'Μεταφορές & Logistics',
+    aliases: ['logistics', 'transport', 'freight', 'μεταφορές', 'μεταφορική', 'μετακομίσεις', 'courier', 'ταχυμεταφορές', 'αποθήκευση', 'διανομή'],
+    conversionGoal: { primary: 'request-quote', secondary: 'phone-call' },
+    requiredSections: ['hero', 'services', 'coverage', 'process', 'quote', 'contact'],
+    motionIntensity: 'moderate', schemaType: 'MovingCompany',
+    media: {
+      minimumPreferredImages: 2,
+      requiredSubjects: Object.freeze(['vehicle-or-team', 'cargo-or-route']),
+      avoid: Object.freeze(['unverified-fleet-claims', 'misleading-coverage', 'unsafe-loading-scenes']),
+      fallbackStrategy: 'route-and-service-led-industrial-layout',
+    },
+    compatibleDesignSystemIds: ['freight-lane', 'constra-build', 'area-first', 'forge', 'grid', 'type-gallery', 'quiet', 'living', 'cinematic', 'infinite', 'canvas', 'bigspring-advisory'],
   }),
   farm: profile({
     id: 'farm', label: 'Παραγωγός / Αγροτικά προϊόντα',

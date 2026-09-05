@@ -32,32 +32,32 @@
   --vt-surface: #f7f0e6; --vt-surface-2: #ede6dc; --vt-surface-deep: #2d1f19;
   --vt-ink: #35251d; --vt-ink-soft: #6b5e55; --vt-on-deep: #ffffff;
   --vt-accent: #b95732; --vt-on-accent: #ffffff; --vt-accent-ink: #a54d2d;
-  --vt-line: #dcd4ca; --vt-accent-on-deep: #c67557;
+  --vt-line: #dcd4ca; --vt-accent-on-deep: #d69c87;
 }
 .scope[data-palette='forest'] > :first-child {
   --vt-surface: #f1f4ec; --vt-surface-2: #e6eae2; --vt-surface-deep: #142d24;
   --vt-ink: #17352a; --vt-ink-soft: #546a60; --vt-on-deep: #ffffff;
   --vt-accent: #3d7a58; --vt-on-accent: #ffffff; --vt-accent-ink: #356b4d;
-  --vt-line: #d2d9d1; --vt-accent-on-deep: #6c9a80;
+  --vt-line: #d2d9d1; --vt-accent-on-deep: #8fb29e;
 }
 .scope[data-palette='ocean'] > :first-child {
   --vt-surface: #f1f6f7; --vt-surface-2: #e6ecee; --vt-surface-deep: #142f3c;
   --vt-ink: #173746; --vt-ink-soft: #546c78; --vt-on-deep: #ffffff;
   --vt-accent: #247997; --vt-on-accent: #ffffff; --vt-accent-ink: #206a85;
-  --vt-line: #d2dbde; --vt-accent-on-deep: #5d9cb2;
+  --vt-line: #d2dbde; --vt-accent-on-deep: #80b1c3;
 }
 .scope[data-palette='rose'] > :first-child {
   /* Το accent σκούρυνε από #c55f78: το λευκό από πάνω του έδινε 3,98. */
   --vt-surface: #faf2f3; --vt-surface-2: #f1e8e9; --vt-surface-deep: #37252a;
   --vt-ink: #412b31; --vt-ink-soft: #756367; --vt-on-deep: #ffffff;
   --vt-accent: #b75870; --vt-on-accent: #ffffff; --vt-accent-ink: #a34e64;
-  --vt-line: #e0d6d8; --vt-accent-on-deep: #c77d8f;
+  --vt-line: #e0d6d8; --vt-accent-on-deep: #d49aa8;
 }
 .scope[data-palette='mono'] > :first-child {
   --vt-surface: #f7f7f5; --vt-surface-2: #ececea; --vt-surface-deep: #121212;
   --vt-ink: #151515; --vt-ink-soft: #545454; --vt-on-deep: #ffffff;
   --vt-accent: #151515; --vt-on-accent: #ffffff; --vt-accent-ink: #151515;
-  --vt-line: #d7d7d6; --vt-accent-on-deep: #818181;
+  --vt-line: #d7d7d6; --vt-accent-on-deep: #aaaaaa;
 }
 
 /* Η legacy γέφυρα ΔΙΑΓΡΑΦΗΚΕ στις 11 Αυγούστου 2026.
@@ -69,3 +69,33 @@
 .scope[data-font='modern'] > :first-child {--display:'Manrope','Inter',Arial,sans-serif!important;--serif:'Manrope','Inter',Arial,sans-serif!important;--sans:'Manrope','Inter',Arial,sans-serif!important;}
 .scope[data-font='friendly'] > :first-child {--display:'Comfortaa','Inter',Arial,sans-serif!important;--serif:'Comfortaa','Inter',Arial,sans-serif!important;--sans:'Comfortaa','Inter',Arial,sans-serif!important;}
 .scope[data-font='classic'] > :first-child {--display:'EB Garamond',Georgia,serif!important;--serif:'EB Garamond',Georgia,serif!important;}
+
+/* ΤΥΠΟΓΡΑΦΙΚΟΙ ΡΟΛΟΙ. Δύο ρόλοι, όχι δώδεκα ονόματα. Οι από πάνω κανόνες
+   μένουν ως έχουν: τα 23 themes που ήδη δούλευαν κρατούν την ίδια διαδρομή.
+   Η σημασιολογία των ζευγών ΔΕΝ αλλάζει — editorial και classic αλλάζουν
+   μόνο τους τίτλους, modern και friendly αλλάζουν και το σώμα. Αυτό ήταν
+   ήδη το νόημα του «ζεύγους»: μια επώνυμη όψη πάνω από το υπάρχον σώμα. */
+.scope[data-font='editorial'] > :first-child {--vt-display:'Alegreya',Georgia,serif;}
+.scope[data-font='classic'] > :first-child {--vt-display:'EB Garamond',Georgia,serif;}
+.scope[data-font='modern'] > :first-child {--vt-display:'Manrope','Inter',Arial,sans-serif;--vt-body:'Manrope','Inter',Arial,sans-serif;}
+.scope[data-font='friendly'] > :first-child {--vt-display:'Comfortaa','Inter',Arial,sans-serif;--vt-body:'Comfortaa','Inter',Arial,sans-serif;}
+
+
+/* ── ΣΚΟΥΡΟ MODE ───────────────────────────────────────────────────
+   Η παλέτα δίνει ΑΠΟΧΡΩΣΗ, το theme δίνει ΦΩΤΕΙΝΟΤΗΤΑ.
+
+   Επτά themes είναι εγγενώς σκούρα (μετρημένη φωτεινότητα επιφάνειας
+   0,004-0,017). Οι ανοιχτές παλέτες τα ΑΝΤΕΣΤΡΕΦΑΝ: τα σκληρογραμμένα
+   σκούρα πάνελ έμεναν σκούρα ενώ οι ρόλοι κειμένου γίνονταν σκούροι.
+   Μετρήθηκε 1:1 σε dispatch, motor, cinematic — αόρατο κείμενο.
+
+   Ίδιοι ρόλοι, ίδιες οικογένειες, δεύτερη σειρά τιμών. Η απόχρωση
+   διατηρείται μέσα σε 1 μοίρα· αλλάζει μόνο η φωτεινότητα.
+   Και τα 45 ζεύγη ρόλων επαληθεύτηκαν σε WCAG AA.
+   Παράγεται από scripts/build_dark_mode.py — μην το γράψεις στο χέρι.
+   ───────────────────────────────────────────────────────────────── */
+.scope[data-mode='dark'][data-palette='warm'] > :first-child { --vt-surface:#281913; --vt-surface-2:#442a21; --vt-surface-deep:#19100c; --vt-ink:#e8e4e3; --vt-ink-soft:#c9bcb8; --vt-on-deep:#f3f2f1; --vt-accent:#d68566; --vt-on-accent:#141414; --vt-accent-ink:#d68566; --vt-accent-on-deep:#e6b4a1; --vt-line:#6c4334; }
+.scope[data-mode='dark'][data-palette='forest'] > :first-child { --vt-surface:#102017; --vt-surface-2:#1b3627; --vt-surface-deep:#0a140e; --vt-ink:#e3e8e5; --vt-ink-soft:#b1c3b9; --vt-on-deep:#f1f3f2; --vt-accent:#72ca99; --vt-on-accent:#141414; --vt-accent-ink:#72ca99; --vt-accent-on-deep:#80cfa3; --vt-line:#2b563e; }
+.scope[data-mode='dark'][data-palette='ocean'] > :first-child { --vt-surface:#111f23; --vt-surface-2:#1d333c; --vt-surface-deep:#0b1316; --vt-ink:#e3e7e8; --vt-ink-soft:#b3c1c6; --vt-on-deep:#f1f3f3; --vt-accent:#63bbda; --vt-on-accent:#141414; --vt-accent-ink:#63bbda; --vt-accent-on-deep:#82c9e1; --vt-line:#2e525f; }
+.scope[data-mode='dark'][data-palette='rose'] > :first-child { --vt-surface:#2d161c; --vt-surface-2:#4b242e; --vt-surface-deep:#1d0e12; --vt-ink:#e8e3e4; --vt-ink-soft:#cbbbbf; --vt-on-deep:#f3f1f2; --vt-accent:#ca7289; --vt-on-accent:#141414; --vt-accent-ink:#cf8194; --vt-accent-on-deep:#e2b2bf; --vt-line:#783a4a; }
+.scope[data-mode='dark'][data-palette='mono'] > :first-child { --vt-surface:#1d1d1d; --vt-surface-2:#303030; --vt-surface-deep:#121212; --vt-ink:#e6e6e6; --vt-ink-soft:#bfbfbf; --vt-on-deep:#f2f2f2; --vt-accent:#dbdbdb; --vt-on-accent:#141414; --vt-accent-ink:#dbdbdb; --vt-accent-on-deep:#dbdbdb; --vt-line:#4e4e4e; }

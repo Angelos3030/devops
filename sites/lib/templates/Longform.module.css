@@ -2,7 +2,7 @@
   /* Ταυτότητα στους ρόλους του spine */
   --vt-surface:#faf8f3;--vt-surface-2:#efece4;--vt-surface-deep:#211d17;--vt-ink:#211d17;--vt-ink-soft:#69655f;--vt-on-deep:#ffffff;--vt-accent:#9c6b2f;--vt-on-accent:#ffffff;--vt-accent-ink:#8c602a;--vt-accent-on-deep:#aa804c;--vt-line:#d7d5d0;
   /* Ταυτότητα στους ρόλους του spine — βλ. app/site/[client]/theme.module.css */
-  --serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+  --serif: var(--vt-display, 'Fraunces',Georgia,serif);--sans: var(--vt-body, 'Inter',system-ui,sans-serif);
   background:var(--vt-surface);color:var(--vt-ink);font-family:var(--serif);line-height:1.75}
 .root h1,.root h2{font-weight:500;line-height:1.06;letter-spacing:-.01em;margin:0}
 .nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;

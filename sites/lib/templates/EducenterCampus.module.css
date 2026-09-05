@@ -12,6 +12,7 @@
   --vt-surface-deep:#141d3a;
   --vt-ink:#161b2e;
   --vt-ink-soft:#5b6070;
+  --fu-areas:#666b74;
   --vt-on-deep:#ffffff;
   --vt-accent:#8a4b12;
   --vt-on-accent:#ffffff;
@@ -23,8 +24,8 @@
   --pad: clamp(1.1rem, 5vw, 3.2rem);
   --section: clamp(3.2rem, 7vw, 5.6rem);
   --radius: 14px;
-  --display: 'Fraunces', Georgia, serif;
-  --body: 'Inter', system-ui, sans-serif;
+  --display: var(--vt-display, 'Fraunces', Georgia, serif);
+  --body: var(--vt-body, 'Inter', system-ui, sans-serif);
 
   background: var(--vt-surface);
   color: var(--vt-ink);
@@ -239,4 +240,14 @@
 @media (prefers-reduced-motion: reduce) {
   .program:hover { transform: none; }
   .root * { transition: none !important; }
+}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* B · 19px ύψος · 1 theme(s) · «210 3000000» — inline: κατακόρυφο padding με αντίθετο margin,
+     ώστε η περιοχή αφής να μεγαλώσει χωρίς να κουνηθεί η γραμμή. */
+  .enrolList > div > dd > a { padding-block: 12px; margin-block: -12px; }
 }

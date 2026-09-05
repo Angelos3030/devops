@@ -90,3 +90,21 @@
   margin:4px 0 0;padding:2px 8px;border-radius:999px;
   background:#eef3f8;border:1px solid var(--line);
   font-size:.7rem;font-weight:600;color:var(--ink-soft);vertical-align:middle}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px στις καρτέλες επιλογής.
+   Μετρήθηκαν 122x43 σε κινητό — ένα pixel κάτω από το όριο. Είναι ΔΙΚΗ ΜΑΣ
+   σελίδα, όχι theme, και δεν είχε ελεγχθεί ποτέ για στόχους αφής. */
+@media (max-width: 780px) {
+  .tab, .tabOn, .cat, .catOn { min-height: 44px; }
+  /* Τα κουμπιά «τι δείχνει η φωτογραφία» μετρήθηκαν 38px. Ίδιο πρόβλημα,
+     άλλη κλάση — βρέθηκαν μόνο αφού διορθώθηκαν οι καρτέλες. */
+  .kind, .kindOn { min-height: 44px; }
+  /* Ο σύνδεσμος «Άνοιξε σε πλήρη οθόνη» είναι κείμενο 22px· δεν μεγαλώνει
+     ορατά, παίρνει αόρατη περιοχή αφής όπως τα themes. */
+  .preview { position: relative; }
+  .preview::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+}

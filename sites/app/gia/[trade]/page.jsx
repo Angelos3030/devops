@@ -91,8 +91,8 @@ export function generateStaticParams() {
 export function generateMetadata({ params }) {
   const t = TRADES[params.trade]
   if (!t) return { title: 'Vitrina' }
-  const title = `Επαγγελματικό site για ${t.label} — €14.99/μήνα | Vitrina`
-  const description = `${t.hero} Έτοιμο site με domain .gr, φιλοξενία, local SEO και απεριόριστες αλλαγές. Πρώτος μήνας δωρεάν.`
+  const title = `Επαγγελματικό site για ${t.label} — €14,99/μήνα | Vitrina`
+  const description = `${t.hero} Έτοιμο site με φιλοξενία, local SEO και απεριόριστες αλλαγές. 30 ημέρες δωρεάν και μετά €14,99/μήνα.`
   return {
     title, description,
     alternates: { canonical: `${APP_BASE}/gia/${params.trade}` },
@@ -115,7 +115,7 @@ export default function TradeLanding({ params }) {
         <h1>{t.hero}</h1>
         <p className={s.sub}>
           Σου φτιάχνουμε επαγγελματικό site με τα δικά σου στοιχεία και φωτογραφίες.
-          Φιλοξενία, SEO και αλλαγές — <strong>€14.99/μήνα</strong>. Προαιρετικό
+          Φιλοξενία, SEO και αλλαγές — <strong>€14,99/μήνα</strong>. Προαιρετικό
           .gr domain <strong>24€/έτος</strong>, ξεχωριστά.
         </p>
         <div className={s.actions}>
@@ -159,7 +159,7 @@ export default function TradeLanding({ params }) {
 
       <section className={s.close}>
         <h2>Πες μας το μαγαζί σου — το σχέδιο έρχεται σε λεπτά.</h2>
-        <a className={s.cta} href="https://getvitrina.gr/connect.html">Ξεκίνα τώρα — πρώτος μήνας δωρεάν</a>
+        <a className={s.cta} href="https://getvitrina.gr/connect.html">Ξεκίνα τώρα — 30 ημέρες δωρεάν</a>
       </section>
 
       <footer className={s.footer}>© {new Date().getFullYear()} Vitrina · getvitrina.gr</footer>

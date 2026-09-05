@@ -3,7 +3,7 @@
   --vt-surface:#f4f1e8;--vt-surface-2:#ffffff;--vt-surface-deep:#20211c;--vt-ink:#20211c;--vt-ink-soft:#6a6a63;--vt-on-deep:#ffffff;--vt-accent:#ad6139;--vt-on-accent:#ffffff;--vt-accent-ink:#9f5934;--vt-accent-on-deep:#bc7956;--vt-line:#d2d0c7;--accent-soft:color-mix(in srgb, var(--vt-accent) 70%, #fff);--panel-soft:color-mix(in srgb, var(--vt-on-deep) 68%, var(--vt-surface-deep));
   /* γραμμή πάνω στο σκούρο panel — παράγωγο του on-deep, όχι ωμό rgba */
   --line-d:color-mix(in srgb, var(--vt-on-deep) 16%, transparent);
-  --serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+  --serif: var(--vt-display, 'Fraunces',Georgia,serif);--sans: var(--vt-body, 'Inter',system-ui,sans-serif);
   display:grid;grid-template-columns:38% 1fr;min-height:100vh;background:var(--vt-surface);color:var(--vt-ink);font-family:var(--sans);line-height:1.65}
 .shell h1,.shell h2,.shell h3{font-family:var(--serif);font-weight:500;line-height:1.05;margin:0}
 .panel{position:fixed;top:0;left:0;width:38%;height:100vh;background:var(--vt-surface-deep);color:var(--vt-on-deep);

@@ -31,13 +31,13 @@ export default function MapEmbed({ embed, directions, title }) {
     <button type="button" className={s.mapHolder} onClick={() => setShow(true)}>
       <span className={s.pin} aria-hidden="true">📍</span>
       <span className={s.mapCta}>Δες τον χάρτη</span>
-      <span className={s.mapNote}>
-        Φορτώνει από την Google. Ή άνοιξε{' '}
-        <a href={directions} target="_blank" rel="noreferrer"
-           onClick={(e) => e.stopPropagation()}>
-          κατευθείαν οδηγίες ↗
-        </a>
-      </span>
+      {/* Ο σύνδεσμος οδηγιών ΔΕΝ μπαίνει εδώ.
+          Ήταν `<a>` μέσα σε `<button>` — μη έγκυρο HTML και ασάφεια κλικ: ο
+          ίδιος στόχος αφής ανήκε σε δύο χειριστήρια. Μετρήθηκε στα 16px ύψος
+          σε 43 themes, το συχνότερο ελάττωμα προσβασιμότητας της βιβλιοθήκης.
+          Δεν χάνεται τίποτα: το FindUs έχει ήδη κανονικό κουμπί «Οδηγίες
+          πρόσβασης ↗» με τον ίδιο προορισμό, λίγα εκατοστά πιο πάνω. */}
+      <span className={s.mapNote}>Φορτώνει από την Google μόνο αν το ζητήσεις.</span>
     </button>
   )
 }

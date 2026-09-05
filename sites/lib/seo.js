@@ -127,3 +127,30 @@ export function buildMetadata(data, opts = {}) {
   }
   return meta
 }
+
+
+/**
+ * Το JSON-LD ως ΑΣΦΑΛΕΣ περιεχόμενο για <script>.
+ *
+ * Το `JSON.stringify` δεν διαφεύγει `<`, `>` ή `&` — δεν είναι δουλειά του.
+ * Μέσα όμως σε <script>, ο HTML parser κόβει στο πρώτο `</script>` ΠΡΙΝ τρέξει
+ * ο JSON parser. Μετρήθηκε: πελάτης που έβαλε όνομα επιχείρησης
+ *   Καφέ</script><script>…</script>
+ * πετύχαινε εκτέλεση κώδικα στο ΔΗΜΟΣΙΟ site του, σε κάθε επισκέπτη.
+ *
+ * Τα `<` κ.λπ. είναι κανονικό JSON: το Google διαβάζει ακριβώς το ίδιο
+ * κείμενο, ενώ ο HTML parser δεν βλέπει ποτέ tag. Τα U+2028/U+2029 είναι
+ * έγκυρα σε JSON αλλά τερματίζουν γραμμή στη JavaScript.
+ */
+const LD_UNSAFE = {
+  '<': '\\u003c',
+  '>': '\\u003e',
+  '&': '\\u0026',
+  '\u2028': '\\u2028',
+  '\u2029': '\\u2029',
+}
+
+export function jsonLdScript(value) {
+  return JSON.stringify(value).replace(/[<>&\u2028\u2029]/g,
+    (ch) => LD_UNSAFE[ch])
+}

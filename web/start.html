@@ -300,7 +300,10 @@
 
   function poll(){
     if (!clientId) return;
-    fetch(`${API}/progress/${encodeURIComponent(clientId)}`)
+    // Το /progress ανήκει σε συγκεκριμένο πελάτη. Χωρίς διαπιστευτήριο
+    // οποιοσδήποτε διάβαζε την πρόοδο ξένου site μαντεύοντας το id.
+    fetch(`${API}/progress/${encodeURIComponent(clientId)}`,
+          claimToken ? { headers: { 'X-Vitrina-Claim': claimToken } } : undefined)
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(data => {
         render(data.stages);

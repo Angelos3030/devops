@@ -73,6 +73,7 @@ VERTICAL_CATEGORY = {
     "retail": "Λιανική", "pet": "Λιανική",
     "gym": "Γυμναστήριο & ευεξία",
     "professional": "Επαγγελματικές υπηρεσίες",
+    "education": "Εκπαίδευση", "logistics": "Μεταφορές & Logistics",
     "farm": "Αγροτικά",
 }
 
@@ -84,6 +85,7 @@ OVERRIDE_VERTICAL = {
     "gymso-fitness": "gym", "pulse": "gym", "medic-care": "doctor",
     "villa-agency": "realestate", "coast": "rooms", "clean-work": "trade",
     "blue-onepage": "professional", "corporate": "professional", "showcase": "retail",
+    "educenter-campus": "education", "freight-lane": "logistics",
 }
 
 
@@ -93,10 +95,21 @@ def load() -> dict:
     src = IDX.read_text(encoding="utf-8")
     meta = {}
     seg = src[src.find("TEMPLATE_META"):]
-    for k, body in re.findall(r"\n  '([\w-]+)':\s*\{(.*?)\n  \}", seg, re.S):
+    for match in re.finditer(r"\n  '?([\w-]+)'?:\s*\{", seg):
+        key = match.group(1)
+        start = match.end() - 1
+        depth = 0
+        for end in range(start, len(seg)):
+            if seg[end] == "{":
+                depth += 1
+            elif seg[end] == "}":
+                depth -= 1
+                if depth == 0:
+                    break
+        body = seg[start:end]
         lab = re.search(r"label:\s*'([^']*)'", body)
         des = re.search(r"desc:\s*'([^']*)'", body)
-        meta[k] = {"label": lab.group(1) if lab else "", "desc": des.group(1) if des else ""}
+        meta[key] = {"label": lab.group(1) if lab else "", "desc": des.group(1) if des else ""}
     return reg, qa, meta
 
 

@@ -10,7 +10,7 @@
   --vt-accent-ink: #d6300a;
   --vt-accent-on-deep: #ff6b4a;
   --vt-line: #444444;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--vt-body, 'Helvetica Neue', Arial, sans-serif);
   background: var(--vt-surface);
   color: var(--vt-ink);
   box-sizing: border-box;
@@ -447,4 +447,36 @@
     padding-left: 0;
     padding-top: 1rem;
   }
+}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* B · 17px ύψος · 1 theme(s) · «210 9500000» — inline: κατακόρυφο padding με αντίθετο margin,
+     ώστε η περιοχή αφής να μεγαλώσει χωρίς να κουνηθεί η γραμμή. */
+  .footerText > a { padding-block: 12px; margin-block: -12px; }
+  /* C · 32px ύψος · 1 theme(s) · «Iron Works» */
+  .logo:not(:empty) { position: relative; }
+  .logo:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; bottom: 0; transform: translateX(-50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* C · 24px ύψος · 1 theme(s) · «Αρχική» */
+  .navLinks > a:not(:empty) { position: relative; }
+  .navLinks > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+}
+
+/* ΣΤΕΝΗ ΟΘΟΝΗ 360px. Ο τίτλος ξεχείλιζε 374px μέσα σε κουτί 330px.
+   Επαληθεύτηκε ότι ΠΡΟΫΠΗΡΧΕ — ίδιο πλάτος με και χωρίς τη διόρθωση
+   περιοχής αφής. Τα 360px είναι συνηθισμένο πλάτος Android και δεν
+   είχε ελεγχθεί ποτέ· στα 390 το ίδιο theme ήταν καθαρό. */
+@media (max-width: 380px) {
+  .sectionHeader, .headingDark { min-width: 0; overflow-wrap: anywhere; }
 }

@@ -11,6 +11,7 @@
   --vt-surface-deep:#0b1a2b;
   --vt-ink:#10202f;
   --vt-ink-soft:#54636f;
+  --fu-areas:#626973;
   --vt-on-deep:#ffffff;
   --vt-accent:#9a4a06;
   --vt-on-accent:#ffffff;
@@ -21,8 +22,8 @@
   --container: 1220px;
   --pad: clamp(1.1rem, 5vw, 3.4rem);
   --section: clamp(3.2rem, 7vw, 5.6rem);
-  --display: 'Inter', system-ui, sans-serif;
-  --body: 'Inter', system-ui, sans-serif;
+  --display: var(--vt-display, 'Inter', system-ui, sans-serif);
+  --body: var(--vt-body, 'Inter', system-ui, sans-serif);
 
   background: var(--vt-surface);
   color: var(--vt-ink);
@@ -214,3 +215,17 @@
   .navCta { padding: 0 0.85rem; font-size: 0.84rem; }
 }
 @media (prefers-reduced-motion: reduce) { .root * { transition: none !important; } }
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* B · 32px ύψος · 1 theme(s) · «210 5700000» */
+  .utility > a:not(:empty) { position: relative; }
+  .utility > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+}

@@ -1,11 +1,11 @@
-.root {
-  --yellow: #f2bd18;
-  --black: #171717;
-  --steel: #3c4145;
-  --paper: #f5f4ef;
+.root {/* spine */--vt-surface:#f5f4ef;--vt-surface-2:#ffffff;--vt-surface-deep:#3c4145;--vt-ink:#171717;--vt-ink-soft:var(--vt-ink-soft);--vt-on-deep:#ffffff;--vt-accent:#f2bd18;--vt-on-accent:#171717;--vt-accent-ink:#3c4145;--vt-accent-on-deep:#f2bd18;--vt-line:var(--vt-line);
+  --yellow: var(--vt-accent);
+  --black: var(--vt-ink);
+  --steel: var(--vt-surface-deep);
+  --paper: var(--vt-surface);
   background: var(--paper);
   color: var(--black);
-  font-family: "Open Sans", Arial, sans-serif;
+  font-family: var(--vt-body, "Open Sans", Arial, sans-serif);
 }
 .root * {
   box-sizing: border-box;
@@ -45,14 +45,14 @@
   align-items: center;
   padding: 0 22px;
   background: var(--yellow);
-  color: var(--black) !important;
+  color: var(--vt-on-accent) !important;
   font-weight: 800;
 }
 .hero {
   min-height: 690px;
   position: relative;
   background: var(--steel);
-  color: white;
+  color: var(--vt-on-deep);
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -141,14 +141,14 @@
 }
 .services article b {
   font-size: 3rem;
-  color: #d2d0c7;
+  color: var(--vt-line);
 }
 .services h3 {
   font-size: 1.4rem;
 }
 .services p {
   line-height: 1.7;
-  color: #5e6061;
+  color: var(--vt-ink-soft);
 }
 .services a {
   display: inline-flex;
@@ -320,5 +320,39 @@
     padding: 28px 20px;
     display: grid;
     gap: 8px;
+  }
+}
+
+/* Το kicker του hero κάθεται στο ΣΚΟΥΡΟ .hero. Ο κοινός κανόνας το
+   βάφει accent, που είναι φτιαγμένο για ανοιχτή επιφάνεια — με παλέτα
+   mono έπεφτε σε 1:1. Αλλάζει ΜΟΝΟ το χρώμα· μέγεθος, κεφαλαία και
+   αραίωση μένουν στον κοινό κανόνα. */
+.hero > div p { color: var(--vt-accent-on-deep); }
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* B · 43px ύψος · 1 theme(s) · «210 5700000» */
+  .band > a:not(:empty) { position: relative; }
+  .band > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* C · 22px ύψος · 1 theme(s) · «Υδραυλικός Νίκος» */
+  .nav > a:not(:empty) { position: relative; }
+  .nav > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* B · 15px ύψος · 1 theme(s) · «210 5700000» */
+  .utility > a:not(:empty) { position: relative; }
+  .utility > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
   }
 }

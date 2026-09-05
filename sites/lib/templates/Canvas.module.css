@@ -6,8 +6,8 @@
   --vt-surface:#fbfaf7;--vt-surface-2:#eceae5;--vt-surface-deep:#1a1714;--vt-ink:#1a1714;--vt-ink-soft:#64615d;--vt-on-deep:#ffffff;--vt-accent:#9a5b2c;--vt-on-accent:#ffffff;--vt-accent-ink:#97592b;--vt-accent-on-deep:#ac7952;--vt-line:#d7d6d3;
   /* Ταυτότητα στους ρόλους του spine — βλ. app/site/[client]/theme.module.css */
   /* ξύλο σε λάδι — ζεστό, όχι πορτοκαλί κραυγή */
-  --display: 'EB Garamond', Georgia, serif;
-  --sans: 'Inter', system-ui, sans-serif;
+  --display: var(--vt-display, 'EB Garamond', Georgia, serif);
+  --sans: var(--vt-body, 'Inter', system-ui, sans-serif);
   --mono: 'JetBrains Mono', ui-monospace, monospace;
 
   background: var(--vt-surface); color: var(--vt-ink);
@@ -141,3 +141,10 @@
   .story { grid-template-columns: 1fr; }
   .storyFig { aspect-ratio: 4 / 3; }
 }
+
+/* ΜΑΚΡΥ ΕΛΛΗΝΙΚΟ ΟΝΟΜΑ. Με επωνυμία 74 χαρακτήρων αυτό το theme αποκτούσε
+   οριζόντια κύλιση (μετρήθηκε έγγραφο 400 σε οθόνη 390). Ο ίδιος κανόνας ΔΕΝ μπήκε καθολικά:
+   δοκιμάστηκε σε όλα τα themes και άλλαζε τη σχεδίαση σε τέσσερα που δεν
+   είχαν κανένα πρόβλημα — μία διόρθωση δεν δικαιολογεί 52 ανεπιθύμητες
+   αλλαγές. Μπαίνει μόνο όπου υπάρχει πράγματι αποτυχία. */
+.nav, .navCall { min-width: 0; overflow-wrap: break-word; }

@@ -1,0 +1,509 @@
+{
+ "selector": {
+  "status": 200,
+  "cards": 4,
+  "tabs": [
+   "Προτεινόμενα για σένα (4)",
+   "Δες όλα τα σχέδια (58)"
+  ],
+  "all": {
+   "cards": 58,
+   "cats": [
+    "Όλες",
+    "Ακίνητα (2)",
+    "Γυμναστήριο & ευεξία (2)",
+    "Επαγγελματικές υπηρεσίες (5)",
+    "Εστίαση (17)",
+    "Λιανική (2)",
+    "Ομορφιά (7)",
+    "Τεχνικά επαγγέλματα (11)",
+    "Τουρισμός & διαμονή (6)",
+    "Υγεία (6)"
+   ],
+   "raw": 0,
+   "names": [
+    "Αιγαίο",
+    "Γραφείο",
+    "Περιοχές Πρώτα"
+   ],
+   "overflow": false
+  },
+  "filtered": 17,
+  "consoleErrors": []
+ },
+ "themes": [
+  {
+   "id": "aegean",
+   "label": "Αιγαίο",
+   "category": "Τουρισμός & διαμονή",
+   "url": "https://sites-production-da56.up.railway.app/preview/aegean?biz=rooms",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "airspace-office",
+   "label": "Γραφείο",
+   "category": "Επαγγελματικές υπηρεσίες",
+   "url": "https://sites-production-da56.up.railway.app/preview/airspace-office?biz=plumber",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "area-first",
+   "label": "Περιοχές Πρώτα",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/area-first?biz=plumber",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "bakery-editorial",
+   "label": "Φούρνος Editorial",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/bakery-editorial?biz=taverna",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "barber-shop",
+   "label": "Κουρείο",
+   "category": "Ομορφιά",
+   "url": "https://sites-production-da56.up.railway.app/preview/barber-shop?biz=salon",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "beauty-atelier",
+   "label": "Ατελιέ Ομορφιάς",
+   "category": "Ομορφιά",
+   "url": "https://sites-production-da56.up.railway.app/preview/beauty-atelier?biz=aesthetics",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "bigspring-advisory",
+   "label": "Συμβουλευτική",
+   "category": "Επαγγελματικές υπηρεσίες",
+   "url": "https://sites-production-da56.up.railway.app/preview/bigspring-advisory?biz=dentist",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "billys-barber",
+   "label": "Κουρείο Vintage",
+   "category": "Ομορφιά",
+   "url": "https://sites-production-da56.up.railway.app/preview/billys-barber?biz=salon",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "bloom",
+   "label": "Άνθιση",
+   "category": "Υγεία",
+   "url": "https://sites-production-da56.up.railway.app/preview/bloom?biz=taverna",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "blue-onepage",
+   "label": "Μονοσέλιδο",
+   "category": "Επαγγελματικές υπηρεσίες",
+   "url": "https://sites-production-da56.up.railway.app/preview/blue-onepage?biz=lawyer",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "callout",
+   "label": "Επείγουσα Κλήση",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/callout?biz=plumber",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "canvas",
+   "label": "Καμβάς",
+   "category": "Τουρισμός & διαμονή",
+   "url": "https://sites-production-da56.up.railway.app/preview/canvas?biz=rooms",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "chapter-snap",
+   "label": "Κεφάλαια",
+   "category": "Τουρισμός & διαμονή",
+   "url": "https://sites-production-da56.up.railway.app/preview/chapter-snap?biz=rooms",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "cinematic",
+   "label": "Κινηματογραφικό",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/cinematic?biz=taverna",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "clean-work",
+   "label": "Καθαρή Δουλειά",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/clean-work?biz=plumber",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "clinic-triage",
+   "label": "Ιατρείο Διαλογής",
+   "category": "Υγεία",
+   "url": "https://sites-production-da56.up.railway.app/preview/clinic-triage?biz=dentist",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "coast",
+   "label": "Ακτή",
+   "category": "Τουρισμός & διαμονή",
+   "url": "https://sites-production-da56.up.railway.app/preview/coast?biz=rooms",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "constra-build",
+   "label": "Κατασκευές",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/constra-build?biz=plumber",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "counter-menu",
+   "label": "Πάγκος",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/counter-menu?biz=cafe",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "directory-index",
+   "label": "Ευρετήριο Υπηρεσιών",
+   "category": "Υγεία",
+   "url": "https://sites-production-da56.up.railway.app/preview/directory-index?biz=dentist",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "dispatch",
+   "label": "Βάρδια",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/dispatch?biz=plumber",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "educenter-campus",
+   "label": "Εκπαιδευτικό Κέντρο",
+   "category": "Επαγγελματικές υπηρεσίες",
+   "url": "https://sites-production-da56.up.railway.app/preview/educenter-campus?biz=plumber",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "elegance-salon",
+   "label": "Κομψό Σαλόνι",
+   "category": "Ομορφιά",
+   "url": "https://sites-production-da56.up.railway.app/preview/elegance-salon?biz=salon",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "ember",
+   "label": "Χόβολη",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/ember?biz=taverna",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "forge",
+   "label": "Σφυρήλατο",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/forge?biz=plumber",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "freight-lane",
+   "label": "Μεταφορές",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/freight-lane?biz=plumber",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "frost-bakery",
+   "label": "Ζαχαροπλαστείο",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/frost-bakery?biz=cafe",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "grecko-table",
+   "label": "Μεσογειακό Τραπέζι",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/grecko-table?biz=taverna",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "gymso-fitness",
+   "label": "Γυμναστήριο",
+   "category": "Γυμναστήριο & ευεξία",
+   "url": "https://sites-production-da56.up.railway.app/preview/gymso-fitness?biz=gym",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "heritage-bakery",
+   "label": "Παραδοσιακός Φούρνος",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/heritage-bakery?biz=cafe",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "horizontal-story",
+   "label": "Οριζόντια Αφήγηση",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/horizontal-story?biz=carpenter",
+   "fail": [
+    "mobile υπερχείλιση"
+   ],
+   "pass": false
+  },
+  {
+   "id": "infinite",
+   "label": "Συνεχές",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/infinite?biz=taverna",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "kinetic",
+   "label": "Κινητικό",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/kinetic?biz=taverna",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "klassy-cafe",
+   "label": "Κλασικό Καφενείο",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/klassy-cafe?biz=cafe",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "living",
+   "label": "Καθημερινό",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/living?biz=taverna",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "marble",
+   "label": "Μάρμαρο",
+   "category": "Τουρισμός & διαμονή",
+   "url": "https://sites-production-da56.up.railway.app/preview/marble?biz=rooms",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "medic-care",
+   "label": "Ιατρική Φροντίδα",
+   "category": "Υγεία",
+   "url": "https://sites-production-da56.up.railway.app/preview/medic-care?biz=physician",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "microbakery-lab",
+   "label": "Εργαστήριο",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/microbakery-lab?biz=cafe",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "morning-journal",
+   "label": "Πρωινή Εφημερίδα",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/morning-journal?biz=cafe",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "moso-interior",
+   "label": "Εσωτερικοί Χώροι",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/moso-interior?biz=carpenter",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "motor",
+   "label": "Μοτέρ",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/motor?biz=garage",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "neighborhood-market",
+   "label": "Αγορά Γειτονιάς",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/neighborhood-market?biz=cafe",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "novena-care",
+   "label": "Φροντίδα",
+   "category": "Υγεία",
+   "url": "https://sites-production-da56.up.railway.app/preview/novena-care?biz=dentist",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "price-first",
+   "label": "Τιμοκατάλογος",
+   "category": "Ομορφιά",
+   "url": "https://sites-production-da56.up.railway.app/preview/price-first?biz=salon",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "property-atlas",
+   "label": "Άτλας Ακινήτων",
+   "category": "Ακίνητα",
+   "url": "https://sites-production-da56.up.railway.app/preview/property-atlas?biz=lawyer",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "pulse",
+   "label": "Παλμός",
+   "category": "Γυμναστήριο & ευεξία",
+   "url": "https://sites-production-da56.up.railway.app/preview/pulse?biz=gym",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "quiet",
+   "label": "Ησυχία",
+   "category": "Λιανική",
+   "url": "https://sites-production-da56.up.railway.app/preview/quiet?biz=taverna",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "runway",
+   "label": "Πασαρέλα",
+   "category": "Ομορφιά",
+   "url": "https://sites-production-da56.up.railway.app/preview/runway?biz=aesthetics",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "scandinavian-coffee",
+   "label": "Σκανδιναβικός Καφές",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/scandinavian-coffee?biz=cafe",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "signature",
+   "label": "Υπογραφή",
+   "category": "Επαγγελματικές υπηρεσίες",
+   "url": "https://sites-production-da56.up.railway.app/preview/signature?biz=dentist",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "terra",
+   "label": "Γη",
+   "category": "Υγεία",
+   "url": "https://sites-production-da56.up.railway.app/preview/terra?biz=massage",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "thomson-stylist",
+   "label": "Στούντιο Styling",
+   "category": "Ομορφιά",
+   "url": "https://sites-production-da56.up.railway.app/preview/thomson-stylist?biz=salon",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "type-gallery",
+   "label": "Τυπογραφική Γκαλερί",
+   "category": "Λιανική",
+   "url": "https://sites-production-da56.up.railway.app/preview/type-gallery?biz=taverna",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "vertical-snap",
+   "label": "Κατακόρυφη Ροή",
+   "category": "Τουρισμός & διαμονή",
+   "url": "https://sites-production-da56.up.railway.app/preview/vertical-snap?biz=rooms",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "vex-counter",
+   "label": "Ταχεία Εξυπηρέτηση",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/vex-counter?biz=plumber",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "villa-agency",
+   "label": "Γραφείο Ακινήτων",
+   "category": "Ακίνητα",
+   "url": "https://sites-production-da56.up.railway.app/preview/villa-agency?biz=realestate",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "volt",
+   "label": "Βολτ",
+   "category": "Τεχνικά επαγγέλματα",
+   "url": "https://sites-production-da56.up.railway.app/preview/volt?biz=garage",
+   "fail": [],
+   "pass": true
+  },
+  {
+   "id": "warmth",
+   "label": "Ζεστασιά",
+   "category": "Εστίαση",
+   "url": "https://sites-production-da56.up.railway.app/preview/warmth?biz=taverna",
+   "fail": [],
+   "pass": true
+  }
+ ],
+ "notExposed": {
+  "shownCount": 58,
+  "archetypesLeaked": [],
+  "splitLeaked": false,
+  "masterLeaked": []
+ },
+ "flow": []
+}

@@ -15,7 +15,7 @@
   overflow: hidden;
   background: var(--vt-surface-deep);
   color: var(--vt-on-deep);
-  font-family: "Inter", Arial, sans-serif;
+  font-family: var(--vt-body, "Inter", Arial, sans-serif);
   letter-spacing: 0;
 }
 .header {

@@ -17,17 +17,18 @@
   --vt-accent-ink:#0079a8;
   --vt-accent-on-deep:#5cc4ee;
   --vt-line:#e3e3e3;
+  --fu-areas:#656b73;
 
   --container: 1170px;   /* bootstrap 3 container του πρωτοτύπου */
   --pad: clamp(1rem, 4vw, 2rem);
   --section: clamp(3rem, 6vw, 5.6rem);
-  --body: 'Open Sans', system-ui, sans-serif;
+  --body: var(--vt-body, 'Open Sans', system-ui, sans-serif);
 
   background: var(--vt-surface);
   color: var(--vt-ink);
   font-family: var(--body);
-  font-size: 14px;      /* το πρωτότυπο τρέχει σε 14px base */
-  line-height: 1.8;
+  font-size: 15px;
+  line-height: 1.7;
   overflow-x: hidden;
 }
 .root :where(h1,h2,h3,p,dl,dt,dd,figure) { margin: 0; padding: 0; }
@@ -60,7 +61,7 @@
 }
 .track::-webkit-scrollbar { display: none; }
 .slide { flex: 0 0 100%; scroll-snap-align: start; height: 100%; }
-.slideVeil { position: absolute; inset: 0; z-index: 1; background: rgba(0, 0, 0, 0.45); }
+.slideVeil { position: absolute; inset: 0; z-index: 1; background: rgba(0, 0, 0, 0.52); }
 .slideCopy {
   position: absolute; inset: 0; z-index: 2;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -71,6 +72,7 @@
   font-weight: 300; font-size: clamp(1.9rem, 4.4vw, 3rem);
   line-height: 1.15; letter-spacing: 0.01em; text-transform: uppercase;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  max-width: 22ch;
 }
 .heroSub {
   margin-top: 0.9rem; font-size: clamp(0.95rem, 1.4vw, 1.05rem); font-weight: 300;
@@ -80,7 +82,7 @@
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 46px; margin-top: 1.6rem; padding: 0 2.1rem;
   background: var(--vt-accent); color: var(--vt-on-accent);
-  border-radius: 3px;
+  border-radius: 3px; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
   font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   transition: background-color 0.2s ease;
 }
@@ -107,7 +109,7 @@
   font-size: 15px; font-weight: 600; letter-spacing: 0.08em;
   text-transform: uppercase; margin-bottom: 0.9rem;
 }
-.bandCol p { font-size: 13px; font-weight: 300; margin-bottom: 0.9rem; }
+.bandCol p { font-size: 14px; font-weight: 300; margin-bottom: 0.9rem; }
 .welcome { display: grid; grid-template-columns: 72px 1fr; gap: 1rem; align-items: start; }
 .welcome img { width: 72px; height: 72px; border-radius: 50%; }
 .outline {
@@ -132,7 +134,7 @@
 .secTitleLight { color: var(--vt-on-deep); }
 .secTitleLight::after { background: var(--vt-on-deep); }
 .secSub, .secSubLight {
-  text-align: center; margin-top: 1rem; font-size: 13px; font-weight: 300;
+  text-align: center; margin: 1rem auto 0; max-width: 62ch; font-size: 14px; font-weight: 300;
   color: var(--vt-ink-soft);
 }
 .secSubLight { color: rgba(255, 255, 255, 0.85); }
@@ -157,7 +159,7 @@
   font-size: 13px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
-.serviceItem p { font-size: 13px; font-weight: 300; color: var(--vt-ink-soft); }
+.serviceItem p { font-size: 14px; font-weight: 300; color: var(--vt-ink-soft); }
 .more { margin-top: 1.8rem; text-align: center; font-size: 12px; color: var(--vt-ink-soft); }
 
 /* ------------------------------------------------------------- portfolio */
@@ -218,8 +220,19 @@
   .navLinks a { font-size: 10px; }
 }
 @media (max-width: 560px) {
-  .navIn { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
-  .navLinks { flex-wrap: wrap; }
+  .root { --section: 3.6rem; }
+  .navIn { flex-direction: column; align-items: flex-start; gap: 0.2rem; padding-block: 0.35rem; }
+  .navLinks { width: 100%; flex-wrap: nowrap; justify-content: space-between; gap: 0.35rem; overflow-x: auto; scrollbar-width: none; }
+  .navLinks::-webkit-scrollbar { display: none; }
+  .navLinks a { flex: 0 0 auto; }
+  .track { height: min(500px, 66vh); }
+  .slideCopy { padding-block: 2.4rem; }
+  .heroTitle { font-size: clamp(1.65rem, 8.2vw, 2.15rem); line-height: 1.08; }
+  .heroSub { max-width: 31ch; line-height: 1.55; }
+  .serviceGrid { gap: 2.1rem; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .grid figure { aspect-ratio: 1 / 1; }
+  .grid figcaption { padding: 1.2rem 0.5rem 0.35rem; font-size: 10px; }
   .welcome { grid-template-columns: 56px 1fr; }
   .welcome img { width: 56px; height: 56px; }
   .contactList > div { grid-template-columns: 1fr; gap: 0.1rem; }
@@ -228,4 +241,21 @@
   .root * { transition: none !important; }
   .track { scroll-behavior: auto; }
   .grid figure:hover img { transform: none; }
+}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* B · 18px ύψος · 1 theme(s) · «210 3000000» — inline: κατακόρυφο padding με αντίθετο margin,
+     ώστε η περιοχή αφής να μεγαλώσει χωρίς να κουνηθεί η γραμμή. */
+  .contactList > div > dd > a { padding-block: 12px; margin-block: -12px; }
+  /* C · 44px ύψος, 27px πλάτος · 1 theme(s) · «Αρχική» */
+  .navLinks > a:not(:empty) { position: relative; }
+  .navLinks > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
 }

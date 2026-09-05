@@ -1,2 +1,55 @@
-.root{--red:#b62f27;--cream:#f3ead7;--green:#174d3b;--ink:#201d18;background:var(--cream);color:var(--ink);font-family:'Manrope',Arial,sans-serif}.root *{box-sizing:border-box}.root a{color:inherit;text-decoration:none}.nav{height:82px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;background:var(--cream);position:absolute;z-index:4;width:100%;color:white;border-bottom:1px solid rgba(255,255,255,.4)}.nav>div{display:flex;gap:34px;font-size:.78rem;text-transform:uppercase}.reserve{min-height:44px;display:inline-flex;align-items:center;padding:0 22px;background:var(--red);color:white!important}.hero{min-height:88svh;position:relative;display:grid;place-items:center;text-align:center;background:var(--green);color:white;overflow:hidden}.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,34,27,.45),rgba(13,29,23,.72))}.heroInner{position:relative;z-index:2;max-width:1000px;padding:130px 24px 90px}.heroInner>p,.menu header>span,.story>div>p,.visit p{letter-spacing:.2em;text-transform:uppercase;font-size:.7rem}.heroInner h1{font-family:'Noto Serif Display',Georgia,serif;font-size:clamp(5rem,12vw,12rem);line-height:.8;font-weight:400;margin:26px 0 20px}.heroInner h2{font-family:'Noto Serif Display',Georgia,serif;font-size:clamp(1.5rem,3vw,3rem);font-weight:400}.heroInner>a{display:inline-flex;min-height:48px;align-items:center;margin-top:30px;padding:0 28px;background:white;color:var(--green)}.plate{position:absolute;inset:20%;border:1px solid rgba(255,255,255,.35);border-radius:50%}.plate i{position:absolute;width:35%;height:1px;background:rgba(255,255,255,.4);left:32%;top:50%;transform:rotate(25deg)}.menu{padding:120px 5vw;display:grid;grid-template-columns:40% 60%;gap:6vw}.menu header h2,.story h2,.visit h2{font-family:'Noto Serif Display',Georgia,serif;font-size:clamp(3rem,6vw,6rem);font-weight:400;line-height:.95}.menu header p{max-width:460px;line-height:1.8}.menu>div{border-top:1px solid #9d927f}.menu article{display:grid;grid-template-columns:45px 1fr auto;gap:16px;padding:24px 0;border-bottom:1px solid #9d927f}.menu article h3{font-family:'Noto Serif Display',Georgia,serif;font-size:1.7rem;margin:0}.menu article p{grid-column:2;color:#655d50;margin:4px 0}.story{display:grid;grid-template-columns:55% 45%;background:var(--green);color:white}.story figure{margin:0;min-height:640px}.story img{width:100%;height:100%;object-fit:cover}.pattern{background:repeating-radial-gradient(circle at 0 100%,transparent 0 30px,rgba(243,234,215,.2) 31px 33px)}.story>div{padding:100px 7vw;align-self:center}.story>div>p:not(:first-child){line-height:1.8}.story a{display:inline-block;margin-top:20px;border-bottom:1px solid}.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;padding:30px;background:var(--cream);gap:16px}.gallery figure{margin:0;min-height:280px}.gallery figure:first-child{grid-row:span 2}.gallery img{width:100%;height:100%;object-fit:cover}.visit{padding:100px 5vw;background:var(--red);color:white;display:grid;grid-template-columns:2fr 1fr;gap:6vw}.visit>div:last-child{display:grid;align-content:center;gap:15px;font-size:1.15rem}.visit a{font-size:2rem;font-family:Georgia,serif}.footer{padding:30px 5vw;display:flex;justify-content:space-between;background:var(--green);color:white;font-size:.8rem}@media(max-width:700px){.nav{height:68px;padding:0 18px}.nav>div{display:none}.hero{min-height:760px}.heroInner h1{font-size:5rem}.menu{padding:80px 20px;display:block}.menu header{margin-bottom:50px}.menu header h2,.story h2,.visit h2{font-size:3rem}.story{display:flex;flex-direction:column}.story figure{min-height:430px}.story>div{padding:70px 20px}.gallery{grid-template-columns:1fr 1fr;padding:12px}.gallery figure,.gallery figure:first-child{min-height:230px;grid-row:auto}.gallery figure:first-child{grid-column:1/-1}.visit{padding:70px 20px;display:block}.footer{padding:28px 20px;display:grid;gap:8px}}
+.root{/* spine */--vt-surface:#f3ead7;--vt-surface-2:#ffffff;--vt-surface-deep:#174d3b;--vt-ink:#201d18;--vt-ink-soft:var(--vt-ink-soft);--vt-on-deep:#f3ead7;--vt-accent:#b62f27;--vt-on-accent:#ffffff;--vt-accent-ink:#b62f27;--vt-accent-on-deep:#f3ead7;--vt-line:var(--vt-line);--red:var(--vt-accent);--cream:var(--vt-surface);--green:var(--vt-surface-deep);--ink:var(--vt-ink);background:var(--cream);color:var(--ink);font-family: var(--vt-body, 'Manrope',Arial,sans-serif)}.root *{box-sizing:border-box}.root a{color:inherit;text-decoration:none}.nav{height:82px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;background:var(--cream);position:absolute;z-index:4;width:100%;color:var(--vt-ink);border-bottom:1px solid var(--vt-line)}.nav>div{display:flex;gap:34px;font-size:.78rem;text-transform:uppercase}.reserve{min-height:44px;display:inline-flex;align-items:center;padding:0 22px;background:var(--red);color:white!important}.hero{min-height:88svh;position:relative;display:grid;place-items:center;text-align:center;background:var(--green);color:white;overflow:hidden}.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,34,27,.45),rgba(13,29,23,.72))}.heroInner{position:relative;z-index:2;max-width:1000px;padding:130px 24px 90px}.heroInner>p,.menu header>span,.story>div>p,.visit p{letter-spacing:.2em;text-transform:uppercase;font-size:.7rem}.heroInner h1{font-family: var(--vt-display, 'Noto Serif Display',Georgia,serif);font-size:clamp(5rem,12vw,12rem);line-height:.8;font-weight:400;margin:26px 0 20px}.heroInner h2{font-family: var(--vt-display, 'Noto Serif Display',Georgia,serif);font-size:clamp(1.5rem,3vw,3rem);font-weight:400}.heroInner>a{display:inline-flex;min-height:48px;align-items:center;margin-top:30px;padding:0 28px;background:white;color:var(--green)}.plate{position:absolute;inset:20%;border:1px solid rgba(255,255,255,.35);border-radius:50%}.plate i{position:absolute;width:35%;height:1px;background:rgba(255,255,255,.4);left:32%;top:50%;transform:rotate(25deg)}.menu{padding:120px 5vw;display:grid;grid-template-columns:40% 60%;gap:6vw}.menu header h2,.story h2,.visit h2{font-family: var(--vt-display, 'Noto Serif Display',Georgia,serif);font-size:clamp(3rem,6vw,6rem);font-weight:400;line-height:.95}.menu header p{max-width:460px;line-height:1.8}.menu>div{border-top:1px solid var(--vt-line)}.menu article{display:grid;grid-template-columns:45px 1fr auto;gap:16px;padding:24px 0;border-bottom:1px solid var(--vt-line)}.menu article h3{font-family: var(--vt-display, 'Noto Serif Display',Georgia,serif);font-size:1.7rem;margin:0}.menu article p{grid-column:2;color:var(--vt-ink-soft);margin:4px 0}.story{display:grid;grid-template-columns:55% 45%;background:var(--green);color:white}.story figure{margin:0;min-height:640px}.story img{width:100%;height:100%;object-fit:cover}.pattern{background:repeating-radial-gradient(circle at 0 100%,transparent 0 30px,rgba(243,234,215,.2) 31px 33px)}.story>div{padding:100px 7vw;align-self:center}.story>div>p:not(:first-child){line-height:1.8}.story a{display:inline-block;margin-top:20px;border-bottom:1px solid}.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;padding:30px;background:var(--cream);gap:16px}.gallery figure{margin:0;min-height:280px}.gallery figure:first-child{grid-row:span 2}.gallery img{width:100%;height:100%;object-fit:cover}.visit{padding:100px 5vw;background:var(--red);color:white;display:grid;grid-template-columns:2fr 1fr;gap:6vw}.visit>div:last-child{display:grid;align-content:center;gap:15px;font-size:1.15rem}.visit a{font-size:2rem;font-family:Georgia,serif}.footer{padding:30px 5vw;display:flex;justify-content:space-between;background:var(--green);color:white;font-size:.8rem}@media(max-width:700px){.nav{height:68px;padding:0 18px}.nav>div{display:none}.hero{min-height:760px}.heroInner h1{font-size:5rem}.menu{padding:80px 20px;display:block}.menu header{margin-bottom:50px}.menu header h2,.story h2,.visit h2{font-size:3rem}.story{display:flex;flex-direction:column}.story figure{min-height:430px}.story>div{padding:70px 20px}.gallery{grid-template-columns:1fr 1fr;padding:12px}.gallery figure,.gallery figure:first-child{min-height:230px;grid-row:auto}.gallery figure:first-child{grid-column:1/-1}.visit{padding:70px 20px;display:block}.footer{padding:28px 20px;display:grid;gap:8px}}
 .menu{grid-template-columns:40% minmax(0,1fr)!important}
+
+/* ΜΑΚΡΥ ΕΛΛΗΝΙΚΟ ΟΝΟΜΑ. Το `.story > div` είναι flex item με το προεπιλεγμένο
+   `min-width:auto`, άρα δεν συρρικνώνεται κάτω από τη μεγαλύτερη λέξη του: με
+   επωνυμία 74 χαρακτήρων μετρήθηκε 426px μέσα σε οθόνη 390 και το έγγραφο
+   αποκτούσε οριζόντια κύλιση. Το `min-width:0` επιτρέπει τη συρρίκνωση και το
+   `anywhere` σπάει τη λέξη μόνο αν ακόμη δεν χωράει.
+
+   Γιατί `anywhere` και όχι `break-word` ΕΔΩ: σε flex column ο περιορισμός δεν
+   είναι το `min-width` αλλά το min-content του ίδιου του στοιχείου, και το
+   `break-word` σπάει μόνο οπτικά χωρίς να το μειώνει — μετά το `min-width:0`
+   το πλάτος έμενε ακριβώς 426px. Το `anywhere` μειώνει το min-content.
+
+   Δεν μπήκε καθολικός κανόνας: δοκιμάστηκε `anywhere` σε όλα τα themes και
+   αναδιάτασσε 14, ένα κατά 59%. Εδώ είναι ένας selector, ενός theme, με
+   μετρημένη αποτυχία. */
+.story > div { min-width: 0; overflow-wrap: anywhere; }
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* C · 22px ύψος · 1 theme(s) · «Ο Λεωνίδας» */
+  .nav > a:not(:empty) { position: relative; }
+  .nav > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* B · 23px ύψος · 1 theme(s) · «Κράτηση ↗» */
+  .story > div > a:not(:empty) { position: relative; }
+  .story > div > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* B · 36px ύψος · 1 theme(s) · «2310 000000» */
+  .visit > div > a:not(:empty) { position: relative; }
+  .visit > div > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+}
+
+/* ΣΤΕΝΗ ΟΘΟΝΗ 360px. Το `.heroInner` φούσκωνε στα 751px μέσα σε οθόνη 360 από μία μακριά λέξη.
+   Επαληθεύτηκε ότι ΠΡΟΫΠΗΡΧΕ — ίδιο πλάτος με και χωρίς τη διόρθωση
+   περιοχής αφής. Τα 360px είναι συνηθισμένο πλάτος Android και δεν
+   είχε ελεγχθεί ποτέ· στα 390 το ίδιο theme ήταν καθαρό. */
+@media (max-width: 380px) {
+  .heroInner { min-width: 0; overflow-wrap: anywhere; }
+  .visit h2, .menu header h2, .story h2 { overflow-wrap: anywhere; }
+}

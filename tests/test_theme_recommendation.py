@@ -34,6 +34,8 @@ CASES = {
     "trade": "Είμαι υδραυλικός στο Περιστέρι",
     "cafe": "Έχω καφετέρια στην παλιά πόλη",
     "rooms": "Ενοικιαζόμενα δωμάτια στην Πάρο",
+    "education": "Έχω φροντιστήριο ξένων γλωσσών στο Χαλάνδρι",
+    "logistics": "Μεταφορική για διανομές και μετακομίσεις στην Αττική",
 }
 
 # Themes χτισμένα σφιχτά γύρω από ένα επάγγελμα — απαγορεύεται να προταθούν
@@ -122,6 +124,10 @@ class Coverage(unittest.TestCase):
         a = pg.recommend_templates({"trade": CASES["beauty"]}, limit=12)
         b = pg.recommend_templates({"trade": CASES["beauty"]}, limit=12)
         self.assertEqual(a, b, "ίδιο intake πρέπει να δίνει πάντα την ίδια σειρά")
+
+    def test_specialist_verticals_use_their_native_theme_first(self):
+        self.assertEqual(pg.recommend_templates({"trade": CASES["education"]})[0], "educenter-campus")
+        self.assertEqual(pg.recommend_templates({"trade": CASES["logistics"]})[0], "freight-lane")
 
 
 if __name__ == "__main__":

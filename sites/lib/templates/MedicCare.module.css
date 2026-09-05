@@ -11,7 +11,7 @@
   --vt-accent-on-deep: #4D94FF;
   --vt-line: #EAEAEA;
 
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--vt-body, 'Open Sans', sans-serif);
   background: var(--vt-surface);
   color: var(--vt-ink);
   line-height: 1.5;
@@ -386,4 +386,54 @@
     align-items: flex-start;
     gap: 1rem;
   }
+}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* B · 24px ύψος · 1 theme(s) · «210 6800000» — inline: κατακόρυφο padding με αντίθετο margin,
+     ώστε η περιοχή αφής να μεγαλώσει χωρίς να κουνηθεί η γραμμή. */
+  .contactPhone > a { padding-block: 12px; margin-block: -12px; }
+  /* C · 42px ύψος · 1 theme(s) · «Κλείστε το ραντεβού σα» */
+  .customLink:not(:empty) { position: relative; }
+  .customLink:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* B · 24px ύψος · 1 theme(s) · «210 6800000» */
+  .footerCol > p > a:not(:empty) { position: relative; }
+  .footerCol > p > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* C · 24px ύψος · 1 theme(s) · «Ιατρείο Δρ. Ελένης Μάρ» */
+  .logo:not(:empty) { position: relative; }
+  .logo:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; bottom: 0; transform: translateX(-50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* C · 24px ύψος · 1 theme(s) · «Αρχική» */
+  .navLinks > a:not(:empty) { position: relative; }
+  .navLinks > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+}
+
+/* ΣΤΕΝΗ ΟΘΟΝΗ 360px. Ο τίτλος ενότητας ξεχείλιζε 332px μέσα σε κουτί 288px.
+   Επαληθεύτηκε ότι ΠΡΟΫΠΗΡΧΕ — ίδιο πλάτος με και χωρίς τη διόρθωση
+   περιοχής αφής.
+
+   ΟΡΙΟ 380px ΚΑΙ ΟΧΙ 780: στα 390 το theme ήταν ήδη καθαρό, και ο
+   ευρύτερος κανόνας άλλαζε την εμφάνιση εκεί χωρίς λόγο — μετρήθηκε
+   έως 26,8% διαφορά. Η διόρθωση ισχύει μόνο όπου υπάρχει πράγματι
+   αποτυχία. */
+@media (max-width: 380px) {
+  .sectionTitle, .heroTitle { overflow-wrap: anywhere; }
 }

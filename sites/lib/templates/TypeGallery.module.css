@@ -5,8 +5,8 @@
   --soft-invert:color-mix(in srgb, var(--vt-surface) 62%, var(--vt-ink));
   /* Ταυτότητα στους ρόλους του spine — βλ. app/site/[client]/theme.module.css */
   --blue:#2659d9;
-  --display: 'Arial Narrow', 'Roboto Condensed', 'Inter', sans-serif;
-  --sans: 'Inter', system-ui, sans-serif;
+  --display: var(--vt-display, 'Arial Narrow', 'Roboto Condensed', 'Inter', sans-serif);
+  --sans: var(--vt-body, 'Inter', system-ui, sans-serif);
   background: var(--vt-surface); color: var(--vt-ink); font-family: var(--sans); line-height: 1.5;
 }
 .root * { box-sizing: border-box; }
@@ -74,7 +74,49 @@
   .serviceRows article { grid-template-columns: 42px 1fr; }
   .serviceRows p { grid-column: 2; }
   .manifesto { grid-template-columns: 52px 1fr; min-height: 0; }
+  /* Η στήλη `1fr` δεν συρρικνώνεται κάτω από τη μεγαλύτερη λέξη του τίτλου.
+     Με τη σχεδιασμένη όψη χωράει· με τη Manrope (επιλογή «modern», που το
+     συμβόλαιο ΕΠΙΤΡΕΠΕΙ σε αυτό το theme) μετρήθηκε έγγραφο 394 σε οθόνη 390.
+     Μια επιτρεπτή επιλογή δεν γίνεται να σπάει τη διάταξη. Ισχύει μόνο στο
+     mobile και ενεργοποιείται μόνο όταν η λέξη πράγματι δεν χωράει. */
+  .manifesto > div:last-child { min-width: 0; }
+  .manifesto h2 { overflow-wrap: anywhere; }
   .vertical { padding: 1rem; font-size: 1.3rem; }
   .storyText { grid-template-columns: 1fr; }
   .contact a { font-size: clamp(1.8rem,10vw,3rem); }
+}
+
+/* ΜΑΚΡΥ ΕΛΛΗΝΙΚΟ ΟΝΟΜΑ. Με επωνυμία 74 χαρακτήρων αυτό το theme αποκτούσε
+   οριζόντια κύλιση (μετρήθηκε έγγραφο 521 σε οθόνη 390). Ο ίδιος κανόνας ΔΕΝ μπήκε καθολικά:
+   δοκιμάστηκε σε όλα τα themes και άλλαζε τη σχεδίαση σε τέσσερα που δεν
+   είχαν κανένα πρόβλημα — μία διόρθωση δεν δικαιολογεί 52 ανεπιθύμητες
+   αλλαγές. Μπαίνει μόνο όπου υπάρχει πράγματι αποτυχία. */
+.root, .root > * { min-width: 0; overflow-wrap: break-word; }
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* C · 26px ύψος · 1 theme(s) · «Δες τη συλλογή ↓» */
+  .heroFoot > a:not(:empty) { position: relative; }
+  .heroFoot > a:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* B · 18px ύψος · 1 theme(s) · «210 9500000» */
+  .navCall:not(:empty) { position: relative; }
+  .navCall:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* C · 30px ύψος · 1 theme(s) · «Iron Works» */
+  .wordmark:not(:empty) { position: relative; }
+  .wordmark:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
 }

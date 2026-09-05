@@ -1,4 +1,7 @@
-.root {
+/* Το theme δεν δήλωνε ποτέ γραμματοσειρά — κληρονομούσε το καθολικό, και
+   έτσι καμία επιλογή τυπογραφίας δεν το άγγιζε (μετρήθηκε 0% σε 4 ζεύγη).
+   Το `inherit` κρατά την προεπιλογή ΑΚΡΙΒΩΣ όπως ήταν. */
+.root {font-family:var(--vt-body,inherit);
   --vt-surface: #ffffff;
   --vt-surface-2: #f7f7f7;
   --vt-surface-deep: #1e1e1e;
@@ -500,4 +503,31 @@
     margin: 0 10px;
     font-size: 0.85rem;
   }
+}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* C · 35px ύψος · 1 theme(s) · «Ακίνητα Δουκάκης» */
+  .logo:not(:empty) { position: relative; }
+  .logo:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; bottom: 0; transform: translateX(-50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+  /* C · 16px ύψος · 1 theme(s) · «Αρχική» — inline: κατακόρυφο padding με αντίθετο margin,
+     ώστε η περιοχή αφής να μεγαλώσει χωρίς να κουνηθεί η γραμμή. */
+  .navLinks > a { padding-block: 12px; margin-block: -12px; }
+}
+
+/* ΣΤΕΝΗ ΟΘΟΝΗ 360px. Η σειρά πλοήγησης έβγαινε 2px εκτός οθόνης.
+   Επαληθεύτηκε ότι ΠΡΟΫΠΗΡΧΕ. Το `anywhere` σπάει λέξη μόνο όταν
+   δεν χωράει αλλιώς — σε κανονικό όνομα δεν αλλάζει τίποτα. */
+@media (max-width: 380px) {
+  /* Στα <=576px οι σύνδεσμοι έχουν margin 0 10px· σε οθόνη 360 η σειρά δεν
+     χωράει και έβγαινε 5px εκτός. Το flex-wrap επιτρέπει δεύτερη γραμμή ΜΟΝΟ
+     όταν χρειάζεται — στα 390 όλα μένουν σε μία σειρά, όπως πριν. */
+  .navLinks { display: flex; flex-wrap: wrap; justify-content: center; min-width: 0; }
 }

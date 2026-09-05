@@ -17,6 +17,22 @@ const SUGGESTIONS = [
   'Πρόσθεσε υπηρεσία «Δωρεάν εκτίμηση»',
 ]
 
+function billingSummary(subscription) {
+  const status = subscription?.status
+  const date = (value) => value
+    ? new Intl.DateTimeFormat('el-GR').format(new Date(value)) : null
+  if (status === 'trialing') return `Δωρεάν δοκιμή · λήγει ${date(subscription.trial_end) || 'σύντομα'} · μετά €14,99/μήνα`
+  if (status === 'active') return subscription.cancel_at_period_end
+    ? `Ενεργή έως ${date(subscription.current_period_end) || 'το τέλος της περιόδου'}`
+    : 'Ενεργή συνδρομή · €14,99/μήνα'
+  if (status === 'past_due') return 'Η πληρωμή χρειάζεται ενημέρωση · προσωρινή περίοδος χάριτος'
+  if (status === 'canceled') return subscription.entitlement?.entitled
+    ? `Ακυρώθηκε · πρόσβαση έως ${date(subscription.entitlement.access_until)}`
+    : 'Η συνδρομή έχει λήξει · τα δεδομένα σου παραμένουν ασφαλή'
+  if (status) return 'Η συνδρομή χρειάζεται ενημέρωση'
+  return '30 ημέρες δωρεάν · μετά €14,99/μήνα'
+}
+
 export default function Dashboard() {
   const [session, setSession] = useState(undefined)   // undefined = φορτώνει
   const [clients, setClients] = useState(null)
@@ -32,6 +48,11 @@ export default function Dashboard() {
   const [googleOn, setGoogleOn] = useState(false)
   const [tab, setTab] = useState('chat')
   const [form, setForm] = useState(null)      // τα πεδία του site, για χειροκίνητη αλλαγή
+  // Ο δείκτης έκδοσης που συνοδεύει το `form`. Χωρίς αυτόν, μια δεύτερη
+  // καρτέλα έγραφε παλιό αντίγραφο πάνω από νέες αλλαγές, και ο πελάτης
+  // έβλεπε τη διόρθωσή του να εξαφανίζεται χωρίς κανένα μήνυμα.
+  const [rev, setRev] = useState('')
+  const [editorVersion, setEditorVersion] = useState(0)
   const [saving, setSaving] = useState(false)
   const [posts, setPosts] = useState(null)
   const [socialQueue, setSocialQueue] = useState(null)
@@ -137,12 +158,24 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!clientId) return
+    let alive = true
     authFetch(`/clients/${clientId}/account`).then(setAccount).catch(() => {})
     setMessages([{ role: 'bot', text: 'Γεια σου! Πες μου τι θέλεις να αλλάξω στο site σου — με απλά λόγια.' }])
     setPending(null)
     setForm(null)
     setPosts(null)
     setSocialQueue(null)
+    authFetch(`/clients/${clientId}/content`)
+      .then((content) => {
+        if (!alive) return
+        setForm(content.content)
+        setRev(content.rev || '')
+        setEditorVersion(content.editor_version || 0)
+      })
+      .catch((e) => {
+        if (alive) setErr('Δεν φόρτωσε η τρέχουσα έκδοση του site. ' + e.message)
+      })
+    return () => { alive = false }
   }, [clientId, authFetch])
 
   useEffect(() => { chatEnd.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages])
@@ -155,20 +188,37 @@ export default function Dashboard() {
     setBusy(true)
     try {
       const d = await authFetch(`/clients/${clientId}/chat-edit`, {
-        method: 'POST', body: JSON.stringify({ message: msg }),
+        method: 'POST', body: JSON.stringify({
+          message: msg, expected_version: editorVersion,
+          idempotency_key: crypto.randomUUID(),
+        }),
       })
-      setMessages((m) => [...m, { role: 'bot', text: d.reply, changed: d.changed, draft: true }])
-      if (d.changed?.length) {
-        let current = pending?.merged || form
-        if (!current) {
-          const content = await authFetch(`/clients/${clientId}/content`)
-          current = content.content
-          setForm(current)
+      setMessages((m) => [...m, { role: 'bot', text: d.reply, changed: d.changed, draft: d.draft }])
+      if (d.draft) {
+        if (d.operations?.length) {
+          let current = pending?.merged || form
+          if (!current) {
+            const content = await authFetch(`/clients/${clientId}/content`)
+            current = content.content
+            setForm(current)
+            setRev(content.rev || '')
+            setEditorVersion(content.editor_version || 0)
+          }
+          setPending({
+            changes: d.content,
+            merged: d.content,
+            operations: d.operations,
+            message: msg,
+            version: d.version,
+          })
+          setVer(Date.now())
         }
-        setPending({
-          changes: { ...(pending?.changes || {}), ...d.content },
-          merged: { ...current, ...d.content },
-        })
+      } else {
+        setPending(null)
+        const content = await authFetch(`/clients/${clientId}/content`)
+        setForm(content.content)
+        setRev(content.rev || '')
+        setEditorVersion(content.editor_version || d.version || 0)
         setVer(Date.now())
       }
     } catch (e) {
@@ -181,10 +231,20 @@ export default function Dashboard() {
     if (!pending || approving) return
     setApproving(true); setErr('')
     try {
-      const d = await authFetch(`/clients/${clientId}/content`, {
-        method: 'PUT', body: JSON.stringify({ content: pending.merged }),
+      const d = await authFetch(`/clients/${clientId}/editor/apply`, {
+        method: 'POST', body: JSON.stringify({
+          message: pending.message,
+          operations: pending.operations,
+          expected_version: pending.version,
+          idempotency_key: crypto.randomUUID(),
+        }),
       })
-      setForm(pending.merged)
+      // Re-read the committed snapshot so the next manual save uses the new
+      // revision token instead of the pre-approval one.
+      const persisted = await authFetch(`/clients/${clientId}/content`)
+      setForm(persisted.content)
+      setRev(persisted.rev || '')
+      setEditorVersion(persisted.editor_version || d.version || 0)
       setMessages((m) => [...m, {
         role: 'bot', text: 'Οι αλλαγές εγκρίθηκαν και αποθηκεύτηκαν στο site σου.',
         applied: d.saved,
@@ -211,6 +271,8 @@ export default function Dashboard() {
     try {
       const d = await authFetch(`/clients/${clientId}/content`)
       setForm(d.content)
+      setRev(d.rev || '')
+      setEditorVersion(d.editor_version || 0)
     } catch (e) {
       setErr('Δεν φόρτωσαν τα στοιχεία σου. ' + e.message)
     }
@@ -220,14 +282,17 @@ export default function Dashboard() {
     e.preventDefault()
     setSaving(true); setErr(''); setSaved(false)
     try {
-      await authFetch(`/clients/${clientId}/content`, {
-        method: 'PUT', body: JSON.stringify({ content: form }),
+      const put = await authFetch(`/clients/${clientId}/content`, {
+        method: 'PUT', body: JSON.stringify({ content: form, rev }),
       })
+      setRev(put.rev || '')
       setSaved(true)
       setVer(Date.now())                    // ανανέωσε το preview
       setTimeout(() => setSaved(false), 2500)
     } catch (e) {
-      setErr('Δεν αποθηκεύτηκε. ' + e.message)
+      setErr(String(e.message).includes('409')
+        ? 'Το site άλλαξε από άλλη καρτέλα. Φόρτωσε τη σελίδα ξανά — οι αλλαγές σου δεν στάλθηκαν.'
+        : 'Δεν αποθηκεύτηκε. ' + e.message)
     }
     setSaving(false)
   }
@@ -406,8 +471,15 @@ export default function Dashboard() {
 
   async function openBilling() {
     try {
-      const d = await authFetch(`/clients/${clientId}/billing-portal`, { method: 'POST' })
-      window.location.href = d.url
+      if (!account?.has_billing && !window.confirm(
+        '30 ημέρες δωρεάν και μετά €14,99/μήνα. Απαιτείται κάρτα, σήμερα χρεώνεσαι €0 και η συνδρομή συνεχίζεται μέχρι να την ακυρώσεις. Συνέχεια;'
+      )) return
+      const d = account?.has_billing
+        ? await authFetch(`/clients/${clientId}/billing-portal`, { method: 'POST' })
+        : await authFetch('/create-checkout', {
+            method: 'POST', body: JSON.stringify({ client_id: clientId }),
+          })
+      window.location.href = d.url || d.checkout_url
     } catch (e) {
       setErr('Η διαχείριση συνδρομής δεν είναι διαθέσιμη ακόμα.')
     }
@@ -511,13 +583,16 @@ export default function Dashboard() {
           </label>
         )}
         <div className={s.topRight}>
+          <span className={s.billingState}>{billingSummary(account?.subscription)}</span>
           {account?.domain?.domain && (
             <a className={s.live} href={`https://${account.domain.domain}`} target="_blank" rel="noreferrer">
               Δες το ζωντανά ↗
             </a>
           )}
           <a className={s.linkBtn} href="/odigos/google" target="_blank" rel="noreferrer">Οδηγός Google</a>
-          <button className={s.linkBtn} onClick={openBilling}>Συνδρομή</button>
+          <button className={s.linkBtn} onClick={openBilling}>
+            {account?.has_billing ? 'Διαχείριση συνδρομής' : 'Ξεκίνα δωρεάν'}
+          </button>
           <button className={s.linkBtn} onClick={() => supabase.auth.signOut()}>Έξοδος</button>
         </div>
       </header>

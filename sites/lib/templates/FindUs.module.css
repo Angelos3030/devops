@@ -18,7 +18,7 @@
   padding: clamp(2.6rem, 6vw, 5rem) clamp(1.1rem, 4vw, 3rem);
   background: var(--fu-bg);
   color: var(--fu-ink);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--vt-body, 'Inter', system-ui, sans-serif);
   border-top: 1px solid var(--fu-line);
 }
 .dark {
@@ -35,11 +35,11 @@
   letter-spacing: .22em; text-transform: uppercase; opacity: .75;
 }
 .title {
-  font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+  font-family: var(--vt-display, 'Fraunces', Georgia, serif); font-weight: 400;
   font-size: clamp(1.7rem, 3.6vw, 2.5rem); line-height: 1.1;
 }
 .address { font-style: normal; display: flex; flex-direction: column; gap: .15rem; color: var(--fu-soft); font-size: 1rem; }
-.areas { font-size: .88rem; opacity: .85; margin-top: .3rem; }
+.areas { font-size: .88rem; color: var(--fu-areas, var(--fu-soft)); margin-top: .3rem; }
 .hours { color: var(--fu-soft); font-size: .92rem; }
 
 /* ΓΙΑΤΙ .wrap ΜΠΡΟΣΤΑ ΑΠΟ ΟΛΑ: πολλά templates ορίζουν `.root a { color: … }`
@@ -106,3 +106,17 @@
 
 /* Social/email κάτω από τα στοιχεία επικοινωνίας. */
 .social { margin-top: 1rem; }
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px για τον σύνδεσμο Google.
+   Μετρήθηκε 122x23 σε κινητό. Δεν είχε εντοπιστεί στη σάρωση των 58 themes
+   επειδή εμφανίζεται ΜΟΝΟ όταν ο πελάτης έχει συμπληρώσει Google link — τα
+   demo δεδομένα δεν είχαν. Χειριστήρια που εξαρτώνται από τα δεδομένα του
+   πελάτη χρειάζονται έλεγχο με ΓΕΜΑΤΟ πελάτη, όχι με demo. */
+@media (max-width: 780px) {
+  .wrap .gbp { position: relative; }
+  .wrap .gbp::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
+}

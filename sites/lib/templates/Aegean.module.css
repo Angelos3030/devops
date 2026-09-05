@@ -17,8 +17,8 @@
 
 
   /* Ελληνική ταυτότητα: Literata light — βιβλίο διακοπών */
-  --serif: 'Literata', Georgia, serif;
-  --sans: 'Open Sans', 'Inter', system-ui, sans-serif;
+  --serif: var(--vt-display, 'Literata', Georgia, serif);
+  --sans: var(--vt-body, 'Open Sans', 'Inter', system-ui, sans-serif);
   --mono: 'JetBrains Mono', monospace;
 
   background: var(--vt-surface);
@@ -57,7 +57,13 @@
   text-align: center; color: #fff; padding: 2rem 1.2rem 4rem;
   text-shadow: 0 2px 24px rgba(13, 61, 97, 0.5);
 }
-.eyebrow { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.9; }
+/* Τοπική σκίαση αντί για σκούρυνσμα ΟΛΟΥ του πέπλου: το πρόβλημα ήταν ένα
+   eyebrow 11,8px πάνω σε μεσαίο γαλάζιο (L=0,23). Η φωτογραφία μένει όσο
+   φωτεινή ήταν — το Αιγαίο δεν χρειάζεται να σκοτεινιάσει για έξι λέξεις. */
+.eyebrow { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.3em;
+  text-transform: uppercase; opacity: 0.9;
+  background: rgba(9, 40, 66, 0.62); padding: 6px 16px; border-radius: 999px;
+  display: inline-block; }
 .eyebrowBlue { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vt-accent-ink); }
 .title {
   font-family: var(--serif); font-weight: 300;
@@ -145,4 +151,18 @@
 /* responsive */
 @media (max-width: 640px) {
   .card { width: 100%; }
+}
+
+/* ΠΕΡΙΟΧΗ ΑΦΗΣ 44px — αόρατη επέκταση, μόνο σε κινητό.
+   Μετρήθηκε σε 390/360/320. Καμία αλλαγή σε τυπογραφία, χρώμα,
+   σύνθεση ή desktop: το ψευδο-στοιχείο δεν ζωγραφίζει και δεν
+   πιάνει χώρο στη ροή. */
+@media (max-width: 780px) {
+  /* B · 42px ύψος · 1 theme(s) · «Κράτηση» */
+  .navCall:not(:empty) { position: relative; }
+  .navCall:not(:empty)::after {
+    content: ''; position: absolute; z-index: 0;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 100%; min-width: 44px; height: 100%; min-height: 44px;
+  }
 }
