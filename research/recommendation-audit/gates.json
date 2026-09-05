@@ -1,0 +1,38 @@
+{
+  "dataset_sha256": "4f1c28c98e4e8d857a5f9ae8734717b72145c8178c9369bc6e9a4681672b6519",
+  "queries": 480,
+  "repeatability_drift": [],
+  "label_ranking_disagreement": [],
+  "ai_dependent": [
+    {
+      "id": "q0019",
+      "text": "εχο κοιριο στο χαλανδρι",
+      "style": "typos",
+      "decided": "gym"
+    },
+    {
+      "id": "q0059",
+      "text": "εχο φοιρνο στι θεσαλονικι",
+      "style": "typos",
+      "decided": "bakery"
+    },
+    {
+      "id": "q0169",
+      "text": "ιμε ιδρελικος στο περιστερι",
+      "style": "typos",
+      "decided": "garage"
+    },
+    {
+      "id": "q0199",
+      "text": "ιμε ξιλοιργος στοι ψιρρι",
+      "style": "typos",
+      "decided": "wood"
+    },
+    {
+      "id": "q0359",
+      "text": "ιμε σιμβοιλος επιχιρισεον στα εξαρχια",
+      "style": "typos",
+      "decided": "retail"
+    }
+  ]
+}

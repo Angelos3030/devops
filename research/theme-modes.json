@@ -1,0 +1,292 @@
+{
+ "aegean": {
+  "lum": 0.981,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "airspace-office": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "area-first": {
+  "lum": 0.9259,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "bakery-editorial": {
+  "lum": 0.8674,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "barber-shop": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "beauty-atelier": {
+  "lum": 0.882,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "bigspring-advisory": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "billys-barber": {
+  "lum": 0.6584,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "bloom": {
+  "lum": 0.9659,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "blue-onepage": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "callout": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "canvas": {
+  "lum": 0.956,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "chapter-snap": {
+  "lum": 0.7923,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "cinematic": {
+  "lum": 0.0084,
+  "source": "--vt-surface",
+  "mode": "dark"
+ },
+ "clean-work": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "clinic-triage": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "coast": {
+  "lum": 0.9722,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "constra-build": {
+  "lum": 0.9035,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "counter-menu": {
+  "lum": 0.003,
+  "source": "--vt-surface",
+  "mode": "dark"
+ },
+ "directory-index": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "dispatch": {
+  "lum": 0.004,
+  "source": "--vt-surface",
+  "mode": "dark"
+ },
+ "educenter-campus": {
+  "lum": 0.956,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "elegance-salon": {
+  "lum": 0.9573,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "ember": {
+  "lum": 0.0055,
+  "source": "--vt-surface",
+  "mode": "dark"
+ },
+ "forge": {
+  "lum": 0.8856,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "freight-lane": {
+  "lum": 0.9295,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "frost-bakery": {
+  "lum": 0.8742,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "grecko-table": {
+  "lum": 0.8281,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "gymso-fitness": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "heritage-bakery": {
+  "lum": 0.8975,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "horizontal-story": {
+  "lum": 0.0082,
+  "source": "--vt-surface",
+  "mode": "dark"
+ },
+ "infinite": {
+  "lum": 0.0065,
+  "source": "--vt-surface",
+  "mode": "dark"
+ },
+ "kinetic": {
+  "lum": 0.872,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "klassy-cafe": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "living": {
+  "lum": 0.8714,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "marble": {
+  "lum": 0.956,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "medic-care": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "microbakery-lab": {
+  "lum": 0.7908,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "morning-journal": {
+  "lum": 0.9592,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "moso-interior": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "motor": {
+  "lum": 0.0114,
+  "source": "--vt-surface",
+  "mode": "dark"
+ },
+ "neighborhood-market": {
+  "lum": 0.8367,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "novena-care": {
+  "lum": 0.9703,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "price-first": {
+  "lum": 0.9071,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "property-atlas": {
+  "lum": 0.9053,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "pulse": {
+  "lum": 0.9873,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "quiet": {
+  "lum": 0.9283,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "runway": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "scandinavian-coffee": {
+  "lum": 0.8784,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "signature": {
+  "lum": 0.9566,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "terra": {
+  "lum": 0.8511,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "thomson-stylist": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "type-gallery": {
+  "lum": 0.8738,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "vertical-snap": {
+  "lum": 0.017,
+  "source": "--vt-surface",
+  "mode": "dark"
+ },
+ "vex-counter": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "villa-agency": {
+  "lum": 1,
+  "source": "--vt-surface",
+  "mode": "light"
+ },
+ "volt": {
+  "lum": 0.0091,
+  "source": "--vt-surface",
+  "mode": "dark"
+ },
+ "warmth": {
+  "lum": 0.9021,
+  "source": "--vt-surface",
+  "mode": "light"
+ }
+}

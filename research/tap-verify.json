@@ -1,0 +1,152 @@
+[
+ {
+  "theme": "barber-shop",
+  "vw": 390,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "blue-onepage",
+  "vw": 390,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "constra-build",
+  "vw": 390,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "gymso-fitness",
+  "vw": 390,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "medic-care",
+  "vw": 390,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "novena-care",
+  "vw": 390,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "price-first",
+  "vw": 390,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "vertical-snap",
+  "vw": 390,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "villa-agency",
+  "vw": 390,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "barber-shop",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "blue-onepage",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "constra-build",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "elegance-salon",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "gymso-fitness",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "medic-care",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "novena-care",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "price-first",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "property-atlas",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "vertical-snap",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "villa-agency",
+  "vw": 360,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "barber-shop",
+  "vw": 320,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "blue-onepage",
+  "vw": 320,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "constra-build",
+  "vw": 320,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "elegance-salon",
+  "vw": 320,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "gymso-fitness",
+  "vw": 320,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "medic-care",
+  "vw": 320,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "novena-care",
+  "vw": 320,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "price-first",
+  "vw": 320,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "vertical-snap",
+  "vw": 320,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ },
+ {
+  "theme": "villa-agency",
+  "vw": 320,
+  "err": "Error: page.evaluate: ReferenceError: miss is not defined\n  "
+ }
+]

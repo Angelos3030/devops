@@ -1,0 +1,20 @@
+{
+ "model": "kimi-k3",
+ "reasoning_effort": "high",
+ "usage": {
+  "prompt_tokens": 4456,
+  "completion_tokens": 12482,
+  "total_tokens": 16938,
+  "completion_tokens_details": {
+   "reasoning_tokens": 8975
+  }
+ },
+ "timing": {
+  "ttft": 258.5,
+  "total": 337.5,
+  "finish_reason": "stop",
+  "chars": 8957
+ },
+ "cost_usd": 0.2006,
+ "bytes": 10607
+}

@@ -1,0 +1,589 @@
+[
+ {
+  "t": "aegean",
+  "total": 9,
+  "small": 1,
+  "tiny": 0,
+  "worst": 42,
+  "sample": [
+   "«Κράτηση» 42px"
+  ]
+ },
+ {
+  "t": "airspace-office",
+  "total": 15,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "area-first",
+  "total": 15,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "bakery-editorial",
+  "total": 5,
+  "small": 3,
+  "tiny": 3,
+  "worst": 13,
+  "sample": [
+   "«Παραγγελίες» 16px",
+   "«Κράτησέ το για μ» 16px"
+  ]
+ },
+ {
+  "t": "barber-shop",
+  "total": 16,
+  "small": 8,
+  "tiny": 1,
+  "worst": 21,
+  "sample": [
+   "«Επιστροφή στην α» 21px",
+   "«Studio Μαρία» 24px"
+  ]
+ },
+ {
+  "t": "beauty-atelier",
+  "total": 16,
+  "small": 3,
+  "tiny": 1,
+  "worst": 16,
+  "sample": [
+   "«Κλείσε τη δική σ» 16px",
+   "«Auréa Skin Studi» 25px"
+  ]
+ },
+ {
+  "t": "bigspring-advisory",
+  "total": 10,
+  "small": 2,
+  "tiny": 1,
+  "worst": 20,
+  "sample": [
+   "«Αντωνίου & Συνερ» 20px",
+   "«Αντωνίου & Συνερ» 20px"
+  ]
+ },
+ {
+  "t": "billys-barber",
+  "total": 13,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "bloom",
+  "total": 10,
+  "small": 2,
+  "tiny": 0,
+  "worst": 28,
+  "sample": [
+   "«210 8900000» 39px",
+   "«Δες τις θεραπείε» 28px"
+  ]
+ },
+ {
+  "t": "blue-onepage",
+  "total": 17,
+  "small": 1,
+  "tiny": 1,
+  "worst": 18,
+  "sample": [
+   "«210 3000000» 18px",
+   "«210 3000000» 18px"
+  ]
+ },
+ {
+  "t": "callout",
+  "total": 18,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "canvas",
+  "total": 9,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "chapter-snap",
+  "total": 9,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "cinematic",
+  "total": 6,
+  "small": 2,
+  "tiny": 1,
+  "worst": 20,
+  "sample": [
+   "«Κλήση» 20px",
+   "«Ο Λεωνίδας» 35px"
+  ]
+ },
+ {
+  "t": "clean-work",
+  "total": 20,
+  "small": 7,
+  "tiny": 1,
+  "worst": 22,
+  "sample": [
+   "«210 5700000» 22px",
+   "«210 5700000» 22px"
+  ]
+ },
+ {
+  "t": "clinic-triage",
+  "total": 18,
+  "small": 1,
+  "tiny": 0,
+  "worst": 32,
+  "sample": [
+   "«210 6000000» 32px"
+  ]
+ },
+ {
+  "t": "coast",
+  "total": 14,
+  "small": 2,
+  "tiny": 0,
+  "worst": 26,
+  "sample": [
+   "«Θαλασσιά» 40px",
+   "«22840 00000» 26px"
+  ]
+ },
+ {
+  "t": "constra-build",
+  "total": 15,
+  "small": 3,
+  "tiny": 2,
+  "worst": 15,
+  "sample": [
+   "«210 5700000» 15px",
+   "«Υδραυλικός Νίκος» 22px"
+  ]
+ },
+ {
+  "t": "counter-menu",
+  "total": 4,
+  "small": 1,
+  "tiny": 0,
+  "worst": 32,
+  "sample": [
+   "«2752 000000» 32px"
+  ]
+ },
+ {
+  "t": "directory-index",
+  "total": 3,
+  "small": 1,
+  "tiny": 1,
+  "worst": 20,
+  "sample": [
+   "«210 3000000» 20px",
+   "«210 3000000» 20px"
+  ]
+ },
+ {
+  "t": "dispatch",
+  "total": 3,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "educenter-campus",
+  "total": 16,
+  "small": 1,
+  "tiny": 1,
+  "worst": 19,
+  "sample": [
+   "«210 3000000» 19px",
+   "«210 3000000» 19px"
+  ]
+ },
+ {
+  "t": "elegance-salon",
+  "total": 15,
+  "small": 2,
+  "tiny": 2,
+  "worst": 22,
+  "sample": [
+   "«Studio Μαρία» 22px",
+   "«Κλείσε τη δική σ» 23px"
+  ]
+ },
+ {
+  "t": "ember",
+  "total": 9,
+  "small": 1,
+  "tiny": 0,
+  "worst": 36,
+  "sample": [
+   "«2310 000000» 36px"
+  ]
+ },
+ {
+  "t": "forge",
+  "total": 14,
+  "small": 1,
+  "tiny": 0,
+  "worst": 41,
+  "sample": [
+   "«📞 6956 297670» 41px"
+  ]
+ },
+ {
+  "t": "freight-lane",
+  "total": 15,
+  "small": 1,
+  "tiny": 0,
+  "worst": 32,
+  "sample": [
+   "«210 5700000» 32px"
+  ]
+ },
+ {
+  "t": "frost-bakery",
+  "total": 12,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "grecko-table",
+  "total": 11,
+  "small": 3,
+  "tiny": 2,
+  "worst": 22,
+  "sample": [
+   "«Ο Λεωνίδας» 22px",
+   "«Κράτηση ↗» 23px"
+  ]
+ },
+ {
+  "t": "gymso-fitness",
+  "total": 16,
+  "small": 5,
+  "tiny": 0,
+  "worst": 24,
+  "sample": [
+   "«Iron Works» 32px",
+   "«Αρχική» 24px"
+  ]
+ },
+ {
+  "t": "heritage-bakery",
+  "total": 6,
+  "small": 3,
+  "tiny": 2,
+  "worst": 15,
+  "sample": [
+   "«Παραγγελίες · 27» 15px",
+   "«Κάνε παραγγελία » 16px"
+  ]
+ },
+ {
+  "t": "horizontal-story",
+  "total": 5,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "infinite",
+  "total": 11,
+  "small": 3,
+  "tiny": 1,
+  "worst": 18,
+  "sample": [
+   "«210 5900000» 18px",
+   "«Auto Σταθόπουλος» 25px"
+  ]
+ },
+ {
+  "t": "kinetic",
+  "total": 15,
+  "small": 3,
+  "tiny": 1,
+  "worst": 21,
+  "sample": [
+   "«Auto Σταθόπουλος» 21px",
+   "«Auto Σταθόπουλος» 21px"
+  ]
+ },
+ {
+  "t": "klassy-cafe",
+  "total": 8,
+  "small": 1,
+  "tiny": 0,
+  "worst": 35,
+  "sample": [
+   "«Αλκυόνη» 35px"
+  ]
+ },
+ {
+  "t": "living",
+  "total": 14,
+  "small": 2,
+  "tiny": 0,
+  "worst": 26,
+  "sample": [
+   "«Néro Massage Hou» 35px",
+   "«Κλείσε συνεδρία» 26px"
+  ]
+ },
+ {
+  "t": "marble",
+  "total": 10,
+  "small": 2,
+  "tiny": 1,
+  "worst": 24,
+  "sample": [
+   "«210 6000000» 24px",
+   "«Φαρμακείο Μαρία» 32px"
+  ]
+ },
+ {
+  "t": "medic-care",
+  "total": 14,
+  "small": 8,
+  "tiny": 0,
+  "worst": 24,
+  "sample": [
+   "«Ιατρείο Δρ. Ελέν» 24px",
+   "«Αρχική» 24px"
+  ]
+ },
+ {
+  "t": "microbakery-lab",
+  "total": 4,
+  "small": 2,
+  "tiny": 1,
+  "worst": 17,
+  "sample": [
+   "«CONTACT ↗» 17px",
+   "«CONTACT ↗» 17px"
+  ]
+ },
+ {
+  "t": "morning-journal",
+  "total": 5,
+  "small": 1,
+  "tiny": 1,
+  "worst": 18,
+  "sample": [
+   "«Τηλεφώνησε για π» 18px",
+   "«Τηλεφώνησε για π» 18px"
+  ]
+ },
+ {
+  "t": "moso-interior",
+  "total": 20,
+  "small": 13,
+  "tiny": 0,
+  "worst": 36,
+  "sample": [
+   "«Κουτράκης Κουζίν» 36px",
+   "«Αρχική» 38px"
+  ]
+ },
+ {
+  "t": "motor",
+  "total": 9,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "neighborhood-market",
+  "total": 6,
+  "small": 4,
+  "tiny": 3,
+  "worst": 17,
+  "sample": [
+   "«BOOK A TABLE ↗» 17px",
+   "«SAVE MY TABLE ↗» 21px"
+  ]
+ },
+ {
+  "t": "novena-care",
+  "total": 18,
+  "small": 6,
+  "tiny": 6,
+  "worst": 15,
+  "sample": [
+   "«210 6000000» 15px",
+   "«Οδοντιατρείο Παπ» 22px"
+  ]
+ },
+ {
+  "t": "price-first",
+  "total": 19,
+  "small": 5,
+  "tiny": 0,
+  "worst": 38,
+  "sample": [
+   "«Όλα» 38px",
+   "«Μαλλιά» 38px"
+  ]
+ },
+ {
+  "t": "property-atlas",
+  "total": 13,
+  "small": 1,
+  "tiny": 1,
+  "worst": 22,
+  "sample": [
+   "«Ακίνητα Δουκάκης» 22px",
+   "«Ακίνητα Δουκάκης» 22px"
+  ]
+ },
+ {
+  "t": "pulse",
+  "total": 13,
+  "small": 5,
+  "tiny": 4,
+  "worst": 22,
+  "sample": [
+   "«Ραντεβού →» 22px",
+   "«Ραντεβού →» 22px"
+  ]
+ },
+ {
+  "t": "quiet",
+  "total": 6,
+  "small": 3,
+  "tiny": 2,
+  "worst": 20,
+  "sample": [
+   "«210 6000000» 20px",
+   "«Ζήτα συνάντηση →» 23px"
+  ]
+ },
+ {
+  "t": "runway",
+  "total": 13,
+  "small": 1,
+  "tiny": 0,
+  "worst": 38,
+  "sample": [
+   "«Ραντεβού» 38px"
+  ]
+ },
+ {
+  "t": "scandinavian-coffee",
+  "total": 5,
+  "small": 3,
+  "tiny": 2,
+  "worst": 13,
+  "sample": [
+   "«Επικοινωνία» 13px",
+   "«SEE YOU HERE ↗» 16px"
+  ]
+ },
+ {
+  "t": "signature",
+  "total": 12,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "terra",
+  "total": 9,
+  "small": 1,
+  "tiny": 0,
+  "worst": 39,
+  "sample": [
+   "«Παραγγελία» 39px"
+  ]
+ },
+ {
+  "t": "thomson-stylist",
+  "total": 13,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "type-gallery",
+  "total": 6,
+  "small": 3,
+  "tiny": 1,
+  "worst": 18,
+  "sample": [
+   "«210 9500000» 18px",
+   "«Iron Works» 30px"
+  ]
+ },
+ {
+  "t": "vertical-snap",
+  "total": 9,
+  "small": 5,
+  "tiny": 0,
+  "worst": 30,
+  "sample": [
+   "«01 Δωμάτια δίπλα» 30px",
+   "«02 Δωμάτια με θέ» 30px"
+  ]
+ },
+ {
+  "t": "vex-counter",
+  "total": 11,
+  "small": 0,
+  "tiny": 0,
+  "worst": null,
+  "sample": []
+ },
+ {
+  "t": "villa-agency",
+  "total": 11,
+  "small": 1,
+  "tiny": 0,
+  "worst": 35,
+  "sample": [
+   "«Ακίνητα Δουκάκης» 35px"
+  ]
+ },
+ {
+  "t": "volt",
+  "total": 9,
+  "small": 1,
+  "tiny": 0,
+  "worst": 40,
+  "sample": [
+   "«Δοκιμαστικό» 40px"
+  ]
+ },
+ {
+  "t": "warmth",
+  "total": 11,
+  "small": 1,
+  "tiny": 0,
+  "worst": 40,
+  "sample": [
+   "«Κράτηση» 40px"
+  ]
+ }
+]

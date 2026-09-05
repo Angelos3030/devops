@@ -1,0 +1,120 @@
+{
+ "idleDoc": [
+  1440,
+  900
+ ],
+ "idleCaption": "ταβέρνα · κομμωτήριο · οδοντιατρείο · υδραυλικός · καφετέρια · δωμάτια",
+ "hover": [
+  {
+   "label": "Ταβέρνα · Θεσσαλονίκη · Δες το site ↗",
+   "capVisible": "1",
+   "href": "way.app/preview/warmth?biz=taverna",
+   "activeTransform": "matrix(1.08, 0, 0, 1.08, 0, -11)",
+   "activeZ": "10",
+   "activeBox": [
+    794,
+    224,
+    343,
+    436
+   ],
+   "imgTransform": "matrix(1, 0, 0, 1, 0, -380)",
+   "panDeclared": "380",
+   "others": [
+    {
+     "tr": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+     "op": "0.82"
+    },
+    {
+     "tr": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+     "op": "0.82"
+    }
+   ],
+   "docW": 1440
+  },
+  {
+   "label": "Κομμωτήριο · Γλυφάδα · Δες το site ↗",
+   "capVisible": "1",
+   "href": "p/preview/beauty-atelier?biz=salon",
+   "activeTransform": "matrix(1.08, 0, 0, 1.08, 0, -11)",
+   "activeZ": "10",
+   "activeBox": [
+    986,
+    268,
+    343,
+    436
+   ],
+   "imgTransform": "matrix(1, 0, 0, 1, 0, -380)",
+   "panDeclared": "380",
+   "others": [
+    {
+     "tr": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+     "op": "0.82"
+    },
+    {
+     "tr": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+     "op": "0.82"
+    }
+   ],
+   "docW": 1440
+  },
+  {
+   "label": "Δωμάτια · Πάρος · Δες το site ↗",
+   "capVisible": "1",
+   "href": "ilway.app/preview/aegean?biz=rooms",
+   "activeTransform": "matrix(1.08, 0, 0, 1.08, 0, -11)",
+   "activeZ": "10",
+   "activeBox": [
+    1123,
+    312,
+    343,
+    436
+   ],
+   "imgTransform": "matrix(1, 0, 0, 1, 0, 0)",
+   "panDeclared": "0",
+   "others": [
+    {
+     "tr": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+     "op": "0.82"
+    },
+    {
+     "tr": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+     "op": "0.82"
+    }
+   ],
+   "docW": 1440
+  }
+ ],
+ "rotation": [
+  "taverna-full.jpg",
+  "cafe-tall.jpg"
+ ],
+ "rotationHref": "view/clinic-triage?biz=dentist",
+ "keyboard": {
+  "label": "Κομμωτήριο · Γλυφάδα · Δες το site ↗",
+  "opacity": "1",
+  "outline": "rgb(232, 93, 63) 2px",
+  "isActive": true
+ },
+ "errors": [],
+ "reduced": {
+  "tileTransform": "none",
+  "imgTransform": "matrix(1, 0, 0, 1, 0, 0)",
+  "label": "Ταβέρνα · Θεσσαλονίκη · Δες το site ↗",
+  "labelOpacity": "1",
+  "othersOpacity": "1",
+  "rotationStatic": true
+ },
+ "mobile": {
+  "docW": 390,
+  "docH": 1078,
+  "snap": "x mandatory",
+  "scrollW": 1043,
+  "clientW": 390,
+  "tileW": 328,
+  "imgTransform": "none",
+  "afterScroll": {
+   "scrollLeft": 334,
+   "docW": 390
+  }
+ }
+}

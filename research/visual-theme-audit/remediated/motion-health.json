@@ -1,0 +1,306 @@
+{
+  "base": "http://127.0.0.1:3900",
+  "generatedAt": "2026-08-31T05:56:37.628Z",
+  "themes": [
+    {
+      "id": "aegean",
+      "biz": "rooms",
+      "viewports": {
+        "desktop": {
+          "status": 200,
+          "candidateCount": 9,
+          "visibleOnEntry": 9,
+          "remainsVisible": 9,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        },
+        "mobile": {
+          "status": 200,
+          "candidateCount": 9,
+          "visibleOnEntry": 9,
+          "remainsVisible": 9,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        }
+      }
+    },
+    {
+      "id": "bloom",
+      "biz": "aesthetics",
+      "viewports": {
+        "desktop": {
+          "status": 200,
+          "candidateCount": 10,
+          "visibleOnEntry": 10,
+          "remainsVisible": 10,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        },
+        "mobile": {
+          "status": 200,
+          "candidateCount": 10,
+          "visibleOnEntry": 10,
+          "remainsVisible": 10,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        }
+      }
+    },
+    {
+      "id": "canvas",
+      "biz": "farm",
+      "viewports": {
+        "desktop": {
+          "status": 200,
+          "candidateCount": 9,
+          "visibleOnEntry": 9,
+          "remainsVisible": 9,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        },
+        "mobile": {
+          "status": 200,
+          "candidateCount": 9,
+          "visibleOnEntry": 9,
+          "remainsVisible": 9,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        }
+      }
+    },
+    {
+      "id": "ember",
+      "biz": "taverna",
+      "viewports": {
+        "desktop": {
+          "status": 200,
+          "candidateCount": 13,
+          "visibleOnEntry": 13,
+          "remainsVisible": 13,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        },
+        "mobile": {
+          "status": 200,
+          "candidateCount": 13,
+          "visibleOnEntry": 13,
+          "remainsVisible": 13,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        }
+      }
+    },
+    {
+      "id": "forge",
+      "biz": "carpenter",
+      "viewports": {
+        "desktop": {
+          "status": 200,
+          "candidateCount": 18,
+          "visibleOnEntry": 18,
+          "remainsVisible": 18,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        },
+        "mobile": {
+          "status": 200,
+          "candidateCount": 18,
+          "visibleOnEntry": 18,
+          "remainsVisible": 18,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        }
+      }
+    },
+    {
+      "id": "marble",
+      "biz": "pharmacy",
+      "viewports": {
+        "desktop": {
+          "status": 200,
+          "candidateCount": 9,
+          "visibleOnEntry": 9,
+          "remainsVisible": 9,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        },
+        "mobile": {
+          "status": 200,
+          "candidateCount": 9,
+          "visibleOnEntry": 9,
+          "remainsVisible": 9,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        }
+      }
+    },
+    {
+      "id": "motor",
+      "biz": "garage",
+      "viewports": {
+        "desktop": {
+          "status": 200,
+          "candidateCount": 11,
+          "visibleOnEntry": 11,
+          "remainsVisible": 11,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        },
+        "mobile": {
+          "status": 200,
+          "candidateCount": 11,
+          "visibleOnEntry": 11,
+          "remainsVisible": 11,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        }
+      }
+    },
+    {
+      "id": "pulse",
+      "biz": "gym",
+      "viewports": {
+        "desktop": {
+          "status": 200,
+          "candidateCount": 9,
+          "visibleOnEntry": 9,
+          "remainsVisible": 9,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        },
+        "mobile": {
+          "status": 200,
+          "candidateCount": 9,
+          "visibleOnEntry": 9,
+          "remainsVisible": 9,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        }
+      }
+    },
+    {
+      "id": "runway",
+      "biz": "gym",
+      "viewports": {
+        "desktop": {
+          "status": 200,
+          "candidateCount": 12,
+          "visibleOnEntry": 12,
+          "remainsVisible": 12,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        },
+        "mobile": {
+          "status": 200,
+          "candidateCount": 12,
+          "visibleOnEntry": 12,
+          "remainsVisible": 12,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        }
+      }
+    },
+    {
+      "id": "terra",
+      "biz": "farm",
+      "viewports": {
+        "desktop": {
+          "status": 200,
+          "candidateCount": 9,
+          "visibleOnEntry": 9,
+          "remainsVisible": 9,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        },
+        "mobile": {
+          "status": 200,
+          "candidateCount": 9,
+          "visibleOnEntry": 9,
+          "remainsVisible": 9,
+          "maxMovement": 0,
+          "consoleErrors": [],
+          "pageErrors": [],
+          "layoutShiftScore": 0,
+          "horizontalOverflow": 0,
+          "failures": []
+        }
+      }
+    }
+  ]
+}

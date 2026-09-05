@@ -1,0 +1,350 @@
+[
+ {
+  "t": "aegean",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "airspace-office",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "area-first",
+  "flagP": false,
+  "declared": 11,
+  "moved": 11
+ },
+ {
+  "t": "bakery-editorial",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "barber-shop",
+  "flagP": false,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "beauty-atelier",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "bigspring-advisory",
+  "flagP": false,
+  "declared": 0,
+  "moved": 11
+ },
+ {
+  "t": "billys-barber",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "bloom",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "blue-onepage",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "callout",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "canvas",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "chapter-snap",
+  "flagP": false,
+  "declared": 11,
+  "moved": 11
+ },
+ {
+  "t": "cinematic",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "clean-work",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "clinic-triage",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "coast",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "constra-build",
+  "flagP": false,
+  "declared": 0,
+  "moved": 11
+ },
+ {
+  "t": "counter-menu",
+  "flagP": false,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "directory-index",
+  "flagP": false,
+  "declared": 11,
+  "moved": 11
+ },
+ {
+  "t": "dispatch",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "educenter-campus",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "elegance-salon",
+  "flagP": false,
+  "declared": 0,
+  "moved": 11
+ },
+ {
+  "t": "ember",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "forge",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "freight-lane",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "frost-bakery",
+  "flagP": false,
+  "declared": 11,
+  "moved": 11
+ },
+ {
+  "t": "grecko-table",
+  "flagP": false,
+  "declared": 0,
+  "moved": 11
+ },
+ {
+  "t": "gymso-fitness",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "heritage-bakery",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "horizontal-story",
+  "flagP": false,
+  "declared": 11,
+  "moved": 11
+ },
+ {
+  "t": "infinite",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "kinetic",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "klassy-cafe",
+  "flagP": false,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "living",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "marble",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "medic-care",
+  "flagP": false,
+  "declared": 11,
+  "moved": 11
+ },
+ {
+  "t": "microbakery-lab",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "morning-journal",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "moso-interior",
+  "flagP": false,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "motor",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "neighborhood-market",
+  "flagP": false,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "novena-care",
+  "flagP": false,
+  "declared": 0,
+  "moved": 11
+ },
+ {
+  "t": "price-first",
+  "flagP": false,
+  "declared": 11,
+  "moved": 11
+ },
+ {
+  "t": "property-atlas",
+  "flagP": false,
+  "declared": 0,
+  "moved": 11
+ },
+ {
+  "t": "pulse",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "quiet",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "runway",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "scandinavian-coffee",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "signature",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "terra",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "thomson-stylist",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "type-gallery",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "vertical-snap",
+  "flagP": false,
+  "declared": 11,
+  "moved": 11
+ },
+ {
+  "t": "vex-counter",
+  "flagP": false,
+  "declared": 11,
+  "moved": 9
+ },
+ {
+  "t": "villa-agency",
+  "flagP": false,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "volt",
+  "flagP": true,
+  "declared": 11,
+  "moved": 10
+ },
+ {
+  "t": "warmth",
+  "flagP": true,
+  "declared": 11,
+  "moved": 9
+ }
+]

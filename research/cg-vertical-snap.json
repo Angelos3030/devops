@@ -1,0 +1,74 @@
+[
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "original",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "mono",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "mobile",
+  "palette": "original",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "mobile",
+  "palette": "rose",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "mobile",
+  "palette": "mono",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ }
+]

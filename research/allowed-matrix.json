@@ -1,0 +1,113 @@
+[
+ {
+  "t": "type-gallery",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": [
+   "οριζόντια υπερχείλιση 394",
+   "ξεφεύγει: DIV. w=342 right=394 ff=Manrope fs=16px γον=SECTION.TypeGallery_manife/grid"
+  ]
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ }
+]

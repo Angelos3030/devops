@@ -1,0 +1,53 @@
+{
+  "στήλες": {
+    "μόνο_στην_καθαρή": [],
+    "μόνο_στο_staging": [
+      [
+        "site_revisions",
+        "publish_status",
+        "text",
+        "NO",
+        "'draft'::text"
+      ],
+      [
+        "site_revisions",
+        "timestamp",
+        "timestamp with time zone",
+        "NO",
+        "now()"
+      ]
+    ]
+  },
+  "περιορισμοί": {
+    "μόνο_στην_καθαρή": [
+      [
+        "site_revisions",
+        "site_revisions_client_id_idempotency_key_key",
+        "UNIQUE (client_id, idempotency_key)"
+      ]
+    ],
+    "μόνο_στο_staging": [
+      [
+        "site_revisions",
+        "site_revisions_publish_status_check",
+        "CHECK ((publish_status = ANY (ARRAY['draft'::text, 'published'::text])))"
+      ]
+    ]
+  },
+  "index": {
+    "μόνο_στην_καθαρή": [
+      [
+        "site_revisions",
+        "site_revisions_client_id_idempotency_key_key",
+        "CREATE UNIQUE INDEX site_revisions_client_id_idempotency_key_key ON public.site_revisions USING btree (client_id, idempotency_key)"
+      ]
+    ],
+    "μόνο_στο_staging": [
+      [
+        "site_revisions",
+        "idx_site_revisions_client",
+        "CREATE INDEX idx_site_revisions_client ON public.site_revisions USING btree (client_id, \"timestamp\" DESC)"
+      ]
+    ]
+  }
+}

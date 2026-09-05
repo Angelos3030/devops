@@ -1,0 +1,302 @@
+[
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.45,
+    "worst": 1,
+    "fg": "rgb(255,107,74)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(40,36,36)",
+    "bgRole": null,
+    "variance": 0.069,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.78,
+    "worst": 1,
+    "fg": "rgb(214,156,135)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(55,44,39)",
+    "bgRole": null,
+    "variance": 0.084,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.41,
+    "worst": 1,
+    "fg": "rgb(143,178,158)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(31,56,50)",
+    "bgRole": null,
+    "variance": 0.083,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.14,
+    "worst": 1,
+    "fg": "rgb(128,177,195)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(30,58,71)",
+    "bgRole": null,
+    "variance": 0.082,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.32,
+    "worst": 1,
+    "fg": "rgb(212,154,168)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(63,48,55)",
+    "bgRole": null,
+    "variance": 0.083,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 6.89,
+    "worst": 1,
+    "fg": "rgb(170,170,170)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(31,34,35)",
+    "bgRole": null,
+    "variance": 0.087,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 12,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.36,
+    "worst": 1,
+    "fg": "rgb(255,107,74)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(42,37,37)",
+    "bgRole": null,
+    "variance": 0.068,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 12,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.67,
+    "worst": 1,
+    "fg": "rgb(214,156,135)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(57,45,40)",
+    "bgRole": null,
+    "variance": 0.083,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 12,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.31,
+    "worst": 1,
+    "fg": "rgb(143,178,158)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(34,57,51)",
+    "bgRole": null,
+    "variance": 0.083,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 12,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.05,
+    "worst": 1,
+    "fg": "rgb(128,177,195)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(33,59,71)",
+    "bgRole": null,
+    "variance": 0.081,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 12,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.15,
+    "worst": 1,
+    "fg": "rgb(212,154,168)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(66,50,56)",
+    "bgRole": null,
+    "variance": 0.082,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 12,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Μάθετε περισσότερα",
+    "tag": "a",
+    "cls": "GymsoFitness_btn__90fXI GymsoFitness_btn",
+    "size": 14,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 6.79,
+    "worst": 1,
+    "fg": "rgb(170,170,170)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(33,35,36)",
+    "bgRole": null,
+    "variance": 0.086,
+    "onPhoto": true
+   }
+  ]
+ }
+]

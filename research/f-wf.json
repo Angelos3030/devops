@@ -1,0 +1,2933 @@
+[
+ {
+  "theme": "aegean",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 6,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Κράτηση",
+    "tag": "a",
+    "cls": "Aegean_navCall__TY851",
+    "size": 13.6,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.49,
+    "worst": 1.38,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(78,97,105)",
+    "bgRole": null,
+    "variance": 0.116,
+    "onPhoto": true
+   },
+   {
+    "id": 2,
+    "text": "Δωμάτια με θέα · Πάρος",
+    "tag": "span",
+    "cls": "Aegean_eyebrow__6TFBO",
+    "size": 11.84,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 8.16,
+    "worst": 3.87,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(44,83,111)",
+    "bgRole": null,
+    "variance": 0.031,
+    "onPhoto": true
+   },
+   {
+    "id": 4,
+    "text": "Δωμάτια δίπλα στο κύμα, με πρω",
+    "tag": "p",
+    "cls": "Aegean_lede__ow3x8",
+    "size": 20,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 4.83,
+    "worst": 2.85,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(92,117,135)",
+    "bgRole": null,
+    "variance": 0.053,
+    "onPhoto": true
+   },
+   {
+    "id": 5,
+    "text": "Κλείσε δωμάτιο · 22840 00000",
+    "tag": "a",
+    "cls": "Aegean_cta__C820c",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 14.94,
+    "worst": 1,
+    "fg": "rgb(45,31,25)",
+    "fgRole": "surface-deep",
+    "bg": "rgb(247,248,249)",
+    "bgRole": null,
+    "variance": 0.18,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "aegean",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 6,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Κράτηση",
+    "tag": "a",
+    "cls": "Aegean_navCall__TY851",
+    "size": 13.6,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.49,
+    "worst": 1.38,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(78,97,105)",
+    "bgRole": null,
+    "variance": 0.116,
+    "onPhoto": true
+   },
+   {
+    "id": 2,
+    "text": "Δωμάτια με θέα · Πάρος",
+    "tag": "span",
+    "cls": "Aegean_eyebrow__6TFBO",
+    "size": 11.84,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 8.16,
+    "worst": 3.87,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(44,83,111)",
+    "bgRole": null,
+    "variance": 0.031,
+    "onPhoto": true
+   },
+   {
+    "id": 4,
+    "text": "Δωμάτια δίπλα στο κύμα, με πρω",
+    "tag": "p",
+    "cls": "Aegean_lede__ow3x8",
+    "size": 20,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 4.83,
+    "worst": 2.85,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(92,117,135)",
+    "bgRole": null,
+    "variance": 0.053,
+    "onPhoto": true
+   },
+   {
+    "id": 5,
+    "text": "Κλείσε δωμάτιο · 22840 00000",
+    "tag": "a",
+    "cls": "Aegean_cta__C820c",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 13.81,
+    "worst": 1.08,
+    "fg": "rgb(20,45,36)",
+    "fgRole": "surface-deep",
+    "bg": "rgb(247,248,249)",
+    "bgRole": null,
+    "variance": 0.18,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "airspace-office",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Κλείσε συνάντηση",
+    "tag": "a",
+    "cls": "AirspaceOffice_navCta__Rik3H",
+    "size": 14.88,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.68,
+    "worst": 1.21,
+    "fg": "rgb(165,77,45)",
+    "fgRole": "accent-ink",
+    "bg": "rgb(244,231,220)",
+    "bgRole": null,
+    "variance": 0.162,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "airspace-office",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Κλείσε συνάντηση",
+    "tag": "a",
+    "cls": "AirspaceOffice_navCta__Rik3H",
+    "size": 14.88,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 5.28,
+    "worst": 1.23,
+    "fg": "rgb(53,107,77)",
+    "fgRole": "accent-ink",
+    "bg": "rgb(231,238,228)",
+    "bgRole": null,
+    "variance": 0.171,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "area-first",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "area-first",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "bakery-editorial",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 7,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "bakery-editorial",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 7,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "barber-shop",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 12,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Hair studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BarberSidebar_kicker__AyIlB",
+    "size": 14,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 2.67,
+    "worst": 1.78,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(192,149,133)",
+    "bgRole": null,
+    "variance": 0.112,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Studio Μαρία",
+    "tag": "h1",
+    "cls": "BarberSidebar_heroTitle__UZEGz",
+    "size": 74,
+    "weight": 700,
+    "need": 3,
+    "ratio": 3.01,
+    "worst": 1.75,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(182,139,123)",
+    "bgRole": null,
+    "variance": 0.118,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Σχεδιάζουμε το look σου με βάσ",
+    "tag": "p",
+    "cls": "BarberSidebar_heroTagline__3zl3_",
+    "size": 18,
+    "weight": 300,
+    "need": 4.5,
+    "ratio": 3.86,
+    "worst": 1.94,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(163,120,104)",
+    "bgRole": null,
+    "variance": 0.119,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Η ιστορία μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButton__NMXOT",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 5.46,
+    "worst": 2,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(166,81,50)",
+    "bgRole": null,
+    "variance": 0.042,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Οι υπηρεσίες μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButtonGhost__1l5iv",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.43,
+    "worst": 1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(150,111,97)",
+    "bgRole": null,
+    "variance": 0.243,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "barber-shop",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 12,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Hair studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BarberSidebar_kicker__AyIlB",
+    "size": 14,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 2.68,
+    "worst": 1.77,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(138,164,149)",
+    "bgRole": null,
+    "variance": 0.113,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Studio Μαρία",
+    "tag": "h1",
+    "cls": "BarberSidebar_heroTitle__UZEGz",
+    "size": 74,
+    "weight": 700,
+    "need": 3,
+    "ratio": 3.01,
+    "worst": 1.74,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(128,155,139)",
+    "bgRole": null,
+    "variance": 0.119,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Σχεδιάζουμε το look σου με βάσ",
+    "tag": "p",
+    "cls": "BarberSidebar_heroTagline__3zl3_",
+    "size": 18,
+    "weight": 300,
+    "need": 4.5,
+    "ratio": 3.89,
+    "worst": 1.92,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(109,135,121)",
+    "bgRole": null,
+    "variance": 0.119,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Η ιστορία μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButton__NMXOT",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 5.95,
+    "worst": 1.97,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(58,110,81)",
+    "bgRole": null,
+    "variance": 0.046,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Οι υπηρεσίες μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButtonGhost__1l5iv",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.44,
+    "worst": 1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(102,125,112)",
+    "bgRole": null,
+    "variance": 0.243,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "beauty-atelier",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 15,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 5,
+    "text": "Skin studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BeautyAtelier_kicker__WmIo0",
+    "size": 11.52,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.68,
+    "worst": 1.96,
+    "fg": "rgb(224,179,163)",
+    "fgRole": null,
+    "bg": "rgb(71,60,51)",
+    "bgRole": null,
+    "variance": 0.06,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "BeautyAtelier_secondary__x9_pD",
+    "size": 12.48,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 17.35,
+    "worst": 1.96,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(24,27,26)",
+    "bgRole": null,
+    "variance": 0.079,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Beauty atelier / Γλυφάδα",
+    "tag": "span",
+    "cls": "BeautyAtelier_heroIndex__42jdL",
+    "size": 10.4,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.91,
+    "worst": 1.48,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(187,188,186)",
+    "bgRole": null,
+    "variance": 0.141,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "beauty-atelier",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 15,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 5,
+    "text": "Skin studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BeautyAtelier_kicker__WmIo0",
+    "size": 11.52,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.67,
+    "worst": 1.96,
+    "fg": "rgb(168,195,180)",
+    "fgRole": null,
+    "bg": "rgb(71,60,51)",
+    "bgRole": null,
+    "variance": 0.06,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "BeautyAtelier_secondary__x9_pD",
+    "size": 12.48,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 17.35,
+    "worst": 1.96,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(24,27,26)",
+    "bgRole": null,
+    "variance": 0.079,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Beauty atelier / Γλυφάδα",
+    "tag": "span",
+    "cls": "BeautyAtelier_heroIndex__42jdL",
+    "size": 10.4,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.91,
+    "worst": 1.48,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(187,188,186)",
+    "bgRole": null,
+    "variance": 0.141,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 11,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 11,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "billys-barber",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 8,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "billys-barber",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 8,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "bloom",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 8,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "210 8900000",
+    "tag": "a",
+    "cls": "Bloom_navCall__PA15D",
+    "size": 14.08,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.25,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(189,97,62)",
+    "bgRole": null,
+    "variance": 0.167,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Κλείσε διάγνωση",
+    "tag": "a",
+    "cls": "Bloom_cta__OpT0F",
+    "size": 15.2,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.3,
+    "worst": 1.14,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(188,96,61)",
+    "bgRole": null,
+    "variance": 0.148,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "bloom",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 8,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "210 8900000",
+    "tag": "a",
+    "cls": "Bloom_navCall__PA15D",
+    "size": 14.08,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.51,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(73,130,98)",
+    "bgRole": null,
+    "variance": 0.176,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Κλείσε διάγνωση",
+    "tag": "a",
+    "cls": "Bloom_cta__OpT0F",
+    "size": 15.2,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.58,
+    "worst": 1.12,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(71,129,97)",
+    "bgRole": null,
+    "variance": 0.155,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "blue-onepage",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "blue-onepage",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 21,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 13,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.7,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(185,87,50)",
+    "bgRole": "accent",
+    "variance": 0.027,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 21,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 13,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.09,
+    "worst": 1.11,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(61,122,88)",
+    "bgRole": "accent",
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "canvas",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 3,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "27210 00000",
+    "tag": "a",
+    "cls": "Canvas_navCall__ylJOo",
+    "size": 14.72,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 12.36,
+    "worst": 3.12,
+    "fg": "rgb(53,37,29)",
+    "fgRole": "ink",
+    "bg": "rgb(245,234,223)",
+    "bgRole": null,
+    "variance": 0.135,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "canvas",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 3,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "27210 00000",
+    "tag": "a",
+    "cls": "Canvas_navCall__ylJOo",
+    "size": 14.72,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 11.39,
+    "worst": 2.61,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(234,239,230)",
+    "bgRole": null,
+    "variance": 0.142,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "chapter-snap",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 10,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "chapter-snap",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 10,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "cinematic",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "cinematic",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "clean-work",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 16,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Αρχική",
+    "tag": "a",
+    "cls": "",
+    "size": 15,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 3.96,
+    "worst": 3.66,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(135,126,124)",
+    "bgRole": null,
+    "variance": 0.037,
+    "onPhoto": true
+   },
+   {
+    "id": 5,
+    "text": "Η ιστορία μας",
+    "tag": "a",
+    "cls": "",
+    "size": 15,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.01,
+    "worst": 3.66,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(110,96,93)",
+    "bgRole": null,
+    "variance": 0.062,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Ραντεβού",
+    "tag": "a",
+    "cls": "CleanService_navCta__uk6UM",
+    "size": 15,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 9.74,
+    "worst": 1.2,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(73,67,62)",
+    "bgRole": null,
+    "variance": 0.228,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Υδραυλικός · Περιστέρι",
+    "tag": "p",
+    "cls": "CleanService_heroKicker__xmsT3",
+    "size": 14,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 3.88,
+    "worst": 1.56,
+    "fg": "rgb(214,156,135)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(83,70,60)",
+    "bgRole": null,
+    "variance": 0.049,
+    "onPhoto": true
+   },
+   {
+    "id": 11,
+    "text": "Άμεση εξυπηρέτηση σε βλάβες κα",
+    "tag": "p",
+    "cls": "CleanService_heroLead__XPbmN",
+    "size": 18,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 7.58,
+    "worst": 3.66,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(91,82,81)",
+    "bgRole": null,
+    "variance": 0.076,
+    "onPhoto": true
+   },
+   {
+    "id": 13,
+    "text": "Υπηρεσίες",
+    "tag": "a",
+    "cls": "CleanService_btnGhost__XlyiB",
+    "size": 16,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 3.64,
+    "worst": 1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(142,132,130)",
+    "bgRole": null,
+    "variance": 0.213,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "clean-work",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 16,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Αρχική",
+    "tag": "a",
+    "cls": "",
+    "size": 15,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 3.79,
+    "worst": 3.51,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(121,134,130)",
+    "bgRole": null,
+    "variance": 0.038,
+    "onPhoto": true
+   },
+   {
+    "id": 5,
+    "text": "Η ιστορία μας",
+    "tag": "a",
+    "cls": "",
+    "size": 15,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 5.74,
+    "worst": 3.51,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(96,104,99)",
+    "bgRole": null,
+    "variance": 0.064,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Ραντεβού",
+    "tag": "a",
+    "cls": "CleanService_navCta__uk6UM",
+    "size": 15,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 9.32,
+    "worst": 1.2,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(60,74,67)",
+    "bgRole": null,
+    "variance": 0.228,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Υδραυλικός · Περιστέρι",
+    "tag": "p",
+    "cls": "CleanService_heroKicker__xmsT3",
+    "size": 14,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 3.73,
+    "worst": 1.51,
+    "fg": "rgb(143,178,158)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(69,78,66)",
+    "bgRole": null,
+    "variance": 0.052,
+    "onPhoto": true
+   },
+   {
+    "id": 11,
+    "text": "Άμεση εξυπηρέτηση σε βλάβες κα",
+    "tag": "p",
+    "cls": "CleanService_heroLead__XPbmN",
+    "size": 18,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 7.2,
+    "worst": 3.51,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(77,90,87)",
+    "bgRole": null,
+    "variance": 0.079,
+    "onPhoto": true
+   },
+   {
+    "id": 13,
+    "text": "Υπηρεσίες",
+    "tag": "a",
+    "cls": "CleanService_btnGhost__XlyiB",
+    "size": 16,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 3.51,
+    "worst": 1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(129,139,135)",
+    "bgRole": null,
+    "variance": 0.21,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "clinic-triage",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 19,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 5,
+    "text": "Οδοντιατρείο · Χαλάνδρι",
+    "tag": "span",
+    "cls": "ClinicTriage_eyebrow__snMCB",
+    "size": 14,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 5.85,
+    "worst": 3.02,
+    "fg": "rgb(214,156,135)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(42,46,48)",
+    "bgRole": null,
+    "variance": 0.021,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Οι υπηρεσίες μας",
+    "tag": "a",
+    "cls": "ClinicTriage_secondary__UvS0g",
+    "size": 17,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 10.33,
+    "worst": 1.53,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(59,65,71)",
+    "bgRole": null,
+    "variance": 0.115,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "clinic-triage",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 19,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 5,
+    "text": "Οδοντιατρείο · Χαλάνδρι",
+    "tag": "span",
+    "cls": "ClinicTriage_eyebrow__snMCB",
+    "size": 14,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 5.89,
+    "worst": 3.05,
+    "fg": "rgb(143,178,158)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(42,46,48)",
+    "bgRole": null,
+    "variance": 0.021,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Οι υπηρεσίες μας",
+    "tag": "a",
+    "cls": "ClinicTriage_secondary__UvS0g",
+    "size": 17,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 10.33,
+    "worst": 1.53,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(59,65,71)",
+    "bgRole": null,
+    "variance": 0.115,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "coast",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 9,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "22840 00000",
+    "tag": "a",
+    "cls": "Coast_navCall__s7X0d",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 6.64,
+    "worst": 2.82,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(82,95,96)",
+    "bgRole": null,
+    "variance": 0.086,
+    "onPhoto": true
+   },
+   {
+    "id": 5,
+    "text": "Δωμάτια με θέα · Πάρος",
+    "tag": "span",
+    "cls": "Coast_kicker__qnJI3",
+    "size": 11.84,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 9.47,
+    "worst": 3.5,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(41,74,89)",
+    "bgRole": null,
+    "variance": 0.026,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Θαλασσιά",
+    "tag": "h1",
+    "cls": "",
+    "size": 96,
+    "weight": 500,
+    "need": 3,
+    "ratio": 3.3,
+    "worst": 2.12,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(109,147,165)",
+    "bgRole": null,
+    "variance": 0.04,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Δωμάτια δίπλα στο κύμα, με πρω",
+    "tag": "p",
+    "cls": "",
+    "size": 20,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 3.47,
+    "worst": 2.09,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(120,141,150)",
+    "bgRole": null,
+    "variance": 0.058,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "📞 22840 00000",
+    "tag": "a",
+    "cls": "Coast_btn__2oSCe",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.9,
+    "worst": 2.68,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(177,87,52)",
+    "bgRole": null,
+    "variance": 0.026,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "coast",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 9,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "22840 00000",
+    "tag": "a",
+    "cls": "Coast_navCall__s7X0d",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 6.64,
+    "worst": 2.82,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(82,95,96)",
+    "bgRole": null,
+    "variance": 0.086,
+    "onPhoto": true
+   },
+   {
+    "id": 5,
+    "text": "Δωμάτια με θέα · Πάρος",
+    "tag": "span",
+    "cls": "Coast_kicker__qnJI3",
+    "size": 11.84,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 9.47,
+    "worst": 3.5,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(41,74,89)",
+    "bgRole": null,
+    "variance": 0.026,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Θαλασσιά",
+    "tag": "h1",
+    "cls": "",
+    "size": 96,
+    "weight": 500,
+    "need": 3,
+    "ratio": 3.3,
+    "worst": 2.12,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(109,147,165)",
+    "bgRole": null,
+    "variance": 0.04,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Δωμάτια δίπλα στο κύμα, με πρω",
+    "tag": "p",
+    "cls": "",
+    "size": 20,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 3.47,
+    "worst": 2.09,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(120,141,150)",
+    "bgRole": null,
+    "variance": 0.058,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "📞 22840 00000",
+    "tag": "a",
+    "cls": "Coast_btn__2oSCe",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 5.28,
+    "worst": 2.68,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(61,119,88)",
+    "bgRole": null,
+    "variance": 0.023,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 9,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Υδραυλικός · Περιστέρι",
+    "tag": "p",
+    "cls": "",
+    "size": 11.2,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 3.83,
+    "worst": 1.17,
+    "fg": "rgb(214,156,135)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(71,74,73)",
+    "bgRole": null,
+    "variance": 0.097,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 9,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Υδραυλικός · Περιστέρι",
+    "tag": "p",
+    "cls": "",
+    "size": 11.2,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 3.85,
+    "worst": 1.18,
+    "fg": "rgb(143,178,158)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(71,74,73)",
+    "bgRole": null,
+    "variance": 0.097,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 8,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 8,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "directory-index",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 22,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "directory-index",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 22,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "dispatch",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 21,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "dispatch",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 21,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "educenter-campus",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 19,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Κλείσε συνάντηση",
+    "tag": "a",
+    "cls": "EducenterCampus_navCta__aHmgU",
+    "size": 15.2,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.34,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(188,95,60)",
+    "bgRole": null,
+    "variance": 0.154,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Κλείσε συνάντηση",
+    "tag": "a",
+    "cls": "EducenterCampus_primary__SwSbb",
+    "size": 16,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.34,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(188,95,59)",
+    "bgRole": null,
+    "variance": 0.15,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "educenter-campus",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 19,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Κλείσε συνάντηση",
+    "tag": "a",
+    "cls": "EducenterCampus_navCta__aHmgU",
+    "size": 15.2,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.59,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(71,129,96)",
+    "bgRole": null,
+    "variance": 0.163,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Κλείσε συνάντηση",
+    "tag": "a",
+    "cls": "EducenterCampus_primary__SwSbb",
+    "size": 16,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.65,
+    "worst": 1.11,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(70,128,96)",
+    "bgRole": null,
+    "variance": 0.157,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 8,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 7,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.66,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(185,88,51)",
+    "bgRole": null,
+    "variance": 0.052,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 8,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 7,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.02,
+    "worst": 1.11,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(62,123,89)",
+    "bgRole": null,
+    "variance": 0.055,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "ember",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 8,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "2310 000000",
+    "tag": "a",
+    "cls": "Ember_navCall__bmq0D",
+    "size": 12.48,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 6.69,
+    "worst": 1,
+    "fg": "rgb(203,161,79)",
+    "fgRole": null,
+    "bg": "rgb(47,29,21)",
+    "bgRole": null,
+    "variance": 0.061,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Κλείσε τραπέζι · 2310 000000",
+    "tag": "a",
+    "cls": "Ember_cta__VPXsg",
+    "size": 13.6,
+    "weight": 500,
+    "need": 4.5,
+    "ratio": 6.24,
+    "worst": 1.4,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(210,130,99)",
+    "bgRole": null,
+    "variance": 0.052,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "ember",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 8,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "2310 000000",
+    "tag": "a",
+    "cls": "Ember_navCall__bmq0D",
+    "size": 12.48,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 6.72,
+    "worst": 1,
+    "fg": "rgb(203,161,79)",
+    "fgRole": null,
+    "bg": "rgb(23,36,25)",
+    "bgRole": null,
+    "variance": 0.061,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Κλείσε τραπέζι · 2310 000000",
+    "tag": "a",
+    "cls": "Ember_cta__VPXsg",
+    "size": 13.6,
+    "weight": 500,
+    "need": 4.5,
+    "ratio": 8.78,
+    "worst": 1.34,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(112,196,148)",
+    "bgRole": null,
+    "variance": 0.083,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Ανοιχτά Καθημερινά 12:00–00:00",
+    "tag": "span",
+    "cls": "Ember_open__ZEd3i",
+    "size": 11.52,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.06,
+    "worst": 3.85,
+    "fg": "rgb(177,195,185)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(65,74,50)",
+    "bgRole": null,
+    "variance": 0.022,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "forge",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 16,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "📞 6956 297670",
+    "tag": "a",
+    "cls": "Forge_navCall__crjyT",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 3.28,
+    "worst": 3.12,
+    "fg": "rgb(53,37,29)",
+    "fgRole": "ink",
+    "bg": "rgb(187,92,55)",
+    "bgRole": null,
+    "variance": 0.127,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Κάλεσε τώρα",
+    "tag": "a",
+    "cls": "Forge_cta__Kmjog",
+    "size": 16,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 3.25,
+    "worst": 3.12,
+    "fg": "rgb(53,37,29)",
+    "fgRole": "ink",
+    "bg": "rgb(187,91,53)",
+    "bgRole": null,
+    "variance": 0.096,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Δες δουλειές",
+    "tag": "a",
+    "cls": "Forge_ctaGhost___cXDW",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 10.99,
+    "worst": 1,
+    "fg": "rgb(53,37,29)",
+    "fgRole": "ink",
+    "bg": "rgb(230,222,212)",
+    "bgRole": null,
+    "variance": 0.241,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "forge",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 16,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "📞 6956 297670",
+    "tag": "a",
+    "cls": "Forge_navCall__crjyT",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 2.78,
+    "worst": 2.61,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(68,126,92)",
+    "bgRole": null,
+    "variance": 0.13,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Κάλεσε τώρα",
+    "tag": "a",
+    "cls": "Forge_cta__Kmjog",
+    "size": 16,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 2.73,
+    "worst": 2.61,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(66,125,90)",
+    "bgRole": null,
+    "variance": 0.101,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Δες δουλειές",
+    "tag": "a",
+    "cls": "Forge_ctaGhost___cXDW",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 10.21,
+    "worst": 1,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(222,227,219)",
+    "bgRole": null,
+    "variance": 0.243,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 16,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 16,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "frost-bakery",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 11,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 9,
+    "text": "Explore Flavors",
+    "tag": "a",
+    "cls": "FrostBakery_btn__ELXov FrostBakery_btnPr",
+    "size": 14.4,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 3.21,
+    "worst": 3.12,
+    "fg": "rgb(53,37,29)",
+    "fgRole": "ink",
+    "bg": "rgb(186,90,53)",
+    "bgRole": null,
+    "variance": 0.082,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Contact Us",
+    "tag": "a",
+    "cls": "FrostBakery_btn__ELXov FrostBakery_btnOu",
+    "size": 14.4,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 10.24,
+    "worst": 1,
+    "fg": "rgb(53,37,29)",
+    "fgRole": "ink",
+    "bg": "rgb(218,216,205)",
+    "bgRole": null,
+    "variance": 0.23,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "frost-bakery",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 11,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 9,
+    "text": "Explore Flavors",
+    "tag": "a",
+    "cls": "FrostBakery_btn__ELXov FrostBakery_btnPr",
+    "size": 14.4,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 2.69,
+    "worst": 2.61,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(64,124,91)",
+    "bgRole": null,
+    "variance": 0.086,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Contact Us",
+    "tag": "a",
+    "cls": "FrostBakery_btn__ELXov FrostBakery_btnOu",
+    "size": 14.4,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 9.47,
+    "worst": 1,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(211,220,211)",
+    "bgRole": null,
+    "variance": 0.232,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.evaluate: Target crashed "
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "heritage-bakery",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "heritage-bakery",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "infinite",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "infinite",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "kinetic",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "kinetic",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "klassy-cafe",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "klassy-cafe",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "living",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "living",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "marble",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "marble",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "medic-care",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "medic-care",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "morning-journal",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "morning-journal",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "neighborhood-market",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "neighborhood-market",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "price-first",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "price-first",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "property-atlas",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "property-atlas",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "pulse",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "pulse",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "quiet",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "quiet",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "runway",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "runway",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "signature",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "signature",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "thomson-stylist",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "thomson-stylist",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "type-gallery",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "type-gallery",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "villa-agency",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "villa-agency",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "volt",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "volt",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "warmth",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "warmth",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "aegean",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m"
+ },
+ {
+  "theme": "aegean",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "airspace-office",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "airspace-office",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "area-first",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "area-first",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bakery-editorial",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bakery-editorial",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "barber-shop",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "barber-shop",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "beauty-atelier",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "beauty-atelier",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "billys-barber",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "billys-barber",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bloom",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bloom",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "blue-onepage",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "blue-onepage",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "callout",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "callout",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "canvas",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "canvas",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "chapter-snap",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "chapter-snap",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "cinematic",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "cinematic",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "clean-work",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "clean-work",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "clinic-triage",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "clinic-triage",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "coast",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "coast",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "constra-build",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "constra-build",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "counter-menu",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "counter-menu",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "directory-index",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "directory-index",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "dispatch",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "dispatch",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "educenter-campus",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "educenter-campus",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "ember",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "ember",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "forge",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "forge",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "freight-lane",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "freight-lane",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "frost-bakery",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "frost-bakery",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "grecko-table",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "grecko-table",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "heritage-bakery",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "heritage-bakery",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "infinite",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "infinite",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "kinetic",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "kinetic",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "klassy-cafe",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "klassy-cafe",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "living",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "living",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "marble",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "marble",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "medic-care",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "medic-care",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "morning-journal",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "morning-journal",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "moso-interior",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "moso-interior",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "motor",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "motor",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "neighborhood-market",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "neighborhood-market",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "novena-care",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "novena-care",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "price-first",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "price-first",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "property-atlas",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "property-atlas",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "pulse",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "pulse",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "quiet",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "quiet",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "runway",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "runway",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "signature",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "signature",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "terra",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "terra",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "thomson-stylist",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "thomson-stylist",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "type-gallery",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "type-gallery",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "vex-counter",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "vex-counter",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "villa-agency",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "villa-agency",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "volt",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "volt",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "warmth",
+  "view": "mobile",
+  "palette": "warm",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "warmth",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ }
+]

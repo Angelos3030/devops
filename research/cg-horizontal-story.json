@@ -1,0 +1,206 @@
+[
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 9,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 3,
+    "text": "6956 297670",
+    "tag": "a",
+    "cls": "CapabilitySystems_navCta__MOnE9",
+    "size": 13,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.78,
+    "worst": 1,
+    "fg": "rgb(22,21,34)",
+    "fgRole": "on-accent",
+    "bg": "rgb(253,90,73)",
+    "bgRole": null,
+    "variance": 0.026,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 9,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 3,
+    "text": "6956 297670",
+    "tag": "a",
+    "cls": "CapabilitySystems_navCta__MOnE9",
+    "size": 13,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 6.39,
+    "worst": 1.02,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(212,132,101)",
+    "bgRole": null,
+    "variance": 0.028,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 9,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 3,
+    "text": "6956 297670",
+    "tag": "a",
+    "cls": "CapabilitySystems_navCta__MOnE9",
+    "size": 13,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 9.22,
+    "worst": 1.02,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(113,201,152)",
+    "bgRole": null,
+    "variance": 0.043,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 9,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 3,
+    "text": "6956 297670",
+    "tag": "a",
+    "cls": "CapabilitySystems_navCta__MOnE9",
+    "size": 13,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 8.36,
+    "worst": 1.02,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(98,186,216)",
+    "bgRole": null,
+    "variance": 0.038,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 9,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 3,
+    "text": "6956 297670",
+    "tag": "a",
+    "cls": "CapabilitySystems_navCta__MOnE9",
+    "size": 13,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.44,
+    "worst": 1.01,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(201,113,136)",
+    "bgRole": null,
+    "variance": 0.023,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 9,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 3,
+    "text": "6956 297670",
+    "tag": "a",
+    "cls": "CapabilitySystems_navCta__MOnE9",
+    "size": 13,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 13.05,
+    "worst": 1.02,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(217,217,217)",
+    "bgRole": null,
+    "variance": 0.063,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 9,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 9,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 9,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 9,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 9,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 9,
+  "shifted": 0,
+  "bad": []
+ }
+]

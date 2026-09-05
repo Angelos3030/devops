@@ -1,0 +1,262 @@
+[
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "original",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "mono",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "moso-interior",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 16,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 12,
+    "text": "Ανακατασκευή καθίσματος",
+    "tag": "a",
+    "cls": "MosoShowroom_filterTag__mkdbA",
+    "size": 14.4,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 11.67,
+    "worst": 1.67,
+    "fg": "rgb(0,0,0)",
+    "fgRole": "ink",
+    "bg": "rgb(193,193,193)",
+    "bgRole": null,
+    "variance": 0.406,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "moso-interior",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 16,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Κουζίνες, ντουλάπες και ειδικέ",
+    "tag": "h1",
+    "cls": "MosoShowroom_heroTitle__g4rku",
+    "size": 35.2,
+    "weight": 700,
+    "need": 3,
+    "ratio": 5.6,
+    "worst": 2.97,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(112,102,93)",
+    "bgRole": null,
+    "variance": 0.048,
+    "onPhoto": true
+   },
+   {
+    "id": 12,
+    "text": "Ανακατασκευή καθίσματος",
+    "tag": "a",
+    "cls": "MosoShowroom_filterTag__mkdbA",
+    "size": 14.4,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 7.12,
+    "worst": 1.13,
+    "fg": "rgb(53,37,29)",
+    "fgRole": "ink",
+    "bg": "rgb(185,180,174)",
+    "bgRole": null,
+    "variance": 0.348,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "moso-interior",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 16,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Κουζίνες, ντουλάπες και ειδικέ",
+    "tag": "h1",
+    "cls": "MosoShowroom_heroTitle__g4rku",
+    "size": 35.2,
+    "weight": 700,
+    "need": 3,
+    "ratio": 5.4,
+    "worst": 2.88,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(98,109,99)",
+    "bgRole": null,
+    "variance": 0.049,
+    "onPhoto": true
+   },
+   {
+    "id": 12,
+    "text": "Ανακατασκευή καθίσματος",
+    "tag": "a",
+    "cls": "MosoShowroom_filterTag__mkdbA",
+    "size": 14.4,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.56,
+    "worst": 1.04,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(180,183,178)",
+    "bgRole": null,
+    "variance": 0.353,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "moso-interior",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 16,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Κουζίνες, ντουλάπες και ειδικέ",
+    "tag": "h1",
+    "cls": "MosoShowroom_heroTitle__g4rku",
+    "size": 35.2,
+    "weight": 700,
+    "need": 3,
+    "ratio": 5.27,
+    "worst": 2.82,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(98,110,112)",
+    "bgRole": null,
+    "variance": 0.05,
+    "onPhoto": true
+   },
+   {
+    "id": 12,
+    "text": "Ανακατασκευή καθίσματος",
+    "tag": "a",
+    "cls": "MosoShowroom_filterTag__mkdbA",
+    "size": 14.4,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.29,
+    "worst": 1.02,
+    "fg": "rgb(23,55,70)",
+    "fgRole": "ink",
+    "bg": "rgb(180,184,186)",
+    "bgRole": null,
+    "variance": 0.36,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "moso-interior",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 16,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Κουζίνες, ντουλάπες και ειδικέ",
+    "tag": "h1",
+    "cls": "MosoShowroom_heroTitle__g4rku",
+    "size": 35.2,
+    "weight": 700,
+    "need": 3,
+    "ratio": 5.27,
+    "worst": 2.82,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(118,105,102)",
+    "bgRole": null,
+    "variance": 0.05,
+    "onPhoto": true
+   },
+   {
+    "id": 12,
+    "text": "Ανακατασκευή καθίσματος",
+    "tag": "a",
+    "cls": "MosoShowroom_filterTag__mkdbA",
+    "size": 14.4,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.44,
+    "worst": 1.02,
+    "fg": "rgb(65,43,49)",
+    "fgRole": "ink",
+    "bg": "rgb(187,181,183)",
+    "bgRole": null,
+    "variance": 0.358,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "moso-interior",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 16,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 12,
+    "text": "Ανακατασκευή καθίσματος",
+    "tag": "a",
+    "cls": "MosoShowroom_filterTag__mkdbA",
+    "size": 14.4,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 9.2,
+    "worst": 1.43,
+    "fg": "rgb(21,21,21)",
+    "fgRole": "accent-ink",
+    "bg": "rgb(184,184,183)",
+    "bgRole": null,
+    "variance": 0.363,
+    "onPhoto": true
+   }
+  ]
+ }
+]

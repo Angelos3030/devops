@@ -1,0 +1,37 @@
+{
+ "model": "kimi-k3",
+ "reasoning_effort": "high",
+ "bytes": 42252,
+ "runtime_total": 1029.4,
+ "timing": {
+  "step1": {
+   "ttft": 137.4,
+   "total": 327.4,
+   "finish_reason": "stop",
+   "chars": 21514
+  },
+  "step2": {
+   "ttft": 481.7,
+   "total": 702.0,
+   "finish_reason": "stop",
+   "chars": 22963
+  }
+ },
+ "usage": {
+  "prompt_tokens": 23477,
+  "completion_tokens": 32582
+ },
+ "changes": [
+  "HERO: νέο h1 και lede ακριβώς όπως στο σχέδιο· το παλιό h1 έγινε eyebrow (.eyebrow) πάνω από τον τίτλο",
+  "HERO: νέα γραμμή τιμής .hero-price «€14,99/μήνα · πρώτος μήνας δωρεάν» και λεπτό trust strip .hero-trust με τέσσερις λέξεις και διαχωριστικά ·, χωρίς κουτάκια/εικονίδια",
+  "HERO interaction: κάθε chip πήρε data-url· το JS κάνει πλέον fade-out 160ms (is-leaving) πριν την εναλλαγή, fade-in μέσω .is-active (το slide/ease ορίζεται στο βήμα 2 CSS) και ενημερώνει το κείμενο της browser-url ανά επάγγελμα· σε prefers-reduced-motion η εναλλαγή είναι στιγμιαία",
+  "EXAMPLES: κάθε .card-example πήρε το ίδιο browser chrome με το hero (browser-bar + browser-dots + browser-url ανά επάγγελμα)· σύνδεσμοι, εικόνες, βέλη και δομή carousel άθικτα — πλάτη/snap/βάθος στο βήμα 2",
+  "SCOPE: αντικαταστάθηκε η scope-list με .scope-proofs — τρία τεκμήρια: μίνι browser frame (.proof-frame) με πράσινη τελεία (.proof-dot) και getvitrina.gr + «online, χωρίς να κάνεις τίποτα»· στυλιζαρισμένη σειρά αναζήτησης (.proof-search) με «Ταβέρνα Ο Λεωνίδας · Λαδάδικα, Θεσσαλονίκη» χωρίς βαθμολογία/αριθμούς· ανταλλαγή μηνυμάτων (.proof-chat) «Άλλαξε το ωράριο σε 12:00–01:00» → «Έγινε.»· κάθε proof πήρε data-reveal για κλιμακωτή αποκάλυψη",
+  "STEPS: οι κόμβοι έγιναν «Μας λες / Εμείς φτιάχνουμε / Μένουμε μαζί σου» με μία σύντομη πρόταση ο καθένας· αριθμοί αντικαταστάθηκαν με .step-node (η οριζόντια γραμμή σχεδιάζεται στο βήμα 2)",
+  "ZONE-SAND: στις ενότητες scope και steps προστέθηκε η κλάση .zone-sand ώστε στο βήμα 2 να πάρουν κοινό φόντο αμμου #F6F1E9 και να διαβάζονται ως συνέχεια",
+  "PRICING: το side έγινε «Όλα αυτά, σε μία συνδρομή» με λίστα Κατασκευή site · Φιλοξενία · Local SEO · Αλλαγές & συντήρηση· καμία αναφορά σε «θα κόστιζε ξεχωριστά»· τιμή, πρώτος μήνας δωρεάν, ακύρωση και domain note €24/έτος άθικτα",
+  "FINAL CTA: προστέθηκαν .final-frames με τρία μικρά browser frames (.browser.mini.f1–f3) με πραγματικά screenshots (salon/taverna/dentist), aria-hidden, πίσω από νέο ανοιχτό .final-panel που κρατά τον τίτλο, το κουμπί και το email",
+  "MOBILE: αφαιρέθηκε η πλωτή .sticky-cta που κάλυπτε το preview· προστέθηκε στατικό .hero-mobile-cta ΚΑΤΩ από το preview (θα εμφανίζεται μόνο σε mobile, στο βήμα 2)",
+  "Header, footer, νομικές σελίδες, σύνδεσμοι, εικόνες shots/, ονόματα κλάσεων εκτός των νέων στοιχείων και το data-reveal/observer μηχανισμός έμειναν ως έχουν"
+ ]
+}

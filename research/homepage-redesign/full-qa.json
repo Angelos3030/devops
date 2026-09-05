@@ -1,0 +1,437 @@
+{
+ "desktop": {
+  "docW": 1440,
+  "docH": 3609,
+  "clientW": 1440,
+  "secs": [
+   {
+    "cls": "hero",
+    "box": [
+     0,
+     62,
+     1440,
+     727
+    ]
+   },
+   {
+    "cls": "sec sec-pf",
+    "box": [
+     0,
+     789,
+     1440,
+     886
+    ]
+   },
+   {
+    "cls": "sec sec-handles",
+    "box": [
+     0,
+     1674,
+     1440,
+     810
+    ]
+   },
+   {
+    "cls": "sec sec-how",
+    "box": [
+     0,
+     2484,
+     1440,
+     201
+    ]
+   },
+   {
+    "cls": "sec sec-price",
+    "box": [
+     0,
+     2684,
+     1440,
+     377
+    ]
+   },
+   {
+    "cls": "sec sec-final",
+    "box": [
+     0,
+     3061,
+     1440,
+     464
+    ]
+   },
+   {
+    "cls": "ft",
+    "box": [
+     0,
+     3525,
+     1440,
+     84
+    ]
+   }
+  ],
+  "over": [],
+  "h1": 1,
+  "h2": [
+   "Έξι επιχειρήσεις, έξι διαφορετικά site. [26px/600]",
+   "Τι αναλαμβάνουμε. [26px/600]",
+   "Πώς γίνεται. [26px/600]",
+   "Πες μας τι κάνεις. Εμείς αναλαμβάνουμε την onl [28px/600]"
+  ],
+  "weights": [
+   "400",
+   "500",
+   "600"
+  ],
+  "families": [
+   "Manrope"
+  ],
+  "colors": [
+   "rgb(104, 101, 95)",
+   "rgb(23, 23, 20)",
+   "rgb(232, 226, 217)",
+   "rgb(232, 93, 63)",
+   "rgb(24, 134, 107)",
+   "rgb(245, 239, 231)",
+   "rgb(251, 250, 247)",
+   "rgb(255, 255, 255)"
+  ],
+  "links": [
+   "https://sites-production-da56.up.railway.app/preview/warmth?biz=taverna",
+   "https://sites-production-da56.up.railway.app/preview/beauty-atelier?biz=salon",
+   "https://sites-production-da56.up.railway.app/preview/aegean?biz=rooms",
+   "https://sites-production-da56.up.railway.app/preview/bakery-editorial?biz=cafe",
+   "https://sites-production-da56.up.railway.app/preview/clinic-triage?biz=dentist",
+   "https://sites-production-da56.up.railway.app/preview/warmth?biz=taverna",
+   "https://sites-production-da56.up.railway.app/preview/callout?biz=plumber",
+   "https://sites-production-da56.up.railway.app/preview/beauty-atelier?biz=salon",
+   "https://sites-production-da56.up.railway.app/preview/aegean?biz=rooms",
+   "#brief",
+   "#brief",
+   "mailto:hello@getvitrina.gr",
+   "privacy.html",
+   "terms.html",
+   "refunds.html",
+   "data-deletion.html"
+  ],
+  "imgs": [
+   {
+    "src": "hero-taverna-full.jpg",
+    "ok": true,
+    "nw": 636,
+    "w": 316
+   },
+   {
+    "src": "(κενό — buffer περιστροφής)",
+    "skip": true
+   },
+   {
+    "src": "hero-salon-full.jpg",
+    "ok": true,
+    "nw": 636,
+    "w": 316
+   },
+   {
+    "src": "hero-rooms-tall.jpg",
+    "ok": true,
+    "nw": 636,
+    "w": 316
+   },
+   {
+    "src": "pf-cafe-tall.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 458
+   },
+   {
+    "src": "pf-dentist-full.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 458
+   },
+   {
+    "src": "pf-taverna-full.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 458
+   },
+   {
+    "src": "pf-plumber-full.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 458
+   },
+   {
+    "src": "pf-salon-full.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 458
+   },
+   {
+    "src": "pf-rooms-tall.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 458
+   },
+   {
+    "src": "fan-cafe-tall.jpg",
+    "ok": true,
+    "nw": 260,
+    "w": 44
+   },
+   {
+    "src": "fan-taverna-full.jpg",
+    "ok": true,
+    "nw": 260,
+    "w": 44
+   },
+   {
+    "src": "fan-salon-full.jpg",
+    "ok": true,
+    "nw": 260,
+    "w": 44
+   },
+   {
+    "src": "prf-cafe-tall.jpg",
+    "ok": true,
+    "nw": 456,
+    "w": 228
+   },
+   {
+    "src": "prf-dentist-full.jpg",
+    "ok": true,
+    "nw": 456,
+    "w": 228
+   },
+   {
+    "src": "prf-plumber-full.jpg",
+    "ok": true,
+    "nw": 456,
+    "w": 228
+   },
+   {
+    "src": "prf-salon-full.jpg",
+    "ok": true,
+    "nw": 456,
+    "w": 228
+   }
+  ],
+  "errors": [],
+  "failed": []
+ },
+ "mobile": {
+  "docW": 390,
+  "docH": 4844,
+  "clientW": 390,
+  "secs": [
+   {
+    "cls": "hero",
+    "box": [
+     0,
+     53,
+     390,
+     1025
+    ]
+   },
+   {
+    "cls": "sec sec-pf",
+    "box": [
+     0,
+     1078,
+     390,
+     758
+    ]
+   },
+   {
+    "cls": "sec sec-handles",
+    "box": [
+     0,
+     1836,
+     390,
+     1473
+    ]
+   },
+   {
+    "cls": "sec sec-how",
+    "box": [
+     0,
+     3309,
+     390,
+     275
+    ]
+   },
+   {
+    "cls": "sec sec-price",
+    "box": [
+     0,
+     3584,
+     390,
+     526
+    ]
+   },
+   {
+    "cls": "sec sec-final",
+    "box": [
+     0,
+     4110,
+     390,
+     591
+    ]
+   },
+   {
+    "cls": "ft",
+    "box": [
+     0,
+     4702,
+     390,
+     142
+    ]
+   }
+  ],
+  "over": [],
+  "h1": 1,
+  "h2": [
+   "Έξι επιχειρήσεις, έξι διαφορετικά site. [22px/600]",
+   "Τι αναλαμβάνουμε. [22px/600]",
+   "Πώς γίνεται. [22px/600]",
+   "Πες μας τι κάνεις. Εμείς αναλαμβάνουμε την onl [22px/600]"
+  ],
+  "weights": [
+   "400",
+   "500",
+   "600"
+  ],
+  "families": [
+   "Manrope"
+  ],
+  "colors": [
+   "rgb(104, 101, 95)",
+   "rgb(23, 23, 20)",
+   "rgb(232, 93, 63)",
+   "rgb(24, 134, 107)",
+   "rgb(245, 239, 231)",
+   "rgb(251, 250, 247)",
+   "rgb(255, 255, 255)"
+  ],
+  "links": [
+   "https://sites-production-da56.up.railway.app/preview/warmth?biz=taverna",
+   "https://sites-production-da56.up.railway.app/preview/beauty-atelier?biz=salon",
+   "https://sites-production-da56.up.railway.app/preview/aegean?biz=rooms",
+   "https://sites-production-da56.up.railway.app/preview/bakery-editorial?biz=cafe",
+   "https://sites-production-da56.up.railway.app/preview/clinic-triage?biz=dentist",
+   "https://sites-production-da56.up.railway.app/preview/warmth?biz=taverna",
+   "https://sites-production-da56.up.railway.app/preview/callout?biz=plumber",
+   "https://sites-production-da56.up.railway.app/preview/beauty-atelier?biz=salon",
+   "https://sites-production-da56.up.railway.app/preview/aegean?biz=rooms",
+   "#brief",
+   "#brief",
+   "mailto:hello@getvitrina.gr",
+   "privacy.html",
+   "terms.html",
+   "refunds.html",
+   "data-deletion.html"
+  ],
+  "imgs": [
+   {
+    "src": "hero-taverna-full.jpg",
+    "ok": true,
+    "nw": 636,
+    "w": 326
+   },
+   {
+    "src": "(κενό — buffer περιστροφής)",
+    "skip": true
+   },
+   {
+    "src": "hero-salon-full.jpg",
+    "ok": true,
+    "nw": 636,
+    "w": 326
+   },
+   {
+    "src": "hero-rooms-tall.jpg",
+    "ok": true,
+    "nw": 636,
+    "w": 326
+   },
+   {
+    "src": "pf-cafe-tall.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 326
+   },
+   {
+    "src": "pf-dentist-full.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 326
+   },
+   {
+    "src": "pf-taverna-full.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 326
+   },
+   {
+    "src": "pf-plumber-full.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 326
+   },
+   {
+    "src": "pf-salon-full.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 326
+   },
+   {
+    "src": "pf-rooms-tall.jpg",
+    "ok": true,
+    "nw": 920,
+    "w": 326
+   },
+   {
+    "src": "fan-cafe-tall.jpg",
+    "ok": true,
+    "nw": 260,
+    "w": 38
+   },
+   {
+    "src": "fan-taverna-full.jpg",
+    "ok": true,
+    "nw": 260,
+    "w": 38
+   },
+   {
+    "src": "fan-salon-full.jpg",
+    "ok": true,
+    "nw": 260,
+    "w": 38
+   },
+   {
+    "src": "prf-cafe-tall.jpg",
+    "ok": true,
+    "nw": 456,
+    "w": 168
+   },
+   {
+    "src": "prf-dentist-full.jpg",
+    "ok": true,
+    "nw": 456,
+    "w": 168
+   },
+   {
+    "src": "prf-plumber-full.jpg",
+    "ok": true,
+    "nw": 456,
+    "w": 168
+   },
+   {
+    "src": "prf-salon-full.jpg",
+    "ok": true,
+    "nw": 456,
+    "w": 168
+   }
+  ],
+  "errors": [],
+  "failed": []
+ }
+}

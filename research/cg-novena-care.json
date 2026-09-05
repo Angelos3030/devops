@@ -1,0 +1,194 @@
+[
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 14,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 10.93,
+    "worst": 2.21,
+    "fg": "rgb(36,49,58)",
+    "fgRole": "ink",
+    "bg": "rgb(215,237,237)",
+    "bgRole": null,
+    "variance": 0.173,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 14,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 11.67,
+    "worst": 3.12,
+    "fg": "rgb(53,37,29)",
+    "fgRole": "ink",
+    "bg": "rgb(237,228,220)",
+    "bgRole": null,
+    "variance": 0.155,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 14,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 10.76,
+    "worst": 2.61,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(226,233,226)",
+    "bgRole": null,
+    "variance": 0.162,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 14,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 10.27,
+    "worst": 2.55,
+    "fg": "rgb(23,55,70)",
+    "fgRole": "ink",
+    "bg": "rgb(224,234,237)",
+    "bgRole": null,
+    "variance": 0.163,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 14,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 10.64,
+    "worst": 2.88,
+    "fg": "rgb(65,43,49)",
+    "fgRole": "ink",
+    "bg": "rgb(240,230,231)",
+    "bgRole": null,
+    "variance": 0.157,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 14,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 14.42,
+    "worst": 1,
+    "fg": "rgb(21,21,21)",
+    "fgRole": "accent-ink",
+    "bg": "rgb(227,229,227)",
+    "bgRole": null,
+    "variance": 0.2,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "novena-care",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 7,
+  "bad": []
+ },
+ {
+  "theme": "novena-care",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 7,
+  "bad": []
+ },
+ {
+  "theme": "novena-care",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 7,
+  "bad": []
+ },
+ {
+  "theme": "novena-care",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 7,
+  "bad": []
+ },
+ {
+  "theme": "novena-care",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 7,
+  "bad": []
+ },
+ {
+  "theme": "novena-care",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 7,
+  "bad": []
+ }
+]

@@ -1,0 +1,213 @@
+ M STATUS.md
+ M sites/app/choose/[client]/choose.module.css
+ M sites/app/choose/[client]/page.jsx
+ M sites/app/dashboard/page.jsx
+ M sites/app/preview/[template]/page.jsx
+ M sites/app/site/[client]/page.jsx
+ M sites/app/site/[client]/theme.module.css
+ M sites/lib/seo.js
+ M sites/lib/templates/Aegean.module.css
+ M sites/lib/templates/AirspaceOffice.module.css
+ M sites/lib/templates/BarberSidebar.module.css
+ M sites/lib/templates/BeautyAtelier.module.css
+ M sites/lib/templates/Bento.module.css
+ M sites/lib/templates/BigspringAdvisory.module.css
+ M sites/lib/templates/BillysBarber.module.css
+ M sites/lib/templates/Bloom.module.css
+ M sites/lib/templates/BlueOnepage.module.css
+ M sites/lib/templates/CafeCollection.module.css
+ M sites/lib/templates/CallBar.module.css
+ M sites/lib/templates/Callout.module.css
+ M sites/lib/templates/Canvas.module.css
+ M sites/lib/templates/CapabilitySystems.module.css
+ M sites/lib/templates/Cinematic.module.css
+ M sites/lib/templates/CleanService.module.css
+ M sites/lib/templates/ClinicTriage.module.css
+ M sites/lib/templates/Coast.module.css
+ M sites/lib/templates/ConstraBuild.module.css
+ M sites/lib/templates/Corporate.module.css
+ M sites/lib/templates/Dispatch.module.css
+ M sites/lib/templates/Editorial.module.css
+ M sites/lib/templates/EducenterCampus.module.css
+ M sites/lib/templates/EleganceSalon.module.css
+ M sites/lib/templates/Ember.module.css
+ M sites/lib/templates/FindUs.module.css
+ M sites/lib/templates/Forge.module.css
+ M sites/lib/templates/FreightLane.module.css
+ M sites/lib/templates/FrostBakery.module.css
+ M sites/lib/templates/GreckoTable.module.css
+ M sites/lib/templates/Grid.module.css
+ M sites/lib/templates/GymsoFitness.module.css
+ M sites/lib/templates/Infinite.module.css
+ M sites/lib/templates/Kinetic.module.css
+ M sites/lib/templates/KlassyTable.module.css
+ M sites/lib/templates/Living.module.css
+ M sites/lib/templates/Longform.module.css
+ M sites/lib/templates/Magazine.module.css
+ M sites/lib/templates/MapEmbed.jsx
+ M sites/lib/templates/Marble.module.css
+ M sites/lib/templates/MasterCinematic.module.css
+ M sites/lib/templates/MasterEditorial.module.css
+ M sites/lib/templates/MasterSpatial.module.css
+ M sites/lib/templates/MedicCare.module.css
+ M sites/lib/templates/MosoShowroom.module.css
+ M sites/lib/templates/Motor.module.css
+ M sites/lib/templates/NovenaCare.module.css
+ M sites/lib/templates/Poster.module.css
+ M sites/lib/templates/PropertyAtlas.module.css
+ M sites/lib/templates/Pulse.module.css
+ M sites/lib/templates/Quiet.module.css
+ M sites/lib/templates/Runway.module.css
+ M sites/lib/templates/Showcase.module.css
+ M sites/lib/templates/Sidebar.module.css
+ M sites/lib/templates/Signature.module.css
+ M sites/lib/templates/Split.module.css
+ M sites/lib/templates/Terra.module.css
+ M sites/lib/templates/ThomsonStylist.module.css
+ M sites/lib/templates/TypeGallery.module.css
+ M sites/lib/templates/VexCounter.module.css
+ M sites/lib/templates/VillaAgency.module.css
+ M sites/lib/templates/Volt.module.css
+ M sites/lib/templates/Warmth.module.css
+ M src/auth.py
+ M src/config.py
+ M src/db.py
+ M src/main.py
+ M src/meta_oauth.py
+ M src/site_edit.py
+ M web/start.html
+?? FINAL-STAGING-REPORT.md
+?? PRE-PRODUCTION-REPORT.md
+?? db/migrations/0003_ai_editor_revisions.sql
+?? db/migrations/0004_ai_editor_atomic_upgrade.sql
+?? db/migrations/0005_editor_stale_error_code.sql
+?? research/adversarial-final.json
+?? research/adversarial-lito.json
+?? research/adversarial-lito320.json
+?? research/adversarial-lito360.json
+?? research/adversarial-m320.json
+?? research/adversarial-m360.json
+?? research/adversarial-makry.json
+?? research/adversarial-probe.json
+?? research/adversarial-w320.json
+?? research/adversarial-w360.json
+?? research/ai-editor/
+?? research/allowed-matrix.json
+?? research/allowed-matrix1.json
+?? research/allowed-matrix2.json
+?? research/c-fo.json
+?? research/c-mono.json
+?? research/c-wr-d.json
+?? research/c-wr-m.json
+?? research/ca-cw.json
+?? research/ca-one.json
+?? research/cg-aegean.json
+?? research/cg-beauty-atelier.json
+?? research/cg-bigspring-advisory.json
+?? research/cg-bloom.json
+?? research/cg-callout.json
+?? research/cg-cb.json
+?? research/cg-cb2.json
+?? research/cg-cinematic.json
+?? research/cg-coast.json
+?? research/cg-counter-menu.json
+?? research/cg-cw.json
+?? research/cg-dispatch.json
+?? research/cg-elegance-salon.json
+?? research/cg-ember.json
+?? research/cg-forge.json
+?? research/cg-freight-lane.json
+?? research/cg-grecko-table.json
+?? research/cg-gymso-fitness.json
+?? research/cg-horizontal-story.json
+?? research/cg-infinite.json
+?? research/cg-microbakery-lab.json
+?? research/cg-moso-interior.json
+?? research/cg-motor.json
+?? research/cg-neighborhood-market.json
+?? research/cg-novena-care.json
+?? research/cg-terra.json
+?? research/cg-vertical-snap.json
+?? research/cg-vex-counter.json
+?? research/cg-volt.json
+?? research/contrast-after.json
+?? research/contrast-before.json
+?? research/contrast-final.json
+?? research/contrast-orig.json
+?? research/contrast.json
+?? research/dark-palettes.json
+?? research/deep-zone-scan.json
+?? research/f-mono.json
+?? research/f-or.json
+?? research/f-orig.json
+?? research/f-wf.json
+?? research/force-probe.json
+?? research/homepage-redesign/ART_DIRECTION-rejected-dark.md
+?? research/homepage-redesign/ART_DIRECTION.md
+?? research/homepage-redesign/full-qa.json
+?? research/homepage-redesign/hero-geometry-after.json
+?? research/homepage-redesign/hero-geometry-before.json
+?? research/homepage-redesign/hero-geometry-final.json
+?? research/homepage-redesign/hero-locked.meta.json
+?? research/homepage-redesign/hero-qa.json
+?? research/homepage-redesign/int-qa.json
+?? research/homepage-redesign/meta-highspeed.json
+?? research/homepage-redesign/meta-v2.json
+?? research/homepage-redesign/meta.json
+?? research/homepage-redesign/reference/
+?? research/homepage-redesign/step1.txt
+?? research/homepage-redesign/step2.txt
+?? research/homepage-redesign/v2-step1.txt
+?? research/homepage-redesign/v2-step2.txt
+?? research/homepage-redesign/v3-step1.txt
+?? research/logo-check.json
+?? research/logo/
+?? research/palette-probe.json
+?? research/spine-audit.json
+?? research/tap-classification.json
+?? research/tap-targets.json
+?? research/tap-verify.json
+?? research/theme-capabilities/
+?? research/theme-classification.json
+?? research/theme-library/DEPLOY.md
+?? research/theme-library/_registry.json
+?? research/theme-library/capabilities.py
+?? research/theme-library/h1-audit.json
+?? research/theme-library/prod-smoke.json
+?? research/theme-modes.json
+?? research/typography-matrix.json
+?? research/visual-theme-audit/
+?? scripts/apply_capabilities.py
+?? scripts/build_dark_mode.py
+?? scripts/build_logo_pack.mjs
+?? scripts/create_visual_audit_sheet.py
+?? scripts/eval_ai_editor_holdout.py
+?? scripts/fix_contrast_roles.py
+?? scripts/fix_tap_targets.py
+?? scripts/hero_interaction.py
+?? scripts/hs_refine.py
+?? scripts/kimi_hero.py
+?? scripts/kimi_homepage.py
+?? scripts/kimi_refine.py
+?? scripts/kimi_wireframe.py
+?? scripts/migrate_spine.py
+?? scripts/migrate_typography.py
+?? scripts/verify_editing_engine.py
+?? scripts/verify_editor_browser_staging.py
+?? scripts/verify_editor_command_battery.py
+?? scripts/verify_editor_staging.py
+?? sites/lib/templates/capabilities.js
+?? sites/lib/templates/themeMode.js
+?? sites/research/
+?? sites/tests/editorStagingBrowser.mjs
+?? sites/tests/fullVisualThemeAudit.mjs
+?? sites/tests/seoEscaping.mjs
+?? src/ai_editor/
+?? src/site_actions.py
+?? src/theme_capabilities.py
+?? tests/ai_editor_holdout_v1.py
+?? tests/test_ai_editor.py
+?? tests/test_ai_editor_holdout.py
+?? tests/test_ai_editor_integration.py
+?? tests/test_provider_isolation.py
+?? tests/test_storage_key.py

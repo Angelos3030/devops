@@ -1,0 +1,2030 @@
+[
+ {
+  "theme": "aegean",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 6,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Κράτηση",
+    "tag": "a",
+    "cls": "Aegean_navCall__TY851",
+    "size": 13.6,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.49,
+    "worst": 1.38,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(78,97,105)",
+    "bgRole": null,
+    "variance": 0.116,
+    "onPhoto": true
+   },
+   {
+    "id": 2,
+    "text": "Δωμάτια με θέα · Πάρος",
+    "tag": "span",
+    "cls": "Aegean_eyebrow__6TFBO",
+    "size": 11.84,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 8.16,
+    "worst": 3.87,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(44,83,111)",
+    "bgRole": null,
+    "variance": 0.031,
+    "onPhoto": true
+   },
+   {
+    "id": 4,
+    "text": "Δωμάτια δίπλα στο κύμα, με πρω",
+    "tag": "p",
+    "cls": "Aegean_lede__ow3x8",
+    "size": 20,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 4.83,
+    "worst": 2.85,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(92,117,135)",
+    "bgRole": null,
+    "variance": 0.053,
+    "onPhoto": true
+   },
+   {
+    "id": 5,
+    "text": "Κλείσε δωμάτιο · 22840 00000",
+    "tag": "a",
+    "cls": "Aegean_cta__C820c",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 13.81,
+    "worst": 1.08,
+    "fg": "rgb(20,45,36)",
+    "fgRole": "surface-deep",
+    "bg": "rgb(247,248,249)",
+    "bgRole": null,
+    "variance": 0.18,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "aegean",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 6,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Κράτηση",
+    "tag": "a",
+    "cls": "Aegean_navCall__TY851",
+    "size": 13.6,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.49,
+    "worst": 1.38,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(78,97,105)",
+    "bgRole": null,
+    "variance": 0.116,
+    "onPhoto": true
+   },
+   {
+    "id": 2,
+    "text": "Δωμάτια με θέα · Πάρος",
+    "tag": "span",
+    "cls": "Aegean_eyebrow__6TFBO",
+    "size": 11.84,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 8.16,
+    "worst": 3.87,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(44,83,111)",
+    "bgRole": null,
+    "variance": 0.031,
+    "onPhoto": true
+   },
+   {
+    "id": 4,
+    "text": "Δωμάτια δίπλα στο κύμα, με πρω",
+    "tag": "p",
+    "cls": "Aegean_lede__ow3x8",
+    "size": 20,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 4.83,
+    "worst": 2.85,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(92,117,135)",
+    "bgRole": null,
+    "variance": 0.053,
+    "onPhoto": true
+   },
+   {
+    "id": 5,
+    "text": "Κλείσε δωμάτιο · 22840 00000",
+    "tag": "a",
+    "cls": "Aegean_cta__C820c",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 13.15,
+    "worst": 1.14,
+    "fg": "rgb(20,47,60)",
+    "fgRole": "surface-deep",
+    "bg": "rgb(247,248,249)",
+    "bgRole": null,
+    "variance": 0.18,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "airspace-office",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Κλείσε συνάντηση",
+    "tag": "a",
+    "cls": "AirspaceOffice_navCta__Rik3H",
+    "size": 14.88,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 5.28,
+    "worst": 1.23,
+    "fg": "rgb(53,107,77)",
+    "fgRole": "accent-ink",
+    "bg": "rgb(231,238,228)",
+    "bgRole": null,
+    "variance": 0.171,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "airspace-office",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Κλείσε συνάντηση",
+    "tag": "a",
+    "cls": "AirspaceOffice_navCta__Rik3H",
+    "size": 14.88,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 5.24,
+    "worst": 1.23,
+    "fg": "rgb(32,106,133)",
+    "fgRole": "accent-ink",
+    "bg": "rgb(230,240,243)",
+    "bgRole": null,
+    "variance": 0.174,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "area-first",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "area-first",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "bakery-editorial",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 7,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "bakery-editorial",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 7,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "barber-shop",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 12,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Hair studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BarberSidebar_kicker__AyIlB",
+    "size": 14,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 2.68,
+    "worst": 1.77,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(138,164,149)",
+    "bgRole": null,
+    "variance": 0.113,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Studio Μαρία",
+    "tag": "h1",
+    "cls": "BarberSidebar_heroTitle__UZEGz",
+    "size": 74,
+    "weight": 700,
+    "need": 3,
+    "ratio": 3.01,
+    "worst": 1.74,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(128,155,139)",
+    "bgRole": null,
+    "variance": 0.119,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Σχεδιάζουμε το look σου με βάσ",
+    "tag": "p",
+    "cls": "BarberSidebar_heroTagline__3zl3_",
+    "size": 18,
+    "weight": 300,
+    "need": 4.5,
+    "ratio": 3.89,
+    "worst": 1.92,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(109,135,121)",
+    "bgRole": null,
+    "variance": 0.119,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Η ιστορία μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButton__NMXOT",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 5.95,
+    "worst": 1.97,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(58,110,81)",
+    "bgRole": null,
+    "variance": 0.046,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Οι υπηρεσίες μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButtonGhost__1l5iv",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.44,
+    "worst": 1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(102,125,112)",
+    "bgRole": null,
+    "variance": 0.243,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "barber-shop",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 12,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Hair studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BarberSidebar_kicker__AyIlB",
+    "size": 14,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 2.68,
+    "worst": 1.77,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(127,164,177)",
+    "bgRole": null,
+    "variance": 0.113,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Studio Μαρία",
+    "tag": "h1",
+    "cls": "BarberSidebar_heroTitle__UZEGz",
+    "size": 74,
+    "weight": 700,
+    "need": 3,
+    "ratio": 3.03,
+    "worst": 1.75,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(117,154,167)",
+    "bgRole": null,
+    "variance": 0.118,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Σχεδιάζουμε το look σου με βάσ",
+    "tag": "p",
+    "cls": "BarberSidebar_heroTagline__3zl3_",
+    "size": 18,
+    "weight": 300,
+    "need": 4.5,
+    "ratio": 3.87,
+    "worst": 1.94,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(99,135,148)",
+    "bgRole": null,
+    "variance": 0.119,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Η ιστορία μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButton__NMXOT",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 5.81,
+    "worst": 1.99,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(37,109,135)",
+    "bgRole": null,
+    "variance": 0.045,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Οι υπηρεσίες μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButtonGhost__1l5iv",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.42,
+    "worst": 1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(92,125,137)",
+    "bgRole": null,
+    "variance": 0.243,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "beauty-atelier",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 15,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 5,
+    "text": "Skin studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BeautyAtelier_kicker__WmIo0",
+    "size": 11.52,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.67,
+    "worst": 1.96,
+    "fg": "rgb(168,195,180)",
+    "fgRole": null,
+    "bg": "rgb(71,60,51)",
+    "bgRole": null,
+    "variance": 0.06,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "BeautyAtelier_secondary__x9_pD",
+    "size": 12.48,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 17.35,
+    "worst": 1.96,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(24,27,26)",
+    "bgRole": null,
+    "variance": 0.079,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Beauty atelier / Γλυφάδα",
+    "tag": "span",
+    "cls": "BeautyAtelier_heroIndex__42jdL",
+    "size": 10.4,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.91,
+    "worst": 1.48,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(187,188,186)",
+    "bgRole": null,
+    "variance": 0.141,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "beauty-atelier",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 15,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 5,
+    "text": "Skin studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BeautyAtelier_kicker__WmIo0",
+    "size": 11.52,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.67,
+    "worst": 1.96,
+    "fg": "rgb(156,195,208)",
+    "fgRole": null,
+    "bg": "rgb(71,60,51)",
+    "bgRole": null,
+    "variance": 0.06,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "BeautyAtelier_secondary__x9_pD",
+    "size": 12.48,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 17.35,
+    "worst": 1.96,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(24,27,26)",
+    "bgRole": null,
+    "variance": 0.079,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Beauty atelier / Γλυφάδα",
+    "tag": "span",
+    "cls": "BeautyAtelier_heroIndex__42jdL",
+    "size": 10.4,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.91,
+    "worst": 1.48,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(187,188,186)",
+    "bgRole": null,
+    "variance": 0.141,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 11,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 11,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "billys-barber",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 8,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "billys-barber",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 8,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "bloom",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 8,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "210 8900000",
+    "tag": "a",
+    "cls": "Bloom_navCall__PA15D",
+    "size": 14.08,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.51,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(73,130,98)",
+    "bgRole": null,
+    "variance": 0.176,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Κλείσε διάγνωση",
+    "tag": "a",
+    "cls": "Bloom_cta__OpT0F",
+    "size": 15.2,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.58,
+    "worst": 1.12,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(71,129,97)",
+    "bgRole": null,
+    "variance": 0.155,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "bloom",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 8,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "210 8900000",
+    "tag": "a",
+    "cls": "Bloom_navCall__PA15D",
+    "size": 14.08,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.41,
+    "worst": 1.08,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(49,129,157)",
+    "bgRole": null,
+    "variance": 0.179,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Κλείσε διάγνωση",
+    "tag": "a",
+    "cls": "Bloom_cta__OpT0F",
+    "size": 15.2,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.47,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(48,128,156)",
+    "bgRole": null,
+    "variance": 0.158,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "blue-onepage",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "blue-onepage",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 21,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 13,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.09,
+    "worst": 1.11,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(61,122,88)",
+    "bgRole": "accent",
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 21,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 13,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.93,
+    "worst": 1.09,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(36,121,151)",
+    "bgRole": "accent",
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "canvas",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 3,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "27210 00000",
+    "tag": "a",
+    "cls": "Canvas_navCall__ylJOo",
+    "size": 14.72,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 11.39,
+    "worst": 2.61,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(234,239,230)",
+    "bgRole": null,
+    "variance": 0.142,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "canvas",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 3,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "27210 00000",
+    "tag": "a",
+    "cls": "Canvas_navCall__ylJOo",
+    "size": 14.72,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 10.97,
+    "worst": 2.55,
+    "fg": "rgb(23,55,70)",
+    "fgRole": "ink",
+    "bg": "rgb(233,241,243)",
+    "bgRole": null,
+    "variance": 0.144,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "chapter-snap",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 10,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "chapter-snap",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 10,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "cinematic",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "cinematic",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.evaluate: Target crashed "
+ },
+ {
+  "theme": "clean-work",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "clean-work",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "clinic-triage",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "clinic-triage",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "coast",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "coast",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "directory-index",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "directory-index",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "dispatch",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "dispatch",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "educenter-campus",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "educenter-campus",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "ember",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "ember",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "forge",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "forge",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "frost-bakery",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "frost-bakery",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "heritage-bakery",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "heritage-bakery",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "infinite",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "infinite",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "kinetic",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "kinetic",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "klassy-cafe",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "klassy-cafe",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "living",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "living",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "marble",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "marble",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "medic-care",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "medic-care",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "morning-journal",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "morning-journal",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "neighborhood-market",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "neighborhood-market",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "price-first",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "price-first",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "property-atlas",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "property-atlas",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "pulse",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "pulse",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "quiet",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "quiet",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "runway",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "runway",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "signature",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "signature",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "thomson-stylist",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "thomson-stylist",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "type-gallery",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "type-gallery",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "villa-agency",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "villa-agency",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "volt",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "volt",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "warmth",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "warmth",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "aegean",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m"
+ },
+ {
+  "theme": "aegean",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "airspace-office",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "airspace-office",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "area-first",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "area-first",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bakery-editorial",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bakery-editorial",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "barber-shop",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "barber-shop",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "beauty-atelier",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "beauty-atelier",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "billys-barber",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "billys-barber",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bloom",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "bloom",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "blue-onepage",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "blue-onepage",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "callout",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "callout",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "canvas",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "canvas",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "chapter-snap",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "chapter-snap",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "cinematic",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "cinematic",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "clean-work",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "clean-work",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "clinic-triage",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "clinic-triage",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "coast",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "coast",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "constra-build",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "constra-build",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "counter-menu",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "counter-menu",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "directory-index",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "directory-index",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "dispatch",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "dispatch",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "educenter-campus",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "educenter-campus",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "ember",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "ember",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "forge",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "forge",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "freight-lane",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "freight-lane",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "frost-bakery",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "frost-bakery",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "grecko-table",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "grecko-table",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "heritage-bakery",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "heritage-bakery",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "infinite",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "infinite",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "kinetic",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "kinetic",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "klassy-cafe",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "klassy-cafe",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "living",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "living",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "marble",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "marble",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "medic-care",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "medic-care",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "morning-journal",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "morning-journal",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "moso-interior",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "moso-interior",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "motor",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "motor",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "neighborhood-market",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "neighborhood-market",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "novena-care",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "novena-care",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "price-first",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "price-first",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "property-atlas",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "property-atlas",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "pulse",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "pulse",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "quiet",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "quiet",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "runway",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "runway",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "signature",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "signature",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "terra",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "terra",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "thomson-stylist",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "thomson-stylist",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "type-gallery",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "type-gallery",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "vex-counter",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "vex-counter",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "villa-agency",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "villa-agency",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "volt",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "volt",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "warmth",
+  "view": "mobile",
+  "palette": "forest",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ },
+ {
+  "theme": "warmth",
+  "view": "mobile",
+  "palette": "ocean",
+  "error": "Error: page.goto: Target page, context or browser has been closed"
+ }
+]

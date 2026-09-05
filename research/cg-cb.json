@@ -1,0 +1,302 @@
+[
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Υδραυλικός · Περιστέρι",
+    "tag": "p",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 5.15,
+    "worst": 1.6,
+    "fg": "rgb(242,189,24)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(71,74,73)",
+    "bgRole": null,
+    "variance": 0.096,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Υδραυλικός · Περιστέρι",
+    "tag": "p",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 2.6,
+    "worst": 1.24,
+    "fg": "rgb(198,117,87)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(71,74,73)",
+    "bgRole": null,
+    "variance": 0.096,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Υδραυλικός · Περιστέρι",
+    "tag": "p",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 2.8,
+    "worst": 1.15,
+    "fg": "rgb(108,154,128)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(71,74,73)",
+    "bgRole": null,
+    "variance": 0.096,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Υδραυλικός · Περιστέρι",
+    "tag": "p",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 2.93,
+    "worst": 1.1,
+    "fg": "rgb(93,156,178)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(71,74,73)",
+    "bgRole": null,
+    "variance": 0.096,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Υδραυλικός · Περιστέρι",
+    "tag": "p",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 2.88,
+    "worst": 1.12,
+    "fg": "rgb(199,125,143)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(71,74,73)",
+    "bgRole": null,
+    "variance": 0.096,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Υδραυλικός · Περιστέρι",
+    "tag": "p",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 2.3,
+    "worst": 1.4,
+    "fg": "rgb(129,129,129)",
+    "fgRole": "accent-on-deep",
+    "bg": "rgb(71,74,73)",
+    "bgRole": null,
+    "variance": 0.096,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 8,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Περιστέρι · Ίλιον · Πετρούπολη",
+    "tag": "span",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 6.12,
+    "worst": 3.45,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-deep",
+    "bg": "rgb(104,97,85)",
+    "bgRole": null,
+    "variance": 0.069,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 8,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Περιστέρι · Ίλιον · Πετρούπολη",
+    "tag": "span",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 6.12,
+    "worst": 3.45,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(104,97,85)",
+    "bgRole": null,
+    "variance": 0.069,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 8,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Περιστέρι · Ίλιον · Πετρούπολη",
+    "tag": "span",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 6.12,
+    "worst": 3.45,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(104,97,85)",
+    "bgRole": null,
+    "variance": 0.069,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 8,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Περιστέρι · Ίλιον · Πετρούπολη",
+    "tag": "span",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 6.12,
+    "worst": 3.45,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(104,97,85)",
+    "bgRole": null,
+    "variance": 0.069,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 8,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Περιστέρι · Ίλιον · Πετρούπολη",
+    "tag": "span",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 6.12,
+    "worst": 3.45,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(104,97,85)",
+    "bgRole": null,
+    "variance": 0.069,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 8,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Περιστέρι · Ίλιον · Πετρούπολη",
+    "tag": "span",
+    "cls": "",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 6.12,
+    "worst": 3.45,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(104,97,85)",
+    "bgRole": null,
+    "variance": 0.069,
+    "onPhoto": true
+   }
+  ]
+ }
+]

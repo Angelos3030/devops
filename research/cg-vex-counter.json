@@ -1,0 +1,314 @@
+[
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 9,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 15.31,
+    "worst": 1,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "ink",
+    "bg": "rgb(234,234,234)",
+    "bgRole": null,
+    "variance": 0.283,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 9,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 10.99,
+    "worst": 1,
+    "fg": "rgb(53,37,29)",
+    "fgRole": "ink",
+    "bg": "rgb(230,222,212)",
+    "bgRole": null,
+    "variance": 0.244,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 9,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 10.21,
+    "worst": 1,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(222,227,219)",
+    "bgRole": null,
+    "variance": 0.247,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 9,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 9.85,
+    "worst": 1,
+    "fg": "rgb(23,55,70)",
+    "fgRole": "ink",
+    "bg": "rgb(222,229,231)",
+    "bgRole": null,
+    "variance": 0.251,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 9,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 10.05,
+    "worst": 1,
+    "fg": "rgb(65,43,49)",
+    "fgRole": "ink",
+    "bg": "rgb(233,224,226)",
+    "bgRole": null,
+    "variance": 0.249,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 9,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 14.21,
+    "worst": 1,
+    "fg": "rgb(21,21,21)",
+    "fgRole": "accent-ink",
+    "bg": "rgb(227,227,225)",
+    "bgRole": null,
+    "variance": 0.263,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 15.31,
+    "worst": 1,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "ink",
+    "bg": "rgb(234,234,234)",
+    "bgRole": null,
+    "variance": 0.283,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 10.99,
+    "worst": 1,
+    "fg": "rgb(53,37,29)",
+    "fgRole": "ink",
+    "bg": "rgb(230,222,212)",
+    "bgRole": null,
+    "variance": 0.244,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 10.21,
+    "worst": 1,
+    "fg": "rgb(23,53,42)",
+    "fgRole": "ink",
+    "bg": "rgb(222,227,219)",
+    "bgRole": null,
+    "variance": 0.246,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 9.85,
+    "worst": 1,
+    "fg": "rgb(23,55,70)",
+    "fgRole": "ink",
+    "bg": "rgb(222,229,231)",
+    "bgRole": null,
+    "variance": 0.25,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 10.07,
+    "worst": 1,
+    "fg": "rgb(65,43,49)",
+    "fgRole": "ink",
+    "bg": "rgb(234,224,226)",
+    "bgRole": null,
+    "variance": 0.248,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Ρώτησε για διαθεσιμότητα",
+    "tag": "a",
+    "cls": "VexCounter_ghost__ZiGXX",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 14.21,
+    "worst": 1,
+    "fg": "rgb(21,21,21)",
+    "fgRole": "accent-ink",
+    "bg": "rgb(227,227,225)",
+    "bgRole": null,
+    "variance": 0.262,
+    "onPhoto": true
+   }
+  ]
+ }
+]

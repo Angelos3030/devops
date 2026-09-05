@@ -1,0 +1,350 @@
+{
+ "aegean": {
+  "editorial": 1.27,
+  "modern": 1.97,
+  "friendly": 2.77,
+  "classic": 1.19
+ },
+ "airspace-office": {
+  "editorial": 0,
+  "modern": 16.94,
+  "friendly": 17.4,
+  "classic": 0
+ },
+ "area-first": {
+  "editorial": 0,
+  "modern": 7.54,
+  "friendly": 16.32,
+  "classic": 0
+ },
+ "bakery-editorial": {
+  "editorial": 0,
+  "modern": 2.41,
+  "friendly": 3.16,
+  "classic": 0
+ },
+ "barber-shop": {
+  "editorial": 0,
+  "modern": 7.18,
+  "friendly": 5.36,
+  "classic": 0
+ },
+ "beauty-atelier": {
+  "editorial": 2.03,
+  "modern": 4.22,
+  "friendly": 4.52,
+  "classic": 0
+ },
+ "bigspring-advisory": {
+  "editorial": 12.02,
+  "modern": 6.65,
+  "friendly": 10.48,
+  "classic": 12.43
+ },
+ "billys-barber": {
+  "editorial": 2.92,
+  "modern": 3.19,
+  "friendly": 6.28,
+  "classic": 2.96
+ },
+ "bloom": {
+  "editorial": 4.6,
+  "modern": 4.85,
+  "friendly": 1.28,
+  "classic": 4.4
+ },
+ "blue-onepage": {
+  "editorial": 0,
+  "modern": 4.46,
+  "friendly": 5.98,
+  "classic": 0
+ },
+ "callout": {
+  "editorial": 26.27,
+  "modern": 26.89,
+  "friendly": 33.31,
+  "classic": 26.19
+ },
+ "canvas": {
+  "editorial": 2.23,
+  "modern": 2.73,
+  "friendly": 3,
+  "classic": 0
+ },
+ "chapter-snap": {
+  "editorial": 0,
+  "modern": 5.55,
+  "friendly": 14.19,
+  "classic": 0
+ },
+ "cinematic": {
+  "editorial": 6.74,
+  "modern": 8.14,
+  "friendly": 37.43,
+  "classic": 0
+ },
+ "clean-work": {
+  "editorial": 0,
+  "modern": 2.27,
+  "friendly": 2.93,
+  "classic": 0
+ },
+ "clinic-triage": {
+  "editorial": 1.75,
+  "modern": 3.28,
+  "friendly": 5.32,
+  "classic": 1.77
+ },
+ "coast": {
+  "editorial": 1.25,
+  "modern": 1.88,
+  "friendly": 2.6,
+  "classic": 1.32
+ },
+ "constra-build": {
+  "editorial": 0,
+  "modern": 0.51,
+  "friendly": 3.63,
+  "classic": 0
+ },
+ "counter-menu": {
+  "editorial": 0,
+  "modern": 4.43,
+  "friendly": 8.01,
+  "classic": 0
+ },
+ "directory-index": {
+  "editorial": 0,
+  "modern": 4.07,
+  "friendly": 4.45,
+  "classic": 0
+ },
+ "dispatch": {
+  "editorial": 0,
+  "modern": 5.57,
+  "friendly": 3.99,
+  "classic": 0
+ },
+ "educenter-campus": {
+  "editorial": 3.49,
+  "modern": 7.87,
+  "friendly": 8.57,
+  "classic": 3.44
+ },
+ "elegance-salon": {
+  "editorial": 2.28,
+  "modern": 2.53,
+  "friendly": 3.71,
+  "classic": 2.15
+ },
+ "ember": {
+  "editorial": 2.5,
+  "modern": 3.38,
+  "friendly": 5.84,
+  "classic": 3.26
+ },
+ "forge": {
+  "editorial": 5.44,
+  "modern": 8.43,
+  "friendly": 7.37,
+  "classic": 5.26
+ },
+ "freight-lane": {
+  "editorial": 0,
+  "modern": 8.34,
+  "friendly": 14.92,
+  "classic": 0
+ },
+ "frost-bakery": {
+  "editorial": 0.58,
+  "modern": 0.64,
+  "friendly": 2.21,
+  "classic": 0.56
+ },
+ "grecko-table": {
+  "editorial": 4.9,
+  "modern": 4.87,
+  "friendly": 8.52,
+  "classic": 4.7
+ },
+ "gymso-fitness": {
+  "editorial": 0,
+  "modern": 1.83,
+  "friendly": 1.57,
+  "classic": 0
+ },
+ "heritage-bakery": {
+  "editorial": 0,
+  "modern": 7.82,
+  "friendly": 9.38,
+  "classic": 0
+ },
+ "horizontal-story": {
+  "editorial": 3.99,
+  "modern": 8.18,
+  "friendly": 7.06,
+  "classic": 5.59
+ },
+ "infinite": {
+  "editorial": 10.09,
+  "modern": 12.08,
+  "friendly": 18.85,
+  "classic": 0
+ },
+ "kinetic": {
+  "editorial": 0,
+  "modern": 0,
+  "friendly": 18.68,
+  "classic": 0
+ },
+ "klassy-cafe": {
+  "editorial": 0.41,
+  "modern": 0.28,
+  "friendly": 1.17,
+  "classic": 0.39
+ },
+ "living": {
+  "editorial": 2.06,
+  "modern": 2.86,
+  "friendly": 4.17,
+  "classic": 0
+ },
+ "marble": {
+  "editorial": 4.36,
+  "modern": 4.5,
+  "friendly": 4.01,
+  "classic": 4.24
+ },
+ "medic-care": {
+  "editorial": 0,
+  "modern": 4.29,
+  "friendly": 2.99,
+  "classic": 0
+ },
+ "microbakery-lab": {
+  "editorial": 0,
+  "modern": 3.28,
+  "friendly": 6.32,
+  "classic": 0
+ },
+ "morning-journal": {
+  "editorial": 0,
+  "modern": 2.13,
+  "friendly": 7.47,
+  "classic": 0
+ },
+ "moso-interior": {
+  "editorial": 0,
+  "modern": 31.4,
+  "friendly": 33.49,
+  "classic": 0
+ },
+ "motor": {
+  "editorial": 3.21,
+  "modern": 6.39,
+  "friendly": 26.66,
+  "classic": 5.24
+ },
+ "neighborhood-market": {
+  "editorial": 0,
+  "modern": 6.92,
+  "friendly": 7.72,
+  "classic": 0
+ },
+ "novena-care": {
+  "editorial": 3.11,
+  "modern": 4.06,
+  "friendly": 6.21,
+  "classic": 3.31
+ },
+ "price-first": {
+  "editorial": 3.71,
+  "modern": 7.29,
+  "friendly": 30.82,
+  "classic": 4.49
+ },
+ "property-atlas": {
+  "editorial": 7.85,
+  "modern": 5.61,
+  "friendly": 8.36,
+  "classic": 7.46
+ },
+ "pulse": {
+  "editorial": 0.75,
+  "modern": 1.7,
+  "friendly": 1.94,
+  "classic": 0.72
+ },
+ "quiet": {
+  "editorial": 10.89,
+  "modern": 9.62,
+  "friendly": 12.73,
+  "classic": 11.12
+ },
+ "runway": {
+  "editorial": 2,
+  "modern": 2.43,
+  "friendly": 3,
+  "classic": 0
+ },
+ "scandinavian-coffee": {
+  "editorial": 0,
+  "modern": 3.34,
+  "friendly": 0.82,
+  "classic": 0
+ },
+ "signature": {
+  "editorial": 2.63,
+  "modern": 19.95,
+  "friendly": 22.07,
+  "classic": 2.48
+ },
+ "terra": {
+  "editorial": 0,
+  "modern": 2.17,
+  "friendly": 3.64,
+  "classic": 0.92
+ },
+ "thomson-stylist": {
+  "editorial": 1.76,
+  "modern": 0.35,
+  "friendly": 2.48,
+  "classic": 1.82
+ },
+ "type-gallery": {
+  "editorial": 23.7,
+  "modern": 23.46,
+  "friendly": 27.35,
+  "classic": 24.81
+ },
+ "vertical-snap": {
+  "editorial": 17.81,
+  "modern": 10.18,
+  "friendly": 22.78,
+  "classic": 13.88
+ },
+ "vex-counter": {
+  "editorial": 0,
+  "modern": 9.69,
+  "friendly": 10.2,
+  "classic": 0
+ },
+ "villa-agency": {
+  "editorial": 0,
+  "modern": 29.46,
+  "friendly": 23.35,
+  "classic": 0
+ },
+ "volt": {
+  "editorial": 5.74,
+  "modern": 6.03,
+  "friendly": 6.9,
+  "classic": 5.76
+ },
+ "warmth": {
+  "editorial": 1.4,
+  "modern": 2.19,
+  "friendly": 2.53,
+  "classic": 1.2
+ }
+}

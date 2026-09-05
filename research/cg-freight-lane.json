@@ -1,0 +1,194 @@
+[
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 16,
+  "bad": []
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 16,
+  "bad": []
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 16,
+  "bad": []
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 16,
+  "bad": []
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 16,
+  "bad": []
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 16,
+  "bad": []
+ },
+ {
+  "theme": "freight-lane",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Επείγουσες βλάβες",
+    "tag": "p",
+    "cls": "",
+    "size": 14.88,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.87,
+    "worst": 1.86,
+    "fg": "rgb(84,99,111)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(141,141,142)",
+    "bgRole": null,
+    "variance": 0.429,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "freight-lane",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Επείγουσες βλάβες",
+    "tag": "p",
+    "cls": "",
+    "size": 14.88,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.84,
+    "worst": 1.87,
+    "fg": "rgb(107,94,85)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(141,139,136)",
+    "bgRole": null,
+    "variance": 0.415,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "freight-lane",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Επείγουσες βλάβες",
+    "tag": "p",
+    "cls": "",
+    "size": 14.88,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.72,
+    "worst": 2.02,
+    "fg": "rgb(84,106,96)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(139,140,138)",
+    "bgRole": null,
+    "variance": 0.42,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "freight-lane",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Επείγουσες βλάβες",
+    "tag": "p",
+    "cls": "",
+    "size": 14.88,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.66,
+    "worst": 2.09,
+    "fg": "rgb(84,108,120)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(139,141,142)",
+    "bgRole": null,
+    "variance": 0.424,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "freight-lane",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Επείγουσες βλάβες",
+    "tag": "p",
+    "cls": "",
+    "size": 14.88,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.66,
+    "worst": 2.07,
+    "fg": "rgb(117,99,103)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(142,139,140)",
+    "bgRole": null,
+    "variance": 0.422,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "freight-lane",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 11,
+    "text": "Επείγουσες βλάβες",
+    "tag": "p",
+    "cls": "",
+    "size": 14.88,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 2.28,
+    "worst": 1.53,
+    "fg": "rgb(84,84,84)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(141,141,141)",
+    "bgRole": null,
+    "variance": 0.429,
+    "onPhoto": true
+   }
+  ]
+ }
+]

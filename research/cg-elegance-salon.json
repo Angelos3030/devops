@@ -1,0 +1,194 @@
+[
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.5,
+    "worst": 1.04,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(214,60,94)",
+    "bgRole": null,
+    "variance": 0.057,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.66,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(185,88,51)",
+    "bgRole": null,
+    "variance": 0.052,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.02,
+    "worst": 1.11,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(62,123,89)",
+    "bgRole": null,
+    "variance": 0.055,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.87,
+    "worst": 1.09,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(37,122,152)",
+    "bgRole": null,
+    "variance": 0.055,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.49,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(183,89,113)",
+    "bgRole": null,
+    "variance": 0.053,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 8,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "",
+    "size": 16,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 18.1,
+    "worst": 1.07,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(22,22,22)",
+    "bgRole": null,
+    "variance": 0.068,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 9,
+  "bad": []
+ }
+]

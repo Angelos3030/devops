@@ -1,0 +1,194 @@
+[
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 8,
+  "bad": []
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 8,
+  "bad": []
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 8,
+  "bad": []
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 8,
+  "bad": []
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 8,
+  "bad": []
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 8,
+  "bad": []
+ },
+ {
+  "theme": "counter-menu",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 5,
+    "text": "OPENΚαθημερινά 08:00–23:00",
+    "tag": "span",
+    "cls": "",
+    "size": 12,
+    "weight": 900,
+    "need": 4.5,
+    "ratio": 9.74,
+    "worst": 1.06,
+    "fg": "rgb(17,17,17)",
+    "fgRole": "on-accent",
+    "bg": "rgb(162,200,40)",
+    "bgRole": null,
+    "variance": 0.357,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "counter-menu",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 5,
+    "text": "OPENΚαθημερινά 08:00–23:00",
+    "tag": "span",
+    "cls": "",
+    "size": 12,
+    "weight": 900,
+    "need": 4.5,
+    "ratio": 4.71,
+    "worst": 1,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(172,115,94)",
+    "bgRole": null,
+    "variance": 0.216,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "counter-menu",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 5,
+    "text": "OPENΚαθημερινά 08:00–23:00",
+    "tag": "span",
+    "cls": "",
+    "size": 12,
+    "weight": 900,
+    "need": 4.5,
+    "ratio": 6.25,
+    "worst": 1.02,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(102,163,129)",
+    "bgRole": null,
+    "variance": 0.243,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "counter-menu",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 5,
+    "text": "OPENΚαθημερινά 08:00–23:00",
+    "tag": "span",
+    "cls": "",
+    "size": 12,
+    "weight": 900,
+    "need": 4.5,
+    "ratio": 5.82,
+    "worst": 1.01,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(92,153,175)",
+    "bgRole": null,
+    "variance": 0.233,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "counter-menu",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 5,
+    "text": "OPENΚαθημερινά 08:00–23:00",
+    "tag": "span",
+    "cls": "",
+    "size": 12,
+    "weight": 900,
+    "need": 4.5,
+    "ratio": 4.16,
+    "worst": 1,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(164,102,118)",
+    "bgRole": null,
+    "variance": 0.212,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "counter-menu",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 5,
+    "text": "OPENΚαθημερινά 08:00–23:00",
+    "tag": "span",
+    "cls": "",
+    "size": 12,
+    "weight": 900,
+    "need": 4.5,
+    "ratio": 8.41,
+    "worst": 1.04,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(175,175,176)",
+    "bgRole": null,
+    "variance": 0.31,
+    "onPhoto": true
+   }
+  ]
+ }
+]

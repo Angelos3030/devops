@@ -1,0 +1,34 @@
+{
+ "model": "kimi-k2.7-code-highspeed",
+ "bytes": 25231,
+ "runtime_total": 135.4,
+ "timing": {
+  "step1": {
+   "ttft": 97.1,
+   "total": 110.6,
+   "finish_reason": "stop",
+   "chars": 10660
+  },
+  "step2": {
+   "ttft": 2.6,
+   "total": 24.8,
+   "finish_reason": "stop",
+   "chars": 17206
+  }
+ },
+ "usage": {
+  "prompt_tokens": 14191,
+  "completion_tokens": 31331
+ },
+ "how_direction_realised": "Κατώφλι: το .threshold-line είναι ένα μοναδικό στοιχείο role=separator aria-hidden=true που τοποθετείται πάνω από το main και, με CSS, διατρέχει όλες τις ενότητες ως οριζόντια γραμμή. Στα 390 παραμένει μόνο ένα κοντό σημάδι στο αριστερό περιθώριο. Υπογραφή: η φόρμα του hero περιλαμβάνει label, input και button[type=button][data-biz]. Το inline script αλλάζει μόνο το src και title του iframe #hero-preview μεταξύ των τεσσάρων ζωντανών URL, χωρίς καμία προσομοίωση παραγωγής. Το span .example-badge Παράδειγμα είναι πάντα ορατό. Δρόμος: οι έξι βιτρίνες είναι li μέσα σε ul.road-list[role=list], με κάθε article να περιέχει σύνδεσμο (επάγγελμα/πόλη) και ξεχωριστό iframe loading=lazy tabindex=-1. Στο desktop ο .road-list είναι κάθετο scroll-snap container με transform/scale· στο 390 γίνεται οριζόντιο άρμα με overflow-x:auto, snap και φυσική αδράνεια, χωρίς αρπαγή κύλισης. Ο σύνδεσμος καλύπτει όλη την κάρτα με CSS overlay χωρίς να περιέχει το iframe, για valid και προσβάσιμο markup.",
+ "interactions": [
+  "Hero iframe lights up on first user interaction with the signature form: input focus or preset click adds .is-lit to .live-glass, increasing iframe opacity and enabling the warm radial glow behind the glass.",
+  "Preset buttons in .presets swap the hero iframe src and title to the matching real live example (salon, taverna, dentist, plumber). Free-form typing recognizes the same Greek keywords and switches the preview accordingly.",
+  "All state changes use only transform and opacity; no decorative side entrances or sliding panels.",
+  "Road vitrines fade and scale into full presence as they enter the viewport via IntersectionObserver; the active vitrine reaches 100% opacity/scale, while off-screen items recede.",
+  "Buttons and links lift slightly and shift to the amber accent on hover/focus; focus is a solid 2px amber outline with 3px offset.",
+  "prefers-reduced-motion disables transitions and keeps all glasses fully lit and static."
+ ],
+ "showcase_behaviour": "Desktop: the six real sites are stacked vertically as a 'street'. Each .vitrine is ~70% viewport width, centered. As the user scrolls, the entering vitrine fades from 0.35 to 1 and scales from 0.92 to 1, creating the sense of approaching a shop window. The next vitrine peeks from below, the previous recedes. No scroll hijacking; native scroll with scroll-driven perception via IntersectionObserver. Mobile: horizontal carouseling at 86% viewport width with scroll-snap, one large readable site at a time; the next vitrine peeks ~10% from the right edge. Vitrines are fully visible (no dimming) so the single active item remains legible.",
+ "mobile_notes": "The 390 composition is intentionally separate. The threshold line becomes a short mark near the bottom margin rather than crossing the whole page. The title remains dense uppercase signage. The input and four preset buttons sit immediately under the title, above the threshold. The live glass sits below. A fixed 48px action bar at the bottom holds the email CTA for thumb reach. Touch targets are ≥44px; the CTA is 48px. No horizontal page overflow. road-list scrolls horizontally with hidden scrollbar and snap."
+}

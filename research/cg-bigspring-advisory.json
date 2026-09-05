@@ -1,0 +1,158 @@
+[
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Συζήτηση",
+    "tag": "a",
+    "cls": "BigspringAdvisory_contact__RG5j2",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 10.81,
+    "worst": 1.18,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(40,55,127)",
+    "bgRole": "accent-ink",
+    "variance": 0.023,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 11,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 11,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 11,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 11,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Συζήτηση",
+    "tag": "a",
+    "cls": "BigspringAdvisory_contact__RG5j2",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 18.26,
+    "worst": 1.31,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(21,21,21)",
+    "bgRole": "accent-ink",
+    "variance": 0.021,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Συζήτηση",
+    "tag": "a",
+    "cls": "BigspringAdvisory_contact__RG5j2",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 10.81,
+    "worst": 1.18,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(40,55,127)",
+    "bgRole": "accent-ink",
+    "variance": 0.023,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Συζήτηση",
+    "tag": "a",
+    "cls": "BigspringAdvisory_contact__RG5j2",
+    "size": 16,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 18.26,
+    "worst": 1.31,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(21,21,21)",
+    "bgRole": "accent-ink",
+    "variance": 0.021,
+    "onPhoto": true
+   }
+  ]
+ }
+]

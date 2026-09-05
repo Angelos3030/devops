@@ -1,0 +1,1956 @@
+[
+ {
+  "theme": "aegean",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(253, 253, 251)",
+   "rgb(244, 243, 238)",
+   "rgb(13, 61, 97)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(241, 232, 233)",
+   "rgb(55, 37, 42)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Alegreya",
+   "JetBrains Mono",
+   "Open Sans",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "airspace-office",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(15, 33, 54)",
+   "rgb(239, 243, 247)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(15, 33, 54)",
+   "rgb(239, 243, 247)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "area-first",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(244, 247, 249)",
+   "rgb(223, 232, 238)",
+   "rgb(18, 63, 134)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(244, 247, 249)",
+   "rgb(223, 232, 238)",
+   "rgb(18, 63, 134)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "system-ui",
+   "Inter",
+   "serif",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "system-ui",
+   "Inter",
+   "serif",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "bakery-editorial",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(244, 239, 231)",
+   "rgb(115, 45, 36)",
+   "rgb(217, 203, 185)",
+   "rgb(246, 244, 239)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(55, 37, 42)",
+   "rgb(217, 203, 185)",
+   "rgb(246, 244, 239)"
+  ],
+  "baseFonts": [
+   "Arial",
+   "Georgia",
+   "Inter"
+  ],
+  "modernFonts": [
+   "Arial",
+   "Georgia",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "barber-shop",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(0, 0, 0)",
+   "rgb(240, 248, 255)",
+   "rgb(214, 163, 84)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(0, 0, 0)",
+   "rgb(240, 248, 255)",
+   "rgb(214, 163, 84)"
+  ],
+  "baseFonts": [
+   "Syne",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Syne",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "beauty-atelier",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(244, 241, 236)",
+   "rgb(23, 23, 25)",
+   "rgb(239, 85, 75)",
+   "rgb(185, 189, 195)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(55, 37, 42)",
+   "rgb(65, 43, 49)",
+   "rgb(183, 88, 112)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "EB Garamond",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Inter",
+   "EB Garamond",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "bigspring-advisory",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(232, 240, 255)",
+   "rgb(40, 55, 127)",
+   "rgb(201, 243, 106)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(232, 240, 255)",
+   "rgb(40, 55, 127)",
+   "rgb(201, 243, 106)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Noto Sans Display",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Inter",
+   "Noto Sans Display",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "billys-barber",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(212, 212, 212)",
+   "rgb(10, 10, 10)",
+   "rgba(0, 0, 0, 0.42)",
+   "rgb(196, 196, 196)"
+  ],
+  "roseColors": [
+   "rgb(212, 212, 212)",
+   "rgb(10, 10, 10)",
+   "rgba(0, 0, 0, 0.42)",
+   "rgb(196, 196, 196)"
+  ],
+  "baseFonts": [
+   "Nunito Sans",
+   "Inter",
+   "Noto Serif Display",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Nunito Sans",
+   "Inter",
+   "Noto Serif Display",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "bloom",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(253, 251, 247)",
+   "rgb(42, 77, 56)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(55, 37, 42)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Alegreya",
+   "Manrope",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "blue-onepage",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(46, 46, 46)",
+   "rgba(0, 0, 0, 0.45)",
+   "rgb(0, 121, 168)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(46, 46, 46)",
+   "rgba(0, 0, 0, 0.45)",
+   "rgb(0, 121, 168)"
+  ],
+  "baseFonts": [
+   "Open Sans",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Open Sans",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "callout",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(14, 26, 43)",
+   "rgb(242, 245, 248)",
+   "color(srgb 0.168314 0.209725 0.268392)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(55, 37, 42)",
+   "rgb(241, 232, 233)",
+   "color(srgb 0.309804 0.247686 0.264941)"
+  ],
+  "baseFonts": [
+   "Alegreya",
+   "Open Sans",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Open Sans",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "canvas",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(251, 250, 247)",
+   "rgb(236, 234, 229)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(241, 232, 233)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Alegreya",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "chapter-snap",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(244, 223, 255)",
+   "rgb(18, 62, 229)",
+   "rgb(23, 23, 23)",
+   "rgb(215, 255, 69)"
+  ],
+  "roseColors": [
+   "rgb(244, 223, 255)",
+   "rgb(18, 62, 229)",
+   "rgb(23, 23, 23)",
+   "rgb(215, 255, 69)"
+  ],
+  "baseFonts": [
+   "system-ui",
+   "Inter"
+  ],
+  "modernFonts": [
+   "system-ui",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "cinematic",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(23, 23, 19)",
+   "rgb(241, 238, 231)",
+   "color(srgb 0.84251 0.832157 0.806118)",
+   "rgba(17, 17, 13, 0.55)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(65, 43, 49)",
+   "color(srgb 0.341961 0.262275 0.283451)",
+   "rgba(17, 17, 13, 0.55)"
+  ],
+  "baseFonts": [
+   "Manrope",
+   "Alegreya",
+   "Inter"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "clean-work",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(30, 77, 140)",
+   "rgb(240, 248, 255)",
+   "rgb(246, 244, 239)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(30, 77, 140)",
+   "rgb(240, 248, 255)",
+   "rgb(246, 244, 239)"
+  ],
+  "baseFonts": [
+   "Nunito Sans",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Nunito Sans",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "clinic-triage",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(54, 54, 54)",
+   "color(srgb 0.952706 0.952706 0.952706)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(65, 43, 49)",
+   "color(srgb 0.936863 0.902196 0.907294)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Open Sans",
+   "Inter",
+   "Alegreya",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "Open Sans",
+   "Inter",
+   "Manrope",
+   "JetBrains Mono"
+  ]
+ },
+ {
+  "theme": "coast",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(251, 252, 253)",
+   "rgb(255, 255, 255)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(255, 255, 255)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Alegreya",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono"
+  ]
+ },
+ {
+  "theme": "constra-build",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(245, 244, 239)",
+   "rgb(23, 23, 23)",
+   "rgb(60, 65, 69)",
+   "rgb(242, 189, 24)"
+  ],
+  "roseColors": [
+   "rgb(245, 244, 239)",
+   "rgb(23, 23, 23)",
+   "rgb(60, 65, 69)",
+   "rgb(242, 189, 24)"
+  ],
+  "baseFonts": [
+   "Open Sans",
+   "Inter",
+   "Fira Sans Condensed",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Open Sans",
+   "Inter",
+   "Fira Sans Condensed",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "counter-menu",
+  "flagPalette": false,
+  "flagFont": true,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(10, 10, 10)",
+   "rgb(255, 77, 46)",
+   "rgb(200, 255, 26)",
+   "rgb(115, 87, 255)"
+  ],
+  "roseColors": [
+   "rgb(10, 10, 10)",
+   "rgb(255, 77, 46)",
+   "rgb(200, 255, 26)",
+   "rgb(115, 87, 255)"
+  ],
+  "baseFonts": [
+   "Arial",
+   "Inter"
+  ],
+  "modernFonts": [
+   "Arial",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "directory-index",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(246, 244, 239)",
+   "rgb(8, 8, 8)",
+   "rgb(85, 85, 85)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(246, 244, 239)",
+   "rgb(8, 8, 8)",
+   "rgb(85, 85, 85)"
+  ],
+  "baseFonts": [
+   "Arial",
+   "Inter"
+  ],
+  "modernFonts": [
+   "Arial",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "dispatch",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(11, 13, 16)",
+   "rgba(18, 21, 27, 0.58)",
+   "rgb(246, 244, 239)",
+   "rgb(246, 247, 249)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgba(18, 21, 27, 0.58)",
+   "rgb(246, 244, 239)",
+   "rgb(65, 43, 49)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Fira Sans Condensed"
+  ],
+  "modernFonts": [
+   "JetBrains Mono",
+   "Manrope",
+   "Fira Sans Condensed",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "educenter-campus",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(251, 250, 247)",
+   "rgb(241, 238, 230)",
+   "rgb(20, 29, 58)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(251, 250, 247)",
+   "rgb(241, 238, 230)",
+   "rgb(20, 29, 58)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Fraunces",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "Inter",
+   "Fraunces",
+   "JetBrains Mono"
+  ]
+ },
+ {
+  "theme": "elegance-salon",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 249, 247)",
+   "rgb(33, 25, 28)",
+   "rgb(217, 73, 105)",
+   "rgb(245, 225, 223)"
+  ],
+  "roseColors": [
+   "rgb(255, 249, 247)",
+   "rgb(33, 25, 28)",
+   "rgb(217, 73, 105)",
+   "rgb(245, 225, 223)"
+  ],
+  "baseFonts": [
+   "Manrope",
+   "Inter",
+   "Noto Serif Display",
+   "Georgia",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "Noto Serif Display",
+   "Georgia",
+   "JetBrains Mono"
+  ]
+ },
+ {
+  "theme": "ember",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(20, 16, 12)",
+   "rgb(28, 21, 16)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(241, 232, 233)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "baseFonts": [
+   "JetBrains Mono",
+   "Inter",
+   "Alegreya",
+   "Fira Sans",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "JetBrains Mono",
+   "Inter",
+   "Manrope",
+   "Fira Sans",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "forge",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(240, 242, 244)",
+   "rgb(255, 255, 255)",
+   "rgb(29, 36, 45)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(241, 232, 233)",
+   "rgb(65, 43, 49)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Fira Sans",
+   "Inter",
+   "Alegreya",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "freight-lane",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(246, 247, 249)",
+   "rgb(11, 26, 43)",
+   "rgb(154, 74, 6)",
+   "rgb(232, 236, 241)"
+  ],
+  "roseColors": [
+   "rgb(246, 247, 249)",
+   "rgb(11, 26, 43)",
+   "rgb(154, 74, 6)",
+   "rgb(232, 236, 241)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "frost-bakery",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(244, 241, 222)",
+   "rgb(255, 255, 255)",
+   "rgb(61, 64, 91)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(244, 241, 222)",
+   "rgb(255, 255, 255)",
+   "rgb(61, 64, 91)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Manrope",
+   "Lora",
+   "Inter",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Lora",
+   "Inter",
+   "JetBrains Mono"
+  ]
+ },
+ {
+  "theme": "grecko-table",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(243, 234, 215)",
+   "rgb(23, 77, 59)",
+   "rgb(182, 47, 39)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(243, 234, 215)",
+   "rgb(23, 77, 59)",
+   "rgb(182, 47, 39)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Manrope",
+   "Inter",
+   "Noto Serif Display",
+   "Georgia",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "Noto Serif Display",
+   "Georgia",
+   "JetBrains Mono"
+  ]
+ },
+ {
+  "theme": "gymso-fitness",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(23, 24, 25)",
+   "rgb(249, 249, 249)",
+   "rgb(246, 244, 239)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(23, 24, 25)",
+   "rgb(249, 249, 249)",
+   "rgb(246, 244, 239)"
+  ],
+  "baseFonts": [
+   "Helvetica Neue",
+   "Inter",
+   "Arial",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Helvetica Neue",
+   "Inter",
+   "Arial",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "heritage-bakery",
+  "flagPalette": false,
+  "flagFont": true,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(250, 243, 223)",
+   "rgb(164, 65, 47)",
+   "rgb(217, 184, 87)",
+   "rgb(246, 244, 239)"
+  ],
+  "roseColors": [
+   "rgb(250, 243, 223)",
+   "rgb(164, 65, 47)",
+   "rgb(217, 184, 87)",
+   "rgb(246, 244, 239)"
+  ],
+  "baseFonts": [
+   "Arial",
+   "Georgia",
+   "Inter"
+  ],
+  "modernFonts": [
+   "Arial",
+   "Georgia",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "horizontal-story",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(35, 33, 56)",
+   "rgb(22, 21, 34)",
+   "rgb(246, 244, 239)",
+   "rgb(255, 91, 73)"
+  ],
+  "roseColors": [
+   "rgb(35, 33, 56)",
+   "rgb(22, 21, 34)",
+   "rgb(246, 244, 239)",
+   "rgb(255, 91, 73)"
+  ],
+  "baseFonts": [
+   "system-ui",
+   "sans-serif",
+   "Inter"
+  ],
+  "modernFonts": [
+   "system-ui",
+   "sans-serif",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "infinite",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(17, 19, 24)",
+   "rgb(91, 120, 255)",
+   "rgb(244, 242, 236)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(183, 88, 112)",
+   "rgb(65, 43, 49)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Manrope",
+   "Inter",
+   "EB Garamond",
+   "ui-monospace",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "EB Garamond",
+   "ui-monospace",
+   "JetBrains Mono"
+  ]
+ },
+ {
+  "theme": "kinetic",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(243, 240, 232)",
+   "rgb(18, 18, 18)",
+   "rgb(255, 90, 42)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(65, 43, 49)",
+   "rgb(183, 88, 112)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Manrope",
+   "Inter",
+   "ui-monospace",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "ui-monospace",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "klassy-cafe",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(255, 250, 250)",
+   "rgb(30, 30, 30)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(255, 250, 250)",
+   "rgb(30, 30, 30)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Manrope",
+   "Inter",
+   "Fraunces",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "Fraunces",
+   "JetBrains Mono"
+  ]
+ },
+ {
+  "theme": "living",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(243, 240, 231)",
+   "rgb(39, 76, 60)",
+   "rgb(198, 107, 78)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(183, 88, 112)",
+   "rgb(198, 107, 78)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Manrope",
+   "Inter",
+   "EB Garamond",
+   "ui-monospace",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "EB Garamond",
+   "ui-monospace",
+   "JetBrains Mono"
+  ]
+ },
+ {
+  "theme": "marble",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(251, 250, 247)",
+   "rgb(20, 22, 29)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(65, 43, 49)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Alegreya",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "medic-care",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(249, 249, 249)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(249, 249, 249)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "baseFonts": [
+   "Open Sans",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Open Sans",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "microbakery-lab",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(232, 230, 223)",
+   "rgb(17, 17, 17)",
+   "rgb(237, 62, 47)",
+   "rgb(246, 244, 239)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(55, 37, 42)",
+   "rgb(183, 88, 112)",
+   "rgb(246, 244, 239)"
+  ],
+  "baseFonts": [
+   "Arial",
+   "Inter"
+  ],
+  "modernFonts": [
+   "Arial",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "morning-journal",
+  "flagPalette": false,
+  "flagFont": true,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 250, 240)",
+   "rgb(22, 60, 50)",
+   "rgb(203, 74, 47)",
+   "rgb(242, 200, 75)"
+  ],
+  "roseColors": [
+   "rgb(255, 250, 240)",
+   "rgb(22, 60, 50)",
+   "rgb(203, 74, 47)",
+   "rgb(242, 200, 75)"
+  ],
+  "baseFonts": [
+   "Arial",
+   "Georgia",
+   "Inter"
+  ],
+  "modernFonts": [
+   "Arial",
+   "Georgia",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "moso-interior",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(249, 249, 249)",
+   "rgb(0, 0, 0)",
+   "rgb(54, 54, 62)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(249, 249, 249)",
+   "rgb(0, 0, 0)",
+   "rgb(54, 54, 62)"
+  ],
+  "baseFonts": [
+   "Fira Sans Condensed",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Fira Sans Condensed",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "motor",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(25, 28, 32)",
+   "rgb(34, 38, 44)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(241, 232, 233)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Alegreya",
+   "Fira Sans",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "neighborhood-market",
+  "flagPalette": false,
+  "flagFont": true,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(238, 233, 255)",
+   "rgb(36, 24, 58)",
+   "rgb(117, 216, 255)",
+   "rgb(245, 255, 85)"
+  ],
+  "roseColors": [
+   "rgb(238, 233, 255)",
+   "rgb(36, 24, 58)",
+   "rgb(117, 216, 255)",
+   "rgb(245, 255, 85)"
+  ],
+  "baseFonts": [
+   "Arial",
+   "Inter"
+  ],
+  "modernFonts": [
+   "Arial",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "novena-care",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(251, 252, 250)",
+   "rgb(20, 43, 59)",
+   "rgb(217, 241, 239)",
+   "rgb(255, 255, 255)"
+  ],
+  "roseColors": [
+   "rgb(251, 252, 250)",
+   "rgb(20, 43, 59)",
+   "rgb(217, 241, 239)",
+   "rgb(255, 255, 255)"
+  ],
+  "baseFonts": [
+   "Open Sans",
+   "Inter",
+   "Noto Sans Display",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Open Sans",
+   "Inter",
+   "Noto Sans Display",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "price-first",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(248, 244, 236)",
+   "rgb(59, 43, 35)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "roseColors": [
+   "rgb(248, 244, 236)",
+   "rgb(59, 43, 35)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "baseFonts": [
+   "system-ui",
+   "Inter",
+   "serif",
+   "Arial",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "system-ui",
+   "Inter",
+   "serif",
+   "Arial",
+   "JetBrains Mono"
+  ]
+ },
+ {
+  "theme": "property-atlas",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(247, 244, 236)",
+   "rgb(23, 61, 53)",
+   "rgb(200, 237, 218)",
+   "rgb(255, 255, 255)"
+  ],
+  "roseColors": [
+   "rgb(247, 244, 236)",
+   "rgb(23, 61, 53)",
+   "rgb(200, 237, 218)",
+   "rgb(255, 255, 255)"
+  ],
+  "baseFonts": [
+   "Manrope",
+   "Inter",
+   "Noto Serif Display",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "Noto Serif Display",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "pulse",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(252, 254, 254)",
+   "rgb(238, 245, 246)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(241, 232, 233)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "baseFonts": [
+   "Open Sans",
+   "Inter",
+   "JetBrains Mono",
+   "Alegreya",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "quiet",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(247, 247, 244)",
+   "rgb(212, 213, 210)",
+   "color(srgb 0.865569 0.867922 0.856157)",
+   "rgb(223, 230, 223)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(224, 214, 216)",
+   "color(srgb 0.893333 0.855373 0.861647)",
+   "rgb(241, 232, 233)"
+  ],
+  "baseFonts": [
+   "Manrope",
+   "Alegreya",
+   "Inter"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "runway",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(16, 16, 20)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(65, 43, 49)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Manrope",
+   "JetBrains Mono",
+   "Alegreya",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(242, 241, 236)",
+   "rgb(29, 41, 37)",
+   "rgb(220, 229, 168)",
+   "rgb(246, 244, 239)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(55, 37, 42)",
+   "rgb(241, 232, 233)",
+   "rgb(246, 244, 239)"
+  ],
+  "baseFonts": [
+   "Arial",
+   "Georgia",
+   "Inter"
+  ],
+  "modernFonts": [
+   "Arial",
+   "Georgia",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "signature",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(251, 250, 248)",
+   "rgb(35, 32, 28)",
+   "rgb(241, 239, 233)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(55, 37, 42)",
+   "rgb(241, 232, 233)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Alegreya",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "terra",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(243, 237, 226)",
+   "rgb(250, 246, 238)",
+   "rgb(55, 66, 31)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(241, 232, 233)",
+   "rgb(55, 37, 42)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Alegreya",
+   "JetBrains Mono",
+   "Fira Sans",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "thomson-stylist",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)",
+   "rgb(247, 248, 249)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgba(128, 128, 128, 0.08)",
+   "rgba(128, 128, 128, 0.07)",
+   "rgb(247, 248, 249)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Nunito Sans",
+   "Manrope",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Inter",
+   "Nunito Sans",
+   "Manrope",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "type-gallery",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(244, 240, 232)",
+   "rgb(16, 16, 16)",
+   "rgb(217, 212, 202)",
+   "rgb(218, 54, 35)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(65, 43, 49)",
+   "rgb(241, 232, 233)",
+   "rgb(183, 88, 112)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Alegreya"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "vertical-snap",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(34, 33, 55)",
+   "rgb(246, 244, 239)",
+   "rgb(255, 255, 255)",
+   "rgb(95, 91, 82)"
+  ],
+  "roseColors": [
+   "rgb(34, 33, 55)",
+   "rgb(246, 244, 239)",
+   "rgb(255, 255, 255)",
+   "rgb(95, 91, 82)"
+  ],
+  "baseFonts": [
+   "system-ui",
+   "sans-serif",
+   "Inter"
+  ],
+  "modernFonts": [
+   "system-ui",
+   "sans-serif",
+   "Inter"
+  ]
+ },
+ {
+  "theme": "vex-counter",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(244, 243, 241)",
+   "rgb(16, 16, 16)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(255, 255, 255)",
+   "rgb(244, 243, 241)",
+   "rgb(16, 16, 16)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "villa-agency",
+  "flagPalette": false,
+  "flagFont": false,
+  "paletteWorks": false,
+  "fontWorks": false,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(30, 30, 30)",
+   "rgb(247, 247, 247)",
+   "rgba(0, 0, 0, 0.35)",
+   "rgb(255, 255, 255)"
+  ],
+  "roseColors": [
+   "rgb(30, 30, 30)",
+   "rgb(247, 247, 247)",
+   "rgba(0, 0, 0, 0.35)",
+   "rgb(255, 255, 255)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "volt",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(22, 24, 28)",
+   "rgb(31, 34, 41)",
+   "rgb(200, 245, 66)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "rgb(241, 232, 233)",
+   "rgb(183, 88, 112)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Inter",
+   "Alegreya",
+   "JetBrains Mono",
+   "Manrope",
+   "Fraunces"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono",
+   "Fraunces"
+  ]
+ },
+ {
+  "theme": "warmth",
+  "flagPalette": true,
+  "flagFont": true,
+  "paletteWorks": true,
+  "fontWorks": true,
+  "status": 200,
+  "h1": 1,
+  "overflow": false,
+  "baseColors": [
+   "rgb(251, 243, 228)",
+   "color(srgb 0.888314 0.853647 0.796706)",
+   "rgb(188, 87, 50)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "roseColors": [
+   "rgb(250, 242, 243)",
+   "color(srgb 0.893333 0.855373 0.861647)",
+   "rgb(183, 88, 112)",
+   "rgba(128, 128, 128, 0.08)"
+  ],
+  "baseFonts": [
+   "Nunito Sans",
+   "Inter",
+   "Alegreya",
+   "JetBrains Mono"
+  ],
+  "modernFonts": [
+   "Manrope",
+   "Inter",
+   "JetBrains Mono"
+  ]
+ }
+]

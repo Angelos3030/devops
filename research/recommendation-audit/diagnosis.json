@@ -1,0 +1,2171 @@
+{
+ "by_source": {
+  "ΛΕΞΕΙΣ": 327,
+  "AI": 153
+ },
+ "wrong_by_source": {
+  "AI": 45,
+  "ΛΕΞΕΙΣ": 35
+ },
+ "ai_queries": [
+  {
+   "id": "q0007",
+   "text": "echo kommotirio sti glyfada",
+   "style": "greeklish",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "κομμωτήριο",
+   "vertical": "beauty",
+   "ok": true
+  },
+  {
+   "id": "q0008",
+   "text": "echo ena mikro kommotirio gia gynaikes",
+   "style": "greeklish_natural",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "κομμωτήριο",
+   "vertical": "beauty",
+   "ok": true
+  },
+  {
+   "id": "q0009",
+   "text": "εχο κομοτιριο στι γλιφαδα",
+   "style": "typos",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "κομμωτήριο",
+   "vertical": "realestate",
+   "ok": false
+  },
+  {
+   "id": "q0017",
+   "text": "echo koyreio sto chalandri",
+   "style": "greeklish",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "κουρείο",
+   "vertical": "aesthetics",
+   "ok": false
+  },
+  {
+   "id": "q0018",
+   "text": "paradosiako koyreio, doyleyo monos moy edo kai 15 chronia",
+   "style": "greeklish_natural",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "κουρείο",
+   "vertical": "beauty",
+   "ok": true
+  },
+  {
+   "id": "q0019",
+   "text": "εχο κοιριο στο χαλανδρι",
+   "style": "typos",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "κουρείο",
+   "vertical": "retail",
+   "ok": false
+  },
+  {
+   "id": "q0027",
+   "text": "echo nychadiko sti nea smyrni",
+   "style": "greeklish",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "νυχάδικο",
+   "vertical": "retail",
+   "ok": false
+  },
+  {
+   "id": "q0028",
+   "text": "echoyme ena stoyntio nychion me treis theseis",
+   "style": "greeklish_natural",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "νυχάδικο",
+   "vertical": "rooms",
+   "ok": false
+  },
+  {
+   "id": "q0029",
+   "text": "εχο νιχαδικο στι νεα σμιρνι",
+   "style": "typos",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "νυχάδικο",
+   "vertical": "cafe",
+   "ok": false
+  },
+  {
+   "id": "q0034",
+   "text": "Κάνουμε αποτρίχωση με laser, καθαρισμό προσώπου και μεσοθεραπεία στον Πειραιά",
+   "style": "indirect",
+   "expected_vertical": "aesthetics",
+   "also_acceptable": [],
+   "business": "αισθητικός",
+   "vertical": "aesthetics",
+   "ok": true
+  },
+  {
+   "id": "q0037",
+   "text": "eimai aisthitikos kai echo diko moy choro ston peiraia",
+   "style": "greeklish",
+   "expected_vertical": "aesthetics",
+   "also_acceptable": [],
+   "business": "αισθητικός",
+   "vertical": "aesthetics",
+   "ok": true
+  },
+  {
+   "id": "q0038",
+   "text": "institoyto aisthitikis, doyleyoyme dyo aisthitikoi",
+   "style": "greeklish_natural",
+   "expected_vertical": "aesthetics",
+   "also_acceptable": [],
+   "business": "αισθητικός",
+   "vertical": "aesthetics",
+   "ok": true
+  },
+  {
+   "id": "q0039",
+   "text": "ιμε εσθιτικος κε εχο δικο μοι χορο στον πιρεα",
+   "style": "typos",
+   "expected_vertical": "aesthetics",
+   "also_acceptable": [],
+   "business": "αισθητικός",
+   "vertical": "aesthetics",
+   "ok": true
+  },
+  {
+   "id": "q0047",
+   "text": "kano therapeytiko masaz sto peristeri",
+   "style": "greeklish",
+   "expected_vertical": "massage",
+   "also_acceptable": [],
+   "business": "μασάζ",
+   "vertical": "massage",
+   "ok": true
+  },
+  {
+   "id": "q0048",
+   "text": "echo enan mikro choro gia masaz kai chalarosi",
+   "style": "greeklish_natural",
+   "expected_vertical": "massage",
+   "also_acceptable": [],
+   "business": "μασάζ",
+   "vertical": "massage",
+   "ok": true
+  },
+  {
+   "id": "q0058",
+   "text": "paradosiakos foyrnos me xylofoyrno, psinoyme apo tis 5 to proi",
+   "style": "greeklish_natural",
+   "expected_vertical": "bakery",
+   "also_acceptable": [],
+   "business": "φούρνος",
+   "vertical": "bakery",
+   "ok": true
+  },
+  {
+   "id": "q0059",
+   "text": "εχο φοιρνο στι θεσαλονικι",
+   "style": "typos",
+   "expected_vertical": "bakery",
+   "also_acceptable": [],
+   "business": "φούρνος",
+   "vertical": "bakery",
+   "ok": true
+  },
+  {
+   "id": "q0067",
+   "text": "echo zacharoplasteio sto kolonaki",
+   "style": "greeklish",
+   "expected_vertical": "bakery",
+   "also_acceptable": [],
+   "business": "ζαχαροπλαστείο",
+   "vertical": "bakery",
+   "ok": true
+  },
+  {
+   "id": "q0068",
+   "text": "oikogeneiako zacharoplasteio, triti genia",
+   "style": "greeklish_natural",
+   "expected_vertical": "bakery",
+   "also_acceptable": [],
+   "business": "ζαχαροπλαστείο",
+   "vertical": "bakery",
+   "ok": true
+  },
+  {
+   "id": "q0077",
+   "text": "echo kafeteria stoy psyrri",
+   "style": "greeklish",
+   "expected_vertical": "cafe",
+   "also_acceptable": [],
+   "business": "καφετέρια",
+   "vertical": "cafe",
+   "ok": true
+  },
+  {
+   "id": "q0078",
+   "text": "mikri kafeteria tis geitonias me exi trapezia",
+   "style": "greeklish_natural",
+   "expected_vertical": "cafe",
+   "also_acceptable": [],
+   "business": "καφετέρια",
+   "vertical": "cafe",
+   "ok": true
+  },
+  {
+   "id": "q0097",
+   "text": "echo estiatorio sti larisa",
+   "style": "greeklish",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "εστιατόριο",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0098",
+   "text": "estiatorio mesogeiakis koyzinas, 40 theseis",
+   "style": "greeklish_natural",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "εστιατόριο",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0104",
+   "text": "Κάνουμε λεύκανση, εμφυτεύματα και αόρατα σιδεράκια στο Ηράκλειο",
+   "style": "indirect",
+   "expected_vertical": "dentist",
+   "also_acceptable": [],
+   "business": "οδοντιατρείο",
+   "vertical": "aesthetics",
+   "ok": false
+  },
+  {
+   "id": "q0107",
+   "text": "echo odontiatreio sto irakleio",
+   "style": "greeklish",
+   "expected_vertical": "dentist",
+   "also_acceptable": [],
+   "business": "οδοντιατρείο",
+   "vertical": "dentist",
+   "ok": true
+  },
+  {
+   "id": "q0108",
+   "text": "odontiatreio me dyo giatroys kai sygchrono exoplismo",
+   "style": "greeklish_natural",
+   "expected_vertical": "dentist",
+   "also_acceptable": [],
+   "business": "οδοντιατρείο",
+   "vertical": "dentist",
+   "ok": true
+  },
+  {
+   "id": "q0114",
+   "text": "Κάνουμε προληπτικό έλεγχο, καρδιογράφημα και εμβολιασμούς στα Εξάρχεια",
+   "style": "indirect",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "ιατρείο",
+   "vertical": "doctor",
+   "ok": true
+  },
+  {
+   "id": "q0117",
+   "text": "echo iatreio sta exarcheia",
+   "style": "greeklish",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "ιατρείο",
+   "vertical": "doctor",
+   "ok": true
+  },
+  {
+   "id": "q0118",
+   "text": "pathologiko iatreio, dechomai me rantevoy",
+   "style": "greeklish_natural",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "ιατρείο",
+   "vertical": "doctor",
+   "ok": true
+  },
+  {
+   "id": "q0124",
+   "text": "Κάνουμε αποκατάσταση μετά από τραυματισμό και θεραπευτική άσκηση στη Γλυφάδα",
+   "style": "indirect",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "φυσικοθεραπευτήριο",
+   "vertical": "massage",
+   "ok": false
+  },
+  {
+   "id": "q0127",
+   "text": "echo fysikotherapeytirio sti glyfada",
+   "style": "greeklish",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "φυσικοθεραπευτήριο",
+   "vertical": "massage",
+   "ok": false
+  },
+  {
+   "id": "q0128",
+   "text": "fysikotherapeytis, doyleyo me athlites kai metegcheiritika",
+   "style": "greeklish_natural",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "φυσικοθεραπευτήριο",
+   "vertical": "professional",
+   "ok": false
+  },
+  {
+   "id": "q0129",
+   "text": "εχο φισικοθεραπιτιριο στι γλιφαδα",
+   "style": "typos",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "φυσικοθεραπευτήριο",
+   "vertical": "massage",
+   "ok": false
+  },
+  {
+   "id": "q0139",
+   "text": "εχο φαρμακιο στο χαλανδρι",
+   "style": "typos",
+   "expected_vertical": "pharmacy",
+   "also_acceptable": [],
+   "business": "φαρμακείο",
+   "vertical": "pharmacy",
+   "ok": true
+  },
+  {
+   "id": "q0147",
+   "text": "eimai dikigoros sti nea smyrni",
+   "style": "greeklish",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "δικηγόρος",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0148",
+   "text": "dikigoriko grafeio, ascholoymai me emporiko dikaio",
+   "style": "greeklish_natural",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "δικηγόρος",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0149",
+   "text": "ιμε δικιγορος στι νεα σμιρνι",
+   "style": "typos",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "δικηγόρος",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0154",
+   "text": "Κάνουμε φορολογικές δηλώσεις, μισθοδοσία και ΦΠΑ στον Πειραιά",
+   "style": "indirect",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "λογιστής",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0156",
+   "text": "Accounting office για bookkeeping και payroll στον Πειραιά",
+   "style": "mixed",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "λογιστής",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0157",
+   "text": "eimai logistis ston peiraia",
+   "style": "greeklish",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "λογιστής",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0158",
+   "text": "logistiko grafeio, exypiretoyme mikres epicheiriseis",
+   "style": "greeklish_natural",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "λογιστής",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0167",
+   "text": "eimai ydraylikos sto peristeri",
+   "style": "greeklish",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "υδραυλικός",
+   "vertical": "garage",
+   "ok": false
+  },
+  {
+   "id": "q0168",
+   "text": "ydraylikos, 24ori exypiretisi se oli tin attiki",
+   "style": "greeklish_natural",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "υδραυλικός",
+   "vertical": "garage",
+   "ok": false
+  },
+  {
+   "id": "q0169",
+   "text": "ιμε ιδρελικος στο περιστερι",
+   "style": "typos",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "υδραυλικός",
+   "vertical": "garage",
+   "ok": false
+  },
+  {
+   "id": "q0178",
+   "text": "adeioychos ilektrologos, analamvano kai pistopoiitika dei",
+   "style": "greeklish_natural",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ηλεκτρολόγος",
+   "vertical": "professional",
+   "ok": false
+  },
+  {
+   "id": "q0179",
+   "text": "ιμε ιλεκτρολογος στι θεσαλονικι",
+   "style": "typos",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ηλεκτρολόγος",
+   "vertical": "professional",
+   "ok": false
+  },
+  {
+   "id": "q0181",
+   "text": "ανακαινίσεις",
+   "style": "short",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ανακαινίσεις",
+   "vertical": "retail",
+   "ok": false
+  },
+  {
+   "id": "q0182",
+   "text": "Κάνω ανακαινίσεις σπιτιών στο Κολωνάκι",
+   "style": "clean",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ανακαινίσεις",
+   "vertical": "realestate",
+   "ok": false
+  },
+  {
+   "id": "q0183",
+   "text": "Αναλαμβάνουμε ανακαινίσεις διαμερισμάτων με το κλειδί στο χέρι στο Κολωνάκι",
+   "style": "natural",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ανακαινίσεις",
+   "vertical": "realestate",
+   "ok": false
+  },
+  {
+   "id": "q0185",
+   "text": "Domus Ανακαινίσεις, Κολωνάκι",
+   "style": "brand",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ανακαινίσεις",
+   "vertical": "realestate",
+   "ok": false
+  },
+  {
+   "id": "q0186",
+   "text": "Renovation company για full ανακαίνιση στο Κολωνάκι",
+   "style": "mixed",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ανακαινίσεις",
+   "vertical": "realestate",
+   "ok": false
+  },
+  {
+   "id": "q0187",
+   "text": "kano anakainiseis spition sto kolonaki",
+   "style": "greeklish",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ανακαινίσεις",
+   "vertical": "realestate",
+   "ok": false
+  },
+  {
+   "id": "q0188",
+   "text": "analamvanoyme anakainiseis diamerismaton me to kleidi sto cheri",
+   "style": "greeklish_natural",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ανακαινίσεις",
+   "vertical": "realestate",
+   "ok": false
+  },
+  {
+   "id": "q0189",
+   "text": "κανο ανακενισις σπιτιον στο κολονακι",
+   "style": "typos",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ανακαινίσεις",
+   "vertical": "realestate",
+   "ok": false
+  },
+  {
+   "id": "q0190",
+   "text": "Κάνω ανακαινίσεις σπιτιών στα Εξάρχεια, κοντά στο μετρό",
+   "style": "location_noise",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ανακαινίσεις",
+   "vertical": "realestate",
+   "ok": false
+  },
+  {
+   "id": "q0197",
+   "text": "eimai xyloyrgos stoy psyrri",
+   "style": "greeklish",
+   "expected_vertical": "wood",
+   "also_acceptable": [],
+   "business": "ξυλουργός",
+   "vertical": "wood",
+   "ok": true
+  },
+  {
+   "id": "q0198",
+   "text": "xyloyrgeio, ftiachno epipla kata paraggelia",
+   "style": "greeklish_natural",
+   "expected_vertical": "wood",
+   "also_acceptable": [],
+   "business": "ξυλουργός",
+   "vertical": "wood",
+   "ok": true
+  },
+  {
+   "id": "q0199",
+   "text": "ιμε ξιλοιργος στοι ψιρρι",
+   "style": "typos",
+   "expected_vertical": "wood",
+   "also_acceptable": [],
+   "business": "ξυλουργός",
+   "vertical": "wood",
+   "ok": true
+  },
+  {
+   "id": "q0204",
+   "text": "Κάνουμε αλλαγή λαδιών, φρένα και ευθυγράμμιση στο Γκάζι",
+   "style": "indirect",
+   "expected_vertical": "garage",
+   "also_acceptable": [],
+   "business": "συνεργείο αυτοκινήτων",
+   "vertical": "garage",
+   "ok": true
+  },
+  {
+   "id": "q0205",
+   "text": "Auto Service Σταθόπουλος, Γκάζι",
+   "style": "brand",
+   "expected_vertical": "garage",
+   "also_acceptable": [],
+   "business": "συνεργείο αυτοκινήτων",
+   "vertical": "garage",
+   "ok": true
+  },
+  {
+   "id": "q0207",
+   "text": "echo synergeio aytokiniton sto gkazi",
+   "style": "greeklish",
+   "expected_vertical": "garage",
+   "also_acceptable": [],
+   "business": "συνεργείο αυτοκινήτων",
+   "vertical": "garage",
+   "ok": true
+  },
+  {
+   "id": "q0208",
+   "text": "synergeio aytokiniton, service kai diagnostikos elegchos",
+   "style": "greeklish_natural",
+   "expected_vertical": "garage",
+   "also_acceptable": [],
+   "business": "συνεργείο αυτοκινήτων",
+   "vertical": "garage",
+   "ok": true
+  },
+  {
+   "id": "q0209",
+   "text": "εχο σινεργιο ετοκινιτον στο γκαζι",
+   "style": "typos",
+   "expected_vertical": "garage",
+   "also_acceptable": [],
+   "business": "συνεργείο αυτοκινήτων",
+   "vertical": "garage",
+   "ok": true
+  },
+  {
+   "id": "q0214",
+   "text": "Κάνουμε προπονήσεις δύναμης, ομαδικά και personal training στη Λάρισα",
+   "style": "indirect",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "γυμναστήριο",
+   "vertical": "gym",
+   "ok": true
+  },
+  {
+   "id": "q0219",
+   "text": "εχο γιμναστιριο στι λαρισα",
+   "style": "typos",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "γυμναστήριο",
+   "vertical": "gym",
+   "ok": true
+  },
+  {
+   "id": "q0224",
+   "text": "Κάνουμε reformer, mat και ενδυνάμωση κορμού στο Ηράκλειο",
+   "style": "indirect",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "πιλάτες",
+   "vertical": "aesthetics",
+   "ok": false
+  },
+  {
+   "id": "q0237",
+   "text": "echo mesitiko grafeio sta exarcheia",
+   "style": "greeklish",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "μεσιτικό",
+   "vertical": "realestate",
+   "ok": true
+  },
+  {
+   "id": "q0238",
+   "text": "mesitiko grafeio, ascholoymai me poliseis kai enoikiaseis",
+   "style": "greeklish_natural",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "μεσιτικό",
+   "vertical": "realestate",
+   "ok": true
+  },
+  {
+   "id": "q0247",
+   "text": "echo enoikiazomena domatia sti glyfada",
+   "style": "greeklish",
+   "expected_vertical": "rooms",
+   "also_acceptable": [],
+   "business": "ενοικιαζόμενα δωμάτια",
+   "vertical": "rooms",
+   "ok": true
+  },
+  {
+   "id": "q0248",
+   "text": "echoyme okto domatia me thea sti thalassa kai proino",
+   "style": "greeklish_natural",
+   "expected_vertical": "rooms",
+   "also_acceptable": [],
+   "business": "ενοικιαζόμενα δωμάτια",
+   "vertical": "rooms",
+   "ok": true
+  },
+  {
+   "id": "q0257",
+   "text": "echo katastima me roycha sto chalandri",
+   "style": "greeklish",
+   "expected_vertical": "retail",
+   "also_acceptable": [],
+   "business": "κατάστημα ρούχων",
+   "vertical": "retail",
+   "ok": true
+  },
+  {
+   "id": "q0258",
+   "text": "mikro katastima me gynaikeia roycha kai axesoyar",
+   "style": "greeklish_natural",
+   "expected_vertical": "retail",
+   "also_acceptable": [],
+   "business": "κατάστημα ρούχων",
+   "vertical": "retail",
+   "ok": true
+  },
+  {
+   "id": "q0259",
+   "text": "εχο καταστιμα με ροιχα στο χαλανδρι",
+   "style": "typos",
+   "expected_vertical": "retail",
+   "also_acceptable": [],
+   "business": "κατάστημα ρούχων",
+   "vertical": "retail",
+   "ok": true
+  },
+  {
+   "id": "q0277",
+   "text": "echo elaiona kai parago elaiolado ston peiraia",
+   "style": "greeklish",
+   "expected_vertical": "farm",
+   "also_acceptable": [],
+   "business": "ελαιώνας",
+   "vertical": "food",
+   "ok": false
+  },
+  {
+   "id": "q0278",
+   "text": "oikogeneiakos elaionas, paragoyme exairetiko partheno elaiolado",
+   "style": "greeklish_natural",
+   "expected_vertical": "farm",
+   "also_acceptable": [],
+   "business": "ελαιώνας",
+   "vertical": "farm",
+   "ok": true
+  },
+  {
+   "id": "q0279",
+   "text": "εχο ελεονα κε παραγο ελεολαδο στον πιρεα",
+   "style": "typos",
+   "expected_vertical": "farm",
+   "also_acceptable": [],
+   "business": "ελαιώνας",
+   "vertical": "farm",
+   "ok": true
+  },
+  {
+   "id": "q0287",
+   "text": "echo andriko kommotirio sto peristeri",
+   "style": "greeklish",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "κομμωτήριο ανδρικό",
+   "vertical": "beauty",
+   "ok": true
+  },
+  {
+   "id": "q0288",
+   "text": "andriko kommotirio, doyleyoyme me rantevoy",
+   "style": "greeklish_natural",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "κομμωτήριο ανδρικό",
+   "vertical": "beauty",
+   "ok": true
+  },
+  {
+   "id": "q0289",
+   "text": "εχο ανδρικο κομοτιριο στο περιστερι",
+   "style": "typos",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "κομμωτήριο ανδρικό",
+   "vertical": "retail",
+   "ok": false
+  },
+  {
+   "id": "q0294",
+   "text": "Κάνουμε θεραπείες προσώπου, peeling και σύσφιξη στη Θεσσαλονίκη",
+   "style": "indirect",
+   "expected_vertical": "aesthetics",
+   "also_acceptable": [],
+   "business": "κέντρο ομορφιάς",
+   "vertical": "beauty",
+   "ok": false
+  },
+  {
+   "id": "q0296",
+   "text": "Skin clinic για anti-aging treatments στη Θεσσαλονίκη",
+   "style": "mixed",
+   "expected_vertical": "aesthetics",
+   "also_acceptable": [],
+   "business": "κέντρο ομορφιάς",
+   "vertical": "aesthetics",
+   "ok": true
+  },
+  {
+   "id": "q0298",
+   "text": "kentro omorfias me therapeies prosopoy kai somatos",
+   "style": "greeklish_natural",
+   "expected_vertical": "aesthetics",
+   "also_acceptable": [],
+   "business": "κέντρο ομορφιάς",
+   "vertical": "aesthetics",
+   "ok": true
+  },
+  {
+   "id": "q0307",
+   "text": "echo artopoieio sto kolonaki",
+   "style": "greeklish",
+   "expected_vertical": "bakery",
+   "also_acceptable": [],
+   "business": "αρτοποιείο",
+   "vertical": "bakery",
+   "ok": true
+  },
+  {
+   "id": "q0308",
+   "text": "artopoieio me diko mas prozymi kai kathimerino psisimo",
+   "style": "greeklish_natural",
+   "expected_vertical": "bakery",
+   "also_acceptable": [],
+   "business": "αρτοποιείο",
+   "vertical": "bakery",
+   "ok": true
+  },
+  {
+   "id": "q0317",
+   "text": "echo kafekopteio stoy psyrri",
+   "style": "greeklish",
+   "expected_vertical": "cafe",
+   "also_acceptable": [],
+   "business": "καφεκοπτείο",
+   "vertical": "cafe",
+   "ok": true
+  },
+  {
+   "id": "q0318",
+   "text": "kafekopteio, kavoyrdizoyme diko mas kafe kathe vdomada",
+   "style": "greeklish_natural",
+   "expected_vertical": "cafe",
+   "also_acceptable": [],
+   "business": "καφεκοπτείο",
+   "vertical": "cafe",
+   "ok": true
+  },
+  {
+   "id": "q0321",
+   "text": "ψητοπωλείο",
+   "style": "short",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "ψητοπωλείο",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0322",
+   "text": "Έχω ψητοπωλείο στο Γκάζι",
+   "style": "clean",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "ψητοπωλείο",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0325",
+   "text": "Ο Θανάσης, ψητοπωλείο, Γκάζι",
+   "style": "brand",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "ψητοπωλείο",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0326",
+   "text": "Souvlaki spot με delivery στο Γκάζι",
+   "style": "mixed",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "ψητοπωλείο",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0327",
+   "text": "echo psitopoleio sto gkazi",
+   "style": "greeklish",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "ψητοπωλείο",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0328",
+   "text": "psitopoleio me soyvlaki kai delivery sti geitonia",
+   "style": "greeklish_natural",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "ψητοπωλείο",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0329",
+   "text": "εχο ψιτοπολιο στο γκαζι",
+   "style": "typos",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "ψητοπωλείο",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0330",
+   "text": "Έχω ψητοπωλείο στο Χαλάνδρι, κοντά στο μετρό",
+   "style": "location_noise",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "ψητοπωλείο",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0334",
+   "text": "Βάζουμε σιδεράκια και διαφανείς νάρθηκες ευθυγράμμισης στη Λάρισα",
+   "style": "indirect",
+   "expected_vertical": "dentist",
+   "also_acceptable": [],
+   "business": "ορθοδοντικός",
+   "vertical": "dentist",
+   "ok": true
+  },
+  {
+   "id": "q0336",
+   "text": "Orthodontics για invisible aligners στη Λάρισα",
+   "style": "mixed",
+   "expected_vertical": "dentist",
+   "also_acceptable": [],
+   "business": "ορθοδοντικός",
+   "vertical": "dentist",
+   "ok": true
+  },
+  {
+   "id": "q0337",
+   "text": "eimai orthodontikos sti larisa",
+   "style": "greeklish",
+   "expected_vertical": "dentist",
+   "also_acceptable": [],
+   "business": "ορθοδοντικός",
+   "vertical": "dentist",
+   "ok": true
+  },
+  {
+   "id": "q0338",
+   "text": "orthodontiko iatreio gia paidia kai enilikes",
+   "style": "greeklish_natural",
+   "expected_vertical": "dentist",
+   "also_acceptable": [],
+   "business": "ορθοδοντικός",
+   "vertical": "dentist",
+   "ok": true
+  },
+  {
+   "id": "q0344",
+   "text": "Κάνουμε εμβολιασμούς, παρακολούθηση ανάπτυξης και συνταγογράφηση στο Ηράκλειο",
+   "style": "indirect",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "παιδίατρος",
+   "vertical": "doctor",
+   "ok": true
+  },
+  {
+   "id": "q0346",
+   "text": "Pediatric clinic για well-child visits στο Ηράκλειο",
+   "style": "mixed",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "παιδίατρος",
+   "vertical": "doctor",
+   "ok": true
+  },
+  {
+   "id": "q0347",
+   "text": "eimai paidiatros sto irakleio",
+   "style": "greeklish",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "παιδίατρος",
+   "vertical": "doctor",
+   "ok": true
+  },
+  {
+   "id": "q0348",
+   "text": "paidiatriko iatreio, parakoloythisi apo ti gennisi",
+   "style": "greeklish_natural",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "παιδίατρος",
+   "vertical": "doctor",
+   "ok": true
+  },
+  {
+   "id": "q0354",
+   "text": "Αναλαμβάνουμε επιχειρηματικά σχέδια, ΕΣΠΑ και οργάνωση στα Εξάρχεια",
+   "style": "indirect",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "σύμβουλος επιχειρήσεων",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0356",
+   "text": "Business consulting για funding και strategy στα Εξάρχεια",
+   "style": "mixed",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "σύμβουλος επιχειρήσεων",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0357",
+   "text": "eimai symvoylos epicheiriseon sta exarcheia",
+   "style": "greeklish",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "σύμβουλος επιχειρήσεων",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0358",
+   "text": "symvoylos epicheiriseon, voithao mikres etaireies me chrimatodotiseis",
+   "style": "greeklish_natural",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "σύμβουλος επιχειρήσεων",
+   "vertical": "professional",
+   "ok": true
+  },
+  {
+   "id": "q0359",
+   "text": "ιμε σιμβοιλος επιχιρισεον στα εξαρχια",
+   "style": "typos",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "σύμβουλος επιχειρήσεων",
+   "vertical": "farm",
+   "ok": false
+  },
+  {
+   "id": "q0366",
+   "text": "Painting services για interior και exterior στη Γλυφάδα",
+   "style": "mixed",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ελαιοχρωματιστής",
+   "vertical": "trade",
+   "ok": true
+  },
+  {
+   "id": "q0367",
+   "text": "eimai elaiochromatistis sti glyfada",
+   "style": "greeklish",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ελαιοχρωματιστής",
+   "vertical": "retail",
+   "ok": false
+  },
+  {
+   "id": "q0368",
+   "text": "elaiochromatistis, vafo spitia kai katastimata",
+   "style": "greeklish_natural",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ελαιοχρωματιστής",
+   "vertical": "retail",
+   "ok": false
+  },
+  {
+   "id": "q0369",
+   "text": "ιμε ελεοχροματιστις στι γλιφαδα",
+   "style": "typos",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ελαιοχρωματιστής",
+   "vertical": "aesthetics",
+   "ok": false
+  },
+  {
+   "id": "q0376",
+   "text": "HVAC technician για installation και service στο Χαλάνδρι",
+   "style": "mixed",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ψυκτικός",
+   "vertical": "trade",
+   "ok": true
+  },
+  {
+   "id": "q0377",
+   "text": "eimai psyktikos sto chalandri",
+   "style": "greeklish",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ψυκτικός",
+   "vertical": "cafe",
+   "ok": false
+  },
+  {
+   "id": "q0378",
+   "text": "technikos klimatismoy, topothetiseis kai syntiriseis",
+   "style": "greeklish_natural",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ψυκτικός",
+   "vertical": "trade",
+   "ok": true
+  },
+  {
+   "id": "q0379",
+   "text": "ιμε ψικτικος στο χαλανδρι",
+   "style": "typos",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ψυκτικός",
+   "vertical": "retail",
+   "ok": false
+  },
+  {
+   "id": "q0384",
+   "text": "Φτιάχνουμε ντουλάπες, βιβλιοθήκες και τραπέζια μασίφ στη Νέα Σμύρνη",
+   "style": "indirect",
+   "expected_vertical": "wood",
+   "also_acceptable": [],
+   "business": "επιπλοποιείο",
+   "vertical": "wood",
+   "ok": true
+  },
+  {
+   "id": "q0387",
+   "text": "echo epiplopoieio sti nea smyrni",
+   "style": "greeklish",
+   "expected_vertical": "wood",
+   "also_acceptable": [],
+   "business": "επιπλοποιείο",
+   "vertical": "retail",
+   "ok": false
+  },
+  {
+   "id": "q0388",
+   "text": "epiplopoieio, kataskeyazoyme epipla kata paraggelia",
+   "style": "greeklish_natural",
+   "expected_vertical": "wood",
+   "also_acceptable": [],
+   "business": "επιπλοποιείο",
+   "vertical": "wood",
+   "ok": true
+  },
+  {
+   "id": "q0394",
+   "text": "Επισκευάζουμε ζημιές αμαξώματος και βάφουμε αυτοκίνητα στον Πειραιά",
+   "style": "indirect",
+   "expected_vertical": "garage",
+   "also_acceptable": [],
+   "business": "φανοποιείο",
+   "vertical": "garage",
+   "ok": true
+  },
+  {
+   "id": "q0397",
+   "text": "echo fanopoieio ston peiraia",
+   "style": "greeklish",
+   "expected_vertical": "garage",
+   "also_acceptable": [],
+   "business": "φανοποιείο",
+   "vertical": "retail",
+   "ok": false
+  },
+  {
+   "id": "q0398",
+   "text": "fanopoieio kai vafeio aytokiniton",
+   "style": "greeklish_natural",
+   "expected_vertical": "garage",
+   "also_acceptable": [],
+   "business": "φανοποιείο",
+   "vertical": "garage",
+   "ok": true
+  },
+  {
+   "id": "q0401",
+   "text": "σχολή πολεμικών τεχνών",
+   "style": "short",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "σχολή πολεμικών τεχνών",
+   "vertical": "gym",
+   "ok": true
+  },
+  {
+   "id": "q0402",
+   "text": "Έχω σχολή πολεμικών τεχνών στο Περιστέρι",
+   "style": "clean",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "σχολή πολεμικών τεχνών",
+   "vertical": "gym",
+   "ok": true
+  },
+  {
+   "id": "q0403",
+   "text": "Σχολή πολεμικών τεχνών με τμήματα παίδων και ενηλίκων στο Περιστέρι",
+   "style": "natural",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "σχολή πολεμικών τεχνών",
+   "vertical": "gym",
+   "ok": true
+  },
+  {
+   "id": "q0404",
+   "text": "Κάνουμε προπονήσεις kick boxing και αυτοάμυνας στο Περιστέρι",
+   "style": "indirect",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "σχολή πολεμικών τεχνών",
+   "vertical": "gym",
+   "ok": true
+  },
+  {
+   "id": "q0406",
+   "text": "Martial arts academy για kickboxing στο Περιστέρι",
+   "style": "mixed",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "σχολή πολεμικών τεχνών",
+   "vertical": "gym",
+   "ok": true
+  },
+  {
+   "id": "q0407",
+   "text": "echo scholi polemikon technon sto peristeri",
+   "style": "greeklish",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "σχολή πολεμικών τεχνών",
+   "vertical": "professional",
+   "ok": false
+  },
+  {
+   "id": "q0408",
+   "text": "scholi polemikon technon me tmimata paidon kai enilikon",
+   "style": "greeklish_natural",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "σχολή πολεμικών τεχνών",
+   "vertical": "professional",
+   "ok": false
+  },
+  {
+   "id": "q0409",
+   "text": "εχο σχολι πολεμικον τεχνον στο περιστερι",
+   "style": "typos",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "σχολή πολεμικών τεχνών",
+   "vertical": "trade",
+   "ok": false
+  },
+  {
+   "id": "q0410",
+   "text": "Έχω σχολή πολεμικών τεχνών στη Λάρισα, κοντά στο μετρό",
+   "style": "location_noise",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "σχολή πολεμικών τεχνών",
+   "vertical": "gym",
+   "ok": true
+  },
+  {
+   "id": "q0416",
+   "text": "Property agency για holiday homes στη Θεσσαλονίκη",
+   "style": "mixed",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "κτηματομεσιτικό",
+   "vertical": "realestate",
+   "ok": true
+  },
+  {
+   "id": "q0418",
+   "text": "ktimatomesitiko grafeio me exeidikeysi se exochika",
+   "style": "greeklish_natural",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "κτηματομεσιτικό",
+   "vertical": "realestate",
+   "ok": true
+  },
+  {
+   "id": "q0427",
+   "text": "echo xenona sto kolonaki",
+   "style": "greeklish",
+   "expected_vertical": "rooms",
+   "also_acceptable": [],
+   "business": "ξενώνας",
+   "vertical": "cafe",
+   "ok": false
+  },
+  {
+   "id": "q0428",
+   "text": "petrinos xenonas sto voyno, anoichta olo ton chrono",
+   "style": "greeklish_natural",
+   "expected_vertical": "rooms",
+   "also_acceptable": [],
+   "business": "ξενώνας",
+   "vertical": "rooms",
+   "ok": true
+  },
+  {
+   "id": "q0429",
+   "text": "εχο ξενονα στο κολονακι",
+   "style": "typos",
+   "expected_vertical": "rooms",
+   "also_acceptable": [],
+   "business": "ξενώνας",
+   "vertical": "rooms",
+   "ok": true
+  },
+  {
+   "id": "q0434",
+   "text": "Πουλάμε βιβλία, χαρτικά και είδη δώρου στου Ψυρρή",
+   "style": "indirect",
+   "expected_vertical": "retail",
+   "also_acceptable": [],
+   "business": "βιβλιοπωλείο",
+   "vertical": "retail",
+   "ok": true
+  },
+  {
+   "id": "q0437",
+   "text": "echo vivliopoleio stoy psyrri",
+   "style": "greeklish",
+   "expected_vertical": "retail",
+   "also_acceptable": [],
+   "business": "βιβλιοπωλείο",
+   "vertical": "retail",
+   "ok": true
+  },
+  {
+   "id": "q0438",
+   "text": "vivliopoleio geitonias me elliniki logotechnia",
+   "style": "greeklish_natural",
+   "expected_vertical": "retail",
+   "also_acceptable": [],
+   "business": "βιβλιοπωλείο",
+   "vertical": "retail",
+   "ok": true
+  },
+  {
+   "id": "q0439",
+   "text": "εχο βιβλιοπολιο στοι ψιρρι",
+   "style": "typos",
+   "expected_vertical": "retail",
+   "also_acceptable": [],
+   "business": "βιβλιοπωλείο",
+   "vertical": "retail",
+   "ok": true
+  },
+  {
+   "id": "q0451",
+   "text": "σπα",
+   "style": "short",
+   "expected_vertical": "massage",
+   "also_acceptable": [
+    "aesthetics",
+    "beauty"
+   ],
+   "business": "σπα",
+   "vertical": "retail",
+   "ok": false
+  },
+  {
+   "id": "q0452",
+   "text": "Έχω σπα στη Λάρισα",
+   "style": "clean",
+   "expected_vertical": "massage",
+   "also_acceptable": [
+    "aesthetics",
+    "beauty"
+   ],
+   "business": "σπα",
+   "vertical": "aesthetics",
+   "ok": true
+  },
+  {
+   "id": "q0458",
+   "text": "kentro eyexias me saoyna, masaz kai therapeies",
+   "style": "greeklish_natural",
+   "expected_vertical": "massage",
+   "also_acceptable": [
+    "aesthetics",
+    "beauty"
+   ],
+   "business": "σπα",
+   "vertical": "massage",
+   "ok": true
+  },
+  {
+   "id": "q0459",
+   "text": "εχο σπα στι λαρισα",
+   "style": "typos",
+   "expected_vertical": "massage",
+   "also_acceptable": [
+    "aesthetics",
+    "beauty"
+   ],
+   "business": "σπα",
+   "vertical": "professional",
+   "ok": false
+  },
+  {
+   "id": "q0460",
+   "text": "Έχω σπα στη Νέα Σμύρνη, κοντά στο μετρό",
+   "style": "location_noise",
+   "expected_vertical": "massage",
+   "also_acceptable": [
+    "aesthetics",
+    "beauty"
+   ],
+   "business": "σπα",
+   "vertical": "aesthetics",
+   "ok": true
+  },
+  {
+   "id": "q0467",
+   "text": "echo kafe mpar sto irakleio",
+   "style": "greeklish",
+   "expected_vertical": "cafe",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "καφέ μπαρ",
+   "vertical": "cafe",
+   "ok": true
+  },
+  {
+   "id": "q0468",
+   "text": "kafe mpar, kafes to proi kai poto to vrady",
+   "style": "greeklish_natural",
+   "expected_vertical": "cafe",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "καφέ μπαρ",
+   "vertical": "cafe",
+   "ok": true
+  },
+  {
+   "id": "q0471",
+   "text": "κάβα",
+   "style": "short",
+   "expected_vertical": "retail",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "κάβα",
+   "vertical": "retail",
+   "ok": true
+  },
+  {
+   "id": "q0472",
+   "text": "Έχω κάβα στα Εξάρχεια",
+   "style": "clean",
+   "expected_vertical": "retail",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "κάβα",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0475",
+   "text": "Οίνος & Πνεύμα, κάβα, Εξάρχεια",
+   "style": "brand",
+   "expected_vertical": "retail",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "κάβα",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0477",
+   "text": "echo kava sta exarcheia",
+   "style": "greeklish",
+   "expected_vertical": "retail",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "κάβα",
+   "vertical": "cafe",
+   "ok": false
+  },
+  {
+   "id": "q0478",
+   "text": "kava me ellinika krasia kai apostagmata",
+   "style": "greeklish_natural",
+   "expected_vertical": "retail",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "κάβα",
+   "vertical": "food",
+   "ok": true
+  },
+  {
+   "id": "q0479",
+   "text": "εχο καβα στα εξαρχια",
+   "style": "typos",
+   "expected_vertical": "retail",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "κάβα",
+   "vertical": "cafe",
+   "ok": false
+  },
+  {
+   "id": "q0480",
+   "text": "Έχω κάβα στο Περιστέρι, κοντά στο μετρό",
+   "style": "location_noise",
+   "expected_vertical": "retail",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "κάβα",
+   "vertical": "retail",
+   "ok": true
+  }
+ ],
+ "keyword_failures": [
+  {
+   "id": "q0025",
+   "text": "Nail Bar Elena, νύχια, Σμύρνη",
+   "style": "brand",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "νυχάδικο",
+   "vertical": "food",
+   "culprits": [],
+   "scores": {
+    "food": 12,
+    "beauty": 8
+   }
+  },
+  {
+   "id": "q0045",
+   "text": "Zen Spa, μασάζ, Περιστέρι",
+   "style": "brand",
+   "expected_vertical": "massage",
+   "also_acceptable": [],
+   "business": "μασάζ",
+   "vertical": "aesthetics",
+   "culprits": [],
+   "scores": {
+    "aesthetics": 12,
+    "massage": 8
+   }
+  },
+  {
+   "id": "q0046",
+   "text": "Wellness studio για massage και spa treatments στο Περιστέρι",
+   "style": "mixed",
+   "expected_vertical": "massage",
+   "also_acceptable": [],
+   "business": "μασάζ",
+   "vertical": "aesthetics",
+   "culprits": [],
+   "scores": {
+    "aesthetics": 12,
+    "massage": 8
+   }
+  },
+  {
+   "id": "q0057",
+   "text": "echo foyrno sti thessaloniki",
+   "style": "greeklish",
+   "expected_vertical": "bakery",
+   "also_acceptable": [],
+   "business": "φούρνος",
+   "vertical": "beauty",
+   "culprits": [
+    [
+     "salon",
+     "αδύναμο"
+    ]
+   ],
+   "scores": {
+    "beauty": 2
+   }
+  },
+  {
+   "id": "q0084",
+   "text": "Μαγειρεύουμε κατσικάκι στο φούρνο, γεμιστά και φρέσκα ψάρια στο Γκάζι",
+   "style": "indirect",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "ταβέρνα",
+   "vertical": "bakery",
+   "culprits": [
+    [
+     "φουρν",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "bakery": 12
+   }
+  },
+  {
+   "id": "q0094",
+   "text": "Σερβίρουμε πιάτα ημέρας, κρασιά και επιδόρπια στη Λάρισα",
+   "style": "indirect",
+   "expected_vertical": "food",
+   "also_acceptable": [],
+   "business": "εστιατόριο",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "κρασ",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8
+   }
+  },
+  {
+   "id": "q0121",
+   "text": "φυσικοθεραπευτήριο",
+   "style": "short",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "φυσικοθεραπευτήριο",
+   "vertical": "massage",
+   "culprits": [],
+   "scores": {
+    "doctor": 8,
+    "massage": 12
+   }
+  },
+  {
+   "id": "q0122",
+   "text": "Έχω φυσικοθεραπευτήριο στη Γλυφάδα",
+   "style": "clean",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "φυσικοθεραπευτήριο",
+   "vertical": "massage",
+   "culprits": [],
+   "scores": {
+    "doctor": 8,
+    "massage": 12
+   }
+  },
+  {
+   "id": "q0123",
+   "text": "Φυσικοθεραπευτής, δουλεύω με αθλητές και μετεγχειρητικά στη Γλυφάδα",
+   "style": "natural",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "φυσικοθεραπευτήριο",
+   "vertical": "massage",
+   "culprits": [],
+   "scores": {
+    "doctor": 8,
+    "massage": 12
+   }
+  },
+  {
+   "id": "q0125",
+   "text": "Physio Lab, φυσικοθεραπεία, Γλυφάδα",
+   "style": "brand",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "φυσικοθεραπευτήριο",
+   "vertical": "massage",
+   "culprits": [],
+   "scores": {
+    "doctor": 8,
+    "massage": 12
+   }
+  },
+  {
+   "id": "q0130",
+   "text": "Έχω φυσικοθεραπευτήριο στη Θεσσαλονίκη, κοντά στο μετρό",
+   "style": "location_noise",
+   "expected_vertical": "doctor",
+   "also_acceptable": [],
+   "business": "φυσικοθεραπευτήριο",
+   "vertical": "massage",
+   "culprits": [],
+   "scores": {
+    "doctor": 8,
+    "massage": 12
+   }
+  },
+  {
+   "id": "q0137",
+   "text": "echo farmakeio sto chalandri",
+   "style": "greeklish",
+   "expected_vertical": "pharmacy",
+   "also_acceptable": [],
+   "business": "φαρμακείο",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "farm",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8
+   }
+  },
+  {
+   "id": "q0138",
+   "text": "farmakeio geitonias, anoichta kai ta savvata",
+   "style": "greeklish_natural",
+   "expected_vertical": "pharmacy",
+   "also_acceptable": [],
+   "business": "φαρμακείο",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "farm",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8
+   }
+  },
+  {
+   "id": "q0144",
+   "text": "Αναλαμβάνουμε συμβάσεις, εργατικές διαφορές και δικαστικές υποθέσεις στη Νέα Σμύρνη",
+   "style": "indirect",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "δικηγόρος",
+   "vertical": "pet",
+   "culprits": [
+    [
+     "γατ",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "pet": 8
+   }
+  },
+  {
+   "id": "q0146",
+   "text": "Law firm για corporate και εργατικά στη Νέα Σμύρνη",
+   "style": "mixed",
+   "expected_vertical": "professional",
+   "also_acceptable": [],
+   "business": "δικηγόρος",
+   "vertical": "pet",
+   "culprits": [
+    [
+     "γατ",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "pet": 8
+   }
+  },
+  {
+   "id": "q0177",
+   "text": "eimai ilektrologos sti thessaloniki",
+   "style": "greeklish",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ηλεκτρολόγος",
+   "vertical": "beauty",
+   "culprits": [
+    [
+     "salon",
+     "αδύναμο"
+    ]
+   ],
+   "scores": {
+    "beauty": 2
+   }
+  },
+  {
+   "id": "q0184",
+   "text": "Κάνουμε μπάνια, κουζίνες, ελαιοχρωματισμούς και πλακάκια στο Κολωνάκι",
+   "style": "indirect",
+   "expected_vertical": "trade",
+   "also_acceptable": [],
+   "business": "ανακαινίσεις",
+   "vertical": "wood",
+   "culprits": [
+    [
+     "κουζιν",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "wood": 8,
+    "trade": 8
+   }
+  },
+  {
+   "id": "q0286",
+   "text": "Men's grooming για haircut και styling στο Περιστέρι",
+   "style": "mixed",
+   "expected_vertical": "beauty",
+   "also_acceptable": [],
+   "business": "κομμωτήριο ανδρικό",
+   "vertical": "pet",
+   "culprits": [
+    [
+     "grooming",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "pet": 8
+   }
+  },
+  {
+   "id": "q0297",
+   "text": "echo kentro omorfias sti thessaloniki",
+   "style": "greeklish",
+   "expected_vertical": "aesthetics",
+   "also_acceptable": [],
+   "business": "κέντρο ομορφιάς",
+   "vertical": "beauty",
+   "culprits": [
+    [
+     "salon",
+     "αδύναμο"
+    ]
+   ],
+   "scores": {
+    "beauty": 2
+   }
+  },
+  {
+   "id": "q0386",
+   "text": "Furniture workshop για bespoke κατασκευές στη Νέα Σμύρνη",
+   "style": "mixed",
+   "expected_vertical": "wood",
+   "also_acceptable": [],
+   "business": "επιπλοποιείο",
+   "vertical": "retail",
+   "culprits": [],
+   "scores": {
+    "retail": 3
+   }
+  },
+  {
+   "id": "q0396",
+   "text": "Body shop για dent repair και βαφή στον Πειραιά",
+   "style": "mixed",
+   "expected_vertical": "garage",
+   "also_acceptable": [],
+   "business": "φανοποιείο",
+   "vertical": "retail",
+   "culprits": [],
+   "scores": {
+    "retail": 3
+   }
+  },
+  {
+   "id": "q0405",
+   "text": "Spartan Dojo, πολεμικές τέχνες, Περιστέρι",
+   "style": "brand",
+   "expected_vertical": "gym",
+   "also_acceptable": [],
+   "business": "σχολή πολεμικών τεχνών",
+   "vertical": "aesthetics",
+   "culprits": [],
+   "scores": {
+    "aesthetics": 12,
+    "massage": 2
+   }
+  },
+  {
+   "id": "q0411",
+   "text": "κτηματομεσιτικό",
+   "style": "short",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "κτηματομεσιτικό",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "κτημα",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8,
+    "realestate": 8
+   }
+  },
+  {
+   "id": "q0412",
+   "text": "Έχω κτηματομεσιτικό γραφείο στη Θεσσαλονίκη",
+   "style": "clean",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "κτηματομεσιτικό",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "κτημα",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8,
+    "realestate": 8
+   }
+  },
+  {
+   "id": "q0413",
+   "text": "Κτηματομεσιτικό γραφείο με εξειδίκευση σε εξοχικά στη Θεσσαλονίκη",
+   "style": "natural",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "κτηματομεσιτικό",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "κτημα",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8,
+    "realestate": 8
+   }
+  },
+  {
+   "id": "q0414",
+   "text": "Πουλάμε και ενοικιάζουμε ακίνητα, με φωτογράφιση και εκτίμηση στη Θεσσαλονίκη",
+   "style": "indirect",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "κτηματομεσιτικό",
+   "vertical": "rooms",
+   "culprits": [],
+   "scores": {
+    "rooms": 12,
+    "realestate": 8
+   }
+  },
+  {
+   "id": "q0415",
+   "text": "Villa Agency, ακίνητα, Θεσσαλονίκη",
+   "style": "brand",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "κτηματομεσιτικό",
+   "vertical": "rooms",
+   "culprits": [
+    [
+     "villa",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "rooms": 8,
+    "realestate": 8
+   }
+  },
+  {
+   "id": "q0417",
+   "text": "echo ktimatomesitiko grafeio sti thessaloniki",
+   "style": "greeklish",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "κτηματομεσιτικό",
+   "vertical": "beauty",
+   "culprits": [
+    [
+     "salon",
+     "αδύναμο"
+    ]
+   ],
+   "scores": {
+    "beauty": 2
+   }
+  },
+  {
+   "id": "q0420",
+   "text": "Έχω κτηματομεσιτικό γραφείο στο Ηράκλειο, κοντά στο μετρό",
+   "style": "location_noise",
+   "expected_vertical": "realestate",
+   "also_acceptable": [],
+   "business": "κτηματομεσιτικό",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "κτημα",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8,
+    "realestate": 8
+   }
+  },
+  {
+   "id": "q0444",
+   "text": "Πουλάμε συμπληρώματα διατροφής, βρεφικά και δερμοκαλλυντικά στο Γκάζι",
+   "style": "indirect",
+   "expected_vertical": "pharmacy",
+   "also_acceptable": [],
+   "business": "παραφαρμακείο",
+   "vertical": "doctor",
+   "culprits": [
+    [
+     "ιατρ",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "pharmacy": 8,
+    "doctor": 12
+   }
+  },
+  {
+   "id": "q0447",
+   "text": "echo parafarmakeio sto gkazi",
+   "style": "greeklish",
+   "expected_vertical": "pharmacy",
+   "also_acceptable": [],
+   "business": "παραφαρμακείο",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "farm",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8
+   }
+  },
+  {
+   "id": "q0448",
+   "text": "parafarmakeio me kallyntika kai sympliromata",
+   "style": "greeklish_natural",
+   "expected_vertical": "pharmacy",
+   "also_acceptable": [],
+   "business": "παραφαρμακείο",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "farm",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8
+   }
+  },
+  {
+   "id": "q0473",
+   "text": "Κάβα με ελληνικά κρασιά και αποστάγματα στα Εξάρχεια",
+   "style": "natural",
+   "expected_vertical": "retail",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "κάβα",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "κρασ",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8
+   }
+  },
+  {
+   "id": "q0474",
+   "text": "Πουλάμε κρασιά, ποτά και προϊόντα delicatessen στα Εξάρχεια",
+   "style": "indirect",
+   "expected_vertical": "retail",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "κάβα",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "κρασ",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8
+   }
+  },
+  {
+   "id": "q0476",
+   "text": "Wine shop με local κρασιά στα Εξάρχεια",
+   "style": "mixed",
+   "expected_vertical": "retail",
+   "also_acceptable": [
+    "food"
+   ],
+   "business": "κάβα",
+   "vertical": "farm",
+   "culprits": [
+    [
+     "κρασ",
+     "ΙΣΧΥΡΟ"
+    ]
+   ],
+   "scores": {
+    "farm": 8,
+    "retail": 3
+   }
+  }
+ ]
+}

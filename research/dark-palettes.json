@@ -1,0 +1,70 @@
+{
+ "palettes": {
+  "warm": {
+   "surface": "#281913",
+   "surface-2": "#442a21",
+   "surface-deep": "#19100c",
+   "ink": "#e8e4e3",
+   "ink-soft": "#ac9891",
+   "on-deep": "#f3f2f1",
+   "accent": "#d68566",
+   "on-accent": "#141414",
+   "accent-ink": "#d68566",
+   "accent-on-deep": "#d68566",
+   "line": "#6c4334"
+  },
+  "forest": {
+   "surface": "#102017",
+   "surface-2": "#1b3627",
+   "surface-deep": "#0a140e",
+   "ink": "#e3e8e5",
+   "ink-soft": "#91ab9d",
+   "on-deep": "#f1f3f2",
+   "accent": "#72ca99",
+   "on-accent": "#141414",
+   "accent-ink": "#72ca99",
+   "accent-on-deep": "#72ca99",
+   "line": "#2b563e"
+  },
+  "ocean": {
+   "surface": "#111f23",
+   "surface-2": "#1d333c",
+   "surface-deep": "#0b1316",
+   "ink": "#e3e7e8",
+   "ink-soft": "#91a5ac",
+   "on-deep": "#f1f3f3",
+   "accent": "#63bbda",
+   "on-accent": "#141414",
+   "accent-ink": "#63bbda",
+   "accent-on-deep": "#63bbda",
+   "line": "#2e525f"
+  },
+  "rose": {
+   "surface": "#2d161c",
+   "surface-2": "#4b242e",
+   "surface-deep": "#1d0e12",
+   "ink": "#e8e3e4",
+   "ink-soft": "#ac9197",
+   "on-deep": "#f3f1f2",
+   "accent": "#ca7289",
+   "on-accent": "#141414",
+   "accent-ink": "#cf8194",
+   "accent-on-deep": "#ca7289",
+   "line": "#783a4a"
+  },
+  "mono": {
+   "surface": "#1d1d1d",
+   "surface-2": "#303030",
+   "surface-deep": "#121212",
+   "ink": "#e6e6e6",
+   "ink-soft": "#9e9e9e",
+   "on-deep": "#f2f2f2",
+   "accent": "#dbdbdb",
+   "on-accent": "#141414",
+   "accent-ink": "#dbdbdb",
+   "accent-on-deep": "#dbdbdb",
+   "line": "#4e4e4e"
+  }
+ },
+ "fails": []
+}

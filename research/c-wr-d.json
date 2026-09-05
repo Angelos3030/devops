@@ -1,0 +1,1250 @@
+[
+ {
+  "theme": "aegean",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 6,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Κράτηση",
+    "tag": "a",
+    "cls": "Aegean_navCall__TY851",
+    "size": 13.6,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.49,
+    "worst": 1.38,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(78,97,105)",
+    "bgRole": null,
+    "variance": 0.116,
+    "onPhoto": true
+   },
+   {
+    "id": 2,
+    "text": "Δωμάτια με θέα · Πάρος",
+    "tag": "span",
+    "cls": "Aegean_eyebrow__6TFBO",
+    "size": 11.84,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 8.16,
+    "worst": 3.87,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(44,83,111)",
+    "bgRole": null,
+    "variance": 0.031,
+    "onPhoto": true
+   },
+   {
+    "id": 4,
+    "text": "Δωμάτια δίπλα στο κύμα, με πρω",
+    "tag": "p",
+    "cls": "Aegean_lede__ow3x8",
+    "size": 20,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 4.83,
+    "worst": 2.85,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(92,117,135)",
+    "bgRole": null,
+    "variance": 0.053,
+    "onPhoto": true
+   },
+   {
+    "id": 5,
+    "text": "Κλείσε δωμάτιο · 22840 00000",
+    "tag": "a",
+    "cls": "Aegean_cta__C820c",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 14.94,
+    "worst": 1,
+    "fg": "rgb(45,31,25)",
+    "fgRole": "surface-deep",
+    "bg": "rgb(247,248,249)",
+    "bgRole": null,
+    "variance": 0.18,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "aegean",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 6,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Κράτηση",
+    "tag": "a",
+    "cls": "Aegean_navCall__TY851",
+    "size": 13.6,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.49,
+    "worst": 1.38,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(78,97,105)",
+    "bgRole": null,
+    "variance": 0.116,
+    "onPhoto": true
+   },
+   {
+    "id": 2,
+    "text": "Δωμάτια με θέα · Πάρος",
+    "tag": "span",
+    "cls": "Aegean_eyebrow__6TFBO",
+    "size": 11.84,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 8.16,
+    "worst": 3.87,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(44,83,111)",
+    "bgRole": null,
+    "variance": 0.031,
+    "onPhoto": true
+   },
+   {
+    "id": 4,
+    "text": "Δωμάτια δίπλα στο κύμα, με πρω",
+    "tag": "p",
+    "cls": "Aegean_lede__ow3x8",
+    "size": 20,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 4.83,
+    "worst": 2.85,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(92,117,135)",
+    "bgRole": null,
+    "variance": 0.053,
+    "onPhoto": true
+   },
+   {
+    "id": 5,
+    "text": "Κλείσε δωμάτιο · 22840 00000",
+    "tag": "a",
+    "cls": "Aegean_cta__C820c",
+    "size": 15.2,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 13.52,
+    "worst": 1.1,
+    "fg": "rgb(55,37,42)",
+    "fgRole": "surface-deep",
+    "bg": "rgb(247,248,249)",
+    "bgRole": null,
+    "variance": 0.18,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "airspace-office",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Κλείσε συνάντηση",
+    "tag": "a",
+    "cls": "AirspaceOffice_navCta__Rik3H",
+    "size": 14.88,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.68,
+    "worst": 1.21,
+    "fg": "rgb(165,77,45)",
+    "fgRole": "accent-ink",
+    "bg": "rgb(244,231,220)",
+    "bgRole": null,
+    "variance": 0.162,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "airspace-office",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 10,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 4,
+    "text": "Κλείσε συνάντηση",
+    "tag": "a",
+    "cls": "AirspaceOffice_navCta__Rik3H",
+    "size": 14.88,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.64,
+    "worst": 1.21,
+    "fg": "rgb(163,78,100)",
+    "fgRole": "accent-ink",
+    "bg": "rgb(246,233,236)",
+    "bgRole": null,
+    "variance": 0.166,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "area-first",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "area-first",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "bakery-editorial",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 7,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "bakery-editorial",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 7,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "barber-shop",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 12,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Hair studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BarberSidebar_kicker__AyIlB",
+    "size": 14,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 2.67,
+    "worst": 1.78,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(192,149,133)",
+    "bgRole": null,
+    "variance": 0.112,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Studio Μαρία",
+    "tag": "h1",
+    "cls": "BarberSidebar_heroTitle__UZEGz",
+    "size": 74,
+    "weight": 700,
+    "need": 3,
+    "ratio": 3.01,
+    "worst": 1.75,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(182,139,123)",
+    "bgRole": null,
+    "variance": 0.118,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Σχεδιάζουμε το look σου με βάσ",
+    "tag": "p",
+    "cls": "BarberSidebar_heroTagline__3zl3_",
+    "size": 18,
+    "weight": 300,
+    "need": 4.5,
+    "ratio": 3.86,
+    "worst": 1.94,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(163,120,104)",
+    "bgRole": null,
+    "variance": 0.119,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Η ιστορία μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButton__NMXOT",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 5.46,
+    "worst": 2,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(166,81,50)",
+    "bgRole": null,
+    "variance": 0.042,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Οι υπηρεσίες μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButtonGhost__1l5iv",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.43,
+    "worst": 1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(150,111,97)",
+    "bgRole": null,
+    "variance": 0.243,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "barber-shop",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 12,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 6,
+    "text": "Hair studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BarberSidebar_kicker__AyIlB",
+    "size": 14,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 2.64,
+    "worst": 1.77,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(191,148,159)",
+    "bgRole": null,
+    "variance": 0.112,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Studio Μαρία",
+    "tag": "h1",
+    "cls": "BarberSidebar_heroTitle__UZEGz",
+    "size": 74,
+    "weight": 700,
+    "need": 3,
+    "ratio": 2.99,
+    "worst": 1.75,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(181,138,149)",
+    "bgRole": null,
+    "variance": 0.118,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Σχεδιάζουμε το look σου με βάσ",
+    "tag": "p",
+    "cls": "BarberSidebar_heroTagline__3zl3_",
+    "size": 18,
+    "weight": 300,
+    "need": 4.5,
+    "ratio": 3.84,
+    "worst": 1.92,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(161,119,129)",
+    "bgRole": null,
+    "variance": 0.12,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Η ιστορία μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButton__NMXOT",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 5.27,
+    "worst": 1.99,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(164,82,103)",
+    "bgRole": null,
+    "variance": 0.041,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Οι υπηρεσίες μας",
+    "tag": "a",
+    "cls": "BarberSidebar_heroButtonGhost__1l5iv",
+    "size": 16,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.39,
+    "worst": 1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(149,110,120)",
+    "bgRole": null,
+    "variance": 0.242,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "beauty-atelier",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 15,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 5,
+    "text": "Skin studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BeautyAtelier_kicker__WmIo0",
+    "size": 11.52,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.68,
+    "worst": 1.96,
+    "fg": "rgb(224,179,163)",
+    "fgRole": null,
+    "bg": "rgb(71,60,51)",
+    "bgRole": null,
+    "variance": 0.06,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "BeautyAtelier_secondary__x9_pD",
+    "size": 12.48,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 17.35,
+    "worst": 1.96,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(24,27,26)",
+    "bgRole": null,
+    "variance": 0.079,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Beauty atelier / Γλυφάδα",
+    "tag": "span",
+    "cls": "BeautyAtelier_heroIndex__42jdL",
+    "size": 10.4,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.91,
+    "worst": 1.48,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(187,188,186)",
+    "bgRole": null,
+    "variance": 0.141,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "beauty-atelier",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 15,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 5,
+    "text": "Skin studio · Γλυφάδα",
+    "tag": "p",
+    "cls": "BeautyAtelier_kicker__WmIo0",
+    "size": 11.52,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.82,
+    "worst": 2.01,
+    "fg": "rgb(223,180,191)",
+    "fgRole": null,
+    "bg": "rgb(71,60,51)",
+    "bgRole": null,
+    "variance": 0.06,
+    "onPhoto": true
+   },
+   {
+    "id": 9,
+    "text": "Δες τις υπηρεσίες",
+    "tag": "a",
+    "cls": "BeautyAtelier_secondary__x9_pD",
+    "size": 12.48,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 17.35,
+    "worst": 1.96,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(24,27,26)",
+    "bgRole": null,
+    "variance": 0.079,
+    "onPhoto": true
+   },
+   {
+    "id": 10,
+    "text": "Beauty atelier / Γλυφάδα",
+    "tag": "span",
+    "cls": "BeautyAtelier_heroIndex__42jdL",
+    "size": 10.4,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 1.91,
+    "worst": 1.48,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(187,188,186)",
+    "bgRole": null,
+    "variance": 0.141,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 11,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "bigspring-advisory",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 11,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "billys-barber",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 8,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "billys-barber",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 8,
+  "shifted": 0,
+  "bad": []
+ },
+ {
+  "theme": "bloom",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 8,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "210 8900000",
+    "tag": "a",
+    "cls": "Bloom_navCall__PA15D",
+    "size": 14.08,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.25,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(189,97,62)",
+    "bgRole": null,
+    "variance": 0.167,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Κλείσε διάγνωση",
+    "tag": "a",
+    "cls": "Bloom_cta__OpT0F",
+    "size": 15.2,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.3,
+    "worst": 1.14,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(188,96,61)",
+    "bgRole": null,
+    "variance": 0.148,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "bloom",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 8,
+  "shifted": 0,
+  "bad": [
+   {
+    "id": 2,
+    "text": "210 8900000",
+    "tag": "a",
+    "cls": "Bloom_navCall__PA15D",
+    "size": 14.08,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 4.09,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(187,98,121)",
+    "bgRole": null,
+    "variance": 0.17,
+    "onPhoto": true
+   },
+   {
+    "id": 6,
+    "text": "Κλείσε διάγνωση",
+    "tag": "a",
+    "cls": "Bloom_cta__OpT0F",
+    "size": 15.2,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.15,
+    "worst": 1.11,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(186,97,119)",
+    "bgRole": null,
+    "variance": 0.151,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "blue-onepage",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.evaluate: Target crashed "
+ },
+ {
+  "theme": "blue-onepage",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "canvas",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "canvas",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "chapter-snap",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "chapter-snap",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "cinematic",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "cinematic",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "clean-work",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "clean-work",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "clinic-triage",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "clinic-triage",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "coast",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "coast",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "constra-build",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "counter-menu",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "directory-index",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "directory-index",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "dispatch",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "dispatch",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "educenter-campus",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "educenter-campus",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "elegance-salon",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "ember",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "ember",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "forge",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "forge",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "freight-lane",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "frost-bakery",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "frost-bakery",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "gymso-fitness",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "heritage-bakery",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "heritage-bakery",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "horizontal-story",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "infinite",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "infinite",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "kinetic",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "kinetic",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "klassy-cafe",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "klassy-cafe",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "living",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "living",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "marble",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "marble",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "medic-care",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "medic-care",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "morning-journal",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "morning-journal",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "moso-interior",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "neighborhood-market",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "neighborhood-market",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "novena-care",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "price-first",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "price-first",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "property-atlas",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "property-atlas",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "pulse",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "pulse",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "quiet",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "quiet",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "runway",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "runway",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "scandinavian-coffee",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "signature",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "signature",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "thomson-stylist",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "thomson-stylist",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "type-gallery",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "type-gallery",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vertical-snap",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "vex-counter",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "villa-agency",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "villa-agency",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "volt",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "volt",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "warmth",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ },
+ {
+  "theme": "warmth",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1"
+ }
+]

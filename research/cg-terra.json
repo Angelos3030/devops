@@ -1,0 +1,302 @@
+[
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 7,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.73,
+    "worst": 1.08,
+    "fg": "rgb(250,246,238)",
+    "fgRole": "on-accent",
+    "bg": "rgb(77,92,52)",
+    "bgRole": "accent-ink",
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 7,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.7,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(185,87,50)",
+    "bgRole": "accent",
+    "variance": 0.027,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 7,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 5.09,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(61,122,88)",
+    "bgRole": "accent",
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 7,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.93,
+    "worst": 1.08,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(37,121,151)",
+    "bgRole": null,
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 7,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.52,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(183,88,112)",
+    "bgRole": "accent",
+    "variance": 0.028,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 7,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 18.1,
+    "worst": 1.06,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(22,22,22)",
+    "bgRole": null,
+    "variance": 0.033,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 10,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 6.73,
+    "worst": 1.08,
+    "fg": "rgb(250,246,238)",
+    "fgRole": "on-accent",
+    "bg": "rgb(77,92,52)",
+    "bgRole": "accent-ink",
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 10,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.7,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(185,87,50)",
+    "bgRole": "accent",
+    "variance": 0.027,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 10,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 5.09,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(61,122,88)",
+    "bgRole": "accent",
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 10,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.93,
+    "worst": 1.08,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(37,121,151)",
+    "bgRole": null,
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 10,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 4.52,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(183,88,112)",
+    "bgRole": "accent",
+    "variance": 0.028,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "terra",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 10,
+  "bad": [
+   {
+    "id": 1,
+    "text": "Παραγγελία",
+    "tag": "a",
+    "cls": "Terra_navCall__fdtQY",
+    "size": 14.08,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 18.1,
+    "worst": 1.06,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(22,22,22)",
+    "bgRole": null,
+    "variance": 0.033,
+    "onPhoto": true
+   }
+  ]
+ }
+]

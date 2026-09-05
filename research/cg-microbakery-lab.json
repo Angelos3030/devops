@@ -1,0 +1,86 @@
+[
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 9,
+  "bad": []
+ },
+ {
+  "theme": "microbakery-lab",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 9,
+  "bad": []
+ }
+]

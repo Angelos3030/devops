@@ -1,0 +1,188 @@
+[
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "original",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "warm",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "forest",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "ocean",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "rose",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "grecko-table",
+  "view": "desktop",
+  "palette": "mono",
+  "error": "Error: page.evaluate: Resulting promise was garbage collected."
+ },
+ {
+  "theme": "grecko-table",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραδοσιακή κουζίνα · Θεσσαλον",
+    "tag": "p",
+    "cls": "",
+    "size": 11.2,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 7.38,
+    "worst": 4.04,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(84,87,77)",
+    "bgRole": null,
+    "variance": 0.049,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "grecko-table",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραδοσιακή κουζίνα · Θεσσαλον",
+    "tag": "p",
+    "cls": "",
+    "size": 11.2,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 7.38,
+    "worst": 4.04,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(84,87,77)",
+    "bgRole": null,
+    "variance": 0.049,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "grecko-table",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραδοσιακή κουζίνα · Θεσσαλον",
+    "tag": "p",
+    "cls": "",
+    "size": 11.2,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 7.38,
+    "worst": 4.04,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(84,87,77)",
+    "bgRole": null,
+    "variance": 0.049,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "grecko-table",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραδοσιακή κουζίνα · Θεσσαλον",
+    "tag": "p",
+    "cls": "",
+    "size": 11.2,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 7.38,
+    "worst": 4.04,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(84,87,77)",
+    "bgRole": null,
+    "variance": 0.049,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "grecko-table",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραδοσιακή κουζίνα · Θεσσαλον",
+    "tag": "p",
+    "cls": "",
+    "size": 11.2,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 7.38,
+    "worst": 4.04,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(84,87,77)",
+    "bgRole": null,
+    "variance": 0.049,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "grecko-table",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 9,
+  "bad": [
+   {
+    "id": 2,
+    "text": "Παραδοσιακή κουζίνα · Θεσσαλον",
+    "tag": "p",
+    "cls": "",
+    "size": 11.2,
+    "weight": 400,
+    "need": 4.5,
+    "ratio": 7.38,
+    "worst": 4.04,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(84,87,77)",
+    "bgRole": null,
+    "variance": 0.049,
+    "onPhoto": true
+   }
+  ]
+ }
+]

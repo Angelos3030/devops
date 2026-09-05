@@ -1,0 +1,384 @@
+[
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 11,
+  "bad": []
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 2,
+    "text": "📞 210 5900000",
+    "tag": "a",
+    "cls": "Motor_navCall__b0mLh",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 6.42,
+    "worst": 1.07,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(213,132,102)",
+    "bgRole": null,
+    "variance": 0.023,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 2,
+    "text": "📞 210 5900000",
+    "tag": "a",
+    "cls": "Motor_navCall__b0mLh",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 9.22,
+    "worst": 1.07,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(113,201,152)",
+    "bgRole": null,
+    "variance": 0.035,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "Motor_cta__bffzL",
+    "size": 16.8,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 9.24,
+    "worst": 1.08,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(114,201,153)",
+    "bgRole": null,
+    "variance": 0.028,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 2,
+    "text": "📞 210 5900000",
+    "tag": "a",
+    "cls": "Motor_navCall__b0mLh",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 8.38,
+    "worst": 1.08,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(99,186,217)",
+    "bgRole": null,
+    "variance": 0.031,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "Motor_cta__bffzL",
+    "size": 16.8,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 8.38,
+    "worst": 1.08,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(99,186,217)",
+    "bgRole": null,
+    "variance": 0.025,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 11,
+  "bad": []
+ },
+ {
+  "theme": "motor",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 2,
+    "text": "📞 210 5900000",
+    "tag": "a",
+    "cls": "Motor_navCall__b0mLh",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 13.18,
+    "worst": 1.07,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(218,218,218)",
+    "bgRole": null,
+    "variance": 0.052,
+    "onPhoto": true
+   },
+   {
+    "id": 8,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "Motor_cta__bffzL",
+    "size": 16.8,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 13.18,
+    "worst": 1.09,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(218,218,218)",
+    "bgRole": null,
+    "variance": 0.042,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "motor",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 11,
+  "bad": []
+ },
+ {
+  "theme": "motor",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 1,
+    "text": "📞 210 5900000",
+    "tag": "a",
+    "cls": "Motor_navCall__b0mLh",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 6.39,
+    "worst": 1.07,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(212,132,101)",
+    "bgRole": null,
+    "variance": 0.032,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "Motor_cta__bffzL",
+    "size": 16.8,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 6.39,
+    "worst": 1.08,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(212,132,101)",
+    "bgRole": null,
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "motor",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 1,
+    "text": "📞 210 5900000",
+    "tag": "a",
+    "cls": "Motor_navCall__b0mLh",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 9.14,
+    "worst": 1.07,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(113,200,152)",
+    "bgRole": null,
+    "variance": 0.049,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "Motor_cta__bffzL",
+    "size": 16.8,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 9.14,
+    "worst": 1.08,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(113,200,152)",
+    "bgRole": null,
+    "variance": 0.044,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "motor",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 1,
+    "text": "📞 210 5900000",
+    "tag": "a",
+    "cls": "Motor_navCall__b0mLh",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 8.29,
+    "worst": 1.08,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(98,185,216)",
+    "bgRole": null,
+    "variance": 0.044,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "Motor_cta__bffzL",
+    "size": 16.8,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 8.29,
+    "worst": 1.08,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(98,185,216)",
+    "bgRole": null,
+    "variance": 0.039,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "motor",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 1,
+    "text": "📞 210 5900000",
+    "tag": "a",
+    "cls": "Motor_navCall__b0mLh",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 5.42,
+    "worst": 1.07,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(200,113,136)",
+    "bgRole": null,
+    "variance": 0.026,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "Motor_cta__bffzL",
+    "size": 16.8,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 5.44,
+    "worst": 1.09,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(201,113,136)",
+    "bgRole": null,
+    "variance": 0.023,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "motor",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 11,
+  "bad": [
+   {
+    "id": 1,
+    "text": "📞 210 5900000",
+    "tag": "a",
+    "cls": "Motor_navCall__b0mLh",
+    "size": 14.4,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 13.05,
+    "worst": 1.07,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(217,217,217)",
+    "bgRole": null,
+    "variance": 0.073,
+    "onPhoto": true
+   },
+   {
+    "id": 7,
+    "text": "Κλείσε ραντεβού",
+    "tag": "a",
+    "cls": "Motor_cta__bffzL",
+    "size": 16.8,
+    "weight": 700,
+    "need": 4.5,
+    "ratio": 13.05,
+    "worst": 1.09,
+    "fg": "rgb(20,20,20)",
+    "fgRole": "on-accent",
+    "bg": "rgb(217,217,217)",
+    "bgRole": null,
+    "variance": 0.066,
+    "onPhoto": true
+   }
+  ]
+ }
+]

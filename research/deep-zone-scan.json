@@ -1,0 +1,226 @@
+{
+ "findings": [
+  {
+   "file": "BeautyAtelier.module.css",
+   "selector": ".gallery figure",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "BillysBarber.module.css",
+   "selector": "---------------------------------------------- hero */ .hero",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "Bloom.module.css",
+   "selector": ".navCall:hover",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "Bloom.module.css",
+   "selector": ".cta:hover",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "BlueOnepage.module.css",
+   "selector": "---------------------------------------------- hero */ .hero",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "CafeCollection.module.css",
+   "selector": ".brunchCollage",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "CafeCollection.module.css",
+   "selector": ".microRail",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "Callout.module.css",
+   "selector": "---------------------------------------------- hero */ .hero",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "Callout.module.css",
+   "selector": ".bandCall:hover",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "CapabilitySystems.module.css",
+   "selector": ".areaShade",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "CapabilitySystems.module.css",
+   "selector": ".horizontal",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "CapabilitySystems.module.css",
+   "selector": ".areaShade",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "CleanService.module.css",
+   "selector": ".heroOverlay",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "CleanService.module.css",
+   "selector": ".nav",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "Coast.module.css",
+   "selector": ".btn:hover",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "FreightLane.module.css",
+   "selector": "---------------------------------------------- hero */ .hero",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "FrostBakery.module.css",
+   "selector": ".hamburger",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "FrostBakery.module.css",
+   "selector": ".builderPreviewBowl",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "FrostBakery.module.css",
+   "selector": ".builderPreviewBowl::before",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "GymsoFitness.module.css",
+   "selector": ".nav",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "GymsoFitness.module.css",
+   "selector": ".heroOverlay",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "GymsoFitness.module.css",
+   "selector": ".feature",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "Marble.module.css",
+   "selector": ".cta:hover",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "MasterCinematic.module.css",
+   "selector": ".frame",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "MasterCinematic.module.css",
+   "selector": ".veil",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "MasterCinematic.module.css",
+   "selector": ".noPhoto",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "MasterCinematic.module.css",
+   "selector": ".veil",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "MasterSpatial.module.css",
+   "selector": ".scene",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "MasterSpatial.module.css",
+   "selector": ".header",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "MosoShowroom.module.css",
+   "selector": ".hero",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "Pulse.module.css",
+   "selector": ".navCall:hover",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "Pulse.module.css",
+   "selector": ".cta:hover",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "Terra.module.css",
+   "selector": ".navCall:hover",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "Terra.module.css",
+   "selector": ".cta:hover",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  },
+  {
+   "file": "VillaAgency.module.css",
+   "selector": ".hero",
+   "problem": "ΛΕΙΠΕΙ color -> κληρονομεί ink",
+   "color": "—"
+  }
+ ],
+ "masked": [
+  {
+   "file": "CapabilitySystems.module.css",
+   "selector": ".horizontal",
+   "value": "#f6f4ee"
+  },
+  {
+   "file": "CapabilitySystems.module.css",
+   "selector": ".snap",
+   "value": "#fff"
+  }
+ ]
+}

@@ -1,0 +1,404 @@
+[
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "original",
+  "checked": 18,
+  "bad": [
+   {
+    "id": 4,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_navCall__pmgK_",
+    "size": 16.8,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 9.66,
+    "worst": 1.02,
+    "fg": "rgb(18,24,31)",
+    "fgRole": "on-accent",
+    "bg": "rgb(254,175,32)",
+    "bgRole": null,
+    "variance": 0.036,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "warm",
+  "checked": 18,
+  "bad": [
+   {
+    "id": 13,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.7,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(185,87,50)",
+    "bgRole": "accent",
+    "variance": 0.027,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "forest",
+  "checked": 18,
+  "bad": [
+   {
+    "id": 13,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.09,
+    "worst": 1.11,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(61,122,88)",
+    "bgRole": "accent",
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "ocean",
+  "checked": 18,
+  "bad": [
+   {
+    "id": 13,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.93,
+    "worst": 1.09,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(36,121,151)",
+    "bgRole": "accent",
+    "variance": 0.029,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "rose",
+  "checked": 18,
+  "bad": [
+   {
+    "id": 13,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.52,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(183,88,112)",
+    "bgRole": "accent",
+    "variance": 0.028,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "desktop",
+  "palette": "mono",
+  "checked": 18,
+  "bad": [
+   {
+    "id": 13,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 18.26,
+    "worst": 1.07,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(21,21,21)",
+    "bgRole": "accent-ink",
+    "variance": 0.035,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "mobile",
+  "palette": "original",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 1,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_navCall__pmgK_",
+    "size": 16.8,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 9.66,
+    "worst": 1.02,
+    "fg": "rgb(18,24,31)",
+    "fgRole": "on-accent",
+    "bg": "rgb(254,175,32)",
+    "bgRole": null,
+    "variance": 0.036,
+    "onPhoto": true
+   },
+   {
+    "id": 11,
+    "text": "24/7 για βλάβες",
+    "tag": "span",
+    "cls": "Callout_quoteAlt__yV97C",
+    "size": 14,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 2.69,
+    "worst": 1.74,
+    "fg": "rgb(74,85,99)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(154,154,154)",
+    "bgRole": null,
+    "variance": 0.442,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "mobile",
+  "palette": "warm",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 10,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.66,
+    "worst": 1.13,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(185,88,51)",
+    "bgRole": null,
+    "variance": 0.054,
+    "onPhoto": true
+   },
+   {
+    "id": 11,
+    "text": "24/7 για βλάβες",
+    "tag": "span",
+    "cls": "Callout_quoteAlt__yV97C",
+    "size": 14,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 2.12,
+    "worst": 2.17,
+    "fg": "rgb(107,94,85)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(152,150,147)",
+    "bgRole": null,
+    "variance": 0.419,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "mobile",
+  "palette": "forest",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 10,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 5.02,
+    "worst": 1.11,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(62,123,89)",
+    "bgRole": null,
+    "variance": 0.057,
+    "onPhoto": true
+   },
+   {
+    "id": 11,
+    "text": "24/7 για βλάβες",
+    "tag": "span",
+    "cls": "Callout_quoteAlt__yV97C",
+    "size": 14,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 1.99,
+    "worst": 2.33,
+    "fg": "rgb(84,106,96)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(151,151,149)",
+    "bgRole": null,
+    "variance": 0.422,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "mobile",
+  "palette": "ocean",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 10,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.87,
+    "worst": 1.09,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(37,122,152)",
+    "bgRole": null,
+    "variance": 0.058,
+    "onPhoto": true
+   },
+   {
+    "id": 11,
+    "text": "24/7 για βλάβες",
+    "tag": "span",
+    "cls": "Callout_quoteAlt__yV97C",
+    "size": 14,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 1.91,
+    "worst": 2.42,
+    "fg": "rgb(84,108,120)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(151,152,152)",
+    "bgRole": null,
+    "variance": 0.425,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "mobile",
+  "palette": "rose",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 10,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 4.49,
+    "worst": 1.1,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(183,89,113)",
+    "bgRole": null,
+    "variance": 0.055,
+    "onPhoto": true
+   },
+   {
+    "id": 11,
+    "text": "24/7 για βλάβες",
+    "tag": "span",
+    "cls": "Callout_quoteAlt__yV97C",
+    "size": 14,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 1.93,
+    "worst": 2.41,
+    "fg": "rgb(117,99,103)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(153,151,151)",
+    "bgRole": null,
+    "variance": 0.424,
+    "onPhoto": true
+   }
+  ]
+ },
+ {
+  "theme": "callout",
+  "view": "mobile",
+  "palette": "mono",
+  "checked": 15,
+  "bad": [
+   {
+    "id": 10,
+    "text": "210 5700000",
+    "tag": "a",
+    "cls": "Callout_quoteBtn__YDxEh",
+    "size": 17.6,
+    "weight": 800,
+    "need": 4.5,
+    "ratio": 17.94,
+    "worst": 1.07,
+    "fg": "rgb(255,255,255)",
+    "fgRole": "on-accent",
+    "bg": "rgb(23,23,22)",
+    "bgRole": null,
+    "variance": 0.07,
+    "onPhoto": true
+   },
+   {
+    "id": 11,
+    "text": "24/7 για βλάβες",
+    "tag": "span",
+    "cls": "Callout_quoteAlt__yV97C",
+    "size": 14,
+    "weight": 600,
+    "need": 4.5,
+    "ratio": 2.62,
+    "worst": 1.77,
+    "fg": "rgb(84,84,84)",
+    "fgRole": "ink-soft",
+    "bg": "rgb(152,152,151)",
+    "bgRole": null,
+    "variance": 0.428,
+    "onPhoto": true
+   }
+  ]
+ }
+]

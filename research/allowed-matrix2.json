@@ -1,0 +1,2258 @@
+[
+ {
+  "t": "horizontal-story",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "infinite",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "infinite",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "infinite",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "kinetic",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "kinetic",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "kinetic",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "morning-journal",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "morning-journal",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "morning-journal",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "morning-journal",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "moso-interior",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "moso-interior",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "moso-interior",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "moso-interior",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "neighborhood-market",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "neighborhood-market",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "neighborhood-market",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "neighborhood-market",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "scandinavian-coffee",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "scandinavian-coffee",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vertical-snap",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vertical-snap",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vertical-snap",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vertical-snap",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "palette=warm",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "palette=forest",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "palette=ocean",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "palette=rose",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "volt",
+  "label": "palette=mono",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "volt",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "volt",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "volt",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "volt",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "warmth",
+  "label": "font=editorial",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "warmth",
+  "label": "font=modern",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "warmth",
+  "label": "font=friendly",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "warmth",
+  "label": "font=classic",
+  "vn": "desktop",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "horizontal-story",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "infinite",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "infinite",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "infinite",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "kinetic",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "kinetic",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "kinetic",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "klassy-cafe",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "living",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "marble",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "medic-care",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "microbakery-lab",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "morning-journal",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "morning-journal",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "morning-journal",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "morning-journal",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "moso-interior",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "moso-interior",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "moso-interior",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "moso-interior",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "motor",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "neighborhood-market",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "neighborhood-market",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "neighborhood-market",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "neighborhood-market",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "novena-care",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "price-first",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "property-atlas",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "pulse",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "quiet",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "runway",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "scandinavian-coffee",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "scandinavian-coffee",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "signature",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "terra",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "thomson-stylist",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "type-gallery",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vertical-snap",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vertical-snap",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vertical-snap",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vertical-snap",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "vex-counter",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "palette=warm",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "palette=forest",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "palette=ocean",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "palette=rose",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "villa-agency",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "volt",
+  "label": "palette=mono",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "volt",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "volt",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "volt",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "volt",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "warmth",
+  "label": "font=editorial",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "warmth",
+  "label": "font=modern",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "warmth",
+  "label": "font=friendly",
+  "vn": "mobile",
+  "fail": []
+ },
+ {
+  "t": "warmth",
+  "label": "font=classic",
+  "vn": "mobile",
+  "fail": []
+ }
+]
