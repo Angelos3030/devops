@@ -25,9 +25,9 @@ ORPHAN_PRIMARY = {
     "medic-care": "doctor",
     "villa-agency": "realestate", "coast": "rooms",
     "moso-interior": "wood",
-    "clean-work": "trade", "dispatch": "trade", "freight-lane": "trade",
+    "clean-work": "trade", "dispatch": "trade", "freight-lane": "logistics",
     "blue-onepage": "professional", "airspace-office": "professional",
-    "educenter-campus": "professional",
+    "educenter-campus": "education",
 }
 
 # Συγγενικά επαγγέλματα: ένα theme κομμωτηρίου στέκει σε κουρείο και σε
@@ -51,6 +51,8 @@ KIN = {
     "retail": ("retail",),
     "gym": ("gym",),
     "professional": ("professional",),
+    "education": ("education",),
+    "logistics": ("logistics",),
     "farm": ("farm",),
     "pet": ("pet", "retail"),
 }

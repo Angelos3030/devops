@@ -181,9 +181,24 @@ def scenario_start_flow() -> str | None:
           f"πήρα {parsed.get('type')!r}", parsed)
     check(bool(parsed.get("city")), DATA, "αναγνώρισε την πόλη", context=parsed)
 
-    r = call("GET", f"/progress/{cid}")
+    # ΤΟ /progress ΘΕΛΕΙ ΤΑΥΤΟΤΗΤΑ. Στη ροή «site first» δεν υπάρχει ακόμα
+    # λογαριασμός, οπότε το διαπιστευτήριο είναι το claim token που γύρισε το
+    # /start. Το test το καλούσε ΓΥΜΝΟ και έπαιρνε 401 — έμεινε πίσω από το
+    # security track που έκλεισε τα πέντε αφύλακτα endpoints. Το σωστό δεν
+    # είναι να χαλαρώσει ο endpoint· είναι να στείλει το test το token.
+    claim = data.get("claim_token")
+    check(bool(claim), AUTH, "το /start επιστρέφει claim token")
+    r = call("GET", f"/progress/{cid}", headers={"X-Vitrina-Claim": claim or ""})
     check(r.status_code == 200 and len(r.json().get("stages", [])) == 5,
           API_ERR, "GET /progress επιστρέφει 5 στάδια", f"HTTP {r.status_code}")
+
+    # Και ο αρνητικός: χωρίς διαπιστευτήριο ΔΕΝ διαβάζεται.
+    r = call("GET", f"/progress/{cid}")
+    check(r.status_code in (401, 403), AUTH,
+          "το /progress απορρίπτει ανώνυμο αίτημα", f"HTTP {r.status_code}")
+    r = call("GET", f"/progress/{cid}", headers={"X-Vitrina-Claim": "x" * 40})
+    check(r.status_code in (401, 403, 404), AUTH,
+          "το /progress απορρίπτει λάθος claim token", f"HTTP {r.status_code}")
     return cid
 
 
@@ -220,7 +235,28 @@ def scenario_content(cid: str, token: str) -> None:
     got = call("GET", f"/clients/{cid}/content", token=token).json().get("content", {})
     check(got.get("phone") == "2100009999", DATA, "το τηλέφωνο αποθηκεύτηκε", context=got)
     check(got.get("email") == "qa-cafe@vitrina.test", DATA, "το email αποθηκεύτηκε")
-    check(got.get("facebook") == "@kafedokimi", DATA, "το facebook αποθηκεύτηκε ΟΠΩΣ γράφτηκε")
+    # ΚΑΝΟΝΙΚΗ ΜΟΡΦΗ, ΟΧΙ ΑΥΤΟΥΣΙΑ. Ο πελάτης γράφει «@kafedokimi» ή
+    # «instagram.com/…»· αποθηκεύεται πλήρες HTTPS URL, μία φορά, στον server.
+    # Έτσι το template δεν χρειάζεται να μαντεύει και κάθε αναγνώστης της βάσης
+    # βλέπει το ίδιο πράγμα.
+    check(got.get("facebook") == "https://facebook.com/kafedokimi",
+          DATA, "το facebook αποθηκεύτηκε σε κανονική μορφή", str(got.get("facebook")))
+    check(got.get("instagram") == "https://instagram.com/kafedokimi",
+          DATA, "το instagram αποθηκεύτηκε σε κανονική μορφή", str(got.get("instagram")))
+
+    # Η ΣΙΩΠΗΛΗ ΑΠΩΛΕΙΑ ΗΤΑΝ ΤΟ BUG. Μη κανονικοποιήσιμη τιμή πρέπει να
+    # ΑΠΟΡΡΙΠΤΕΤΑΙ με μήνυμα, όχι να αποθηκεύεται κενή με HTTP 200.
+    r = call("PUT", f"/clients/{cid}/content", token=token,
+             json={"content": {**payload, "instagram": "javascript:alert(1)"}})
+    check(r.status_code == 422, DATA, "επικίνδυνο scheme → 422 με μήνυμα",
+          f"HTTP {r.status_code}")
+    still = call("GET", f"/clients/{cid}/content", token=token).json()["content"]
+    check(still.get("instagram") == "https://instagram.com/kafedokimi",
+          DATA, "η απόρριψη ΔΕΝ έσβησε την προηγούμενη τιμή",
+          str(still.get("instagram")))
+    r = call("PUT", f"/clients/{cid}/content", token=token,
+             json={"content": {**payload, "instagram": "evil.example/kafe"}})
+    check(r.status_code == 422, DATA, "ξένος host → 422", f"HTTP {r.status_code}")
     names = [s.get("name") for s in got.get("services", [])]
     check(names == ["Espresso", "Γλυκά"], DATA, "οι υπηρεσίες με τη σειρά τους", str(names))
 
@@ -329,7 +365,8 @@ def scenario_session(cid: str, email: str) -> None:
         return
     c = got.json().get("content", {})
     check(c.get("phone") == "2100009999", DATA, "το τηλέφωνο επέζησε της συνεδρίας")
-    check(c.get("facebook") == "@kafedokimi", DATA, "τα social επέζησαν")
+    check(c.get("facebook") == "https://facebook.com/kafedokimi",
+          DATA, "τα social επέζησαν σε κανονική μορφή", str(c.get("facebook")))
 
     r = call("GET", "/clients/lookup", token=token2)
     ids = [x.get("id") for x in r.json().get("clients", [])]
@@ -357,12 +394,12 @@ def scenario_render(cid: str) -> None:
     artifact("site-data.json", d)
 
 
-def scenario_billing(cid: str) -> None:
+def scenario_billing(cid: str, token: str) -> None:
     head("[8] Χρέωση — test mode")
     if not os.environ.get("STRIPE_SECRET_KEY", "").startswith("sk_test_"):
         bad(BILLING, "Stripe δεν είναι σε test mode", "παραλείπω για ασφάλεια")
         return
-    r = call("POST", "/create-checkout", json={"client_id": cid, "plan": "site"})
+    r = call("POST", "/create-checkout", token=token, json={"client_id": cid})
     if not check(r.status_code == 200, BILLING, "δημιουργία checkout session",
                  f"HTTP {r.status_code}", {"status": r.status_code, "body": r.text[:300]}):
         return
@@ -494,7 +531,7 @@ def main() -> int:
         scenario_asset_isolation(cid, other)
         scenario_session(cid, "qa-cafe@vitrina.test")
         scenario_render(cid)
-        scenario_billing(cid)
+        scenario_billing(cid, token)
         scenario_cleanup_policy()
     finally:
         cleanup(args.keep)

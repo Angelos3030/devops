@@ -91,6 +91,120 @@ def _normalize_text(value: str) -> str:
     return "".join(c for c in decomposed if unicodedata.category(c) != "Mn")
 
 
+# ── Ταίριασμα λέξης-κλειδιού ────────────────────────────────────────────────
+#
+# Ο παλιός έλεγχος ήταν σκέτο `word in text` πάνω σε ενωμένο κείμενο, οπότε μια
+# λέξη κρυβόταν μέσα σε άλλη και άλλαζε επάγγελμα:
+#
+#   «thessaloniki»      περιέχει «salon»  -> ηλεκτρολόγος έγινε κομμωτήριο
+#   «farmakeio»         περιέχει «farm»   -> φαρμακείο έγινε αγρόκτημα
+#   «εργατικές»         περιέχει «γατ»    -> δικηγόρος έγινε pet shop
+#
+# ΔΥΟ ΡΗΤΟΙ ΚΑΝΟΝΕΣ, γιατί οι δύο γλώσσες συμπεριφέρονται αλλιώς:
+#
+#   ΕΛΛΗΝΙΚΑ  -> ΠΡΟΘΕΜΑ σε ολόκληρο token. Τα κλειδιά είναι στελέχη
+#                («κομμωτ», «υδραυλικ») και πρέπει να πιάνουν κάθε κατάληξη.
+#                Το «γατ» δεν πιάνει το «εργατικες» επειδή δεν ΞΕΚΙΝΑ από εκεί.
+#
+#   ΛΑΤΙΝΙΚΑ  -> ΟΛΟΚΛΗΡΟ token (με ανοχή σε τελικό «s»). Δεν είναι στελέχη,
+#                είναι λέξεις· και είναι κοντές, οπότε κρύβονται εύκολα.
+#
+# Πολυλεκτικά κλειδιά («pet grooming», «service αυτοκιν») ταιριάζουν σε
+# διαδοχικά tokens, με τον κανόνα του καθενός να ισχύει χωριστά.
+# ── Σκελετός: ελληνικά και greeklish σε κοινή γραφή ─────────────────────────
+#
+# «κομμωτ» και «kommotirio» είναι η ίδια λέξη γραμμένη με δύο αλφάβητα. Ο
+# σκελετός τα φέρνει και τα δύο στο «komot»/«komotirio», ώστε ο ΙΔΙΟΣ κανόνας
+# προθέματος να δουλεύει και στις δύο γραφές.
+#
+# Τα δίψηφα προηγούνται των μονών, αλλιώς το «ου» γίνεται «oi» αντί «u» και το
+# «μπ» γίνεται «mp» αντί «b». Τα διπλά σύμφωνα συμπτύσσονται στο τέλος, γιατί
+# ο ένας γράφει «kommotirio» και ο άλλος «komotirio».
+_SKEL_GR_PAIRS = (
+    ("ου", "u"), ("ει", "i"), ("οι", "i"), ("υι", "i"), ("αι", "e"),
+    ("ευ", "ev"), ("αυ", "av"), ("ηυ", "iv"),
+    ("μπ", "b"), ("ντ", "d"), ("γκ", "g"), ("γγ", "g"),
+    ("τσ", "ts"), ("τζ", "tz"),
+)
+_SKEL_GR = {
+    "α": "a", "β": "v", "γ": "g", "δ": "d", "ε": "e", "ζ": "z", "η": "i",
+    "θ": "th", "ι": "i", "κ": "k", "λ": "l", "μ": "m", "ν": "n", "ξ": "ks",
+    "ο": "o", "π": "p", "ρ": "r", "σ": "s", "ς": "s", "τ": "t", "υ": "i",
+    "φ": "f", "χ": "x", "ψ": "ps", "ω": "o",
+}
+_SKEL_LA_PAIRS = (
+    ("th", "th"), ("ch", "x"), ("ps", "ps"), ("ks", "ks"), ("ph", "f"),
+    ("ou", "u"), ("oy", "u"), ("ei", "i"), ("oi", "i"), ("ai", "e"),
+    ("ay", "av"), ("ey", "ev"), ("av", "av"), ("ev", "ev"),
+    ("mp", "b"), ("nt", "d"), ("gk", "g"), ("ts", "ts"), ("tz", "tz"),
+)
+_SKEL_LA = {"y": "i", "u": "i", "h": "i", "w": "o", "c": "k", "q": "k",
+            "j": "i", "x": "ks"}
+_SKEL_DOUBLE = re.compile(r"(.)\1+")
+
+# Κατώφλι μήκους για το πέρασμα σκελετού: κάτω από αυτό ο σκελετός είναι
+# συλλαβή, όχι λέξη, και δεν επιτρέπεται να κρίνει επάγγελμα.
+#
+# ΤΟ ΝΟΥΜΕΡΟ ΕΙΝΑΙ ΜΕΤΡΗΜΕΝΟ, ΟΧΙ ΔΙΑΛΕΓΜΕΝΟ:
+#   3 -> το «μπαρ» δίνει σκελετό «bar», που ως πρόθεμα πιάνει το «barber»·
+#        ακριβώς η σύγχυση που διόρθωσε το βήμα 3.
+#   4 -> περνούν «κουρει»(kuri), «νυχι»(nixi), «οδοντ»(odod), «τεχν»(texn):
+#        πέντε greeklish περιπτώσεις παύουν να εξαρτώνται από το AI.
+#   5 -> τις χάνει όλες, χωρίς κανένα αντάλλαγμα σε ασφάλεια.
+# Στους 20 εχθρικούς ελέγχους (ονόματα, τοπωνύμια, επωνυμίες) το 4 δεν
+# δημιούργησε καμία σύγκρουση — βλ. tests/test_recommendation_determinism.py.
+_SKEL_MIN = 4
+
+
+def _skeleton(word: str) -> str:
+    greek = any("α" <= c <= "ω" for c in word)
+    pairs = _SKEL_GR_PAIRS if greek else _SKEL_LA_PAIRS
+    singles = _SKEL_GR if greek else _SKEL_LA
+    out: list[str] = []
+    i = 0
+    while i < len(word):
+        for src, dst in pairs:
+            if word.startswith(src, i):
+                out.append(dst)
+                i += len(src)
+                break
+        else:
+            out.append(singles.get(word[i], word[i]))
+            i += 1
+    return _SKEL_DOUBLE.sub(r"\1", "".join(out))
+
+
+_TOKEN_SPLIT = re.compile(r"[^0-9a-zα-ω]+")
+
+
+def _tokens(text: str) -> list[str]:
+    return [t for t in _TOKEN_SPLIT.split(text) if t]
+
+
+def _part_match(part: str, token: str, fold: bool = False) -> bool:
+    # Στέλεχος ή ολόκληρη λέξη — κρίνεται από τη ΓΡΑΦΗ ΤΟΥ ΚΛΕΙΔΙΟΥ, πριν από
+    # κάθε δίπλωση. Μετά τον σκελετό όλα είναι λατινικά και η πληροφορία χάνεται.
+    stem = not part.isascii()
+    if fold:
+        part, token = _skeleton(part), _skeleton(token)
+        if len(part) < _SKEL_MIN:
+            return False
+    if stem:
+        return token.startswith(part)
+    return token == part or token == part + "s"
+
+
+def _word_match(word: str, tokens: list[str], fold: bool = False) -> bool:
+    parts = word.split()
+    if len(parts) == 1:
+        return any(_part_match(word, t, fold) for t in tokens)
+    for i in range(len(tokens) - len(parts) + 1):
+        if all(_part_match(p, tokens[i + j], fold)
+               for j, p in enumerate(parts)):
+            return True
+    return False
+
+
 def _profession(intake: dict[str, Any]) -> str:
     text = _normalize_text(" ".join(str(intake.get(k, "")) for k in ("type", "trade", "description", "name")))
     if any(w in text for w in (
@@ -294,6 +408,8 @@ _VERTICAL_DEFAULTS = {
     "retail": ("Επιλεγμένα προϊόντα και προσωπική εξυπηρέτηση.", "Επιλογές που ταιριάζουν στη δική σου καθημερινότητα.", "Ρώτησέ μας για διαθεσιμότητα."),
     "realestate": ("Καθαρές επιλογές για την επόμενη κίνησή σου.", "Κάθε ακίνητο ξεκινά από τις πραγματικές σου ανάγκες.", "Πες μας τι ακίνητο αναζητάς."),
     "professional": ("Καθαρή καθοδήγηση για κάθε επόμενο βήμα.", "Εξειδίκευση με συνέπεια και σαφή επικοινωνία.", "Κλείσε μια πρώτη συνάντηση."),
+    "education": ("Μάθηση με στόχο, καθοδήγηση και καθαρή ενημέρωση.", "Η πρόοδος χτίζεται με συνέπεια.", "Ζήτησε ενημέρωση για το πρόγραμμα."),
+    "logistics": ("Οργανωμένες μεταφορές με σαφές πλάνο και χρόνο παράδοσης.", "Κάθε διαδρομή ξεκινά με σωστή οργάνωση.", "Ζήτησε προσφορά μεταφοράς."),
     "rooms": ("Άνετη διαμονή και ξεκάθαρη επικοινωνία πριν από την άφιξη.", "Μια διαμονή που ξεκινά με σωστή φιλοξενία.", "Ρώτησε για διαθεσιμότητα."),
     "gym": ("Προπόνηση με στόχο, καθοδήγηση και συνέπεια.", "Η πρόοδος χτίζεται σε κάθε προπόνηση.", "Κλείσε το δοκιμαστικό σου."),
     "garage": ("Σωστός έλεγχος και καθαρή ενημέρωση για το αυτοκίνητό σου.", "Ξέρεις τι χρειάζεται το όχημά σου πριν ξεκινήσει η εργασία.", "Κλείσε ραντεβού για έλεγχο."),
@@ -323,6 +439,8 @@ _DEFAULT_HERO = {
     "retail": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80",
     "realestate": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1800&q=80",
     "professional": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80",
+    "education": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=80",
+    "logistics": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1800&q=80",
     # Ήταν τροπικό resort με φοίνικες και ξύλινα μπανγκαλόου. Το vertical ήταν
     # σωστό, η ήπειρος όχι: για ξενοδοχείο στην Πάρο διαβάζεται αμέσως ως ξένο
     # stock. Κυκλαδίτικη εικόνα, ίδια κατεύθυνση με το mediaFallback.js.
@@ -348,6 +466,8 @@ _LAYOUT_BY_PROFESSION = {
     "retail": "bold",
     "realestate": "atelier",
     "professional": "trust",
+    "education": "trust",
+    "logistics": "commerce",
     "rooms": "atelier",
     "gym": "bold",
     "garage": "commerce",
@@ -365,6 +485,16 @@ def recommend_layout(intake: dict[str, Any]) -> str:
 # ---------------------------------------------------------------------------
 
 # Όλα τα διαθέσιμα React archetypes (πρέπει να ταιριάζουν με TEMPLATE_KEYS στο index.js).
+# Κάθε id που μπορεί να επιλεγεί. Αν λείπει, το /select-design
+# απαντά HTTP 400 ακόμη κι αν το theme αποδίδεται κανονικά.
+# Κάθε id που μπορεί να επιλεγεί. Αν λείπει, το /select-design
+# απαντά HTTP 400 ακόμη κι αν το theme αποδίδεται κανονικά.
+# Κάθε id που μπορεί να επιλεγεί. Αν λείπει, το /select-design
+# απαντά HTTP 400 ακόμη κι αν το theme αποδίδεται κανονικά.
+# Κάθε id που μπορεί να επιλεγεί. Αν λείπει, το /select-design
+# απαντά HTTP 400 ακόμη κι αν το theme αποδίδεται κανονικά.
+# Κάθε id που μπορεί να επιλεγεί. Αν λείπει, το /select-design
+# απαντά HTTP 400 ακόμη κι αν το theme αποδίδεται κανονικά.
 # Κάθε id που μπορεί να επιλεγεί. Αν λείπει, το /select-design
 # απαντά HTTP 400 ακόμη κι αν το theme αποδίδεται κανονικά.
 # Κάθε id που μπορεί να επιλεγεί. Αν λείπει, το /select-design
@@ -445,6 +575,16 @@ REACT_TEMPLATES = (
 # ΔΕΝ περιλαμβάνει τα αρχέτυπα συμβατότητας του MAP.
 # Ο κατάλογος που βλέπει ο πελάτης: κάθε εμπορικό theme που πέρασε QA.
 # ΔΕΝ περιλαμβάνει τα αρχέτυπα συμβατότητας του MAP.
+# Ο κατάλογος που βλέπει ο πελάτης: κάθε εμπορικό theme που πέρασε QA.
+# ΔΕΝ περιλαμβάνει τα αρχέτυπα συμβατότητας του MAP.
+# Ο κατάλογος που βλέπει ο πελάτης: κάθε εμπορικό theme που πέρασε QA.
+# ΔΕΝ περιλαμβάνει τα αρχέτυπα συμβατότητας του MAP.
+# Ο κατάλογος που βλέπει ο πελάτης: κάθε εμπορικό theme που πέρασε QA.
+# ΔΕΝ περιλαμβάνει τα αρχέτυπα συμβατότητας του MAP.
+# Ο κατάλογος που βλέπει ο πελάτης: κάθε εμπορικό theme που πέρασε QA.
+# ΔΕΝ περιλαμβάνει τα αρχέτυπα συμβατότητας του MAP.
+# Ο κατάλογος που βλέπει ο πελάτης: κάθε εμπορικό theme που πέρασε QA.
+# ΔΕΝ περιλαμβάνει τα αρχέτυπα συμβατότητας του MAP.
 LAUNCH_REACT_TEMPLATES = (
     "aegean",
     "airspace-office",
@@ -513,26 +653,34 @@ LAUNCH_REACT_TEMPLATES = (
 # Λεπτομερέστερο vertical ΜΟΝΟ για template matching — δεν αγγίζει το _profession()
 # (που τροφοδοτεί το _PROFESSION_COPY και θα έσκαγε με άγνωστο key).
 _VERTICAL_RULES = (
-    ("gym", ("γυμναστηρ", "gym", "fitness", "crossfit", "pilates", "yoga", "γιογκα", "προπονητ", "trainer")),
-    ("garage", ("συνεργει", "φανοποι", "βουλκανιζ", "garage", "service αυτοκιν", "μηχανικ αυτοκιν", "ελαστικ")),
-    ("farm", ("παραγωγ", "ελαιολαδ", "ελαιωνα", "μελισσοκομ", "μελι", "οινοποι", "κρασ", "τυροκομ", "αγροτ", "κτημα", "farm", "winery")),
+    ("gym", ("γυμναστηρ", "gym", "fitness", "crossfit", "pilates", "reformer", "ενδυναμωσ", "πολεμικ τεχν", "καρατε", "taekwondo", "kickboxing", "μαχητικ", "yoga", "γιογκα", "προπονητ", "trainer", "προπον", "personal training", "kick boxing", "αυτοαμυν")),
+    ("garage", ("συνεργει", "φανοποι", "βουλκανιζ", "garage", "service αυτοκιν", "μηχανικ αυτοκιν", "ελαστικ", "αμαξωματ", "body shop", "auto service", "ευθυγραμμισ τροχ", "αλλαγη λαδι")),
+    ("farm", ("παραγωγ", "ελαιολαδ", "ελαιωνα", "μελισσοκομ", "μελισσοκ", "μελι", "οινοποι", "τυροκομ", "αγροτ", "κτημα", "farm", "winery")),
     ("rooms", ("δωματ", "ξενωνα", "ξενοδοχ", "καταλυμ", "hotel", "rooms", "villa", "βιλα", "airbnb", "τουρισ")),
     ("bakery", ("ζαχαροπλαστ", "φουρν", "αρτοποι", "bakery", "patisserie", "ψωμ")),
     ("cafe", ("καφε", "cafe", "coffee", "espresso", "brunch", "creperie", "κρεπερ", "παγωτ")),
-    ("food", ("ταβερν", "εστιατορ", "taverna", "restaurant", "μεζε", "ψησταρι", "σουβλα", "grill", "pizza", "πιτσαρ", "μπαρ", "cocktail bar", "wine bar")),
-    ("dentist", ("οδοντ", "dentist", "dental")),
-    ("pharmacy", ("φαρμακει", "φαρμακοποι", "pharmacy", "drugstore", "παραφαρμακ", "δερμοκαλλυν")),
-    ("doctor", ("ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "διαιτολογ", "ψυχολογ", "κτηνιατρ")),
-    ("aesthetics", ("αισθητικ", "beauty clinic", "κεντρο ομορφια", "μακιγι", "laser αποτριχ")),
-    ("pet", ("pet grooming", "petshop", "pet shop", "κατοικιδ", "σκυλ", "γατ",
-             "grooming", "groomer", "κτηνιατ", "εκπαιδευτ σκυλ", "τετραποδ")),
-    ("massage", ("μασαζ", "massage", "spa", "wellness")),
-    ("beauty", ("κομμωτ", "beauty", "hair", "salon", "barber", "κουρει", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ", "nail", "nixia", "nyxia", "nuxia")),
-    ("retail", ("καταστημα", "retail", "store", "boutique", "μπουτικ", "ανθοπωλ", "λουλουδ", "ρουχ", "υποδημα", "παπουτσ", "κοσμημ", "οπτικ", "βιβλιοπωλ", "δωρα")),
-    ("wood", ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν")),
-    ("realestate", ("ακινητ", "μεσιτ", "real estate", "realestate", "πωλησ ακινητ", "ενοικιασ ακινητ")),
-    ("professional", ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "ασφαλισ", "notary", "συμβολαιογρ")),
-    ("trade", ("υδραυλικ", "ηλεκτρολ", "ελαιοχρωματ", "μαστορ", "τεχνιτ", "ψυκτικ", "αλουμιν", "σιδηρ", "πλακα", "μονωσ", "κλιματισ", "plumber", "electrician")),
+    ("food", ("ταβερν", "εστιατορ", "taverna", "restaurant", "μεζε", "ψησταρι", "σουβλα", "grill", "pizza", "πιτσαρ", "μπαρ", "cocktail bar", "wine bar", "ψητοπωλ", "μαγειρευ", "πιατ ημερας")),
+    ("dentist", ("οδοντ", "εμφυτευμ", "σιδερακ", "ορθοδοντ", "dentist", "dental")),
+    ("pharmacy", ("φαρμακει", "φαρμακοποι", "pharmacy", "parapharmacy", "pharmacist", "drugstore", "παραφαρμακ", "δερμοκαλλυν", "δερμοκαλλυντ", "συμπληρωματ διατροφ")),
+    ("doctor", ("ιατρ", "doctor", "γιατρ", "κλινικ", "φυσικοθεραπ", "physio", "αποκαταστασ", "θεραπευτικ ασκησ", "physiotherapy", "physiotherapist", "διαιτολογ", "ψυχολογ", "κτηνιατρ", "παιδιατρ", "pediatrician", "εμβολιασμ", "καρδιογραφ", "συνταγογραφ")),
+    ("aesthetics", ("αισθητικ", "beauty clinic", "κεντρο ομορφια", "μακιγι", "peeling", "συσφιξ", "θεραπει προσωπ", "anti aging", "laser αποτριχ", "αποτριχ", "μεσοθεραπ")),
+    # Το σκέτο «grooming» ΜΕΝΕΙ. Δοκιμάστηκε η αφαίρεσή του — «men's
+    # grooming» είναι ανδρικό κουρείο — αλλά το θέμα λύθηκε ήδη με τον
+    # αποκλεισμό συμφραζομένων: το μπλοκ ενεργοποιείται μόνο με ρητή
+    # λέξη ζώου («σκυλ», «dog», «κατοικιδ»), όχι με σκέτο «grooming».
+    # Η αφαίρεση κόστιζε 2 σωστές περιπτώσεις pet shop χωρίς κανένα
+    # όφελος: μέτρηση 91.0% -> 90.6%.
+    ("pet", ("pet grooming", "grooming", "petshop", "pet shop", "κατοικιδ", "σκυλ", "γατ",
+             "groomer", "κτηνιατ", "εκπαιδευτ σκυλ", "τετραποδ")),
+    ("massage", ("μασαζ", "massage", "spa", "σπα", "wellness")),
+    ("beauty", ("κομμωτ", "beauty", "hair", "haircut", "hairdresser", "hairstylist", "barbershop", "salon", "barber", "κουρει", "νυχι", "νυχαδ", "μανικιουρ", "πεντικιουρ", "nail", "nixia", "nyxia", "nuxia")),
+    ("retail", ("καταστημα", "retail", "store", "boutique", "μπουτικ", "ανθοπωλ", "λουλουδ", "ρουχ", "υποδημα", "παπουτσ", "κοσμημ", "οπτικ", "βιβλιοπωλ", "καβα", "δωροπωλ", "ειδη δωρ", "δωρα", "wine shop", "delicatessen")),
+    ("wood", ("ξυλουργ", "μαραγκ", "wood", "carpenter", "επιπλ", "κουζιν", "furniture", "ντουλαπ", "μασιφ")),
+    ("realestate", ("ακινητ", "μεσιτ", "real estate", "realestate", "πωλησ ακινητ", "ενοικιασ ακινητ", "κτηματομεσιτ", "property agency")),
+    ("professional", ("δικηγ", "λογιστ", "lawyer", "accountant", "συμβουλ", "μηχανικ", "αρχιτεκτ", "ασφαλισ", "notary", "συμβολαιογρ", "δικαστικ", "law firm", "φορολογ", "μισθοδοσ", "accounting", "bookkeeping", "payroll", "consulting", "επιχειρηματικ σχεδι")),
+    ("education", ("φροντιστηρ", "εκπαιδευτικ κεντρ", "κεντρ ξεν γλωσσ", "σχολ", "μαθηματ", "education", "tutoring", "language school")),
+    ("logistics", ("μεταφορικ", "μεταφορ", "μετακομισ", "logistics", "transport", "freight", "courier", "ταχυμεταφορ", "αποθηκευσ", "διανομ")),
+    ("trade", ("υδραυλικ", "ηλεκτρολ", "ελαιοχρωματ", "μαστορ", "ανακαινισ", "ανακαινιζ", "renovation", "εργολαβ", "αποφραξ", "τεχνιτ", "ψυκτικ", "αλουμιν", "σιδηρ", "πλακα", "μονωσ", "κλιματισ", "plumber", "electrician", "painting", "painter", "hvac")),
 )
 
 
@@ -545,6 +693,15 @@ _VERTICAL_FALLBACK = "professional"
 _AI_VERTICALS = [v for v, _ in _VERTICAL_RULES]
 
 
+# Μνήμη ταξινόμησης, ανά κανονικοποιημένο κείμενο.
+#
+# Το `temperature=0` κάνει τον πάροχο σταθερό, αλλά δεν εγγυάται ότι δύο κλήσεις
+# μέσα στο ΙΔΙΟ αίτημα θα πάρουν την ίδια απάντηση αν κάτι αλλάξει ενδιάμεσα.
+# Η μνήμη το κλειδώνει: μία απόφαση ανά κείμενο, όσες φορές κι αν ρωτηθεί.
+# Ζει όσο η διεργασία — δεν είναι αποθήκευση, είναι συνέπεια.
+_AI_VERTICAL_CACHE: dict[str, str] = {}
+
+
 def _vertical_by_ai(text: str) -> str | None:
     """Τελευταία γραμμή άμυνας για επαγγέλματα που δεν πιάνουν οι λέξεις-κλειδιά.
 
@@ -552,6 +709,9 @@ def _vertical_by_ai(text: str) -> str | None:
     για την ουρά («νυχάδικο», «στούντιο πιλάτες», «κατάστημα υποδημάτων»).
     Αν δεν υπάρχει κλειδί ή απαντήσει κάτι άγνωστο, γυρνάμε στο fallback.
     """
+    key = _normalize_text(text)[:200]
+    if key in _AI_VERTICAL_CACHE:
+        return _AI_VERTICAL_CACHE[key]
     try:
         from . import ai
         if not ai.available():
@@ -561,11 +721,14 @@ def _vertical_by_ai(text: str) -> str | None:
             "Απαντάς ΜΟΝΟ με μία λέξη από τη λίστα, χωρίς τίποτα άλλο.",
             f"Επιχείρηση: «{text[:200]}»\n\n"
             f"Κατηγορίες: {', '.join(_AI_VERTICALS)}",
-            max_tokens=10)
+            max_tokens=10, temperature=0)
         guess = (out or "").strip().lower().strip(".")
-        return guess if guess in _AI_VERTICALS else None
+        result = guess if guess in _AI_VERTICALS else None
     except Exception:  # noqa: BLE001 — ποτέ να μη ρίξει το onboarding
         return None
+    if result:
+        _AI_VERTICAL_CACHE[key] = result
+    return result
 
 
 # ── Ταξινόμηση με προτεραιότητα σήματος, όχι με σειρά κανόνων ──────────────
@@ -584,29 +747,55 @@ def _vertical_by_ai(text: str) -> str | None:
 # Το πεδίο μετράει κι αυτό: `type`/`trade` είναι δήλωση επαγγέλματος, το `name`
 # είναι εμπορική επωνυμία και δεν επιτρέπεται να καθορίσει μόνο του κατηγορία.
 
+# ΑΓΓΛΙΚΕΣ ΣΥΝΘΕΤΕΣ ΛΕΞΕΙΣ, ΡΗΤΑ.
+#
+# Το ταίριασμα λατινικών γίνεται σε ΟΛΟΚΛΗΡΟ token (βλ. `_word_match`), γιατί
+# αλλιώς το «farm» κρύβεται μέσα στο «farmakeio» και το «bar» μέσα στο
+# «barber». Το τίμημα είναι ότι χάνονται τα αγγλικά σύνθετα: «haircut» δεν
+# είναι «hair», «physiotherapy» δεν είναι «physio», «parapharmacy» δεν είναι
+# «pharmacy». Μετρήθηκε: και οι τρεις περιπτώσεις έπεσαν στο AI fallback.
+#
+# Η λύση δεν είναι να χαλαρώσει ο κανόνας — είναι να γραφτούν οι μορφές που
+# χρησιμοποιεί πραγματικά ο κόσμος. Ρητό λεξιλόγιο, όχι σιωπηρή ευρετική.
 _WEAK_WORDS = frozenset((
     "συνεργει", "spa", "wellness", "κεντρο", "studio", "στουντιο", "salon",
     "boutique", "μπουτικ", "καταστημα", "store", "γραφειο", "atelier", "house",
     "lab", "club", "shop", "point", "room", "rooms", "service",
+    # «κάβα» είναι πρόθεμα της «Καβάλας» και «σπα» της «σπαταλης»:
+    # αποφασίζουν μόνο όταν δεν υπάρχει καθαρή λέξη επαγγέλματος.
+    "καβα", "σπα", "δωρα", "μελι",
 ))
 # Συμφραζόμενα που ΑΚΥΡΩΝΟΥΝ κατηγορίες: ένα κομμωτήριο σκύλων δεν είναι
 # ανθρώπινο κομμωτήριο, όσες φορές κι αν γράφει «spa» η επωνυμία.
 _CONTEXT_BLOCKS = (
-    (("κατοικιδ", "σκυλ", "σκυλο", "γατα", "γατε", "γατων", "pet", " dog", "dog ",
-      "cat ", "grooming", "groomer", "κτηνιατ", "ζωακ", "τετραποδ"),
+    (("κατοικιδ", "σκυλ", "σκυλο", "γατα", "γατε", "γατων", "pet", "dog",
+      "cat", "groomer", "κτηνιατ", "ζωακ", "τετραποδ"),
      ("beauty", "nails", "massage", "aesthetics", "food", "cafe")),
+    # Το «κτήμα» είναι αγρόκτημα· το «κτηματομεσιτικό» είναι γραφείο ακινήτων.
+    # Το πρόθεμα είναι το ίδιο και το `farm` κέρδιζε στην ισοβαθμία.
+    (("μεσιτ", "κτηματομεσιτ", "ακινητ"), ("farm",)),
+    # Γραφείο ακινήτων που λέει «ενοικιάζουμε» ή λέγεται «Villa» δεν είναι
+    # κατάλυμα. Η λέξη «ακίνητα» δηλώνει ταυτότητα, το «villa» είναι επωνυμία.
+    (("ακινητ", "μεσιτ"), ("rooms",)),
+    # Ο ανακαινιστής λέει «κουζίνες» εννοώντας τον χώρο, ο ξυλουργός εννοώντας
+    # το έπιπλο. Όταν υπάρχει λέξη ανακαίνισης, η ταυτότητα είναι τεχνίτης.
+    (("ανακαινισ", "ελαιοχρωματ", "σοβατ", "μονωσ"), ("wood",)),
+    # «Μαγειρεύουμε κατσικάκι στο φούρνο»: το «φούρνο» είναι μέθοδος
+    # μαγειρέματος, όχι επάγγελμα. Ο φούρνος ψήνει ψωμί, δεν μαγειρεύει.
+    (("μαγειρ", "μεζεδ", "σερβιρ"), ("bakery",)),
 )
 _FIELD_WEIGHT = {"type": 3, "trade": 3, "description": 2, "name": 1}
 # Μια κατηγορία δεν κερδίζει από ΜΟΝΟ ένα weak σήμα σε επωνυμία.
 _MIN_SCORE = 2
 
 
-def _signals(intake: dict[str, Any]) -> dict[str, int]:
-    fields = {k: _normalize_text(str(intake.get(k, ""))) for k in _FIELD_WEIGHT}
-    blob = " ".join(fields.values())
+def _signals(intake: dict[str, Any], fold: bool = False) -> dict[str, int]:
+    fields = {k: _tokens(_normalize_text(str(intake.get(k, ""))))
+              for k in _FIELD_WEIGHT}
+    blob = [t for toks in fields.values() for t in toks]
     blocked: set[str] = set()
     for triggers, verticals in _CONTEXT_BLOCKS:
-        if any(t in blob for t in triggers):
+        if any(_word_match(t, blob, fold) for t in triggers):
             blocked.update(verticals)
 
     scores: dict[str, int] = {}
@@ -616,23 +805,34 @@ def _signals(intake: dict[str, Any]) -> dict[str, int]:
         best = 0
         for word in words:
             strength = 1 if word in _WEAK_WORDS else 4
-            for field, text in fields.items():
-                if word in text:
+            for field, toks in fields.items():
+                if _word_match(word, toks, fold):
                     best = max(best, strength * _FIELD_WEIGHT[field])
         if best:
             scores[vertical] = best
     return scores
 
 
+def _decide(scores: dict[str, int]) -> str | None:
+    if not scores:
+        return None
+    order = {v: i for i, (v, _) in enumerate(_VERTICAL_RULES)}
+    # Ισοβαθμία → η σειρά των κανόνων, ώστε το ίδιο intake να δίνει ΠΑΝΤΑ
+    # το ίδιο αποτέλεσμα (το theme selection πρέπει να είναι αναπαραγώγιμο).
+    best = max(scores.items(), key=lambda kv: (kv[1], -order[kv[0]]))
+    return best[0] if best[1] >= _MIN_SCORE else None
+
+
 def _vertical(intake: dict[str, Any]) -> str:
-    scores = _signals(intake)
-    if scores:
-        order = {v: i for i, (v, _) in enumerate(_VERTICAL_RULES)}
-        # Ισοβαθμία → η σειρά των κανόνων, ώστε το ίδιο intake να δίνει ΠΑΝΤΑ
-        # το ίδιο αποτέλεσμα (το theme selection πρέπει να είναι αναπαραγώγιμο).
-        best = max(scores.items(), key=lambda kv: (kv[1], -order[kv[0]]))
-        if best[1] >= _MIN_SCORE:
-            return best[0]
+    decided = _decide(_signals(intake))
+    if decided:
+        return decided
+    # Δεύτερη ευκαιρία σε σκελετό ΜΟΝΟ αν το ακριβές πέρασμα δεν αποφάσισε.
+    # Έτσι το χαλαρότερο ταίριασμα δεν μπορεί να ανατρέψει σωστή απόφαση —
+    # μπορεί μόνο να προλάβει το AI, που είναι και ο σκοπός του.
+    decided = _decide(_signals(intake, fold=True))
+    if decided:
+        return decided
     raw = " ".join(str(intake.get(k, "")) for k in ("type", "trade", "description")).strip()
     return (_vertical_by_ai(raw) if raw else None) or _VERTICAL_FALLBACK
 
@@ -653,7 +853,9 @@ _TEMPLATES_BY_VERTICAL = {
     "massage":      ["living", "quiet", "signature", "aegean", "clinic-triage", "bloom", "warmth", "cinematic", "infinite", "canvas", "marble", "type-gallery", "terra", "magazine"],
     "beauty":       ["elegance-salon", "beauty-atelier", "cinematic", "signature", "price-first", "runway", "type-gallery", "living", "chapter-snap", "infinite", "kinetic", "quiet"],
     "retail":       ["bento", "grid", "type-gallery", "living", "quiet", "infinite", "canvas", "cinematic", "kinetic", "magazine", "editorial", "split"],
-    "professional": ["bigspring-advisory", "property-atlas", "signature", "cinematic", "directory-index", "marble", "quiet", "grid", "infinite", "canvas", "type-gallery", "living"],
+    "professional": ["bigspring-advisory", "property-atlas", "signature", "blue-onepage", "cinematic", "directory-index", "marble", "quiet", "grid", "infinite", "canvas", "type-gallery", "living"],
+    "education":    ["educenter-campus", "chapter-snap", "bigspring-advisory", "directory-index", "quiet", "grid", "canvas", "type-gallery", "living", "cinematic", "infinite", "marble"],
+    "logistics":    ["freight-lane", "constra-build", "area-first", "clean-work", "grid", "type-gallery", "quiet", "living", "cinematic", "infinite", "canvas", "bigspring-advisory"],
     "realestate":   ["property-atlas", "bigspring-advisory", "cinematic", "signature", "grid", "canvas", "quiet", "living", "directory-index", "marble", "editorial", "bento"],
     "trade":        ["constra-build", "callout", "cinematic", "area-first", "forge", "grid", "sidebar", "kinetic", "type-gallery", "infinite", "quiet", "living"],
     "garage":       ["motor", "kinetic", "grid", "infinite", "type-gallery", "cinematic", "quiet", "living", "canvas", "volt", "forge", "poster"],
@@ -734,8 +936,16 @@ def _capability_rank(keys: list[str], intake: dict[str, Any], vertical: str) -> 
     return list(dict.fromkeys(k for k in ordered if k in keys))
 
 
-def recommend_templates(intake: dict[str, Any], limit: int = 12) -> list[str]:
+def recommend_templates(intake: dict[str, Any], limit: int = 12,
+                        vertical: str | None = None) -> list[str]:
     """Ranked React προτάσεις, με την καταλληλότερη πρώτη.
+
+    ΜΙΑ ΑΠΟΦΑΣΗ ΑΝΑ ΑΙΤΗΜΑ. Το `vertical` δίνεται από τον καλούντα όταν το έχει
+    ήδη υπολογίσει. Χωρίς αυτό, το `/designs` καλούσε `vertical_of()` για την
+    ετικέτα και `recommend_templates()` για τα themes — δύο ξεχωριστές κλήσεις
+    του `_vertical`. Όταν η απόφαση περνούσε από το AI fallback, οι δύο κλήσεις
+    μπορούσαν να διαφωνήσουν: μετρήθηκε ετικέτα «Τεχνικά επαγγέλματα» πάνω από
+    themes δικηγορικού γραφείου, που το ίδιο το backend βαθμολογούσε άσχετα.
 
     Η κατάταξη ήταν σταθερή ανά vertical, οπότε το `signature` έβγαινε #2 και
     ΔΕΝ επιλεγόταν ποτέ (η παραγωγή παίρνει `[0]`). Ένας μονοπρόσωπος λογιστής
@@ -744,7 +954,7 @@ def recommend_templates(intake: dict[str, Any], limit: int = 12) -> list[str]:
 
     Το σήμα είναι ντετερμινιστικό: ίδιο intake → ίδια σειρά, πάντα.
     """
-    vertical = _vertical(intake)
+    vertical = vertical or _vertical(intake)
     keys = list(_TEMPLATES_BY_VERTICAL.get(vertical, _TEMPLATES_BY_VERTICAL["trade"]))
     if (vertical in _PERSON_FIRST_VERTICALS
             and "signature" in keys
@@ -1111,6 +1321,7 @@ VERTICAL_LABEL_EL = {
     "garage": "συνεργείο", "rooms": "καταλύματα", "realestate": "ακίνητα",
     "retail": "κατάστημα", "gym": "γυμναστήριο", "farm": "αγροτική επιχείρηση",
     "pet": "κατάστημα ζώων", "professional": "επαγγελματικές υπηρεσίες",
+    "education": "εκπαιδευτικό κέντρο", "logistics": "μεταφορές & logistics",
 }
 
 

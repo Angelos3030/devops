@@ -72,12 +72,69 @@ def domain_suggest(req: DomainSuggestRequest):
 
 @app.post("/domain/check")
 def domain_check(req: DomainCheckRequest):
-    """Ελέγχει διαθεσιμότητα domain μέσω του configured registrar adapter."""
-    try:
-        results = dom.check_availability(req.slugs, req.tld)
-    except RuntimeError as e:
-        raise HTTPException(502, str(e))
+    """Διαθεσιμότητα από ΑΥΘΕΝΤΙΚΗ πηγή (RDAP ή registrar) — ποτέ από DNS.
+
+    Τρία αποτελέσματα: `available`, `unavailable`, `unknown`. Το `unknown`
+    είναι πλήρης απάντηση: σημαίνει «δεν ξέρουμε», και το UI ΔΕΝ επιτρέπεται
+    να το παρουσιάσει ως ελεύθερο. Αποτυχία παρόχου δεν γίνεται ποτέ
+    «διαθέσιμο» — αυτό ακριβώς έκανε ο παλιός DNS έλεγχος.
+    """
+    from . import domain_availability as availability
+    names = [f"{s}{req.tld}" if not str(s).endswith(req.tld) else str(s)
+             for s in req.slugs]
+    results = []
+    for item in availability.check_many(names):
+        results.append(item.as_dict() if hasattr(item, "as_dict") else item)
     return {"results": results}
+
+
+class DomainRequestBody(BaseModel):
+    client_id: str
+    domain: str
+    claim_token: str = ""
+
+
+@app.post("/domain/request")
+def domain_request(req: DomainRequestBody,
+                   authorization: str | None = Header(default=None)):
+    """Ο πελάτης ζητά domain. ΔΕΝ αγοράζεται τίποτα εδώ.
+
+    Δημιουργείται παραγγελία σε `pending_fulfillment` με αποθηκευμένο το
+    αποτέλεσμα διαθεσιμότητας ΚΑΙ τη στιγμή του. Την αγορά την κάνει άνθρωπος,
+    αφού ΞΑΝΑΕΛΕΓΞΕΙ — η διαθεσιμότητα αλλάζει.
+    """
+    from . import auth as _auth
+    from . import db
+    from . import domain_availability as availability
+
+    # Το funnel είναι site-first: μπορεί να μην υπάρχει ακόμα λογαριασμός.
+    # Ο κάτοχος ΤΑΥΤΟΠΟΙΕΙΤΑΙ πάντα — είτε με σύνδεση είτε με claim token.
+    _auth.require_client_or_claim(req.client_id, authorization, req.claim_token)
+
+    try:
+        result = availability.check(req.domain)
+    except availability.InvalidDomain as e:
+        raise HTTPException(400, str(e))
+
+    if result.status == availability.UNAVAILABLE:
+        raise HTTPException(409, f"Το {result.display} είναι ήδη κατοχυρωμένο.")
+    if result.status == availability.UNKNOWN:
+        # Δεν μπλοκάρουμε τον πελάτη επειδή δεν απάντησε ο πάροχος, αλλά
+        # καταγράφουμε ρητά ότι ΔΕΝ επιβεβαιώθηκε. Ο operator θα το δει.
+        print(f"[domain] αίτημα χωρίς επιβεβαίωση διαθεσιμότητας: "
+              f"{result.domain} ({result.reason})")
+
+    order = db.create_domain_request(req.client_id, result.domain,
+                                     result.as_dict())
+    return {
+        "order_id": order["id"],
+        "domain": result.domain,
+        "display": result.display,
+        "status": order["status"],
+        "availability": result.as_dict(),
+        "message": ("Το αίτημα καταγράφηκε. Θα ελέγξουμε ξανά τη διαθεσιμότητα "
+                    "και θα το κατοχυρώσουμε — θα ενημερωθείς μόλις γίνει."),
+    }
 
 
 @app.post("/domain/create-checkout")
@@ -184,6 +241,22 @@ async def upload_asset(
         raise HTTPException(400, "Μέγιστο μέγεθος: 10MB")
 
     data = await file.read()
+    # ΑΔΕΙΟ Ή ΚΟΛΟΒΟ ΑΡΧΕΙΟ. Το ανέβασμα πετύχαινε με 0 bytes και η εικόνα
+    # κατέληγε ΣΠΑΣΜΕΝΗ στο δημόσιο site του πελάτη — φάνηκε σε έλεγχο
+    # κινητού, όχι στο ανέβασμα.
+    #
+    # Το όριο είναι 24 bytes, όχι 100: ένα έγκυρο PNG 1×1 είναι περίπου 70
+    # bytes και το πρώτο κατώφλι που δοκίμασα το απέρριπτε. Την πραγματική
+    # δουλειά την κάνει ο έλεγχος υπογραφής από κάτω· εδώ κόβεται μόνο ό,τι
+    # δεν χωράει ούτε επικεφαλίδα.
+    if len(data) < 24:
+        raise HTTPException(400, "Το αρχείο είναι άδειο ή κατεστραμμένο.")
+    # Η υπογραφή πρέπει να συμφωνεί με τον δηλωμένο τύπο: ένα .png που δεν
+    # ξεκινά με PNG magic bytes δεν είναι png, ό,τι κι αν λέει ο browser.
+    _SIG = ((b"\x89PNG\r\n\x1a\n", "image/png"), (b"\xff\xd8\xff", "image/jpeg"),
+            (b"GIF8", "image/gif"), (b"RIFF", "image/webp"))
+    if not any(data.startswith(sig) for sig, _ in _SIG):
+        raise HTTPException(400, "Το αρχείο δεν είναι έγκυρη εικόνα.")
     try:
         url = upload_to_storage(client_id, f"{asset_type}-{file.filename}", data,
                                 file.content_type)
