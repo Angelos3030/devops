@@ -32,3 +32,34 @@ research/homepage-redesign/*.png
 research/homepage-redesign/*.html
 research/homepage-redesign/embed.json
 research/homepage-redesign/tiles-b64.json
+
+# Ίδια σύμβαση, νέοι φάκελοι. Ο οπτικός έλεγχος theme παράγει **220 MB**
+# screenshots (294 PNG + 41 JPG): αναπαράγονται από τα scripts και δεν είναι
+# ιστορικό πηγαίου κώδικα. Οι αναφορές `.md` ΜΕΝΟΥΝ — αυτές είναι το τεκμήριο.
+research/visual-theme-audit/**/*.png
+research/visual-theme-audit/**/*.jpg
+research/visual-theme-audit/**/*.jpeg
+research/logo/**/*.png
+research/logo/**/*.svg
+research/logo/**/*.zip
+research/logo/**/*.html
+
+# Έξοδος μετρήσεων — παράγεται σε κάθε εκτέλεση, όχι πηγή αλήθειας.
+# ΤΟ `stripe_e2e_results.json` ΕΙΝΑΙ ΡΗΤΑ ΞΕΠΕΡΑΣΜΕΝΟ: αποτυπώνει τον webhook
+# ΠΡΙΝ το 0009 και δεν αποτελεί τεκμήριο της τρέχουσας έκδοσης.
+research/billing-domain/stripe_e2e_results.json
+research/**/latest_rows.json
+research/**/*_results.json
+research/**/measurements.json
+research/**/lighthouse-*.json
+research/contrast*.json
+research/recommendation-audit/results.json
+research/homepage-redesign/reference/
+sites/research/**/*.png
+
+# ΕΞΑΙΡΕΣΕΙΣ — αυτά ΔΕΝ είναι σκουπίδια, τα διαβάζουν tests:
+#   `production_shape.json`  → tests/test_baseline_adoption.py (ομοίωμα παραγωγής)
+#   `dataset.json/.sha256`   → παγωμένο σύνολο αξιολόγησης 480 ερωτημάτων
+!research/billing-domain/production_shape.json
+!research/recommendation-audit/dataset.json
+!research/recommendation-audit/dataset.sha256

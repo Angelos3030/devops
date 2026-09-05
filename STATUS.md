@@ -3,6 +3,25 @@
 > Διάβασε ΑΥΤΟ πρώτο αν συνεχίζεις από άλλο account/session.
 > Κρατιέται ενημερωμένο σε κάθε σημαντικό βήμα.
 
+## COORDINATION LOCK — Final C-theme remediation (Codex, 2026-09-03)
+
+- **COMPLETE / lock released.** Final result: `educenter-campus` C→A,
+  `freight-lane` C→A, `blue-onepage` C→B; catalog A30/B28/C0/D0.
+- Evidence: `research/visual-theme-audit/FINAL-C-REMEDIATION.md` and
+  `research/visual-theme-audit/final-c-after/` (1440/390/320 screenshots,
+  contact sheets, measurements and Lighthouse reports).
+- Frozen recommendation gates: detection 99.4%, Top-3 100%, catastrophic 0,
+  repeatability 480/480, label/ranking disagreement 0.
+- Scope: `educenter-campus` and `freight-lane` additive classification/fixtures,
+  minimal `blue-onepage` visual refinement, and matching visual-audit artifacts.
+- Owned files while active: `sites/lib/templates/index.js`,
+  `sites/lib/verticalProfiles.js`, `sites/lib/demoData.js`,
+  `sites/lib/templates/BlueOnepage.module.css`, focused audit/test files under
+  `sites/tests/` and `research/visual-theme-audit/`.
+- Frozen and not owned: recommendation detector/scoring implementation,
+  backend routing, production, deployment, and unrelated themes.
+- No push, deploy or intentional production change was performed.
+
 
 ## 🟢 ΤΡΕΧΟΥΣΑ ΚΑΤΑΣΤΑΣΗ (2026-08-21) — απλοποίηση: το υποσύστημα theme αφαιρέθηκε
 
@@ -1033,6 +1052,187 @@ responsive designs**, διαλέγει, και το site ανεβαίνει live
 
 ## 🚦 COORDINATION LOCKS — για παράλληλους agents
 
+- ⚠️ **ΠΡΟΣΟΧΗ ΓΙΑ ΤΟΝ BILLING AGENT — απομονωμένη αλλαγή στο
+      `src/meta_oauth.py`** (Claude, 2026-09-05). Έγινε ΠΡΙΝ εντοπιστεί ο
+      ενεργός lock από κάτω· καταγράφεται εδώ για να μη χαθεί στο merge.
+
+      **Τι άλλαξε, ακριβώς τρία σημεία:**
+      1. `_safe_url` — **αμετάβλητο**. Δεν χαλάρωσε.
+      2. **ΝΕΟ** `normalize_social(field, value)` + `SocialValueError` +
+         `_SOCIAL_HOSTS` / `_HAS_SCHEME` / `_HANDLE_OK` / `_PATH_OK`,
+         αμέσως μετά το `_safe_email`.
+      3. Στο `PUT /clients/{id}/content`, ΜΙΑ διακλάδωση πριν από το
+         `elif k in _URL_FIELDS`: τα `instagram`/`facebook` περνούν από το
+         `normalize_social` και σε αποτυχία δίνουν **HTTP 422**.
+
+      **Τι ΔΕΝ αγγίχτηκε:** checkout, entitlement, Stripe, `_PRICE_BY_PLAN`,
+      billing portal, ή οτιδήποτε άλλο του `meta_oauth.py`.
+
+      **Γιατί:** ο φρουρός URL δεχόταν μόνο `^https?://`, οπότε ό,τι έγραφε ο
+      πελάτης («@handle», «instagram.com/x» — κυριολεκτικά το placeholder του
+      dashboard) πετιόταν ΣΙΩΠΗΛΑ με HTTP 200. Μετρήθηκε σε staging: 27 γραμμές
+      `site_content`, **μηδέν** αποθηκευμένα social. P1, διορθώθηκε.
+
+      **Το `gbp_url` δεν άλλαξε συμβόλαιο** — μένει ελεύθερο http/https.
+
+      Tests: `tests/test_social_normalization.py` (14) ·
+      `tests/lifecycle_e2e.py` 47/5 → **59/0**.
+
+      **ΔΕΥΤΕΡΗ ΑΛΛΑΓΗ στο ίδιο αρχείο — P1 ιδιωτικότητας** (Claude, 2026-09-05).
+
+      `_intake_from_db`, μία γραμμή: `"email": c.get("email")` → `"email": ""`.
+
+      **Γιατί:** το `clients.email` είναι ταυτότητα λογαριασμού/χρέωσης — το
+      γράφει το checkout (`link_client_email`) και πάνω του στηρίζεται το login.
+      Ερχόταν ως αφετηρία στο δημόσιο `/site-data` και τυπωνόταν στη δημόσια
+      σελίδα χωρίς καμία ενέργεια του πελάτη. ΜΕΤΡΗΘΗΚΕ:
+      `clients.email=private-billing@gmail.test`, `site_content.email` κενό →
+      το site δημοσίευε το πρώτο ενώ η φόρμα «Email (φαίνεται στο site)»
+      έδειχνε **κενό πεδίο**. Ο πελάτης ούτε το έβλεπε ούτε μπορούσε να το
+      σβήσει.
+
+      Μοναδική πηγή του δημόσιου email είναι πλέον το `site_content.email`.
+      Το `get_account` ΔΕΝ άλλαξε: ο ιδιοκτήτης βλέπει κανονικά το δικό του.
+
+      Tests: `tests/test_public_email_privacy.py` (10).
+
+      **ΣΥΝΟΨΗ ΤΩΝ ΤΕΣΣΑΡΩΝ ΣΗΜΕΙΩΝ ΜΟΥ ΣΤΟ `meta_oauth.py`:**
+      1. `_safe_url` — **αμετάβλητο**
+      2. **ΝΕΟ** μπλοκ `normalize_social` + `SocialValueError` + `_SOCIAL_HOSTS`
+         / `_HAS_SCHEME` / `_HANDLE_OK` / `_PATH_OK`, μετά το `_safe_email`
+      3. `put_content`: διακλάδωση `elif k in _SOCIAL_HOSTS` **πριν** από το
+         `elif k in _URL_FIELDS`, με **HTTP 422** σε αποτυχία
+      4. `_intake_from_db`: `"email": ""` αντί για `c.get("email")`
+
+      **Στο merge:** αν το `meta_oauth.py` ξαναγραφτεί από το billing track,
+      κράτησε αυτά τα τέσσερα σημεία αυτούσια. Δύο tests το φυλάνε:
+      `test_social_normalization.py::ApiRejectsInsteadOfSilentlyDropping`
+      (χάνεται η διακλάδωση ή το 422) και
+      `test_public_email_privacy.py::NoOtherAccountEmailFallback`
+      (επιστρέφει το fallback από το `clients.email`).
+
+      **ΑΠΟΤΕΛΕΣΜΑΤΑ NON-BILLING RC QA (Claude, 2026-09-05):**
+      · tenant isolation: **84/84** (21 authenticated endpoints × 4 σενάρια
+        διαπιστευτηρίων· η λίστα παράγεται από τον κώδικα) — καμία διαρροή
+      · browser QA: **144/144** σε 1440/390/320 × 6 verticals — μηδέν
+        υπερχείλιση, μηδέν κομμένο κείμενο, μηδέν σπασμένη εικόνα, μηδέν
+        console error (`sites/tests/rcBrowserQa.mjs`)
+      · editor lifecycle 8/8 · provider isolation 12/12 · domain non-billing
+        45/45 · Kimi ΔΕΝ απαιτείται (με σβηστό `KIMI_API_KEY` ο editor
+        στήνεται σε DeepSeek)
+      · **STRIPE LIFECYCLE: BLOCKED BY ACTIVE BILLING AGENT** — ο webhook
+        καλεί `process_stripe_billing_event`, που ορίζεται στο μη εφαρμοσμένο
+        `0009`. Το `lifecycle_e2e.py` κόβει στο `create_checkout → HTTP 401`
+        (πλέον authenticated, δικό σας συμβόλαιο). **ΔΕΝ** το ενημέρωσα και
+        **ΔΕΝ** εφάρμοσα το 0009 — ανήκουν σε εσάς.
+
+- [x] **Billing / Stripe foundation remediation** (`db/migrations/0009_*`,
+      `src/billing.py`, `src/meta_oauth.py`, `src/stripe_webhook.py`, focused
+      billing tests/docs). Owner: Codex, 2026-09-05. Scope: Stripe-owned
+      30-day trial, authenticated tenant checkout, event ledger, atomic/stale-safe
+      webhook transitions, lifecycle dates and explicit entitlement policy.
+      Staging + Stripe TEST only. No production write, deploy or push. Frozen
+      themes, taxonomy, ranking, migrations 0000-0008 and domain automation are
+      excluded.
+      **Completed in isolated staging + Stripe TEST (2026-09-05):** real hosted
+      Checkout charged EUR 0 today, collected a card, created an exact 30-day
+      trial and fixed EUR 14.99/month subscription. Real Stripe Test Clock runs
+      proved successful renewal, failed-payment `past_due` + 7-day grace, and
+      cancel-at-period-end/immediate-cancel behavior. Signed real Stripe payloads
+      passed through the application webhook; duplicate replay, stale-event
+      protection and atomic retry were verified. Billing tests 24/24, complete
+      migration-chain tests 18/18, customer journey 38/38, lifecycle 59/59 and
+      Next build passed. Staging QA clients were removed (2 -> 0). No production
+      write, deploy or push. `qa:editor` has one unrelated stale homepage-copy
+      assertion (`Logo Designer περιλαμβάνεται`); recorded, not changed inside
+      the billing scope.
+
+      **ΚΑΤΑΣΤΑΣΗ: COMPLETE / GO FOR CONTROLLED STAGING.** Lock κλειστό
+      2026-09-05 μετά τη συμφιλίωση παρακάτω.
+
+      **ΣΥΜΦΙΛΙΩΣΗ ΤΟΥ ΚΟΙΝΟΥ `src/meta_oauth.py`** (Claude, 2026-09-05). Το
+      αρχείο άλλαξε σκόπιμα από ΔΥΟ tracks. Δεν πάρθηκε καμία έκδοση «όπως
+      είναι»: και τα τέσσερα non-billing σημεία επαληθεύτηκαν **συμπεριφορικά**
+      πάνω στον τελικό συνδυασμένο κώδικα, όχι με σύγκριση κειμένου:
+        A. `_safe_url` **αμετάβλητο** — απορρίπτει `javascript:`, `data:`,
+           `vbscript:`, `file:`· κρατά ελεύθερο http/https για το `gbp_url`
+        B. `normalize_social` + `SocialValueError` + οι τέσσερις φρουροί παρόντες
+        C. `elif k in _SOCIAL_HOSTS` **πριν** από το `_URL_FIELDS`, με **422**
+        D. `_intake_from_db` ξεκινά με `"email": ""` — το `clients.email` δεν
+           γίνεται ποτέ δημόσιο
+      Το `lifecycle_e2e.py` τρέχει **59/0** με το authenticated checkout ΚΑΙ
+      τους QA ελέγχους (claim token στο `/progress`, 2 αρνητικοί έλεγχοι
+      εξουσιοδότησης, social σε κανονική μορφή, 3 έλεγχοι απόρριψης).
+
+      **Το `test_baseline_adoption` ενημερώθηκε** ώστε το πλήθος migrations να
+      είναι ΠΑΡΑΓΟΜΕΝΟ, όχι σταθερό: είχε γραμμένο «7» και πάλιωσε μόλις μπήκε
+      το 0009. Τώρα υπολογίζεται από τα αρχεία μείον baseline μείον
+      `-- ENV: staging-only`. 31/31.
+
+      **Συνδυασμένη παλινδρόμηση μετά τη συμφιλίωση:** social 14 · public email
+      privacy 10 · tenant isolation 84/84 · billing foundation 11 · webhook
+      contract 8 · migration chain 18 · baseline adoption 31 · billing migration
+      5 · editor 8/8 · provider isolation 12 · domain 45/45 + 14 · lifecycle
+      59/0 · Next.js build καθαρό. Καμία εγγραφή σε παραγωγή.
+
+- [x] **Visual audit remediation: ten former-D themes only**
+      (`sites/tests/fullVisualThemeAudit.mjs`,
+      `research/visual-theme-audit/remediated/`). Owner: Codex session
+      2026-08-31. Scope is reduced-motion static recapture at 1440/390/320,
+      normal-motion scroll health check, human re-grade and report update for
+      aegean/bloom/canvas/ember/forge/marble/motor/pulse/runway/terra only.
+      Completed 2026-08-31. Static capture now sets reduced motion before
+      navigation; all ten recaptured at 1440/390/320. Normal-motion health:
+      216/216 animated element checks visible+stable, post-load CLS 0, overflow
+      0, console/page errors 0. Human re-grade: 6 A, 4 B, 0 C/D; catalog now
+      A=28, B=27, C=3, D=0. Evidence:
+      `research/visual-theme-audit/REMEDIATION-REPORT.md`. No theme JSX/CSS,
+      taxonomy, ranking, backend, production, deploy or push.
+
+- [x] **Full visual product QA — 58 commercial themes**
+      (`research/visual-theme-audit/`, `sites/tests/fullVisualThemeAudit.mjs`,
+      `scripts/create_visual_audit_sheet.py`). Owner: Codex session 2026-08-26.
+      Completed 2026-08-30: 58/58 captured at 1440/390 with conditional 320,
+      real scroll activation, product-level human review and A/B/C/D grading.
+      Result: A=22, B=23, C=3, D=10. Report and review links:
+      `research/visual-theme-audit/VISUAL-AUDIT-REPORT.md`. Audit-only stop was
+      honored: no theme fixes, ranking/recommendation changes, homepage/editor/
+      backend changes, production actions, deploy or push. Awaiting explicit
+      human screenshot approval before any P0/P1 visual correction.
+
+- [x] **C/D visual root-cause diagnosis**
+      (`research/visual-theme-audit/ROOT-CAUSE-DIAGNOSIS.md`). Owner: Codex
+      session 2026-08-30. Diagnosis only; no themes/ranking/runtime/deploy changed.
+      Result: all 10 D themes consume populated normalized data; their apparent
+      empty sections are one shared full-page-capture artifact caused by
+      scroll-linked `animation-timeline: view()` opacity states. `educenter-campus`
+      is an education theme misclassified as professional, `freight-lane` is a
+      logistics theme misclassified as generic trade, and `blue-onepage` needs
+      targeted visual refinement rather than a ground-up redesign. Awaiting
+      approval before any audit-harness, taxonomy or visual implementation.
+
+- [ ] **Production-grade Editing Engine vertical slice** (`src/ai_editor/`,
+      `tests/test_ai_editor*.py`, `research/ai-editor/`). Owner: Codex session
+      2026-08-25. Scope: strict six-operation proposal, explicit approval,
+      atomic draft transaction, revision history, deterministic undo,
+      idempotency/concurrency/tenant/security/resource-leak QA. No
+      themes, customer-journey files, staging, production, deploy or push.
+      Offline complete: 366 holdout inputs, 26/26 tests, no resource leak.
+      Offline complete: proposal-only model path, explicit approval, atomic
+      Supabase-compatible commit/undo RPC, 29/29 editor tests and Next build.
+      Controlled staging evidence (2026-08-26): migrations `0004`/`0005` applied
+      only to `vitrina-staging`; RPC permissions verified service-role-only;
+      transaction/rollback/idempotency/stale/undo/published isolation **8/8**.
+      Real Playwright journey **4/4**: proposal/reject no mutation, approve +
+      refresh persistence, undo + refresh restoration, two-tab stale `409`.
+      Focused editor suite **29/29**, production Next build PASS, no resource leak.
+      Real Kimi Greek/Greeklish battery: schema/intent/operations/security/multi
+      **100%**, argument accuracy **84%**. BLOCKED: four hours cases; notably
+      `avrio kleinoume 3` lost the `tomorrow` qualifier and became general hours.
+      Whole repo suite is independently red: 151/168 (17 stale theme-ranking
+      expectations), and `qa:editor` has stale landing Logo Designer copy.
+      Nothing applied to production; no deploy or push. AI remains proposer-only.
+
 **ΜΗΝ ΞΑΝΑΚΑΝΕΤΕ / ΜΗΝ ΠΕΙΡΑΞΕΤΕ χωρίς λόγο:**
 - [x] **Premium Design Engine** (`src/premium_generator.py`, 3 templates στο
       `skills/vitrina-design-system/templates/`, `src/site_copy.py`, endpoints designs/
@@ -1453,3 +1653,34 @@ Prompt «ξενοδοχείο» → site με επωνυμία «Ξενοδοχ�
 Browser QA (staging API + Next σε `.next-hotel`): desktop 1440 και mobile 390,
 10 έλεγχοι ανά viewport, όλοι πράσινοι. Ο δοκιμαστικός πελάτης διαγράφηκε.
 72/72 python tests. Παραγωγή δεν αγγίχτηκε.
+
+### Έλεγχος ποιότητας προτάσεων — baseline (30 Αυγούστου 2026)
+
+Σύνολο αξιολόγησης 480 ερωτημάτων σε 19/19 verticals, 10 μορφές εισόδου
+(ελληνικά, greeklish, ορθογραφικά, έμμεσα, μικτά, τοποθεσία-θόρυβος). ΜΟΝΟ
+μέτρηση — καμία αλλαγή στη λογική προτάσεων.
+
+**Ανίχνευση επαγγέλματος 83.3%** (στόχος ≥98%). Η κατάταξη όμως είναι υγιής:
+με σωστό επάγγελμα, top-3 συνάφεια 98.4% και καταστροφικά 1.74%· με λάθος
+επάγγελμα, 9.09%. Το πρόβλημα είναι η ανίχνευση, όχι το ranking.
+
+Πέντε αιτίες, όλες ντετερμινιστικά διορθώσιμες:
+
+1. Ταίριασμα υποσυμβολοσειράς χωρίς όρια λέξης — `thessaloniki` περιέχει
+   `salon` (ηλεκτρολόγος → κομμωτήριο), `farmakeio` περιέχει `farm`,
+   `εργατικές` περιέχει `γατ` (δικηγόρος → pet shop).
+2. Το `type` του `_guess_trade` έχει βάρος 3 και νικά την περιγραφή (βάρος 2)
+   ακόμη κι όταν είναι λάθος: «φυσικοθεραπευτήριο» → «μασάζ», «Nail Bar» → «μπαρ».
+3. **32% των ερωτημάτων απαντιούνται από AI fallback**, με 70.6% ακρίβεια και
+   ΧΩΡΙΣ σταθερότητα: πέντε πανομοιότυπες κλήσεις έδωσαν τρεις διαφορετικές
+   απαντήσεις. Το `/designs` καλεί `_vertical` δύο φορές (ετικέτα + themes),
+   οπότε ο πελάτης μπορεί να δει «Τεχνικά επαγγέλματα» πάνω από themes
+   δικηγορικού γραφείου.
+4. Λέξεις υπηρεσίας ως λέξεις επαγγέλματος: «κουζίνες» → ξυλουργός,
+   «κρασιά» → αγρόκτημα, «στο φούρνο» → φούρνος.
+5. Το `_CONTEXT_BLOCKS` μπλοκάρει `beauty` σε σκέτο «grooming» — ανδρικό
+   κουρείο παίρνει pet shop.
+
+Ετυμηγορία: **RECOMMENDATIONS NEED FIXES**. Έξι προτεινόμενες διορθώσεις με
+αρχεία και αναμενόμενη επίδραση στο `research/recommendation-audit/`.
+Δεν υλοποιήθηκε καμία — αναμένεται έγκριση.
