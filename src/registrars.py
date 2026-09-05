@@ -48,29 +48,29 @@ class ManualRegistrar:
 
 
 class DnsRegistrar:
-    """Δωρεάν έλεγχος διαθεσιμότητας μέσω DNS (Cloudflare DoH) — χωρίς reseller creds.
+    """ΔΕΝ αποφαίνεται για διαθεσιμότητα. Επίτηδες.
 
-    Λογική: SOA query. NXDOMAIN (Status 3) → μάλλον διαθέσιμο· NOERROR → πιασμένο.
-    ΕΚΤΙΜΗΣΗ (όχι registry-authoritative) — για UX στο signup. Η αγορά μένει manual/Papaki.
+    ΤΙ ΕΚΑΝΕ ΠΡΙΝ ΚΑΙ ΓΙΑΤΙ ΚΑΤΑΡΓΗΘΗΚΕ. Ρωτούσε το DNS για SOA και θεωρούσε
+    το NXDOMAIN «μάλλον ελεύθερο». Το DNS δεν ξέρει τι είναι κατοχυρωμένο —
+    ξέρει τι είναι ΡΥΘΜΙΣΜΕΝΟ. Ένα παρκαρισμένο domain δεν έχει DNS, οπότε
+    φαινόταν ελεύθερο· ο πελάτης πλήρωνε €24 για κάτι που δεν μπορούσε να
+    πάρει. Και κάθε αποτυχία εκτός δικτύου κατέληγε σε αισιόδοξη απάντηση.
+
+    Η διαθεσιμότητα ζητιέται πλέον από `src/domain_availability.py`, που
+    ρωτά RDAP (το πρωτόκολλο του ίδιου του μητρώου) ή registrar API. Εδώ
+    επιστρέφεται `None` = άγνωστο, ποτέ εικασία.
     """
 
-    DOH = "https://cloudflare-dns.com/dns-query"
-
     def check_availability(self, domains: list[str]) -> list[dict[str, Any]]:
-        results: list[dict[str, Any]] = []
-        for domain in domains:
-            available: bool | None
-            try:
-                r = requests.get(
-                    self.DOH, params={"name": domain, "type": "SOA"},
-                    headers={"Accept": "application/dns-json"}, timeout=10)
-                status = r.json().get("Status")
-                available = (status == 3)  # NXDOMAIN → μάλλον ελεύθερο
-            except Exception:
-                available = None  # δεν μπόρεσε → άγνωστο
-            results.append({"domain": domain, "available": available, "price": cfg.DOMAIN_PRICE_EUR,
-                            "estimate": True})
-        return results
+        return [
+            {
+                "domain": domain,
+                "available": None,
+                "price": cfg.DOMAIN_PRICE_EUR,
+                "note": "Ο DNS έλεγχος δεν είναι αυθεντική πηγή διαθεσιμότητας.",
+            }
+            for domain in domains
+        ]
 
     def register_domain(self, domain: str, years: int = 1) -> dict[str, Any]:
         raise RuntimeError(
