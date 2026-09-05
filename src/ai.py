@@ -54,15 +54,23 @@ def available() -> bool:
     return bool(cfg.AI_API_KEY)
 
 
-def complete(system: str, user: str, max_tokens: int = 1500) -> str | None:
-    """Μία ερώτηση, ένα κείμενο πίσω. `None` σε οποιοδήποτε πρόβλημα."""
+def complete(system: str, user: str, max_tokens: int = 1500,
+             temperature: float | None = None) -> str | None:
+    """Μία ερώτηση, ένα κείμενο πίσω. `None` σε οποιοδήποτε πρόβλημα.
+
+    `temperature=0` για ό,τι πρέπει να είναι ΕΠΑΝΑΛΗΨΙΜΟ. Η προεπιλογή μένει
+    0.7: το κείμενο ενός site κερδίζει από ποικιλία. Η ΤΑΞΙΝΟΜΗΣΗ όμως όχι —
+    μετρήθηκε ότι το ίδιο «ιμε ιλεκτρολογος στι θεσαλονικι» έδινε
+    `professional` και `trade` σε διαδοχικές κλήσεις, οπότε ο ίδιος πελάτης
+    έβλεπε άλλα site κάθε φορά.
+    """
     p = provider()
     if not p:
         return None
     global LAST_ERROR
     try:
-        result = (_anthropic(system, user, max_tokens) if p == "anthropic"
-                  else _openai(system, user, max_tokens))
+        result = (_anthropic(system, user, max_tokens, temperature) if p == "anthropic"
+                  else _openai(system, user, max_tokens, temperature))
         LAST_ERROR = None
         return result
     except Exception as e:  # noqa: BLE001
@@ -96,7 +104,8 @@ def complete_json(system: str, user: str, max_tokens: int = 1500) -> Any | None:
         return None
 
 
-def _anthropic(system: str, user: str, max_tokens: int) -> str:
+def _anthropic(system: str, user: str, max_tokens: int,
+               temperature: float | None = None) -> str:
     # Απευθείας στο επίσημο Messages API. Αποφεύγουμε ασυμβατότητες μεταξύ
     # εκδόσεων anthropic/httpx και κρατάμε το ίδιο προβλέψιμο transport με τους
     # OpenAI-compatible providers παρακάτω.
@@ -110,6 +119,7 @@ def _anthropic(system: str, user: str, max_tokens: int) -> str:
                  "anthropic-version": "2023-06-01",
                  "Content-Type": "application/json"},
         json={"model": model(), "max_tokens": max_tokens, "system": system,
+              "temperature": 0.7 if temperature is None else temperature,
               "messages": [{"role": "user", "content": user}]},
         timeout=TIMEOUT)
     if not r.ok:
@@ -118,13 +128,15 @@ def _anthropic(system: str, user: str, max_tokens: int) -> str:
     return "".join(b.get("text", "") for b in blocks if b.get("type") == "text")
 
 
-def _openai(system: str, user: str, max_tokens: int) -> str:
+def _openai(system: str, user: str, max_tokens: int,
+            temperature: float | None = None) -> str:
     base = cfg.AI_BASE_URL or "https://api.deepseek.com/v1"
     r = requests.post(
         f"{base}/chat/completions",
         headers={"Authorization": f"Bearer {cfg.AI_API_KEY}",
                  "Content-Type": "application/json"},
-        json={"model": model(), "max_tokens": max_tokens, "temperature": 0.7,
+        json={"model": model(), "max_tokens": max_tokens,
+              "temperature": 0.7 if temperature is None else temperature,
               "messages": [{"role": "system", "content": system},
                            {"role": "user", "content": user}]},
         timeout=TIMEOUT)

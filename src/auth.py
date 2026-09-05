@@ -12,6 +12,7 @@
 """
 from __future__ import annotations
 
+import hashlib
 import time
 
 import requests
@@ -77,3 +78,28 @@ def require_client_access(client_id: str, authorization: str | None) -> dict:
         # Ίδιο μήνυμα με το 404 ώστε να μη διαρρέει ποιοι πελάτες υπάρχουν.
         raise HTTPException(404, "Δεν βρέθηκε ο πελάτης.")
     return client
+
+
+def require_client_or_claim(client_id: str, authorization: str | None,
+                            claim_token: str | None) -> dict:
+    """Ιδιοκτήτης Ή η ανώνυμη συνεδρία που δημιούργησε αυτό το site.
+
+    ΓΙΑΤΙ ΥΠΑΡΧΕΙ. Το funnel είναι site-first: ο επισκέπτης περιγράφει την
+    επιχείρησή του, το site φτιάχνεται και ΜΕΤΑ κάνει λογαριασμό. Στο ενδιάμεσο
+    δεν υπάρχει χρήστης — άρα το `require_client_access` θα έκοβε τη ροή.
+
+    Πέντε endpoints έμεναν γι' αυτόν τον λόγο ΕΝΤΕΛΩΣ αφύλακτα. Μετρήθηκε:
+    ένα `POST /clients/<ξένο id>/select-design` χωρίς κανένα header άλλαξε το
+    theme άλλου πελάτη και σκανδάλισε deploy. Η ανωνυμία της ροής δεν
+    δικαιολογεί ανωνυμία της ΤΑΥΤΟΤΗΤΑΣ: η συνεδρία κρατά ήδη μυστικό
+    claim token 32+ χαρακτήρων. Αυτό είναι το διαπιστευτήριο.
+    """
+    token = (claim_token or "").strip()
+    if len(token) >= 32:
+        digest = hashlib.sha256(token.encode()).hexdigest()
+        try:
+            if db.valid_client_claim(client_id, digest):
+                return db.get_client(client_id) or {"id": client_id}
+        except Exception as exc:            # η βάση δεν αποφασίζει πρόσβαση
+            print(f"[auth] claim check {client_id}: {exc}")
+    return require_client_access(client_id, authorization)
