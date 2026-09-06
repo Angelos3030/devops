@@ -13,6 +13,113 @@
 
 ---
 
+## ΕΝΗΜΕΡΩΣΗ 2026-09-06 — τι άλλαξε και τι μετρήθηκε
+
+Δεν διαγράφεται τίποτα από τα παρακάτω: η ενότητα 0 παραμένει το στιγμιότυπο
+της 5ης Σεπτεμβρίου. Εδώ μπαίνει μόνο ό,τι μετρήθηκε ή άλλαξε στις 6/9.
+
+### Λύθηκε
+
+| | |
+|---|---|
+| **Μ4 — chat editor** | `DEEPSEEK_API_KEY` ρυθμίστηκε στο Railway (`devops`). Το κλειδί επαληθεύτηκε ανεξάρτητα στο `api.deepseek.com` (HTTP 200). Το redeploy πέτυχε και το `/healthz` έμεινε 200 σε 3/3 ελέγχους. Ο ήδη deployed κώδικας (`main@69f7b51`) έχει **μηδέν** αναφορές στη μεταβλητή — είναι προ-τοποθετημένη και αδρανής μέχρι να ανέβει το RC. |
+| **Κ1/Κ2/Κ3 — ορατότητα** | Νέο `/readyz` ελέγχει βάση, λειτουργία Stripe, απομόνωση παρόχων και κατάσταση registrar· 503 όταν πέσει η βάση ή αναμειχθούν οι πάροχοι. Κάθε μη χειρισμένο 5xx αφήνει γραμμή `[5xx]` με `rid`. Εννέα έλεγχοι **προκαλούν** τις αποτυχίες αντί να τις περιγράφουν. Το `/healthz` έμεινε σκόπιμα αμετάβλητο — είναι η πύλη deploy του Railway. |
+| **Απόκλιση Hetzner** | Το `/opt/vitrina/registrar_pointer.py` συγχρονίστηκε με το repo (`eb205704…`), μετά από backup `registrar_pointer.py.bak-20260906-071836`. `py_compile` OK, `.env` ανέπαφο (162 bytes, ίδιο timestamp). Επαληθεύτηκε ότι κανένα cron/timer/at δεν εκτελεί τον κώδικα. Offline έλεγχοι 25/25. **Μηδέν κλήσεις στο API της Pointer.** |
+
+### Η κατάσταση της βάσης παραγωγής, μετρημένη
+
+Read-only μέσω PostgREST με το κλειδί `service_role`. Το τοπικό `SUPABASE_URL`
+δείχνει στο ίδιο project με το Railway (`rmhgkwscchyjzjkxezuf`).
+
+- **Δεν υπάρχει `schema_migrations`** (HTTP 404) → η βάση παραμένει εκτός διαχείρισης
+- 12 πίνακες, **ακριβώς** οι 12 του baseline `0000`· κανένας επιπλέον, κανένας απών
+- **95/95 στήλες ταυτίζονται** με το `db/baseline_fingerprint.json`, μηδέν αποκλίσεις
+- Λείπουν, όπως αναμένεται: `stripe_events`, `ai_editor_*`, `domain_availability`
+- Ένα μόνο RPC: `claim_client_site`. **Δεν υπάρχει** `process_stripe_billing_event`
+- Δεδομένα σε κίνδυνο: `clients` 37 · `sites` 264 · `site_content` 36 ·
+  `client_site_claims` 20 · `client_assets` 8 · `domains` 1 · `social_accounts` 1 ·
+  `subscriptions` 0
+
+Το αποτύπωμα προ-επικυρώνεται: η υιοθέτηση baseline αναμένεται να περάσει.
+**Επιφύλαξη:** το PostgREST δεν εκθέτει τύπους, primary/foreign keys ή unique
+constraints — αυτά τα μέρη του αποτυπώματος μένουν ανεπαλήθευτα μέχρι να
+υπάρξει απευθείας σύνδεση.
+
+### Νέος μπλοκαριστής — Μ7
+
+**`DATABASE_URL_PRODUCTION` δεν υπάρχει πουθενά.** Ούτε στο τοπικό `.env`, ούτε
+στο Railway, ούτε στον Hetzner. Το `scripts/migrate.py` και το
+`scripts/backup_db.py` απαιτούν απευθείας σύνδεση Postgres.
+
+Συνέπεια: **δεν εκτελείται migration και δεν λαμβάνεται `pg_dump`.** Άρα οι
+συνθήκες 3 και 4 της πύλης deployment είναι ψευδείς και το RC **δεν** ανεβαίνει.
+Αυτό είναι σωστό, όχι ατυχία: deploy του RC χωρίς τα 0009/0010 θα άφηνε τον
+webhook χωρίς `stripe_events` και χωρίς το RPC — ακριβώς το P0 που περιγράφει
+αυτός ο οδηγός.
+
+### Cloudflare — ακριβώς τι λείπει
+
+Το `CF_API_TOKEN` δεν επαρκεί για το Phase 1 της αρχιτεκτονικής Worker:
+
+| Δικαίωμα | Κατάσταση |
+|---|---|
+| Zone → DNS → Read | **OK** |
+| Account → Cloudflare Pages → Read | **OK** |
+| Account → Workers Scripts → Edit | **ΛΕΙΠΕΙ** (ούτε read) |
+| Zone → Workers Routes → Edit | **ΛΕΙΠΕΙ** (ούτε read) |
+| Zone → Zone Settings → Read | **ΛΕΙΠΕΙ** |
+| Zone → DNS → Edit | δεν επαληθεύτηκε (δεν έγινε εγγραφή) |
+
+Security review του `x-tenant-host` έγινε στατικά: χρησιμοποιείται **μόνο** σε
+`middleware.js`, `robots.txt` και `sitemap.xml`, και επιλέγει αποκλειστικά
+**δημόσιο** περιεχόμενο. Η εξουσιοδότηση μεταβολών στηρίζεται σε bearer/claim
+tokens, ποτέ στο host. Πλαστογράφηση του header δίνει ό,τι δίνει και η επίσκεψη
+στο δημόσιο site. **Καμία ουσιαστική ευπάθεια** — βλ. P2 παρακάτω.
+
+### Firewall Hetzner — σχεδιάστηκε, ΔΕΝ εφαρμόστηκε
+
+Η μεταβολή μπλοκαρίστηκε από τον classifier ασφαλείας. Δεν παρακάμφθηκε.
+Η κατάσταση του server επιβεβαιώθηκε ασφαλής για την αλλαγή:
+
+- μόνο ο `root` έχει πραγματικό shell· **κανένας λογαριασμός δεν έχει κωδικό**
+- `permitrootlogin prohibit-password`, 1 κλειδί, `authorized_keys` 600
+- `unattended-upgrades` εγκατεστημένο **και** ενεργό· **0** εκκρεμείς ενημερώσεις
+- `/opt/vitrina/.env` 600 root:root· `/root/.ssh` 700
+- `atd` ενεργό → dead-man switch εφικτό (δοκιμάστηκε και καθαρίστηκε)
+
+Ο ακριβής κανόνας, για εκτέλεση με ανθρώπινη έγκριση:
+
+    echo "ufw --force disable" | at now + 5 minutes   # δίχτυ ασφαλείας ΠΡΩΤΑ
+    ufw allow 22/tcp
+    ufw default deny incoming
+    ufw default allow outgoing                        # η Pointer παραμένει προσβάσιμη
+    ufw --force enable
+    # από ΝΕΑ συνεδρία: ssh root@95.217.189.29 'ufw status verbose'
+    # μόλις επιβεβαιωθεί:  atrm <job>
+
+Επειδή η 22 μένει ανοιχτή σε όλους, δεν υπάρχει κίνδυνος κλειδώματος· το `at`
+είναι δεύτερο δίχτυ. Προαιρετικά, μηδενικού ρίσκου αφού κανείς δεν έχει κωδικό:
+`PasswordAuthentication no` στο `sshd_config`.
+
+### Επικύρωση RC
+
+    159 passed, 8 subtests   — κρίσιμες πύλες, 0 αποτυχίες
+    322 passed, 17 failed    — πλήρης σουίτα
+    25/25                    — offline adapter Pointer, μηδέν κλήσεις API
+    64 themes × 4 σημεία     — templateRegistry
+    build sites              — επιτυχές, middleware 25.1 kB
+
+Οι 17 αποτυχίες **προϋπήρχαν**: αναπαρήχθησαν ταυτόσημα σε καθαρό worktree στο
+`aa1bba9`, πριν από κάθε αλλαγή αυτού του κύκλου. Είναι όλες της μορφής
+`<νέο premium theme>` ≠ `<παλιό legacy layout>` — `grecko-table`≠`warmth`,
+`novena-care`≠`clinic-triage`, `elegance-salon`≠`beauty-atelier`,
+`bigspring-advisory`≠`marble`, `constra-build`≠`callout`. Κάθε αποτέλεσμα είναι
+σημασιολογικά **σωστό** για το επάγγελμά του· τα assertions κρατούν τα legacy
+keys από πριν το `5721e91`. Δεν άλλαξε ούτε προϊόν ούτε test: το CLAUDE.md
+απαιτεί ανθρώπινη οπτική έγκριση για re-baseline του καταλόγου.
+
+---
+
 ## 0. Τι υπάρχει σήμερα στην παραγωγή (μετρημένο, 2026-09-05)
 
 ### Τοπολογία
