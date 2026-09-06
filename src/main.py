@@ -302,3 +302,84 @@ def healthz():
             "last_error": ai.LAST_ERROR,
         },
     }
+
+
+# ---------------------------------------------------------------------------
+# Ετοιμότητα και ορατότητα σφαλμάτων
+#
+# ΓΙΑΤΙ ΞΕΧΩΡΙΣΤΟ ENDPOINT. Το `/healthz` είναι η πύλη deploy του Railway
+# (railway.toml, healthcheckTimeout 30). Αν βάλουμε εκεί έλεγχο βάσης, μια αργή
+# βάση μπλοκάρει το deploy — και χειρότερα, ένα deploy «αποτυγχάνει» για λόγο
+# άσχετο με τον νέο κώδικα. Το `/healthz` μένει liveness: «η διεργασία ζει».
+# Το `/readyz` απαντά στο άλλο ερώτημα: «μπορεί να εξυπηρετήσει πελάτη;»
+#
+# Μετρήθηκε: το `/healthz` επέστρεφε `ok: true` ενώ ο chat editor ήταν νεκρός
+# (έλειπε το DEEPSEEK_API_KEY) — γιατί κοιτούσε μόνο το `src/ai.py`. Ένας
+# έλεγχος που δεν βλέπει τον πάροχο του editor δεν είναι έλεγχος του editor.
+#
+# ΚΑΝΕΝΑ ΜΥΣΤΙΚΟ ΔΕΝ ΕΠΙΣΤΡΕΦΕΤΑΙ: μόνο «ρυθμισμένο ναι/όχι» και, για το
+# Stripe, η ΛΕΙΤΟΥΡΓΙΑ (test/live) από το πρόθεμα του κλειδιού. Αυτό είναι το
+# σήμα που θέλουμε να μπορούμε να ελέγξουμε από έξω πριν από κάθε beta πελάτη:
+# ότι η παραγωγή ΔΕΝ είναι κατά λάθος σε live χρεώσεις.
+@app.get("/readyz")
+def readyz():
+    import time as _time
+
+    from fastapi.responses import JSONResponse
+
+    checks: dict[str, object] = {}
+
+    started = _time.perf_counter()
+    try:
+        db._client().table("clients").select("id").limit(1).execute()
+        checks["db"] = {"ok": True,
+                        "latency_ms": round((_time.perf_counter() - started) * 1000)}
+    except Exception as exc:  # noqa: BLE001 — κάθε αποτυχία βάσης είναι «μη έτοιμο»
+        checks["db"] = {"ok": False, "error": type(exc).__name__}
+
+    sk = cfg.STRIPE_SECRET_KEY
+    checks["stripe"] = {
+        "mode": "live" if sk.startswith("sk_live") else "test" if sk.startswith("sk_test") else "missing",
+        "webhook_secret": bool(cfg.STRIPE_WEBHOOK_SECRET),
+        "price_site": bool(cfg.STRIPE_PRICE_SITE),
+    }
+
+    # Απομόνωση παρόχων: το κλειδί Anthropic ΔΕΝ πρέπει να καταλήγει στο
+    # DeepSeek endpoint (μιλάει πρωτόκολλο OpenAI — βλ. ai_editor/model.py).
+    editor_key = cfg.DEEPSEEK_API_KEY or cfg.AI_API_KEY
+    checks["ai"] = {
+        "site_copy": {"provider": cfg.AI_PROVIDER or "auto",
+                      "configured": bool(cfg.AI_API_KEY)},
+        "editor": {"configured": bool(cfg.DEEPSEEK_API_KEY),
+                   "isolated": not editor_key.startswith("sk-ant-")},
+    }
+
+    checks["registrar"] = {"provider": cfg.DOMAIN_REGISTRAR,
+                           "auto_purchase": cfg.DOMAIN_REGISTRAR == "pointer"}
+
+    ready = bool(checks["db"]["ok"]) and checks["ai"]["editor"]["isolated"]
+    return JSONResponse({"ready": ready, "checks": checks},
+                        status_code=200 if ready else 503)
+
+
+@app.exception_handler(Exception)
+async def _unhandled(request, exc):
+    """Κάθε μη χειρισμένο 5xx αφήνει ΜΙΑ γραμμή που φτάνει στα Railway logs.
+
+    Χωρίς αυτό, ένα 500 στην παραγωγή είναι αόρατο μέχρι να παραπονεθεί
+    πελάτης. Η γραμμή είναι σκόπιμα μονή και με σταθερό πρόθεμα `[5xx]`, ώστε
+    να φιλτράρεται με απλή αναζήτηση κειμένου στο Railway.
+
+    ΔΕΝ καταγράφονται σώμα αιτήματος, headers, cookies ή query values — μόνο
+    μέθοδος, διαδρομή και τύπος σφάλματος. Το μήνυμα κόβεται στους 200
+    χαρακτῆρες γιατί ένα stack trace στα logs καταλήγει να κρύβει τα υπόλοιπα.
+    """
+    from fastapi.responses import JSONResponse
+
+    rid = hashlib.sha256(
+        f"{request.method}{request.url.path}{id(exc)}".encode()).hexdigest()[:8]
+    print(f"[5xx] rid={rid} {request.method} {request.url.path} "
+          f"err={type(exc).__name__}: {str(exc)[:200]}", flush=True)
+    return JSONResponse(
+        {"detail": "Παρουσιάστηκε σφάλμα. Δοκίμασε ξανά.", "ref": rid},
+        status_code=500)
