@@ -1,176 +1,177 @@
-/* Ξυλουργείο στο φως — ασταρωμένο λευκό, βαφή δρυός, Fraunces + Manrope.
-   Οι γραμματοσειρές είναι self-hosted με ελληνικό subset (app/fonts.css)·
-   τα fallback είναι ρητά ώστε μια αποτυχία φόρτωσης να μη ρίχνει τη σελίδα
-   σε system-ui — αυτό ακριβώς έκανε το προηγούμενο theme να φαίνεται άψητο. */
+/* Ξυλουργείο — ψηφιδωτό πάνελ.
+   Τα πλάτη (60/40, 25×4, 30×3, 33/67, 24%, 50/50) και τα χρώματα είναι
+   μετρημένα, όχι διαλεγμένα. Βλ. research/koutrakis-redesign-v3.
+   Γραμματοσειρά self-hosted με ελληνικό subset (app/fonts.css)· ρητά fallback
+   ώστε αποτυχία φόρτωσης να μη ρίξει τη σελίδα σε system-ui. */
 .root {
-  --paper: var(--vt-surface, #faf7f2);
-  --card: var(--vt-surface-2, #fffdfa);
-  --deep: var(--vt-surface-deep, #2a241d);
-  --ink: var(--vt-ink, #1c1814);
-  --soft: var(--vt-ink-soft, #6b6055);
-  --oak: var(--vt-accent, #9a6334);
-  --line: var(--vt-line, #e6dfd4);
-  --display: var(--vt-display, 'Fraunces', 'Literata', Georgia, serif);
+  --paper: #fff; --ink: #000; --soft: #666; --title: #333;
+  --sand: #dec098; --beige: #e2dad3; --grey: #e8e8e8; --cream: #f8f4f1;
+  --dark: #595959; --accent: #e09900; --line: #e7e3dd;
   --body: var(--vt-body, 'Manrope', 'Inter', system-ui, sans-serif);
-  background: var(--paper); color: var(--ink); font-family: var(--body);
+  background: var(--paper); color: var(--ink); font-family: var(--body); font-weight: 400;
 }
 .root * { box-sizing: border-box; }
 .root a { color: inherit; text-decoration: none; }
-.root h1, .root h2, .root h3 { font-family: var(--display); font-weight: 600; }
-/* Το όνομα της επιχείρησης ΔΕΝ σπάει με παύλα στη μέση. */
-.root h1, .root h2 { hyphens: manual; text-wrap: balance; }
+.root h1, .root h2, .root h3 { hyphens: manual; text-wrap: balance; margin: 0; }
+.root :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.root img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-/* ── nav ─────────────────────────────────────────────────────────── */
+/* ── hero ───────────────────────────────────────────────────────── */
+.hero { position: relative; height: 100svh; min-height: 26rem; overflow: hidden; }
+.heroBare { height: 58svh; background: linear-gradient(170deg, var(--cream), var(--paper)); }
+.heroImg { position: absolute; inset: 0; }
+.hero::before {
+  content: ''; position: absolute; inset: 0 0 auto 0; height: 128px; z-index: 1;
+  background: linear-gradient(rgba(0,0,0,.32), transparent);
+}
+.heroBare::before { display: none; }
 .nav {
-  position: sticky; top: 0; z-index: 20; min-height: 72px; padding: 0 5vw;
-  display: flex; align-items: center; justify-content: space-between; gap: 24px;
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
-  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+  position: absolute; z-index: 2; inset: 0 0 auto 0; min-height: 74px; padding: 0 36px;
+  display: flex; align-items: center; justify-content: space-between; gap: 22px;
+  color: #fff; text-shadow: 0 1px 10px rgba(0,0,0,.45);
 }
-.brand { font-family: var(--display); font-size: 1.5rem; font-weight: 600; letter-spacing: -.01em; }
+.heroBare .nav { color: var(--ink); text-shadow: none; }
+.brand { font-size: 1.22rem; font-weight: 700; letter-spacing: .01em; }
 .brandLink { display: inline-flex; align-items: center; min-height: 44px; }
-.links { display: flex; gap: 30px; font-size: .82rem; }
-.links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--soft); }
-.links a:hover { color: var(--ink); }
-/* ΠΡΟΣΟΧΗ ΣΤΗΝ ΕΙΔΙΚΟΤΗΤΑ. Ο κανόνας `.root a { color: inherit }` είναι (0,2,0)
-   και νικά ένα σκέτο `.quote` (0,1,0) — το κουμπί έβγαινε μαύρο πάνω σε μαύρο,
-   με το κείμενο παρόν αλλά αόρατο. Κάθε κουμπί που είναι <a> δηλώνεται εδώ ως
-   `.root a.X` (0,2,1) ώστε το χρώμα του να επιβιώνει. */
-.root a.quote {
-  display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px;
-  background: var(--ink); color: var(--paper); border-radius: 6px;
-  font-size: .82rem; font-weight: 700;
+.navRight { display: flex; align-items: center; gap: 26px; }
+.links { display: flex; gap: 24px; font-size: .82rem; font-weight: 300; }
+.links a { display: inline-flex; align-items: center; min-height: 44px; }
+.root a.navPhone {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+  border: 1px solid rgba(255,255,255,.75); font-size: .84rem; font-weight: 500;
+  color: #fff; white-space: nowrap;
+}
+.root .heroBare a.navPhone { border-color: var(--line); color: var(--ink); }
+.scroll {
+  position: absolute; z-index: 2; bottom: 34px; left: 50%; transform: translateX(-50%);
+  width: 50px; height: 50px; border: 1px solid rgba(255,255,255,.8); border-radius: 50%;
+  display: grid; place-items: center; color: #fff; font-size: 1.1rem;
+}
+.heroBare .scroll { display: none; }
+
+/* ── λευκή ζώνη: αντίστροφη ιεραρχία ────────────────────────────── */
+.intro { padding: 72px 36px 64px; }
+.h1 { font-size: 25px; font-weight: 500; line-height: 1.05; color: var(--title); margin-bottom: 22px; }
+.lede { font-size: 30px; font-weight: 300; line-height: 45px; color: var(--soft); margin: 0; max-width: 52ch; }
+
+/* ── σχίσεις: τα πάνελ ακουμπούν ────────────────────────────────── */
+.split { display: flex; align-items: stretch; }
+.photoRight { flex-direction: row-reverse; }
+.split figure { margin: 0; overflow: hidden; min-height: 420px; }
+.media60 { flex: 0 0 60%; }
+.media67 { flex: 0 0 67%; }
+.media50 { flex: 0 0 50%; }
+.text40 { flex: 0 0 40%; }
+.text33 { flex: 0 0 33%; }
+.text50 { flex: 0 0 50%; }
+.split > div {
+  background: var(--paper); padding: 56px 44px;
+  display: flex; flex-direction: column; justify-content: center; gap: 16px;
+}
+.split h2 { font-size: 22px; font-weight: 700; color: var(--ink); text-transform: uppercase; }
+.split p { font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--soft); margin: 0; }
+.root a.arrowLink {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px;
+  margin-top: 8px; font-size: .84rem; font-weight: 600; color: var(--accent);
+}
+.arrow {
+  display: grid; place-items: center; width: 34px; height: 34px;
+  border: 1px solid var(--accent); border-radius: 50%;
 }
 
-/* ── hero ────────────────────────────────────────────────────────── */
-.hero {
-  position: relative; min-height: min(78svh, 760px); display: flex; align-items: flex-end;
-  padding: 10vh 5vw 6vh; overflow: hidden;
-}
-.heroBare { background: linear-gradient(170deg, var(--card), var(--paper)); min-height: 60svh; }
-.heroImg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-/* Πέπλο ΑΠΟ ΤΑ ΚΑΤΩ και ανοιχτό: κρατά το φως της φωτογραφίας, σε αντίθεση με
-   τα σκούρα gradient που «σβήνουν» μια κουζίνα για να χωρέσει κείμενο. */
-.heroVeil {
-  position: absolute; inset: 0;
-  background: linear-gradient(0deg, rgba(20,16,12,.80) 0%, rgba(20,16,12,.34) 38%, rgba(20,16,12,.04) 70%);
-}
-.heroCopy { position: relative; z-index: 1; max-width: 860px; }
-.hero .heroCopy, .hero .heroCopy .kicker { color: #fff; }
-.heroBare .heroCopy, .heroBare .heroCopy .kicker { color: var(--ink); }
-.kicker { font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; margin: 0 0 14px; }
-.heroTitle { font-size: clamp(2.6rem, 7vw, 5.4rem); line-height: .98; margin: 0 0 16px; letter-spacing: -.02em; }
-.heroTag { font-size: clamp(1rem, 1.6vw, 1.2rem); line-height: 1.6; max-width: 46ch; margin: 0; opacity: .94; }
-.heroActions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-.root a.primary, .root a.secondary {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-height: 48px; padding: 0 24px; border-radius: 6px; font-weight: 700; font-size: .92rem;
-}
-.root a.primary { background: var(--oak); color: #fff; }
-.root a.secondary { border: 1px solid rgba(255,255,255,.65); color: #fff; }
-.root .heroBare a.secondary { border-color: var(--line); color: var(--ink); }
+/* ── τέσσερις στήλες 25% ────────────────────────────────────────── */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); }
+.step { padding: 44px 28px; min-height: 268px; display: flex; flex-direction: column; gap: 12px; }
+.step0 { background: var(--sand); }
+.step1 { background: var(--beige); }
+.step2 { background: var(--grey); }
+.step3 { background: var(--cream); }
+.step h3 { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.step p { font-size: 14px; font-weight: 300; line-height: 1.7; color: #4a4a4a; margin: 0; }
 
-/* ── proof ───────────────────────────────────────────────────────── */
-.proof {
-  display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line);
-  background: var(--card);
+/* ── λωρίδα τριών 30% ───────────────────────────────────────────── */
+.strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; padding: 64px 36px; }
+.stripItem { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.stripItem figcaption {
+  font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ink);
 }
-.proof span {
-  padding: 20px 16px; text-align: center; font-size: .82rem; color: var(--soft);
-  border-right: 1px solid var(--line);
+.stripItem img { aspect-ratio: 4 / 3; }
+
+/* ── μπεζ ζώνη ──────────────────────────────────────────────────── */
+.beige { background: var(--beige); padding: 56px 110px; display: grid; gap: 44px; }
+.rowTwo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px; }
+.rowThree { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+.gItem { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.gItem figcaption {
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ink);
 }
-.proof span:last-child { border-right: 0; }
+.rowTwo .gItem img { aspect-ratio: 5 / 4; }
+.rowThree .gItem img { aspect-ratio: 4 / 3; }
 
-/* ── κοινά ──────────────────────────────────────────────────────── */
-.sectionHead { max-width: 60ch; margin: 0 0 48px; }
-.eyebrow { font-size: .74rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 700; color: var(--oak); margin: 0 0 14px; }
-.sectionHead h2 { font-size: clamp(2rem, 4vw, 3.3rem); line-height: 1.05; margin: 0; letter-spacing: -.015em; }
-.lede { margin: 18px 0 0; line-height: 1.7; color: var(--soft); font-size: 1.02rem; }
-.num { font-size: .78rem; font-weight: 700; color: var(--oak); font-variant-numeric: tabular-nums; }
+/* ── σκούρα ζώνη ────────────────────────────────────────────────── */
+.band { background: var(--dark); color: #fff; padding: 78px 36px; }
+.band h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 500; margin-bottom: 14px; }
+.band p { font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,.76); margin: 0 0 26px; max-width: 46ch; }
+.root a.bandPhone {
+  display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px;
+  background: var(--accent); color: #fff; font-weight: 600; font-size: .96rem;
+}
 
-/* ── services ───────────────────────────────────────────────────── */
-.services { padding: clamp(64px, 9vw, 120px) 5vw; }
-.serviceList { list-style: none; margin: 0; padding: 0; }
-.serviceList li {
-  display: grid; grid-template-columns: 54px 1fr auto; gap: 22px; align-items: start;
+/* ── υπηρεσίες ──────────────────────────────────────────────────── */
+.services { padding: 64px 36px; }
+.services ol { list-style: none; margin: 0; padding: 0; }
+.services li {
+  display: grid; grid-template-columns: 48px 1fr auto; gap: 22px; align-items: start;
   padding: 26px 0; border-top: 1px solid var(--line);
 }
-.serviceList li:last-child { border-bottom: 1px solid var(--line); }
-.serviceList h3 { font-size: 1.5rem; margin: 0 0 6px; font-weight: 600; }
-.serviceList p { margin: 0; color: var(--soft); line-height: 1.65; max-width: 52ch; font-size: .96rem; }
+.services li:last-child { border-bottom: 1px solid var(--line); }
+.services h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.services p { font-size: 15px; font-weight: 300; line-height: 1.7; color: var(--soft); margin: 0; max-width: 54ch; }
+.num { font-size: 13px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
 .root a.rowCta {
   display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
-  border: 1px solid var(--line); border-radius: 6px; font-size: .84rem; font-weight: 700;
-  white-space: nowrap; color: var(--ink);
+  border: 1px solid var(--line); font-size: .8rem; font-weight: 600; white-space: nowrap;
 }
-.root a.rowCta:hover { border-color: var(--oak); color: var(--oak); }
+.root a.rowCta:hover { border-color: var(--accent); color: var(--accent); }
 
-/* ── work: δύο κλίμακες ─────────────────────────────────────────── */
-.work { padding: clamp(64px, 9vw, 120px) 5vw; background: var(--card); border-block: 1px solid var(--line); }
-.workGrid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
-.workGrid figure { margin: 0; overflow: hidden; border-radius: 8px; background: var(--paper); position: relative; }
-/* wide = ο χώρος · tall = η λεπτομέρεια του υλικού */
-.wide { grid-column: span 4; aspect-ratio: 16 / 10; }
-.tall { grid-column: span 2; aspect-ratio: 3 / 4; }
-.workGrid img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
-.workGrid figure:hover img { transform: scale(1.03); }
-.workGrid figcaption {
-  position: absolute; inset: auto 0 0 0; padding: 28px 16px 14px; color: #fff; font-size: .88rem;
-  background: linear-gradient(transparent, rgba(20,16,12,.72));
-}
-
-/* ── process ────────────────────────────────────────────────────── */
-.process { padding: clamp(64px, 9vw, 120px) 5vw; }
-.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
-.steps li { border-top: 2px solid var(--oak); padding-top: 18px; }
-.steps h3 { font-size: 1.25rem; margin: 10px 0 8px; font-weight: 600; }
-.steps p { margin: 0; color: var(--soft); line-height: 1.6; font-size: .94rem; }
-
-/* ── areas ──────────────────────────────────────────────────────── */
-.areas { padding: 0 5vw clamp(56px, 7vw, 96px); }
-.areas ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
-.areas li {
-  padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px;
-  font-size: .9rem; color: var(--soft); background: var(--card);
-}
-
-/* ── band ───────────────────────────────────────────────────────── */
-.band { padding: clamp(64px, 8vw, 110px) 5vw; background: var(--deep); color: #fff; text-align: center; }
-.band h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); line-height: 1.06; margin: 0 0 14px; }
-.band p { margin: 0 auto 30px; max-width: 46ch; line-height: 1.7; opacity: .82; }
+/* ── περιοχές ───────────────────────────────────────────────────── */
+.areas { padding: 0 36px 64px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); margin: 0 0 18px; }
+.areas ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.areas li { padding: 10px 16px; border: 1px solid var(--line); font-size: 14px; font-weight: 300; color: var(--soft); }
 
 /* ── footer ─────────────────────────────────────────────────────── */
 .footer {
-  padding: 40px 5vw; display: flex; flex-wrap: wrap; align-items: center;
-  justify-content: space-between; gap: 18px; border-top: 1px solid var(--line);
+  padding: 36px; display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 16px; border-top: 1px solid var(--line);
 }
-.brandFoot { font-family: var(--display); font-size: 1.6rem; }
-.footer > span { font-size: .86rem; color: var(--soft); }
-.by { opacity: .75; }
+.brandFoot { font-size: 1.3rem; font-weight: 700; }
+.footer > span { font-size: 13px; font-weight: 300; color: var(--soft); }
+.by { opacity: .8; }
 
 /* ── responsive ─────────────────────────────────────────────────── */
-@media (max-width: 900px) {
-  .links { display: none; }
-  .workGrid { grid-template-columns: repeat(2, 1fr); }
-  .wide, .tall { grid-column: span 1; aspect-ratio: 4 / 3; }
+@media (max-width: 1024px) {
+  .beige { padding: 48px 36px; }
   .steps { grid-template-columns: repeat(2, 1fr); }
 }
+@media (max-width: 860px) {
+  .links { display: none; }
+  .split { flex-direction: column; }
+  .photoRight { flex-direction: column; }
+  .media60, .media67, .media50, .text40, .text33, .text50 { flex: 1 1 auto; width: 100%; }
+  .split figure { min-height: 0; aspect-ratio: 4 / 3; }
+  .strip { grid-template-columns: 1fr; gap: 28px; }
+  .rowTwo, .rowThree { grid-template-columns: 1fr; gap: 28px; }
+  .lede { font-size: 24px; line-height: 36px; }
+}
 @media (max-width: 560px) {
-  .nav { padding: 0 18px; min-height: 64px; }
-  .brand { font-size: 1.22rem; }
-  .root a.quote { padding: 0 13px; font-size: .76rem; white-space: nowrap; }
-  .hero { padding: 14vh 18px 7vh; min-height: 72svh; }
-  .proof { grid-template-columns: 1fr; }
-  .proof span { border-right: 0; border-bottom: 1px solid var(--line); }
-  .proof span:last-child { border-bottom: 0; }
-  .services, .work, .process { padding-inline: 18px; }
-  .areas { padding-inline: 18px; }
-  .serviceList li { grid-template-columns: 38px 1fr; gap: 14px; }
-  .rowCta { grid-column: 2; justify-self: start; margin-top: 12px; }
-  .workGrid { grid-template-columns: 1fr; }
-  .steps { grid-template-columns: 1fr; gap: 22px; }
-  .footer { padding-bottom: 104px; }  /* χώρος για το sticky call bar */
+  .nav { padding: 0 18px; min-height: 66px; }
+  .brand { font-size: 1.05rem; }
+  .root a.navPhone { padding: 0 12px; font-size: .76rem; }
+  .intro, .strip, .services, .areas, .band, .beige { padding-inline: 18px; }
+  .split > div { padding: 36px 18px; }
+  .steps { grid-template-columns: 1fr; }
+  .step { min-height: 0; padding: 30px 18px; }
+  .footer { padding: 28px 18px 104px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .workGrid img { transition: none; }
-}
+@media (prefers-reduced-motion: reduce) { .root * { transition: none !important; } }
