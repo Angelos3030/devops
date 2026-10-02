@@ -60,7 +60,7 @@ export const VERTICAL_PROFILES = Object.freeze({
       avoid: Object.freeze(['unattributed-project-claims', 'unsafe-workshop-scenes']),
       fallbackStrategy: 'material-textures-and-typographic-project-cards',
     },
-    compatibleDesignSystemIds: ['constra-build', 'horizontal-story', 'forge', 'canvas', 'grid', 'runway', 'editorial', 'quiet', 'living', 'cinematic', 'type-gallery', 'infinite'],
+    compatibleDesignSystemIds: ['daylight-joinery', 'constra-build', 'horizontal-story', 'forge', 'canvas', 'grid', 'runway', 'editorial', 'quiet', 'living', 'cinematic', 'type-gallery', 'infinite'],
   }),
   taverna: profile({
     id: 'taverna', label: 'Ταβέρνα / Εστιατόριο',
