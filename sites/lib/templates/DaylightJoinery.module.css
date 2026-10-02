@@ -1,0 +1,176 @@
+/* Ξυλουργείο στο φως — ασταρωμένο λευκό, βαφή δρυός, Fraunces + Manrope.
+   Οι γραμματοσειρές είναι self-hosted με ελληνικό subset (app/fonts.css)·
+   τα fallback είναι ρητά ώστε μια αποτυχία φόρτωσης να μη ρίχνει τη σελίδα
+   σε system-ui — αυτό ακριβώς έκανε το προηγούμενο theme να φαίνεται άψητο. */
+.root {
+  --paper: var(--vt-surface, #faf7f2);
+  --card: var(--vt-surface-2, #fffdfa);
+  --deep: var(--vt-surface-deep, #2a241d);
+  --ink: var(--vt-ink, #1c1814);
+  --soft: var(--vt-ink-soft, #6b6055);
+  --oak: var(--vt-accent, #9a6334);
+  --line: var(--vt-line, #e6dfd4);
+  --display: var(--vt-display, 'Fraunces', 'Literata', Georgia, serif);
+  --body: var(--vt-body, 'Manrope', 'Inter', system-ui, sans-serif);
+  background: var(--paper); color: var(--ink); font-family: var(--body);
+}
+.root * { box-sizing: border-box; }
+.root a { color: inherit; text-decoration: none; }
+.root h1, .root h2, .root h3 { font-family: var(--display); font-weight: 600; }
+/* Το όνομα της επιχείρησης ΔΕΝ σπάει με παύλα στη μέση. */
+.root h1, .root h2 { hyphens: manual; text-wrap: balance; }
+
+/* ── nav ─────────────────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 20; min-height: 72px; padding: 0 5vw;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+}
+.brand { font-family: var(--display); font-size: 1.5rem; font-weight: 600; letter-spacing: -.01em; }
+.brandLink { display: inline-flex; align-items: center; min-height: 44px; }
+.links { display: flex; gap: 30px; font-size: .82rem; }
+.links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--soft); }
+.links a:hover { color: var(--ink); }
+/* ΠΡΟΣΟΧΗ ΣΤΗΝ ΕΙΔΙΚΟΤΗΤΑ. Ο κανόνας `.root a { color: inherit }` είναι (0,2,0)
+   και νικά ένα σκέτο `.quote` (0,1,0) — το κουμπί έβγαινε μαύρο πάνω σε μαύρο,
+   με το κείμενο παρόν αλλά αόρατο. Κάθε κουμπί που είναι <a> δηλώνεται εδώ ως
+   `.root a.X` (0,2,1) ώστε το χρώμα του να επιβιώνει. */
+.root a.quote {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px;
+  background: var(--ink); color: var(--paper); border-radius: 6px;
+  font-size: .82rem; font-weight: 700;
+}
+
+/* ── hero ────────────────────────────────────────────────────────── */
+.hero {
+  position: relative; min-height: min(78svh, 760px); display: flex; align-items: flex-end;
+  padding: 10vh 5vw 6vh; overflow: hidden;
+}
+.heroBare { background: linear-gradient(170deg, var(--card), var(--paper)); min-height: 60svh; }
+.heroImg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* Πέπλο ΑΠΟ ΤΑ ΚΑΤΩ και ανοιχτό: κρατά το φως της φωτογραφίας, σε αντίθεση με
+   τα σκούρα gradient που «σβήνουν» μια κουζίνα για να χωρέσει κείμενο. */
+.heroVeil {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(20,16,12,.80) 0%, rgba(20,16,12,.34) 38%, rgba(20,16,12,.04) 70%);
+}
+.heroCopy { position: relative; z-index: 1; max-width: 860px; }
+.hero .heroCopy, .hero .heroCopy .kicker { color: #fff; }
+.heroBare .heroCopy, .heroBare .heroCopy .kicker { color: var(--ink); }
+.kicker { font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; margin: 0 0 14px; }
+.heroTitle { font-size: clamp(2.6rem, 7vw, 5.4rem); line-height: .98; margin: 0 0 16px; letter-spacing: -.02em; }
+.heroTag { font-size: clamp(1rem, 1.6vw, 1.2rem); line-height: 1.6; max-width: 46ch; margin: 0; opacity: .94; }
+.heroActions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.root a.primary, .root a.secondary {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 24px; border-radius: 6px; font-weight: 700; font-size: .92rem;
+}
+.root a.primary { background: var(--oak); color: #fff; }
+.root a.secondary { border: 1px solid rgba(255,255,255,.65); color: #fff; }
+.root .heroBare a.secondary { border-color: var(--line); color: var(--ink); }
+
+/* ── proof ───────────────────────────────────────────────────────── */
+.proof {
+  display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line);
+  background: var(--card);
+}
+.proof span {
+  padding: 20px 16px; text-align: center; font-size: .82rem; color: var(--soft);
+  border-right: 1px solid var(--line);
+}
+.proof span:last-child { border-right: 0; }
+
+/* ── κοινά ──────────────────────────────────────────────────────── */
+.sectionHead { max-width: 60ch; margin: 0 0 48px; }
+.eyebrow { font-size: .74rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 700; color: var(--oak); margin: 0 0 14px; }
+.sectionHead h2 { font-size: clamp(2rem, 4vw, 3.3rem); line-height: 1.05; margin: 0; letter-spacing: -.015em; }
+.lede { margin: 18px 0 0; line-height: 1.7; color: var(--soft); font-size: 1.02rem; }
+.num { font-size: .78rem; font-weight: 700; color: var(--oak); font-variant-numeric: tabular-nums; }
+
+/* ── services ───────────────────────────────────────────────────── */
+.services { padding: clamp(64px, 9vw, 120px) 5vw; }
+.serviceList { list-style: none; margin: 0; padding: 0; }
+.serviceList li {
+  display: grid; grid-template-columns: 54px 1fr auto; gap: 22px; align-items: start;
+  padding: 26px 0; border-top: 1px solid var(--line);
+}
+.serviceList li:last-child { border-bottom: 1px solid var(--line); }
+.serviceList h3 { font-size: 1.5rem; margin: 0 0 6px; font-weight: 600; }
+.serviceList p { margin: 0; color: var(--soft); line-height: 1.65; max-width: 52ch; font-size: .96rem; }
+.root a.rowCta {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+  border: 1px solid var(--line); border-radius: 6px; font-size: .84rem; font-weight: 700;
+  white-space: nowrap; color: var(--ink);
+}
+.root a.rowCta:hover { border-color: var(--oak); color: var(--oak); }
+
+/* ── work: δύο κλίμακες ─────────────────────────────────────────── */
+.work { padding: clamp(64px, 9vw, 120px) 5vw; background: var(--card); border-block: 1px solid var(--line); }
+.workGrid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.workGrid figure { margin: 0; overflow: hidden; border-radius: 8px; background: var(--paper); position: relative; }
+/* wide = ο χώρος · tall = η λεπτομέρεια του υλικού */
+.wide { grid-column: span 4; aspect-ratio: 16 / 10; }
+.tall { grid-column: span 2; aspect-ratio: 3 / 4; }
+.workGrid img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.workGrid figure:hover img { transform: scale(1.03); }
+.workGrid figcaption {
+  position: absolute; inset: auto 0 0 0; padding: 28px 16px 14px; color: #fff; font-size: .88rem;
+  background: linear-gradient(transparent, rgba(20,16,12,.72));
+}
+
+/* ── process ────────────────────────────────────────────────────── */
+.process { padding: clamp(64px, 9vw, 120px) 5vw; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.steps li { border-top: 2px solid var(--oak); padding-top: 18px; }
+.steps h3 { font-size: 1.25rem; margin: 10px 0 8px; font-weight: 600; }
+.steps p { margin: 0; color: var(--soft); line-height: 1.6; font-size: .94rem; }
+
+/* ── areas ──────────────────────────────────────────────────────── */
+.areas { padding: 0 5vw clamp(56px, 7vw, 96px); }
+.areas ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.areas li {
+  padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px;
+  font-size: .9rem; color: var(--soft); background: var(--card);
+}
+
+/* ── band ───────────────────────────────────────────────────────── */
+.band { padding: clamp(64px, 8vw, 110px) 5vw; background: var(--deep); color: #fff; text-align: center; }
+.band h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); line-height: 1.06; margin: 0 0 14px; }
+.band p { margin: 0 auto 30px; max-width: 46ch; line-height: 1.7; opacity: .82; }
+
+/* ── footer ─────────────────────────────────────────────────────── */
+.footer {
+  padding: 40px 5vw; display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 18px; border-top: 1px solid var(--line);
+}
+.brandFoot { font-family: var(--display); font-size: 1.6rem; }
+.footer > span { font-size: .86rem; color: var(--soft); }
+.by { opacity: .75; }
+
+/* ── responsive ─────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .links { display: none; }
+  .workGrid { grid-template-columns: repeat(2, 1fr); }
+  .wide, .tall { grid-column: span 1; aspect-ratio: 4 / 3; }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .nav { padding: 0 18px; min-height: 64px; }
+  .brand { font-size: 1.22rem; }
+  .root a.quote { padding: 0 13px; font-size: .76rem; white-space: nowrap; }
+  .hero { padding: 14vh 18px 7vh; min-height: 72svh; }
+  .proof { grid-template-columns: 1fr; }
+  .proof span { border-right: 0; border-bottom: 1px solid var(--line); }
+  .proof span:last-child { border-bottom: 0; }
+  .services, .work, .process { padding-inline: 18px; }
+  .areas { padding-inline: 18px; }
+  .serviceList li { grid-template-columns: 38px 1fr; gap: 14px; }
+  .rowCta { grid-column: 2; justify-self: start; margin-top: 12px; }
+  .workGrid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; gap: 22px; }
+  .footer { padding-bottom: 104px; }  /* χώρος για το sticky call bar */
+}
+@media (prefers-reduced-motion: reduce) {
+  .workGrid img { transition: none; }
+}

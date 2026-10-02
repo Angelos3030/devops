@@ -521,6 +521,7 @@ REACT_TEMPLATES = (
     "clinic-triage",
     "coast",
     "constra-build",
+    "daylight-joinery",
     "counter-menu",
     "directory-index",
     "dispatch",
@@ -861,7 +862,7 @@ _TEMPLATES_BY_VERTICAL = {
     "garage":       ["motor", "kinetic", "grid", "infinite", "type-gallery", "cinematic", "quiet", "living", "canvas", "volt", "forge", "poster"],
     "gym":          ["volt", "kinetic", "type-gallery", "infinite", "runway", "grid", "cinematic", "living", "quiet", "poster", "bento", "motor"],
     "farm":         ["terra", "living", "quiet", "cinematic", "canvas", "infinite", "type-gallery", "kinetic", "grid", "editorial", "magazine", "warmth"],
-    "wood":         ["constra-build", "cinematic", "horizontal-story", "forge", "canvas", "grid", "quiet", "living", "type-gallery", "infinite", "kinetic", "editorial"],
+    "wood":         ["daylight-joinery", "constra-build", "cinematic", "horizontal-story", "forge", "canvas", "grid", "quiet", "living", "type-gallery", "infinite", "kinetic", "editorial"],
 }
 
 
