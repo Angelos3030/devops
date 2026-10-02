@@ -465,6 +465,7 @@ LAUNCH_REACT_TEMPLATES = (
     "clinic-triage",
     "coast",
     "constra-build",
+    "daylight-joinery",
     "counter-menu",
     "directory-index",
     "dispatch",
